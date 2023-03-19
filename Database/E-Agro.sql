@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 -- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+=======
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+CREATE DATABASE  eagroservicesdb;
+>>>>>>> 8765e13b20ac27d1ebc9b448136b449b3d82830c
 USE eagroservicesdb;
 
 
@@ -174,21 +179,25 @@ VALUES
 
 
 INSERT INTO
-  farmers(farmer_name, contact_number, password, location)
+  farmers(farmer_name, contact_number, password, location,account_number,ifsc_code)
 VALUES
   (
     'Rohit Gore',
     7448022756,
     'password',
-    'Peth'
+    'Peth',
+    '23456889',
+    'DRT45678O34'
   ),
   (
     'Akshay Tanpure',
     8530728512,
     'password',
-    'Wada'
+    'Wada',
+     '56456789',
+    'DRT78678O78'
   ),
-  ('Akash Ajab', 9373306756, 'password', 'Valati');
+  ('Akash Ajab', 9373306756, 'password', 'Valati', '23786789', 'DRT45678U98');
 
 
 INSERT INTO
@@ -204,6 +213,19 @@ VALUES
     'Karegaon'
   );
 
+
+INSERT INTO
+  transports
+VALUES
+  (
+    'MH14JD9593',
+    'Shubham transports',
+    'umesh Chakkar',
+    9960916323,
+    '372382123244',
+    'AXIS12434',
+    'kudalwadi'
+  );
 
 INSERT INTO
   consignees(consignee_name, contact_number, location,account_number,ifsc_code)
