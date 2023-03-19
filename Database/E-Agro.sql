@@ -1,3 +1,5 @@
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+CREATE DATABASE  eagroservicesdb;
 USE eagroservicesdb;
 
 
@@ -173,21 +175,25 @@ VALUES
 
 
 INSERT INTO
-  farmers(farmer_name, contact_number, password, location)
+  farmers(farmer_name, contact_number, password, location,account_number,ifsc_code)
 VALUES
   (
     'Rohit Gore',
     7448022756,
     'password',
-    'Peth'
+    'Peth',
+    '23456889',
+    'DRT45678O34'
   ),
   (
     'Akshay Tanpure',
     8530728512,
     'password',
-    'Wada'
+    'Wada',
+     '56456789',
+    'DRT78678O78'
   ),
-  ('Akash Ajab', 9373306756, 'password', 'Valati');
+  ('Akash Ajab', 9373306756, 'password', 'Valati', '23786789', 'DRT45678U98');
 
 
 INSERT INTO
