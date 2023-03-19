@@ -205,6 +205,19 @@ VALUES
 
 
 INSERT INTO
+  transports
+VALUES
+  (
+    'MH14JD9593',
+    'Shubham transports',
+    'umesh Chakkar',
+    9960916323,
+    '372382123244',
+    'AXIS12434',
+    'kudalwadi'
+  );
+
+INSERT INTO
   consignees(consignee_name, contact_number, location,account_number,ifsc_code)
 VALUES
   ('Zatka Company', 9090909012, 'Manchar', '2345676545',  'BP3456N4567');
