@@ -16,9 +16,9 @@ public class TransportService : ITransportService
         this._repository = repository;
     }
 
-    public List<Transport> AllTransports()
+    public List<Transport> GetAllTransports()
     {
-        return _repository.AllTransports();
+        return _repository.GetAllTransports();
     }
 
 

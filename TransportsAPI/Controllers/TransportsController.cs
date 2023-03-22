@@ -23,7 +23,7 @@ public class TransportController : ControllerBase
 
         try
         {
-            var data = _service.AllTransports();
+            var data = _service.GetAllTransports();
             if (data == null)
             {
                 return BadRequest();

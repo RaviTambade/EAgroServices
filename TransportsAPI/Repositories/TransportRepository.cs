@@ -7,7 +7,7 @@ namespace TransportsAPI.Repositories;
 
 public class TransportRepository : ITransportRepository
 {
-    public List<Transport> AllTransports()
+    public List<Transport> GetAllTransports()
     {
         try
         {

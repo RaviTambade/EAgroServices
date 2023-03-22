@@ -4,7 +4,7 @@ namespace TransportsAPI.Repositories.Interfaces;
 public interface ITransportRepository
 {
 
-    List<Transport> AllTransports();
+    List<Transport> GetAllTransports();
 
     Transport GetTransportById(string id);
 
