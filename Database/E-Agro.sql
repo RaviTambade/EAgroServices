@@ -1,23 +1,16 @@
 
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
-Drop DATABASE eagroservicesdb;
- CREATE DATABASE  eagroservicesdb;
-USE eagroservicesdb;
-
-
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Drop DATABASE eagroservicesdb;
+--  CREATE DATABASE  eagroservicesdb;
+-- USE eagroservicesdb;
 CREATE TABLE
   users(
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     contact_number BIGINT NOT NULL UNIQUE,
-    password varchar(15) NOT NULL,
-    role varchar(15) NOT NULL
+    password varchar(15) NOT NULL
   );
-
-
-   CREATE TABLE roles(role_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,role varchar(20) );
-
+CREATE TABLE roles(role_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,role_name varchar(20) );
 CREATE TABLE user_roles(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,user_id INT NOT NULL,CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE ,role_id INT NOT NULL,CONSTRAINT fk_role_id FOREIGN KEY(role_id) REFERENCES roles(role_id) ON UPDATE CASCADE ON DELETE CASCADE);
-
 CREATE TABLE
   farmers(
     farmer_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -31,11 +24,10 @@ CREATE TABLE
     debit_balance DOUBLE DEFAULT 0,
     balance DOUBLE AS (credit_balance - debit_balance)
   );
-
-
 CREATE TABLE
   transports(
-    truck_number VARCHAR(15) NOT NULL UNIQUE PRIMARY KEY,
+    truck_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    truck_number VARCHAR(15) NOT NULL UNIQUE,
     office_name VARCHAR(20) NOT NULL,
     owner_name VARCHAR(20) NOT NULL,
     contact_number BIGINT NOT NULL,
@@ -78,14 +70,14 @@ CREATE TABLE
     sell_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     purchase_id INT NOT NULL,
     consignee_id INT,
-    truck_number VARCHAR(15),
+    truck_id INT NOT NULL,
     net_weight DOUBLE NOT NULL,
     rate_per_kg DOUBLE,
     total_amount DOUBLE AS (net_weight * rate_per_kg),
     date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES purchasedItems(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT fk_consignee_id FOREIGN KEY (consignee_id) REFERENCES consignees(consignee_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_truck_number FOREIGN KEY (truck_number) REFERENCES transports(truck_number) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transports(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
 
@@ -133,9 +125,9 @@ END;
 
 CREATE TRIGGER add_user AFTER INSERT ON farmers FOR EACH ROW BEGIN
 INSERT INTO
-  users (contact_number, password, role)
+  users (contact_number, password)
 VALUES
-  (NEW.contact_number, NEW.password, 'farmer');
+  (NEW.contact_number, NEW.password);
 
 
 END;
@@ -146,11 +138,7 @@ DELETE FROM
   users
 WHERE
   contact_number = OLD.contact_number;
-
-
 END;
-
-
 CREATE TRIGGER credit_balance AFTER INSERT ON purchasedItems FOR EACH ROW BEGIN
 UPDATE
   farmers
@@ -158,11 +146,7 @@ SET
   credit_balance = credit_balance + NEW.total_amount
 WHERE
   farmer_id = NEW.farmer_id;
-
-
 END;
-
-
 CREATE TRIGGER debit_balance AFTER INSERT ON farmerPurchasesBilling FOR EACH ROW BEGIN
 UPDATE
   farmers
@@ -170,22 +154,18 @@ SET
   debit_balance = debit_balance + NEW.total_amount
 WHERE
   farmer_id = NEW.farmer_id;
-
-
 END;
 
 INSERT INTO
-  users(contact_number, password, role)
+  users(contact_number, password)
 VALUES
-  (9075966080, 'password', 'Admin');
+  (9075966080, 'password');
 
-  INSERT INTO Roles(role) VALUES("Admin");
+INSERT INTO Roles(role) VALUES("Admin");
 INSERT INTO Roles(role) VALUES("Farmer");
 INSERT INTO Roles(role) VALUES("Transport");
 INSERT INTO Roles(role) VALUES("Consignee");
 INSERT INTO user_roles(user_id,role_id) VALUES (1,1);
-
-
 INSERT INTO
   farmers(farmer_name, contact_number, password, location,account_number,ifsc_code)
 VALUES

@@ -41,15 +41,15 @@ public class FarmerRepository : IFarmerRepository
         using (var context = new FarmersContext())
         {
            
-        var OldFarmer= context.Farmers.Find(farmer.FarmerId);
-        OldFarmer.FarmerName=farmer.FarmerName;
-        OldFarmer.ContactNumber=farmer.ContactNumber;
-        OldFarmer.Location=farmer.Location;
-        OldFarmer.Password=farmer.Password;
-        OldFarmer.AccountNumber=farmer.AccountNumber;
-        OldFarmer.CreditBalance=farmer.CreditBalance;
-        OldFarmer.DebitBalance=farmer.DebitBalance;
-        OldFarmer.TotalBalance=farmer.TotalBalance;
+        var oldFarmer= context.Farmers.Find(farmer.FarmerId);
+        oldFarmer.FarmerName=farmer.FarmerName;
+        oldFarmer.ContactNumber=farmer.ContactNumber;
+        oldFarmer.Location=farmer.Location;
+        oldFarmer.Password=farmer.Password;
+        oldFarmer.AccountNumber=farmer.AccountNumber;
+        oldFarmer.CreditBalance=farmer.CreditBalance;
+        oldFarmer.DebitBalance=farmer.DebitBalance;
+        oldFarmer.TotalBalance=farmer.TotalBalance;
         context.SaveChanges();
         return true;
         }
