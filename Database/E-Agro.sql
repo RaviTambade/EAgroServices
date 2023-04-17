@@ -1,9 +1,7 @@
-<<<<<<< HEAD
+
 -- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
-=======
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
-CREATE DATABASE  eagroservicesdb;
->>>>>>> 8765e13b20ac27d1ebc9b448136b449b3d82830c
+Drop DATABASE eagroservicesdb;
+ CREATE DATABASE  eagroservicesdb;
 USE eagroservicesdb;
 
 
@@ -15,6 +13,10 @@ CREATE TABLE
     role varchar(15) NOT NULL
   );
 
+
+   CREATE TABLE roles(role_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,role varchar(20) );
+
+CREATE TABLE user_roles(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,user_id INT NOT NULL,CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE ,role_id INT NOT NULL,CONSTRAINT fk_role_id FOREIGN KEY(role_id) REFERENCES roles(role_id) ON UPDATE CASCADE ON DELETE CASCADE);
 
 CREATE TABLE
   farmers(
@@ -117,6 +119,7 @@ CREATE TABLE
     CONSTRAINT fk_farmers1 FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
+ 
 
 CREATE TRIGGER sell_insert AFTER INSERT ON purchasedItems FOR EACH ROW BEGIN
 INSERT INTO
@@ -171,11 +174,16 @@ WHERE
 
 END;
 
-
 INSERT INTO
   users(contact_number, password, role)
 VALUES
   (9075966080, 'password', 'Admin');
+
+  INSERT INTO Roles(role) VALUES("Admin");
+INSERT INTO Roles(role) VALUES("Farmer");
+INSERT INTO Roles(role) VALUES("Transport");
+INSERT INTO Roles(role) VALUES("Consignee");
+INSERT INTO user_roles(user_id,role_id) VALUES (1,1);
 
 
 INSERT INTO
@@ -264,4 +272,8 @@ VALUES
 
   SELECT * FROM farmers;
 
-              UPDATE farmers SET farmer_name='shubham', password=123  WHERE farmer_id=1;
+ UPDATE farmers SET farmer_name='shubham', password=123  WHERE farmer_id=1;
+
+
+
+ 
