@@ -7,11 +7,16 @@ namespace TransportsAPI.Repositories;
 
 public class TransportRepository : ITransportRepository
 {
+    private IConfiguration _configuration;
+    public TransportRepository(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
     public List<Transport> GetAllTransports()
     {
         try
         {
-            using (var context = new TransportContext())
+            using (var context = new TransportContext(_configuration))
             {
                 var transports = context.Transports.ToList();
                 foreach (var transport in transports)
@@ -31,7 +36,7 @@ public class TransportRepository : ITransportRepository
 
     public Transport GetTransportById(string id)
     {
-        using (var context = new TransportContext())
+        using (var context = new TransportContext(_configuration))
         {
             var transport = context.Transports.Find(id);
 
@@ -42,7 +47,7 @@ public class TransportRepository : ITransportRepository
     public bool InsertTransport(Transport transport)
     {
         bool status = false;
-        using (var context = new TransportContext())
+        using (var context = new TransportContext(_configuration))
         {
             context.Transports.Add(transport);
             context.SaveChanges();
@@ -55,7 +60,7 @@ public class TransportRepository : ITransportRepository
     {
         bool status = false;
 
-        using (var context = new TransportContext())
+        using (var context = new TransportContext(_configuration))
         {
             var oldTransport = context.Transports.Find(transport.TruckNumber);
             oldTransport.OwnerName = transport.OwnerName;
@@ -76,11 +81,11 @@ public class TransportRepository : ITransportRepository
     {
         bool status = false;
 
-        using (var context = new TransportContext())
+        using (var context = new TransportContext(_configuration))
         {
             context.Transports.Remove(context.Transports.Find(id));
             context.SaveChanges();
-            status= true;
+            status = true;
         }
         return status;
     }

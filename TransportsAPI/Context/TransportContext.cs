@@ -7,11 +7,25 @@ public class TransportContext : DbContext
 {
 
     public DbSet<Transport> Transports { get; set; }
+      private IConfiguration _configuration;
+    private string _conString;
+
+    public TransportContext(IConfiguration configuration)
+    {
+        _configuration = configuration;
+        _conString = this._configuration.GetConnectionString("DefaultConnection");
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        string conString = "server=localhost; database=eagroservicesdb; user=root; password=password";
-        optionsBuilder.UseMySQL(conString);
+         
+        // string conString = "server=localhost; database=Ecommerce; user=root; password=password";
+        optionsBuilder.UseMySQL(_conString);
     }
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+    //     string conString = "server=localhost; database=eagroservicesdb; user=root; password=password";
+    //     optionsBuilder.UseMySQL(conString);
+    // }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
