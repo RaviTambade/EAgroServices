@@ -1,138 +1,47 @@
-using TransportsAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using TransportsAPI.Models;
 using TransportsAPI.Services.Interfaces;
-
 namespace TransportsAPI.Controller;
 
 [ApiController]
-public class TransportController : ControllerBase
+[Route("/api/[controller]")]
+public class TransportsController : ControllerBase
 {
-
     private readonly ITransportService _service;
-
-    public TransportController(ITransportService service)
+    public TransportsController(ITransportService service)
     {
-
         this._service = service;
     }
 
-    [HttpGet("/api/transports")]
-
-    public IActionResult GetAllTransports()
+    [HttpGet("alltransports")]
+    public async Task<IEnumerable<Transport>> GetAllTransports()
     {
+        return await _service.GetAllTransports();
+    }
 
-        try
-        {
-            var data = _service.GetAllTransports();
-            if (data == null)
-            {
-                return BadRequest();
-            }
-            else
-            {
-                return Ok(data);
-            }
-
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e);
-        }
+    [HttpGet("{id}")]
+    public async Task<Transport> GetById(int id)
+    {
+        return await _service.GetTransportById(id);
     }
 
 
-    [HttpGet("/api/transports/{id}")]
-    public IActionResult GetById(string id)
+    [HttpPost("add")]
+    public async Task<bool> InsertTransport([FromBody] Transport transport)
     {
-        try
-        {
-
-            var message = _service.GetTransportById(id);
-            if (message == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(message);
-            }
-
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e);
-        }
+        return await _service.InsertTransport(transport);
     }
 
 
-    [HttpPost("/api/transports/insert")]
-    public IActionResult InsertTransport([FromBody] Transport transport)
+    [HttpPut("update/{id}")]
+    public async Task<bool> UpdateDepartment(int id, [FromBody] Transport transport)
     {
-        try
-        {
-            bool status = _service.InsertTransport(transport);
-
-            if (status)
-            {
-                // return Ok();
-                 return Ok("Record Inserted sucessfully");
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e);
-        }
+        return await _service.UpdateTransport(id, transport);
     }
 
-
-    [HttpPut("/api/transports/update/")]
-
-    public IActionResult UpdateDepartment ( [FromBody] Transport transport)
+    [HttpDelete("delete/{id}")]
+    public async Task<bool> DeleteTransport(int id)
     {
-        try
-        {
-            bool status = _service.UpdateTransport(transport);
-            if (status)
-            {
-                return Ok("Record Updated sucessfully");
-                //   return Ok();
-            }
-            else
-            {
-                  return NotFound();
-            }
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e);
-        }
-    }
-
-    [HttpDelete("/api/transports/delete/{id}")]
-    public IActionResult DeleteTransport(string id)
-    {
-        try
-        {
-            bool status = _service.DeleteTransport(id);
-            if (status)
-            {
-            //   return Ok();
-               return Ok("Record deleted sucessfully");
-            }
-            else
-            {
-                 return NotFound();
-            }
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e);
-        }
+        return await _service.DeleteTransport(id);
     }
 }
-
-

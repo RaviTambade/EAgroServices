@@ -1,4 +1,5 @@
 
+using Microsoft.EntityFrameworkCore;
 using TransportsAPI.Context;
 using TransportsAPI.Models;
 using TransportsAPI.Repositories.Interfaces;
@@ -12,16 +13,16 @@ public class TransportRepository : ITransportRepository
     {
         _configuration = configuration;
     }
-    public List<Transport> GetAllTransports()
+    public async Task<List<Transport>> GetAllTransports()
     {
         try
         {
             using (var context = new TransportContext(_configuration))
             {
-                var transports = context.Transports.ToList();
-                foreach (var transport in transports)
+                var transports = await context.Transports.ToListAsync();
+                if (transports == null)
                 {
-                    Console.WriteLine(transport.TruckNumber);
+                    return null;
                 }
                 return transports;
             }
@@ -34,61 +35,98 @@ public class TransportRepository : ITransportRepository
     }
 
 
-    public Transport GetTransportById(string id)
+    public async Task<Transport> GetTransportById(int transportId)
     {
-        using (var context = new TransportContext(_configuration))
+        try
         {
-            var transport = context.Transports.Find(id);
-
-            return transport;
+            using (var context = new TransportContext(_configuration))
+            {
+                Transport? transport = await context.Transports.FindAsync(transportId);
+                if (transport == null)
+                {
+                    return null;
+                }
+                return transport;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw e;
         }
     }
 
-    public bool InsertTransport(Transport transport)
+    public async Task<bool> InsertTransport(Transport transport)
     {
         bool status = false;
-        using (var context = new TransportContext(_configuration))
+        try
         {
-            context.Transports.Add(transport);
-            context.SaveChanges();
-            status = true;
+            using (var context = new TransportContext(_configuration))
+            {
+                await context.Transports.AddAsync(transport);
+                await context.SaveChangesAsync();
+                status = true;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw e;
         }
         return status;
     }
 
-    public bool UpdateTransport(Transport transport)
+    public async Task<bool> UpdateTransport(int transportId, Transport transport)
     {
         bool status = false;
-
-        using (var context = new TransportContext(_configuration))
+        try
         {
-            var oldTransport = context.Transports.Find(transport.TruckNumber);
-            oldTransport.OwnerName = transport.OwnerName;
-            oldTransport.OfficeName = transport.OfficeName;
-            oldTransport.AccountNumber = transport.AccountNumber;
-            oldTransport.IFSCCode = transport.IFSCCode;
-            oldTransport.Location = transport.Location;
-            oldTransport.ContactNumber = transport.ContactNumber;
-
-            context.SaveChanges();
-            status = true;
+            using (var context = new TransportContext(_configuration))
+            {
+                Transport? oldTransport = await context.Transports.FindAsync(transportId);
+                if (oldTransport != null)
+                {
+                    oldTransport.TruckNumber = transport.TruckNumber;
+                    oldTransport.OwnerName = transport.OwnerName;
+                    oldTransport.OfficeName = transport.OfficeName;
+                    oldTransport.AccountNumber = transport.AccountNumber;
+                    oldTransport.IFSCCode = transport.IFSCCode;
+                    oldTransport.Location = transport.Location;
+                    oldTransport.ContactNumber = transport.ContactNumber;
+                    await context.SaveChangesAsync();
+                    status = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw e;
         }
         return status;
     }
 
 
-    public bool DeleteTransport(string id)
+    public async Task<bool> DeleteTransport(int transportId)
     {
         bool status = false;
-
-        using (var context = new TransportContext(_configuration))
+        try
         {
-            context.Transports.Remove(context.Transports.Find(id));
-            context.SaveChanges();
-            status = true;
+            using (var context = new TransportContext(_configuration))
+            {
+                Transport? transport = await context.Transports.FindAsync(transportId);
+                if (transport != null)
+                {
+                    context.Transports.Remove(transport);
+                    await context.SaveChangesAsync();
+                    status = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
         }
         return status;
     }
-
-
 }

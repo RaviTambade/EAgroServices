@@ -1,5 +1,3 @@
-
-
 using TransportsAPI.Models;
 using TransportsAPI.Repositories.Interfaces;
 using TransportsAPI.Services.Interfaces;
@@ -8,7 +6,6 @@ namespace TransportsAPI.Services;
 
 public class TransportService : ITransportService
 {
-
     private readonly ITransportRepository _repository;
 
     public TransportService(ITransportRepository repository)
@@ -16,30 +13,27 @@ public class TransportService : ITransportService
         this._repository = repository;
     }
 
-    public List<Transport> GetAllTransports()
+    public async Task<List<Transport>> GetAllTransports()
     {
-        return _repository.GetAllTransports();
+        return await _repository.GetAllTransports();
     }
 
-
-
-    public Transport GetTransportById(string id)
+    public async Task<Transport> GetTransportById(int transportId)
     {
-        return _repository.GetTransportById(id);
+        return await _repository.GetTransportById(transportId);
     }
 
-    public bool InsertTransport(Transport transport)
+    public async Task<bool> InsertTransport(Transport transport)
     {
-        return _repository.InsertTransport(transport);
+        return await _repository.InsertTransport(transport);
     }
 
-    public bool UpdateTransport(Transport transport)
+    public async Task<bool> UpdateTransport(int transportId, Transport transport)
     {
-        return _repository.UpdateTransport(transport);
+        return await _repository.UpdateTransport(transportId,transport);
     }
-
-    public bool DeleteTransport(string id)
+    public async Task<bool> DeleteTransport(int transportId)
     {
-        return _repository.DeleteTransport(id);
+        return await _repository.DeleteTransport(transportId);;
     }
 }
