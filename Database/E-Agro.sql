@@ -222,35 +222,19 @@ VALUES
 
 
 INSERT INTO
-  transports(truck_number,office_name,owner_name,contact_number,account_number,ifsc_code,location)
-VALUES
-  (
-    'MH14RE1234',
-    'OM transports',
-    'Ashok Chakkar',
-    8989878723,
-    '2345676545',
-    'BP3456N4567',
-    'Karegaon'
-  );
+transports(truck_number,office_name,owner_name,contact_number,account_number,ifsc_code,location)
+VALUES('MH14RE1234','OM Transports','Ashok Chakkar',  8989878723,'2345676545','BP3456','Karegaon');
 
 INSERT INTO
-    transports(truck_number,office_name,owner_name,contact_number,account_number,ifsc_code,location)
-VALUES
-  (
-    'MH14JD9593',
-    'Shubham transports',
-    'umesh Chakkar',
-    9960916323,
-    '372382123244',
-    'AXIS12434',
-    'kudalwadi'
-  );
+transports(truck_number,office_name,owner_name,contact_number,account_number,ifsc_code,location)
+VALUES( 'MH14JD9593','Shubham Transports','Umesh Chakkar',9960916323,'372382123244','AXIS12434','Kudalwadi');
 
 INSERT INTO
-  consignees(consignee_name, contact_number, location,account_number,ifsc_code)
-VALUES
-  ('Zatka Company', 9090909012, 'Manchar', '2345676545',  'BP3456N4567');
+transports(truck_number,office_name,owner_name,contact_number,account_number,ifsc_code,location)
+VALUES( 'MH14AC6080','Pradnya Transports',' Ramesh Karale',8412012489,'52831230987','AXIS12434','Peth');
+
+INSERT INTO consignees(consignee_name, contact_number, location,account_number,ifsc_code)
+VALUES ('Zatka Company', 9090909012, 'Manchar', '2345676545',  'BP3456N4567');
 
 
 INSERT INTO

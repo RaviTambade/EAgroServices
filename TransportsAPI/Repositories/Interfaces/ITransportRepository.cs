@@ -4,14 +4,14 @@ namespace TransportsAPI.Repositories.Interfaces;
 public interface ITransportRepository
 {
 
-    List<Transport> GetAllTransports();
+    Task<List<Transport>> GetAllTransports();
 
-    Transport GetTransportById(string id);
+    Task<Transport> GetTransportById(int transportId);
 
-    bool InsertTransport(Transport transport);
+    Task<bool> InsertTransport(Transport transport);
 
-    bool UpdateTransport(Transport transport);
+    Task<bool> UpdateTransport(int transportId,Transport transport);
 
-     bool DeleteTransport(string id);
+     Task<bool> DeleteTransport(int transportId);
 
 }
