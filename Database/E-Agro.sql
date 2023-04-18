@@ -1,292 +1,768 @@
--- Active: 1677250210484@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
-CREATE DATABASE  eagroservicesdb;
+
+CREATE DATABASE eagroservicesdb;
+
 USE eagroservicesdb;
-CREATE TABLE
-  users(
-    user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    contact_number BIGINT NOT NULL UNIQUE, 
-    password varchar(15) NOT NULL
-  );
-CREATE TABLE roles(role_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,role_name varchar(20) );
-CREATE TABLE user_roles(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,user_id INT NOT NULL,CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE ,role_id INT NOT NULL,CONSTRAINT fk_role_id FOREIGN KEY(role_id) REFERENCES roles(role_id) ON UPDATE CASCADE ON DELETE CASCADE);
-CREATE TABLE
-  farmers(
-    farmer_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    farmer_name VARCHAR(30) NOT NULL,
-    contact_number BIGINT NOT NULL UNIQUE,
-    password VARCHAR(15) NOT NULL,
-    location VARCHAR(20) NOT NULL,
-    account_number VARCHAR(25),
-    ifsc_code VARCHAR(25),
-    credit_balance DOUBLE DEFAULT 0,
-    debit_balance DOUBLE DEFAULT 0,
-    balance DOUBLE AS (credit_balance - debit_balance)
-  );
-CREATE TABLE
-  transports(
-    truck_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    truck_number VARCHAR(15) NOT NULL UNIQUE,
-    office_name VARCHAR(20) NOT NULL,
-    owner_name VARCHAR(20) NOT NULL,
-    contact_number BIGINT NOT NULL,
-    account_number VARCHAR(25),
-    ifsc_code VARCHAR(25),
-    location VARCHAR(20) NOT NULL
-  );
 
 CREATE TABLE
-  consignees(
-    consignee_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    consignee_name VARCHAR(20) NOT NULL,
-    contact_number BIGINT NOT NULL,
-    location VARCHAR(20) NOT NULL,
-    account_number VARCHAR(25),
-    ifsc_code VARCHAR(25)
-  );
-CREATE TABLE categories(category_id INT PRIMARY KEY AUTO_INCREMENT,
- category_title VARCHAR(20),
- description VARCHAR (100),
- image VARCHAR(50)) ;
-
-CREATE TABLE dealers(dealer_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    dealer_name varchar(20),
-    company_name varchar(20),
-    contact_number BIGINT NOT NULL,
-    location VARCHAR(20) NOT NULL,
-    account_number VARCHAR(25),
-    ifsc_code VARCHAR(25));
-
-CREATE TABLE products (product_id INT PRIMARY KEY AUTO_INCREMENT,
-product_title VARCHAR(20) NOT NULL,
-description VARCHAR(50),
-stock_available INT NOT NULL,
-unit_price DOUBLE NOT NULL,
-image VARCHAR(40),category_id INT NOT NULL,
- CONSTRAINT fk_category_id FOREIGN KEY(category_id) REFERENCES categories(category_id) ON UPDATE CASCADE ON DELETE CASCADE,
-dealer_id INT NOT NULL,
-  CONSTRAINT fk_dealer_id FOREIGN KEY(dealer_id) REFERENCES dealers(dealer_id) ON UPDATE CASCADE ON DELETE CASCADE);
-
-    CREATE TABLE dealer_orders(order_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    dealer_id INT NOT NULL,CONSTRAINT fk_dealer1_id FOREIGN KEY (dealer_id) REFERENCES dealers(dealer_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    total double );
-
-CREATE TABLE dealer_order_details(orderdetails_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-order_id INT NOT NULL,CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES dealer_orders(order_id) ON UPDATE CASCADE ON DELETE CASCADE,
-product_id INT NOT NULL,CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(product_id) ON UPDATE CASCADE ON DELETE CASCADE,
-quantity INT NOT NULL,
-discount DOUBLE DEFAULT 0);  
+    users(
+        user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        contact_number BIGINT NOT NULL UNIQUE,
+        password varchar(15) NOT NULL
+    );
 
 CREATE TABLE
-  purchasedItems (
-    purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    farmer_id INT NOT NULL,
-    variety VARCHAR(20) NOT NULL,
-    bags INT NOT NULL,
-    total_weight DOUBLE NOT NULL,
-    tare_weight DOUBLE NOT NULL,
-    net_weight DOUBLE AS (total_weight - tare_weight),
-    rate_per_kg DOUBLE NOT NULL,
-    labour_charges DOUBLE DEFAULT 0,
-    total_amount DOUBLE AS ((net_weight * rate_per_kg) - labour_charges),
-    date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT fk_farmers FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
-  );
+    roles(
+        role_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        role_name varchar(20)
+    );
+
+CREATE TABLE
+    user_roles(
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        role_id INT NOT NULL,
+        CONSTRAINT fk_role_id FOREIGN KEY(role_id) REFERENCES roles(role_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+CREATE TABLE
+    accounts(
+        account_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        account_number VARCHAR(20),
+        ifsc_code VARCHAR(20)
+    );
+CREATE TABLE
+    farmers(
+        farmer_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        farmer_name VARCHAR(30) NOT NULL,
+        contact_number BIGINT NOT NULL UNIQUE,
+        password VARCHAR(15) NOT NULL,
+        location VARCHAR(20) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        balance DOUBLE AS (credit_balance - debit_balance)
+    );
+    CREATE TABLE
+    farmer_accounts(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        account_id INT NOT NULL,
+        farmer_id INT NOT NULL,
+        CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_farmer2_id FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+    CREATE TABLE
+    admins(
+        admin_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        admin_name VARCHAR(30) NOT NULL,
+        contact_number BIGINT NOT NULL UNIQUE,
+        password VARCHAR(15) NOT NULL,
+        location VARCHAR(20) NOT NULL
+    );
+    CREATE TABLE
+    admin_accounts(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        account_id INT NOT NULL,
+        admin_id INT NOT NULL,
+        CONSTRAINT fk_account4_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_admin_id FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+ CREATE TABLE
+  employees(
+        employee_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        employee_name VARCHAR(30) NOT NULL,
+        contact_number BIGINT NOT NULL UNIQUE,
+        password VARCHAR(15) NOT NULL,
+        location VARCHAR(20) NOT NULL,
+        salary double
+    );
+    CREATE TABLE
+    employee_accounts(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        account_id INT NOT NULL,
+        employee_id INT NOT NULL,
+        CONSTRAINT fk_account5_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_employee_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+    CREATE TABLE
+    transports(
+        truck_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        truck_number VARCHAR(15) NOT NULL UNIQUE,
+        office_name VARCHAR(20) NOT NULL,
+        owner_name VARCHAR(20) NOT NULL,
+        contact_number BIGINT NOT NULL,
+        location VARCHAR(20) NOT NULL
+    );
+    CREATE TABLE
+    transport_accounts(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        account_id INT NOT NULL,
+        truck_id INT NOT NULL,
+        CONSTRAINT fk_account2_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_truck2_id FOREIGN KEY (truck_id) REFERENCES transports(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+CREATE TABLE
+    consignees(
+        consignee_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        consignee_name VARCHAR(20) NOT NULL,
+        contact_number BIGINT NOT NULL,
+        location VARCHAR(20) NOT NULL
+        );
+
+      CREATE TABLE
+    consignee_accounts(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+        account_id INT NOT NULL,
+        consignee_id INT NOT NULL,
+        CONSTRAINT fk_account3_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_consignee2_id FOREIGN KEY (consignee_id) REFERENCES consignees(consignee_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 
 
 CREATE TABLE
-  soldItems(
-    sell_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    purchase_id INT NOT NULL,
-    consignee_id INT,
-    truck_id INT ,
-    net_weight DOUBLE NOT NULL,
-    rate_per_kg DOUBLE,
-    total_amount DOUBLE AS (net_weight * rate_per_kg),
-    date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES purchasedItems(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_consignee_id FOREIGN KEY (consignee_id) REFERENCES consignees(consignee_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transports(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
-  );
+    categories(
+        category_id INT PRIMARY KEY AUTO_INCREMENT,
+        category_title VARCHAR(20),
+        description VARCHAR (100),
+        image VARCHAR(50)
+    );
 
+CREATE TABLE
+    dealers(
+        dealer_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        dealer_name varchar(20),
+        company_name varchar(20),
+        contact_number BIGINT NOT NULL,
+        location VARCHAR(20) NOT NULL
+        );
+          CREATE TABLE
+    dealer_accounts(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        account_id INT NOT NULL,
+        dealer_id INT NOT NULL,
+        CONSTRAINT fk_account6_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_dealer_id FOREIGN KEY (dealer_id) REFERENCES dealers(dealer_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+
+CREATE TABLE
+    products (
+        product_id INT PRIMARY KEY AUTO_INCREMENT,
+        product_title VARCHAR(20) NOT NULL,
+        description VARCHAR(50),
+        stock_available INT NOT NULL,
+        unit_price DOUBLE NOT NULL,
+        image VARCHAR(40),
+        category_id INT NOT NULL,
+        CONSTRAINT fk_category_id FOREIGN KEY(category_id) REFERENCES categories(category_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        dealer_id INT NOT NULL,
+        CONSTRAINT fk_dealer2_id FOREIGN KEY(dealer_id) REFERENCES dealers(dealer_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+CREATE TABLE
+    dealer_orders(
+        order_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        dealer_id INT NOT NULL,
+        CONSTRAINT fk_dealer3_id FOREIGN KEY (dealer_id) REFERENCES dealers(dealer_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        total double
+    );
+
+CREATE TABLE
+    dealer_order_details(
+        orderdetails_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        order_id INT NOT NULL,
+        CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES dealer_orders(order_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        product_id INT NOT NULL,
+        CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(product_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        quantity INT NOT NULL,
+        discount DOUBLE DEFAULT 0
+    );
+
+CREATE TABLE
+    purchasedItems (
+        purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        farmer_id INT NOT NULL,
+        variety VARCHAR(20) NOT NULL,
+        bags INT NOT NULL,
+        total_weight DOUBLE NOT NULL,
+        tare_weight DOUBLE NOT NULL,
+        net_weight DOUBLE AS (total_weight - tare_weight),
+        rate_per_kg DOUBLE NOT NULL,
+        labour_charges DOUBLE DEFAULT 0,
+        total_amount DOUBLE AS ( (net_weight * rate_per_kg) - labour_charges
+        ),
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        CONSTRAINT fk_farmers FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+CREATE TABLE
+    soldItems(
+        sell_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        purchase_id INT NOT NULL,
+        consignee_id INT,
+        truck_id INT,
+        net_weight DOUBLE NOT NULL,
+        rate_per_kg DOUBLE,
+        total_amount DOUBLE AS (net_weight * rate_per_kg),
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES purchasedItems(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_consignee_id FOREIGN KEY (consignee_id) REFERENCES consignees(consignee_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transports(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 
 -- CREATE TABLE
+
 --   farmerPurchasesBilling(
+
 --     bill_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
 --     farmer_id INT NOT NULL,
+
 --     item1 VARCHAR(20),
+
 --     quantity1 INT DEFAULT 0,
+
 --     rate1 DOUBLE DEFAULT 0,
+
 --     amount1 DOUBLE AS (quantity1 * rate1),
+
 --     item2 VARCHAR(20),
+
 --     quantity2 INT DEFAULT 0,
+
 --     rate2 DOUBLE DEFAULT 0,
+
 --     amount2 DOUBLE AS (quantity2 * rate2),
+
 --     item3 VARCHAR(20),
+
 --     quantity3 INT DEFAULT 0,
+
 --     rate3 DOUBLE DEFAULT 0,
+
 --     amount3 DOUBLE AS (quantity3 * rate3),
+
 --     item4 VARCHAR(20),
+
 --     quantity4 INT DEFAULT 0,
+
 --     rate4 DOUBLE DEFAULT 0,
+
 --     amount4 DOUBLE AS (quantity4 * rate4),
+
 --     item5 VARCHAR(20),
+
 --     quantity5 INT DEFAULT 0,
+
 --     rate5 DOUBLE DEFAULT 0,
+
 --     amount5 DOUBLE AS (quantity5 * rate5),
+
 --     total_amount DOUBLE AS (
+
 --       (amount1) + (amount2) + (amount3) + (amount4) + (amount5)
+
 --     ),
+
 --     CONSTRAINT fk_farmers1 FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
+
 --   );
 
-CREATE TABLE farmer_bills(
-  bill_id INT PRIMARY KEY AUTO_INCREMENT,
-  farmer_id INT NOT NULL,
-  bill_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-  bill_total DOUBLE,
-  CONSTRAINT fk_farmers3 FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
-);
- 
- 
-CREATE TABLE bill_products(
-  bill_id INT NOT NULL,
-  product_id INT NOT NULL,
-  quantity INT NOT NULL DEFAULT 1,
-  CONSTRAINT fk_bill_id FOREIGN KEY (bill_id) REFERENCES farmer_bills(bill_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  CONSTRAINT fk_product_id3 FOREIGN KEY (product_id) REFERENCES products(product_id) ON UPDATE CASCADE ON DELETE CASCADE
-);
+CREATE TABLE
+    farmer_bills(
+        bill_id INT PRIMARY KEY AUTO_INCREMENT,
+        farmer_id INT NOT NULL,
+        bill_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        bill_total DOUBLE,
+        CONSTRAINT fk_farmers3 FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 
-CREATE TRIGGER sell_insert AFTER INSERT ON purchasedItems FOR EACH ROW BEGIN
-INSERT INTO
-  soldItems(purchase_id, net_weight)
-VALUES
-  (NEW.purchase_id, NEW.net_weight);
-END;
+CREATE TABLE
+    bill_products(
+        bill_id INT NOT NULL,
+        product_id INT NOT NULL,
+        quantity INT NOT NULL DEFAULT 1,
+        CONSTRAINT fk_bill_id FOREIGN KEY (bill_id) REFERENCES farmer_bills(bill_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_product_id3 FOREIGN KEY (product_id) REFERENCES products(product_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 
+CREATE TRIGGER SELL_INSERT AFTER INSERT ON PURCHASEDITEMS 
+FOR EACH ROW BEGIN 
+	INSERT INTO
+	    soldItems(purchase_id, net_weight)
+	VALUES (
+	        NEW.purchase_id,
+	        NEW.net_weight
+	    );
+END; 
 
-CREATE TRIGGER add_user AFTER INSERT ON farmers FOR EACH ROW BEGIN
-INSERT INTO
-  users (contact_number, password)
-VALUES
-  (NEW.contact_number, NEW.password);
-END;
+CREATE TRIGGER ADD_USER AFTER INSERT ON FARMERS FOR 
+EACH ROW BEGIN 
+	INSERT INTO
+	    users (contact_number, password)
+	VALUES (
+	        NEW.contact_number,
+	        NEW.password
+	    );
+END; 
 
+CREATE TRIGGER DEL_USER AFTER DELETE ON FARMERS FOR 
+EACH ROW BEGIN 
+	DELETE FROM users WHERE contact_number = OLD.contact_number;
+END; 
 
-CREATE TRIGGER del_user AFTER DELETE ON farmers FOR EACH ROW BEGIN
-DELETE FROM
-  users
-WHERE
-  contact_number = OLD.contact_number;
-END;
-CREATE TRIGGER credit_balance AFTER INSERT ON purchasedItems FOR EACH ROW BEGIN
-UPDATE
-  farmers
-SET
-  credit_balance = credit_balance + NEW.total_amount
-WHERE
-  farmer_id = NEW.farmer_id;
-END;
+CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON PURCHASEDITEMS 
+FOR EACH ROW BEGIN 
+	UPDATE farmers
+	SET
+	    credit_balance = credit_balance + NEW.total_amount
+	WHERE farmer_id = NEW.farmer_id;
+END; 
+
 -- CREATE TRIGGER debit_balance AFTER INSERT ON farmerPurchasesBilling FOR EACH ROW BEGIN
+
 -- UPDATE
+
 --   farmers
+
 -- SET
+
 --   debit_balance = debit_balance + NEW.total_amount
+
 -- WHERE
+
 --   farmer_id = NEW.farmer_id;
+
 -- END;
 
-INSERT INTO users(contact_number, password) VALUES(9075966080, 'password');
-
-INSERT INTO roles(role_name) VALUES("Admin");
-INSERT INTO roles(role_name) VALUES("Farmer");
-INSERT INTO roles(role_name) VALUES("Transport");
-INSERT INTO roles(role_name) VALUES("Consignee");
-INSERT INTO user_roles(user_id,role_id) VALUES (1,1);
-INSERT INTO farmers(farmer_name, contact_number, password, location,account_number,ifsc_code)
-            VALUES ('Rohit Gore',7448022756,'password','Peth','23456889','DRT45678O34');
-INSERT INTO farmers(farmer_name, contact_number, password, location,account_number,ifsc_code)
-            VALUES ('Akshay Tanpure',8530728512,'password','Wada','56456789','DRT78678O78');
-INSERT INTO farmers(farmer_name, contact_number, password, location,account_number,ifsc_code)
-            VALUES ('Akash Ajab', 9373306756, 'password', 'Valati', '23786789', 'DRT45678U98');
-
-INSERT INTO transports(truck_number,office_name,owner_name,contact_number,account_number,ifsc_code,location)
-            VALUES('MH14RE1234','OM Transports','Ashok Chakkar',  8989878723,'2345676545','BP3456','Karegaon');
-
-INSERT INTO transports(truck_number,office_name,owner_name,contact_number,account_number,ifsc_code,location)
-            VALUES( 'MH14JD9593','Shubham Transports','Umesh Chakkar',9960916323,'372382123244','AXIS12434','Kudalwadi');
-
-INSERT INTO transports(truck_number,office_name,owner_name,contact_number,account_number,ifsc_code,location)
-            VALUES( 'MH14AC6080','Pradnya Transports',' Ramesh Karale',8412012489,'52831230987','AXIS12434','Peth');
-
-INSERT INTO consignees(consignee_name, contact_number, location,account_number,ifsc_code)
-VALUES ('Zatka Company', 9090909012, 'Manchar', '2345676545',  'BP3456N4567');
-
-INSERT INTO purchasedItems(farmer_id,variety,bags,total_weight,tare_weight,rate_per_kg,labour_charges)
-            VALUES(1, 'Potato', 50, 2500, 25, 30, 400), (2, 'Onion', 500, 500, 2, 10,2000),(3, 'Onion',1000,50000, 1000, 12, 4000);
-
-INSERT INTO categories(category_title,description,image)values('Instecticides','Deadly Instecticides','/images/instecticide.jpg');
-INSERT INTO categories(category_title,description,image)values('Pesticides','Pest Killers','/images/pesticide.jpg');
-INSERT INTO categories(category_title,description,image)values('Fertilizers','Good Fertilizers','/images/fertilizer.jpg');
-INSERT INTO categories(category_title,description,image)values('Growth Promoter','Growth Promoter','/images/growthpromoter.jpg');
-
-INSERT INTO dealers(dealer_name,company_name,contact_number,location,account_number,ifsc_code)
-            VALUES('Raju Rastogi','BAYER',8954123564,'Mumbai','52831230187','AXIS12434');
-INSERT INTO dealers(dealer_name,company_name,contact_number,location,account_number,ifsc_code)
-            VALUES('Farhan khan','Cipla',8957893564,'Kolkata','5183412019','AXIS9960');
-INSERT INTO products(product_title,description,stock_available,unit_price,image,category_id,dealer_id) 
-            VALUES('Karate','inseticide',200,400,'/images/karate.jpg',1,1);
-INSERT INTO products(product_title,description,stock_available,unit_price,image,category_id,dealer_id) 
-            VALUES('Solomon','pesticide',150,750,'/images/solomon.jpg',2,1);
-INSERT INTO products(product_title,description,stock_available,unit_price,image,category_id,dealer_id) 
-            VALUES('15:33:33','Fertilizer',70,1450,'/images/15:33:33.jpg',3,2);
-INSERT INTO products(product_title,description,stock_available,unit_price,image,category_id,dealer_id) 
-            VALUES('SEQUL','Growth Promoter',321,450,'/images/sequl.jpg',4,2);
-
-SELECT * FROM categories;
-
-INSERT INTO farmer_bills(farmer_id) VALUES(1);
-INSERT INTO farmer_bills(farmer_id) VALUES(2);
-INSERT INTO farmer_bills(farmer_id) VALUES(1);
-SELECT * FROM farmer_bills;
-
-INSERT INTO bill_products (bill_id,product_id,quantity) VALUES(1,1,2);
-INSERT INTO bill_products (bill_id,product_id,quantity) VALUES(1,3,1);
-INSERT INTO bill_products (bill_id,product_id,quantity) VALUES(1,4,4);
-INSERT INTO bill_products (bill_id,product_id,quantity) VALUES(2,4,4);
-INSERT INTO bill_products (bill_id,product_id,quantity) VALUES(3,1,10);
-INSERT INTO bill_products (bill_id,product_id,quantity) VALUES(3,2,10);
-
-SELECT * FROM farmer_bills;
-SELECT * FROM bill_products;
-
--- SELECT products.product_id,products.product_title,products.unit_price,bill_products.quantity,(  products.unit_price * bill_products.quantity  ) AS amount,bill_date FROM bill_products,products,farmer_bills,farmers
--- WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id
--- and farmer_bills.farmer_id=1 ORDER BY bill_date ;
-
-SELECT farmers.farmer_name, products.product_id, products.product_title, products.unit_price, bill_products.quantity, (products.unit_price * bill_products.quantity) AS amount,farmer_bills.bill_date
-FROM bill_products
-INNER JOIN products ON products.product_id = bill_products.product_id
-INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
-INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
-WHERE farmer_bills.bill_id= 1;
-
-
-UPDATE
-  soldItems
-set
-  consignee_id = 1,
-  truck_id = 1,
-  rate_per_kg = 27.40
-WHERE
-  purchase_id = 1;
 -- INSERT INTO
---   farmerPurchasesBilling(farmer_id, item1, quantity1, rate1)
+--     users(contact_number, password)
 -- VALUES
---   (1, 'Oberon', 3, 150),(2,'Topper 77',5,110),(3,'M-45',2,180);
+-- (9075966080, 'password');
 
-  SELECT * FROM farmers;
+-- INSERT INTO roles(role_name) VALUES("Admin");
 
- UPDATE farmers SET farmer_name='shubham', password=123  WHERE farmer_id=1;
+-- INSERT INTO roles(role_name) VALUES("Farmer");
+
+-- INSERT INTO roles(role_name) VALUES("Transport");
+
+-- INSERT INTO roles(role_name) VALUES("Consignee");
+
+-- INSERT INTO user_roles(user_id,role_id) VALUES (1,1);
+
+-- INSERT INTO
+--     farmers(
+--         farmer_name,
+--         contact_number,
+--         password,
+--         location,
+--         account_number,
+--         ifsc_code
+--     )
+-- VALUES (
+--         'Rohit Gore',
+--         7448022756,
+--         'password',
+--         'Peth',
+--         '23456889',
+--         'DRT45678O34'
+--     );
+
+-- INSERT INTO
+--     farmers(
+--         farmer_name,
+--         contact_number,
+--         password,
+--         location,
+--         account_number,
+--         ifsc_code
+--     )
+-- VALUES (
+--         'Akshay Tanpure',
+--         8530728512,
+--         'password',
+--         'Wada',
+--         '56456789',
+--         'DRT78678O78'
+--     );
+
+-- INSERT INTO
+--     farmers(
+--         farmer_name,
+--         contact_number,
+--         password,
+--         location,
+--         account_number,
+--         ifsc_code
+--     )
+-- VALUES (
+--         'Akash Ajab',
+--         9373306756,
+--         'password',
+--         'Valati',
+--         '23786789',
+--         'DRT45678U98'
+--     );
+
+-- INSERT INTO
+--     transports(
+--         truck_number,
+--         office_name,
+--         owner_name,
+--         contact_number,
+--         account_number,
+--         ifsc_code,
+--         location
+--     )
+-- VALUES
+-- (
+--         'MH14RE1234',
+--         'OM Transports',
+--         'Ashok Chakkar',
+--         8989878723,
+--         '2345676545',
+--         'BP3456',
+--         'Karegaon'
+--     );
+
+-- INSERT INTO
+--     transports(
+--         truck_number,
+--         office_name,
+--         owner_name,
+--         contact_number,
+--         account_number,
+--         ifsc_code,
+--         location
+--     )
+-- VALUES
+-- (
+--         'MH14JD9593',
+--         'Shubham Transports',
+--         'Umesh Chakkar',
+--         9960916323,
+--         '372382123244',
+--         'AXIS12434',
+--         'Kudalwadi'
+--     );
+
+-- INSERT INTO
+--     transports(
+--         truck_number,
+--         office_name,
+--         owner_name,
+--         contact_number,
+--         account_number,
+--         ifsc_code,
+--         location
+--     )
+-- VALUES
+-- (
+--         'MH14AC6080',
+--         'Pradnya Transports',
+--         ' Ramesh Karale',
+--         8412012489,
+--         '52831230987',
+--         'AXIS12434',
+--         'Peth'
+--     );
+
+-- INSERT INTO
+--     consignees(
+--         consignee_name,
+--         contact_number,
+--         location,
+--         account_number,
+--         ifsc_code
+--     )
+-- VALUES (
+--         'Zatka Company',
+--         9090909012,
+--         'Manchar',
+--         '2345676545',
+--         'BP3456N4567'
+--     );
+
+-- INSERT INTO
+--     purchasedItems(
+--         farmer_id,
+--         variety,
+--         bags,
+--         total_weight,
+--         tare_weight,
+--         rate_per_kg,
+--         labour_charges
+--     )
+-- VALUES
+-- (1, 'Potato', 50, 2500, 25, 30, 400), (2, 'Onion', 500, 500, 2, 10, 2000), (
+--         3,
+--         'Onion',
+--         1000,
+--         50000,
+--         1000,
+--         12,
+--         4000
+--     );
+
+-- INSERT INTO
+--     categories(
+--         category_title,
+--         description,
+--         image
+--     )
+-- values
+-- (
+--         'Instecticides',
+--         'Deadly Instecticides',
+--         '/images/instecticide.jpg'
+--     );
+
+-- INSERT INTO
+--     categories(
+--         category_title,
+--         description,
+--         image
+--     )
+-- values
+-- (
+--         'Pesticides',
+--         'Pest Killers',
+--         '/images/pesticide.jpg'
+--     );
+
+-- INSERT INTO
+--     categories(
+--         category_title,
+--         description,
+--         image
+--     )
+-- values
+-- (
+--         'Fertilizers',
+--         'Good Fertilizers',
+--         '/images/fertilizer.jpg'
+--     );
+
+-- INSERT INTO
+--     categories(
+--         category_title,
+--         description,
+--         image
+--     )
+-- values
+-- (
+--         'Growth Promoter',
+--         'Growth Promoter',
+--         '/images/growthpromoter.jpg'
+--     );
+
+-- INSERT INTO
+--     dealers(
+--         dealer_name,
+--         company_name,
+--         contact_number,
+--         location,
+--         account_number,
+--         ifsc_code
+--     )
+-- VALUES
+-- (
+--         'Raju Rastogi',
+--         'BAYER',
+--         8954123564,
+--         'Mumbai',
+--         '52831230187',
+--         'AXIS12434'
+--     );
+
+-- INSERT INTO
+--     dealers(
+--         dealer_name,
+--         company_name,
+--         contact_number,
+--         location,
+--         account_number,
+--         ifsc_code
+--     )
+-- VALUES
+-- (
+--         'Farhan khan',
+--         'Cipla',
+--         8957893564,
+--         'Kolkata',
+--         '5183412019',
+--         'AXIS9960'
+--     );
+
+-- INSERT INTO
+--     products(
+--         product_title,
+--         description,
+--         stock_available,
+--         unit_price,
+--         image,
+--         category_id,
+--         dealer_id
+--     )
+-- VALUES
+-- (
+--         'Karate',
+--         'inseticide',
+--         200,
+--         400,
+--         '/images/karate.jpg',
+--         1,
+--         1
+--     );
+
+-- INSERT INTO
+--     products(
+--         product_title,
+--         description,
+--         stock_available,
+--         unit_price,
+--         image,
+--         category_id,
+--         dealer_id
+--     )
+-- VALUES
+-- (
+--         'Solomon',
+--         'pesticide',
+--         150,
+--         750,
+--         '/images/solomon.jpg',
+--         2,
+--         1
+--     );
+
+-- INSERT INTO
+--     products(
+--         product_title,
+--         description,
+--         stock_available,
+--         unit_price,
+--         image,
+--         category_id,
+--         dealer_id
+--     )
+-- VALUES
+-- (
+--         '15:33:33',
+--         'Fertilizer',
+--         70,
+--         1450,
+--         '/images/15:33:33.jpg',
+--         3,
+--         2
+--     );
+
+-- INSERT INTO
+--     products(
+--         product_title,
+--         description,
+--         stock_available,
+--         unit_price,
+--         image,
+--         category_id,
+--         dealer_id
+--     )
+-- VALUES
+-- (
+--         'SEQUL',
+--         'Growth Promoter',
+--         321,
+--         450,
+--         '/images/sequl.jpg',
+--         4,
+--         2
+--     );
+
+-- SELECT * FROM categories;
+
+-- INSERT INTO farmer_bills(farmer_id) VALUES(1);
+
+-- INSERT INTO farmer_bills(farmer_id) VALUES(2);
+
+-- INSERT INTO farmer_bills(farmer_id) VALUES(1);
+
+-- SELECT * FROM farmer_bills;
+
+-- INSERT INTO
+--     bill_products (bill_id, product_id, quantity)
+-- VALUES(1, 1, 2);
+
+-- INSERT INTO
+--     bill_products (bill_id, product_id, quantity)
+-- VALUES(1, 3, 1);
+
+-- INSERT INTO
+--     bill_products (bill_id, product_id, quantity)
+-- VALUES(1, 4, 4);
+
+-- INSERT INTO
+--     bill_products (bill_id, product_id, quantity)
+-- VALUES(2, 4, 4);
+
+-- INSERT INTO
+--     bill_products (bill_id, product_id, quantity)
+-- VALUES(3, 1, 10);
+
+-- INSERT INTO
+--     bill_products (bill_id, product_id, quantity)
+-- VALUES(3, 2, 10);
+
+-- SELECT * FROM farmer_bills;
+
+-- SELECT * FROM bill_products;
+
+-- -- SELECT products.product_id,products.product_title,products.unit_price,bill_products.quantity,(  products.unit_price * bill_products.quantity  ) AS amount,bill_date FROM bill_products,products,farmer_bills,farmers
+
+-- -- WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id
+
+-- -- and farmer_bills.farmer_id=1 ORDER BY bill_date ;
+
+-- SELECT
+--     farmers.farmer_name,
+--     products.product_id,
+--     products.product_title,
+--     products.unit_price,
+--     bill_products.quantity, (
+--         products.unit_price * bill_products.quantity
+--     ) AS amount,
+--     farmer_bills.bill_date
+-- FROM bill_products
+--     INNER JOIN products ON products.product_id = bill_products.product_id
+--     INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
+--     INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
+-- WHERE farmer_bills.bill_id = 1;
+
+-- UPDATE soldItems
+-- set
+--     consignee_id = 1,
+--     truck_id = 1,
+--     rate_per_kg = 27.40
+-- WHERE purchase_id = 1;
+
+-- -- INSERT INTO
+
+-- --   farmerPurchasesBilling(farmer_id, item1, quantity1, rate1)
+
+-- -- VALUES
+
+-- --   (1, 'Oberon', 3, 150),(2,'Topper 77',5,110),(3,'M-45',2,180);
+
+-- SELECT * FROM farmers;
+
+-- UPDATE farmers
+-- SET
+--     farmer_name = 'shubham',
+--     password = 123
+-- WHERE farmer_id = 1;
