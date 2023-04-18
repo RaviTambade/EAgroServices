@@ -16,4 +16,14 @@ public class ConsigneeRepository : IConsigneeRepository
 
        }
     }
+    public bool GetById(int id)
+    {
+        bool status=false;
+        using (var context=new ConsigneeContext())
+        {
+          var  consignees=context.Consignees.Find(id);
+            return consignees;
+        } 
+
+    }
 }

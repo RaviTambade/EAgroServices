@@ -1,3 +1,4 @@
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE eagroservicesdb;
  CREATE DATABASE  eagroservicesdb;
@@ -44,7 +45,41 @@ CREATE TABLE
     account_number VARCHAR(25),
     ifsc_code VARCHAR(25)
   );
+CREATE TABLE categories(category_id INT PRIMARY KEY AUTO_INCREMENT,
+ category_title VARCHAR(20),
+ description VARCHAR (100),
+ image VARCHAR(50)) ;
 
+
+CREATE TABLE products (product_id INT PRIMARY KEY AUTO_INCREMENT,
+product_title VARCHAR(20) NOT NULL,
+description VARCHAR(50),
+stock_available INT NOT NULL,
+unit_price DOUBLE NOT NULL,
+image VARCHAR(40),category_id INT NOT NULL,
+ CONSTRAINT fk_category_id FOREIGN KEY(category_id) REFERENCES categories(category_id) ON UPDATE CASCADE ON DELETE CASCADE,
+dealer_id INT NOT NULL,
+  CONSTRAINT fk_dealer_id FOREIGN KEY(dealer_id) REFERENCES dealer(dealer_id) ON UPDATE CASCADE ON DELETE CASCADE);
+
+
+CREATE TABLE dealers(dealer_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    dealer_name varchar(20),
+    company_name varchar(20),
+    contact_number BIGINT NOT NULL,
+    location VARCHAR(20) NOT NULL,
+    account_number VARCHAR(25),
+    ifsc_code VARCHAR(25));
+
+    CREATE TABLE dealer_orders(order_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    dealer_id INT NOT NULL,CONSTRAINT fk_customer_id FOREIGN KEY (cust_id) REFERENCES customers(cust_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    total double );
+
+CREATE TABLE dealer_order_details(orderdetails_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+order_id INT NOT NULL,CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(order_id) ON UPDATE CASCADE ON DELETE CASCADE,
+product_id INT NOT NULL,CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(product_id) ON UPDATE CASCADE ON DELETE CASCADE,
+quantity INT NOT NULL,
+discount DOUBLE DEFAULT 0);  
 
 CREATE TABLE
   purchasedItems (
