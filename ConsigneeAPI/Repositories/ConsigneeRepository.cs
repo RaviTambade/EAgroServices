@@ -16,14 +16,53 @@ public class ConsigneeRepository : IConsigneeRepository
 
        }
     }
-    public bool GetById(int id)
+    public Consignee GetById(int id)
     {
-        bool status=false;
-        using (var context=new ConsigneeContext())
+        using (var context = new ConsigneeContext())
         {
-          var  consignees=context.Consignees.Find(id);
-            return consignees;
+         var consignee=context.Consignees.Find(id);
+            return consignee;
         } 
 
+    }
+
+    public bool Insert(Consignee consignee)
+    {
+        using (var context = new ConsigneeContext()){
+
+        context.Consignees.Add(consignee);
+        context.SaveChanges();
+        return true;
+
+        }
+    }
+    public bool Update(Consignee consignee)
+    {
+        using (var context = new ConsigneeContext())
+        { 
+            var oldConsignee=context.Consignees.Find(consignee.ConsigneeId);
+
+
+          oldConsignee.ConsigneeId=consignee.ConsigneeId;
+          oldConsignee.ConsigneeName=consignee.ConsigneeName;
+          oldConsignee.AccountNumber=consignee.AccountNumber;
+          oldConsignee.ContactNumber=consignee.ContactNumber;
+          oldConsignee.IFSCCode=consignee.IFSCCode;
+          oldConsignee.Location=consignee.Location;
+          context.SaveChanges();
+          return true;
+
+        }
+
+    } 
+    public bool Delete(int id)
+    {
+        using(var context = new ConsigneeContext())
+        {
+            context.Consignees.Remove(context.Consignees.Find(id));
+            context.SaveChanges();
+            return true;
+
+        }
     }
 }
