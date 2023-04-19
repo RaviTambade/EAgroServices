@@ -1,67 +1,124 @@
 using FarmersAPI.Contexts;
 using FarmersAPI.Models;
 using FarmersAPI.Repositories.Interfaces;
-using Org.BouncyCastle.Bcpg;
-using Org.BouncyCastle.Security;
-
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 namespace FarmersAPI.Repositories;
 public class FarmerRepository : IFarmerRepository
 {
-    public List<Farmer> GetAllFarmers()
+    private readonly IConfiguration _configuration;
+    public FarmerRepository(IConfiguration configuration)
     {
-        using (var context = new FarmersContext())
-        {
-            var farmers = context.Farmers.ToList();
-            return farmers;
-        }
-
+        _configuration = configuration;
     }
-
-    public Farmer GetFarmerById(int id)
+    public async Task<List<Farmer>> GetAllFarmers()
     {
-        using (var context = new FarmersContext())
+        try
         {
-            var farmer = context.Farmers.Find(id);
-            return farmer;
+            using (var context = new FarmersContext(_configuration))
+            {
+                List<Farmer> farmers = await context.Farmers.ToListAsync();
+                if (farmers == null)
+                {
+                    return null;
+                }
+                return farmers;
+            }
         }
-    }
-    public bool InsertFarmer(Farmer farmer)
-    {
-        using (var context = new FarmersContext())
+        catch (Exception e)
         {
-            context.Farmers.Add(farmer);
-            context.SaveChanges();
-            return true;
-
+            throw e;
         }
     }
 
-     public bool UpdateFarmer(Farmer farmer)
+    public async Task<Farmer> GetFarmerById(int farmerId)
     {
-        using (var context = new FarmersContext())
+        try
         {
-           
-        var oldFarmer= context.Farmers.Find(farmer.FarmerId);
-        oldFarmer.FarmerName=farmer.FarmerName;
-        oldFarmer.ContactNumber=farmer.ContactNumber;
-        oldFarmer.Location=farmer.Location;
-        oldFarmer.Password=farmer.Password;
-        oldFarmer.AccountNumber=farmer.AccountNumber;
-        oldFarmer.CreditBalance=farmer.CreditBalance;
-        oldFarmer.DebitBalance=farmer.DebitBalance;
-        oldFarmer.TotalBalance=farmer.TotalBalance;
-        context.SaveChanges();
-        return true;
+            using (var context = new FarmersContext(_configuration))
+            {
+                Farmer farmer = await context.Farmers.FindAsync(farmerId);
+                if (farmer == null)
+                {
+                    return null;
+                }
+                return farmer;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
         }
     }
-    public bool DeleteFarmer(int id){
-      using (var context =new FarmersContext())
-      {
-        bool status=false;
-        context.Farmers.Remove(context.Farmers.Find(id));
-        context.SaveChanges();
-        return true;
-      }
+    public async Task<bool> InsertFarmer(Farmer farmer)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new FarmersContext(_configuration))
+            {
+                await context.Farmers.AddAsync(farmer);
+                await context.SaveChangesAsync();
+                status = true;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
+
+    public async Task<bool> UpdateFarmer(int farmerId, Farmer farmer)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new FarmersContext(_configuration))
+            {
+                Farmer? oldFarmer = await context.Farmers.FindAsync(farmerId);
+                if (oldFarmer != null)
+                {
+                    oldFarmer.FirstName = farmer.FirstName;
+                    oldFarmer.LastName = farmer.LastName;
+                    oldFarmer.ContactNumber = farmer.ContactNumber;
+                    oldFarmer.Location = farmer.Location;
+                    oldFarmer.Password = farmer.Password;
+                    oldFarmer.CreditBalance = farmer.CreditBalance;
+                    oldFarmer.DebitBalance = farmer.DebitBalance;
+                    oldFarmer.TotalBalance = farmer.TotalBalance;
+                    await context.SaveChangesAsync();
+                    status= true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
+    public async Task<bool> DeleteFarmer(int farmerId)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new FarmersContext(_configuration))
+            {
+                Farmer? farmer = await context.Farmers.FindAsync(farmerId);
+                if (farmer != null)
+                {
+                    context.Farmers.Remove(farmer);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
     }
 
 }

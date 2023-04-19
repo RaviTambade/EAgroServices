@@ -87,10 +87,9 @@ public class TransportRepository : ITransportRepository
                 if (oldTransport != null)
                 {
                     oldTransport.TruckNumber = transport.TruckNumber;
-                    oldTransport.OwnerName = transport.OwnerName;
+                    oldTransport.FirstName = transport.FirstName;
+                    oldTransport.LastName = transport.LastName;
                     oldTransport.OfficeName = transport.OfficeName;
-                    oldTransport.AccountNumber = transport.AccountNumber;
-                    oldTransport.IFSCCode = transport.IFSCCode;
                     oldTransport.Location = transport.Location;
                     oldTransport.ContactNumber = transport.ContactNumber;
                     await context.SaveChangesAsync();
