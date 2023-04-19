@@ -26,8 +26,7 @@ CREATE TABLE
     accounts(
         account_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         account_number VARCHAR(20),
-        ifsc_code VARCHAR(20),
-        balance DOUBLE
+        ifsc_code VARCHAR(20)
     );
 CREATE TABLE
     farmers(
@@ -213,6 +212,7 @@ CREATE TABLE
         bill_id INT PRIMARY KEY AUTO_INCREMENT,
         farmer_id INT NOT NULL,
         bill_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        payment_mode ENUM("Cash","Pending") NOT NULL,
         bill_total DOUBLE,
         CONSTRAINT fk_farmers3 FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
@@ -225,16 +225,25 @@ CREATE TABLE
         CONSTRAINT fk_product_id3 FOREIGN KEY (product_id) REFERENCES products(product_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-    CREATE TABLE transactions(transaction_id INT PRIMARY KEY AUTO_INCREMENT,from_acount_number VARCHAR(20),to_account_number VARCHAR(20),amount DOUBLE ,date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,from_account_id INT NOT NULL ,to_account_id INT NOT NULL, CONSTRAINT fk_account8_id FOREIGN KEY (from_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+CREATE TABLE
+     transactions(
+        transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+        from_acount_number VARCHAR(20),
+        to_account_number VARCHAR(20),
+        amount DOUBLE ,
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        from_account_id INT NOT NULL ,
+        to_account_id INT NOT NULL, 
+CONSTRAINT fk_account8_id FOREIGN KEY (from_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
  CONSTRAINT fk_account7_id FOREIGN KEY (to_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE);
 CREATE TRIGGER SELL_INSERT AFTER INSERT ON PURCHASEDITEMS 
 FOR EACH ROW BEGIN 
 	INSERT INTO
 	    soldItems(purchase_id, net_weight)
-	VALUES 
+	VALUES (
 	        NEW.purchase_id,
 	        NEW.net_weight
-	    ;
+    );
 END; 
 
 CREATE TRIGGER ADD_USER AFTER INSERT ON FARMERS FOR 
@@ -254,10 +263,12 @@ END;
 
 CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON PURCHASEDITEMS 
 FOR EACH ROW BEGIN 
+
 	UPDATE farmers
 	SET
 	    credit_balance = credit_balance + NEW.total_amount
 	WHERE farmer_id = NEW.farmer_id;
+
 END; 
 
 INSERT INTO
@@ -563,11 +574,11 @@ VALUES
 
 SELECT * FROM categories;
 
-INSERT INTO farmer_bills(farmer_id) VALUES(1);
+INSERT INTO farmer_bills(farmer_id,payment_mode) VALUES(1,"Pending");
 
-INSERT INTO farmer_bills(farmer_id) VALUES(2);
+INSERT INTO farmer_bills(farmer_id,payment_mode) VALUES(2,"Pending");
 
-INSERT INTO farmer_bills(farmer_id) VALUES(1);
+INSERT INTO farmer_bills(farmer_id,payment_mode) VALUES(3,"Cash");
 
 SELECT * FROM farmer_bills;
 
@@ -664,7 +675,7 @@ SELECT sum(products.unit_price * bill_products.quantity) AS amount,bill_date FRO
     INNER JOIN products ON products.product_id = bill_products.product_id
     INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
     INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
-     WHERE farmer_bills.bill_id=1; --ORDER BY bill_date; 
+     WHERE farmer_bills.bill_id=1;--ORDER BY bill_date; 
 
 -- WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id
 
@@ -675,6 +686,7 @@ BEGIN
 DECLARE totalAmount DOUBLE;
 DECLARE debitBalance DOUBLE;
 DECLARE farmerId INT;
+DECLARE paymentMode ENUM("Cash","Pending");
 START TRANSACTION;
 SELECT sum(products.unit_price * bill_products.quantity) INTO totalAmount FROM bill_products
     INNER JOIN products ON products.product_id = bill_products.product_id
@@ -684,12 +696,15 @@ SELECT sum(products.unit_price * bill_products.quantity) INTO totalAmount FROM b
     SELECT farmer_id INTO farmerId FROM farmer_bills WHERE bill_id=billId;
     SELECT debit_balance INTO debitBalance FROM farmers WHERE farmer_id=farmerId;
     UPDATE farmer_bills SET bill_total=totalAmount WHERE bill_id=billId;
-    UPDATE farmers SET debit_balance=debitBalance+totalAmount WHERE farmer_id=farmerId;
-COMMIT;
+    SELECT payment_mode INTO paymentMode FROM farmer_bills WHERE bill_id=billId;
+    IF paymentMode='Pending' THEN
+    UPDATE farmers SET debit_balance=debitBalance+totalAmount  WHERE farmer_id=farmerId;
+    END IF;
+COMMIT; 
 END;
 
 select * from farmer_bills;
-CALL update_farmer_debit_balance(1);
+CALL update_farmer_debit_balance(3);
 
 SELECT * FROM farmer_bills;
 SELECT * FROM farmers;

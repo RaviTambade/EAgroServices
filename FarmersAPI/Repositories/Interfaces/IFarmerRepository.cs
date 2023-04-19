@@ -7,6 +7,4 @@ public interface IFarmerRepository{
     Task<bool> InsertFarmer(Farmer farmer);
     Task<bool> UpdateFarmer(int farmerId,Farmer farmer);
     Task<bool> DeleteFarmer(int farmerId);
-
-    
 }

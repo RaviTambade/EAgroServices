@@ -2,28 +2,28 @@ using Microsoft.EntityFrameworkCore;
 using FarmersAPI.Models;
 using Microsoft.Extensions.Configuration;
 namespace FarmersAPI.Contexts;
-public class FarmersContext : DbContext
+public class FarmersContext : DbContext // Defines a DbContext called FarmersContext
 {
-    private readonly IConfiguration _configuration;
-    private readonly string _conString;
+    private readonly IConfiguration _configuration;  // Stores an instance of IConfiguration
+    private readonly string _conString;  // Stores a connection string
 
-    public FarmersContext(IConfiguration configuration)
+    public FarmersContext(IConfiguration configuration)  //// Constructor that takes an IConfiguration parameter
     {
     _configuration=configuration;
-    _conString=this._configuration.GetConnectionString("DefaultConnection");
+    _conString=this._configuration.GetConnectionString("DefaultConnection");   // // Retrieves the connection string from the configuration and assigns it to the instance variable
     }
-    public DbSet<Farmer> Farmers { get; set; }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public DbSet<Farmer> Farmers { get; set; }   // Represents a collection of Farmer entities in the context
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)   // Configures the context options
     {
-        optionsBuilder.UseMySQL(_conString);
+        optionsBuilder.UseMySQL(_conString);    // Sets the connection string to be used by the context
     }
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder) // Defines the model for the context
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Farmer>(entity =>
-        {
-            entity.HasKey(e => e.FarmerId);
-            entity.Property(e => e.FirstName);
+        base.OnModelCreating(modelBuilder);     // Calls the base implementation
+        modelBuilder.Entity<Farmer>(entity =>     // Configures the Farmer entity
+        { 
+            entity.HasKey(e => e.FarmerId);      // Defines the primary key
+            entity.Property(e => e.FirstName);   // Defines a property 
             entity.Property(e => e.LastName);
             entity.Property(e => e.ContactNumber);
             entity.Property(e => e.Password);
@@ -32,6 +32,6 @@ public class FarmersContext : DbContext
             entity.Property(e => e.DebitBalance);
             entity.Property(e => e.TotalBalance);
         });
-        modelBuilder.Entity<Farmer>().ToTable("farmers");
+        modelBuilder.Entity<Farmer>().ToTable("farmers");  // Maps the Farmer entity to a table named "farmers"
     }
 }
