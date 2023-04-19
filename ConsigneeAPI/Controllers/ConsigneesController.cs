@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ConsigneesAPI.Controller;
 
 [ApiController]
+[Route("/api/[controller]")]
 public class ConsigneesController : ControllerBase
 {
 
@@ -17,7 +18,7 @@ public class ConsigneesController : ControllerBase
         this._service = service;
     }
 
-    [HttpGet("/api/consignees")]
+    [HttpGet("consignees")]
 
     public IActionResult GetConsignees()
     {
@@ -39,5 +40,62 @@ public class ConsigneesController : ControllerBase
         {
             return BadRequest(e);
         }
+    }
+
+
+     [HttpGet("GetById/{id}")]
+    public IActionResult GetById(int id)
+    {
+        var message = _service.GetById(id);
+        if (message == null)
+        {
+            return BadRequest();
+        }
+        else
+        {
+            return Ok(message);
+        }
+    }
+
+      [HttpPost("insert")]
+    public IActionResult Insert([FromBody] Consignee consignee)
+    {
+        bool  status= _service.Insert(consignee);
+        if (status)
+        {
+            return Ok("record inserted successfully");
+        }
+        else
+        {
+         return BadRequest();
+        }
+    }
+
+     [HttpPut("update")]
+
+    public IActionResult Update([FromBody] Consignee consignee){
+        bool status=_service.Update(consignee);
+         if (status)
+        {
+            return Ok("record updated successfully");
+        }
+        else
+        {
+         return BadRequest();
+        }
+        
+    }
+       [HttpDelete("delete/{id}")]
+         public IActionResult Delete(int id){
+        bool status=_service.Delete(id);
+         if (status)
+        {
+            return Ok("record deleted successfully");
+        }
+        else
+        {
+         return BadRequest();
+        }
+        
     }
 }

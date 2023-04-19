@@ -17,4 +17,21 @@ public class ConsigneeService : IConsigneeService
     {
         return _repo.AllConsignee();
     }
+    public Consignee GetById(int id)
+    {
+        return _repo.GetById(id);
+    }
+    public bool Insert(Consignee consignee)
+    {
+        return _repo.Insert(consignee);
+    }
+    public bool Update(Consignee consignee)
+    {
+        return _repo.Update(consignee);
+
+    }
+    public bool Delete(int id)
+    {
+        return _repo.Delete(id);
+    }
 }
