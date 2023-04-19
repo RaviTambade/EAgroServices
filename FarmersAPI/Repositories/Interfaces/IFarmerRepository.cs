@@ -1,11 +1,12 @@
+using System.Collections.Generic;
 using FarmersAPI.Models;
 namespace FarmersAPI.Repositories.Interfaces;
 public interface IFarmerRepository{
-    List<Farmer> GetAllFarmers();
-    Farmer GetFarmerById(int id);
-    bool InsertFarmer(Farmer farmer);
-    bool UpdateFarmer(Farmer farmer);
-    bool DeleteFarmer(int id);
+    Task<List<Farmer>> GetAllFarmers();
+    Task<Farmer> GetFarmerById(int farmerId);
+    Task<bool> InsertFarmer(Farmer farmer);
+    Task<bool> UpdateFarmer(int farmerId,Farmer farmer);
+    Task<bool> DeleteFarmer(int farmerId);
 
     
 }

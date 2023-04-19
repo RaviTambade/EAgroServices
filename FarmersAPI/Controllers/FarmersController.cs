@@ -1,93 +1,56 @@
 using FarmersAPI.Models;
 using FarmersAPI.Services.Interfaces;
-using FarmersAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-
-namespace FarmersAPI.Controllers;
-[ApiController]
-public class FarmersControllers : ControllerBase
+namespace FarmersAPI.Controllers
 {
-    private readonly IFarmerService _srv;
-
-    public FarmersControllers(IFarmerService srv)
+    [ApiController]
+    [Route("/api/[controller]")]
+    public class FarmersController : ControllerBase
     {
-        this._srv = srv;
+        private readonly IFarmerService _srv;
+        public FarmersController(IFarmerService srv)
+        {
+            this._srv = srv;
+        }
+        [HttpGet]
+        [Route("getallfarmers")]
+        public async Task<List<Farmer>> GetAllFarmers()
+        {
+            List<Farmer> farmers = await _srv.GetAllFarmers();
+            return farmers;
+        }
+
+        [HttpGet]
+        [Route("getdetails/{id}")]
+        public async Task<Farmer> GetFarmerById(int id)
+        {
+            Farmer farmer = await _srv.GetFarmerById(id);
+            return farmer;
+        }
+
+        [HttpPost]
+        [Route("insert")]
+        public async Task<bool> InsertFarmer([FromBody] Farmer farmer)
+        {
+            return await _srv.InsertFarmer(farmer);
+        }
+
+        [HttpPut]
+        [Route("update/{id}")]
+        public async Task<bool> UpdateFarmer(int id, [FromBody] Farmer farmer)
+        { 
+             return await _srv.UpdateFarmer(id, farmer);
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<bool> DeleteFarmer(int id)
+        {
+            return await _srv.DeleteFarmer(id);
+        }
+
     }
-
-    [HttpGet("/api/farmers")]
-    public IActionResult GetAllFarmers()
-    {
-        var message = _srv.GetAllFarmers();
-        if (message == null)
-        {
-            return BadRequest();
-        }
-        else
-        {
-            return Ok(message);
-        }
-
-    }
-
-
-   [HttpGet("/api/farmers/{id}")]
-    public IActionResult GetFarmerById(int id)
-    {
-        var message = _srv.GetFarmerById(id);
-        if (message == null)
-        {
-            return BadRequest();
-        }
-        else
-        {
-            return Ok(message);
-        }
-    }
-
-     [HttpPost("/api/farmers/insert")]
-    public IActionResult InsertFarmer([FromBody]  Farmer farmer)
-    {
-        bool  status= _srv.InsertFarmer(farmer);
-        if (status)
-        {
-            return Ok("record inserted successfully");
-        }
-        else
-        {
-         return BadRequest();
-        }
-    }
-
-    [HttpPut("/api/farmers/update")]
-
-    public IActionResult UpdateFarmer([FromBody] Farmer farmer){
-        bool status=_srv.UpdateFarmer(farmer);
-         if (status)
-        {
-            return Ok("record updated successfully");
-        }
-        else
-        {
-         return BadRequest();
-        }
-        
-    }
-
-        [HttpDelete("/api/farmers/delete/{id}")]
-         public IActionResult DeleteFarmer(int id){
-        bool status=_srv.DeleteFarmer(id);
-         if (status)
-        {
-            return Ok("record deleted successfully");
-        }
-        else
-        {
-         return BadRequest();
-        }
-        
-    }
-
-}   
+}
 
 
 

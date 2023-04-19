@@ -23,13 +23,12 @@ public class TransportContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Transport>(entity =>
         {
-            entity.HasKey(e => e.TruckId);
+            entity.HasKey(e => e.TransportId);
             entity.Property(e => e.TruckNumber);
-            entity.Property(e => e.OwnerName);
+            entity.Property(e => e.FirstName);
+            entity.Property(e => e.LastName);
             entity.Property(e => e.OfficeName);
             entity.Property(e => e.ContactNumber);
-            entity.Property(e => e.AccountNumber);
-            entity.Property(e => e.IFSCCode);
             entity.Property(e => e.Location);
         });
         modelBuilder.Entity<Transport>().ToTable("transports");

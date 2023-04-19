@@ -1,3 +1,4 @@
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 --Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -233,7 +234,7 @@ FOR EACH ROW BEGIN
 	VALUES 
 	        NEW.purchase_id,
 	        NEW.net_weight
-	    );
+	    ;
 END; 
 
 CREATE TRIGGER ADD_USER AFTER INSERT ON FARMERS FOR 
@@ -602,7 +603,7 @@ SELECT products.product_id,products.product_title,products.unit_price,bill_produ
 
 WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id
 
-and farmer_bills.farmer_id=1 ORDER BY bill_date ;
+and farmer_bills.farmer_id=1 ORDER BY bill_date ;   
 
 SELECT
     farmers.first_name,
@@ -656,3 +657,39 @@ VALUES
 (1, 'Potato', 50, 2500, 25, 30, 400), (2, 'Onion', 500, 500, 2, 10, 2000), ( 3,'Onion',1000,50000,1000,12,4000);
 
 DESCRIBE purchaseditems;
+
+SELECT * FROM farmers;
+
+SELECT sum(products.unit_price * bill_products.quantity) AS amount,bill_date FROM bill_products
+    INNER JOIN products ON products.product_id = bill_products.product_id
+    INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
+    INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
+     WHERE farmer_bills.bill_id=1; --ORDER BY bill_date; 
+
+-- WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id
+
+
+
+CREATE PROCEDURE update_farmer_debit_balance(IN billId INT)
+BEGIN
+DECLARE totalAmount DOUBLE;
+DECLARE debitBalance DOUBLE;
+DECLARE farmerId INT;
+START TRANSACTION;
+SELECT sum(products.unit_price * bill_products.quantity) INTO totalAmount FROM bill_products
+    INNER JOIN products ON products.product_id = bill_products.product_id
+    INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
+    INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
+    WHERE farmer_bills.bill_id=billId;
+    SELECT farmer_id INTO farmerId FROM farmer_bills WHERE bill_id=billId;
+    SELECT debit_balance INTO debitBalance FROM farmers WHERE farmer_id=farmerId;
+    UPDATE farmer_bills SET bill_total=totalAmount WHERE bill_id=billId;
+    UPDATE farmers SET debit_balance=debitBalance+totalAmount WHERE farmer_id=farmerId;
+COMMIT;
+END;
+
+select * from farmer_bills;
+CALL update_farmer_debit_balance(1);
+
+SELECT * FROM farmer_bills;
+SELECT * FROM farmers;
