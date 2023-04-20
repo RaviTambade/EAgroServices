@@ -1,68 +1,122 @@
 using System.Collections.Generic;
+using System.Net;
 using ConsigneesAPI.Context;
 using ConsigneesAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsigneesAPI.Repositories;
 
 public class ConsigneeRepository : IConsigneeRepository
 {
-    public List<Consignee> AllConsignee()
+    private readonly IConfiguration _configuration;
+    public ConsigneeRepository(IConfiguration configuration)
     {
-        List<Consignee>consignees =null;
-       using (var context =new ConsigneeContext())
-       {
-        consignees= context.Consignees.ToList();
-        return consignees;
-
-       }
+        _configuration = configuration;
     }
-    public Consignee GetById(int id)
+    public async Task<List<Consignee>> AllConsignee()
     {
-        using (var context = new ConsigneeContext())
+        try
         {
-         var consignee=context.Consignees.Find(id);
-            return consignee;
-        } 
-
-    }
-
-    public bool Insert(Consignee consignee)
-    {
-        using (var context = new ConsigneeContext()){
-
-        context.Consignees.Add(consignee);
-        context.SaveChanges();
-        return true;
-
+            using (var context = new ConsigneeContext(_configuration))
+            {
+                List<Consignee> consignees = await context.Consignees.ToListAsync();
+                if (consignees == null)
+                {
+                    return null;
+                }
+                return consignees;
+            }
         }
-    }
-    public bool Update(Consignee consignee)
-    {
-        using (var context = new ConsigneeContext())
-        { 
-            var oldConsignee=context.Consignees.Find(consignee.ConsigneeId);
-
-
-          oldConsignee.ConsigneeId=consignee.ConsigneeId;
-          oldConsignee.ConsigneeName=consignee.ConsigneeName;
-          oldConsignee.AccountNumber=consignee.AccountNumber;
-          oldConsignee.ContactNumber=consignee.ContactNumber;
-          oldConsignee.IFSCCode=consignee.IFSCCode;
-          oldConsignee.Location=consignee.Location;
-          context.SaveChanges();
-          return true;
-
-        }
-
-    } 
-    public bool Delete(int id)
-    {
-        using(var context = new ConsigneeContext())
+        catch (Exception e)
         {
-            context.Consignees.Remove(context.Consignees.Find(id));
-            context.SaveChanges();
-            return true;
-
+            throw e;
         }
+    }
+    public async Task<Consignee> GetById(int consigneeId)
+    {
+        try
+        {
+            using (var context = new ConsigneeContext(_configuration))
+            {
+                Consignee consignee = await context.Consignees.FindAsync(consigneeId);
+                if (consignee == null)
+                {
+                    return null;
+                }
+                return consignee;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    public async Task<bool> Insert(Consignee consignee)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new ConsigneeContext(_configuration))
+            {
+                await context.Consignees.AddAsync(consignee);
+                await context.SaveChangesAsync();
+                status = true;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
+    public async Task<bool> Update(int consigneeId, Consignee consignee)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new ConsigneeContext(_configuration))
+            {
+                Consignee? oldConsignee = await context.Consignees.FindAsync(consigneeId);
+                if (oldConsignee != null)
+                {
+                    oldConsignee.FirstName = consignee.FirstName;
+                    oldConsignee.LastName = consignee.LastName;
+                    oldConsignee.CompanyName = consignee.CompanyName;
+                    oldConsignee.ContactNumber = consignee.ContactNumber;
+                    oldConsignee.Location = consignee.Location;
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+
+    }
+    public async Task<bool> Delete(int consigneeId)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new ConsigneeContext(_configuration))
+            {
+                Consignee? consignee = await context.Consignees.FindAsync(consigneeId);
+                if (consignee != null)
+                {
+                    context.Consignees.Remove(consignee);
+                    await context.SaveChangesAsync();
+                    status = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
     }
 }

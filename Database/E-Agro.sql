@@ -671,13 +671,13 @@ DESCRIBE purchaseditems;
 
 SELECT * FROM farmers;
 
-SELECT sum(products.unit_price * bill_products.quantity) AS amount,bill_date FROM bill_products
-    INNER JOIN products ON products.product_id = bill_products.product_id
-    INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
-    INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
-     WHERE farmer_bills.bill_id=1;--ORDER BY bill_date; 
+-- SELECT sum(products.unit_price * bill_products.quantity) AS amount,bill_date FROM bill_products
+--     INNER JOIN products ON products.product_id = bill_products.product_id
+--     INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
+--     INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
+--      WHERE farmer_bills.bill_id=1;ORDER BY bill_date; 
 
--- WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id
+-- WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id;
 
 
 

@@ -1,14 +1,12 @@
 using ConsigneesAPI.Models;
-
 namespace ConsigneesAPI.Repositories;
 public interface IConsigneeRepository
 {
-
-    List<Consignee> AllConsignee();
-    Consignee GetById(int id);
-    bool Insert(Consignee consignee);
-    bool Update(Consignee consignee);
-    bool Delete(int id);
+    Task<List<Consignee>> AllConsignee();
+    Task<Consignee> GetById(int consigneeId);
+    Task<bool> Insert(Consignee consignee);
+    Task<bool> Update(int consigneeId,Consignee consignee);
+    Task<bool> Delete(int consigneeId);
 
 
 }

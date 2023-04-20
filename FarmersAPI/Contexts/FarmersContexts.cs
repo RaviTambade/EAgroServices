@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using FarmersAPI.Models;
-using Microsoft.Extensions.Configuration;
 namespace FarmersAPI.Contexts;
 public class FarmersContext : DbContext // Defines a DbContext called FarmersContext
 {

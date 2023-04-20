@@ -1,101 +1,47 @@
+using System.Reflection.Metadata;
 using ConsigneesAPI.Models;
 using ConsigneesAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-
-
 namespace ConsigneesAPI.Controller;
-
 [ApiController]
 [Route("/api/[controller]")]
 public class ConsigneesController : ControllerBase
 {
-
     private readonly IConsigneeService _service;
-
     public ConsigneesController(IConsigneeService service)
     {
-
         this._service = service;
     }
 
-    [HttpGet("consignees")]
-
-    public IActionResult GetConsignees()
+    [HttpGet("getallconsignees")]
+    public async Task<List<Consignee>> GetConsignees()
     {
-
-        try
-        {
-            var message = _service.AllConsignee();
-            if (message == null)
-            {
-                return BadRequest();
-            }
-            else
-            {
-                return Ok(message);
-            }
-
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e);
-        }
+        return await _service.AllConsignee();
     }
 
-
-     [HttpGet("GetById/{id}")]
-    public IActionResult GetById(int id)
+    [HttpGet("GetById/{id}")]
+    public async Task<Consignee> GetById(int id)
     {
-        var message = _service.GetById(id);
-        if (message == null)
-        {
-            return BadRequest();
-        }
-        else
-        {
-            return Ok(message);
-        }
+        return await _service.GetById(id);
     }
 
-      [HttpPost("insert")]
-    public IActionResult Insert([FromBody] Consignee consignee)
+    [HttpPost("insert")]
+    public async Task<bool> Insert([FromBody] Consignee consignee)
     {
-        bool  status= _service.Insert(consignee);
-        if (status)
-        {
-            return Ok("record inserted successfully");
-        }
-        else
-        {
-         return BadRequest();
-        }
+        return await _service.Insert(consignee);
     }
 
-     [HttpPut("update")]
+    [HttpPut("update/{id}")]
 
-    public IActionResult Update([FromBody] Consignee consignee){
-        bool status=_service.Update(consignee);
-         if (status)
-        {
-            return Ok("record updated successfully");
-        }
-        else
-        {
-         return BadRequest();
-        }
-        
+    public async Task<bool> Update(int id, [FromBody] Consignee consignee)
+    {
+        return await _service.Update(id, consignee);
     }
-       [HttpDelete("delete/{id}")]
-         public IActionResult Delete(int id){
-        bool status=_service.Delete(id);
-         if (status)
-        {
-            return Ok("record deleted successfully");
-        }
-        else
-        {
-         return BadRequest();
-        }
-        
+
+    [HttpDelete("delete/{id}")]
+    public async Task<bool> Delete(int id)
+    {
+        return await _service.Delete(id);
+
     }
 }

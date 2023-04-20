@@ -13,25 +13,25 @@ public class ConsigneeService : IConsigneeService
     {
         this._repo=repo;
     }
-    public List<Consignee> AllConsignee()
+    public async Task<List<Consignee>> AllConsignee()
     {
-        return _repo.AllConsignee();
+        return await _repo.AllConsignee();
     }
-    public Consignee GetById(int id)
+    public async Task<Consignee> GetById(int consigneeId)
     {
-        return _repo.GetById(id);
+        return await _repo.GetById(consigneeId);
     }
-    public bool Insert(Consignee consignee)
+    public async Task<bool> Insert(Consignee consignee)
     {
-        return _repo.Insert(consignee);
+        return await _repo.Insert(consignee);
     }
-    public bool Update(Consignee consignee)
+    public async Task<bool> Update(int consigneeId,Consignee consignee)
     {
-        return _repo.Update(consignee);
+        return await _repo.Update(consigneeId,consignee);
 
     }
-    public bool Delete(int id)
+    public async Task<bool> Delete(int consigneeId)
     {
-        return _repo.Delete(id);
+        return await _repo.Delete(consigneeId);
     }
 }
