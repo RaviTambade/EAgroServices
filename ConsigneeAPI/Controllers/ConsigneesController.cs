@@ -32,7 +32,6 @@ public class ConsigneesController : ControllerBase
     }
 
     [HttpPut("update/{id}")]
-
     public async Task<bool> Update(int id, [FromBody] Consignee consignee)
     {
         return await _service.Update(id, consignee);
