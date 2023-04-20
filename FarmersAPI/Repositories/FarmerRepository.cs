@@ -15,7 +15,7 @@ public class FarmerRepository : IFarmerRepository
     {
         try
         {
-            using (var context = new FarmersContext(_configuration))
+               using (var context = new FarmersContext(_configuration))
             {
                 List<Farmer> farmers = await context.Farmers.ToListAsync();
                 if (farmers == null)
