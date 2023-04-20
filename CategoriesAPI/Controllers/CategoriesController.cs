@@ -38,7 +38,7 @@ public class CategoriesController:ControllerBase{
     
     [HttpDelete]
     [Route("delete/{id}")]
-    public async Task<bool> GetCategories(int id){
+    public async Task<bool> Delete(int id){
         return await _srv.Delete(id);
     }
 }
