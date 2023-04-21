@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1678361403571@@127.0.0.1@3306@ecommerce
 --Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -708,3 +708,8 @@ CALL update_farmer_debit_balance(3);
 
 SELECT * FROM farmer_bills;
 SELECT * FROM farmers;
+SELECT * FROM employees;
+
+
+INSERT INTO employees (first_name,last_name,contact_number,location,password,salary)
+                VALUES('Abhay','Navale','9075966080','Bhavadi','123123',3738446);
