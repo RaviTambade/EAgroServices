@@ -133,7 +133,7 @@ CREATE TABLE
         dealer_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         first_name varchar(20)  NOT NULL,
         last_name varchar(20)  NOT NULL,
-        company_name varchar(20)  NOT NULL,
+        company_name varchar(20),
         contact_number VARCHAR(15) NOT NULL,
         location VARCHAR(20) NOT NULL
         );
