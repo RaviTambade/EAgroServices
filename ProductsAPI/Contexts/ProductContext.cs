@@ -26,8 +26,8 @@ public class ProductContext:DbContext{
             entity.Property(e=>e.StockAvailable);
             entity.Property(e=>e.UnitPrice);
             entity.Property(e=>e.ImageUrl);
-            entity.Property(e=>e.CategoryId);
-            entity.Property(e=>e.DealerId);
+            entity.HasForeignKey(e=>e.CategoryId);
+            entity.HasForeignKey(e=>e.DealerId);
 
         });
         modelBuilder.Entity<Product>().ToTable("products");

@@ -4,7 +4,6 @@ using ProductsAPI.Models;
 using ProductsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using CategProductsAPIoriesAPI.Services;
-
 namespace ProductsAPI.Controller;
 [ApiController]
 [Route("/api/[controller]")]
