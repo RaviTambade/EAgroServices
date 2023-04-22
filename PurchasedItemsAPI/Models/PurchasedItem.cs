@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-
 namespace PurchasedItemsAPI.Models;
 public class PurchasedItem
 {
@@ -21,6 +20,7 @@ public class PurchasedItem
     [Column("tare_weight")]
     public double TareWeight { get; set; }
 
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     [Column("net_weight")]
     public double NetWeight { get; set; }
 
@@ -30,9 +30,14 @@ public class PurchasedItem
     [Column("labour_charges")]
     public double LabourCharges { get; set; }
 
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     [Column("total_amount")]
     public double TotalAmount { get; set; }
 
     [Column("date")]
-    public string Date { get; set; }
+    public DateTime Date { get; set; }
+
+    public PurchasedItem(){
+        Date=DateTime.Now;
+    }
 }

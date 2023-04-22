@@ -1,5 +1,5 @@
--- Active: 1678361403571@@127.0.0.1@3306@ecommerce
---Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -190,7 +190,7 @@ CREATE TABLE
         labour_charges DOUBLE DEFAULT 0,
         total_amount DOUBLE AS ( (net_weight * rate_per_kg) - labour_charges
         ),
-        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_farmers FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
@@ -713,3 +713,5 @@ SELECT * FROM employees;
 
 INSERT INTO employees (first_name,last_name,contact_number,location,password,salary)
                 VALUES('Abhay','Navale','9075966080','Bhavadi','123123',3738446);
+
+                SELECT date FROM purchasedItems;
