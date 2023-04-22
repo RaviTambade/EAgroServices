@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/FarmersAPI/bin/Debug/net7.0/FarmersAPI.dll",
+            "program": "${workspaceFolder}/AccountAPI/bin/Debug/net7.0/AccountAPI.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/FarmersAPI",
+            "cwd": "${workspaceFolder}/AccountAPI",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

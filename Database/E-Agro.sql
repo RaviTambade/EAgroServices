@@ -710,6 +710,8 @@ SELECT * FROM farmer_bills;
 SELECT * FROM farmers;
 SELECT * FROM employees;
 SELECT * FROM solditems;
+SELECT * FROM accounts;
+INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
 
 
 INSERT INTO employees (first_name,last_name,contact_number,location,password,salary)
