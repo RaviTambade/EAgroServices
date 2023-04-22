@@ -2,7 +2,7 @@ using SoldItemsAPI.Context;
 using SoldItemsAPI.Models;
 using SoldItemsAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
- 
+
 namespace SoldItemsAPI.Repositories
 {
     public class SoldItemsRepository : ISoldItemsRepository
@@ -81,19 +81,19 @@ public async Task<IEnumerable<SoldItems>>GetSoldItemsDetails()
             Console.WriteLine(soldItems.TransportId);
             using (var context = new SoldItemsContext(_configuration))
             {
-                SoldItems? oldSoldItems = await context.SoldItems.FindAsync(sellId);
+                SoldItems oldSoldItems = await context.SoldItems.FindAsync(sellId);
                 if (oldSoldItems != null)
                 {
+                    Console.WriteLine(oldSoldItems.SellId);
                     Console.WriteLine(soldItems.TotalAmount);
                     oldSoldItems.PurchaseId = soldItems.PurchaseId;
                     oldSoldItems.ConsigneeId = soldItems.ConsigneeId;
                     oldSoldItems.TransportId = soldItems.TransportId;
                     oldSoldItems.NetWeight = soldItems.NetWeight;
                     oldSoldItems.RatePerKg = soldItems.RatePerKg;
-                    oldSoldItems.TotalAmount = soldItems.TotalAmount;
+                    // oldSoldItems.TotalAmount=soldItems.TotalAmount;
                     oldSoldItems.Date = soldItems.Date;
                     Console.WriteLine(oldSoldItems.TotalAmount);
-
                     await context.SaveChangesAsync(); 
                     status= true;
                 }

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace SoldItemsAPI.Models;
 
@@ -22,7 +23,9 @@ public class SoldItems
     [Column("date")]
     public DateTime Date{get;set;}
 
-
+    public SoldItems(){
+        Date=DateTime.Now;
+    }
 
 }
 
