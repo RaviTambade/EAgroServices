@@ -263,6 +263,10 @@ END;
 
 CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON PURCHASEDITEMS 
 FOR EACH ROW BEGIN 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 093da94b9fa1fe785ffbcc86da371e0688a90f3e
 
 	UPDATE farmers
 	SET
@@ -709,10 +713,14 @@ CALL update_farmer_debit_balance(3);
 SELECT * FROM farmer_bills;
 SELECT * FROM farmers;
 SELECT * FROM employees;
+SELECT * FROM solditems;
+SELECT * FROM accounts;
+INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
 
 
 INSERT INTO employees (first_name,last_name,contact_number,location,password,salary)
                 VALUES('Abhay','Navale','9075966080','Bhavadi','123123',3738446);
+
 
                 SELECT date FROM purchasedItems;
 SELECT * FROM solditems;

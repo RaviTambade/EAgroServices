@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/FarmersAPI/FarmersAPI.csproj",
+                "${workspaceFolder}/AccountAPI/AccountAPI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/FarmersAPI/FarmersAPI.csproj",
+                "${workspaceFolder}/AccountAPI/AccountAPI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/FarmersAPI/FarmersAPI.csproj"
+                "${workspaceFolder}/AccountAPI/AccountAPI.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
