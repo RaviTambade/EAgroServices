@@ -28,7 +28,10 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
           entity.Property(e => e.ConsigneeId);
           entity.Property(e => e.TransportId);
           entity.Property(e => e.NetWeight);
-          entity.Property(e => e.RetPerKg);
+          entity.Property(e => e.RatePerKg);
+          entity.Property(e => e.TotalAmount);
+                // .HasColumnType("double")
+                // .HasComputedColumnSql("rate_per_kg * net_weight");
           entity.Property(e => e.Date);
           modelBuilder.Entity<SoldItems>().ToTable("solditems");
         });

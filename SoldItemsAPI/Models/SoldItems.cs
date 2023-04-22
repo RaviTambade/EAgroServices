@@ -13,9 +13,11 @@ public class SoldItems
     public int TransportId{get;set;}
     [Column("net_weight")]
     public double NetWeight{get;set;}
-    [Column("ret_per_kg")]
-    public  double RetPerKg{get;set;}
-    [Column("total_amount")]
+    [Column("rate_per_kg")]
+    public  double RatePerKg{get;set;}
+    
+     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+     [Column("total_amount")]
     public double TotalAmount{get;set;}
     [Column("date")]
     public DateTime Date{get;set;}

@@ -74,22 +74,28 @@ public async Task<IEnumerable<SoldItems>>GetSoldItemsDetails()
         bool status = false;
         try
         {
+            Console.WriteLine(sellId);
+            Console.WriteLine(soldItems.RatePerKg);
+            Console.WriteLine(soldItems.NetWeight);
+            Console.WriteLine(soldItems.Date);
+            Console.WriteLine(soldItems.TransportId);
             using (var context = new SoldItemsContext(_configuration))
             {
-                SoldItems? oldSolditems = await context.SoldItems.FindAsync(sellId);
-                if (soldItems != null)
+                SoldItems? oldSoldItems = await context.SoldItems.FindAsync(sellId);
+                if (oldSoldItems != null)
                 {
-                    oldSolditems.SellId = soldItems.SellId;
-                    oldSolditems.PurchaseId = soldItems.PurchaseId;
-                    oldSolditems.ConsigneeId = soldItems.ConsigneeId;
-                    oldSolditems.TransportId = soldItems.TransportId;
-                    oldSolditems.NetWeight = soldItems.NetWeight;
-                    oldSolditems.RetPerKg = soldItems.RetPerKg;
-                    oldSolditems.TotalAmount = soldItems.TotalAmount;
-                    oldSolditems.Date = soldItems.Date;
+                    Console.WriteLine(soldItems.TotalAmount);
+                    oldSoldItems.PurchaseId = soldItems.PurchaseId;
+                    oldSoldItems.ConsigneeId = soldItems.ConsigneeId;
+                    oldSoldItems.TransportId = soldItems.TransportId;
+                    oldSoldItems.NetWeight = soldItems.NetWeight;
+                    oldSoldItems.RatePerKg = soldItems.RatePerKg;
+                    oldSoldItems.TotalAmount = soldItems.TotalAmount;
+                    oldSoldItems.Date = soldItems.Date;
+                    Console.WriteLine(oldSoldItems.TotalAmount);
 
                     await context.SaveChangesAsync(); 
-                    return true;
+                    status= true;
                 }
             }
         }
