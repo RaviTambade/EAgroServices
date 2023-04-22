@@ -1,5 +1,5 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
---Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -263,6 +263,7 @@ END;
 
 CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON PURCHASEDITEMS 
 FOR EACH ROW BEGIN 
+<<<<<<< HEAD
 
 	UPDATE farmers
 	SET
@@ -716,3 +717,5 @@ INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
 
 INSERT INTO employees (first_name,last_name,contact_number,location,password,salary)
                 VALUES('Abhay','Navale','9075966080','Bhavadi','123123',3738446);
+=======
+>>>>>>> 189e7a33eadc592c283dd4fbad7d1855297b5d31
