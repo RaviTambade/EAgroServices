@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677250210484@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -246,7 +246,7 @@ CONSTRAINT fk_account8_id FOREIGN KEY (from_account_id) REFERENCES accounts(acco
 --     );
 -- END; 
 
-CREATE TRIGGER ADD_USER AFTER INSERT ON FARMERS FOR 
+CREATE TRIGGER ADD_USER AFTER INSERT ON farmers FOR 
 EACH ROW BEGIN 
 	INSERT INTO
 	    users (contact_number, password)
@@ -256,18 +256,13 @@ EACH ROW BEGIN
 	    );
 END; 
 
-CREATE TRIGGER DEL_USER AFTER DELETE ON FARMERS FOR 
+CREATE TRIGGER DEL_USER AFTER DELETE ON farmers FOR 
 EACH ROW BEGIN 
 	DELETE FROM users WHERE contact_number = OLD.contact_number;
 END; 
 
-CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON PURCHASEDITEMS 
-FOR EACH ROW BEGIN 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 093da94b9fa1fe785ffbcc86da371e0688a90f3e
-
+CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON purchasedItems 
+FOR EACH ROW BEGIN
 	UPDATE farmers
 	SET
 	    credit_balance = credit_balance + NEW.total_amount
@@ -671,7 +666,7 @@ INSERT INTO
 VALUES
 (1, 'Potato', 50, 2500, 25, 30, 400), (2, 'Onion', 500, 500, 2, 10, 2000), ( 3,'Onion',1000,50000,1000,12,4000);
 
-DESCRIBE purchaseditems;
+DESCRIBE purchasedItems;
 
 SELECT * FROM farmers;
 
@@ -713,8 +708,9 @@ CALL update_farmer_debit_balance(3);
 SELECT * FROM farmer_bills;
 SELECT * FROM farmers;
 SELECT * FROM employees;
-SELECT * FROM solditems;
+SELECT * FROM soldItems;
 SELECT * FROM accounts;
+SELECT * FROM bill_products;
 INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
 
 
@@ -723,7 +719,7 @@ INSERT INTO employees (first_name,last_name,contact_number,location,password,sal
 
 
                 SELECT date FROM purchasedItems;
-SELECT * FROM solditems;
-INSERT INTO solditems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,1000,20);
-INSERT INTO solditems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,2000,40);
+SELECT * FROM soldItems;
+INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,1000,20);
+INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,2000,40);
 SELECT * FROM consignees;
