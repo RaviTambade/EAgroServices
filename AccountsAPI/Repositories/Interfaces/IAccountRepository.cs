@@ -1,9 +1,9 @@
-using AccountAPI.Models;
-using AccountAPI.Context;
+using AccountsAPI.Models;
+using AccountsAPI.Context;
 using System.Threading.Tasks;
 using System.Collections;
 
-namespace AccountAPI.Repositories.Interfaces;
+namespace AccountsAPI.Repositories.Interfaces;
 public interface IAccountRepository{
     public Task<IEnumerable<Account>> GetAllAccounts();
     public Task<Account> GetAccount(int accountId);

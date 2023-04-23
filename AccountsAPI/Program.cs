@@ -1,7 +1,7 @@
-using AccountAPI.Repositories.Interfaces;
-using AccountAPI.Services.Interfaces;
-using AccountAPI.Repositories;
-using AccountAPI.Services;
+using AccountsAPI.Repositories.Interfaces;
+using AccountsAPI.Services.Interfaces;
+using AccountsAPI.Repositories;
+using AccountsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

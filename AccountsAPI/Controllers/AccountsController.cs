@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AccountAPI.Models;
-using AccountAPI.Services;
-using AccountAPI.Services.Interfaces;
+using AccountsAPI.Models;
+using AccountsAPI.Services;
+using AccountsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace AccountAPI.Controller;
+namespace AccountsAPI.Controller;
 
 [ApiController]
 [Route("/api/[controller]")]

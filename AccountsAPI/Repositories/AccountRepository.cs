@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
-using AccountAPI.Context;
-using AccountAPI.Models;
-using AccountAPI.Repositories.Interfaces;
+using AccountsAPI.Context;
+using AccountsAPI.Models;
+using AccountsAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace AccountAPI.Repositories;
+namespace AccountsAPI.Repositories;
 public class AccountRepository : IAccountRepository
 {
     private readonly IConfiguration _configuration;

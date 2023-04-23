@@ -1,11 +1,11 @@
-using AccountAPI.Repositories.Interfaces;
-using AccountAPI.Services.Interfaces;
-using AccountAPI.Repositories;
+using AccountsAPI.Repositories.Interfaces;
+using AccountsAPI.Services.Interfaces;
+using AccountsAPI.Repositories;
 using System.Threading.Tasks;
 using System.Collections;
-using AccountAPI.Models;
+using AccountsAPI.Models;
 
-namespace AccountAPI.Services;
+namespace AccountsAPI.Services;
 public class AccountService:IAccountServices{
 
      private readonly IAccountRepository _repo;

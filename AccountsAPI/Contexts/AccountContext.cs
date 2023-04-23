@@ -1,8 +1,8 @@
 using System.Reflection.Emit;
 using System.Diagnostics;
-using AccountAPI.Models;
+using AccountsAPI.Models;
 using Microsoft.EntityFrameworkCore;
-namespace AccountAPI.Context;
+namespace AccountsAPI.Context;
 public class AccountContext:DbContext{
     private readonly IConfiguration _configuration;
     private readonly string _conString;
@@ -26,11 +26,3 @@ public class AccountContext:DbContext{
     }
 }
 
-
-
-// CREATE TABLE
-//     accounts(
-//         account_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-//         account_number VARCHAR(20),
-//         ifsc_code VARCHAR(20)
-//     );
