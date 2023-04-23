@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 -- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+=======
+-- Active: 1677250210484@@127.0.0.1@3306@eagroservicesdb
+>>>>>>> 67b4bce1003c5205b60af84624ed868371d2594b
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -190,7 +194,7 @@ CREATE TABLE
         labour_charges DOUBLE DEFAULT 0,
         total_amount DOUBLE AS ( (net_weight * rate_per_kg) - labour_charges
         ),
-        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_farmers FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
@@ -236,17 +240,17 @@ CREATE TABLE
         to_account_id INT NOT NULL, 
 CONSTRAINT fk_account8_id FOREIGN KEY (from_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
  CONSTRAINT fk_account7_id FOREIGN KEY (to_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE);
-CREATE TRIGGER SELL_INSERT AFTER INSERT ON PURCHASEDITEMS 
-FOR EACH ROW BEGIN 
-	INSERT INTO
-	    soldItems(purchase_id, net_weight)
-	VALUES (
-	        NEW.purchase_id,
-	        NEW.net_weight
-    );
-END; 
+-- CREATE TRIGGER SELL_INSERT AFTER INSERT ON PURCHASEDITEMS 
+-- FOR EACH ROW BEGIN 
+-- 	INSERT INTO
+-- 	    soldItems(purchase_id, net_weight)
+-- 	VALUES (
+-- 	        NEW.purchase_id,
+-- 	        NEW.net_weight
+--     );
+-- END; 
 
-CREATE TRIGGER ADD_USER AFTER INSERT ON FARMERS FOR 
+CREATE TRIGGER ADD_USER AFTER INSERT ON farmers FOR 
 EACH ROW BEGIN 
 	INSERT INTO
 	    users (contact_number, password)
@@ -256,15 +260,13 @@ EACH ROW BEGIN
 	    );
 END; 
 
-CREATE TRIGGER DEL_USER AFTER DELETE ON FARMERS FOR 
+CREATE TRIGGER DEL_USER AFTER DELETE ON farmers FOR 
 EACH ROW BEGIN 
 	DELETE FROM users WHERE contact_number = OLD.contact_number;
 END; 
 
-CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON PURCHASEDITEMS 
-FOR EACH ROW BEGIN 
-<<<<<<< HEAD
-
+CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON purchasedItems 
+FOR EACH ROW BEGIN
 	UPDATE farmers
 	SET
 	    credit_balance = credit_balance + NEW.total_amount
@@ -668,7 +670,7 @@ INSERT INTO
 VALUES
 (1, 'Potato', 50, 2500, 25, 30, 400), (2, 'Onion', 500, 500, 2, 10, 2000), ( 3,'Onion',1000,50000,1000,12,4000);
 
-DESCRIBE purchaseditems;
+DESCRIBE purchasedItems;
 
 SELECT * FROM farmers;
 
@@ -710,11 +712,25 @@ CALL update_farmer_debit_balance(3);
 SELECT * FROM farmer_bills;
 SELECT * FROM farmers;
 SELECT * FROM employees;
-SELECT * FROM solditems;
+SELECT * FROM soldItems;
 SELECT * FROM accounts;
+<<<<<<< HEAD
 SELECT * FROM users;
+=======
+SELECT * FROM bill_products;
+>>>>>>> 67b4bce1003c5205b60af84624ed868371d2594b
 INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
 
 
 INSERT INTO employees (first_name,last_name,contact_number,location,password,salary)
                 VALUES('Abhay','Navale','9075966080','Bhavadi','123123',3738446);
+<<<<<<< HEAD
+=======
+
+
+                SELECT date FROM purchasedItems;
+SELECT * FROM soldItems;
+INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,1000,20);
+INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,2000,40);
+SELECT * FROM consignees;
+>>>>>>> 67b4bce1003c5205b60af84624ed868371d2594b
