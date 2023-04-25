@@ -1,4 +1,3 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -73,7 +72,10 @@ CREATE TABLE
         contact_number VARCHAR(15) NOT NULL UNIQUE,
         password VARCHAR(15) NOT NULL,
         location VARCHAR(20) NOT NULL,
-        salary double
+        salary double,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        balance DOUBLE AS (credit_balance - debit_balance)
     );
 CREATE TABLE
     employee_accounts(
@@ -90,7 +92,10 @@ CREATE TABLE
         first_name VARCHAR(20) NOT NULL,
         last_name VARCHAR(20) NOT NULL,
         contact_number VARCHAR(20) NOT NULL,
-        location VARCHAR(20) NOT NULL
+        location VARCHAR(20) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        balance DOUBLE AS (credit_balance - debit_balance)
     );
 
 CREATE TABLE transports_trucks(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,transport_id INT NOT NULL,truck_number VARCHAR(15) NOT NULL UNIQUE,CONSTRAINT fk_transport3_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE);
@@ -109,7 +114,10 @@ CREATE TABLE
         last_name VARCHAR(25) NOT NULL,
         company_name VARCHAR(30),
         contact_number VARCHAR(25) NOT NULL,
-        location VARCHAR(20) NOT NULL
+        location VARCHAR(20) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        balance DOUBLE AS (credit_balance - debit_balance)
         );
 CREATE TABLE
     consignee_accounts(
@@ -135,7 +143,10 @@ CREATE TABLE
         last_name varchar(20)  NOT NULL,
         company_name varchar(20),
         contact_number VARCHAR(15) NOT NULL,
-        location VARCHAR(20) NOT NULL
+        location VARCHAR(20) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        balance DOUBLE AS (credit_balance - debit_balance)
         );
 CREATE TABLE
     dealer_accounts(
@@ -202,6 +213,9 @@ CREATE TABLE
         net_weight DOUBLE NOT NULL,
         rate_per_kg DOUBLE NOT NULL DEFAULT 0,
         total_amount DOUBLE AS (net_weight * rate_per_kg),
+        freight_charge DOUBLE,
+        Labour_charge DOUBLE,
+        total_charge Double As(freight_charge + labour_charge),
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES purchasedItems(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_consignee_id FOREIGN KEY (consignee_id) REFERENCES consignees(consignee_id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -292,6 +306,7 @@ INSERT INTO
         contact_number,
         password,
         location
+
     )
 VALUES (
         'Rohit',
@@ -711,6 +726,11 @@ SELECT * FROM employees;
 SELECT * FROM soldItems;
 SELECT * FROM accounts;
 SELECT * FROM users;
+
+SELECT * FROM solditems;
+
+SELECT * FROM transports;
+
 SELECT * FROM bill_products;
 INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
 
@@ -718,8 +738,15 @@ INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
 INSERT INTO employees (first_name,last_name,contact_number,location,password,salary)
                 VALUES('Abhay','Navale','9075966080','Bhavadi','123123',3738446);
 
+
+
+
+
+CREATE TABLE consignee_bill(id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+                            )
 SELECT date FROM purchasedItems;
 SELECT * FROM soldItems;
 INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,1000,20);
 INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,2000,40);
 SELECT * FROM consignees;
+
