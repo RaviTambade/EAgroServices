@@ -10,7 +10,8 @@ public class FarmerBillingRepository : IFarmerBillingRepository
     public List<FarmerBill> GetAllFarmerBills()
     {
         List<FarmerBill> farmerBills = new List<FarmerBill>();
-        List<FarmerBill> newfarmerBills = new List<FarmerBill>();
+        List<FarmerBill> newfarmerBills = new List<FarmerBill
+        >();
         MySqlConnection con = new MySqlConnection();
         con.ConnectionString = conString;
         try
