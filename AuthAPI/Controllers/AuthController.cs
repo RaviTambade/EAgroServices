@@ -49,4 +49,19 @@ public class AuthController:ControllerBase{
       public async Task<bool> Delete(int id){
         return await _serv.Delete(id);
       }
+
+       [HttpPost] 
+       [Route("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] AuthenticateRequest request)
+        {
+            var user =await _serv.Authenticate(request);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(user);
+        }
+
+
+
 }

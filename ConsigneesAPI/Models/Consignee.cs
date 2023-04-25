@@ -23,4 +23,11 @@ public string ContactNumber{get;set;}
 [Column("location")]
 public string Location{get;set;}
 
+[Column("credit_balance")]
+public double CreditBalance{get;set;}
+[Column("debit_balance")]
+ public double DebitBalance{get;set;}
+ [Column("balance")]
+ public double  Balance{get;set;}
+
 }
