@@ -29,6 +29,9 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
           entity.Property(e => e.CompanyName);
           entity.Property(e => e.ContactNumber);
           entity.Property(e => e.Location);
+          entity.Property(e => e.CreditBalance);
+          entity.Property(e => e.DebitBalance);
+          entity.Property(e => e.Balance);
           modelBuilder.Entity<Consignee>().ToTable("consignees");
         });
 
