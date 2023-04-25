@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 
 -- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
+=======
+>>>>>>> cb408cecbfe18c53d6ea1c8223250c7ce1af5351
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -729,19 +732,31 @@ SELECT * FROM employees;
 SELECT * FROM soldItems;
 SELECT * FROM accounts;
 SELECT * FROM users;
+<<<<<<< HEAD
 SELECT * FROM solditems;
 
 SELECT * FROM transports;
 
 
+=======
+SELECT * FROM bill_products;
+>>>>>>> cb408cecbfe18c53d6ea1c8223250c7ce1af5351
 INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
 
 
 INSERT INTO employees (first_name,last_name,contact_number,location,password,salary)
                 VALUES('Abhay','Navale','9075966080','Bhavadi','123123',3738446);
 
+<<<<<<< HEAD
 
 
 
 CREATE TABLE consignee_bill(id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
                             )
+=======
+SELECT date FROM purchasedItems;
+SELECT * FROM soldItems;
+INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,1000,20);
+INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg)VALUES(1,1,1,2000,40);
+SELECT * FROM consignees;
+>>>>>>> cb408cecbfe18c53d6ea1c8223250c7ce1af5351
