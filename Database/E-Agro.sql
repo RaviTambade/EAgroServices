@@ -33,10 +33,24 @@ CREATE TABLE
         last_name VARCHAR(30) NOT NULL,
         contact_number VARCHAR(15) NOT NULL UNIQUE,
         password VARCHAR(15) NOT NULL,
-        location VARCHAR(20) NOT NULL,
+        location VARCHAR(20) NOT NULL
+    );
+CREATE TABLE
+    farmer_history(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        mode ENUM(
+            "cash",
+            "cheque",
+            "bank transfer",
+            "delivered a product",
+            "purchased a product",
+            "rtgs"
+        ) NOT NULL,
         credit_balance DOUBLE DEFAULT 0,
         debit_balance DOUBLE DEFAULT 0,
-        balance DOUBLE AS (credit_balance - debit_balance)
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        farmer_id INT NOT NULL,
+        CONSTRAINT fk_farmer3_id FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
     farmer_accounts(
@@ -63,6 +77,22 @@ CREATE TABLE
         CONSTRAINT fk_account4_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_admin_id FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+    CREATE TABLE
+    admin_history(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        mode ENUM(
+            "cash",
+            "cheque",
+            "bank transfer",
+            "delivered a product",
+            "purchased a product"
+        ) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        admin_id INT NOT NULL,
+        CONSTRAINT fk_admin3_id FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 CREATE TABLE
     employees(
         employee_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -71,10 +101,7 @@ CREATE TABLE
         contact_number VARCHAR(15) NOT NULL UNIQUE,
         password VARCHAR(15) NOT NULL,
         location VARCHAR(20) NOT NULL,
-        salary double,
-        credit_balance DOUBLE DEFAULT 0,
-        debit_balance DOUBLE DEFAULT 0,
-        balance DOUBLE AS (credit_balance - debit_balance)
+        salary double
     );
 CREATE TABLE
     employee_accounts(
@@ -84,6 +111,22 @@ CREATE TABLE
         CONSTRAINT fk_account5_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_employee_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+    CREATE TABLE
+    employee_history(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        mode ENUM(
+            "cash",
+            "cheque",
+            "bank transfer",
+            "delivered a product",
+            "purchased a product"
+        ) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        employee_id INT NOT NULL,
+        CONSTRAINT fk_employee3_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 CREATE TABLE
     transports(
         transport_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -91,17 +134,15 @@ CREATE TABLE
         first_name VARCHAR(20) NOT NULL,
         last_name VARCHAR(20) NOT NULL,
         contact_number VARCHAR(20) NOT NULL,
-        location VARCHAR(20) NOT NULL,
-        credit_balance DOUBLE DEFAULT 0,
-        debit_balance DOUBLE DEFAULT 0,
-        balance DOUBLE AS (credit_balance - debit_balance)
+        password VARCHAR(15) NOT NULL,
+        location VARCHAR(20) NOT NULL
     );
 CREATE TABLE
     transport_trucks(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         transport_id INT NOT NULL,
         truck_number VARCHAR(15) NOT NULL UNIQUE,
-        CONSTRAINT fk_transport3_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_transport_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
     transport_accounts(
@@ -111,6 +152,21 @@ CREATE TABLE
         CONSTRAINT fk_account2_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_transport2_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+    CREATE TABLE
+    transport_history(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        mode ENUM(
+            "cash",
+            "cheque",
+            "bank transfer",
+           "rtgs"
+        ) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        transport_id INT NOT NULL,
+        CONSTRAINT fk_transport3_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 CREATE TABLE
     consignees(
         consignee_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -118,10 +174,8 @@ CREATE TABLE
         last_name VARCHAR(25) NOT NULL,
         company_name VARCHAR(30),
         contact_number VARCHAR(25) NOT NULL,
-        location VARCHAR(20) NOT NULL,
-        credit_balance DOUBLE DEFAULT 0,
-        debit_balance DOUBLE DEFAULT 0,
-        balance DOUBLE AS (credit_balance - debit_balance)
+        password VARCHAR(15) NOT NULL,
+        location VARCHAR(20) NOT NULL
     );
 CREATE TABLE
     consignee_accounts(
@@ -131,6 +185,21 @@ CREATE TABLE
         CONSTRAINT fk_account3_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_consignee2_id FOREIGN KEY (consignee_id) REFERENCES consignees(consignee_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+     CREATE TABLE
+    consignee_history(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        mode ENUM(
+            "cash",
+            "cheque",
+            "bank transfer",
+           "rtgs"
+        ) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        consignee_id INT NOT NULL,
+        CONSTRAINT fk_consignee3_id FOREIGN KEY (consignee_id) REFERENCES consignees(consignee_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 CREATE TABLE
     dealers(
         dealer_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -138,10 +207,7 @@ CREATE TABLE
         last_name varchar(20) NOT NULL,
         company_name varchar(20),
         contact_number VARCHAR(15) NOT NULL,
-        location VARCHAR(20) NOT NULL,
-        credit_balance DOUBLE DEFAULT 0,
-        debit_balance DOUBLE DEFAULT 0,
-        balance DOUBLE AS (credit_balance - debit_balance)
+        location VARCHAR(20) NOT NULL
     );
 CREATE TABLE
     dealer_accounts(
@@ -150,6 +216,22 @@ CREATE TABLE
         dealer_id INT NOT NULL,
         CONSTRAINT fk_account6_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_dealer_id FOREIGN KEY (dealer_id) REFERENCES dealers(dealer_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+ CREATE TABLE
+    dealer_history(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        mode ENUM(
+            "cash",
+            "cheque",
+            "bank transfer",
+           "rtgs",
+           "delivered products"
+        ) NOT NULL,
+        credit_balance DOUBLE DEFAULT 0,
+        debit_balance DOUBLE DEFAULT 0,
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        dealer_id INT NOT NULL,
+        CONSTRAINT fk_dealer5_id FOREIGN KEY (dealer_id) REFERENCES dealers(dealer_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
     categories(
@@ -220,7 +302,7 @@ CREATE TABLE
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES purchasedItems(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_consignee_id FOREIGN KEY (consignee_id) REFERENCES consignees(consignee_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_transport_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_transport8_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
     farmer_bills(
@@ -265,7 +347,43 @@ CREATE TABLE
 
 -- WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id;
 
-CREATE TRIGGER ADD_USER AFTER INSERT ON FARMERS FOR 
+CREATE TRIGGER ADD_USER AFTER INSERT ON ADMINS FOR 
+EACH ROW BEGIN 
+	INSERT INTO
+	    users (contact_number, password)
+	VALUES (
+	        NEW.contact_number,
+	        NEW.password
+	    );
+END; 
+CREATE TRIGGER ADD_USER1 AFTER INSERT ON FARMERS FOR 
+EACH ROW BEGIN 
+	INSERT INTO
+	    users (contact_number, password)
+	VALUES (
+	        NEW.contact_number,
+	        NEW.password
+	    );
+END; 
+CREATE TRIGGER ADD_USER2 AFTER INSERT ON EMPLOYEES FOR 
+EACH ROW BEGIN 
+	INSERT INTO
+	    users (contact_number, password)
+	VALUES (
+	        NEW.contact_number,
+	        NEW.password
+	    );
+END; 
+CREATE TRIGGER ADD_USER3 AFTER INSERT ON CONSIGNEES FOR 
+EACH ROW BEGIN 
+	INSERT INTO
+	    users (contact_number, password)
+	VALUES (
+	        NEW.contact_number,
+	        NEW.password
+	    );
+END; 
+CREATE TRIGGER ADD_USER4 AFTER INSERT ON TRANSPORTS FOR 
 EACH ROW BEGIN 
 	INSERT INTO
 	    users (contact_number, password)
@@ -280,31 +398,47 @@ EACH ROW BEGIN
 	DELETE FROM users WHERE contact_number = OLD.contact_number;
 END; 
 
-CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON PURCHASEDITEMS 
-FOR EACH ROW BEGIN 
-	UPDATE farmers
-	SET
-	    credit_balance = credit_balance + NEW.total_amount
-	WHERE
-	    farmer_id = NEW.farmer_id;
-END; 
-SELECT products.product_id,products.product_title,products.unit_price,bill_products.quantity,(  products.unit_price * bill_products.quantity  ) AS amount,bill_date FROM bill_products,products,farmer_bills,farmers
-WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id
-and farmer_bills.farmer_id=1 ORDER BY bill_date ;   
-SELECT
-    farmers.first_name,
-    products.product_id,
-    products.product_title,
-    products.unit_price,
-    bill_products.quantity, (
-        products.unit_price * bill_products.quantity
-    ) AS amount,
-    farmer_bills.bill_date
-FROM bill_products
-    INNER JOIN products ON products.product_id = bill_products.product_id
-    INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
-    INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
-WHERE farmer_bills.bill_id = 1;
+-- CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON purchasedItems 
+-- FOR EACH ROW BEGIN
+--  DECLARE totalAmount DOUBLE;
+--  DECLARE noMoreRow INT default 0; 
+--  DECLARE cur CURSOR FOR SELECT total_amount FROM purchasedItems WHERE farmer_id=NEW.farmer_id;
+--  DECLARE CONTINUE HANDLER FOR NOT FOUND SET noMoreRow = 1;
+--  OPEN cur;
+--  my_loop: LOOP
+--     FETCH cur INTO totalAmount;
+--     IF noMoreRow=1 THEN
+--       LEAVE my_loop;
+--     END IF;
+--     INSERT INTO farmer_history(mode,credit_balance,farmer_id)VALUES('delivered a product',totalAmount,NEW.farmer_id);
+--  END LOOP;
+--  CLOSE cur;
+-- END;
+
+CREATE TRIGGER CREDIT_BALANCE AFTER INSERT ON purchasedItems 
+FOR EACH ROW BEGIN
+ DECLARE totalAmount DOUBLE;
+  SET totalAmount = NEW.total_amount;
+  INSERT INTO farmer_history(mode,credit_balance,farmer_id)VALUES('delivered a product',totalAmount,NEW.farmer_id);
+END;
+
+-- SELECT products.product_id,products.product_title,products.unit_price,bill_products.quantity,(  products.unit_price * bill_products.quantity  ) AS amount,bill_date FROM bill_products,products,farmer_bills,farmers
+-- WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bill_products.bill_id and farmer_bills.farmer_id=farmers.farmer_id
+-- and farmer_bills.farmer_id=1 ORDER BY bill_date ;   
+-- SELECT
+--     farmers.first_name,
+--     products.product_id,
+--     products.product_title,
+--     products.unit_price,
+--     bill_products.quantity, (
+--         products.unit_price * bill_products.quantity
+--     ) AS amount,
+--     farmer_bills.bill_date
+-- FROM bill_products
+--     INNER JOIN products ON products.product_id = bill_products.product_id
+--     INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
+--     INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
+-- WHERE farmer_bills.bill_id = 1;
 CREATE PROCEDURE update_farmer_debit_balance(IN billId INT)
 BEGIN
 DECLARE totalAmount DOUBLE;
@@ -318,15 +452,15 @@ SELECT sum(products.unit_price * bill_products.quantity) INTO totalAmount FROM b
     INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
     WHERE farmer_bills.bill_id=billId;
     SELECT farmer_id INTO farmerId FROM farmer_bills WHERE bill_id=billId;
-    SELECT debit_balance INTO debitBalance FROM farmers WHERE farmer_id=farmerId;
+    SELECT debit_balance INTO debitBalance FROM farmer_history WHERE farmer_id=farmerId;
     UPDATE farmer_bills SET bill_total=totalAmount WHERE bill_id=billId;
     SELECT payment_mode INTO paymentMode FROM farmer_bills WHERE bill_id=billId;
     IF paymentMode='Pending' THEN
-    UPDATE farmers SET debit_balance=debitBalance+totalAmount  WHERE farmer_id=farmerId;
+    UPDATE farmer_history SET debit_balance=debitBalance+totalAmount  WHERE farmer_id=farmerId;
     END IF;
 COMMIT; 
 END;
-CALL update_farmer_debit_balance(3);
+CALL update_farmer_debit_balance(1);
 INSERT INTO users(contact_number, password)VALUES('9078678767', 'password');
 INSERT INTO users(contact_number, password)VALUES('6567678765', 'password');
 INSERT INTO users(contact_number, password)VALUES('9898765467', 'password');
@@ -387,18 +521,18 @@ INSERT INTO employees(first_name,last_name,contact_number,location,password,sala
 INSERT INTO employee_accounts(account_id,employee_id)VALUES(8,1);
 INSERT INTO employee_accounts(account_id,employee_id)VALUES(9,2);
 INSERT INTO employee_accounts(account_id,employee_id)VALUES(10,3);
-INSERT INTO transports(office_name,first_name,last_name,contact_number,location)VALUES('OM Transports','Ashok','Chakkar','8989878723','Karegaon');
-INSERT INTO transports(office_name,first_name,last_name,contact_number,location)VALUES('Waghule Transport','Sahil','Mankar','8989873454','Bahirwadi');
-INSERT INTO transports(office_name,first_name,last_name,contact_number,location)VALUES('Urmila Transport','Shubham','Teli','8123473454','Chas');
+INSERT INTO transports(office_name,first_name,last_name,contact_number,password,location)VALUES('OM Transports','Ashok','Chakkar','8989878723','password','Karegaon');
+INSERT INTO transports(office_name,first_name,last_name,contact_number,password,location)VALUES('Waghule Transport','Sahil','Mankar','8989873454','password','Bahirwadi');
+INSERT INTO transports(office_name,first_name,last_name,contact_number,password,location)VALUES('Urmila Transport','Shubham','Teli','8123473454','password','Chas');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(1, 'MH14RE3456');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(2,'MH14RE1234');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(3,'MH14RE2345');
 INSERT INTO transport_accounts(account_id,transport_id)VALUES(11,1);
 INSERT INTO transport_accounts(account_id,transport_id)VALUES(12,2);
 INSERT INTO transport_accounts(account_id,transport_id)VALUES(13,3);
-INSERT INTO consignees(company_name,first_name,last_name,contact_number,location)VALUES ('Zatka Company','Ramesh','Gawade','9090909012','Manchar');
-INSERT INTO consignees(company_name,first_name,last_name,contact_number,location)VALUES ('HemantKumar Company','Hemant','Pokharkar','9878987797','Manchar');
-INSERT INTO consignees(company_name,first_name,last_name,contact_number,location)VALUES ('Nighot Company','Anuj','Nighot','9878987897','Manchar');
+INSERT INTO consignees(company_name,first_name,last_name,contact_number,password,location)VALUES ('Zatka Company','Ramesh','Gawade','9090909012','password','Manchar');
+INSERT INTO consignees(company_name,first_name,last_name,contact_number,password,location)VALUES ('HemantKumar Company','Hemant','Pokharkar','9878987797','password','Manchar');
+INSERT INTO consignees(company_name,first_name,last_name,contact_number,password,location)VALUES ('Nighot Company','Anuj','Nighot','9878987897','password','Manchar');
 INSERT INTO consignee_accounts(account_id,consignee_id)VALUES(14,1);
 INSERT INTO consignee_accounts(account_id,consignee_id)VALUES(15,2);
 INSERT INTO consignee_accounts(account_id,consignee_id)VALUES(16,3);
@@ -419,7 +553,7 @@ INSERT INTO dealer_orders(dealer_id,total)VALUES(2,200000);
 INSERT INTO dealer_order_details(order_id,product_id,quantity,discount)VALUES(1,1,2000,2000);
 INSERT INTO dealer_order_details(order_id,product_id,quantity,discount)VALUES(2,2,3000,3000);
 INSERT INTO purchasedItems(farmer_id,variety,bags,total_weight,tare_weight,rate_per_kg,labour_charges)VALUES(1, 'Potato', 50, 2500, 25, 30, 400);
-INSERT INTO purchasedItems(farmer_id,variety,bags,total_weight,tare_weight,rate_per_kg,labour_charges)VALUES( 2, 'Onion', 500, 500, 2, 10, 2000);
+INSERT INTO purchasedItems(farmer_id,variety,bags,total_weight,tare_weight,rate_per_kg,labour_charges)VALUES( 1, 'Onion', 500, 500, 2, 10, 2000);
 INSERT INTO purchasedItems(farmer_id,variety,bags,total_weight,tare_weight,rate_per_kg,labour_charges)VALUES(3,'Onion',1000,50000,1000,12,4000);
 INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg,freight_charges,labour_charges)VALUES(1,1,1,1000,20,20000,2000);
 INSERT INTO soldItems(purchase_id,consignee_id,transport_id,net_weight,rate_per_kg,freight_charges,labour_charges)VALUES(1,1,1,2000,40,30000,3000);
@@ -444,3 +578,9 @@ SELECT * FROM users;
 SELECT * FROM solditems;
 select * from farmer_bills;
 SELECT * FROM bill_products;
+SELECT * FROM purchaseditems;
+SELECT * From farmer_history;
+
+
+-- history of credited amounts of a farmer
+SELECT farmers.first_name,farmers.last_name,SUM(farmer_history.credit_balance) AS total_credited_balance FROM farmers INNER JOIN farmer_history ON farmers.farmer_id=farmer_history.farmer_id WHERE farmer_history.farmer_id=1 GROUP BY farmer_history.farmer_id;
