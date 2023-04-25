@@ -615,19 +615,22 @@ WHERE products.product_id= bill_products.product_id and  farmer_bills.bill_id=bi
 and farmer_bills.farmer_id=1 ORDER BY bill_date ;   
 
 SELECT
+    farmer_bills.bill_id,
     farmers.first_name,
-    products.product_id,
+    farmers.last_name,
+    -- products.product_id,
     products.product_title,
     products.unit_price,
     bill_products.quantity, (
         products.unit_price * bill_products.quantity
     ) AS amount,
+    farmer_bills.payment_mode,
     farmer_bills.bill_date
 FROM bill_products
     INNER JOIN products ON products.product_id = bill_products.product_id
     INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
-    INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
-WHERE farmer_bills.bill_id = 1;
+    INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id ORDER BY farmer_bills.bill_id ;
+-- WHERE farmer_bills.bill_id = 1;
 
 -- UPDATE soldItems
 -- set
