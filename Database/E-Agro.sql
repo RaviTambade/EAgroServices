@@ -1,4 +1,4 @@
-
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -86,13 +86,14 @@ CREATE TABLE
 CREATE TABLE
     transports(
         transport_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        truck_number VARCHAR(15) NOT NULL UNIQUE,
         office_name VARCHAR(20) NOT NULL,
         first_name VARCHAR(20) NOT NULL,
         last_name VARCHAR(20) NOT NULL,
         contact_number VARCHAR(20) NOT NULL,
         location VARCHAR(20) NOT NULL
     );
+
+CREATE TABLE transports_trucks(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,transport_id INT NOT NULL,truck_number VARCHAR(15) NOT NULL UNIQUE,CONSTRAINT fk_transport3_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE);
 CREATE TABLE
     transport_accounts(
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -332,7 +333,6 @@ VALUES (
     );
 INSERT INTO
     transports(
-        truck_number,
         office_name,
         first_name,
         last_name,
@@ -341,7 +341,6 @@ INSERT INTO
     )
 VALUES
 (
-        'MH14RE3456',
         'OM Transports',
         'Ashok',
         'Chakkar',
@@ -350,7 +349,6 @@ VALUES
     );
 INSERT INTO
     transports(
-        truck_number,
         office_name,
         first_name,
         last_name,
@@ -359,7 +357,6 @@ INSERT INTO
     )
 VALUES
 (
-        'MH14RE1234',
         'Waghule Transport',
         'Sahil',
         'Mankar',
@@ -369,7 +366,6 @@ VALUES
 
 INSERT INTO
     transports(
-        truck_number,
         office_name,
         first_name,
         last_name,
@@ -378,13 +374,18 @@ INSERT INTO
     )
 VALUES
 (
-        'MH14RE2345',
         'Urmila Transport',
         'Shubham',
         'Teli',
         '8123473454',
         'Chas'
     );
+
+    INSERT INTO transports_trucks(transport_id,truck_number)VALUES(1, 'MH14RE3456');
+    INSERT INTO transports_trucks(transport_id,truck_number)VALUES(2,'MH14RE1234');
+    INSERT INTO transports_trucks(transport_id,truck_number)VALUES(3,'MH14RE2345');
+    INSERT INTO transports_trucks(transport_id,truck_number)VALUES(1, 'MH14AB5676');
+
 INSERT INTO
     consignees(
         company_name,
