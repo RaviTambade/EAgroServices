@@ -27,9 +27,6 @@ public class FarmersContext : DbContext // Defines a DbContext called FarmersCon
             entity.Property(e => e.ContactNumber);
             entity.Property(e => e.Password);
             entity.Property(e => e.Location);
-            entity.Property(e => e.CreditBalance);
-            entity.Property(e => e.DebitBalance);
-            entity.Property(e => e.TotalBalance);
         });
         modelBuilder.Entity<Farmer>().ToTable("farmers");  // Maps the Farmer entity to a table named "farmers"
     }

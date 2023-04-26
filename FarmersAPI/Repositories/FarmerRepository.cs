@@ -84,9 +84,6 @@ public class FarmerRepository : IFarmerRepository
                     oldFarmer.ContactNumber = farmer.ContactNumber;
                     oldFarmer.Location = farmer.Location;
                     oldFarmer.Password = farmer.Password;
-                    oldFarmer.CreditBalance = farmer.CreditBalance;
-                    oldFarmer.DebitBalance = farmer.DebitBalance;
-                    oldFarmer.TotalBalance = farmer.TotalBalance;
                     await context.SaveChangesAsync();
                     status= true;
                 }

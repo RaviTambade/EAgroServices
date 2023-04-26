@@ -19,7 +19,7 @@ public class ConsigneesController : ControllerBase
         return await _service.AllConsignee();
     }
 
-    [HttpGet("GetById/{id}")]
+    [HttpGet("getbyid/{id}")]
     public async Task<Consignee> GetById(int id)
     {
         return await _service.GetById(id);

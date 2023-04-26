@@ -10,6 +10,8 @@ public interface IUserRepository {
     public Task<bool> Update(int userId,User user);
     public Task<bool> Delete(int userId);
 
+    public Task<User> GetUserRequest(AuthenticateRequest request);
+
     public Task<AuthenticateResponse> Authenticate(AuthenticateRequest request);
 
 }
