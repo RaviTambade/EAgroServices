@@ -439,7 +439,7 @@ END;
 --     INNER JOIN farmer_bills ON farmer_bills.bill_id = bill_products.bill_id
 --     INNER JOIN farmers ON farmers.farmer_id = farmer_bills.farmer_id
 -- WHERE farmer_bills.bill_id = 1;
-CREATE PROCEDURE update_farmer_debit_balance(IN billId INT)
+CREATE PROCEDURE insert_farmer_debit_balance(IN billId INT)
 BEGIN
 DECLARE totalAmount DOUBLE;
 DECLARE debitBalance DOUBLE;
@@ -456,11 +456,13 @@ SELECT sum(products.unit_price * bill_products.quantity) INTO totalAmount FROM b
     UPDATE farmer_bills SET bill_total=totalAmount WHERE bill_id=billId;
     SELECT payment_mode INTO paymentMode FROM farmer_bills WHERE bill_id=billId;
     IF paymentMode='Pending' THEN
-    UPDATE farmer_history SET debit_balance=debitBalance+totalAmount  WHERE farmer_id=farmerId;
+    SET totalAmount = NEW.bill_total;
+  INSERT INTO farmer_history(mode,debit_balance,farmer_id)VALUES('purchased a product',totalAmount,NEW.farmer_id);
     END IF;
 COMMIT; 
 END;
-CALL update_farmer_debit_balance(1);
+CREATE TRIGGER insert_farmer_debit_balance WHEN
+CALL insert_farmer_debit_balance(1);
 INSERT INTO users(contact_number, password)VALUES('9078678767', 'password');
 INSERT INTO users(contact_number, password)VALUES('6567678765', 'password');
 INSERT INTO users(contact_number, password)VALUES('9898765467', 'password');
