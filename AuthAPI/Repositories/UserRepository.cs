@@ -156,7 +156,7 @@ public class UserRepository : IUserRepository
         return claims;
     }
 
-    private async Task<User> GetUserRequest(AuthenticateRequest request)
+    public async Task<User> GetUserRequest(AuthenticateRequest request)
 {
     using var db = new UserContext(_configuration);   // replace "YourDbContext" with your actual DbContext name
 

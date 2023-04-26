@@ -14,13 +14,5 @@ public class Farmer
     public string Password { get; set; }
     [Column("location")]
     public string Location { get; set; }
-    [Column("credit_balance")]
-    public double CreditBalance { get; set; }
-    [Column("debit_balance")]
-    public double DebitBalance { get; set; }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    [Column("balance")]
-    public double TotalBalance { get; set; }
 
 }

@@ -1,3 +1,4 @@
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
