@@ -90,7 +90,6 @@ CREATE TABLE
         user_id INT NOT NULL,
         CONSTRAINT fk_user7_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
--- CREATE TABLE labour_rates(container_type ENUM("crates","bags","leno_bags") PRIMARY KEY,rate double NOT NULL);
 CREATE TABLE
     farmers_purchases (
         purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -127,7 +126,8 @@ INSERT INTO labour_rates(container_type,rate)VALUES('leno_bags',4);
     purchase_item_billing(
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         purchase_id INT NOT NULL,
-        labour_charges DOUBLE DEFAULT 0 ,
+        labour_charges DOUBLE DEFAULT 0,
+        total_amount DOUBLE NOT NULL,
         CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmers_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
     );
@@ -136,10 +136,10 @@ CREATE TRIGGER calculate_labour_charges
 AFTER INSERT ON farmers_purchases
 FOR EACH ROW
 BEGIN
-    DECLARE container VARCHAR(20);
+    DECLARE container_type VARCHAR(20);
     DECLARE rate DOUBLE;
-    DECLARE qty INT;
-    
+    DECLARE quantity INT;
+   -- DECLARE labourCharges DOUBLE;
     IF (NEW.container_type = 'crates') THEN
         SELECT rate INTO rate FROM labour_rates WHERE container_type = 'crates';
     ELSEIF (NEW.container_type = 'bags') THEN
@@ -147,10 +147,8 @@ BEGIN
     ELSEIF (NEW.container_type = 'leno_bags') THEN
         SELECT rate INTO rate FROM labour_rates WHERE container_type = 'leno_bags';
     END IF;
-    
-    SET @labour_charges = rate * NEW.quantity;
-    
-    UPDATE purchase_item_billing SET labour_charges = @labour_charges WHERE purchase_id = NEW.purchase_id;
+    SET labourCharges = rate * NEW.quantity;
+    UPDATE purchase_item_billing SET labour_charges=labourCharges WHERE purchase_id = purchase_id;
     END;
 
 -- CREATE PROCEDURE calculate_labour_charges()
@@ -179,7 +177,7 @@ BEGIN
 -- CALL calculate_labour_charges();
 
 CREATE TABLE
-    soldItems(
+    farmer_sells(
         sell_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         purchase_id INT NOT NULL,
         merchant_id INT,
@@ -187,13 +185,22 @@ CREATE TABLE
         net_weight DOUBLE NOT NULL,
         rate_per_kg DOUBLE NOT NULL DEFAULT 0,
         total_amount DOUBLE AS (net_weight * rate_per_kg),
-        freight_charges DOUBLE NOT NULL,
-        Labour_charges DOUBLE NOT NULL DEFAULT 0,
-        total_charges DOUBLE AS(freight_charges + labour_charges),
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_purchase2_id FOREIGN KEY (purchase_id) REFERENCES farmers_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_merchant_id FOREIGN KEY (merchant_id) REFERENCES produce_merchants(merchant_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_transport2_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+   CREATE TABLE
+    farmers_sell_billing(
+        bill_id NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        freight_charges DOUBLE NOT NULL,
+        Labour_charges DOUBLE NOT NULL DEFAULT 0,
+        total_charges DOUBLE AS(
+            freight_charges + labour_charges
+        ),
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        CONSTRAINT fk_sell_id FOREIGN KEY (sell_id) REFERENCES farmer_sells(sell_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
     transactions(
@@ -340,7 +347,6 @@ INSERT INTO soldItems(purchase_id,merchant_id,transport_id,net_weight,rate_per_k
 INSERT INTO soldItems(purchase_id,merchant_id,transport_id,net_weight,rate_per_kg,freight_charges)VALUES(1,1,1,2000,40,30000);
 INSERT INTO purchase_item_billing(purchase_id)VALUES(1);
 SELECT * FROM farmers_purchases;
-SELECT * FROM purchase_item_billing;
 SELECT * FROM transports;
 SELECT * FROM farmers;
 SELECT * FROM employees;
@@ -349,6 +355,8 @@ SELECT * FROM accounts;
 SELECT * FROM users;
 SELECT * FROM solditems;
 SELECT * FROM labour_rates;
+SELECT * FROM purchase_item_billing;
+
 
 
 -- history of credited amounts of a farmer

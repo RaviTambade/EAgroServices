@@ -81,9 +81,7 @@ public class FarmerRepository : IFarmerRepository
                 {
                     oldFarmer.FirstName = farmer.FirstName;
                     oldFarmer.LastName = farmer.LastName;
-                    oldFarmer.ContactNumber = farmer.ContactNumber;
                     oldFarmer.Location = farmer.Location;
-                    oldFarmer.Password = farmer.Password;
                     await context.SaveChangesAsync();
                     status= true;
                 }

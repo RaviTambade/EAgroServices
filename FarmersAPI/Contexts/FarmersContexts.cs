@@ -24,8 +24,6 @@ public class FarmersContext : DbContext // Defines a DbContext called FarmersCon
             entity.HasKey(e => e.FarmerId);      // Defines the primary key
             entity.Property(e => e.FirstName);   // Defines a property 
             entity.Property(e => e.LastName);
-            entity.Property(e => e.ContactNumber);
-            entity.Property(e => e.Password);
             entity.Property(e => e.Location);
         });
         modelBuilder.Entity<Farmer>().ToTable("farmers");  // Maps the Farmer entity to a table named "farmers"
