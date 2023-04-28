@@ -75,7 +75,7 @@ CREATE TABLE
     );
 CREATE TABLE
     transport_trucks(
-        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        truck_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         transport_id INT NOT NULL,
         truck_number VARCHAR(15) NOT NULL UNIQUE,
         CONSTRAINT fk_transport_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -139,7 +139,7 @@ BEGIN
     DECLARE container_type VARCHAR(20);
     DECLARE rate DOUBLE;
     DECLARE quantity INT;
-   -- DECLARE labourCharges DOUBLE;
+    DECLARE labourCharges DOUBLE;
     IF (NEW.container_type = 'crates') THEN
         SELECT rate INTO rate FROM labour_rates WHERE container_type = 'crates';
     ELSEIF (NEW.container_type = 'bags') THEN
@@ -181,19 +181,19 @@ CREATE TABLE
         sell_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         purchase_id INT NOT NULL,
         merchant_id INT,
-        transport_id INT,
+        truck_id INT,
         net_weight DOUBLE NOT NULL,
         rate_per_kg DOUBLE NOT NULL DEFAULT 0,
         total_amount DOUBLE AS (net_weight * rate_per_kg),
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_purchase2_id FOREIGN KEY (purchase_id) REFERENCES farmers_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_merchant_id FOREIGN KEY (merchant_id) REFERENCES produce_merchants(merchant_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_transport2_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transport_trucks(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
    CREATE TABLE
     farmers_sell_billing(
-        bill_id NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        sell_id INT NOT NULL,
         freight_charges DOUBLE NOT NULL,
         Labour_charges DOUBLE NOT NULL DEFAULT 0,
         total_charges DOUBLE AS(
