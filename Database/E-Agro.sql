@@ -90,6 +90,8 @@ CREATE TABLE
         user_id INT NOT NULL,
         CONSTRAINT fk_user7_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+CREATE TABLE labour_rates(container_type ENUM('crates','bags','leno_bags') PRIMARY KEY,rate double NOT NULL);
+
 CREATE TABLE
     farmers_purchases (
         purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -102,9 +104,9 @@ CREATE TABLE
         net_weight DOUBLE AS (total_weight - tare_weight),
         rate_per_kg DOUBLE NOT NULL,
         CONSTRAINT fk_farmer_id FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
+        date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+        CONSTRAINT fk_container_type FOREIGN KEY (container_type) REFERENCES labour_rates(container_type)
     );
-CREATE TABLE labour_rates(container_type ENUM('crates','bags','leno_bags') PRIMARY KEY,rate double NOT NULL);
 INSERT INTO labour_rates(container_type,rate)VALUES('crates',5);
 INSERT INTO labour_rates(container_type,rate)VALUES('bags',6);
 INSERT INTO labour_rates(container_type,rate)VALUES('leno_bags',4);
@@ -114,9 +116,9 @@ INSERT INTO labour_rates(container_type,rate)VALUES('leno_bags',4);
 --         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 --         purchase_id INT NOT NULL,
 --         labour_charges DOUBLE AS (
---         SELECT labour_charges.rate * farmers_purchases.quantity
+--         SELECT labour_rates.rate * farmers_purchases.quantity
 --         FROM farmers_purchases 
---         JOIN labour_rates ON farmers_purchases.container_type =labour_charges.container_type
+--         JOIN labour_rates ON farmers_purchases.container_type =labour_rates.container_type
 --         WHERE farmers_purchases.purchase_id = purchase_id
 --   ),
 --                 CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmers_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -127,54 +129,23 @@ INSERT INTO labour_rates(container_type,rate)VALUES('leno_bags',4);
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         purchase_id INT NOT NULL,
         labour_charges DOUBLE DEFAULT 0,
-        total_amount DOUBLE NOT NULL,
         CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmers_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
     );
-    
-CREATE TRIGGER calculate_labour_charges
-AFTER INSERT ON farmers_purchases
-FOR EACH ROW
-BEGIN
-    DECLARE container_type VARCHAR(20);
-    DECLARE rate DOUBLE;
-    DECLARE quantity INT;
-    DECLARE labourCharges DOUBLE;
-    IF (NEW.container_type = 'crates') THEN
-        SELECT rate INTO rate FROM labour_rates WHERE container_type = 'crates';
-    ELSEIF (NEW.container_type = 'bags') THEN
-        SELECT rate INTO rate FROM labour_rates WHERE container_type = 'bags';
-    ELSEIF (NEW.container_type = 'leno_bags') THEN
-        SELECT rate INTO rate FROM labour_rates WHERE container_type = 'leno_bags';
-    END IF;
-    SET labourCharges = rate * NEW.quantity;
-    UPDATE purchase_item_billing SET labour_charges=labourCharges WHERE purchase_id = purchase_id;
-    END;
 
--- CREATE PROCEDURE calculate_labour_charges()
--- BEGIN
--- DECLARE noMoreRow INT DEFAULT 0; 
--- DECLARE container VARCHAR(20);
--- DECLARE rate DOUBLE;
--- DECLARE quantity INT;
--- DECLARE purchaseId INT;
--- DECLARE labour_charge_cursor CURSOR FOR SELECT container_type,quantity,purchase_id FROM farmers_purchases;
--- DECLARE CONTINUE HANDLER FOR NOT FOUND SET noMoreRow = 1;
--- OPEN labour_charge_cursor;
--- FETCH labour_charge_cursor INTO container,quantity,purchaseId;
--- WHILE noMoreRow=1 DO
--- IF (NEW.container_type = 'crates') THEN
---         SELECT rate INTO rate FROM labour_rates WHERE container_type = 'crates';
---     ELSEIF (NEW.container_type = 'bags') THEN
---         SELECT rate INTO rate FROM labour_rates WHERE container_type = 'bags';
---     ELSEIF (NEW.container_type = 'leno_bags') THEN
---         SELECT rate INTO rate FROM labour_rates WHERE container_type = 'leno_bags';
---     END IF;
---     UPDATE purchase_item_billing SET labour_charges=rate * quantity WHERE purchase_id=purchase_id;
---     END WHILE;
---     CLOSE labour_charge_cursor;
---     END;
--- CALL calculate_labour_charges();
+
+--for calculating labour_charges
+CREATE PROCEDURE calculate_labour_charges(IN bill_Id INT)
+BEGIN
+DECLARE labourCharges DOUBLE;
+DECLARE purchaseId INT;
+SELECT purchase_id INTO purchaseId FROM purchase_item_billing WHERE bill_id=bill_Id;
+        SELECT labour_rates.rate * farmers_purchases.quantity INTO labourCharges
+        FROM farmers_purchases 
+        JOIN labour_rates ON farmers_purchases.container_type =labour_rates.container_type
+        WHERE farmers_purchases.purchase_id = purchaseId;
+    UPDATE purchase_item_billing SET labour_charges=labourCharges WHERE bill_id=bill_Id;
+    END;
 
 CREATE TABLE
     farmer_sells(
@@ -343,8 +314,8 @@ INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id
 INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
 INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
 INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
-INSERT INTO soldItems(purchase_id,merchant_id,transport_id,net_weight,rate_per_kg,freight_charges)VALUES(1,1,1,1000,20,20000);
-INSERT INTO soldItems(purchase_id,merchant_id,transport_id,net_weight,rate_per_kg,freight_charges)VALUES(1,1,1,2000,40,30000);
+-- INSERT INTO soldItems(purchase_id,merchant_id,transport_id,net_weight,rate_per_kg,freight_charges)VALUES(1,1,1,1000,20,20000);
+-- INSERT INTO soldItems(purchase_id,merchant_id,transport_id,net_weight,rate_per_kg,freight_charges)VALUES(1,1,1,2000,40,30000);
 INSERT INTO purchase_item_billing(purchase_id)VALUES(1);
 SELECT * FROM farmers_purchases;
 SELECT * FROM transports;
@@ -357,7 +328,8 @@ SELECT * FROM solditems;
 SELECT * FROM labour_rates;
 SELECT * FROM purchase_item_billing;
 
-
+CALL calculate_labour_charges(1);
+drop PROCEDURE calculate_labour_charges;
 
 -- history of credited amounts of a farmer
 -- SELECT farmers.first_name,farmers.last_name,SUM(farmer_history.credit_balance) AS total_credited_balance FROM farmers INNER JOIN farmer_history ON farmers.farmer_id=farmer_history.farmer_id WHERE farmer_history.farmer_id=1 GROUP BY farmer_history.farmer_id;
