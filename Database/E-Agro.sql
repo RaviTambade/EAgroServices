@@ -336,4 +336,8 @@ SELECT * FROM farmer_sells WHERE truck_id=1;
 SELECT * FROM farmers WHERE farmer_id=1;
 SELECT * FROM transports ;
 
-SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`FROM farmers INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id WHERE farmers.farmer_id=1;
+SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,farmer_sells.net_weight,farmer_sells.rate_per_kg,farmer_sells.total_amount FROM farmers
+INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id 
+INNER JOIN farmer_sells on farmer_purchases.purchase_id=farmer_sells.purchase_id 
+INNER JOIN transport_trucks ON farmer_sells.truck_id=transport_trucks.truck_id 
+ WHERE farmers.farmer_id=1;
