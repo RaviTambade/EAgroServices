@@ -14,4 +14,7 @@ public class Farmer
     [Column("location")]
     public string Location { get; set; }
 
+     [Column("user_id")]
+    public int UserId { get; set; }
+
 }
