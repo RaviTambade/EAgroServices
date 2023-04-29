@@ -82,8 +82,6 @@ public class EmployeeRepository : IEmployeeRepository
                 {
                     oldEmployee.FirstName = employee.FirstName;
                     oldEmployee.LastName = employee.LastName;
-                    oldEmployee.ContactNumber = employee.ContactNumber;
-                    oldEmployee.Password = employee.Password;
                     oldEmployee.Location = employee.Location;
                     oldEmployee.Salary= employee.Salary;
                     await context.SaveChangesAsync();

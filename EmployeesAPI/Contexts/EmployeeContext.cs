@@ -26,10 +26,9 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
           entity.HasKey(e => e.EmployeeId);
           entity.Property(e => e.FirstName);
           entity.Property(e => e.LastName);
-          entity.Property(e => e.ContactNumber);
-          entity.Property(e=> e.Password);
           entity.Property(e => e.Location);
           entity.Property(e=>e.Salary);
+          entity.Property(e =>e.UserId);
           modelBuilder.Entity<Employee>().ToTable("employees");
         });
 
