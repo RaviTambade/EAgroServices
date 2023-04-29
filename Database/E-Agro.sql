@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -125,6 +125,7 @@ CREATE TABLE
         purchase_id INT NOT NULL,
         merchant_id INT,
         truck_id INT,
+        container_type ENUM('crates','bags','leno_bags'),
         net_weight DOUBLE NOT NULL,
         rate_per_kg DOUBLE NOT NULL DEFAULT 0,
         total_amount DOUBLE AS (net_weight * rate_per_kg),
@@ -331,6 +332,8 @@ INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id
 INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',15);
 INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
+
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
 INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
@@ -344,5 +347,18 @@ CALL calculate_purchase_labour_charges(1);
 CALL calculate_purchase_total_amount(1);
 CALL calculate_freight_charges(1);
 
+
 CALL calculate_labour_charges_of_sells(1);
 SELECT * FROM farmer_purchases;
+
+SELECT * FROM farmer_purchases WHERE farmer_id=1;
+SELECT * from farmers ;
+SELECT * FROM farmer_sells WHERE truck_id=1;
+SELECT * FROM farmers WHERE farmer_id=1;
+SELECT * FROM transports ;
+
+SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,farmer_sells.net_weight,farmer_sells.rate_per_kg,farmer_sells.total_amount FROM farmers
+INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id 
+INNER JOIN farmer_sells on farmer_purchases.purchase_id=farmer_sells.purchase_id 
+INNER JOIN transport_trucks ON farmer_sells.truck_id=transport_trucks.truck_id 
+ WHERE farmers.farmer_id=1;
