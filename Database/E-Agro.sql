@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -361,3 +361,5 @@ INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id
 INNER JOIN farmer_sells on farmer_purchases.purchase_id=farmer_sells.purchase_id 
 INNER JOIN transport_trucks ON farmer_sells.truck_id=transport_trucks.truck_id 
  WHERE farmers.farmer_id=1;
+
+ select  * FROM employees WHERE  user_id=7;
