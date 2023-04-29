@@ -138,13 +138,14 @@ CREATE TABLE
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         sell_id INT NOT NULL,
         freight_charges DOUBLE DEFAULT 0,
-        Labour_charges DOUBLE NOT NULL DEFAULT 0,
+        labour_charges DOUBLE NOT NULL DEFAULT 0,
         total_charges DOUBLE AS(
             freight_charges + labour_charges
         ),
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_sell_id FOREIGN KEY (sell_id) REFERENCES farmer_sells(sell_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+
     CREATE TABLE freight_rates (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   from_destination VARCHAR(50) NOT NULL,
@@ -179,8 +180,9 @@ CREATE TABLE
         CONSTRAINT fk_bill_id_1 FOREIGN KEY (bill_id) REFERENCES farmer_purchases_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
+
 --for calculating labour_charges
-CREATE PROCEDURE CALCULATE_LABOUR_CHARGES(IN BILL_ID 
+CREATE PROCEDURE calculate_purchase_labour_charges(IN bill_Id
 INT) BEGIN 
 	DECLARE labourCharges DOUBLE;
 	DECLARE purchaseId INT;
@@ -202,7 +204,7 @@ INT) BEGIN
 END; 
 
 --for calculating total_amount
-CREATE PROCEDURE CALCULATE_TOTAL_AMOUNT(IN BILL_ID 
+CREATE PROCEDURE calculate_purchase_total_amount(IN bill_Id 
 INT) BEGIN 
 	DECLARE totalAmount DOUBLE;
 	DECLARE purchaseId INT;
@@ -221,7 +223,7 @@ INT) BEGIN
 END; 
 
 --for calculating freight_charges
-CREATE PROCEDURE CALCULATE_FREIGHT_CHARGES(IN BILL_ID 
+CREATE PROCEDURE calculate_freight_charges(IN bill_Id 
 INT) BEGIN 
 	DECLARE freightCharges DOUBLE;
 	SELECT
@@ -234,6 +236,20 @@ INT) BEGIN
 	    freight_charges = freightCharges
 	WHERE bill_id = bill_Id;
 END; 
+
+CREATE PROCEDURE calculate_labour_charges_of_sells(IN bill_Id 
+INT) BEGIN 
+UPDATE 
+    farmers_sell_billing 
+    INNER JOIN farmer_sells ON farmers_sell_billing.sell_id = farmer_sells.sell_id
+    INNER JOIN farmer_purchases ON farmer_sells.purchase_id = farmer_purchases.purchase_id
+    INNER JOIN labour_rates ON farmer_purchases.container_type = labour_rates.container_type 
+SET 
+    farmers_sell_billing.labour_charges = farmer_purchases.quantity * labour_rates.rate
+WHERE 
+    farmers_sell_billing.bill_id =bill_Id;
+    END;
+
 
 INSERT INTO labour_rates(container_type,rate)VALUES('crates',5);
 INSERT INTO labour_rates(container_type,rate)VALUES('bags',6);
@@ -324,7 +340,9 @@ INSERT INTO farmers_sell_billing(sell_id)VALUES(1);
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
 SELECT * FROM farmer_purchases_billing;
 SELECT * FROM farmers_sell_billing;
-CALL calculate_labour_charges(1);
-CALL calculate_total_amount(1);
+CALL calculate_purchase_labour_charges(1);
+CALL calculate_purchase_total_amount(1);
 CALL calculate_freight_charges(1);
+
+CALL calculate_labour_charges_of_sells(1);
 SELECT * FROM farmer_purchases;
