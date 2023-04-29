@@ -126,9 +126,9 @@ CREATE PROCEDURE calculate_labour_charges(IN bill_Id INT)
 BEGIN
 DECLARE labourCharges DOUBLE;
 DECLARE purchaseId INT;
-SELECT purchase_id INTO purchaseId FROM purchase_item_billing WHERE bill_id=bill_Id;
+SELECT purchase_id INTO purchaseId FROM farmer_purchases_billing WHERE bill_id=bill_Id;
         SELECT labour_rates.rate * farmer_purchases.quantity INTO labourCharges
-        FROM farmers_purchases 
+        FROM farmer_purchases 
         JOIN labour_rates ON farmer_purchases.container_type =labour_rates.container_type
         WHERE farmer_purchases.purchase_id = purchaseId;
     UPDATE farmer_purchases_billing SET labour_charges=labourCharges WHERE bill_id=bill_Id;
@@ -154,7 +154,7 @@ CREATE TABLE
         rate_per_kg DOUBLE NOT NULL DEFAULT 0,
         total_amount DOUBLE AS (net_weight * rate_per_kg),
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        CONSTRAINT fk_purchase2_id FOREIGN KEY (purchase_id) REFERENCES farmers_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_purchase2_id FOREIGN KEY (purchase_id) REFERENCES farmer_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_merchant_id FOREIGN KEY (merchant_id) REFERENCES produce_merchants(merchant_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transport_trucks(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
@@ -162,7 +162,7 @@ CREATE TABLE
     farmers_sell_billing(
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         sell_id INT NOT NULL,
-        freight_charges DOUBLE NOT NULL,
+        freight_charges DOUBLE DEFAULT 0,
         Labour_charges DOUBLE NOT NULL DEFAULT 0,
         total_charges DOUBLE AS(
             freight_charges + labour_charges
@@ -170,6 +170,23 @@ CREATE TABLE
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_sell_id FOREIGN KEY (sell_id) REFERENCES farmer_sells(sell_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+    CREATE TABLE freight_rates (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  from_destination VARCHAR(50) NOT NULL,
+  to_destination VARCHAR(50) NOT NULL,
+  kilometers INT NOT NULL,
+  rate_per_km DOUBLE NOT NULL,
+  bill_id INT NOT NULL,
+  CONSTRAINT fk_bill_id FOREIGN KEY (bill_id) REFERENCES farmers_sell_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+  CREATE PROCEDURE calculate_freight_charges(IN bill_Id INT)
+BEGIN
+DECLARE freightCharges DOUBLE;
+        SELECT freight_rates.kilometers * freight_rates.rate_per_km INTO freightCharges
+        FROM freight_rates WHERE bill_id = bill_Id;
+    UPDATE farmers_sell_billing SET freight_charges=freightCharges WHERE bill_id=bill_Id;
+    END;
+
 CREATE TABLE
     transactions(
         transaction_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -273,13 +290,20 @@ INSERT INTO transport_trucks(transport_id,truck_number)VALUES(3,'MH14RE2345');
 INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',14);
 INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',15);
 INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
-INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
-INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
-INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
-INSERT INTO purchase_item_billing(purchase_id)VALUES(1);
-SELECT * FROM purchase_item_billing;
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
+INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
+INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(2,2,2,400,20);
+
+INSERT INTO farmers_sell_billing(sell_id)VALUES(1);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
+INSERT INTO farmer_purchases_billing(purchase_id)VALUES(1);
+SELECT * FROM farmer_purchases_billing;
+SELECT * FROM farmers_sell_billing;
 CALL calculate_labour_charges(1);
 CALL calculate_total_amount(1);
-
+CALL calculate_freight_charges(1);
+SELECT * FROM farmer_purchases;
 -- history of credited amounts of a farmer
 -- SELECT farmers.first_name,farmers.last_name,SUM(farmer_history.credit_balance) AS total_credited_balance FROM farmers INNER JOIN farmer_history ON farmers.farmer_id=farmer_history.farmer_id WHERE farmer_history.farmer_id=1 GROUP BY farmer_history.farmer_id;
