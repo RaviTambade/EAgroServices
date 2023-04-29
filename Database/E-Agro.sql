@@ -90,10 +90,13 @@ CREATE TABLE
         user_id INT NOT NULL,
         CONSTRAINT fk_user7_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-CREATE TABLE labour_rates(container_type ENUM('crates','bags','leno_bags') PRIMARY KEY,rate double NOT NULL);
-
 CREATE TABLE
-    farmers_purchases (
+    labour_rates(
+        container_type ENUM('crates', 'bags', 'leno_bags') PRIMARY KEY,
+        rate double NOT NULL
+    );
+CREATE TABLE
+    farmer_purchases (
         purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         farmer_id INT NOT NULL,
         variety VARCHAR(20) NOT NULL,
@@ -107,29 +110,13 @@ CREATE TABLE
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_container_type FOREIGN KEY (container_type) REFERENCES labour_rates(container_type)
     );
-INSERT INTO labour_rates(container_type,rate)VALUES('crates',5);
-INSERT INTO labour_rates(container_type,rate)VALUES('bags',6);
-INSERT INTO labour_rates(container_type,rate)VALUES('leno_bags',4);
-
--- CREATE TABLE
---     purchase_item_billing(
---         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
---         purchase_id INT NOT NULL,
---         labour_charges DOUBLE AS (
---         SELECT labour_rates.rate * farmers_purchases.quantity
---         FROM farmers_purchases 
---         JOIN labour_rates ON farmers_purchases.container_type =labour_rates.container_type
---         WHERE farmers_purchases.purchase_id = purchase_id
---   ),
---                 CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmers_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
---                 date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
---             );
  CREATE TABLE
-    purchase_item_billing(
+    farmer_purchases_billing(
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         purchase_id INT NOT NULL,
         labour_charges DOUBLE DEFAULT 0,
-        CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmers_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        total_amount DOUBLE DEFAULT 0,
+        CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmer_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
     );
 
@@ -140,11 +127,21 @@ BEGIN
 DECLARE labourCharges DOUBLE;
 DECLARE purchaseId INT;
 SELECT purchase_id INTO purchaseId FROM purchase_item_billing WHERE bill_id=bill_Id;
-        SELECT labour_rates.rate * farmers_purchases.quantity INTO labourCharges
+        SELECT labour_rates.rate * farmer_purchases.quantity INTO labourCharges
         FROM farmers_purchases 
-        JOIN labour_rates ON farmers_purchases.container_type =labour_rates.container_type
-        WHERE farmers_purchases.purchase_id = purchaseId;
-    UPDATE purchase_item_billing SET labour_charges=labourCharges WHERE bill_id=bill_Id;
+        JOIN labour_rates ON farmer_purchases.container_type =labour_rates.container_type
+        WHERE farmer_purchases.purchase_id = purchaseId;
+    UPDATE farmer_purchases_billing SET labour_charges=labourCharges WHERE bill_id=bill_Id;
+    END;
+
+    CREATE PROCEDURE calculate_total_amount(IN bill_Id INT)
+BEGIN
+DECLARE totalAmount DOUBLE;
+DECLARE purchaseId INT;
+SELECT purchase_id INTO purchaseId FROM farmer_purchases_billing WHERE bill_id=bill_Id;
+        SELECT farmer_purchases.net_weight* farmer_purchases.rate_per_kg INTO totalAmount
+        FROM farmer_purchases WHERE purchase_id = purchaseId;
+    UPDATE farmer_purchases_billing SET total_amount=totalAmount WHERE bill_id=bill_Id;
     END;
 
 CREATE TABLE
@@ -185,56 +182,21 @@ CREATE TABLE
         CONSTRAINT fk_account2_id FOREIGN KEY (from_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_account3_id FOREIGN KEY (to_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
--- CREATE TRIGGER ADD_USER AFTER INSERT ON ADMINS FOR 
--- EACH ROW BEGIN 
--- 	INSERT INTO
--- 	    users (contact_number, password)
--- 	VALUES (
--- 	        NEW.contact_number,
--- 	        NEW.password
--- 	    );
--- END; 
--- CREATE TRIGGER ADD_USER1 AFTER INSERT ON FARMERS FOR 
--- EACH ROW BEGIN 
--- 	INSERT INTO
--- 	    users (contact_number, password)
--- 	VALUES (
--- 	        NEW.contact_number,
--- 	        NEW.password
--- 	    );
--- END; 
--- CREATE TRIGGER ADD_USER2 AFTER INSERT ON EMPLOYEES FOR 
--- EACH ROW BEGIN 
--- 	INSERT INTO
--- 	    users (contact_number, password)
--- 	VALUES (
--- 	        NEW.contact_number,
--- 	        NEW.password
--- 	    );
--- END; 
--- CREATE TRIGGER ADD_USER3 AFTER INSERT ON CONSIGNEES FOR 
--- EACH ROW BEGIN 
--- 	INSERT INTO
--- 	    users (contact_number, password)
--- 	VALUES (
--- 	        NEW.contact_number,
--- 	        NEW.password
--- 	    );
--- END; 
--- CREATE TRIGGER ADD_USER4 AFTER INSERT ON TRANSPORTS FOR 
--- EACH ROW BEGIN 
--- 	INSERT INTO
--- 	    users (contact_number, password)
--- 	VALUES (
--- 	        NEW.contact_number,
--- 	        NEW.password
--- 	    );
--- END; 
-
--- CREATE TRIGGER DEL_USER AFTER DELETE ON FARMERS FOR 
--- EACH ROW BEGIN 
--- 	DELETE FROM users WHERE contact_number = OLD.contact_number;
--- END; 
+CREATE TABLE
+    payments(
+        payment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        payment_date DATETIME,
+        payment_mode ENUM(
+            'by cash',
+            'by bank transaction'
+        ),
+        transection_id INT NOT NULL,
+        bill_id INT NOT NULL,
+        CONSTRAINT fk_bill_id_1 FOREIGN KEY (bill_id) REFERENCES farmer_purchases_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+INSERT INTO labour_rates(container_type,rate)VALUES('crates',5);
+INSERT INTO labour_rates(container_type,rate)VALUES('bags',6);
+INSERT INTO labour_rates(container_type,rate)VALUES('leno_bags',4);
 INSERT INTO users(contact_number, password)VALUES('9078678767', 'password');
 INSERT INTO users(contact_number, password)VALUES('6567678765', 'password');
 INSERT INTO users(contact_number, password)VALUES('9898765467', 'password');
@@ -314,22 +276,10 @@ INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id
 INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
 INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
 INSERT INTO farmers_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
--- INSERT INTO soldItems(purchase_id,merchant_id,transport_id,net_weight,rate_per_kg,freight_charges)VALUES(1,1,1,1000,20,20000);
--- INSERT INTO soldItems(purchase_id,merchant_id,transport_id,net_weight,rate_per_kg,freight_charges)VALUES(1,1,1,2000,40,30000);
 INSERT INTO purchase_item_billing(purchase_id)VALUES(1);
-SELECT * FROM farmers_purchases;
-SELECT * FROM transports;
-SELECT * FROM farmers;
-SELECT * FROM employees;
-SELECT * FROM soldItems;
-SELECT * FROM accounts;
-SELECT * FROM users;
-SELECT * FROM solditems;
-SELECT * FROM labour_rates;
 SELECT * FROM purchase_item_billing;
-
 CALL calculate_labour_charges(1);
-drop PROCEDURE calculate_labour_charges;
+CALL calculate_total_amount(1);
 
 -- history of credited amounts of a farmer
 -- SELECT farmers.first_name,farmers.last_name,SUM(farmer_history.credit_balance) AS total_credited_balance FROM farmers INNER JOIN farmer_history ON farmers.farmer_id=farmer_history.farmer_id WHERE farmer_history.farmer_id=1 GROUP BY farmer_history.farmer_id;
