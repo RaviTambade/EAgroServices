@@ -7,20 +7,18 @@ public class Transport
 {
     [Column("transport_id")]
     public int TransportId { get; set; }
-    [Column("truck_number")]
-    public string? TruckNumber { get; set; }
 
     [Column("office_name")]
     public string? OfficeName { get; set; }
 
     [Column("first_name")]
     public string? FirstName { get; set; }
-     [Column("last_name")]
+    [Column("last_name")]
     public string? LastName { get; set; }
     [Column("location")]
     public string? Location { get; set; }
+    [Column("user_id")]
+    public int UserId { get; set; }
 
-    [Column("contact_number")]
-    public string ContactNumber { get; set; }
 
 }
