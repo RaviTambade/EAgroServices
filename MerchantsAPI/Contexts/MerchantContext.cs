@@ -11,6 +11,8 @@ public class MerchantContext:DbContext
     _conString=_configuration.GetConnectionString("DefaultConnection");
   }
 public DbSet<Merchant> Merchants {get;set;}
+ public DbSet<User> Users { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
         optionsBuilder.UseMySQL(_conString);
@@ -24,9 +26,25 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
           entity.Property(e => e.FirstName);
           entity.Property(e => e.LastName);
           entity.Property(e => e.CompanyName);
+          entity.Property(e => e.Location);
           entity.Property(e => e.UserId);
           modelBuilder.Entity<Merchant>().ToTable("produce_merchants");
         });
+         modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.UserId);
+            entity.Property(e => e.ContactNumber);
+            entity.Property(e => e.Password);
+            modelBuilder.Entity<User>().ToTable("users");
+        });
+
+        modelBuilder.Entity<UserRole>(entity =>
+       {
+           entity.HasKey(e=> e.UserRoleId);
+           entity.Property(e => e.UserId);
+           entity.Property(e => e.RoleId);
+           modelBuilder.Entity<UserRole>().ToTable("user_roles");
+       });
 
 }
 

@@ -1,5 +1,7 @@
 using MerchantsAPI.Models;
 using MerchantsAPI.Repositories;
+using MerchantsAPI.Repositories.Interfaces;
+using MerchantsAPI.Services.Interfaces;
 namespace MerchantsAPI.Services;
 public class MerchantService : IMerchantService
 {
@@ -16,9 +18,9 @@ public class MerchantService : IMerchantService
     {
         return await _repo.GetById(merchantId);
     }
-    public async Task<bool> Insert(Merchant merchant)
+    public async Task<bool> Insert(Merchant merchant,User user,UserRole userRole)
     {
-        return await _repo.Insert(merchant);
+        return await _repo.Insert(merchant,user,userRole);
     }
     public async Task<bool> Update(int merchantId,Merchant merchant)
     {
