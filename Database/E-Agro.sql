@@ -120,7 +120,7 @@ CREATE TABLE
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
     );
 CREATE TABLE
-    farmer_sells(
+    sells(
         sell_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         purchase_id INT NOT NULL,
         merchant_id INT,
@@ -133,9 +133,9 @@ CREATE TABLE
         CONSTRAINT fk_merchant_id FOREIGN KEY (merchant_id) REFERENCES merchants(merchant_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transport_trucks(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-    SELECT * FROM farmer_sells;
+    SELECT * FROM sells;
    CREATE TABLE
-    farmers_sell_billing(
+    sells_billing(
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         sell_id INT NOT NULL,
         freight_charges DOUBLE DEFAULT 0,
@@ -145,7 +145,7 @@ CREATE TABLE
         ),
         
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        CONSTRAINT fk_sell_id FOREIGN KEY (sell_id) REFERENCES farmer_sells(sell_id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_sell_id FOREIGN KEY (sell_id) REFERENCES sells(sell_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
     CREATE TABLE freight_rates (
@@ -155,13 +155,13 @@ CREATE TABLE
   kilometers INT NOT NULL,
   rate_per_km DOUBLE NOT NULL,
   bill_id INT NOT NULL,
-  CONSTRAINT fk_bill_id FOREIGN KEY (bill_id) REFERENCES farmers_sell_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
+  CONSTRAINT fk_bill_id FOREIGN KEY (bill_id) REFERENCES sells_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
  
  --query for calculating freight charges of one truck
-SELECT farmer_sells.sell_id,farmer_sells.truck_id,farmers_sell_billing.freight_charges,farmer_sells.date 
-from farmer_sells,farmers_sell_billing
-WHERE farmer_sells.sell_id=farmers_sell_billing.sell_id and farmer_sells.truck_id=1;
+SELECT sells.sell_id,sells.truck_id,sells_billing.freight_charges,sells.date 
+from sells,sells_billing
+WHERE sells.sell_id=sells_billing.sell_id and sells.truck_id=1;
 CREATE TABLE
     transactions(
         transaction_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -239,23 +239,23 @@ INT) BEGIN
 	    freight_rates.kilometers * freight_rates.rate_per_km INTO freightCharges
 	FROM freight_rates WHERE freight_rates.bill_id = bill_Id  ;
 	UPDATE
-	    farmers_sell_billing
+	    sells_billing
 	SET
 	    freight_charges = freightCharges
-	WHERE farmers_sell_billing.bill_id = bill_Id;
+	WHERE sells_billing.bill_id = bill_Id;
 END; 
 
 CREATE PROCEDURE calculate_labour_charges_of_sells(IN bill_Id 
 INT) BEGIN 
 UPDATE 
-    farmers_sell_billing 
-    INNER JOIN farmer_sells ON farmers_sell_billing.sell_id = farmer_sells.sell_id
-    INNER JOIN farmer_purchases ON farmer_sells.purchase_id = farmer_purchases.purchase_id
+    sells_billing 
+    INNER JOIN sells ON sells_billing.sell_id = sells.sell_id
+    INNER JOIN farmer_purchases ON sells.purchase_id = farmer_purchases.purchase_id
     INNER JOIN labour_rates ON farmer_purchases.container_type = labour_rates.container_type 
 SET 
-    farmers_sell_billing.labour_charges = farmer_purchases.quantity * labour_rates.rate
+    sells_billing.labour_charges = farmer_purchases.quantity * labour_rates.rate
 WHERE 
-    farmers_sell_billing.bill_id =bill_Id;
+    sells_billing.bill_id =bill_Id;
     END;
 
 
@@ -343,14 +343,14 @@ INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_wei
 
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
-INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
-INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(2,2,2,400,20);
-INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(3,2,1,4000,200);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(2,2,2,400,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(3,2,1,4000,200);
 
 INSERT INTO farmer_purchases_billing(purchase_id)VALUES(1);
-INSERT INTO farmers_sell_billing(sell_id)VALUES(1);
-INSERT INTO farmers_sell_billing(sell_id)VALUES(2);
-INSERT INTO farmers_sell_billing(sell_id)VALUES(3);
+INSERT INTO sells_billing(sell_id)VALUES(1);
+INSERT INTO sells_billing(sell_id)VALUES(2);
+INSERT INTO sells_billing(sell_id)VALUES(3);
 
 
 
@@ -358,7 +358,7 @@ INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
 
 SELECT * FROM farmer_purchases;
-SELECT * FROM farmers_sell_billing;
+SELECT * FROM sells_billing;
 CALL calculate_purchase_labour_charges(1);
 CALL calculate_purchase_total_amount(1);
 CALL calculate_freight_charges(1);
@@ -376,14 +376,14 @@ SELECT * FROM farmer_purchases;
 
 SELECT * FROM farmer_purchases WHERE farmer_id=1;
 SELECT * from farmers ;
-SELECT * FROM farmer_sells WHERE truck_id=1;
+SELECT * FROM sells WHERE truck_id=1;
 SELECT * FROM farmers WHERE farmer_id=1;
 SELECT * FROM transports ;
 
-SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,farmer_sells.net_weight,farmer_sells.rate_per_kg,farmer_sells.total_amount FROM farmers
+SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,sells.net_weight,sells.rate_per_kg,sells.total_amount FROM farmers
 INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id 
-INNER JOIN farmer_sells on farmer_purchases.purchase_id=farmer_sells.purchase_id 
-INNER JOIN transport_trucks ON farmer_sells.truck_id=transport_trucks.truck_id 
+INNER JOIN sells on farmer_purchases.purchase_id=sells.purchase_id 
+INNER JOIN transport_trucks ON sells.truck_id=transport_trucks.truck_id 
  WHERE farmers.farmer_id=1;
 
  select  * FROM employees WHERE  user_id=7;
