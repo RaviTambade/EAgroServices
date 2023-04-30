@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -81,7 +81,7 @@ CREATE TABLE
         CONSTRAINT fk_transport_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
-    produce_merchants(
+    merchants(
         merchant_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         first_name VARCHAR(20) NOT NULL,
         last_name VARCHAR(25) NOT NULL,
@@ -130,9 +130,10 @@ CREATE TABLE
         total_amount DOUBLE AS (net_weight * rate_per_kg),
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_purchase2_id FOREIGN KEY (purchase_id) REFERENCES farmer_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_merchant_id FOREIGN KEY (merchant_id) REFERENCES produce_merchants(merchant_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_merchant_id FOREIGN KEY (merchant_id) REFERENCES merchants(merchant_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transport_trucks(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+    SELECT * FROM farmer_sells;
    CREATE TABLE
     farmers_sell_billing(
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -142,6 +143,7 @@ CREATE TABLE
         total_charges DOUBLE AS(
             freight_charges + labour_charges
         ),
+        
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_sell_id FOREIGN KEY (sell_id) REFERENCES farmer_sells(sell_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
@@ -155,6 +157,11 @@ CREATE TABLE
   bill_id INT NOT NULL,
   CONSTRAINT fk_bill_id FOREIGN KEY (bill_id) REFERENCES farmers_sell_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+ 
+ --query for calculating freight charges of one truck
+SELECT farmer_sells.sell_id,farmer_sells.truck_id,farmers_sell_billing.freight_charges,farmer_sells.date 
+from farmer_sells,farmers_sell_billing
+WHERE farmer_sells.sell_id=farmers_sell_billing.sell_id and farmer_sells.truck_id=1;
 CREATE TABLE
     transactions(
         transaction_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -222,19 +229,20 @@ INT) BEGIN
 	WHERE bill_id = bill_Id;
 END; 
 
+SELECT * FROM freight_rates;
 --for calculating freight_charges
 CREATE PROCEDURE calculate_freight_charges(IN bill_Id 
 INT) BEGIN 
 	DECLARE freightCharges DOUBLE;
+    
 	SELECT
 	    freight_rates.kilometers * freight_rates.rate_per_km INTO freightCharges
-	FROM freight_rates
-	WHERE bill_id = bill_Id;
+	FROM freight_rates WHERE freight_rates.bill_id = bill_Id  ;
 	UPDATE
 	    farmers_sell_billing
 	SET
 	    freight_charges = freightCharges
-	WHERE bill_id = bill_Id;
+	WHERE farmers_sell_billing.bill_id = bill_Id;
 END; 
 
 CREATE PROCEDURE calculate_labour_charges_of_sells(IN bill_Id 
@@ -327,9 +335,9 @@ INSERT INTO transports(office_name,first_name,last_name,location,user_id)VALUES(
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(1, 'MH14RE3456');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(2,'MH14RE1234');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(3,'MH14RE2345');
-INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',14);
-INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',15);
-INSERT INTO produce_merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
+INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',14);
+INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',15);
+INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
 
@@ -337,17 +345,33 @@ INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_wei
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
 INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
 INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(2,2,2,400,20);
+INSERT INTO farmer_sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(3,2,1,4000,200);
+
 INSERT INTO farmer_purchases_billing(purchase_id)VALUES(1);
 INSERT INTO farmers_sell_billing(sell_id)VALUES(1);
+INSERT INTO farmers_sell_billing(sell_id)VALUES(2);
+INSERT INTO farmers_sell_billing(sell_id)VALUES(3);
+
+
+
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
-SELECT * FROM farmer_purchases_billing;
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
+
+SELECT * FROM farmer_purchases;
 SELECT * FROM farmers_sell_billing;
 CALL calculate_purchase_labour_charges(1);
 CALL calculate_purchase_total_amount(1);
 CALL calculate_freight_charges(1);
 
+-- CALL calculate_freight_charges(2);
+CALL calculate_freight_charges(3);
+
+
 
 CALL calculate_labour_charges_of_sells(1);
+CALL calculate_labour_charges_of_sells(2);
+CALL calculate_labour_charges_of_sells(3);
+
 SELECT * FROM farmer_purchases;
 
 SELECT * FROM farmer_purchases WHERE farmer_id=1;
