@@ -21,9 +21,9 @@ public class EmployeeService : IEmployeeService
     {
         return await _repo.GetById(employeeId);
     }
-    public async Task<bool> Insert(Employee employee)
+     public async Task<bool> Insert(Employee employee, User user, UserRole userRole)
     {
-        return await _repo.Insert(employee);
+      return await _repo.Insert(employee,user,userRole);
     }
     public async Task<bool> Update(int employeeId,Employee employee)
     {

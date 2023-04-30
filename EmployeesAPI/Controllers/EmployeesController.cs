@@ -26,9 +26,13 @@ public class EmployeesController : ControllerBase
     }
 
     [HttpPost("insert")]
-    public async Task<bool> Insert([FromBody] Employee employee)
+    public async Task<bool> Insert([FromBody] UserEmployeeRole userEmployeeRole)
     {
-        return await _service.Insert(employee);
+        Employee employee=userEmployeeRole.Employee;
+        User user=userEmployeeRole.User;
+        UserRole userRole=userEmployeeRole.UserRole;
+
+        return await _service.Insert(employee,user,userRole);
     }
 
     [HttpPut("update/{id}")]
