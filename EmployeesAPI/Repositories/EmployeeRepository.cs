@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Net;
 using EmployeesAPI.Context;
 using EmployeesAPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +17,7 @@ public class EmployeeRepository : IEmployeeRepository
         {
             using (var context = new EmployeeContext(_configuration))
             {
-                List<Employee> employees = await context.Employee.ToListAsync();
+                List<Employee> employees = await context.Employees.ToListAsync();
                 if (employees == null)
                 {
                     return null;
@@ -38,7 +36,7 @@ public class EmployeeRepository : IEmployeeRepository
         {
             using (var context = new EmployeeContext(_configuration))
             {
-                Employee employee = await context.Employee.FindAsync(employeeId);
+                Employee employee = await context.Employees.FindAsync(employeeId);
                 if (employee == null)
                 {
                     return null;
@@ -52,14 +50,22 @@ public class EmployeeRepository : IEmployeeRepository
         }
     }
 
-    public async Task<bool> Insert(Employee employee)
+    public async Task<bool> Insert(Employee employee,User user,UserRole userRole)
     {
         bool status = false;
+        int userId=0;
         try
         {
             using (var context = new EmployeeContext(_configuration))
             {
-                await context.Employee.AddAsync(employee);
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+                userId=user.UserId;
+                Console.WriteLine(userId);
+                employee.UserId=userId;
+                userRole.UserId=userId;
+                await context.UserRoles.AddAsync(userRole);
+                await context.Employees.AddAsync(employee);
                 await context.SaveChangesAsync();
                 status = true;
             }
@@ -77,7 +83,7 @@ public class EmployeeRepository : IEmployeeRepository
         {
             using (var context = new EmployeeContext(_configuration))
             {
-                Employee? oldEmployee = await context.Employee.FindAsync(employeeId);
+                Employee? oldEmployee = await context.Employees.FindAsync(employeeId);
                 if (oldEmployee != null)
                 {
                     oldEmployee.FirstName = employee.FirstName;
@@ -103,10 +109,10 @@ public class EmployeeRepository : IEmployeeRepository
         {
             using (var context = new EmployeeContext(_configuration))
             {
-                Employee? employee = await context.Employee.FindAsync(employeeId);
+                Employee? employee = await context.Employees.FindAsync(employeeId);
                 if (employee != null)
                 {
-                    context.Employee.Remove(employee);
+                    context.Employees.Remove(employee);
                     await context.SaveChangesAsync();
                     status = true;
                 }

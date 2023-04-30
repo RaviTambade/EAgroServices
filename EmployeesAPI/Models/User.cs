@@ -1,0 +1,13 @@
+using System.ComponentModel.DataAnnotations.Schema;
+namespace EmployeesAPI.Models;
+public class User
+{
+    [Column("user_id")]
+    public int UserId { get; set; }
+
+    [Column("contact_number")]
+    public string? ContactNumber { get; set; }
+
+    [Column("password")]
+    public string? Password { get; set; }
+}

@@ -16,6 +16,5 @@ public class Employee
     public string Salary { get; set; }
     [Column("user_id")]
     public int UserId { get; set; }
-
 }
 
