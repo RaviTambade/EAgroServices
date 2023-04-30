@@ -3,7 +3,6 @@ using TransportsAPI.Models;
 namespace TransportsAPI.Context;
 public class TransportContext : DbContext
 {
-    public DbSet<Transport> Transports { get; set; }
     private IConfiguration _configuration;
     private string _conString;
 
@@ -12,12 +11,15 @@ public class TransportContext : DbContext
         _configuration = configuration;
         _conString = this._configuration.GetConnectionString("DefaultConnection");
     }
+    public DbSet<Transport> Transports { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         //  string conString = "server=localhost; database=eagroservicesdb; user=root; password=password";  
         optionsBuilder.UseMySQL(_conString);
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -28,20 +30,23 @@ public class TransportContext : DbContext
             entity.Property(e => e.FirstName);
             entity.Property(e => e.LastName);
             entity.Property(e => e.Location);
-            entity.Property(e=>e.UserId);
+            entity.Property(e => e.UserId);
+            modelBuilder.Entity<Transport>().ToTable("transports");
         });
-        modelBuilder.Entity<Transport>().ToTable("transports");
+        modelBuilder.Entity<User>(entity =>
+       {
+           entity.HasKey(e => e.UserId);
+           entity.Property(e => e.ContactNumber);
+           entity.Property(e => e.Password);
+           modelBuilder.Entity<User>().ToTable("users");
+       });
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.UserId);
+            entity.Property(e => e.RoleId);
+            modelBuilder.Entity<UserRole>().ToTable("user_roles");
+        });
     }
 }
 
-
-
-//  transports(
-//         transport_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-//         office_name VARCHAR(20) NOT NULL,
-//         first_name VARCHAR(20) NOT NULL,
-//         last_name VARCHAR(20) NOT NULL,
-//         location VARCHAR(20) NOT NULL,
-//         user_id INT NOT NULL,
-   //     CONSTRAINT fk_user6_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
-    //);

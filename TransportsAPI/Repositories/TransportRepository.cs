@@ -13,7 +13,7 @@ public class TransportRepository : ITransportRepository
     {
         _configuration = configuration;
     }
-    public async Task<List<Transport>> GetAllTransports()
+    public async Task<List<Transport>> GetAll()
     {
         try
         {
@@ -35,7 +35,7 @@ public class TransportRepository : ITransportRepository
     }
 
 
-    public async Task<Transport> GetTransportById(int transportId)
+    public async Task<Transport> GetById(int transportId)
     {
         try
         {
@@ -56,14 +56,21 @@ public class TransportRepository : ITransportRepository
         }
     }
 
-    public async Task<bool> InsertTransport(Transport transport)
+    public async Task<bool> Insert(User user,Transport transport,UserRole userRole)
     {
         bool status = false;
+        int userId=0;
         try
         {
             using (var context = new TransportContext(_configuration))
             {
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+                userId=user.UserId;
+                transport.UserId=userId;
+                userRole.UserId=userId;
                 await context.Transports.AddAsync(transport);
+                await context.UserRoles.AddAsync(userRole);
                 await context.SaveChangesAsync();
                 status = true;
             }
@@ -76,7 +83,7 @@ public class TransportRepository : ITransportRepository
         return status;
     }
 
-    public async Task<bool> UpdateTransport(int transportId, Transport transport)
+    public async Task<bool> Update(int transportId, Transport transport)
     {
         bool status = false;
         try
@@ -104,7 +111,7 @@ public class TransportRepository : ITransportRepository
     }
 
 
-    public async Task<bool> DeleteTransport(int transportId)
+    public async Task<bool> Delete(int transportId)
     {
         bool status = false;
         try

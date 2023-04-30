@@ -1,17 +1,14 @@
 using TransportsAPI.Models;
-
 namespace TransportsAPI.Repositories.Interfaces;
 public interface ITransportRepository
 {
+    Task<List<Transport>> GetAll();
 
-    Task<List<Transport>> GetAllTransports();
+    Task<Transport> GetById(int transportId);
 
-    Task<Transport> GetTransportById(int transportId);
+    Task<bool> Insert(User user,Transport transport,UserRole userRole);
 
-    Task<bool> InsertTransport(Transport transport);
+    Task<bool> Update(int transportId,Transport transport);
 
-    Task<bool> UpdateTransport(int transportId,Transport transport);
-
-     Task<bool> DeleteTransport(int transportId);
-
+    Task<bool> Delete(int transportId);
 }

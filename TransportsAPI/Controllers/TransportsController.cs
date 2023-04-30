@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using TransportsAPI.Models;
 using TransportsAPI.Services.Interfaces;
 namespace TransportsAPI.Controller;
-
 [ApiController]
 [Route("/api/[controller]")]
 public class TransportsController : ControllerBase
@@ -12,36 +11,36 @@ public class TransportsController : ControllerBase
     {
         this._service = service;
     }
-
     [HttpGet("alltransports")]
-    public async Task<IEnumerable<Transport>> GetAllTransports()
+    public async Task<IEnumerable<Transport>> GetAll()
     {
-        return await _service.GetAllTransports();
+        return await _service.GetAll();
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("getdetails/{id}")]
     public async Task<Transport> GetById(int id)
     {
-        return await _service.GetTransportById(id);
+        return await _service.GetById(id);
     }
 
-
-    [HttpPost("add")]
-    public async Task<bool> InsertTransport([FromBody] Transport transport)
+    [HttpPost("insert")]
+    public async Task<bool> Insert([FromBody] UserTransportRole userTransportRole)
     {
-        return await _service.InsertTransport(transport);
+        User user=userTransportRole.user;
+        Transport transport=userTransportRole.transport;
+        UserRole userRole=userTransportRole.userRole;
+
+        return await _service.Insert(user,transport,userRole);
     }
-
-
     [HttpPut("update/{id}")]
-    public async Task<bool> UpdateDepartment(int id, [FromBody] Transport transport)
+    public async Task<bool> Update(int id, [FromBody] Transport transport)
     {
-        return await _service.UpdateTransport(id, transport);
+        return await _service.Update(id, transport);
     }
 
     [HttpDelete("delete/{id}")]
-    public async Task<bool> DeleteTransport(int id)
+    public async Task<bool> Delete(int id)
     {
-        return await _service.DeleteTransport(id);
+        return await _service.Delete(id);
     }
 }
