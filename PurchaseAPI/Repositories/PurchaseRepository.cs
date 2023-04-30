@@ -55,12 +55,21 @@ public class PurchaseRepository : IPurchaseRepository
     public async Task<bool> Insert(PurchaseItem purchaseItem)
     {
         bool status = false;
+        PurchaseBilling purchaseBilling = new PurchaseBilling();
         try
         {
             using (var context = new PurchaseContext(_configuration))
             {
                 await context.PurchaseItems.AddAsync(purchaseItem);
                 await context.SaveChangesAsync();
+                Console.WriteLine(purchaseItem.PurchaseId);
+                purchaseBilling.PurchaseId = purchaseItem.PurchaseId;
+                await context.PurchaseBillings.AddAsync(purchaseBilling);
+                await context.SaveChangesAsync();
+                int billId = purchaseBilling.BillId;
+                Console.WriteLine(billId);
+                context.Database.ExecuteSqlRaw("CALL calculate_purchase_labour_charges(@p0)", billId);
+                context.Database.ExecuteSqlRaw("CALL calculate_purchase_total_amount(@p0)", billId);
                 status = true;
             }
         }
@@ -71,7 +80,7 @@ public class PurchaseRepository : IPurchaseRepository
         return status;
     }
 
-     public async Task<bool> Update(int purchaseId, PurchaseItem purchaseItem)
+    public async Task<bool> Update(int purchaseId, PurchaseItem purchaseItem)
     {
         bool status = false;
         try

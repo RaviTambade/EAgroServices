@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -189,47 +189,33 @@ CREATE TABLE
 
 
 --for calculating labour_charges
-CREATE PROCEDURE calculate_purchase_labour_charges(IN bill_Id
-INT) BEGIN 
-	DECLARE labourCharges DOUBLE;
-	DECLARE purchaseId INT;
-	SELECT
-	    purchase_id INTO purchaseId
-	FROM farmer_purchases_billing
-	WHERE bill_id = bill_Id;
-	SELECT
-	    labour_rates.rate * farmer_purchases.quantity INTO labourCharges
-	FROM farmer_purchases
-	    JOIN labour_rates ON farmer_purchases.container_type = labour_rates.container_type
-	WHERE
-	    farmer_purchases.purchase_id = purchaseId;
-	UPDATE
-	    farmer_purchases_billing
-	SET
-	    labour_charges = labourCharges
-	WHERE bill_id = bill_Id;
-END; 
+CREATE PROCEDURE calculate_purchase_labour_charges(IN billId INT) BEGIN 
+	DECLARE labourRate DOUBLE DEFAULT 0;
+	DECLARE Quantity INT DEFAULT 0;
+	DECLARE purchaseId INT ;
+	SELECT purchase_id INTO purchaseId FROM farmer_purchases_billing WHERE bill_id = billId;
+    SELECT rate INTO labourRate FROM labour_rates,farmer_purchases WHERE  farmer_purchases.purchase_id= purchaseId AND labour_rates.container_type=farmer_purchases.container_type;
+    SELECT farmer_purchases.quantity INTO Quantity  FROM farmer_purchases WHERE farmer_purchases.purchase_id = purchaseId;
+    UPDATE farmer_purchases_billing SET labour_charges = labourRate * Quantity WHERE bill_id = BillId;
+END;
 
 --for calculating total_amount
-CREATE PROCEDURE calculate_purchase_total_amount(IN bill_Id 
+CREATE PROCEDURE calculate_purchase_total_amount(IN billId 
 INT) BEGIN 
-	DECLARE totalAmount DOUBLE;
+	DECLARE totalAmount DOUBLE ;
 	DECLARE purchaseId INT;
 	SELECT
 	    purchase_id INTO purchaseId
 	FROM farmer_purchases_billing
-	WHERE bill_id = bill_Id;
-	SELECT
-	    farmer_purchases.net_weight * farmer_purchases.rate_per_kg INTO totalAmount
-	FROM farmer_purchases
-	WHERE purchase_id = purchaseId;
+	WHERE bill_id = billId;
+	SELECT farmer_purchases.net_weight * farmer_purchases.rate_per_kg INTO totalAmount
+	FROM farmer_purchases WHERE purchase_id = purchaseId;
 	UPDATE
 	    farmer_purchases_billing
 	SET total_amount = totalAmount
-	WHERE bill_id = bill_Id;
+	WHERE bill_id = billId;
 END; 
 
-SELECT * FROM freight_rates;
 --for calculating freight_charges
 CREATE PROCEDURE calculate_freight_charges(IN bill_Id 
 INT) BEGIN 
@@ -361,6 +347,8 @@ SELECT * FROM farmer_purchases;
 SELECT * FROM sells_billing;
 CALL calculate_purchase_labour_charges(1);
 CALL calculate_purchase_total_amount(1);
+SELECT * FROM farmer_purchases_billing;
+
 CALL calculate_freight_charges(1);
 
 -- CALL calculate_freight_charges(2);
@@ -373,6 +361,7 @@ CALL calculate_labour_charges_of_sells(2);
 CALL calculate_labour_charges_of_sells(3);
 
 SELECT * FROM farmer_purchases;
+SELECT * FROM farmer_purchases_billing;
 
 SELECT * FROM farmer_purchases WHERE farmer_id=1;
 SELECT * from farmers ;
