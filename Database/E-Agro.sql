@@ -387,3 +387,4 @@ INNER JOIN transport_trucks ON farmer_sells.truck_id=transport_trucks.truck_id
  WHERE farmers.farmer_id=1;
 
  select  * FROM employees WHERE  user_id=7;
+ SELECT * FROM users;

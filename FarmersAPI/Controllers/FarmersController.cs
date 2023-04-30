@@ -30,9 +30,12 @@ namespace FarmersAPI.Controllers
 
         [HttpPost]
         [Route("insert")]
-        public async Task<bool> InsertFarmer([FromBody] Farmer farmer)
+        public async Task<bool> InsertFarmer([FromBody] UserFarmerRole userFarmerRole)
         {
-            return await _srv.InsertFarmer(farmer);
+            User user=userFarmerRole.user;
+            Farmer farmer=userFarmerRole.farmer;
+            UserRole userRole=userFarmerRole.userRole;
+            return await _srv.InsertFarmer(user,farmer,userRole);
         }
 
         [HttpPut]

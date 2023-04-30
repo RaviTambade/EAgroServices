@@ -50,13 +50,20 @@ public class FarmerRepository : IFarmerRepository
             throw e;
         }
     }
-    public async Task<bool> InsertFarmer(Farmer farmer)
+    public async Task<bool> InsertFarmer(User user,Farmer farmer,UserRole userRole)
     {
         bool status = false;
+        int userId=0;
         try
         {
             using (var context = new FarmersContext(_configuration))
             {
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+                userId=user.UserId;
+                farmer.UserId=userId;
+                userRole.UserId=userId;
+                await context.UserRoles.AddAsync(userRole);
                 await context.Farmers.AddAsync(farmer);
                 await context.SaveChangesAsync();
                 status = true;

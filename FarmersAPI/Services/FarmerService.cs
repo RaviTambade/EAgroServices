@@ -10,7 +10,7 @@ public class FarmerService:IFarmerService{
     }
     public async Task<List<Farmer>> GetAllFarmers() =>await _repo.GetAllFarmers();
     public async Task<Farmer> GetFarmerById(int farmerId) =>await _repo.GetFarmerById(farmerId);
-    public async Task<bool> InsertFarmer(Farmer farmer)=>await _repo.InsertFarmer(farmer);
+    public async Task<bool> InsertFarmer(User user,Farmer farmer,UserRole userRole)=>await _repo.InsertFarmer( user, farmer, userRole);
     public async Task<bool> UpdateFarmer(int farmerId,Farmer farmer)=>await _repo.UpdateFarmer(farmerId,farmer);
     public async Task<bool> DeleteFarmer(int farmerId)=>await _repo.DeleteFarmer(farmerId);
 }
