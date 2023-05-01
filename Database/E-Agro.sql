@@ -340,22 +340,39 @@ INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES 
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
-
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Lady Finger','crates',50,1000,100,20);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Garlic','bags',30,150,15,15);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Potato','leno_bags',20,200,20,10);
+
 INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(2,2,2,400,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(3,2,1,4000,200);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(4,2,1,1000,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(5,2,1,150,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(6,2,1,200,12);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(7,2,1,200,20);
 
+
+SELECT * FROM sells;
 INSERT INTO farmer_purchases_billing(purchase_id)VALUES(1);
-INSERT INTO sells_billing(sell_id)VALUES(1);
-INSERT INTO sells_billing(sell_id)VALUES(2);
-INSERT INTO sells_billing(sell_id)VALUES(3);
+INSERT INTO sells_billing(sell_id)VALUES(4);
+INSERT INTO sells_billing(sell_id)VALUES(5);
+INSERT INTO sells_billing(sell_id)VALUES(6);
+INSERT INTO sells_billing(sell_id)VALUES(7);
+SELECT * FROM sells_billing;
+CALL calculate_freight_charges(1);
 
 
 
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,5);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,8);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,6);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,7);
+
 
 SELECT * FROM farmer_purchases;
 SELECT * FROM sells_billing;
@@ -364,7 +381,9 @@ CALL calculate_purchase_total_amount(1);
 CALL calculate_freight_charges(1);
 
 -- CALL calculate_freight_charges(2);
-CALL calculate_freight_charges(3);
+CALL calculate_freight_charges(7);
+CALL calculate_labour_charges_of_sells(7);
+
 
 
 
