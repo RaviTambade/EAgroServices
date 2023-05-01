@@ -2,6 +2,7 @@
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
+SELECT * FROM user_roles;
 CREATE TABLE
     users(
         user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

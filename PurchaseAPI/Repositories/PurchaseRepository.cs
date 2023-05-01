@@ -18,15 +18,15 @@ public class PurchaseRepository : IPurchaseRepository
         {
             using (var context = new PurchaseContext(_configuration))
             {
-                var purchaseViewData = from item in context.PurchaseItems
+                var purchaseViewData =  await (from item in context.PurchaseItems
                                        join bill in context.PurchaseBillings
                                        on item.PurchaseId equals bill.PurchaseId
                                        select new PurchaseViewModel()
                                        {
                                         PurchaseItem=item,
                                         PurchaseBilling=bill
-                                       };
-                return await  purchaseViewData.ToListAsync();
+                                       }).ToListAsync();
+                return purchaseViewData;
             }
         }
         catch (Exception e)
@@ -34,7 +34,6 @@ public class PurchaseRepository : IPurchaseRepository
             throw e;
         }
     }
-
 
        public async Task<PurchaseViewModel> GetPurchaseItemById(int purchaseId)
     {
