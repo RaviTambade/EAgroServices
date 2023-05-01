@@ -1,5 +1,6 @@
 using MerchantsAPI.Repositories;
-namespace MerchantsAPI.Services;
+using MerchantsAPI.Repositories.Interfaces;
+namespace MerchantsAPI.Services.Interfaces;
 public interface IMerchantService : IMerchantRepository{
     
 }

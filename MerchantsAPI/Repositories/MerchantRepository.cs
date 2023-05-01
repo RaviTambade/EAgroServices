@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net;
 using MerchantsAPI.Context;
 using MerchantsAPI.Models;
+using MerchantsAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace MerchantsAPI.Repositories;
 public class MerchantRepository : IMerchantRepository
@@ -50,13 +51,22 @@ public class MerchantRepository : IMerchantRepository
         }
     }
 
-    public async Task<bool> Insert(Merchant merchant)
+    public async Task<bool> Insert(Merchant merchant,User user,UserRole userRole)
     {
         bool status = false;
+        int userId=0;
         try
         {
             using (var context = new MerchantContext(_configuration))
             {
+
+                 await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+                userId=user.UserId;
+                Console.WriteLine(userId);
+                merchant.UserId=userId;
+                userRole.UserId=userId;
+                await context.UserRoles.AddAsync(userRole);
                 await context.Merchants.AddAsync(merchant);
                 await context.SaveChangesAsync();
                 status = true;
@@ -81,6 +91,7 @@ public class MerchantRepository : IMerchantRepository
                     oldMerchant.FirstName = merchant.FirstName;
                     oldMerchant.LastName = merchant.LastName;
                     oldMerchant.CompanyName = merchant.CompanyName;
+                    oldMerchant.Location = merchant.Location;
                     await context.SaveChangesAsync();
                     return true;
                 }

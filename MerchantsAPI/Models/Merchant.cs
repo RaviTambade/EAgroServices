@@ -13,7 +13,9 @@ public class Merchant
 
     [Column("company_name")]
     public string CompanyName { get; set; }
+    [Column("location")]
+    public string Location { get; set; }
 
     [Column("user_id")]
-    public string UserId { get; set; }
+    public int UserId { get; set; }
 }
