@@ -13,12 +13,12 @@ public class PurchaseService : IPurchaseService
         _repo = repo;
     }
 
-    public async Task<List<PurchaseItem>> GetAllPurchaseItems()
+    public async Task<List<PurchaseViewModel>> GetAllPurchaseItems()
     {
         return await _repo.GetAllPurchaseItems();
     }
 
-    public async Task<PurchaseItem> GetPurchaseItemById(int purchaseId)
+    public async Task<PurchaseViewModel> GetPurchaseItemById(int purchaseId)
     {
         return await _repo.GetPurchaseItemById(purchaseId);
     }
@@ -35,4 +35,5 @@ public class PurchaseService : IPurchaseService
     {
         return await _repo.Delete(purchaseId);
     }
+
 }

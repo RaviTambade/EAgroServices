@@ -11,18 +11,22 @@ public class PurchaseRepository : IPurchaseRepository
     {
         _configuration = configuration;
     }
-    public async Task<List<PurchaseItem>> GetAllPurchaseItems()
+
+    public async Task<List<PurchaseViewModel>> GetAllPurchaseItems()
     {
         try
         {
             using (var context = new PurchaseContext(_configuration))
             {
-                List<PurchaseItem> purchaseItems = await context.PurchaseItems.ToListAsync();
-                if (purchaseItems == null)
-                {
-                    return null;
-                }
-                return purchaseItems;
+                var purchaseViewData = from item in context.PurchaseItems
+                                       join bill in context.PurchaseBillings
+                                       on item.PurchaseId equals bill.PurchaseId
+                                       select new PurchaseViewModel()
+                                       {
+                                        PurchaseItem=item,
+                                        PurchaseBilling=bill
+                                       };
+                return await  purchaseViewData.ToListAsync();
             }
         }
         catch (Exception e)
@@ -32,18 +36,22 @@ public class PurchaseRepository : IPurchaseRepository
     }
 
 
-    public async Task<PurchaseItem> GetPurchaseItemById(int purchaseId)
+       public async Task<PurchaseViewModel> GetPurchaseItemById(int purchaseId)
     {
         try
         {
             using (var context = new PurchaseContext(_configuration))
             {
-                PurchaseItem purchaseItem = await context.PurchaseItems.FindAsync(purchaseId);
-                if (purchaseItem == null)
-                {
-                    return null;
-                }
-                return purchaseItem;
+                var purchaseViewData = from item in context.PurchaseItems
+                                       join bill in context.PurchaseBillings
+                                       on item.PurchaseId equals bill.PurchaseId
+                                       where item.PurchaseId==purchaseId
+                                       select new PurchaseViewModel()
+                                       {
+                                        PurchaseItem=item,
+                                        PurchaseBilling=bill
+                                       };
+                return await  purchaseViewData.FirstOrDefaultAsync();
             }
         }
         catch (Exception e)
@@ -51,6 +59,7 @@ public class PurchaseRepository : IPurchaseRepository
             throw e;
         }
     }
+
 
     public async Task<bool> Insert(PurchaseItem purchaseItem)
     {
@@ -88,6 +97,13 @@ public class PurchaseRepository : IPurchaseRepository
             using (var context = new PurchaseContext(_configuration))
             {
                 PurchaseItem? oldPurchaseItem = await context.PurchaseItems.FindAsync(purchaseId);
+
+                string containerType = oldPurchaseItem.ContainerType;
+                int quantity = oldPurchaseItem.Quantity;
+                double tareWeight = oldPurchaseItem.TareWeight;
+                double totalWeight = oldPurchaseItem.TotalWeight;
+                double ratePerKg = oldPurchaseItem.RatePerKg;
+
                 if (oldPurchaseItem != null)
                 {
                     oldPurchaseItem.FarmerId = purchaseItem.FarmerId;
@@ -98,7 +114,23 @@ public class PurchaseRepository : IPurchaseRepository
                     oldPurchaseItem.TotalWeight = purchaseItem.TotalWeight;
                     oldPurchaseItem.RatePerKg = purchaseItem.RatePerKg;
                     await context.SaveChangesAsync();
-                    return true;
+                    status = true;
+
+                    if (
+                          containerType != oldPurchaseItem.ContainerType ||
+                          quantity != oldPurchaseItem.Quantity ||
+                          tareWeight != oldPurchaseItem.TareWeight ||
+                          totalWeight != oldPurchaseItem.TotalWeight ||
+                          ratePerKg != oldPurchaseItem.RatePerKg
+                        )
+                    {
+                        Console.WriteLine(" procedure called");
+                        var purchaseBilling = await context.PurchaseBillings.FirstOrDefaultAsync(x => x.PurchaseId == purchaseId);
+                        int billId = purchaseBilling.BillId;
+                        Console.WriteLine(billId);
+                        context.Database.ExecuteSqlRaw("CALL calculate_purchase_labour_charges(@p0)", billId);
+                        context.Database.ExecuteSqlRaw("CALL calculate_purchase_total_amount(@p0)", billId);
+                    }
                 }
             }
         }

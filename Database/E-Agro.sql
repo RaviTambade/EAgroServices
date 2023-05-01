@@ -110,7 +110,6 @@ CREATE TABLE
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_container_type FOREIGN KEY (container_type) REFERENCES labour_rates(container_type)
     );
-    SELECT * FROM farmer_purchases_billing;
  CREATE TABLE
     farmer_purchases_billing(
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
