@@ -110,6 +110,7 @@ CREATE TABLE
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_container_type FOREIGN KEY (container_type) REFERENCES labour_rates(container_type)
     );
+    SELECT * FROM farmer_purchases_billing;
  CREATE TABLE
     farmer_purchases_billing(
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -198,24 +199,27 @@ CREATE PROCEDURE calculate_purchase_labour_charges(IN billId INT) BEGIN
     SELECT farmer_purchases.quantity INTO Quantity  FROM farmer_purchases WHERE farmer_purchases.purchase_id = purchaseId;
     UPDATE farmer_purchases_billing SET labour_charges = labourRate * Quantity WHERE bill_id = BillId;
 END;
-
+SELECT * FROM farmer_purchases_billing;
 --for calculating total_amount
 CREATE PROCEDURE calculate_purchase_total_amount(IN billId 
 INT) BEGIN 
 	DECLARE totalAmount DOUBLE ;
+	DECLARE labourChrges DOUBLE DEFAULT 0;
 	DECLARE purchaseId INT;
 	SELECT
 	    purchase_id INTO purchaseId
 	FROM farmer_purchases_billing
 	WHERE bill_id = billId;
+    SELECT labour_charges INTO labourChrges FROM farmer_purchases_billing WHERE bill_id = billId;
 	SELECT farmer_purchases.net_weight * farmer_purchases.rate_per_kg INTO totalAmount
 	FROM farmer_purchases WHERE purchase_id = purchaseId;
 	UPDATE
 	    farmer_purchases_billing
-	SET total_amount = totalAmount
+	SET total_amount = totalAmount - labour_charges
 	WHERE bill_id = billId;
 END; 
 
+-- DROP PROCEDURE calculate_purchase_total_amount;
 --for calculating freight_charges
 CREATE PROCEDURE calculate_freight_charges(IN bill_Id 
 INT) BEGIN 
