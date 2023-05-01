@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
 builder.Services.AddControllers();
-
+builder.Services.AddTransient<ITruckRepository,TruckRepository>();
+builder.Services.AddTransient<ITruckServices,TruckServices>();
 builder.Services.AddTransient<ITransportRepository,TransportRepository>();
 builder.Services.AddTransient<ITransportService,TransportService>();
 

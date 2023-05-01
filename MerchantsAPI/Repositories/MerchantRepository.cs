@@ -63,7 +63,6 @@ public class MerchantRepository : IMerchantRepository
                  await context.Users.AddAsync(user);
                 await context.SaveChangesAsync();
                 userId=user.UserId;
-                Console.WriteLine(userId);
                 merchant.UserId=userId;
                 userRole.UserId=userId;
                 await context.UserRoles.AddAsync(userRole);
