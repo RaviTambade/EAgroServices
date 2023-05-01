@@ -12,6 +12,8 @@ public class PurchaseContext : DbContext
         _conString = _configuration.GetConnectionString("DefaultConnection");
     }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
+    public DbSet<PurchaseBilling> PurchaseBillings { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
@@ -32,6 +34,15 @@ public class PurchaseContext : DbContext
             entity.Property(e => e.NetWeight);
             entity.Property(e => e.RatePerKg);
             modelBuilder.Entity<PurchaseItem>().ToTable("farmer_purchases");
+        });
+
+         modelBuilder.Entity<PurchaseBilling>(entity =>
+        {
+            entity.HasKey(e => e.BillId);
+            entity.Property(e => e.PurchaseId);
+            entity.Property(e => e.LabourCharges);
+            entity.Property(e => e.TotalAmount);
+            modelBuilder.Entity<PurchaseBilling>().ToTable("farmer_purchases_billing");
         });
     }
 }

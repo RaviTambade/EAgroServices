@@ -1,7 +1,5 @@
-using System.Reflection.Metadata;
-using PurchaseAPI.Models;
-using PurchaseAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using PurchaseAPI.Models;
 using PurchaseAPI.Services.Interfaces;
 
 namespace PurchaseAPI.Controller;
@@ -16,13 +14,13 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpGet("getallpurchaseitems")]
-    public async Task<List<PurchaseItem>> GetPurchaseItems()
+    public async Task<List<PurchaseViewModel>> GetPurchaseItems()
     {
         return await _service.GetAllPurchaseItems();
     }
 
     [HttpGet("GetById/{id}")]
-    public async Task<PurchaseItem> GetPurchaseItemById(int id)
+    public async Task<PurchaseViewModel> GetPurchaseItemById(int id)
     {
         return await _service.GetPurchaseItemById(id);
     }

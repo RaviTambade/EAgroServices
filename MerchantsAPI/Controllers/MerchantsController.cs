@@ -1,6 +1,7 @@
 using System.Reflection.Metadata;
 using MerchantsAPI.Models;
 using MerchantsAPI.Services;
+using MerchantsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace MerchantsAPI.Controller;
 [ApiController]
@@ -26,9 +27,13 @@ public class MerchantsController : ControllerBase
     }
 
     [HttpPost("insert")]
-    public async Task<bool> Insert([FromBody] Merchant merchant)
+    public async Task<bool> Insert([FromBody] UserMerchantRole userMerchantRole)
     {
-        return await _service.Insert(merchant);
+    
+        Merchant merchant=userMerchantRole.Merchant;
+        User user=userMerchantRole.User;
+        UserRole userRole=userMerchantRole.UserRole;
+        return await _service.Insert(merchant,user,userRole);
     }
 
     [HttpPut("update/{id}")]

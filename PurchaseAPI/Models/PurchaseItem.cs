@@ -30,4 +30,8 @@ public class PurchaseItem
 
     [Column("rate_per_kg")]
     public double RatePerKg { get; set; }
+
+    public double Amount{get{
+        return this.NetWeight* this.RatePerKg;
+    }}
 }
