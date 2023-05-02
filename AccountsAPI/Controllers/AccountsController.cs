@@ -6,7 +6,6 @@ using AccountsAPI.Services;
 using AccountsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace AccountsAPI.Controller;
 
 [ApiController]
