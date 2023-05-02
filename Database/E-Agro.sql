@@ -1,7 +1,8 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
+
 CREATE TABLE
     users(
         user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -329,60 +330,78 @@ INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES 
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
-
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
 INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Lady Finger','crates',50,1000,100,20);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Garlic','bags',30,150,15,15);
+INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Potato','leno_bags',20,200,20,10);
+
 INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(2,2,2,400,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(3,2,1,4000,200);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(4,2,1,1000,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(5,2,1,150,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(6,2,1,200,12);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(7,2,1,200,20);
 
+
+SELECT * FROM sells;
 INSERT INTO farmer_purchases_billing(purchase_id)VALUES(1);
-INSERT INTO sells_billing(sell_id)VALUES(1);
-INSERT INTO sells_billing(sell_id)VALUES(2);
-INSERT INTO sells_billing(sell_id)VALUES(3);
+INSERT INTO sells_billing(sell_id)VALUES(4);
+INSERT INTO sells_billing(sell_id)VALUES(5);
+INSERT INTO sells_billing(sell_id)VALUES(6);
+INSERT INTO sells_billing(sell_id)VALUES(7);
+SELECT * FROM sells_billing;
+CALL calculate_freight_charges(1);
 
 
 
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,1);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
 
-SELECT * FROM farmer_purchases;
-SELECT * FROM sells_billing;
-CALL calculate_purchase_labour_charges(1);
-CALL calculate_purchase_total_amount(1);
-SELECT * FROM farmer_purchases_billing;
 
-CALL calculate_freight_charges(1);
+-- SELECT * FROM farmer_purchases;
+-- SELECT * FROM sells_billing;
+-- CALL calculate_purchase_labour_charges(1);
+-- CALL calculate_purchase_total_amount(1);
+-- SELECT * FROM farmer_purchases_billing;
 
--- CALL calculate_freight_charges(2);
-CALL calculate_freight_charges(3);
+-- CALL calculate_freight_charges(1);
+
+-- -- CALL calculate_freight_charges(2);
+-- CALL calculate_freight_charges(1);
+-- CALL calculate_labour_charges_of_sells(1);
 
 
 
-CALL calculate_labour_charges_of_sells(1);
-CALL calculate_labour_charges_of_sells(2);
-CALL calculate_labour_charges_of_sells(3);
 
-SELECT * FROM farmer_purchases;
-SELECT * FROM farmer_purchases_billing;
+-- CALL calculate_labour_charges_of_sells(1);
+-- CALL calculate_labour_charges_of_sells(2);
+-- CALL calculate_labour_charges_of_sells(1);
 
-SELECT * FROM farmer_purchases WHERE farmer_id=1;
-SELECT * from farmers ;
-SELECT * FROM sells WHERE truck_id=1;
-SELECT * FROM farmers WHERE farmer_id=1;
-SELECT * FROM transports ;
+-- SELECT * FROM farmer_purchases;
+-- SELECT * FROM farmer_purchases_billing;
 
-SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,sells.net_weight,sells.rate_per_kg,sells.total_amount FROM farmers
-INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id 
-INNER JOIN sells on farmer_purchases.purchase_id=sells.purchase_id 
-INNER JOIN transport_trucks ON sells.truck_id=transport_trucks.truck_id 
- WHERE farmers.farmer_id=1;
+-- SELECT * FROM farmer_purchases WHERE farmer_id=1;
+-- SELECT * from farmers ;
+-- SELECT * FROM sells WHERE truck_id=1;
+-- SELECT * FROM farmers WHERE farmer_id=1;
+-- SELECT * FROM transports ;
 
- select  * FROM employees WHERE  user_id=7;
- SELECT * FROM users;
- SELECT * FROM user_roles;
- SELECT * FROM transports;
- SELECT * FROM roles;
- SELECT * FROM produce_merchants;
+-- SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,sells.net_weight,sells.rate_per_kg,sells.total_amount FROM farmers
+-- INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id 
+-- INNER JOIN sells on farmer_purchases.purchase_id=sells.purchase_id 
+-- INNER JOIN transport_trucks ON sells.truck_id=transport_trucks.truck_id 
+--  WHERE farmers.farmer_id=1;
+
+--  SELECT * FROM users;
+--  SELECT * FROM user_roles;
+--  SELECT * FROM transports;
+--  SELECT * FROM roles;
+--  SELECT * FROM produce_merchants;
  
-SELECT * FROM produce_merchants WHERE user_id=21;
+-- SELECT * FROM produce_merchants WHERE user_id=1;

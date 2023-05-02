@@ -1,24 +1,21 @@
-using System;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using MySql.Data.MySqlClient;
-using System.Collections;
-using System.Threading.Tasks;
-using AuthAPI.Context;
 using System.Security.Claims;
-using AuthAPI.Models;
+using AuthAPI.Context;
 using AuthAPI.Helpers;
+using AuthAPI.Models;
 using AuthAPI.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 namespace AuthAPI.Repository;
 public class UserRepository : IUserRepository
 {
     private readonly IConfiguration _configuration;
     private readonly AppSettings _appsettings;
-    public UserRepository(IConfiguration configuration)
+    public UserRepository(IConfiguration configuration, IOptions<AppSettings> appsettings)
     {
         _configuration = configuration;
+        _appsettings = appsettings.Value;
     }
 
     public async Task<IEnumerable<User>> GetAllUsers()
@@ -41,83 +38,79 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<User> GetUser(int userId)
+
+
+    public async Task<bool> Insert(User user)
     {
+        bool status = false;
         try
         {
             using (var context = new UserContext(_configuration))
             {
-                User user = await context.Users.FindAsync(userId);
-                if (user == null)
-                {
-                    return null;
-                }
-                return user;
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+                status = true;
             }
         }
         catch (Exception e)
         {
             throw e;
         }
-    }
-
-    public async Task<bool> Insert(User user){
-        bool status=false;
-        try{
-            using(var context=new UserContext(_configuration)){
-            await context.Users.AddAsync(user);
-            await context.SaveChangesAsync();
-            status=true;
-            }
-        }
-        catch(Exception e){
-            throw e;
-        }
         return status;
     }
 
 
-     public async Task<bool> Update(int userId,User user){
-        bool status=false;
-        try{
-            using(var context=new UserContext(_configuration)){
-               User? oldUser= await context.Users.FindAsync(userId);
-               if(oldUser!=null){
-                oldUser.ContactNumber=user.ContactNumber;
-                oldUser.Password=user.Password;
-                await context.SaveChangesAsync();
-                status=true;
-               }
-            }
-        }
-        catch(Exception e){
-            throw e;
-        }
-        return status;
-    }
-
-    public async Task<bool> Delete(int userId){
-        bool status=false;
-        try{
-            using(var context=new UserContext(_configuration)){
-                User? user=await context.Users.FindAsync(userId);
-                if(user!=null){
-                context.Users.Remove(user);
-                await context.SaveChangesAsync();
-                status=true;
+    public async Task<bool> Update(int userId, User user)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                User? oldUser = await context.Users.FindAsync(userId);
+                if (oldUser != null)
+                {
+                    oldUser.ContactNumber = user.ContactNumber;
+                    oldUser.Password = user.Password;
+                    await context.SaveChangesAsync();
+                    status = true;
                 }
             }
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             throw e;
         }
         return status;
     }
 
-    
+    public async Task<bool> Delete(int userId)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                User? user = await context.Users.FindAsync(userId);
+                if (user != null)
+                {
+                    context.Users.Remove(user);
+                    await context.SaveChangesAsync();
+                    status = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
+
+
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request)
     {
-        User user = await GetUserRequest(request);
+        User user = await GetUser(request);
 
         // return null if user not found
         if (user == null) { return null; }
@@ -148,42 +141,44 @@ public class UserRepository : IUserRepository
         List<Claim> claims = new List<Claim>();
         //you can add custom Claims here
         claims.Add(new Claim("id", user.UserId.ToString()));
-      //  List<string> roles = await GetRolesOfUser(user.UserId);
-        // foreach (string role in roles)
-        // {
-        //     claims.Add(new Claim("Roles", role));
-        // }
+        List<string> roles = await GetRolesOfUser(user.UserId);
+        foreach (string role in roles)
+        {
+            claims.Add(new Claim("Roles", role));
+        }
         return claims;
     }
 
-    public async Task<User> GetUserRequest(AuthenticateRequest request)
-{
-    using var db = new UserContext(_configuration);   // replace "YourDbContext" with your actual DbContext name
+    private async Task<List<string>> GetRolesOfUser(int userId)
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                var roles = await (from role in context.Roles
+                                   join userRole in context.UserRoles on role.RoleId equals userRole.RoleId
+                                   where userRole.UserId == userId
+                                   select role.RoleName).ToListAsync();
 
-    var user = await db.Users.FirstOrDefaultAsync(u => u.ContactNumber == request.ContactNumber && u.Password == request.Password);
+                foreach (var role in roles)
+                {
+                    Console.WriteLine(role);
+                }
+                return roles;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
 
-    return user;
+    public async Task<User> GetUser(AuthenticateRequest request)
+    {
+        using (var context = new UserContext(_configuration))
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.ContactNumber == request.ContactNumber && u.Password == request.Password);
+            return user;
+        }
+    }
 }
-
-
-//      public async Task<User> GetUserRequest(AuthenticateRequest request)
-//     {
-//         try
-//         {
-//             using(var context=new UserContext(_configuration)){
-//                User? oldUser= await context.Users.FindAsync(request);
-//                if(oldUser!=null){
-//                 oldUser.ContactNumber=request.ContactNumber;
-//                 oldUser.Password=request.Password;
-//                 await context.ReadDataAsync();
-                
-//             }
-//             }
-//         }
-//         catch (Exception e)
-//         {
-//             throw e;
-//         }
-//     }
-
- }
