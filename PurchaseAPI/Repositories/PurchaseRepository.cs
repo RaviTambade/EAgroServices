@@ -21,10 +21,13 @@ public class PurchaseRepository : IPurchaseRepository
                 var purchaseViewData =  await (from item in context.PurchaseItems
                                        join bill in context.PurchaseBillings
                                        on item.PurchaseId equals bill.PurchaseId
+                                       join farmer in context.Farmers
+                                       on item.FarmerId equals farmer.FarmerId
                                        select new PurchaseViewModel()
                                        {
                                         PurchaseItem=item,
-                                        PurchaseBilling=bill
+                                        PurchaseBilling=bill,
+                                        FarmerName=farmer.FirstName+" "+farmer.LastName
                                        }).ToListAsync();
                 return purchaseViewData;
             }
@@ -45,10 +48,13 @@ public class PurchaseRepository : IPurchaseRepository
                                        join bill in context.PurchaseBillings
                                        on item.PurchaseId equals bill.PurchaseId
                                        where item.PurchaseId==purchaseId
+                                       join farmer in context.Farmers
+                                       on item.FarmerId equals farmer.FarmerId
                                        select new PurchaseViewModel()
                                        {
                                         PurchaseItem=item,
-                                        PurchaseBilling=bill
+                                        PurchaseBilling=bill,
+                                        FarmerName=farmer.FirstName+" "+farmer.LastName
                                        }).FirstOrDefaultAsync();
                 return purchaseViewData;
             }

@@ -13,6 +13,7 @@ public class PurchaseContext : DbContext
     }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
     public DbSet<PurchaseBilling> PurchaseBillings { get; set; }
+    public DbSet<Farmer> Farmers { get; set; } 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -43,6 +44,15 @@ public class PurchaseContext : DbContext
             entity.Property(e => e.LabourCharges);
             entity.Property(e => e.TotalAmount);
             modelBuilder.Entity<PurchaseBilling>().ToTable("farmer_purchases_billing");
+        });
+             modelBuilder.Entity<Farmer>(entity =>     
+        {
+            entity.HasKey(e => e.FarmerId);      
+            entity.Property(e => e.FirstName);   
+            entity.Property(e => e.LastName);
+            entity.Property(e => e.Location);
+            entity.Property(e => e.UserId);
+            modelBuilder.Entity<Farmer>().ToTable("farmers"); 
         });
     }
 }
