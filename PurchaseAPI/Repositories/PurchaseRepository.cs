@@ -41,7 +41,7 @@ public class PurchaseRepository : IPurchaseRepository
         {
             using (var context = new PurchaseContext(_configuration))
             {
-                var purchaseViewData = from item in context.PurchaseItems
+                PurchaseViewModel? purchaseViewData = await (from item in context.PurchaseItems
                                        join bill in context.PurchaseBillings
                                        on item.PurchaseId equals bill.PurchaseId
                                        where item.PurchaseId==purchaseId
@@ -49,8 +49,8 @@ public class PurchaseRepository : IPurchaseRepository
                                        {
                                         PurchaseItem=item,
                                         PurchaseBilling=bill
-                                       };
-                return await  purchaseViewData.FirstOrDefaultAsync();
+                                       }).FirstOrDefaultAsync();
+                return purchaseViewData;
             }
         }
         catch (Exception e)

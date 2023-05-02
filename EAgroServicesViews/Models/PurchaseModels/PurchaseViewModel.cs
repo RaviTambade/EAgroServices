@@ -1,4 +1,4 @@
-namespace PurchaseAPI.Models;
+namespace EAgroServicesViews.Models.PurchaseModels;
 public class PurchaseViewModel
 {
     public PurchaseItem? PurchaseItem{get;set;}

@@ -10,10 +10,10 @@ public class PurchaseItem
     public int FarmerId { get; set; }
 
     [Column("variety")]
-    public string Variety { get; set; }
+    public string? Variety { get; set; }
 
     [Column("container_type")]
-    public string ContainerType {get;set;}
+    public string? ContainerType {get;set;}
 
     [Column("quantity")]
     public int Quantity { get; set; }

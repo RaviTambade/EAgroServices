@@ -1,0 +1,48 @@
+
+@using EAgroServicesViews.Models.PurchaseModels;
+@model IEnumerable<PurchaseViewModel>;
+
+@{
+    ViewData["Title"] = "Purchse Page";
+}
+<h1>Purchased Items</h1>
+<hr/>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.PurchaseId)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.FarmerId)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.Variety)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.ContainerType)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.Quantity)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.TotalWeight)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.TareWeight)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.NetWeight)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.RatePerKg)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseItem.Amount)</th>
+            @* <th>@Html.DisplayNameFor(model => model.PurchaseBilling.BillId)</th> *@
+            <th>@Html.DisplayNameFor(model => model.PurchaseBilling.LabourCharges)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchaseBilling.TotalAmount)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.PurchaseId)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.FarmerId)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.Variety)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.ContainerType)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.Quantity)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.TotalWeight)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.TareWeight)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.NetWeight)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.RatePerKg)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseItem.Amount)</td>
+                @* <td>@Html.DisplayFor(modelItem => item.PurchaseBilling.BillId)</td> *@
+                <td>@Html.DisplayFor(modelItem => item.PurchaseBilling.LabourCharges)</td>
+                <td>@Html.DisplayFor(modelItem => item.PurchaseBilling.TotalAmount)</td>
+            </tr>
+        }
+    </tbody>
+</table>
