@@ -1,5 +1,6 @@
+
 using System.ComponentModel.DataAnnotations.Schema;
-namespace AccountsAPI.Models
+namespace EAgroServicesViews.Models.AccountModel
 {
     public class Account
     {
@@ -14,3 +15,4 @@ namespace AccountsAPI.Models
     }
 
 }
+

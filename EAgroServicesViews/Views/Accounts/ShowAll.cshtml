@@ -1,0 +1,29 @@
+@* 
+@using EAgroServicesViews.Models.AccountModel;
+@model IEnumerable<Account>;
+
+@{
+    ViewData["Title"] = "Account Page";
+}
+<h1> Accounts </h1>
+<hr/>
+<table class="table">
+    <thead>
+        <tr> 
+            <th>@Html.DisplayNameFor(model => model.Account.AccountId)</th>
+            <th>@Html.DisplayNameFor(model => model.Account.AccountNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.Account.IfscCode)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelAccount => account.AccountId.AccountId)</td>
+                <td>@Html.DisplayFor(modelAccount => account.AccountNumber.AccountNumber)</td>
+                <td>@Html.DisplayFor(modelAccount=> account.IfscCode.IfscCode)</td>
+               
+            </tr>
+        }
+    </tbody>
+</table> *@
