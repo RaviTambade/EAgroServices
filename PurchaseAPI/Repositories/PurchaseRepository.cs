@@ -23,11 +23,14 @@ public class PurchaseRepository : IPurchaseRepository
                                        on item.PurchaseId equals bill.PurchaseId
                                        join farmer in context.Farmers
                                        on item.FarmerId equals farmer.FarmerId
+                                       join variety in context.Varieties
+                                       on item.VarietyId equals variety.VarietyId
                                        select new PurchaseViewModel()
                                        {
                                         PurchaseItem=item,
                                         PurchaseBilling=bill,
-                                        FarmerName=farmer.FirstName+" "+farmer.LastName
+                                        FarmerName=farmer.FirstName+" "+farmer.LastName,
+                                        VarietyName=variety.VarietyName  
                                        }).ToListAsync();
                 return purchaseViewData;
             }
@@ -47,14 +50,17 @@ public class PurchaseRepository : IPurchaseRepository
                 PurchaseViewModel? purchaseViewData = await (from item in context.PurchaseItems
                                        join bill in context.PurchaseBillings
                                        on item.PurchaseId equals bill.PurchaseId
-                                       where item.PurchaseId==purchaseId
                                        join farmer in context.Farmers
                                        on item.FarmerId equals farmer.FarmerId
+                                       join variety in context.Varieties
+                                       on item.VarietyId equals variety.VarietyId
+                                       where item.PurchaseId==purchaseId
                                        select new PurchaseViewModel()
                                        {
                                         PurchaseItem=item,
                                         PurchaseBilling=bill,
-                                        FarmerName=farmer.FirstName+" "+farmer.LastName
+                                        FarmerName=farmer.FirstName+" "+farmer.LastName,
+                                        VarietyName=variety.VarietyName  
                                        }).FirstOrDefaultAsync();
                 return purchaseViewData;
             }
@@ -76,12 +82,10 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 await context.PurchaseItems.AddAsync(purchaseItem);
                 await context.SaveChangesAsync();
-                Console.WriteLine(purchaseItem.PurchaseId);
                 purchaseBilling.PurchaseId = purchaseItem.PurchaseId;
                 await context.PurchaseBillings.AddAsync(purchaseBilling);
                 await context.SaveChangesAsync();
                 int billId = purchaseBilling.BillId;
-                Console.WriteLine(billId);
                 context.Database.ExecuteSqlRaw("CALL calculate_purchase_labour_charges(@p0)", billId);
                 context.Database.ExecuteSqlRaw("CALL calculate_purchase_total_amount(@p0)", billId);
                 status = true;

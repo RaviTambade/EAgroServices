@@ -1,16 +1,42 @@
 <form action="AddItem" method="post">
   <table>
     <tr>
-      <th><label>FarmerId:</label></th>
-      <td><input type="number" name="farmerId" /></td>
+      <th><label>FarmerName:</label></th>
+      <td>
+      <select name="farmerId">
+        @foreach(var farmer in ViewBag.FarmerData)
+        {
+          <option value="@farmer.FarmerId">@farmer.FirstName @farmer.LastName</option>
+        }
+      </select>
+      </td>
+      <!-- <td><input type="number" name="farmerId" /></td> -->
     </tr>
     <tr>
       <th><label>Variety:</label></th>
-      <td><input type="text" name="variety" /></td>
+      <td><input type="text" name="varietyId" /></td>
     </tr>
     <tr>
+      <th><label>Grade:</label></th>
+      <td>
+      <select name="grade">
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+      </select>
+    </td>
+    </tr>
+
+    <tr>
         <th><label>ContainerType:</label></th>
-        <td><input type="text" name="containerType" /></td>
+        <td>
+        <select name="containerType">
+            <option value="bags">Bags</option>
+            <option value="leno_bags">Leno Bags</option>
+            <option value="crates">Crate</option>
+        </select>
+      </td>
       </tr>
     <tr>
       <th><label>Quantity:</label></th>

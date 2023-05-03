@@ -1,3 +1,4 @@
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -90,7 +91,7 @@ CREATE TABLE
         container_type ENUM('crates', 'bags', 'leno_bags') PRIMARY KEY,
         rate double NOT NULL
     );
-    CREATE TABLE Varieties(
+    CREATE TABLE varieties(
    variety_id int NOT Null AUTO_INCREMENT PRIMARY KEY,
    variety_name VARCHAR(20)NOT NULL 
    );
@@ -98,7 +99,7 @@ CREATE TABLE
     farmer_purchases (
         purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         farmer_id INT NOT NULL,
-        variety_id int NOT Null,
+        variety_id int NOT NULL,
         container_type ENUM('crates','bags','leno_bags'),
         quantity INT NOT NULL,
         grade ENUM('A','B','C','D'),
@@ -358,7 +359,8 @@ INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
 
 
--- SELECT * FROM farmer_purchases;
+SELECT * FROM farmer_purchases;
+SELECT * FROM varieties;
 -- SELECT * FROM sells_billing;
 CALL calculate_purchase_labour_charges(1);
 CALL calculate_purchase_total_amount(1);
