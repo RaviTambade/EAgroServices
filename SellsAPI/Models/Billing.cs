@@ -20,5 +20,9 @@ public class Billing
     public int TotalCharges { get; set; }
 
     [Column("date")]
-    public int Date { get; set; }
+    public DateTime Date { get; set; }
+
+    public Billing(){
+        Date=DateTime.Now;
+    }
 }

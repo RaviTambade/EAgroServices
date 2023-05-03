@@ -50,11 +50,11 @@ public class SellRepository : ISellRepository
             throw e;
         }
     }
-    public async Task<bool> Insert(Sell sell,FreightRate freightRate)
+    public async Task<bool> Insert(Sell sell, FreightRate freightRate)
     {
         bool status = false;
-        int billId=0;
-        Billing billing=new Billing();
+        int billId = 0;
+        Billing billing = new Billing();
         try
         {
             using (var context = new SellsContext(_configuration))
@@ -64,8 +64,8 @@ public class SellRepository : ISellRepository
                 billing.SellId = sell.SellId;
                 await context.Billings.AddAsync(billing);
                 await context.SaveChangesAsync();
-                billId=billing.BillId;
-                freightRate.BillId=billId;
+                billId = billing.BillId;
+                freightRate.BillId = billId;
                 await context.FreightRates.AddAsync(freightRate);
                 await context.SaveChangesAsync();
                 context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
@@ -88,6 +88,9 @@ public class SellRepository : ISellRepository
             using (var context = new SellsContext(_configuration))
             {
                 Sell? oldSell = await context.Sells.FindAsync(sellId);
+                int purchaseId = oldSell.PurchaseId;
+                int merchantId = oldSell.MerchantId;
+                int truckId = oldSell.TruckId;
                 double netWeight = oldSell.NetWeight;
                 double ratePerKg = oldSell.RatePerKg;
                 double totalAmount = oldSell.TotalAmount;
@@ -105,14 +108,18 @@ public class SellRepository : ISellRepository
                     status = true;
                 }
                 if (
+                         purchaseId != oldSell.PurchaseId ||
+                         merchantId != oldSell.MerchantId ||
+                         truckId != oldSell.TruckId ||
                          netWeight != oldSell.NetWeight ||
                          ratePerKg != oldSell.RatePerKg ||
-                         totalAmount != oldSell.TotalAmount 
+                         totalAmount != oldSell.TotalAmount
                        )
                 {
                     Console.WriteLine(" procedure called");
                     var sellBilling = await context.Billings.FirstOrDefaultAsync(x => x.SellId == sellId);
                     int billId = sellBilling.BillId;
+
                     Console.WriteLine(billId);
                     context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
                     context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
@@ -146,6 +153,32 @@ public class SellRepository : ISellRepository
             throw e;
         }
         return status;
+    }
+
+    public async Task<SellBilling> GetSellBilling(int sellId)
+    {
+        try
+        {
+            using (var context = new SellsContext(_configuration))
+            {
+                SellBilling sellsData = await (from sell in context.Sells 
+                                               join bill in context.Billings 
+                                               on sell.SellId equals bill.SellId 
+                                               where sell.SellId==sellId 
+                                               join freightRate in context.FreightRates 
+                                               on bill.BillId equals freightRate.BillId 
+                                               select new SellBilling() 
+                                               { Sell = sell, 
+                                                 Billing = bill, 
+                                                 FreightRate = freightRate 
+                                               }).FirstOrDefaultAsync();
+                return sellsData;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
     }
 
 }

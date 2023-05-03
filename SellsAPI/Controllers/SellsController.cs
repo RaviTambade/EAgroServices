@@ -2,6 +2,7 @@ using SellsAPI.Models;
 using SellsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace SellsAPI.Controllers
 {
@@ -52,6 +53,14 @@ namespace SellsAPI.Controllers
         {
             return await _srv.Delete(id);
         }
+
+        [HttpGet]
+        [Route("getsellbilling/{id}")]
+        public async Task<SellBilling> GetSellBilling(int id){
+            return await _srv.GetSellBilling(id);
+        }
+
+        
 
     }
 }

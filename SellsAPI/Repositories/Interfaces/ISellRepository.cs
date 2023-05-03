@@ -9,4 +9,6 @@ public interface ISellRepository
     Task<bool> Insert(Sell sell,FreightRate freightRate);
     Task<bool> Update(int sellId,Sell sell);
     Task<bool> Delete(int sellId);
+    Task<SellBilling> GetSellBilling(int sellId);
+    
 }

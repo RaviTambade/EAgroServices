@@ -404,3 +404,8 @@ SELECT * FROM sells_billing;
 -- SELECT * FROM produce_merchants WHERE user_id=1;
 
 SELECT * FROM farmer_purchases;
+SELECT * FROM sells;
+SELECT * FROM sells_billing;
+
+
+SELECT sells.sell_id,sells.merchant_id,sells_billing.total_charges,freight_rates.id FROM sells INNER JOIN sells_billing ON sells_billing.sell_id=sells.sell_id INNER JOIN freight_rates ON sells_billing.bill_id=freight_rates.bill_id WHERE sells.sell_id=5;
