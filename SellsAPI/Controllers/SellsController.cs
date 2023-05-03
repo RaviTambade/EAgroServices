@@ -1,6 +1,8 @@
 using SellsAPI.Models;
 using SellsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
+
 namespace SellsAPI.Controllers
 {
     [ApiController]
