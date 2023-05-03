@@ -15,7 +15,7 @@ public class SellRepository : ISellRepository
     {
         try
         {
-               using (var context = new SellsContext(_configuration))
+            using (var context = new SellsContext(_configuration))
             {
                 List<Sell> sells = await context.Sells.ToListAsync();
                 if (sells == null)
@@ -53,12 +53,20 @@ public class SellRepository : ISellRepository
     public async Task<bool> Insert(Sell sell)
     {
         bool status = false;
+        Billing billing=new Billing();
         try
         {
             using (var context = new SellsContext(_configuration))
             {
                 await context.Sells.AddAsync(sell);
                 await context.SaveChangesAsync();
+                billing.SellId = sell.SellId;
+                await context.Billings.AddAsync(billing);
+                await context.SaveChangesAsync();
+                int billId = billing.BillId;
+                Console.WriteLine(billId);
+                context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
+                context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
                 status = true;
             }
         }
@@ -69,7 +77,7 @@ public class SellRepository : ISellRepository
         return status;
     }
 
-    public async Task<bool> Update(int sellId,Sell sell)
+    public async Task<bool> Update(int sellId, Sell sell)
     {
         bool status = false;
         try
@@ -77,6 +85,10 @@ public class SellRepository : ISellRepository
             using (var context = new SellsContext(_configuration))
             {
                 Sell? oldSell = await context.Sells.FindAsync(sellId);
+                double netWeight = oldSell.NetWeight;
+                double ratePerKg = oldSell.RatePerKg;
+                double totalAmount = oldSell.TotalAmount;
+
                 if (oldSell != null)
                 {
                     oldSell.PurchaseId = sell.PurchaseId;
@@ -87,7 +99,20 @@ public class SellRepository : ISellRepository
                     oldSell.TotalAmount = sell.TotalAmount;
                     oldSell.Date = sell.Date;
                     await context.SaveChangesAsync();
-                    status= true;
+                    status = true;
+                }
+                if (
+                         netWeight != oldSell.NetWeight ||
+                         ratePerKg != oldSell.RatePerKg ||
+                         totalAmount != oldSell.TotalAmount 
+                       )
+                {
+                    Console.WriteLine(" procedure called");
+                    var sellBilling = await context.Billings.FirstOrDefaultAsync(x => x.SellId == sellId);
+                    int billId = sellBilling.BillId;
+                    Console.WriteLine(billId);
+                    context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
+                    context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
                 }
             }
         }

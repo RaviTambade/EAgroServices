@@ -377,8 +377,8 @@ INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km
 -- CALL calculate_labour_charges_of_sells(1);
 
 
-
-
+SELECT * FROM farmer_purchases;
+SELECT * FROM sells_billing;
 -- CALL calculate_labour_charges_of_sells(1);
 -- CALL calculate_labour_charges_of_sells(2);
 -- CALL calculate_labour_charges_of_sells(1);
