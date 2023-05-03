@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -366,9 +366,9 @@ INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km
 
 -- SELECT * FROM farmer_purchases;
 -- SELECT * FROM sells_billing;
--- CALL calculate_purchase_labour_charges(1);
--- CALL calculate_purchase_total_amount(1);
--- SELECT * FROM farmer_purchases_billing;
+CALL calculate_purchase_labour_charges(1);
+CALL calculate_purchase_total_amount(1);
+SELECT * FROM farmer_purchases_billing;
 
 -- CALL calculate_freight_charges(1);
 
