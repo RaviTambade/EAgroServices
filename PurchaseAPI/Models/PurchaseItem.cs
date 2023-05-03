@@ -10,15 +10,15 @@ public class PurchaseItem
     public int FarmerId { get; set; }
 
     [Column("variety_id")]
-    public string? VarietyId { get; set; }
+    public int VarietyId { get; set; }
 
     [Column("container_type")]
-    public string? ContainerType {get;set;}
+    public string? ContainerType { get; set; }
 
     [Column("quantity")]
     public int Quantity { get; set; }
     [Column("grade")]
-public int Grade { get; set; }
+    public string? Grade { get; set; }
     [Column("total_weight")]
     public double TotalWeight { get; set; }
 
@@ -32,7 +32,11 @@ public int Grade { get; set; }
     [Column("rate_per_kg")]
     public double RatePerKg { get; set; }
 
-    public double Amount{get{
-        return this.NetWeight* this.RatePerKg;
-    }}
+    public double Amount
+    {
+        get
+        {
+            return this.NetWeight * this.RatePerKg;
+        }
+    }
 }

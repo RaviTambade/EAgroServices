@@ -14,6 +14,8 @@ public class PurchaseContext : DbContext
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
     public DbSet<PurchaseBilling> PurchaseBillings { get; set; }
     public DbSet<Farmer> Farmers { get; set; } 
+    public DbSet<Variety> Varieties { get; set; } 
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -54,6 +56,13 @@ public class PurchaseContext : DbContext
             entity.Property(e => e.Location);
             entity.Property(e => e.UserId);
             modelBuilder.Entity<Farmer>().ToTable("farmers"); 
+        });
+
+          modelBuilder.Entity<Variety>(entity =>
+        {
+            entity.HasKey(e => e.VarietyId);
+            entity.Property(e => e.VarietyName);
+            modelBuilder.Entity<Variety>().ToTable("varieties");
         });
     }
 }

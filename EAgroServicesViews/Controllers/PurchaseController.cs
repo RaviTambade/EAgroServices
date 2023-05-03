@@ -1,8 +1,8 @@
 using System.Text;
-using System.Threading.Tasks;
 using EAgroServicesViews.Models.PurchaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Purchase.Models;
 
 namespace EAgroServicesViews.Controllers;
 [Route("purchase")]
@@ -42,11 +42,25 @@ public class PurchaseController : Controller
 
 
     [HttpGet("additem")]
-    public IActionResult AddItem()
+    public async Task<IActionResult> AddItem()
     {
+        ViewBag.FarmerData= await GetFarmerData();
         return View();
     }
 
+    [HttpGet("getfarmerdata")]
+    public async Task<List<Farmer>> GetFarmerData()
+    {
+        using (var httpClient = new HttpClient())
+        {
+            using (var response = await httpClient.GetAsync("http://localhost:5141/api/farmers/getallfarmers"))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                List<Farmer> farmers = JsonConvert.DeserializeObject<List<Farmer>>(apiResponse);
+                return farmers;
+            }
+        }
+    }
 
 
     [HttpPost("additem")]
