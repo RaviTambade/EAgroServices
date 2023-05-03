@@ -17,10 +17,10 @@ namespace SellsAPI.Controllers
         }
         [HttpGet]
         [Route("getallsells")]
-        public async Task<List<Sell>> GetAll()
+        public async Task<List<SellBillingView>> GetAll()
         {
-            List<Sell> sells = await _srv.GetAll();
-            return sells;
+            List<SellBillingView> sellBillingViews = await _srv.GetAll();
+            return sellBillingViews;
         }
 
         [HttpGet]
@@ -40,12 +40,12 @@ namespace SellsAPI.Controllers
             return await _srv.Insert(sell,freightRate);
         }
 
-        [HttpPut]
-        [Route("update/{id}")]
-        public async Task<bool> Update(int id, [FromBody] Sell sell)
-        { 
-             return await _srv.Update(id, sell);
-        }
+        // [HttpPut]
+        // [Route("update/{id}")]
+        // public async Task<bool> Update(int id, [FromBody] Sell sell)
+        // { 
+        //      return await _srv.Update(id, sell);
+        // }
 
         [HttpDelete]
         [Route("delete/{id}")]

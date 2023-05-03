@@ -15,7 +15,9 @@ public class SellsContext : DbContext
     }
     public DbSet<Sell> Sells { get; set; }
     public DbSet<Billing> Billings { get; set; }
-    public DbSet<FreightRate> FreightRates{get;set;}
+    public DbSet<FreightRate> FreightRates { get; set; }
+    public DbSet<Merchant> Merchants{get;set;}
+    public DbSet<Truck> Trucks{get;set;}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
@@ -47,14 +49,31 @@ public class SellsContext : DbContext
 
     modelBuilder.Entity<Billing>().ToTable("sells_billing");
 });
- modelBuilder.Entity<FreightRate>(entity =>
-{
-    entity.HasKey(e => e.BillId);
-    entity.Property(e => e.FromDestination);
-    entity.Property(e => e.ToDestination);
-    entity.Property(e => e.Kilometers);
-    entity.Property(e => e.RatePerKm);
-    modelBuilder.Entity<FreightRate>().ToTable("freight_rates");
-});
+        modelBuilder.Entity<FreightRate>(entity =>
+       {
+           entity.HasKey(e => e.BillId);
+           entity.Property(e => e.FromDestination);
+           entity.Property(e => e.ToDestination);
+           entity.Property(e => e.Kilometers);
+           entity.Property(e => e.RatePerKm);
+           modelBuilder.Entity<FreightRate>().ToTable("freight_rates");
+       });
+        modelBuilder.Entity<Merchant>(entity =>
+               {
+                   entity.HasKey(e => e.MerchantId);
+                   entity.Property(e => e.FirstName);
+                   entity.Property(e => e.LastName);
+                   entity.Property(e => e.CompanyName);
+                   entity.Property(e => e.Location);
+                   entity.Property(e => e.UserId);
+                   modelBuilder.Entity<Merchant>().ToTable("merchants");
+               });
+        modelBuilder.Entity<Truck>(entity =>
+       {
+           entity.HasKey(e => e.TruckId);
+           entity.Property(e => e.TransportId);
+           entity.Property(e => e.TruckNumber);
+           modelBuilder.Entity<Truck>().ToTable("transport_trucks");
+       });
     }
 }

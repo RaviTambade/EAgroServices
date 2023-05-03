@@ -11,18 +11,34 @@ public class SellRepository : ISellRepository
     {
         _configuration = configuration;
     }
-    public async Task<List<Sell>> GetAll()
+    public async Task<List<SellBillingView>> GetAll()
     {
         try
         {
             using (var context = new SellsContext(_configuration))
             {
-                List<Sell> sells = await context.Sells.ToListAsync();
-                if (sells == null)
+                List<SellBillingView> sellBillingViews = await (from merchant in context.Merchants 
+                                          join sell in context.Sells 
+                                          on merchant.MerchantId equals sell.MerchantId 
+                                          join truck in context.Trucks on sell.TruckId equals truck.TruckId
+                                          join bill in context.Billings 
+                                          on sell.SellId equals bill.SellId 
+                                        //   join freightRate in context.FreightRates 
+                                        //   on bill.BillId equals freightRate.BillId 
+                                          select new SellBillingView()
+                                          {
+                                            Sell = sell, 
+                                            Billing = bill, 
+                                          // FreightRate = freightRate,
+                                            FullName=merchant.FirstName + " "+merchant.LastName,
+                                            TruckNumber=truck.TruckNumber
+                                          }).ToListAsync();
+                                        
+                if (sellBillingViews == null)
                 {
                     return null;
                 }
-                return sells;
+                return sellBillingViews;
             }
         }
         catch (Exception e)
@@ -80,58 +96,61 @@ public class SellRepository : ISellRepository
         return status;
     }
 
-    public async Task<bool> Update(int sellId, Sell sell)
-    {
-        bool status = false;
-        try
-        {
-            using (var context = new SellsContext(_configuration))
-            {
-                Sell? oldSell = await context.Sells.FindAsync(sellId);
-                int purchaseId = oldSell.PurchaseId;
-                int merchantId = oldSell.MerchantId;
-                int truckId = oldSell.TruckId;
-                double netWeight = oldSell.NetWeight;
-                double ratePerKg = oldSell.RatePerKg;
-                double totalAmount = oldSell.TotalAmount;
+    // public async Task<bool> Update(int sellId, Sell sell,FreightRate freightRate)
+    // {
+    //     bool status = false;
+    //     try
+    //     {
+    //         using (var context = new SellsContext(_configuration))
+    //         {
+    //             SellBilling oldSellBilling = await (from sell in context.Sells 
+    //                                            join bill in context.Billings 
+    //                                            on sell.SellId equals bill.SellId 
+    //                                            where sell.SellId==sellId 
+    //                                            join freightRate in context.FreightRates 
+    //                                            on bill.BillId equals freightRate.BillId 
+    //                                            select new SellBilling() 
+    //                                            { Sell = sell, 
+    //                                              Billing = bill, 
+    //                                              FreightRate = freightRate 
+    //                                            }).FindAsync();
+    //             var sell= oldSellBilling.Sell;
+    //             var billing= oldSellBilling.Billing;
+    //             var freightRate = oldSellBilling.FreightRate;
+    //             if (oldSellBilling != null)
+    //             {
+    //                 oldSellBilling.Sell = SellBilling;
+    //                 oldSell.MerchantId = sell.MerchantId;
+    //                 oldSell.TruckId = sell.TruckId;
+                   
+    //                 await context.SaveChangesAsync();
+    //                 status = true;
+    //             }
+    //             if (
+    //                      purchaseId != oldSell.PurchaseId ||
+    //                      merchantId != oldSell.MerchantId ||
+    //                      truckId != oldSell.TruckId ||
+    //                      netWeight != oldSell.NetWeight ||
+    //                      ratePerKg != oldSell.RatePerKg ||
+    //                      totalAmount != oldSell.TotalAmount
+    //                    )
+    //             {
+    //                 Console.WriteLine(" procedure called");
+    //                 var sellBilling = await context.Billings.FirstOrDefaultAsync(x => x.SellId == sellId);
+    //                 int billId = sellBilling.BillId;
 
-                if (oldSell != null)
-                {
-                    oldSell.PurchaseId = sell.PurchaseId;
-                    oldSell.MerchantId = sell.MerchantId;
-                    oldSell.TruckId = sell.TruckId;
-                    oldSell.NetWeight = sell.NetWeight;
-                    oldSell.RatePerKg = sell.RatePerKg;
-                    oldSell.TotalAmount = sell.TotalAmount;
-                    oldSell.Date = sell.Date;
-                    await context.SaveChangesAsync();
-                    status = true;
-                }
-                if (
-                         purchaseId != oldSell.PurchaseId ||
-                         merchantId != oldSell.MerchantId ||
-                         truckId != oldSell.TruckId ||
-                         netWeight != oldSell.NetWeight ||
-                         ratePerKg != oldSell.RatePerKg ||
-                         totalAmount != oldSell.TotalAmount
-                       )
-                {
-                    Console.WriteLine(" procedure called");
-                    var sellBilling = await context.Billings.FirstOrDefaultAsync(x => x.SellId == sellId);
-                    int billId = sellBilling.BillId;
-
-                    Console.WriteLine(billId);
-                    context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
-                    context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
+    //                 Console.WriteLine(billId);
+    //                 context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
+    //                 context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
+    //             }
+    //         }
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         throw e;
+    //     }
+    //     return status;
+    // }
     public async Task<bool> Delete(int sellId)
     {
         bool status = false;

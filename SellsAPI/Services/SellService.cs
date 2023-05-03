@@ -9,10 +9,10 @@ public class SellService:ISellService{
     public SellService(ISellRepository repo){
         this._repo=repo;
     }
-    public async Task<List<Sell>> GetAll() =>await _repo.GetAll();
+    public async Task<List<SellBillingView>> GetAll() =>await _repo.GetAll();
     public async Task<Sell> GetById(int sellId) =>await _repo.GetById(sellId);
     public async Task<bool> Insert(Sell sell,FreightRate freightRate)=>await _repo.Insert(sell,freightRate);
-    public async Task<bool> Update(int sellId,Sell sell)=>await _repo.Update(sellId,sell);
+   // public async Task<bool> Update(int sellId,Sell sell)=>await _repo.Update(sellId,sell);
     public async Task<bool> Delete(int sellId)=>await _repo.Delete(sellId);
     public async Task<SellBilling> GetSellBilling(int sellId)=>await _repo.GetSellBilling(sellId);
 }
