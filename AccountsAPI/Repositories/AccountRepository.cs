@@ -77,7 +77,7 @@ public class AccountRepository : IAccountRepository
         return status;
     }
 
-    public async Task<bool> Update(int accountId,Account account)
+    public async Task<bool> Update(int accountId, Account account)
     {
         bool status = false;
         try
