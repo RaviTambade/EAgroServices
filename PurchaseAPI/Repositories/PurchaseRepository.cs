@@ -82,12 +82,10 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 await context.PurchaseItems.AddAsync(purchaseItem);
                 await context.SaveChangesAsync();
-                Console.WriteLine(purchaseItem.PurchaseId);
                 purchaseBilling.PurchaseId = purchaseItem.PurchaseId;
                 await context.PurchaseBillings.AddAsync(purchaseBilling);
                 await context.SaveChangesAsync();
                 int billId = purchaseBilling.BillId;
-                Console.WriteLine(billId);
                 context.Database.ExecuteSqlRaw("CALL calculate_purchase_labour_charges(@p0)", billId);
                 context.Database.ExecuteSqlRaw("CALL calculate_purchase_total_amount(@p0)", billId);
                 status = true;
