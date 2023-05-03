@@ -23,11 +23,14 @@ public class PurchaseRepository : IPurchaseRepository
                                        on item.PurchaseId equals bill.PurchaseId
                                        join farmer in context.Farmers
                                        on item.FarmerId equals farmer.FarmerId
+                                       join variety in context.Varieties
+                                       on item.VarietyId equals variety.VarietyId
                                        select new PurchaseViewModel()
                                        {
                                         PurchaseItem=item,
                                         PurchaseBilling=bill,
-                                        FarmerName=farmer.FirstName+" "+farmer.LastName
+                                        FarmerName=farmer.FirstName+" "+farmer.LastName,
+                                        VarietyName=variety.VarietyName  
                                        }).ToListAsync();
                 return purchaseViewData;
             }
@@ -47,14 +50,17 @@ public class PurchaseRepository : IPurchaseRepository
                 PurchaseViewModel? purchaseViewData = await (from item in context.PurchaseItems
                                        join bill in context.PurchaseBillings
                                        on item.PurchaseId equals bill.PurchaseId
-                                       where item.PurchaseId==purchaseId
                                        join farmer in context.Farmers
                                        on item.FarmerId equals farmer.FarmerId
+                                       join variety in context.Varieties
+                                       on item.VarietyId equals variety.VarietyId
+                                       where item.PurchaseId==purchaseId
                                        select new PurchaseViewModel()
                                        {
                                         PurchaseItem=item,
                                         PurchaseBilling=bill,
-                                        FarmerName=farmer.FirstName+" "+farmer.LastName
+                                        FarmerName=farmer.FirstName+" "+farmer.LastName,
+                                        VarietyName=variety.VarietyName  
                                        }).FirstOrDefaultAsync();
                 return purchaseViewData;
             }
