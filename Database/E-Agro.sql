@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -26,16 +26,11 @@ CREATE TABLE
     accounts(
         account_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         account_number VARCHAR(20),
-        ifsc_code VARCHAR(20)
-    );
-CREATE TABLE
-    user_accounts(
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        account_id INT NOT NULL,
+        ifsc_code VARCHAR(20),
         user_id INT NOT NULL,
-        CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_user2_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_user8_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+
 CREATE TABLE
     farmers(
         farmer_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -282,38 +277,25 @@ INSERT INTO user_roles(user_id,role_id)VALUES(2,2);
 INSERT INTO user_roles(user_id,role_id)VALUES(3,3);
 INSERT INTO user_roles(user_id,role_id)VALUES(4,4);
 INSERT INTO user_roles(user_id,role_id)VALUES(5,5);
-INSERT into accounts(account_number,ifsc_code)VALUES('123213232','asdfg852');
-INSERT into accounts(account_number,ifsc_code)VALUES('453544565','dft6757f');
-INSERT into accounts(account_number,ifsc_code)VALUES('786789865','uij7878b');
-INSERT into accounts(account_number,ifsc_code)VALUES('656765675','wesw3434');
-INSERT into accounts(account_number,ifsc_code)VALUES('345656776','dfdg4566');
-INSERT into accounts(account_number,ifsc_code)VALUES('567656755','ghhyu789');
-INSERT into accounts(account_number,ifsc_code)VALUES('566567757','fghj5656');
-INSERT into accounts(account_number,ifsc_code)VALUES('456545644','5hhffh66');
-INSERT into accounts(account_number,ifsc_code)VALUES('453454324','tt675g67');
-INSERT into accounts(account_number,ifsc_code)VALUES('675778678','45656fgh');
-INSERT into accounts(account_number,ifsc_code)VALUES('345456567','dfghg676');
-INSERT into accounts(account_number,ifsc_code)VALUES('567678878','ere34564');
-INSERT into accounts(account_number,ifsc_code)VALUES('567788978','rt564566');
-INSERT into accounts(account_number,ifsc_code)VALUES('566753211','fghj5656');
-INSERT into accounts(account_number,ifsc_code)VALUES('564312323','dfdg4566');
-INSERT into accounts(account_number,ifsc_code)VALUES('676789789','rt564566');
-INSERT into accounts(account_number,ifsc_code)VALUES('455687657','ere34564');
-INSERT into accounts(account_number,ifsc_code)VALUES('587654458','uij7878b');
-INSERT into accounts(account_number,ifsc_code)VALUES('456753211','yui87996');
-INSERT into accounts(account_number,ifsc_code)VALUES('456764322','45gh54yb');
-INSERT into accounts(account_number,ifsc_code)VALUES('456712323','dfg3456g');
-INSERT into accounts(account_number,ifsc_code)VALUES('899809099','dft6757f');
-INSERT into accounts(account_number,ifsc_code)VALUES('678790098','sdf56654');
-INSERT into accounts(account_number,ifsc_code)VALUES('456788900','ere34564');
-INSERT into accounts(account_number,ifsc_code)VALUES('232121213','5ggg5gg6');
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('123213232','asdfg852',1);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('453544565','dft6757f',2);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('786789865','uij7878b',3);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('656765675','wesw3434',4);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('345656776','dfdg4566',5);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('567656755','ghhyu789',6);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('566567757','fghj5656',7);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('456545644','5hhffh66',8);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('453454324','tt675g67',8);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('675778678','45656fgh',8);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('345456567','dfghg676',8);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('567678878','ere34564',8);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('567788978','rt564566',8);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('566753211','fghj5656',9);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('564312323','dfdg4566',10);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('456788900','ere34564',13);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('232121213','5ggg5gg6',20);
 INSERT INTO farmers(first_name,last_name,location,user_id)VALUES ('Rohit','Gore','Peth',1);
 INSERT INTO farmers(first_name,last_name,location,user_id)VALUES ('Akshay','Tanpure','Wada',2);
-INSERT INTO user_accounts(account_id,user_id)VALUES(1,1);
-INSERT INTO user_accounts(account_id,user_id)VALUES(2,2);
-INSERT INTO user_accounts(account_id,user_id)VALUES(3,3);
-INSERT INTO user_accounts(account_id,user_id)VALUES(4,4);
-INSERT INTO user_accounts(account_id,user_id)VALUES(5,5);
 INSERT INTO admins(first_name,last_name,location,user_id)VALUES('Ashok','Bajare','Bhavadi',3);
 INSERT INTO admins(first_name,last_name,location,user_id)VALUES('Ashok','Chakkar','Bhavadi',4);
 INSERT INTO employees(first_name,last_name,location,salary,user_id)VALUES('Abhay','Navale','Bhavadi',15000,5);
@@ -375,7 +357,7 @@ SELECT * FROM farmer_purchases_billing;
 -- -- CALL calculate_freight_charges(2);
 -- CALL calculate_freight_charges(1);
 -- CALL calculate_labour_charges_of_sells(1);
-
+SELECT * FROM users;
 
 SELECT * FROM farmer_purchases;
 SELECT * FROM sells_billing;
