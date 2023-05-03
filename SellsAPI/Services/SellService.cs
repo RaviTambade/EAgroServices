@@ -11,7 +11,7 @@ public class SellService:ISellService{
     }
     public async Task<List<Sell>> GetAll() =>await _repo.GetAll();
     public async Task<Sell> GetById(int sellId) =>await _repo.GetById(sellId);
-    public async Task<bool> Insert(Sell sell)=>await _repo.Insert(sell);
+    public async Task<bool> Insert(Sell sell,FreightRate freightRate)=>await _repo.Insert(sell,freightRate);
     public async Task<bool> Update(int sellId,Sell sell)=>await _repo.Update(sellId,sell);
     public async Task<bool> Delete(int sellId)=>await _repo.Delete(sellId);
 }

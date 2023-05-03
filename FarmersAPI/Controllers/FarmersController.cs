@@ -32,9 +32,9 @@ namespace FarmersAPI.Controllers
         [Route("insert")]
         public async Task<bool> InsertFarmer([FromBody] UserFarmerRole userFarmerRole)
         {
-            User user=userFarmerRole.user;
-            Farmer farmer=userFarmerRole.farmer;
-            UserRole userRole=userFarmerRole.userRole;
+            User user=userFarmerRole.User;
+            Farmer farmer=userFarmerRole.Farmer;
+            UserRole userRole=userFarmerRole.UserRole;
             return await _srv.InsertFarmer(user,farmer,userRole);
         }
 

@@ -1,4 +1,3 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -370,8 +369,11 @@ SELECT * FROM farmer_purchases_billing;
 -- -- CALL calculate_freight_charges(2);
 -- CALL calculate_freight_charges(1);
 -- CALL calculate_labour_charges_of_sells(1);
-SELECT * FROM users;
 
+
+SELECT * FROM freight_rates;
+
+SELECT * FROM users;
 SELECT * FROM farmer_purchases;
 SELECT * FROM sells_billing;
 -- CALL calculate_labour_charges_of_sells(1);
