@@ -10,6 +10,8 @@ namespace AccountsAPI.Models
         public string AccountNumber { get; set; }
         [Column("ifsc_code")]
         public string IfscCode { get; set; }
+        [Column("user_id")]
+        public int UserId { get; set; }
 
     }
 
