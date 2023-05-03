@@ -112,9 +112,10 @@ public class PurchaseRepository : IPurchaseRepository
                 if (oldPurchaseItem != null)
                 {
                     oldPurchaseItem.FarmerId = purchaseItem.FarmerId;
-                    oldPurchaseItem.Variety = purchaseItem.Variety;
+                    oldPurchaseItem.VarietyId = purchaseItem.VarietyId;
                     oldPurchaseItem.ContainerType = purchaseItem.ContainerType;
                     oldPurchaseItem.Quantity = purchaseItem.Quantity;
+                    oldPurchaseItem.Grade = purchaseItem.Grade;
                     oldPurchaseItem.TareWeight = purchaseItem.TareWeight;
                     oldPurchaseItem.TotalWeight = purchaseItem.TotalWeight;
                     oldPurchaseItem.RatePerKg = purchaseItem.RatePerKg;

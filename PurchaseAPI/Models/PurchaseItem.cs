@@ -9,15 +9,16 @@ public class PurchaseItem
     [Column("farmer_id")]
     public int FarmerId { get; set; }
 
-    [Column("variety")]
-    public string? Variety { get; set; }
+    [Column("variety_id")]
+    public string? VarietyId { get; set; }
 
     [Column("container_type")]
     public string? ContainerType {get;set;}
 
     [Column("quantity")]
     public int Quantity { get; set; }
-
+    [Column("grade")]
+public int Grade { get; set; }
     [Column("total_weight")]
     public double TotalWeight { get; set; }
 

@@ -91,20 +91,26 @@ CREATE TABLE
         container_type ENUM('crates', 'bags', 'leno_bags') PRIMARY KEY,
         rate double NOT NULL
     );
+    CREATE TABLE Varieties(
+   variety_id int NOT Null AUTO_INCREMENT PRIMARY KEY,
+   variety_name VARCHAR(20)NOT NULL 
+   );
 CREATE TABLE
     farmer_purchases (
         purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         farmer_id INT NOT NULL,
-        variety VARCHAR(20) NOT NULL,
+        variety_id int NOT Null,
         container_type ENUM('crates','bags','leno_bags'),
         quantity INT NOT NULL,
+        grade ENUM('A','B','C','D'),
         total_weight DOUBLE NOT NULL,
         tare_weight DOUBLE NOT NULL,
         net_weight DOUBLE AS (total_weight - tare_weight),
         rate_per_kg DOUBLE NOT NULL,
         CONSTRAINT fk_farmer_id FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
-        CONSTRAINT fk_container_type FOREIGN KEY (container_type) REFERENCES labour_rates(container_type)
+        CONSTRAINT fk_container_type FOREIGN KEY (container_type) REFERENCES labour_rates(container_type),
+        CONSTRAINT fk_variety FOREIGN KEY (variety_id)REFERENCES Varieties(variety_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
  CREATE TABLE
     farmer_purchases_billing(
@@ -310,13 +316,20 @@ INSERT INTO transport_trucks(transport_id,truck_number)VALUES(3,'MH14RE2345');
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',14);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',15);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
-INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
-INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(1, 'Potato','bags', 50, 2500, 25, 30);
-INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES( 2, 'Onion','bags', 500, 500, 50, 10);
-INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Onion','bags',1000,50000,1000,12);
-INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Lady Finger','crates',50,1000,100,20);
-INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Garlic','bags',30,150,15,15);
-INSERT INTO farmer_purchases(farmer_id,variety,container_type,quantity,total_weight,tare_weight,rate_per_kg)VALUES(2,'Potato','leno_bags',20,200,20,10);
+INSERT INTO varieties(variety_name)VALUES('potato');
+INSERT INTO varieties(variety_name)VALUES('potato');
+INSERT INTO varieties(variety_name)VALUES('Tomato');
+INSERT INTO varieties(variety_name)VALUES('Cabage');
+INSERT INTO varieties(variety_name)VALUES('Onion');
+INSERT INTO varieties(variety_name)VALUES('Bitroot');
+INSERT INTO varieties(variety_name)VALUES('Beans');
+INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(1,1,'bags', 50,'A', 2500, 25, 30);
+INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(1,2 ,'bags', 50,'B', 2500, 25, 30);
+INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES( 2,3 ,'bags', 500,'A', 500, 50, 10);
+INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,4,'bags',1000,'C',50000,1000,12);
+INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,5,'crates',50,'A',1000,100,20);
+INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,6,'bags',30,'A',150,15,15);
+INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,4,'leno_bags',20,'D',200,20,10);
 
 INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(2,2,2,400,20);
@@ -387,3 +400,5 @@ SELECT * FROM sells_billing;
 --  SELECT * FROM produce_merchants;
  
 -- SELECT * FROM produce_merchants WHERE user_id=1;
+
+SELECT * FROM farmer_purchases;

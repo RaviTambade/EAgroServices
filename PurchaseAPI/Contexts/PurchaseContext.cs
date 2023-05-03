@@ -27,9 +27,10 @@ public class PurchaseContext : DbContext
         {
             entity.HasKey(e => e.PurchaseId);
             entity.Property(e => e.FarmerId);
-            entity.Property(e => e.Variety);
+            entity.Property(e => e.VarietyId);
             entity.Property(e => e.ContainerType);
             entity.Property(e => e.Quantity);
+            entity.Property(e => e.Grade);
             entity.Property(e => e.TotalWeight);
             entity.Property(e => e.TareWeight);
             entity.Property(e => e.NetWeight);
