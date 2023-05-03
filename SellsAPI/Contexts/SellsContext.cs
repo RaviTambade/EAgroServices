@@ -15,6 +15,7 @@ public class SellsContext : DbContext
     }
     public DbSet<Sell> Sells { get; set; }
     public DbSet<Billing> Billings { get; set; }
+    public DbSet<FreightRate> FreightRates{get;set;}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
@@ -45,6 +46,15 @@ public class SellsContext : DbContext
     entity.Property(e => e.Date);
 
     modelBuilder.Entity<Billing>().ToTable("sells_billing");
+});
+ modelBuilder.Entity<FreightRate>(entity =>
+{
+    entity.HasKey(e => e.BillId);
+    entity.Property(e => e.FromDestination);
+    entity.Property(e => e.ToDestination);
+    entity.Property(e => e.Kilometers);
+    entity.Property(e => e.RatePerKm);
+    modelBuilder.Entity<FreightRate>().ToTable("freight_rates");
 });
     }
 }

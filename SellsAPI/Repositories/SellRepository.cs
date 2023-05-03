@@ -50,9 +50,10 @@ public class SellRepository : ISellRepository
             throw e;
         }
     }
-    public async Task<bool> Insert(Sell sell)
+    public async Task<bool> Insert(Sell sell,FreightRate freightRate)
     {
         bool status = false;
+        int billId=0;
         Billing billing=new Billing();
         try
         {
@@ -63,8 +64,10 @@ public class SellRepository : ISellRepository
                 billing.SellId = sell.SellId;
                 await context.Billings.AddAsync(billing);
                 await context.SaveChangesAsync();
-                int billId = billing.BillId;
-                Console.WriteLine(billId);
+                billId=billing.BillId;
+                freightRate.BillId=billId;
+                await context.FreightRates.AddAsync(freightRate);
+                await context.SaveChangesAsync();
                 context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
                 context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
                 status = true;
