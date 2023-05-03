@@ -12,6 +12,7 @@ public class AccountContext:DbContext{
 
     }
     public DbSet<Account> Accounts{get;set;}
+     public  DbSet<UserAccount> UserAccount {get;set;}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
         optionsBuilder.UseMySQL(_conString);
     }
@@ -23,6 +24,14 @@ public class AccountContext:DbContext{
             entity.Property(e=>e.IfscCode);
         });
         modelBuilder.Entity<Account>().ToTable("accounts");
-    }
-}
+        {
+        modelBuilder.Entity<UserAccount>(entity=>{
+            entity.HasKey(e=>e.Id);
+            entity.Property(e=>e.AccountId);
+            entity.Property(e=>e.UserId);
+        });
+        modelBuilder.Entity<UserAccount>().ToTable("user_accounts");
 
+}
+}
+}
