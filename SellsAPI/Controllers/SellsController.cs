@@ -32,10 +32,10 @@ namespace SellsAPI.Controllers
 
         [HttpPost]
         [Route("insert")]
-        public async Task<bool> Insert([FromBody] SellBillingView sellBillingView)
+        public async Task<bool> Insert([FromBody] SellBilling sellBilling)
         {
-            Sell sell=sellBillingView.Sell;
-            FreightRate freightRate=sellBillingView.FreightRate;
+            Sell sell=sellBilling.Sell;
+            FreightRate freightRate=sellBilling.FreightRate;
             return await _srv.Insert(sell,freightRate);
         }
 
