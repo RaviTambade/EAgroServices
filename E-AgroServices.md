@@ -1,4 +1,6 @@
-<center> <b>AccountsAPI </b></center>
+
+<h3 align="center">AccountsAPI </h3>
+
 
 URL
 
@@ -90,7 +92,9 @@ Body = None
 
 <hr>
 <hr>
-<center> <b>AdminAPI </b></center>
+
+<h3 align="center">AdminAPI </h3>
+
 
 URL
 
@@ -185,7 +189,7 @@ Description = Delete An existing Admin.
 Body = None
 <hr>
 
-<center> <b>EmployeesAPI </b></center>
+<h3 align="center">EmployeesAPI </h3>
 
 
 URL
@@ -276,8 +280,7 @@ Body = None
 <hr>
 <hr>
 
-
-<center> <b>FarmerAPI </b></center>
+<h3 align="center">FarmerAPI </h3>
 
 
 URL
@@ -365,7 +368,8 @@ Description = Delete an existing account
 Body = None
 <hr>
 <hr>
-<center> <b>MerchantsAPI </b></center>
+
+<h3 align="center">MerchantsAPI </h3>
 
 
 URL
