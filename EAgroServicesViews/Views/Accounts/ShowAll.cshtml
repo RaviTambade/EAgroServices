@@ -1,4 +1,4 @@
-@* 
+
 @using EAgroServicesViews.Models.AccountModel;
 @model IEnumerable<Account>;
 
@@ -10,20 +10,20 @@
 <table class="table">
     <thead>
         <tr> 
-            <th>@Html.DisplayNameFor(model => model.Account.AccountId)</th>
-            <th>@Html.DisplayNameFor(model => model.Account.AccountNumber)</th>
-            <th>@Html.DisplayNameFor(model => model.Account.IfscCode)</th>
+            <th>@Html.DisplayNameFor(model => model.AccountId)</th>
+            <th>@Html.DisplayNameFor(model => model.AccountNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.IfscCode)</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var account in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelAccount => account.AccountId.AccountId)</td>
-                <td>@Html.DisplayFor(modelAccount => account.AccountNumber.AccountNumber)</td>
-                <td>@Html.DisplayFor(modelAccount=> account.IfscCode.IfscCode)</td>
+                <td>@Html.DisplayFor(modelAccount => account.AccountId)</td>
+                <td>@Html.DisplayFor(modelAccount => account.AccountNumber)</td>
+                <td>@Html.DisplayFor(modelAccount=> account.IfscCode)</td>
                
             </tr>
         }
     </tbody>
-</table> *@
+</table>
