@@ -40,12 +40,12 @@ namespace SellsAPI.Controllers
             return await _srv.Insert(sell,freightRate);
         }
 
-        // [HttpPut]
-        // [Route("update/{id}")]
-        // public async Task<bool> Update(int id, [FromBody] Sell sell)
-        // { 
-        //      return await _srv.Update(id, sell);
-        // }
+        [HttpPut]
+        [Route("update/{id}")]
+        public async Task<bool> Update(int id, [FromBody] SellBilling sellBilling)
+        { 
+             return await _srv.Update(id, sellBilling.Sell,sellBilling.FreightRate);
+        }
 
         [HttpDelete]
         [Route("delete/{id}")]
