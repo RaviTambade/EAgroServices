@@ -408,6 +408,7 @@ CALL calculate_labour_charges_of_sells(3);
 SELECT * FROM farmer_purchases;
 SELECT * FROM sells;
 SELECT * FROM sells_billing;
+SELECT * from freight_rates;
 
 
 SELECT sells.sell_id,sells.merchant_id,sells_billing.total_charges,freight_rates.id FROM sells INNER JOIN sells_billing ON sells_billing.sell_id=sells.sell_id INNER JOIN freight_rates ON sells_billing.bill_id=freight_rates.bill_id WHERE sells.sell_id=5;
