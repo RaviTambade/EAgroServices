@@ -1,4 +1,4 @@
-namespace Purchase.Models;
+namespace EAgroServicesViews.Models.PurchaseModels;
 public class Farmer
 {
     public int FarmerId { get; set; }

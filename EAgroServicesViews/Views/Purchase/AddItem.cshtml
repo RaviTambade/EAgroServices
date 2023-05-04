@@ -3,56 +3,62 @@
     <tr>
       <th><label>FarmerName:</label></th>
       <td>
-      <select name="farmerId">
-        @foreach(var farmer in ViewBag.FarmerData)
-        {
-          <option value="@farmer.FarmerId">@farmer.FirstName @farmer.LastName</option>
-        }
-      </select>
+        <select name="farmerId">
+          @foreach(var farmer in ViewBag.farmers) {
+          <option value="@farmer.FarmerId">
+            @farmer.FirstName @farmer.LastName
+          </option>
+          }
+        </select>
       </td>
-      <!-- <td><input type="number" name="farmerId" /></td> -->
     </tr>
     <tr>
       <th><label>Variety:</label></th>
-      <td><input type="text" name="varietyId" /></td>
+      <td>
+        <select name="varietyId">
+          @foreach(var variety in ViewBag.varieties) {
+          <option value="@variety.VarietyId">@variety.VarietyName</option>
+          }
+        </select>
+      </td>
     </tr>
     <tr>
       <th><label>Grade:</label></th>
       <td>
-      <select name="grade">
+        <select name="grade">
           <option value="A">A</option>
           <option value="B">B</option>
           <option value="C">C</option>
           <option value="D">D</option>
-      </select>
-    </td>
+        </select>
+      </td>
     </tr>
 
     <tr>
-        <th><label>ContainerType:</label></th>
-        <td>
+      <th><label>ContainerType:</label></th>
+      <td>
         <select name="containerType">
-            <option value="bags">Bags</option>
-            <option value="leno_bags">Leno Bags</option>
-            <option value="crates">Crate</option>
+          <option value="bags">Bags</option>
+          <option value="leno_bags">Leno Bags</option>
+          <option value="crates">Crate</option>
         </select>
       </td>
-      </tr>
+    </tr>
     <tr>
       <th><label>Quantity:</label></th>
-      <td><input type="number" name="quantity"  /></td>
+      <td><input type="number" name="quantity" /></td>
     </tr>
     <tr>
       <th><label>TotalWeight:</label></th>
       <td><input type="number" name="totalWeight" /></td>
     </tr>
     <tr>
-        <th><label>TareWeight:</label></th>
-        <td><input type="number" name="tareWeight" /></td>
-      </tr>
+      <th><label>TareWeight:</label></th>
+      <td><input type="number" name="tareWeight" /></td>
+    </tr>
     <tr>
       <th><label>RatePerKg:</label></th>
-      <td><input type="number" name="ratePerKg"  /></td>
+      <td><input type="number" name="ratePerKg" /></td>
     </tr>
   </table>
   <button type="submit">Insert</button>
