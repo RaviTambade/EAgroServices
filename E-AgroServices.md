@@ -459,4 +459,56 @@ Description = Delete an existing Merchant Data
 
 Body =  None
 <hr>
+
+<h3 align="center">TransportAPI </h3>
+
+URL
+```console
+http://localhost:5240/api/transports/alltransports
+```
+Method = GET
+
+Description = Gets the all Transportors
+
+Body = None
+
 <hr>
+URL
+```console
+http://localhost:5240/api/transports/getdetails/{id}
+```
+Id = transportId
+
+Method = GET
+
+Description = Get Transportor by its id
+
+Body = None
+<hr>
+URL
+```console
+http://localhost:5188/api/transports/insert
+```
+
+Method = POST
+Description = Insert new Transport
+Body
+```console
+{
+  
+    "Transport":{
+    "officeName": "Urmila Transport",
+    "firstName": "Shubham",
+    "lastName": "Teli",
+    "location": "Chas"
+    
+},
+ "user":{
+    
+    "contactNumber": "74480254446",
+        "password": "password"
+},
+"userRole":{
+    "roleId":1
+}
+}
