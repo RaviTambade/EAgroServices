@@ -11,7 +11,7 @@ public interface ISellRepository
     Task<bool> Delete(int sellId);
     Task<SellBilling> GetSellBilling(int sellId);
     Task<List<MerchantSell>> GetSellByMerchantId(int merchantId);
-
+    Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId);
 
     
 }

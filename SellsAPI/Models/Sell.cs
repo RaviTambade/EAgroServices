@@ -18,7 +18,7 @@ public class Sell
     [Column("net_weight")]
     public Double NetWeight { get; set; }
 
-     [Column("rate_per_kg")]
+    [Column("rate_per_kg")]
     public Double RatePerKg { get; set; }
     
     [Column("total_amount")]
