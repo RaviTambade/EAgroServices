@@ -60,6 +60,12 @@ namespace SellsAPI.Controllers
             return await _srv.GetSellBilling(id);
         }
 
+         [HttpGet]
+        [Route("getmerchantsells/{id}")]
+        public async Task<List<MerchantSell>> GetMerchantSellById(int id){
+            return await _srv.GetSellByMerchantId(id);
+        }
+
         
 
     }

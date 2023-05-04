@@ -10,6 +10,7 @@ public interface ISellRepository
     Task<bool> Update(int sellId,Sell sell,FreightRate freightRate);
     Task<bool> Delete(int sellId);
     Task<SellBilling> GetSellBilling(int sellId);
+    Task<List<MerchantSell>> GetSellByMerchantId(int merchantId);
 
 
     

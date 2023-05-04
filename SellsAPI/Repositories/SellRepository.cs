@@ -3,6 +3,8 @@ using SellsAPI.Models;
 using SellsAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Linq.Expressions;
+
 namespace SellsAPI.Repositories;
 public class SellRepository : ISellRepository
 {
@@ -204,7 +206,7 @@ public class SellRepository : ISellRepository
         {
             using (var context = new SellsContext(_configuration))
             {
-                SellBilling sellsData = await (from sell in context.Sells 
+                SellBilling? sellsData = await (from sell in context.Sells 
                                                join bill in context.Billings 
                                                on sell.SellId equals bill.SellId 
                                                where sell.SellId==sellId 
@@ -224,4 +226,24 @@ public class SellRepository : ISellRepository
         }
     }
 
+    public async Task<List<MerchantSell>> GetSellByMerchantId(int merchantId){
+        try{
+            using(var context =new SellsContext(_configuration)){
+            var sells=await(from merchant in context.Merchants 
+                            join s in context.Sells 
+                            on merchant.MerchantId equals s.MerchantId
+                             where s.MerchantId==merchantId
+                            select new MerchantSell(){
+                                Sell=s,
+                                FullName=merchant.FirstName+ " "+merchant.LastName
+                            }).ToListAsync();
+                            return sells;
+            }
+
+    }
+    catch(Exception e){
+        throw e;
+    }
+
+}
 }
