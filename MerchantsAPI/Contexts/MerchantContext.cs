@@ -28,7 +28,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
           entity.Property(e => e.CompanyName);
           entity.Property(e => e.Location);
           entity.Property(e => e.UserId);
-          modelBuilder.Entity<Merchant>().ToTable("produce_merchants");
+          modelBuilder.Entity<Merchant>().ToTable("merchants");
         });
          modelBuilder.Entity<User>(entity =>
         {
