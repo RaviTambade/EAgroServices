@@ -10,4 +10,9 @@ public interface IPurchaseRepository
     Task<bool> Insert(PurchaseItem purchaseItem);
     Task<bool> Update(int purchaseId, PurchaseItem purchaseItem);
     Task<bool> Delete(int purchaseId);
+    Task<List<PurchaseViewModel>> GetFarmerPurchaseDetails(int farmerId);
+    Task<List<PurchaseViewModel>> GetPurchaseByVariety(int varietyId);
+    Task<List<PurchaseViewModel>> GetPurchaseByGrade(string grade);
+    Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int varirtyId,string grade);
+
 }

@@ -42,4 +42,29 @@ public class PurchaseController : ControllerBase
     {
         return await _service.Delete(id);
     }
+
+    [HttpGet("getfarmerpurchasedetails/{id}")]
+    public async Task<List<PurchaseViewModel>> GetFarmerPurchaseDetails(int id)
+    {
+        return await _service.GetFarmerPurchaseDetails(id);
+    }
+
+
+    [HttpGet("getpurchasedetailsbyvariety/{id}")]
+    public async Task<List<PurchaseViewModel>> GetPurchaseDetailsByVariety(int id)
+    {
+        return await _service.GetPurchaseByVariety(id);
+    }
+
+    [HttpPost("getpurchasebygrade")]
+    public async Task<List<PurchaseViewModel>> GetPurchaseByGrade([FromBody] Grade grade)
+    {
+        return await _service.GetPurchaseByGrade(grade.GradeName);
+    }
+
+    [HttpPost("getpurchasebyvarietyandgrade/{id}")]
+    public async Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int id, Grade grade)
+    {
+        return await _service.GetPurchaseByVarietyAndGrade(id, grade.GradeName);
+    }
 }

@@ -36,4 +36,23 @@ public class PurchaseService : IPurchaseService
         return await _repo.Delete(purchaseId);
     }
 
+    public async Task<List<PurchaseViewModel>> GetFarmerPurchaseDetails(int farmerId)
+    {
+        return await _repo.GetFarmerPurchaseDetails(farmerId);
+    }
+
+    public async Task<List<PurchaseViewModel>> GetPurchaseByVariety(int varietyId)
+    {
+        return await _repo.GetPurchaseByVariety(varietyId);
+    }
+
+    public async Task<List<PurchaseViewModel>> GetPurchaseByGrade(string grade)
+    {
+        return await _repo.GetPurchaseByGrade(grade);
+    }
+
+    public async Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int varirtyId, string grade)
+    {
+        return await _repo.GetPurchaseByVarietyAndGrade(varirtyId,grade);
+    }
 }
