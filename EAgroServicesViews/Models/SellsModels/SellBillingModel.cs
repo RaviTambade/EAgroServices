@@ -1,4 +1,4 @@
-namespace EAgroServicesViews.Models;
+namespace EAgroServicesViews.Models.SellsModels;
 public class SellBillingView
 {
     public Sell? Sell{get;set;}

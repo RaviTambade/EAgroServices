@@ -3,6 +3,7 @@ using SellsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SellsAPI.Controllers
 {

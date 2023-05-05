@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Linq.Expressions;
 using System.ComponentModel;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
 namespace SellsAPI.Repositories;
 public class SellRepository : ISellRepository

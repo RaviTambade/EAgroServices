@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SellsAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 
 namespace SellsAPI.Contexts;
 public class SellsContext : DbContext
