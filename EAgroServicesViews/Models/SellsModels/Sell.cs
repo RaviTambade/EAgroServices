@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace SellsAPI.Models;
+namespace EAgroServicesViews.Models.SellsModels;
 public class Sell
 {
     [Column("sell_id")]

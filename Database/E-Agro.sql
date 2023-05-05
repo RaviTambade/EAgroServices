@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -352,11 +352,11 @@ CALL calculate_freight_charges(1);
 
 
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,1);
+--INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,1);
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
+--INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
+--INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
 
 
 SELECT * FROM farmer_purchases;
@@ -365,8 +365,6 @@ SELECT * FROM varieties;
 CALL calculate_purchase_labour_charges(1);
 CALL calculate_purchase_total_amount(1);
 SELECT * FROM farmer_purchases_billing;
-
---CALL calculate_freight_charges(1);
 
 -- -- CALL calculate_freight_charges(2);
  CALL calculate_freight_charges(3);
@@ -381,6 +379,7 @@ SELECT * FROM sells_billing;
 CALL calculate_labour_charges_of_sells(1);
 CALL calculate_labour_charges_of_sells(2);
 CALL calculate_labour_charges_of_sells(3);
+CALL calculate_freight_charges(1);
 
 -- SELECT * FROM farmer_purchases;
 -- SELECT * FROM farmer_purchases_billing;

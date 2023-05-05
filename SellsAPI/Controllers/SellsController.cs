@@ -3,6 +3,7 @@ using SellsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SellsAPI.Controllers
 {
@@ -66,8 +67,11 @@ namespace SellsAPI.Controllers
             return await _srv.GetSellByMerchantId(id);
         }
 
-        
-
+        [HttpGet]
+        [Route("gettruckbilling/{id}")]
+        public async Task<List<TruckBilling>> GetTruckBillingsByTruckId(int id){
+            return await _srv.GetTruckBillingsByTruckId(id);
+        }
     }
 }
 
