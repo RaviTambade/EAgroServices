@@ -707,3 +707,111 @@ Method = DELETE
 Description = Delete an existing purchase Data
 
 <hr>
+
+ <h3 align="center">SellsAPI </h3>
+
+URL
+```console
+http://localhost:5182/api/sells/getallsells
+```
+Method = GET
+
+Description = Gets the all Sells Details
+
+Body = None
+
+<hr>
+
+URL
+
+```console
+ http://localhost:5182/api/sells/getdetails/{id}
+```
+Id = sellId
+
+Method = GET
+
+Description = Get Sell Details  by its sellid
+
+Body = None
+
+<hr>
+
+URL
+```console
+http://localhost:5182/api/sells/insert
+```
+Method = POST
+
+Description = Insert new Sell details
+
+Body
+
+```console
+ 
+    {
+        "sell": {
+            
+            "purchaseId": 4,
+            "merchantId": 2,
+            "truckId": 1,
+            "netWeight": 1000,
+            "ratePerKg": 20,
+            "totalAmount": 20000,
+            "date": "2023-05-05T10:48:38"
+        },
+        "freightRate": {
+            "fromDestination": "Bhavadi",
+            "toDestination": "Pune",
+            "kilometers": 100,
+            "ratePerKm": 40,
+            "billId": 1
+        }
+    }
+
+  ```
+
+URL
+
+```console
+http://localhost:5182/api/sells/update/{id}
+```
+Id = sellId
+
+Method = PUT
+
+Description = Update an existing sell Data
+
+Body
+```console
+  {
+        "sell": {
+            
+            "purchaseId": 4,
+            "merchantId": 2,
+            "truckId": 1,
+            "ratePerKg": 20,
+            "date": "2023-05-05T10:48:38"
+        },
+        "freightRate": {
+            "fromDestination": "Bhavadi",
+            "toDestination": "Pune",
+            "kilometers": 100,
+            "ratePerKm": 40,
+            "billId": 1
+        }
+    }
+
+  ```
+
+URL
+```console
+http://localhost:5182/api/sells/delete/{id}
+```
+Id = sellId
+
+Method = DELETE
+
+Description = Delete an existing sell Data
+
+<hr>
