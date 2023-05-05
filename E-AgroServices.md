@@ -402,7 +402,6 @@ URL
 ```console
 http://localhost:5188/api/merchants/insert
 ```
-
 Method = POST
 Description = Insert new Merchant
 Body
@@ -463,6 +462,7 @@ Body =  None
 <h3 align="center">TransportAPI </h3>
 
 URL
+
 ```console
 http://localhost:5240/api/transports/alltransports
 ```
@@ -473,7 +473,9 @@ Description = Gets the all Transportors
 Body = None
 
 <hr>
+
 URL
+
 ```console
 http://localhost:5240/api/transports/getdetails/{id}
 ```
@@ -484,31 +486,319 @@ Method = GET
 Description = Get Transportor by its id
 
 Body = None
+
 <hr>
+
 URL
 ```console
-http://localhost:5188/api/transports/insert
+http://localhost:5240/api/transports/insert
 ```
-
 Method = POST
+
 Description = Insert new Transport
+
 Body
 ```console
 {
-  
-    "Transport":{
-    "officeName": "Urmila Transport",
-    "firstName": "Shubham",
-    "lastName": "Teli",
-    "location": "Chas"
-    
-},
- "user":{
-    
-    "contactNumber": "74480254446",
+    "Transport": {
+        "officeName": "Shubham Transport",
+        "firstName": "Shubham",
+        "lastName": "Teli",
+        "location": "Chas"
+    },
+    "user": {
+        "contactNumber": "7448025854",
         "password": "password"
-},
-"userRole":{
-    "roleId":1
+    },
+    "userRole": {
+        "roleId": 1
+    }
 }
-}
+```
+URL
+```console
+http://localhost:5240/api/Transports/Update/{id}
+```
+Id = transportId
+
+Method = PUT
+
+Description = Update an existing Transportor Data
+
+Body
+```console
+ {
+        "officeName": "Shubham Transport",
+        "firstName": "Shubham",
+        "lastName": "Teli",
+        "location": "Chas"
+    }
+```
+URL
+```console
+http://localhost:5240/api/Transports/Delete/{id}
+```
+Id = transportId
+
+Method = DELETE
+
+Description = Delete an existing Transport Data
+
+<hr>
+
+<h3 align="center">VarietiesAPI </h3>
+
+URL
+```console
+http://localhost:5224/api/variety/getall
+```
+Method = GET
+
+Description = Gets the all Varieties
+
+Body = None
+
+<hr>
+
+URL
+```console
+http://localhost:5224/api/variety/getbyid/{id}
+```
+Id = varietyId
+
+Method = GET
+
+Description = Get variety by its id
+
+Body = None
+<hr>
+
+URL
+```console
+http://localhost:5224/api/variety/insert
+```
+Method = POST
+Description = Insert new Variety
+Body
+```console
+  {
+        "varietyName": "potato"
+    }
+```
+URL
+```console
+http://localhost:5224/api/variety/update/{id}
+```
+Id = varietyId
+
+Method = PUT
+
+Description = Update an existing Variety Data
+
+Body
+```console
+{
+        "varietyName": "potato"
+    }
+```
+URL
+```console
+http://localhost:5224/api/variety/delete/{id}
+```
+Id = varietyId
+
+Method = DELETE
+
+Description = Delete an existing Variety Data
+
+<hr>
+
+ <h3 align="center">PurchaseAPI </h3>
+
+URL
+```console
+http://localhost:5171/api/purchase/getallpurchaseitems
+```
+Method = GET
+
+Description = Gets the all PurchaseItems
+
+Body = None
+
+<hr>
+
+URL
+
+```console
+ http://localhost:5171/api/purchase/getbyid/{id}
+```
+Id = purchaseId
+
+Method = GET
+
+Description = Get purchase Details  by its purchaseid
+
+Body = None
+
+<hr>
+
+URL
+```console
+ http://localhost:5171/api/purchase/insert
+```
+Method = POST
+
+Description = Insert new purchasedetails
+
+Body
+
+```console
+  {
+    "purchaseItem": {
+        
+        "farmerId": 1,
+        "varietyId": 1,
+        "containerType": "bags",
+        "quantity": 50,
+        "grade": "A",
+        "totalWeight": 2500,
+        "tareWeight": 25,
+        "ratePerKg": 30,
+        
+    }
+  }
+  ```
+
+URL
+
+```console
+http://localhost:5224/api/purchase/update/{id}
+```
+Id = purchaseId
+
+Method = PUT
+
+Description = Update an existing purchase Data
+
+Body
+```console
+  {
+    "purchaseItem": {
+        
+        "containerType": "bags",
+        "quantity": 50,
+        "grade": "A",
+        "totalWeight": 2500,
+        "tareWeight": 25,
+        "ratePerKg": 30,
+        
+    }
+  }
+  ```
+
+URL
+```console
+http://localhost:5224/api/purchase/delete/{id}
+```
+Id = purchaseId
+
+Method = DELETE
+
+Description = Delete an existing purchase Data
+
+<hr>
+
+ <h3 align="center">SellsAPI </h3>
+
+URL
+```console
+http://localhost:5171/api/purchase/getallpurchaseitems
+```
+Method = GET
+
+Description = Gets the all PurchaseItems
+
+Body = None
+
+<hr>
+
+URL
+
+```console
+ http://localhost:5171/api/purchase/getbyid/{id}
+```
+Id = purchaseId
+
+Method = GET
+
+Description = Get purchase Details  by its purchaseid
+
+Body = None
+
+<hr>
+
+URL
+```console
+ http://localhost:5171/api/purchase/insert
+```
+Method = POST
+
+Description = Insert new purchasedetails
+
+Body
+
+```console
+  {
+    "purchaseItem": {
+        
+        "farmerId": 1,
+        "varietyId": 1,
+        "containerType": "bags",
+        "quantity": 50,
+        "grade": "A",
+        "totalWeight": 2500,
+        "tareWeight": 25,
+        "ratePerKg": 30,
+        
+    }
+  }
+  ```
+
+URL
+
+```console
+http://localhost:5224/api/purchase/update/{id}
+```
+Id = purchaseId
+
+Method = PUT
+
+Description = Update an existing purchase Data
+
+Body
+```console
+  {
+    "purchaseItem": {
+        
+        "containerType": "bags",
+        "quantity": 50,
+        "grade": "A",
+        "totalWeight": 2500,
+        "tareWeight": 25,
+        "ratePerKg": 30,
+        
+    }
+  }
+  ```
+
+URL
+```console
+http://localhost:5224/api/purchase/delete/{id}
+```
+Id = purchaseId
+
+Method = DELETE
+
+Description = Delete an existing purchase Data
+
+<hr>
