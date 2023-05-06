@@ -1,13 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SellsAPI.Contexts;
 using SellsAPI.Models;
 using SellsAPI.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.Linq.Expressions;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
 
 namespace SellsAPI.Repositories;
 public class SellRepository : ISellRepository
@@ -82,18 +82,30 @@ public class SellRepository : ISellRepository
         {
             using (var context = new SellsContext(_configuration))
             {
-                await context.Sells.AddAsync(sell);
-                await context.SaveChangesAsync();
-                billing.SellId = sell.SellId;
-                await context.Billings.AddAsync(billing);
-                await context.SaveChangesAsync();
-                billId = billing.BillId;
-                freightRate.BillId = billId;
-                await context.FreightRates.AddAsync(freightRate);
-                await context.SaveChangesAsync();
-                context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
-                context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
-                status = true;
+
+                var remainingQuantity = await (from p in context.PurchaseItems
+                                               where p.PurchaseId == sell.PurchaseId
+                                               select p.Quantity - context.Sells.Where(s => s.PurchaseId == sell.PurchaseId).Sum(s => s.Quantity))
+                               .FirstOrDefaultAsync();
+                Console.WriteLine(remainingQuantity);
+                if (sell.Quantity <= remainingQuantity && remainingQuantity==0)
+                {
+                    Console.WriteLine("inside function");
+                    Console.WriteLine("After insertion remaining is "+(remainingQuantity-sell.Quantity));
+
+                    await context.Sells.AddAsync(sell);
+                    await context.SaveChangesAsync();
+                    billing.SellId = sell.SellId;
+                    await context.Billings.AddAsync(billing);
+                    await context.SaveChangesAsync();
+                    billId = billing.BillId;
+                    freightRate.BillId = billId;
+                    await context.FreightRates.AddAsync(freightRate);
+                    await context.SaveChangesAsync();
+                    context.Database.ExecuteSqlRaw("CALL calculate_labour_charges_of_sells(@p0)", billId);
+                    context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
+                    status = true;
+                }
             }
         }
         catch (Exception e)
@@ -162,19 +174,6 @@ public class SellRepository : ISellRepository
                     context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
                     status = true;
                 }
-
-
-                //     await context.SaveChangesAsync();
-                // }
-                // if (
-                //          purchaseId != oldSell.PurchaseId ||
-                //          merchantId != oldSell.MerchantId ||
-                //          truckId != oldSell.TruckId ||
-                //          netWeight != oldSell.NetWeight ||
-                //          ratePerKg != oldSell.RatePerKg ||
-                //          totalAmount != oldSell.TotalAmount
-                //        )
-
             }
         }
         catch (Exception e)
@@ -258,26 +257,31 @@ public class SellRepository : ISellRepository
         }
     }
 
-    public async Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId){
-        try{
-            using(var context =new SellsContext(_configuration)){
-            List<TruckBilling> truckBillings=await (from truck in context.Trucks 
-                                                    join sell in context.Sells
-                                                    on truck.TruckId equals sell.TruckId
-                                                    join bill in context.Billings 
-                                                    on sell.SellId equals bill.SellId
-                                                    join freightRate in context.FreightRates
-                                                    on bill.BillId equals freightRate.BillId
-                                                    where sell.TruckId==truckId
-                                                    select new TruckBilling(){
-                                                        Billing=bill,
-                                                        FreightRate=freightRate,
-                                                        TruckNumber=truck.TruckNumber
-                                                    }).ToListAsync();
-                                                    return truckBillings;     
+    public async Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId)
+    {
+        try
+        {
+            using (var context = new SellsContext(_configuration))
+            {
+                List<TruckBilling> truckBillings = await (from truck in context.Trucks
+                                                          join sell in context.Sells
+                                                          on truck.TruckId equals sell.TruckId
+                                                          join bill in context.Billings
+                                                          on sell.SellId equals bill.SellId
+                                                          join freightRate in context.FreightRates
+                                                          on bill.BillId equals freightRate.BillId
+                                                          where sell.TruckId == truckId
+                                                          select new TruckBilling()
+                                                          {
+                                                              Billing = bill,
+                                                              FreightRate = freightRate,
+                                                              TruckNumber = truck.TruckNumber
+                                                          }).ToListAsync();
+                return truckBillings;
             }
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             throw e;
         }
     }

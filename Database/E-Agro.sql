@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -127,6 +127,7 @@ CREATE TABLE
         purchase_id INT NOT NULL,
         merchant_id INT,
         truck_id INT,
+        quantity INT NOT NULL,
         net_weight DOUBLE NOT NULL,
         rate_per_kg DOUBLE NOT NULL DEFAULT 0,
         total_amount DOUBLE AS (net_weight * rate_per_kg),
@@ -135,7 +136,7 @@ CREATE TABLE
         CONSTRAINT fk_merchant_id FOREIGN KEY (merchant_id) REFERENCES merchants(merchant_id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transport_trucks(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-    SELECT * FROM sells;
+    -- SELECT * FROM sells;
    CREATE TABLE
     sells_billing(
         bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -331,13 +332,13 @@ INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,
 INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,6,'bags',30,'A',150,15,15);
 INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,4,'leno_bags',20,'D',200,20,10);
 
-INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(1,1,1,200,15);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(2,2,2,400,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(3,2,1,4000,200);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(4,2,1,1000,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(5,2,1,150,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(6,2,1,200,12);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,net_weight,rate_per_kg)VALUES(7,2,1,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(1,1,1,10,200,15);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(2,2,2,10,400,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(3,2,1,10,4000,200);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(4,2,1,10,1000,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(5,2,1,10,150,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(6,2,1,10,200,12);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(7,2,1,10,200,20);
 
 
 SELECT * FROM sells;
@@ -405,7 +406,7 @@ CALL calculate_freight_charges(1);
 -- SELECT * FROM produce_merchants WHERE user_id=1;
 
 SELECT * FROM farmer_purchases;
-SELECT * FROM sells;
+SELECT * FROM sells ;
 SELECT * FROM sells_billing;
 SELECT * from freight_rates;
 

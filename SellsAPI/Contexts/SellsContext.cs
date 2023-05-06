@@ -19,6 +19,8 @@ public class SellsContext : DbContext
     public DbSet<FreightRate> FreightRates { get; set; }
     public DbSet<Merchant> Merchants{get;set;}
     public DbSet<Truck> Trucks{get;set;}
+    public DbSet<PurchaseItem> PurchaseItems { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
@@ -33,6 +35,7 @@ public class SellsContext : DbContext
             entity.Property(e => e.MerchantId);
             entity.Property(e => e.TruckId);
             entity.Property(e => e.NetWeight);
+            entity.Property(e => e.Quantity);
             entity.Property(e => e.RatePerKg);
             entity.Property(e => e.TotalAmount);
             entity.Property(e => e.Date);
@@ -76,5 +79,20 @@ public class SellsContext : DbContext
            entity.Property(e => e.TruckNumber);
            modelBuilder.Entity<Truck>().ToTable("transport_trucks");
        });
+
+       modelBuilder.Entity<PurchaseItem>(entity =>
+        {
+            entity.HasKey(e => e.PurchaseId);
+            entity.Property(e => e.FarmerId);
+            entity.Property(e => e.VarietyId);
+            entity.Property(e => e.ContainerType);
+            entity.Property(e => e.Quantity);
+            entity.Property(e => e.Grade);
+            entity.Property(e => e.TotalWeight);
+            entity.Property(e => e.TareWeight);
+            entity.Property(e => e.NetWeight);
+            entity.Property(e => e.RatePerKg);
+            modelBuilder.Entity<PurchaseItem>().ToTable("farmer_purchases");
+        });
     }
 }
