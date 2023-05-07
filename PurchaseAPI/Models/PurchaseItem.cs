@@ -39,4 +39,6 @@ public class PurchaseItem
             return this.NetWeight * this.RatePerKg;
         }
     }
+
+    public DateTime Date {get;set;}
 }

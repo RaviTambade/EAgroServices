@@ -14,5 +14,7 @@ public interface IPurchaseRepository
     Task<List<PurchaseViewModel>> GetPurchaseByVariety(int varietyId);
     Task<List<PurchaseViewModel>> GetPurchaseByGrade(string grade);
     Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int varirtyId,string grade);
+     Task<List<FarmerSell>> FarmerSellTotalAmountByMonth(int farmerId);
+
 
 }

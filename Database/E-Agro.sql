@@ -324,13 +324,54 @@ INSERT INTO varieties(variety_name)VALUES('Cabage');
 INSERT INTO varieties(variety_name)VALUES('Onion');
 INSERT INTO varieties(variety_name)VALUES('Bitroot');
 INSERT INTO varieties(variety_name)VALUES('Beans');
-INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(1,1,'bags', 50,'A', 2500, 25, 30);
-INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(1,2 ,'bags', 50,'B', 2500, 25, 30);
-INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES( 2,3 ,'bags', 500,'A', 500, 50, 10);
-INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,4,'bags',1000,'C',50000,1000,12);
-INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,5,'crates',50,'A',1000,100,20);
-INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,6,'bags',30,'A',150,15,15);
-INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg)VALUES(2,4,'leno_bags',20,'D',200,20,10);
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(1,1,'bags', 50,'A', 2500, 25, 30,'2023-01-02');
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(1,2 ,'bags', 50,'B', 2500, 25, 30,'2023-02-13');
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES( 2,3 ,'bags', 500,'A', 500, 50, 10,'2023-03-22');
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'bags',1000,'C',50000,1000,12,'2023-04-09');
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,5,'crates',50,'A',1000,100,20,'2023-05-10');
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,6,'bags',30,'A',150,15,15,'2023-05-12');
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'leno_bags',20,'D',200,20,10,'2023-05-23');
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'leno_bags',20,'D',20012,20,10,'2023-06-23');
+-- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'leno_bags',20,'D',200,20,10,'2023-06-23');
+
+INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, grade, total_weight, tare_weight, rate_per_kg, date) VALUES
+(2, 1, 'crates', 50, 'A', 250, 10, 18.5, '2022-01-03 10:00:00'),
+(2, 2, 'bags', 40, 'B', 200, 8, 20, '2022-01-05 13:30:00'),
+(2, 3, 'leno_bags', 120, 'C', 600, 24, 19.5, '2022-02-02 09:45:00'),
+(2, 4, 'crates', 75, 'D', 375, 15, 16.5, '2022-02-07 14:00:00'),
+(2, 5, 'bags', 30, 'A', 150, 6, 22, '2022-03-04 11:15:00'),
+(2, 1, 'leno_bags', 100, 'B', 500, 20, 18.5, '2022-03-09 15:00:00'),
+(2, 2, 'crates', 60, 'C', 300, 12, 20.5, '2022-04-05 10:30:00'),
+(2, 3, 'bags', 45, 'D', 225, 9, 19, '2022-04-08 13:45:00'),
+(2, 4, 'leno_bags', 80, 'A', 400, 16, 18, '2022-05-02 09:00:00'),
+(2, 5, 'crates', 65, 'B', 325, 13, 21, '2022-05-09 12:15:00'),
+(2, 1, 'bags', 55, 'C', 275, 11, 20, '2022-06-03 08:30:00'),
+(2, 2, 'leno_bags', 150, 'D', 750, 30, 16.5, '2022-06-08 11:45:00'),
+(2, 3, 'crates', 85, 'A', 425, 17, 18, '2022-07-05 14:00:00'),
+(2, 4, 'bags', 70, 'B', 350, 14, 19.5, '2022-07-08 17:15:00'),
+(2, 5, 'leno_bags', 200, 'C', 1000, 40, 16, '2022-08-02 10:30:00'),
+(2, 1, 'crates', 110, 'D', 550, 22, 18, '2022-08-09 13:45:00'),
+(2, 2,'bags', 90, 'A', 450, 18, 21.5, '2022-09-05 08:00:00'),
+(2, 3, 'crates', 50, 'B', 250, 10, 20, '2022-09-08 11:15:00'),
+(2, 4, 'leno_bags', 120, 'C', 600, 24, 19, '2022-10-03 14:30:00'),
+(2, 5, 'crates', 75, 'D', 375, 15, 17, '2022-10-06 17:45:00'),
+(2, 1, 'bags', 60, 'A', 300, 12, 22.5, '2022-11-02 10:00:00'),
+(2, 2, 'leno_bags', 90, 'B', 450, 18, 19, '2022-11-07 13:15:00'),
+(2, 3, 'crates', 80, 'C', 400, 16, 20.5, '2022-12-05 09:30:00'),
+(2, 4, 'bags', 100, 'D', 500, 20, 18, '2022-12-08 12:45:00'),
+(2, 5, 'leno_bags', 150, 'A', 750, 30, 17.5, '2023-01-03 08:00:00'),
+(2, 1, 'crates', 65, 'B', 325, 13, 20, '2023-01-06 11:15:00'),
+(2, 2, 'bags', 45, 'C', 225, 9, 21.5, '2023-02-02 14:30:00'),
+(2, 3, 'leno_bags', 80, 'D', 400, 16, 18.5, '2023-02-07 17:45:00'),
+(2, 4, 'crates', 110, 'A', 550, 22, 17, '2023-03-07 10:00:00'),
+(2, 5, 'bags', 95, 'B', 475, 19, 19.5, '2023-03-10 13:15:00'),
+(2, 1, 'leno_bags', 200, 'C', 1000, 40, 17, '2023-04-03 09:30:00'),
+(2, 2, 'crates', 75, 'D', 375, 15, 16.5, '2023-04-06 12:45:00'),
+(2, 3, 'bags', 50, 'A', 250, 10, 22, '2023-05-02 08:00:00'),
+(2, 4, 'leno_bags', 120, 'B', 600, 24, 19, '2023-05-05 11:15:00');
+
+INSERT INTO farmer_purchases_billing (purchase_id)
+SELECT purchase_id FROM farmer_purchases  order by purchase_id ;
 
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(1,1,1,10,200,15);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(2,2,2,10,400,20);
@@ -342,7 +383,7 @@ INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_
 
 
 SELECT * FROM sells;
-INSERT INTO farmer_purchases_billing(purchase_id)VALUES(1);
+-- INSERT INTO farmer_purchases_billing(purchase_id)VALUES(1);
 INSERT INTO sells_billing(sell_id)VALUES(4);
 INSERT INTO sells_billing(sell_id)VALUES(5);
 INSERT INTO sells_billing(sell_id)VALUES(6);
@@ -363,8 +404,23 @@ INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km
 SELECT * FROM farmer_purchases;
 SELECT * FROM varieties;
 -- SELECT * FROM sells_billing;
-CALL calculate_purchase_labour_charges(1);
-CALL calculate_purchase_total_amount(1);
+-- CALL calculate_purchase_labour_charges(1);
+-- CALL calculate_purchase_total_amount(1);
+DELIMITER //
+DROP PROCEDURE IF EXISTS call_procedures//
+CREATE PROCEDURE call_procedures(IN records INT)
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i <= records DO
+    CALL calculate_purchase_labour_charges(i);
+    CALL calculate_purchase_total_amount(i);
+    SET i = i + 1;
+  END WHILE;
+END//
+DELIMITER ;
+
+CALL call_procedures(34);
+
 SELECT * FROM farmer_purchases_billing;
 
 -- -- CALL calculate_freight_charges(2);
@@ -405,10 +461,17 @@ CALL calculate_freight_charges(1);
  
 -- SELECT * FROM produce_merchants WHERE user_id=1;
 
-SELECT * FROM farmer_purchases;
-SELECT * FROM sells ;
-SELECT * FROM sells_billing;
-SELECT * from freight_rates;
+-- SELECT * FROM farmer_purchases;
+-- SELECT * FROM sells ;
+-- SELECT * FROM sells_billing;
+-- SELECT * from freight_rates;
+
+
+-- for farmer sell toatal amount
+
+-- select farmer_purchases.farmer_id, sum(farmer_purchases_billing.total_amount) ,MONTHNAME(farmer_purchases.date) as month from farmer_purchases_billing 
+-- inner join farmer_purchases on farmer_purchases.purchase_id=farmer_purchases_billing.purchase_id
+-- where farmer_id=2 group by MONTHNAME(farmer_purchases.date);
 
 
 SELECT sells.sell_id,sells.merchant_id,sells_billing.total_charges,freight_rates.id FROM sells INNER JOIN sells_billing ON sells_billing.sell_id=sells.sell_id INNER JOIN freight_rates ON sells_billing.bill_id=freight_rates.bill_id WHERE sells.sell_id=5;
