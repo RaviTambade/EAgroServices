@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using PurchaseAPI.Contexts;
 using PurchaseAPI.Models;
@@ -182,20 +183,20 @@ public class PurchaseRepository : IPurchaseRepository
             using (var context = new PurchaseContext(_configuration))
             {
                 List<PurchaseViewModel>? purchaseData = await (from item in context.PurchaseItems
-                                                                   join bill in context.PurchaseBillings
-                                                                   on item.PurchaseId equals bill.PurchaseId
-                                                                   join farmer in context.Farmers
-                                                                   on item.FarmerId equals farmer.FarmerId
-                                                                   join variety in context.Varieties
-                                                                   on item.VarietyId equals variety.VarietyId
-                                                                   where item.FarmerId == farmerId
-                                                                   select new PurchaseViewModel()
-                                                                   {
-                                                                       PurchaseItem = item,
-                                                                       PurchaseBilling = bill,
-                                                                       FarmerName = farmer.FirstName + " " + farmer.LastName,
-                                                                       VarietyName = variety.VarietyName
-                                                                   }).ToListAsync();
+                                                               join bill in context.PurchaseBillings
+                                                               on item.PurchaseId equals bill.PurchaseId
+                                                               join farmer in context.Farmers
+                                                               on item.FarmerId equals farmer.FarmerId
+                                                               join variety in context.Varieties
+                                                               on item.VarietyId equals variety.VarietyId
+                                                               where item.FarmerId == farmerId
+                                                               select new PurchaseViewModel()
+                                                               {
+                                                                   PurchaseItem = item,
+                                                                   PurchaseBilling = bill,
+                                                                   FarmerName = farmer.FirstName + " " + farmer.LastName,
+                                                                   VarietyName = variety.VarietyName
+                                                               }).ToListAsync();
                 return purchaseData;
             }
         }
@@ -205,7 +206,7 @@ public class PurchaseRepository : IPurchaseRepository
         }
     }
 
-     public async Task<List<PurchaseViewModel>> GetPurchaseByVariety(int varietyId)
+    public async Task<List<PurchaseViewModel>> GetPurchaseByVariety(int varietyId)
     {
 
         try
@@ -213,20 +214,20 @@ public class PurchaseRepository : IPurchaseRepository
             using (var context = new PurchaseContext(_configuration))
             {
                 List<PurchaseViewModel>? purchaseData = await (from item in context.PurchaseItems
-                                                                   join bill in context.PurchaseBillings
-                                                                   on item.PurchaseId equals bill.PurchaseId
-                                                                   join farmer in context.Farmers
-                                                                   on item.FarmerId equals farmer.FarmerId
-                                                                   join variety in context.Varieties
-                                                                   on item.VarietyId equals variety.VarietyId
-                                                                   where item.VarietyId == varietyId
-                                                                   select new PurchaseViewModel()
-                                                                   {
-                                                                       PurchaseItem = item,
-                                                                       PurchaseBilling = bill,
-                                                                       FarmerName = farmer.FirstName + " " + farmer.LastName,
-                                                                       VarietyName = variety.VarietyName
-                                                                   }).ToListAsync();
+                                                               join bill in context.PurchaseBillings
+                                                               on item.PurchaseId equals bill.PurchaseId
+                                                               join farmer in context.Farmers
+                                                               on item.FarmerId equals farmer.FarmerId
+                                                               join variety in context.Varieties
+                                                               on item.VarietyId equals variety.VarietyId
+                                                               where item.VarietyId == varietyId
+                                                               select new PurchaseViewModel()
+                                                               {
+                                                                   PurchaseItem = item,
+                                                                   PurchaseBilling = bill,
+                                                                   FarmerName = farmer.FirstName + " " + farmer.LastName,
+                                                                   VarietyName = variety.VarietyName
+                                                               }).ToListAsync();
                 return purchaseData;
             }
         }
@@ -236,27 +237,27 @@ public class PurchaseRepository : IPurchaseRepository
         }
     }
 
-     public async Task<List<PurchaseViewModel>> GetPurchaseByGrade(string grade)
+    public async Task<List<PurchaseViewModel>> GetPurchaseByGrade(string grade)
     {
         try
         {
             using (var context = new PurchaseContext(_configuration))
             {
                 List<PurchaseViewModel>? purchaseData = await (from item in context.PurchaseItems
-                                                                   join bill in context.PurchaseBillings
-                                                                   on item.PurchaseId equals bill.PurchaseId
-                                                                   join farmer in context.Farmers
-                                                                   on item.FarmerId equals farmer.FarmerId
-                                                                   join variety in context.Varieties
-                                                                   on item.VarietyId equals variety.VarietyId
-                                                                   where item.Grade==grade
-                                                                   select new PurchaseViewModel()
-                                                                   {
-                                                                       PurchaseItem = item,
-                                                                       PurchaseBilling = bill,
-                                                                       FarmerName = farmer.FirstName + " " + farmer.LastName,
-                                                                       VarietyName = variety.VarietyName
-                                                                   }).ToListAsync();
+                                                               join bill in context.PurchaseBillings
+                                                               on item.PurchaseId equals bill.PurchaseId
+                                                               join farmer in context.Farmers
+                                                               on item.FarmerId equals farmer.FarmerId
+                                                               join variety in context.Varieties
+                                                               on item.VarietyId equals variety.VarietyId
+                                                               where item.Grade == grade
+                                                               select new PurchaseViewModel()
+                                                               {
+                                                                   PurchaseItem = item,
+                                                                   PurchaseBilling = bill,
+                                                                   FarmerName = farmer.FirstName + " " + farmer.LastName,
+                                                                   VarietyName = variety.VarietyName
+                                                               }).ToListAsync();
                 return purchaseData;
             }
         }
@@ -266,27 +267,27 @@ public class PurchaseRepository : IPurchaseRepository
         }
     }
 
-         public async Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int varirtyId,string grade)
+    public async Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int varirtyId, string grade)
     {
         try
         {
             using (var context = new PurchaseContext(_configuration))
             {
                 List<PurchaseViewModel>? purchaseData = await (from item in context.PurchaseItems
-                                                                   join bill in context.PurchaseBillings
-                                                                   on item.PurchaseId equals bill.PurchaseId
-                                                                   join farmer in context.Farmers
-                                                                   on item.FarmerId equals farmer.FarmerId
-                                                                   join variety in context.Varieties
-                                                                   on item.VarietyId equals variety.VarietyId
-                                                                   where item.VarietyId==varirtyId && item.Grade==grade 
-                                                                   select new PurchaseViewModel()
-                                                                   {
-                                                                       PurchaseItem = item,
-                                                                       PurchaseBilling = bill,
-                                                                       FarmerName = farmer.FirstName + " " + farmer.LastName,
-                                                                       VarietyName = variety.VarietyName
-                                                                   }).ToListAsync();
+                                                               join bill in context.PurchaseBillings
+                                                               on item.PurchaseId equals bill.PurchaseId
+                                                               join farmer in context.Farmers
+                                                               on item.FarmerId equals farmer.FarmerId
+                                                               join variety in context.Varieties
+                                                               on item.VarietyId equals variety.VarietyId
+                                                               where item.VarietyId == varirtyId && item.Grade == grade
+                                                               select new PurchaseViewModel()
+                                                               {
+                                                                   PurchaseItem = item,
+                                                                   PurchaseBilling = bill,
+                                                                   FarmerName = farmer.FirstName + " " + farmer.LastName,
+                                                                   VarietyName = variety.VarietyName
+                                                               }).ToListAsync();
                 return purchaseData;
             }
         }
@@ -294,5 +295,32 @@ public class PurchaseRepository : IPurchaseRepository
         {
             throw e;
         }
+    }
+
+
+    public async Task<List<FarmerSell>> FarmerSellTotalAmountByMonth(int farmerId)
+    {
+        try
+        {
+            using (var context = new PurchaseContext(_configuration))
+            {
+                var results = await (from billing in context.PurchaseBillings
+                                     join purchase in context.PurchaseItems
+                                     on billing.PurchaseId equals purchase.PurchaseId
+                                     where purchase.FarmerId == farmerId
+                                     group billing by billing.Date.Month into billingGroup
+                                     select new FarmerSell()
+                                     {
+                                         Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(billingGroup.Key),
+                                         TotalAmount = billingGroup.Sum(billing => billing.TotalAmount),
+                                     }).ToListAsync();
+                return results;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
 }
-}
+
