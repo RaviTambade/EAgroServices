@@ -119,7 +119,7 @@ CREATE TABLE
         labour_charges DOUBLE DEFAULT 0,
         total_amount DOUBLE DEFAULT 0,
         CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmer_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
+        date DATETIME NOT NULL DEFAULT NOW() 
     );
 CREATE TABLE
     sells(
@@ -370,8 +370,8 @@ INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, g
 (2, 3, 'bags', 50, 'A', 250, 10, 22, '2023-05-02 08:00:00'),
 (2, 4, 'leno_bags', 120, 'B', 600, 24, 19, '2023-05-05 11:15:00');
 
-INSERT INTO farmer_purchases_billing (purchase_id)
-SELECT purchase_id FROM farmer_purchases  order by purchase_id ;
+INSERT INTO farmer_purchases_billing (purchase_id,date)
+SELECT purchase_id,date FROM farmer_purchases  order by purchase_id ;
 
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(1,1,1,10,200,15);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(2,2,2,10,400,20);

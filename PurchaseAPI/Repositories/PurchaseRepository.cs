@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using PurchaseAPI.Contexts;
 using PurchaseAPI.Models;
@@ -305,13 +306,13 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 var results = await (from billing in context.PurchaseBillings
                                      join purchase in context.PurchaseItems
-                                         on billing.PurchaseId equals purchase.PurchaseId
+                                     on billing.PurchaseId equals purchase.PurchaseId
                                      where purchase.FarmerId == farmerId
-                                     group billing by purchase.Date.Month into billingGroup
+                                     group billing by billing.Date.Month into billingGroup
                                      select new FarmerSell()
                                      {
+                                         Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(billingGroup.Key),
                                          TotalAmount = billingGroup.Sum(billing => billing.TotalAmount),
-                                         Month =billingGroup.Key
                                      }).ToListAsync();
                 return results;
             }

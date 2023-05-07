@@ -37,6 +37,7 @@ public class PurchaseContext : DbContext
             entity.Property(e => e.TareWeight);
             entity.Property(e => e.NetWeight);
             entity.Property(e => e.RatePerKg);
+            entity.Property(e => e.Date);
             modelBuilder.Entity<PurchaseItem>().ToTable("farmer_purchases");
         });
 
@@ -46,6 +47,7 @@ public class PurchaseContext : DbContext
             entity.Property(e => e.PurchaseId);
             entity.Property(e => e.LabourCharges);
             entity.Property(e => e.TotalAmount);
+            entity.Property(e => e.Date);
             modelBuilder.Entity<PurchaseBilling>().ToTable("farmer_purchases_billing");
         });
              modelBuilder.Entity<Farmer>(entity =>     
