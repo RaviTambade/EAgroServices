@@ -478,4 +478,9 @@ CALL calculate_freight_charges(1);
 -- inner join varieties on varieties.variety_id=farmer_purchases.variety_id
 -- where farmer_id=2 group by farmer_purchases.variety_id, MONTHNAME(farmer_purchases.date) order by  varieties.variety_name  ;
 
+--daily sale of farmer 
+-- select farmer_purchases.farmer_id, varieties.variety_name , sum(farmer_purchases_billing.total_amount),date(farmer_purchases.date) as month    from farmer_purchases_billing 
+-- inner join farmer_purchases on farmer_purchases.purchase_id=farmer_purchases_billing.purchase_id
+-- inner join varieties on varieties.variety_id=farmer_purchases.variety_id
+-- where farmer_id=2 group by farmer_purchases.variety_id, date(farmer_purchases.date) order by  farmer_purchases.date  ;
 SELECT sells.sell_id,sells.merchant_id,sells_billing.total_charges,freight_rates.id FROM sells INNER JOIN sells_billing ON sells_billing.sell_id=sells.sell_id INNER JOIN freight_rates ON sells_billing.bill_id=freight_rates.bill_id WHERE sells.sell_id=5;
