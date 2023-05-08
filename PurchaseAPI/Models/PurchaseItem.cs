@@ -40,5 +40,6 @@ public class PurchaseItem
         }
     }
 
+    [Column("date")]
     public DateTime Date {get;set;}
 }

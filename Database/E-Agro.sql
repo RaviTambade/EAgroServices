@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -119,7 +119,7 @@ CREATE TABLE
         labour_charges DOUBLE DEFAULT 0,
         total_amount DOUBLE DEFAULT 0,
         CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmer_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
+        date DATETIME NOT NULL DEFAULT NOW() 
     );
 CREATE TABLE
     sells(
@@ -162,7 +162,7 @@ CREATE TABLE
 );
  
  --query for calculating freight charges of one truck
-SELECT sells.sell_id,sells.truck_id,sells_billing.freight_charges,sells.date 
+SELECT sells.sell_id,sells.truck_id,sells_billing.freight_charges,sells.quantity,sells.date 
 from sells,sells_billing
 WHERE sells.sell_id=sells_billing.sell_id and sells.truck_id=1;
 CREATE TABLE
@@ -318,7 +318,6 @@ INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES 
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',15);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
 INSERT INTO varieties(variety_name)VALUES('potato');
-INSERT INTO varieties(variety_name)VALUES('potato');
 INSERT INTO varieties(variety_name)VALUES('Tomato');
 INSERT INTO varieties(variety_name)VALUES('Cabage');
 INSERT INTO varieties(variety_name)VALUES('Onion');
@@ -370,13 +369,13 @@ INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, g
 (2, 3, 'bags', 50, 'A', 250, 10, 22, '2023-05-02 08:00:00'),
 (2, 4, 'leno_bags', 120, 'B', 600, 24, 19, '2023-05-05 11:15:00');
 
-INSERT INTO farmer_purchases_billing (purchase_id)
-SELECT purchase_id FROM farmer_purchases  order by purchase_id ;
+INSERT INTO farmer_purchases_billing (purchase_id,date)
+SELECT purchase_id,date FROM farmer_purchases  order by purchase_id ;
 
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(1,1,1,10,200,15);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(2,2,2,10,400,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(3,2,1,10,4000,200);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(4,2,1,10,1000,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(4,2,,10,1000,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(5,2,1,10,150,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(6,2,1,10,200,12);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(7,2,1,10,200,20);
@@ -397,7 +396,7 @@ INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km
 --INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,1);
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
 --INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,4);
 --INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
 
 
@@ -424,7 +423,7 @@ CALL call_procedures(34);
 SELECT * FROM farmer_purchases_billing;
 
 -- -- CALL calculate_freight_charges(2);
- CALL calculate_freight_charges(3);
+ CALL calculate_freight_charges(4);
 -- CALL calculate_labour_charges_of_sells(1);
 
 
@@ -436,7 +435,7 @@ SELECT * FROM sells_billing;
 CALL calculate_labour_charges_of_sells(1);
 CALL calculate_labour_charges_of_sells(2);
 CALL calculate_labour_charges_of_sells(3);
-CALL calculate_freight_charges(1);
+CALL calculate_freight_charges(4);
 
 -- SELECT * FROM farmer_purchases;
 -- SELECT * FROM farmer_purchases_billing;
@@ -473,5 +472,20 @@ CALL calculate_freight_charges(1);
 -- inner join farmer_purchases on farmer_purchases.purchase_id=farmer_purchases_billing.purchase_id
 -- where farmer_id=2 group by MONTHNAME(farmer_purchases.date);
 
+--for monthwise sell of variety of farmer
+-- select farmer_purchases.farmer_id, varieties.variety_name , sum(farmer_purchases_billing.total_amount),MONTHNAME(farmer_purchases.date) as month    from farmer_purchases_billing 
+-- inner join farmer_purchases on farmer_purchases.purchase_id=farmer_purchases_billing.purchase_id
+-- inner join varieties on varieties.variety_id=farmer_purchases.variety_id
+-- where farmer_id=2 group by farmer_purchases.variety_id, MONTHNAME(farmer_purchases.date) order by  varieties.variety_name  ;
 
+--daily sale of farmer 
+-- select farmer_purchases.farmer_id, varieties.variety_name , sum(farmer_purchases_billing.total_amount),date(farmer_purchases.date) as month    from farmer_purchases_billing 
+-- inner join farmer_purchases on farmer_purchases.purchase_id=farmer_purchases_billing.purchase_id
+-- inner join varieties on varieties.variety_id=farmer_purchases.variety_id
+-- where farmer_id=2 group by farmer_purchases.variety_id, date(farmer_purchases.date) order by  farmer_purchases.date  ;
 SELECT sells.sell_id,sells.merchant_id,sells_billing.total_charges,freight_rates.id FROM sells INNER JOIN sells_billing ON sells_billing.sell_id=sells.sell_id INNER JOIN freight_rates ON sells_billing.bill_id=freight_rates.bill_id WHERE sells.sell_id=5;
+SELECT * FROM sells;
+UPDATE sells SET date="2023-04-04 10:10:10" WHERE sell_id=2;
+
+--SELECT merchants.merchant_id,SUM(sells.total_amount),MONTHNAME(sells.date) AS month FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.merchant_id WHERE merchants.merchant_id=2 GROUP BY MONTHNAME(sells.date);
+SELECT transport_trucks.truck_id,DATE(sells.date) AS date,SUM(sells_billing.freight_charges) FROM transport_trucks INNER JOIN sells ON transport_trucks.truck_id=sells.truck_id INNER JOIN sells_billing ON sells.sell_id=sells_billing.sell_id WHERE sells.truck_id=2 ORDER BY date ;
