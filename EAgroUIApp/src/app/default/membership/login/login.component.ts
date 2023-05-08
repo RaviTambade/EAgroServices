@@ -1,28 +1,22 @@
-import { Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { User } from '../user';
 import { Authresponse } from '../authresponse';
-import { FormsModule } from '@angular/forms';
+import { User } from '../user';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, RouterModule,FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.css']
 })
-
-export default class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit{
   user: User |any;
-  authResponse : Authresponse |any;
+  // authResponse : Authresponse |any;
   constructor(private svc :AuthService){}
   ngOnInit(): void {}
 
   logIn(){
     this.svc.logIn(this.user).subscribe((response)=>{
-       response=this.authResponse.token;
+      //  response=this.authResponse.token;
       console.log(response);
       console.log(this.user);
       if(response)
@@ -34,5 +28,5 @@ export default class LoginComponent implements OnInit {
       }
 
     })  
-  }
+}
 }

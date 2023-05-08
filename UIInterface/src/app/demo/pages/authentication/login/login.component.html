@@ -1,138 +1,49 @@
 <div class="auth-main">
-
   <div class="auth-wrapper v3">
-
     <div class="auth-form">
-
       <div class="card my-5">
-
         <div class="card-body">
-
           <a href="#" class="d-flex justify-content-center">
-
             <img src="assets/images/logo-dark.svg" />
-
           </a>
-
-           <div class="row">
-
-             <div class="d-flex justify-content-center">
-
-               <div class="auth-header">
-
+          <div class="row">
+            <div class="d-flex justify-content-center">
+              <div class="auth-header">
                 <h2 class="text-secondary mt-5"><b>Hi, Welcome Back</b></h2>
-
-               <p class="f-16 mt-2">Enter your credentials to continue</p>
-
-                 </div>
-
+                <p class="f-16 mt-2">Enter your credentials to continue</p>
               </div>
-
-             </div>
-
-           <div class="d-grid">
-
-             <button type="button" class="btn mt-2 btn-light-primary bg-light text-muted">
-
-               <img src="assets/images/authentication/google-icon.svg" />Sign In With Google
-
-              </button>
-
-             </div>
-
+            </div>
+          </div>
+          <div class="d-grid">
+            <button type="button" class="btn mt-2 btn-light-primary bg-light text-muted">
+              <img src="assets/images/authentication/google-icon.svg" />Sign In With Google
+            </button>
+          </div>
           <div class="saprator mt-3">
-
             <span>or</span>
-<<<<<<< HEAD
-
-                      </div>
-
-                    <h5 class="my-4 d-flex justify-content-center"> Sign in with Email address </h5>
-
-                    <div class="form-floating mb-3">
-
-                        <input type="email" class="form-control" id="floatingInput" value="info@codedthemes.com" />
-
-                        <label for="floatingInput">Email address / Username</label>
-
-                      </div>
-
-                    <div class="form-floating mb-3">
-
-                        <input type="password" class="form-control" id="password" value="12345" />
-
-                        <label for="password">Password</label>
-
-                      </div>
-
-                    <div class="d-flex mt-1 justify-content-between">
-
-                        <div class="form-check">
-
-                            <input class="form-check-input input-primary" type="checkbox" id="customCheckc1"
-                checked="" />
-
-                            <label class="form-check-label text-muted" for="customCheckc1">Remember me</label>
-
-                          </div>
-
-                        <h5 class="text-secondary">
-
-                            <a href="javascript:">Forgot Password?</a>
-
-                          </h5>
-
-                      </div>
-
-                    <div class="d-grid mt-4">
-
-                        <button type="button" class="btn btn-secondary">Sign In</button>
-
-                      </div>
-
-                   
-=======
           </div>
           <h5 class="my-4 d-flex justify-content-center"> Sign in with Contact Number </h5>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" #contactnumber="ngModel" [(ngModel)]="user.contactNumber" />
-            <label for="floatingInput">Contact Number</label>
+            <input type="contactnumber" class="form-control" id="contactnumber" #contactNumber="ngModel" [(ngModel)]="user.contactNumber" />
+            <label for="contactNumber">Contact Number</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="password" #password="ngModel" [(ngModel)]="user.password" />
+            <input type="password" class="form-control" id="password"  #password="ngModel"  [(ngModel)]="user.password" />
             <label for="password">Password</label>
           </div>
           <div class="d-flex mt-1 justify-content-between">
-            <div class="form-check">
-              <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
-              <label class="form-check-label text-muted" for="customCheckc1">Remember me</label>
-            </div>
-            <h5 class="text-secondary">
-              <a href="javascript:">Forgot Password?</a>
+           <h5 class="text-secondary">
             </h5>
           </div>
           <div class="d-grid mt-4">
             <button type="button" class="btn btn-secondary" (click)="logIn()">Log In</button>
           </div>
->>>>>>> f4996273d71d15ed48fdfb5f5611d4ea58c9f579
           <hr />
-
-                    <h5 class="d-flex justify-content-center">
-
-                        <a [routerLink]="['/guest/register']">Don't have an account?</a>
-
-                      </h5>
-
-                 
+          <h5 class="d-flex justify-content-center">
+            <a [routerLink]="['/guest/register']">Don't have an account?</a>
+          </h5>
         </div>
-
-             
       </div>
-
-         
     </div>
-
-     
   </div>
-
 </div>
