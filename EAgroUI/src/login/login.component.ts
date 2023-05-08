@@ -1,20 +1,18 @@
 import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../app/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgModel} from '@angular/forms';
-import { User } from '../user';
+import { User } from '../app/user';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, RouterModule,FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.css']
 })
 export default class LoginComponent implements OnInit {
-  inValidLogin:boolean ;
+  inValidLogin:boolean | undefined ;
  @Input() user: User= {
    contactNumber: '', password: '',
    
