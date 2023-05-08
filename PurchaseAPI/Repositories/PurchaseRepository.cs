@@ -301,11 +301,11 @@ public class PurchaseRepository : IPurchaseRepository
     {
         try
         {
-            using (var context = new PurchaseContext(_configuration))
+            using (var context = new PurchaseContext(_configuration)) //Disposal Technique
             {
                 var results = await (from billing in context.PurchaseBillings
                                      join purchase in context.PurchaseItems
-                                         on billing.PurchaseId equals purchase.PurchaseId
+                                 on billing.PurchaseId equals purchase.PurchaseId
                                      where purchase.FarmerId == farmerId
                                      group billing by purchase.Date.Month into billingGroup
                                      select new FarmerSell()
