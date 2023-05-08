@@ -22,13 +22,13 @@
           <div class="saprator mt-3">
             <span>or</span>
           </div>
-          <h5 class="my-4 d-flex justify-content-center"> Sign in with Email address </h5>
+          <h5 class="my-4 d-flex justify-content-center"> Sign in with Contact Number </h5>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" value="info@codedthemes.com" />
-            <label for="floatingInput">Email address / Username</label>
+            <input type="email" class="form-control" id="floatingInput" #contactnumber="ngModel" [(ngModel)]="user.contactNumber" />
+            <label for="floatingInput">Contact Number</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="password" value="12345" />
+            <input type="password" class="form-control" id="password" #password="ngModel" [(ngModel)]="user.password" />
             <label for="password">Password</label>
           </div>
           <div class="d-flex mt-1 justify-content-between">
@@ -41,7 +41,7 @@
             </h5>
           </div>
           <div class="d-grid mt-4">
-            <button type="button" class="btn btn-secondary">Sign In</button>
+            <button type="button" class="btn btn-secondary" (click)="logIn()">Log In</button>
           </div>
           <hr />
           <h5 class="d-flex justify-content-center">
