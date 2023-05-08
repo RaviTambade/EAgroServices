@@ -1,35 +1,36 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { FormsModule } from '@angular/forms';
-import { NgModel} from '@angular/forms';
 import { User } from '../user';
+import { Authresponse } from '../authresponse';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule,FormsModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export default class LoginComponent implements OnInit {
-  inValidLogin:boolean ;
- @Input() user: User= {
-   contactNumber: '', password: '', token: '',
-   Id: 0
- };
+export default class LoginComponent {
+  user: User |any;
+  authResponse:Authresponse |any;
   constructor(private svc :AuthService){}
   ngOnInit(): void {}
 
   logIn(){
-    this.svc.logIn(this.user).subscribe(response=>{
-      this.user.token=response.token;
-      localStorage.setItem('jwt',this.user.token);
-      this.inValidLogin=false;
-    },
-    (err)=>{
-      err.this.inValidLogin=true;
-    })
+    this.svc.logIn(this.user).subscribe((response)=>{
+       response=this.authResponse.token;
+      console.log(response);
+      console.log(this.user);
+      if(response)
+      {
+        alert("login successfully")
+      }
+      else{
+        alert("user doesn't exist")
+      }
+
+    })  
   }
 }
