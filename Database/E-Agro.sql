@@ -375,7 +375,7 @@ SELECT purchase_id,date FROM farmer_purchases  order by purchase_id ;
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(1,1,1,10,200,15);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(2,2,2,10,400,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(3,2,1,10,4000,200);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(4,2,,10,1000,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(4,2,2,10,1000,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(5,2,1,10,150,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(6,2,1,10,200,12);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(7,2,1,10,200,20);
@@ -488,4 +488,17 @@ SELECT * FROM sells;
 UPDATE sells SET date="2023-04-04 10:10:10" WHERE sell_id=2;
 
 --SELECT merchants.merchant_id,SUM(sells.total_amount),MONTHNAME(sells.date) AS month FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.merchant_id WHERE merchants.merchant_id=2 GROUP BY MONTHNAME(sells.date);
-SELECT transport_trucks.truck_id,DATE(sells.date) AS date,SUM(sells_billing.freight_charges) FROM transport_trucks INNER JOIN sells ON transport_trucks.truck_id=sells.truck_id INNER JOIN sells_billing ON sells.sell_id=sells_billing.sell_id WHERE sells.truck_id=2 ORDER BY date ;
+
+
+--day wise freight_charges of a truck
+ SELECT
+    transport_trucks.truck_id,
+    DATE(sells.date) AS date,
+    SUM(
+        sells_billing.freight_charges
+    )
+FROM transport_trucks
+    INNER JOIN sells ON transport_trucks.truck_id = sells.truck_id
+    INNER JOIN sells_billing ON sells.sell_id = sells_billing.sell_id
+WHERE sells.truck_id = 2
+ORDER BY date;
