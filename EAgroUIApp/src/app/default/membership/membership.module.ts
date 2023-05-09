@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   exports:[
     LoginComponent

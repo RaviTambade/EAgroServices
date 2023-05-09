@@ -9,24 +9,30 @@ import { User } from '../user';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-  user: User |any;
-  // authResponse : Authresponse |any;
+  user: User ={
+    contactNumber:'',
+    password:''
+  };
+
   constructor(private svc :AuthService){}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("login componenet called")
+  }
 
-  logIn(){
-    this.svc.logIn(this.user).subscribe((response)=>{
-      //  response=this.authResponse.token;
-      console.log(response);
-      console.log(this.user);
-      if(response)
-      {
-        alert("login successfully")
-      }
-      else{
-        alert("user doesn't exist")
-      }
-
-    })  
+onLogin(form:any){
+  console.log(form);
+  this.svc.logIn(form).subscribe((response)=>{
+        console.log(response);
+        console.log(response.token);
+        
+        if(response){
+          alert("Login sucessfull")
+          // window.location.reload();
+        }
+        else
+        {
+          alert("Login Failed")
+        }
+      })
 }
 }

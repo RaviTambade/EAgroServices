@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { MembershipModule } from './default/membership/membership.module';
+import {  HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -9,7 +11,8 @@ import { MembershipModule } from './default/membership/membership.module';
   ],
   imports: [
     BrowserModule,
-    MembershipModule
+    MembershipModule,
+    HttpClientModule
   ],
   exports:[
   ],
