@@ -65,7 +65,6 @@ insertFarmer: Userfarmerrole ={
 userRole:{
   roleId:0
 }};
-
 insertMerchant: Usermerchantrole ={
   user:{
     contactNumber:'',
