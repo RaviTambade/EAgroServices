@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { User } from '../user';
 import { AuthService } from '../auth.service';
+import { Authresponse } from '../authresponse';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,6 +21,9 @@ export default class LoginComponent {
     contactNumber:'',
     password:''
    };
+   authResponse :Authresponse={
+    token:''
+  } ;
    
   // authResponse : Authresponse |any;
   constructor(private svc :AuthService){}
@@ -27,6 +31,8 @@ export default class LoginComponent {
   logIn(){
     this.svc.logIn(this.user).subscribe((response)=>{
       console.log(response);
+      this.authResponse.token=response.token;
+      localStorage.setItem('jwt',response.token);
       if(response){
         alert("login successfully")
       }

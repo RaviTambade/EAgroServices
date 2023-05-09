@@ -9,6 +9,7 @@ import { User } from '../user';
 import { FormsModule } from '@angular/forms';
 import { Merchant } from '../merchant';
 import { Usermerchantrole } from '../usermerchantrole';
+import { Authresponse } from '../authresponse';
 
 @Component({
   selector: 'app-register',
@@ -54,7 +55,6 @@ export default class RegisterComponent {
   }
 ];
 selectedRole:string |any;
-
 insertFarmer: Userfarmerrole ={
   user:{
     contactNumber:'',
@@ -98,7 +98,6 @@ onSubmit(){
       };
       console.log("insert farmer :" + this.insertFarmer);
       this.svc.registerFarmer(this.insertFarmer).subscribe((response)=>{
-        console.log(response);
         if(response){
           alert("register sucessfull")
           // window.location.reload();
