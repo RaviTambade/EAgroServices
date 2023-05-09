@@ -80,7 +80,7 @@ URL
 
 ```console
 localhost:5107/api/accounts/delete/{id}
-
+```
 
 Id = accountId
 
