@@ -6,7 +6,7 @@
   </div>
   <div *ngIf="selectedRole === 'farmer'">
     <h3>Farmer Registration Form</h3>
-    <form  #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">   
+    <form>   
          <div class="mb-3">
       <label for="contactNumber" class="form-label">Contact Number</label>
       <input type="contactnumber" class="form-control" id="contactNumber" [(ngModel)]="user.contactNumber" name="contactNumber">
@@ -27,6 +27,6 @@
       <label for="location" class="form-label">Location</label>
       <input type="text" class="form-control" id="location" [(ngModel)]="farmer.location" name="location">
     </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Register</button>
   </form>
   </div>

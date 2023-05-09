@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Farmer } from '../farmer';
+import { Insertfarmerrequest } from '../insertfarmerrequest';
 import { Merchant } from '../merchant';
 import { Role } from '../role';
 import { User } from '../user';
+import { Userrole } from '../userrole';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +28,9 @@ export class RegisterComponent {
     location : '',
     companyName: ''
   };
+  userRole:Userrole={
+    roleId:0
+  };
   
   rolename =[{
     role:"Admin",value:"admin"
@@ -40,17 +45,28 @@ export class RegisterComponent {
     role:"Merchant",value:"merchant"
   },
 ];
-selectedRole:string |undefined;
+selectedRole:string |any;
+insertFarmer: Insertfarmerrequest ={farmer:{
+  firstName :'',
+  lastName : '',
+  location : ''
+},user:{
+  contactNumber:'',
+  password:''
+},userRole:{
+  roleId:0
+}};
 
   constructor(private svc :AuthService){}
   ngOnInit(): void {
   
   }
 
-onSubmit(form:any){
+onSubmit(){
   switch(this.selectedRole){
     case 'farmer':
-      this.svc.registerFarmer(form).subscribe((response)=>{
+      this.userRole = { roleId: 2 };
+      this.svc.registerFarmer(this.insertFarmer).subscribe((response)=>{
         console.log(response);
         if(response){
           alert("register sucessfull")
@@ -61,19 +77,22 @@ onSubmit(form:any){
           alert("register Failed")
         }
       })
-
-      case 'merchant':
-        this.svc.registerMerchant(form).subscribe((response)=>{
-          console.log(response);
-          if(response){
-            alert("register sucessfull")
-            // window.location.reload();
-          }
-          else
-          {
-            alert("register Failed")
-          }
-        })
+      break;
+      // case 'merchant':
+      //   this.svc.registerMerchant(this.insertFarmer).subscribe((response)=>{
+      //     console.log(response);
+      //     if(response){
+      //       alert("register sucessfull")
+      //       // window.location.reload();
+      //     }
+      //     else
+      //     {
+      //       alert("register Failed")
+      //     }
+      //   })
+        break;
+        default:
+          console.error('Invalid role selected');
+      }
   }
-}
 }

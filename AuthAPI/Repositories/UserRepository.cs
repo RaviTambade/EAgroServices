@@ -110,7 +110,9 @@ public class UserRepository : IUserRepository
 
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request)
     {
+        Console.WriteLine("authenticate method is called");
         User user = await GetUser(request);
+        
 
         // return null if user not found
         if (user == null) { return null; }

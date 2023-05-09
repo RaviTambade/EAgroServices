@@ -9,7 +9,7 @@ export class AuthService {
 
   constructor(private httpClient:HttpClient) { }
   logIn(user:User){
-      let url ="http://localhost:5148/api/auth/authentication/"+user;
+    let url ="http://localhost:5148/api/auth/authenticate/";
       return this.httpClient.post<User>(url,user);
       }
 }

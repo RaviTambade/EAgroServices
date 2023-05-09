@@ -502,4 +502,6 @@ FROM transport_trucks
     INNER JOIN sells_billing ON sells.sell_id = sells_billing.sell_id
 WHERE sells.truck_id = 2
 ORDER BY date;
+SELECT * FROM roles;
+SELECT * FROM farmers;
 SELECT * FROM users;

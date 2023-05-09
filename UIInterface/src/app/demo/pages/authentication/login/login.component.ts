@@ -1,11 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { User } from '../user';
-import { Authresponse } from '../authresponse';
 import { FormsModule } from '@angular/forms';
-
+import { User } from '../user';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,25 +12,33 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 
-export default class LoginComponent implements OnInit {
-  user: User |any;
-  authResponse : Authresponse |any;
+export default class LoginComponent {
+
+
+
+   user: User={
+    contactNumber:'',
+    password:''
+   };
+   
+  // authResponse : Authresponse |any;
   constructor(private svc :AuthService){}
-  ngOnInit(): void {}
 
   logIn(){
     this.svc.logIn(this.user).subscribe((response)=>{
-       response=this.authResponse.token;
       console.log(response);
-      console.log(this.user);
-      if(response)
-      {
+      if(response){
         alert("login successfully")
       }
       else{
         alert("user doesn't exist")
       }
-
-    })  
+    });
+   
+    console.log("auth service is called");
+    console.log(this.user);
+   console.log("log in ");
+   
+   }  
   }
-}
+
