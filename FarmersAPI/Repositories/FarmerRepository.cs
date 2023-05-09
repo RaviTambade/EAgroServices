@@ -52,6 +52,7 @@ public class FarmerRepository : IFarmerRepository
     }
     public async Task<bool> InsertFarmer(User user,Farmer farmer,UserRole userRole)
     {
+            Console.WriteLine(user.ContactNumber + " "+ user.Password + " " +farmer.FirstName + " " +farmer.LastName + " "+farmer.Location + " " +userRole.Id); 
         bool status = false;
         int userId=0;
         try

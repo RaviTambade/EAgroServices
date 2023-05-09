@@ -9,23 +9,23 @@
     <form>   
          <div class="mb-3">
       <label for="contactNumber" class="form-label">Contact Number</label>
-      <input type="contactnumber" class="form-control" id="contactNumber" [(ngModel)]="user.contactNumber" name="contactNumber">
+      <input type="contactnumber" class="form-control" id="contactNumber" #contactnumber="ngModel" [(ngModel)]="user.contactNumber" name="contactNumber">
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password">
+      <input type="password" class="form-control" id="password"  #password="ngModel"  [(ngModel)]="user.password" name="password">
     </div>
     <div class="mb-3">
       <label for="firstName" class="form-label">First Name</label>
-      <input type="text" class="form-control" id="firstName" [(ngModel)]="farmer.firstName" name="firstName">
+      <input type="text" class="form-control" id="firstName"  #firstname="ngModel"  [(ngModel)]="farmer.firstName" name="firstName">
     </div>
     <div class="mb-3">
       <label for="lastName" class="form-label">Last Name</label>
-      <input type="text" class="form-control" id="lastName" [(ngModel)]="farmer.lastName" name="lastName">
+      <input type="text" class="form-control" id="lastName"  #lastname="ngModel"  [(ngModel)]="farmer.lastName" name="lastName">
     </div>
     <div class="mb-3">
       <label for="location" class="form-label">Location</label>
-      <input type="text" class="form-control" id="location" [(ngModel)]="farmer.location" name="location">
+      <input type="text" class="form-control" id="location"  #location="ngModel"  [(ngModel)]="farmer.location" name="location">
     </div>
     <button type="submit" class="btn btn-primary" (click)="onSubmit()">Register</button>
   </form>

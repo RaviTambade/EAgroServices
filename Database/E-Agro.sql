@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -505,3 +505,4 @@ ORDER BY date;
 SELECT * FROM roles;
 SELECT * FROM farmers;
 SELECT * FROM users;
+SELECT * FROM user_roles;

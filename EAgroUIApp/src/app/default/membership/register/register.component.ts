@@ -46,14 +46,17 @@ export class RegisterComponent {
   },
 ];
 selectedRole:string |any;
-insertFarmer: Insertfarmerrequest ={farmer:{
+insertFarmer: Insertfarmerrequest ={
+  user:{
+    contactNumber:'',
+    password:''
+  },
+  farmer:{
   firstName :'',
   lastName : '',
   location : ''
-},user:{
-  contactNumber:'',
-  password:''
-},userRole:{
+},
+userRole:{
   roleId:0
 }};
 
@@ -64,9 +67,13 @@ insertFarmer: Insertfarmerrequest ={farmer:{
 
 onSubmit(){
   switch(this.selectedRole){
-
     case 'farmer':{
       this.userRole = { roleId: 2 };
+      this.insertFarmer = {
+        user: this.user,
+        farmer: this.farmer,
+        userRole: this.userRole
+      };
       this.svc.registerFarmer(this.insertFarmer).subscribe((response)=>{
         console.log(response);
         if(response){

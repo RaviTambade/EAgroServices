@@ -42,16 +42,20 @@ var RegisterComponent = /** @class */ (function () {
                 role: "Merchant", value: "merchant"
             },
         ];
-        this.insertFarmer = { farmer: {
+        this.insertFarmer = {
+            user: {
+                contactNumber: '',
+                password: ''
+            },
+            farmer: {
                 firstName: '',
                 lastName: '',
                 location: ''
-            }, user: {
-                contactNumber: '',
-                password: ''
-            }, userRole: {
+            },
+            userRole: {
                 roleId: 0
-            } };
+            }
+        };
     }
     RegisterComponent.prototype.ngOnInit = function () {
     };
@@ -60,6 +64,11 @@ var RegisterComponent = /** @class */ (function () {
             case 'farmer':
                 {
                     this.userRole = { roleId: 2 };
+                    this.insertFarmer = {
+                        user: this.user,
+                        farmer: this.farmer,
+                        userRole: this.userRole
+                    };
                     this.svc.registerFarmer(this.insertFarmer).subscribe(function (response) {
                         console.log(response);
                         if (response) {
