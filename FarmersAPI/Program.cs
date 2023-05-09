@@ -6,7 +6,7 @@ using FarmersAPI.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddTransient<IFarmerRepository,FarmerRepository>();
 builder.Services.AddTransient<IFarmerService,FarmerService>();
@@ -24,7 +24,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(x => x.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
 app.UseAuthorization();
 
 app.MapControllers();

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
 
   constructor(private svc :AuthService){}
   ngOnInit(): void {
-    console.log("login componenet called")
+    console.log("login component called")
   }
 
 onLogin(form:any){

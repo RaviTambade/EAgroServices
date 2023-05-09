@@ -4,6 +4,7 @@ using MerchantsAPI.Services;
 using MerchantsAPI.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
+builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddTransient<IMerchantRepository,MerchantRepository>();
 builder.Services.AddTransient<IMerchantService,MerchantService>();
@@ -21,7 +22,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(x => x.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
 app.UseAuthorization();
 
 app.MapControllers();
