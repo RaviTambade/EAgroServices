@@ -35,6 +35,9 @@ namespace FarmersAPI.Controllers
             User user=userFarmerRole.User;
             Farmer farmer=userFarmerRole.Farmer;
             UserRole userRole=userFarmerRole.UserRole;
+            Console.WriteLine("hii");
+              Console.WriteLine(user.ContactNumber);
+            Console.WriteLine(farmer.FirstName);
             return await _srv.InsertFarmer(user,farmer,userRole);
         }
 

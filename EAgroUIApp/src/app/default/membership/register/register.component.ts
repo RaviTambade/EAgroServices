@@ -81,7 +81,6 @@ onSubmit(){
       })
     }
       break;
-
       // case 'merchant':
       //   this.svc.registerMerchant(this.insertFarmer).subscribe((response)=>{
       //     console.log(response);
@@ -100,6 +99,3 @@ onSubmit(){
       }
   }
 }
-
-    
-
