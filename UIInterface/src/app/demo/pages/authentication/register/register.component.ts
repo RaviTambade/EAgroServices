@@ -51,6 +51,7 @@ export default class RegisterComponent {
   },
 ];
 selectedRole:string |any;
+
 insertFarmer: Userfarmerrole ={
   user:{
     contactNumber:'',
@@ -64,7 +65,7 @@ insertFarmer: Userfarmerrole ={
 userRole:{
   roleId:0
 }};
-selectedRole:string |any;
+
 insertMerchant: Usermerchantrole ={
   user:{
     contactNumber:'',
