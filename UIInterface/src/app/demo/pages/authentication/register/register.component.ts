@@ -64,7 +64,6 @@ insertFarmer: Userfarmerrole ={
 userRole:{
   roleId:0
 }};
-selectedRole:string |any;
 insertMerchant: Usermerchantrole ={
   user:{
     contactNumber:'',
