@@ -20,8 +20,8 @@ export class AuthService {
     return this.httpClient.post<Insertfarmerrequest>(url,insertfarmerrequest);
   }
 
-  // registerMerchant(form:any):Observable<any>{
-  //   let url =" http://localhost:5188/api/merchants/insert";
-  //   return this.httpClient.post<Object>(url,form);
-  // }
+  registerMerchant(:any):Observable<any>{
+    let url =" http://localhost:5188/api/merchants/insert";
+    return this.httpClient.post<Object>(url,form);
+  }
 }

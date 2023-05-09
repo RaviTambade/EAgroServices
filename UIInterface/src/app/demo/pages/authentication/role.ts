@@ -5,6 +5,7 @@ export class Role {
       this.rolename = "admin";
       this.rolename = "farmer";
       this.rolename = "employee";
+      this.rolename = "transport";
       this.rolename = "merchant";
     }
 }

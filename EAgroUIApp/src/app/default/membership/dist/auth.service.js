@@ -20,6 +20,10 @@ var AuthService = /** @class */ (function () {
         var url = " http://localhost:5141/api/farmers/insert";
         return this.httpClient.post(url, insertfarmerrequest);
     };
+    AuthService.prototype.registerMerchant = function (any) {
+        var url = " http://localhost:5188/api/merchants/insert";
+        return this.httpClient.post(url, form);
+    };
     AuthService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

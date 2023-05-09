@@ -47,8 +47,11 @@ export default class RegisterComponent {
     role:"Employee",value:"employee"
   },
   {
-    role:"Merchant",value:"merchant"
+    role:"Transport",value:"transport"
   },
+  {
+    role:"Merchant",value:"merchant"
+  }
 ];
 selectedRole:string |any;
 
@@ -107,6 +110,28 @@ onSubmit(){
         
       })
     }
+    break;
+    case 'merchant':{
+      this.userRole = { roleId: 5 };
+      this.insertMerchant = {
+        user: this.user,
+        merchant: this.merchant,
+        userRole: this.userRole
+      };
+      console.log("insert merchant :" + this.insertMerchant);
+      this.svc.registerMerchant(this.insertMerchant).subscribe((response)=>{
+        console.log(response);
+        if(response){
+          alert("register sucessfull")
+          // window.location.reload();
+        }
+        else
+        {
+          alert("register Failed")
+        }
+        
+      })
+    } 
       break;
 
         default:
