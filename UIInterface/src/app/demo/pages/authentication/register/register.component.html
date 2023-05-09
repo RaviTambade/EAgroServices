@@ -1,3 +1,11 @@
+<div>
+  <label>Select Role:</label>
+  <select [(ngModel)]="selectedRole">
+    <option *ngFor="let role of rolename" [value]="role.value">{{ role.role }}</option>
+  </select>
+</div>
+<div *ngIf="selectedRole === 'farmer'">
+  <h3>Farmer Registration Form</h3>
 <div class="auth-main">
   <div class="auth-wrapper v3">
     <div class="auth-form">
@@ -24,24 +32,28 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-                <label for="floatingInput">First Name</label>
+                <input type="email" class="form-control" id="floatingInput" #contactnumber="ngModel" [(ngModel)]="user.contactNumber" />
+                <label for="floatingInput">Contact Number</label>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-                <label for="floatingInput">Last Name</label>
+                <input type="email" class="form-control" id="floatingInput" #password="ngModel" [(ngModel)]="user.password" />
+                <label for="floatingInput">Password</label>
               </div>
             </div>
           </div>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-            <label for="floatingInput">Email Address / Username</label>
+            <input type="email" class="form-control" id="floatingInput" #firstname="ngModel" [(ngModel)]="farmer.firstName" />
+            <label for="floatingInput">First Name</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-            <label for="floatingInput">Password</label>
+            <input type="email" class="form-control" id="floatingInput"  #lastname="ngModel" [(ngModel)]="farmer.lastName"  />
+            <label for="floatingInput">Last Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput"  #location="ngModel" [(ngModel)]="farmer.location"  />
+            <label for="floatingInput">Location</label>
           </div>
           <div class="form-check mt-3s">
             <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
@@ -50,7 +62,7 @@
             </label>
           </div>
           <div class="d-grid mt-4">
-            <button type="button" class="btn btn-secondary p-2">Sign Up</button>
+            <button type="button" class="btn btn-secondary p-2" (click)="onSubmit()">Sign Up</button>
           </div>
           <hr />
           <h5 class="d-flex justify-content-center">
