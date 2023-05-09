@@ -49,7 +49,7 @@ selectedRole:string |undefined;
 
 onSubmit(form:any){
   switch(this.selectedRole){
-    case 'farmer':
+    case 'farmer':{
       this.svc.registerFarmer(form).subscribe((response)=>{
         console.log(response);
         if(response){
@@ -60,9 +60,11 @@ onSubmit(form:any){
         {
           alert("register Failed")
         }
+        
       })
-
-      case 'merchant':
+      break;
+    }
+      case 'merchant':{
         this.svc.registerMerchant(form).subscribe((response)=>{
           console.log(response);
           if(response){
@@ -74,6 +76,8 @@ onSubmit(form:any){
             alert("register Failed")
           }
         })
+        break;
   }
+}
 }
 }
