@@ -1,0 +1,12 @@
+
+
+<input type="number" [(ngModel)]="farmerId">
+<button (click)="getDetails(farmerId)">Search</button>
+<div *ngIf="farmer" >
+<p><label ><b>FarmerId :</b></label>{{ farmer.farmerId }}</p>
+ <p><label ><b>FirstName :</b></label>{{ farmer.firstName }}</p>
+ <p><label ><b>LastName :</b></label>{{ farmer.lastName }}</p>
+ <p><label ><b>Location :</b></label>{{ farmer.location}}</p>
+ </div>
+ <hr>
+ <hr>
