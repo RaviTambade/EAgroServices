@@ -3,6 +3,7 @@ import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
 import { User } from './user';
 import { Userfarmerrole } from './userfarmerrole';
 import { Observable } from 'rxjs';
+import { Usermerchantrole } from './usermerchantrole';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,8 @@ export class AuthService {
         let url =" http://localhost:5141/api/farmers/insert";
         return this.httpClient.post<Userfarmerrole>(url,insertfarmer);
       }
-    
+    registerMerchant(insertmerchant:Usermerchantrole):Observable<any>{
+      let url = "http://localhost:5188/api/merchants/insert";
+      return this.httpClient.post<Usermerchantrole>(url,insertmerchant);
+    }
 }

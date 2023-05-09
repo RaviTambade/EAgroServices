@@ -7,6 +7,8 @@ import { Userrole } from '../userrole';
 import { Farmer } from '../farmer';
 import { User } from '../user';
 import { FormsModule } from '@angular/forms';
+import { Merchant } from '../merchant';
+import { Usermerchantrole } from '../usermerchantrole';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +26,12 @@ export default class RegisterComponent {
     firstName :'',
     lastName : '',
     location : ''
+  };
+  merchant:Merchant={
+    firstName:'',
+    lastName:'',
+    companyName:'',
+    location:''
   };
   userRole:Userrole={
     roleId:0
@@ -56,7 +64,21 @@ insertFarmer: Userfarmerrole ={
 userRole:{
   roleId:0
 }};
-
+selectedRole:string |any;
+insertMerchant: Usermerchantrole ={
+  user:{
+    contactNumber:'',
+    password:''
+  },
+  merchant:{
+    firstName:'',
+    lastName:'',
+    companyName:'',
+    location:''
+  },
+userRole:{
+  roleId:0
+}};
   constructor(private svc :AuthService){}
   ngOnInit(): void {
   
