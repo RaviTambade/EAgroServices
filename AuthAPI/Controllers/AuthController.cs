@@ -50,4 +50,6 @@ public class AuthController : ControllerBase
     {
         return await _serv.Delete(id);
     }
+
+    
 }
