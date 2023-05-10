@@ -14,6 +14,11 @@ public class UserContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<Farmer> Farmers { get; set; }
+    public DbSet<Admin> Admin { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+    public DbSet<Merchant> Merchants { get; set; }
+    public DbSet<Transport> Transports { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -39,10 +44,58 @@ public class UserContext : DbContext
 
         modelBuilder.Entity<UserRole>(entity =>
        {
-        entity.HasKey(e => e.UserRoleId);
-        entity.Property(e => e.UserId);
-        entity.Property(e => e.RoleId);
-        modelBuilder.Entity<UserRole>().ToTable("user_roles");
+           entity.HasKey(e => e.UserRoleId);
+           entity.Property(e => e.UserId);
+           entity.Property(e => e.RoleId);
+           modelBuilder.Entity<UserRole>().ToTable("user_roles");
+       });
+        modelBuilder.Entity<Farmer>(entity =>
+        {
+            entity.HasKey(e => e.FarmerId);
+            entity.Property(e => e.FirstName);
+            entity.Property(e => e.LastName);
+            entity.Property(e => e.Location);
+            entity.Property(e => e.UserId);
+            modelBuilder.Entity<Farmer>().ToTable("farmers");
+        });
+        modelBuilder.Entity<Admin>(entity =>
+       {
+           entity.HasKey(e => e.AdminId);
+           entity.Property(e => e.FirstName);
+           entity.Property(e => e.LastName);
+           entity.Property(e => e.Location);
+           entity.Property(e => e.UserId);
+           modelBuilder.Entity<Admin>().ToTable("admins");
+       });
+        modelBuilder.Entity<Employee>(entity =>
+       {
+           entity.HasKey(e => e.EmployeeId);
+           entity.Property(e => e.FirstName);
+           entity.Property(e => e.LastName);
+           entity.Property(e => e.Location);
+           entity.Property(e => e.Salary);
+           entity.Property(e => e.UserId);
+           modelBuilder.Entity<Employee>().ToTable("employees");
+       });
+        modelBuilder.Entity<Merchant>(entity =>
+     {
+         entity.HasKey(e => e.MerchantId);
+         entity.Property(e => e.FirstName);
+         entity.Property(e => e.LastName);
+         entity.Property(e => e.CompanyName);
+         entity.Property(e => e.Location);
+         entity.Property(e => e.UserId);
+         modelBuilder.Entity<Merchant>().ToTable("merchants");
+     });
+        modelBuilder.Entity<Transport>(entity =>
+       {
+           entity.HasKey(e => e.TransportId);
+           entity.Property(e => e.OfficeName);
+           entity.Property(e => e.FirstName);
+           entity.Property(e => e.LastName);
+           entity.Property(e => e.Location);
+           entity.Property(e => e.UserId);
+           modelBuilder.Entity<Transport>().ToTable("transports");
        });
     }
 }

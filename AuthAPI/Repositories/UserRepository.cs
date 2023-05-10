@@ -112,7 +112,7 @@ public class UserRepository : IUserRepository
     {
         Console.WriteLine("authenticate method is called");
         User user = await GetUser(request);
-        
+
 
         // return null if user not found
         if (user == null) { return null; }
@@ -142,11 +142,59 @@ public class UserRepository : IUserRepository
     {
         List<Claim> claims = new List<Claim>();
         //you can add custom Claims here
-        claims.Add(new Claim("id", user.UserId.ToString()));
+        claims.Add(new Claim("userId", user.UserId.ToString()));
         List<string> roles = await GetRolesOfUser(user.UserId);
         foreach (string role in roles)
         {
-            claims.Add(new Claim("Roles", role));
+            claims.Add(new Claim("role", role));
+        }
+
+        foreach (string role in roles)
+        {
+            if (role == "farmer")
+            {
+                int farmerId = await GetIdOfFarmer(user.UserId);
+                if (farmerId != 0)
+                {
+                    claims.Add(new Claim("farmerId", farmerId.ToString()));
+                }
+            }
+
+            if (role == "admin")
+            {
+                int adminId = await GetIdOfAdmin(user.UserId);
+                if (adminId != 0)
+                {
+                    claims.Add(new Claim("adminId", adminId.ToString()));
+                }
+            }
+
+            if (role == "transport")
+            {
+                int transportId = await GetIdOfTransport(user.UserId);
+                if (transportId != 0)
+                {
+                    claims.Add(new Claim("transportId", transportId.ToString()));
+                }
+            }
+
+            if (role == "employee")
+            {
+                int employeeId = await GetIdOfEmployee(user.UserId);
+                if (employeeId != 0)
+                {
+                    claims.Add(new Claim("employeeId", employeeId.ToString()));
+                }
+            }
+
+            if (role == "merchant")
+            {
+                int merchantId = await GetIdOfMerchant(user.UserId);
+                if (merchantId != 0)
+                {
+                    claims.Add(new Claim("merchantId", merchantId.ToString()));
+                }
+            }
         }
         return claims;
     }
@@ -174,6 +222,101 @@ public class UserRepository : IUserRepository
             throw e;
         }
     }
+    private async Task<int> GetIdOfFarmer(int userId)
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                var farmerId = await (from user in context.Users
+                                      join farmer in context.Farmers on user.UserId equals farmer.UserId
+                                      where user.UserId == userId
+                                      select farmer.FarmerId).FirstOrDefaultAsync();
+                return farmerId;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    private async Task<int> GetIdOfAdmin(int userId)
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                var adminId = await (from user in context.Users
+                                     join admin in context.Admin on user.UserId equals admin.UserId
+                                     where user.UserId == userId
+                                     select admin.AdminId).FirstOrDefaultAsync();
+                return adminId;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    private async Task<int> GetIdOfEmployee(int userId)
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                var employeeId = await (from user in context.Users
+                                        join employee in context.Employees on user.UserId equals employee.UserId
+                                        where user.UserId == userId
+                                        select employee.EmployeeId).FirstOrDefaultAsync();
+                return employeeId;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    private async Task<int> GetIdOfMerchant(int userId)
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                var merchantId = await (from user in context.Users
+                                        join merchant in context.Merchants on user.UserId equals merchant.UserId
+                                        where user.UserId == userId
+                                        select merchant.MerchantId).FirstOrDefaultAsync();
+                return merchantId;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    private async Task<int> GetIdOfTransport(int userId)
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                var transportId = await (from user in context.Users
+                                         join transport in context.Transports on user.UserId equals transport.UserId
+                                         where user.UserId == userId
+                                         select transport.TransportId).FirstOrDefaultAsync();
+                return transportId;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
 
     public async Task<User> GetUser(AuthenticateRequest request)
     {

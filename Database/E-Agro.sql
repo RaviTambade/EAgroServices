@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -267,23 +267,19 @@ INSERT INTO users(contact_number, password)VALUES('9912457567', 'password');
 INSERT INTO users(contact_number, password)VALUES('9888787899', 'password');
 INSERT INTO users(contact_number, password)VALUES('8777677778', 'password');
 INSERT INTO users(contact_number, password)VALUES('7788877887', 'password');
-INSERT INTO users(contact_number, password)VALUES('9888788887', 'password');
-INSERT INTO users(contact_number, password)VALUES('9999888876', 'password');
-INSERT INTO users(contact_number, password)VALUES('7888878868', 'password');
-INSERT INTO users(contact_number, password)VALUES('7878787878', 'password');
-INSERT INTO users(contact_number, password)VALUES('8787878787', 'password');
-INSERT INTO users(contact_number, password)VALUES('5677667676', 'password');
-INSERT INTO users(contact_number, password)VALUES('7878787867', 'password');
+-- INSERT INTO users(contact_number, password)VALUES('9888788887', 'password');
+-- INSERT INTO users(contact_number, password)VALUES('9999888876', 'password');
+-- INSERT INTO users(contact_number, password)VALUES('7888878868', 'password');
+-- INSERT INTO users(contact_number, password)VALUES('7878787878', 'password');
+-- INSERT INTO users(contact_number, password)VALUES('8787878787', 'password');
+-- INSERT INTO users(contact_number, password)VALUES('5677667676', 'password');
+-- INSERT INTO users(contact_number, password)VALUES('7878787867', 'password');
 INSERT INTO roles(role_name)VALUES('admin');
 INSERT INTO roles(role_name)VALUES('farmer');
 INSERT INTO roles(role_name)VALUES('employee');
 INSERT INTO roles(role_name)VALUES('transport');
-INSERT INTO roles(role_name)VALUES('produce_merchant');
-INSERT INTO user_roles(user_id,role_id)VALUES(1,1);
-INSERT INTO user_roles(user_id,role_id)VALUES(2,2);
-INSERT INTO user_roles(user_id,role_id)VALUES(3,3);
-INSERT INTO user_roles(user_id,role_id)VALUES(4,4);
-INSERT INTO user_roles(user_id,role_id)VALUES(5,5);
+INSERT INTO roles(role_name)VALUES('merchant');
+
 INSERT into accounts(account_number,ifsc_code,user_id)VALUES('123213232','asdfg852',1);
 INSERT into accounts(account_number,ifsc_code,user_id)VALUES('453544565','dft6757f',2);
 INSERT into accounts(account_number,ifsc_code,user_id)VALUES('786789865','uij7878b',3);
@@ -299,24 +295,38 @@ INSERT into accounts(account_number,ifsc_code,user_id)VALUES('567678878','ere345
 INSERT into accounts(account_number,ifsc_code,user_id)VALUES('567788978','rt564566',8);
 INSERT into accounts(account_number,ifsc_code,user_id)VALUES('566753211','fghj5656',9);
 INSERT into accounts(account_number,ifsc_code,user_id)VALUES('564312323','dfdg4566',10);
-INSERT into accounts(account_number,ifsc_code,user_id)VALUES('456788900','ere34564',13);
-INSERT into accounts(account_number,ifsc_code,user_id)VALUES('232121213','5ggg5gg6',20);
-INSERT INTO farmers(first_name,last_name,location,user_id)VALUES ('Rohit','Gore','Peth',1);
-INSERT INTO farmers(first_name,last_name,location,user_id)VALUES ('Akshay','Tanpure','Wada',2);
-INSERT INTO admins(first_name,last_name,location,user_id)VALUES('Ashok','Bajare','Bhavadi',3);
-INSERT INTO admins(first_name,last_name,location,user_id)VALUES('Ashok','Chakkar','Bhavadi',4);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('456788900','ere34564',11);
+INSERT into accounts(account_number,ifsc_code,user_id)VALUES('232121213','5ggg5gg6',12);
+INSERT INTO user_roles(user_id,role_id)VALUES(1,1);
+INSERT INTO admins(first_name,last_name,location,user_id)VALUES('Ashok','Bajare','Bhavadi',1);
+INSERT INTO user_roles(user_id,role_id)VALUES(2,1);
+INSERT INTO admins(first_name,last_name,location,user_id)VALUES('Ashok','Chakkar','Bhavadi',2);
+INSERT INTO user_roles(user_id,role_id)VALUES(3,2);
+
+INSERT INTO farmers(first_name,last_name,location,user_id)VALUES ('Rohit','Gore','Peth',3);
+INSERT INTO user_roles(user_id,role_id)VALUES(4,2);
+INSERT INTO farmers(first_name,last_name,location,user_id)VALUES ('Akshay','Tanpure','Wada',4);
+INSERT INTO user_roles(user_id,role_id)VALUES(5,3);
 INSERT INTO employees(first_name,last_name,location,salary,user_id)VALUES('Abhay','Navale','Bhavadi',15000,5);
+INSERT INTO user_roles(user_id,role_id)VALUES(6,3);
 INSERT INTO employees(first_name,last_name,location,salary,user_id)VALUES('Shubham','Teli','Kudalewadi',15000,6);
+INSERT INTO user_roles(user_id,role_id)VALUES(7,3);
 INSERT INTO employees(first_name,last_name,location,salary,user_id)VALUES('Sahil','Mankar','Pargaon',15000,7);
+INSERT INTO user_roles(user_id,role_id)VALUES(8,4);
 INSERT INTO transports(office_name,first_name,last_name,location,user_id)VALUES('OM Transports','Ashok','Chakkar','Karegaon',8);
+INSERT INTO user_roles(user_id,role_id)VALUES(9,4);
 INSERT INTO transports(office_name,first_name,last_name,location,user_id)VALUES('Waghule Transport','Sahil','Mankar','Bahirwadi',9);
+INSERT INTO user_roles(user_id,role_id)VALUES(10,4);
 INSERT INTO transports(office_name,first_name,last_name,location,user_id)VALUES('Urmila Transport','Shubham','Teli','Chas',10);
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(1, 'MH14RE3456');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(2,'MH14RE1234');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(3,'MH14RE2345');
-INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',14);
-INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',15);
-INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',16);
+INSERT INTO user_roles(user_id,role_id)VALUES(11,5);
+INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',11);
+INSERT INTO user_roles(user_id,role_id)VALUES(12,5);
+INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',12);
+INSERT INTO user_roles(user_id,role_id)VALUES(13,5);
+INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',13);
 INSERT INTO varieties(variety_name)VALUES('potato');
 INSERT INTO varieties(variety_name)VALUES('Tomato');
 INSERT INTO varieties(variety_name)VALUES('Cabage');
@@ -484,8 +494,7 @@ CALL calculate_freight_charges(4);
 -- inner join varieties on varieties.variety_id=farmer_purchases.variety_id
 -- where farmer_id=2 group by farmer_purchases.variety_id, date(farmer_purchases.date) order by  farmer_purchases.date  ;
 SELECT sells.sell_id,sells.merchant_id,sells_billing.total_charges,freight_rates.id FROM sells INNER JOIN sells_billing ON sells_billing.sell_id=sells.sell_id INNER JOIN freight_rates ON sells_billing.bill_id=freight_rates.bill_id WHERE sells.sell_id=5;
-SELECT * FROM sells;
-UPDATE sells SET date="2023-04-04 10:10:10" WHERE sell_id=2;
+
 
 --SELECT merchants.merchant_id,SUM(sells.total_amount),MONTHNAME(sells.date) AS month FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.merchant_id WHERE merchants.merchant_id=2 GROUP BY MONTHNAME(sells.date);
 
