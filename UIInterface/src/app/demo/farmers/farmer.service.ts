@@ -17,4 +17,13 @@ export class FarmerService {
     let url =" http://localhost:5171/api/purchase/farmerselltotalamountbymonth/" +farmerId;
     return this.httpClient.get<Farmersell[]>(url);
   }
+  updateFarmerDetails(farmerId:number,farmer:Farmer):Observable<any>{
+    let url =" http://localhost:5141/api/farmers/update/" +farmerId;
+    return this.httpClient.put<Farmer>(url,farmer);
+  }
+  getFarmerDetails(farmerId:number):Observable<any>{
+    let url =" http://localhost:5141/api/farmers/update/" +farmerId;
+    return this.httpClient.get<Farmer>(url)
+  }
+
 }

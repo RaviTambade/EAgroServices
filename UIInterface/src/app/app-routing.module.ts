@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
 import { DashboardComponent } from './demo/farmers/dashboard/dashboard.component';
+import { ProfileComponent } from './demo/farmers/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -44,7 +45,12 @@ const routes: Routes = [
   },
    {
     path: 'farmer',
-    component: DashboardComponent,
+    component: DashboardComponent
+    
+   },
+   {
+    path: 'farmer',
+    component:ProfileComponent
    }
 ];
 
