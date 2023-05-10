@@ -5,25 +5,34 @@
         <th>Variety Name</th>
         <th>Container Type</th>
         <th>Quantity</th>
+        <th>Grade</th>
+        <th>Total Weight</th>
+        <th>Tare Weight</th>
+        <th>Net Weight</th>
+        <th>Rate/Kg</th>
+        <th>Amount</th>
+        <th>Date Of Sell</th>
+        <th>Labour Charges</th>
+        <th>Total Amount</th>
+        <th>Date Of Billing</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let purchasedetails of purchaseViewModel">
-        <td>{{ purchasedetails.farmerName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.farmerName}}</td>
+        <td>{{ purchasedetails.varietyName}}</td>
         <td>{{ purchasedetails.purchaseItem.containerType}}</td> 
-        <td>{{ purchasedetails.purchaseItem.quantity }}</td>
-        <!-- <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td>
-        <td>{{ purchasedetails.varietyName }}</td> -->
+        <td>{{ purchasedetails.purchaseItem.quantity}}</td>
+        <td>{{ purchasedetails.purchaseItem.grade}}</td>
+        <td>{{ purchasedetails.purchaseItem.totalWeight}}</td>
+        <td>{{ purchasedetails.purchaseItem.tareWeight}}</td>
+        <td>{{ purchasedetails.purchaseItem.netWeight}}</td>
+        <td>{{ purchasedetails.purchaseItem.ratePerKg}}</td>
+        <td>{{ purchasedetails.purchaseItem.amount}}</td>
+        <td>{{ purchasedetails.purchaseItem.date}}</td>
+        <td>{{ purchasedetails.purchaseBilling.labourCharges}}</td>
+        <td>{{ purchasedetails.purchaseBilling.totalAmount}}</td>
+        <td>{{ purchasedetails.purchaseBilling.date }}</td>
          </tr>
     </tbody>
   </table>
