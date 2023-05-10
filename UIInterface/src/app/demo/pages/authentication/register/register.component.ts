@@ -9,25 +9,30 @@ import { User } from '../user';
 import { FormsModule } from '@angular/forms';
 import { Merchant } from '../merchant';
 import { Usermerchantrole } from '../usermerchantrole';
+<<<<<<< HEAD
 import { Employee } from '../employee';
 import { Useremployeerole } from '../useremployeerole';
 import { Transport } from '../transport';
 import { Usertransportrole } from '../usertransportrole';
 import { Admin } from '../admin';
 import { Useradminrole } from '../useradminrole';
+=======
+import { Authresponse } from '../authresponse';
+>>>>>>> bcef5650362c133c454e16231f185f66988b55cb
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, RouterModule,FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export default class RegisterComponent {
-  user: User ={
-    contactNumber:'',
-    password:''
+  user: User = {
+    contactNumber: '',
+    password: ''
   };
+<<<<<<< HEAD
   admin:Admin ={
     firstName :'',
     lastName : '',
@@ -59,26 +64,24 @@ export default class RegisterComponent {
  
   userRole:Userrole={
     roleId:0
+=======
+  farmer: Farmer = {
+    firstName: '',
+    lastName: '',
+    location: ''
   };
-  
-  rolename =[{
-    role:"Admin",value:"admin"
-  },
-  {
-    role:"Farmer",value:"farmer"
-  },
-  {
-    role:"Employee",value:"employee"
-  },
-  {
-    role:"Transport",value:"transport"
-  },
-  {
-    role:"Merchant",value:"merchant"
-  }
-];
-selectedRole:string |any;
+  merchant: Merchant = {
+    firstName: '',
+    lastName: '',
+    companyName: '',
+    location: ''
+  };
+  userRole: Userrole = {
+    roleId: 0
+>>>>>>> bcef5650362c133c454e16231f185f66988b55cb
+  };
 
+<<<<<<< HEAD
 insertAdmin: Useradminrole ={
   user:{
     contactNumber:'',
@@ -137,22 +140,49 @@ insertMerchant: Usermerchantrole ={
   user:{
     contactNumber:'',
     password:''
+=======
+  rolename = [{
+    role: "Admin", value: "admin"
   },
-  merchant:{
-    firstName:'',
-    lastName:'',
-    companyName:'',
-    location:''
+  {
+    role: "Farmer", value: "farmer"
+>>>>>>> bcef5650362c133c454e16231f185f66988b55cb
   },
+  {
+    role: "Employee", value: "employee"
+  },
+<<<<<<< HEAD
 userRole:{
   roleId:0
 }};
 
   constructor(private svc :AuthService){}
+=======
+  {
+    role: "Transport", value: "transport"
+  },
+  {
+    role: "Merchant", value: "merchant"
+  }
+  ];
+  selectedRole: string | any;
+  insertFarmer: Userfarmerrole = {
+    user: undefined,
+    farmer: undefined,
+    userRole: undefined
+  };
+  insertMerchant: Usermerchantrole = {
+    user: undefined,
+    merchant: undefined,
+    userRole: undefined
+  };
+  constructor(private svc: AuthService) { }
+>>>>>>> bcef5650362c133c454e16231f185f66988b55cb
   ngOnInit(): void {
-  
+
   }
 
+<<<<<<< HEAD
 onSubmit(){
   switch(this.selectedRole){
     case 'admin':{
@@ -265,9 +295,57 @@ onSubmit(){
       })
     } 
     break;  
+=======
+  onSubmit() {
+    switch (this.selectedRole) {
+      case 'farmer': {
+        this.userRole = { roleId: 2 };
+        this.insertFarmer = {
+          user: this.user,
+          farmer: this.farmer,
+          userRole: this.userRole
+        };
+        console.log("insert farmer :"  );
+        console.log(this.insertFarmer);
+        this.svc.registerFarmer(this.insertFarmer).subscribe((response) => {
+          console.log(response)
+          if (response === true) {
+            alert("register sucessfull")
+            // window.location.reload();
+          }
+          else {
+            alert("register Failed")
+          }
+>>>>>>> bcef5650362c133c454e16231f185f66988b55cb
 
-        default:
-          break;
+        })
       }
+        break;
+      case 'merchant': {
+        this.userRole = { roleId: 5 };
+        this.insertMerchant = {
+          user: this.user,
+          merchant: this.merchant,
+          userRole: this.userRole
+        };
+        console.log("insert merchant :" );
+        console.log(this.insertMerchant);
+        this.svc.registerMerchant(this.insertMerchant).subscribe((response) => {
+          console.log(response);
+          if (response === true) {
+            alert("register sucessfull")
+            // window.location.reload();
+          }
+          else {
+            alert("register Failed")
+          }
+
+        })
+      }
+        break;
+
+      default:
+        break;
+    }
   }
 }
