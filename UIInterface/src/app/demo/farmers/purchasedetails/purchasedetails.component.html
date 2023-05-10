@@ -1,0 +1,30 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Farmer Name</th>
+        <th>Variety Name</th>
+        <th>Container Type</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let purchasedetails of purchaseViewModel">
+        <td>{{ purchasedetails.farmerName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.purchaseItem.containerType}}</td> 
+        <td>{{ purchasedetails.purchaseItem.quantity }}</td>
+        <!-- <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td>
+        <td>{{ purchasedetails.varietyName }}</td> -->
+         </tr>
+    </tbody>
+  </table>
+  
