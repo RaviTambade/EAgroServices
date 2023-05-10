@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from '../../farmers/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -15,10 +14,6 @@ const routes: Routes = [
         loadComponent: () => import('./register/register.component')
       }
     ],
-  },
-  {
-  path:'farmer',
-  component:DashboardComponent
   }
 ];
 

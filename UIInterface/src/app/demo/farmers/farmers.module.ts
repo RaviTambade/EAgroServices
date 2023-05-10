@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { FarmerDashboardComponent } from './farmerdashboard/farmerdashboard.component';
 import { FarmerService } from './farmer.service';
 import {  HttpClientModule } from '@angular/common/http';
 import { GoogleChartsModule } from 'angular-google-charts';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    FarmerDashboardComponent,
     PurchasedetailsComponent
   ],
   imports: [

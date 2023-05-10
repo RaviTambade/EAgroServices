@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { MerchantdashboardComponent } from './merchantdashboard/merchantdashboard.component';
 
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    MerchantdashboardComponent
   ],
   imports: [
     CommonModule

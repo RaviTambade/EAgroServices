@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
-import { DashboardComponent } from './demo/farmers/dashboard/dashboard.component';
+import { FarmerDashboardComponent } from './demo/farmers/farmerdashboard/farmerdashboard.component';
+import { MerchantdashboardComponent } from './demo/merchants/merchantdashboard/merchantdashboard.component';
+import { EmployeedashboardComponent } from './demo/employees/employeedashboard/employeedashboard.component';
+import { TransportdashboardComponent } from './demo/transports/transportdashboard/transportdashboard.component';
+
 
 const routes: Routes = [
   {
@@ -15,7 +19,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'default',
+        path: 'default/:id',
         loadComponent: () => import('./demo/default/default.component')
       },
       {
@@ -43,8 +47,20 @@ const routes: Routes = [
     ]
   },
    {
-    path: 'farmer',
-    component: DashboardComponent,
+    path: 'farmers/:id',
+    component: FarmerDashboardComponent,
+   },
+   {
+    path: 'merchants/:id',
+    component: MerchantdashboardComponent,
+   },
+   {
+    path: 'employees/:id',
+    component: EmployeedashboardComponent,
+   },
+   {
+    path: 'transports/:id',
+    component: TransportdashboardComponent,
    }
 ];
 

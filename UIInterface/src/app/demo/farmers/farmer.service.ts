@@ -10,11 +10,11 @@ import { Purchaseviewmodel } from './purchaseviewmodel';
 })
 export class FarmerService {
   constructor(private httpClient:HttpClient) { }
-  getFarmer(farmerId:number):Observable<any>{
+  getFarmer(farmerId:string):Observable<any>{
     let url =" http://localhost:5141/api/farmers/getdetails/" +farmerId;
     return this.httpClient.get<Farmer>(url);
   }
-  getFarmerRevenue(farmerId:number):Observable<any>{
+  getFarmerRevenue(farmerId:string):Observable<any>{
     let url =" http://localhost:5171/api/purchase/farmerselltotalamountbymonth/" +farmerId;
     return this.httpClient.get<Farmersell[]>(url);
   }
