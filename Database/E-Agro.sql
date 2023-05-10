@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -506,3 +506,6 @@ SELECT * FROM roles;
 SELECT * FROM merchants;
 SELECT * FROM users;
 SELECT * FROM user_roles;
+SELECT * FROM employees;
+SELECT * FROM transports;
+SELECT * FROM admins;

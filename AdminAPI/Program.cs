@@ -6,7 +6,7 @@ using AdminAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddTransient<IAdminRepository,AdminRepository>();
 builder.Services.AddTransient<IAdminServices,AdminService>();
@@ -22,6 +22,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(x => x.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
