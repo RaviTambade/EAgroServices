@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FarmerDashboardComponent } from './farmerdashboard/farmerdashboard.component';
 import { FarmerService } from './farmer.service';
 import {  HttpClientModule } from '@angular/common/http';
-import { GoogleChartsModule } from 'angular-google-charts';
+import { DashboardComponent, GoogleChartsModule } from 'angular-google-charts';
 import { BrowserModule } from '@angular/platform-browser';
+import { ProfileComponent } from './profile/profile.component';
 import { PurchasedetailsComponent } from './purchasedetails/purchasedetails.component';
 import { FormsModule } from '@angular/forms';
 
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     FarmerDashboardComponent,
+    ProfileComponent,
     PurchasedetailsComponent
   ],
   imports: [
