@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Farmer } from './farmer';
 import { Farmersell } from './farmersell';
+import { Purchaseviewmodel } from './purchaseviewmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +18,10 @@ export class FarmerService {
     let url =" http://localhost:5171/api/purchase/farmerselltotalamountbymonth/" +farmerId;
     return this.httpClient.get<Farmersell[]>(url);
   }
+
+  getFarmerPurchaseDetails(farmerId:number):Observable<any>{
+    let url =" http://localhost:5171/api/purchase/GetFarmerPurchaseDetails/" +farmerId;
+    return this.httpClient.get<Purchaseviewmodel[]>(url);
+  }
+  
 }
