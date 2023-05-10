@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
+import { DashboardComponent } from './demo/farmers/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,11 @@ const routes: Routes = [
         loadChildren: () => import('./demo/pages/authentication/authentication.module').then((m) => m.AuthenticationModule)
       }
     ]
-  }
+  },
+   {
+    path: 'farmer',
+    component: DashboardComponent,
+   }
 ];
 
 @NgModule({

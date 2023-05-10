@@ -14,127 +14,111 @@ import { Authresponse } from '../authresponse';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, RouterModule,FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export default class RegisterComponent {
-  user: User ={
-    contactNumber:'',
-    password:''
+  user: User = {
+    contactNumber: '',
+    password: ''
   };
-  farmer:Farmer ={
-    firstName :'',
-    lastName : '',
-    location : ''
+  farmer: Farmer = {
+    firstName: '',
+    lastName: '',
+    location: ''
   };
-  merchant:Merchant={
-    firstName:'',
-    lastName:'',
-    companyName:'',
-    location:''
+  merchant: Merchant = {
+    firstName: '',
+    lastName: '',
+    companyName: '',
+    location: ''
   };
-  userRole:Userrole={
-    roleId:0
+  userRole: Userrole = {
+    roleId: 0
   };
-  
-  rolename =[{
-    role:"Admin",value:"admin"
+
+  rolename = [{
+    role: "Admin", value: "admin"
   },
   {
-    role:"Farmer",value:"farmer"
+    role: "Farmer", value: "farmer"
   },
   {
-    role:"Employee",value:"employee"
+    role: "Employee", value: "employee"
   },
   {
-    role:"Transport",value:"transport"
+    role: "Transport", value: "transport"
   },
   {
-    role:"Merchant",value:"merchant"
+    role: "Merchant", value: "merchant"
   }
-];
-selectedRole:string |any;
-insertFarmer: Userfarmerrole ={
-  user:{
-    contactNumber:'',
-    password:''
-  },
-  farmer:{
-  firstName :'',
-  lastName : '',
-  location : ''
-},
-userRole:{
-  roleId:0
-}};
-insertMerchant: Usermerchantrole ={
-  user:{
-    contactNumber:'',
-    password:''
-  },
-  merchant:{
-    firstName:'',
-    lastName:'',
-    companyName:'',
-    location:''
-  },
-userRole:{
-  roleId:0
-}};
-  constructor(private svc :AuthService){}
+  ];
+  selectedRole: string | any;
+  insertFarmer: Userfarmerrole = {
+    user: undefined,
+    farmer: undefined,
+    userRole: undefined
+  };
+  insertMerchant: Usermerchantrole = {
+    user: undefined,
+    merchant: undefined,
+    userRole: undefined
+  };
+  constructor(private svc: AuthService) { }
   ngOnInit(): void {
-  
+
   }
 
-onSubmit(){
-  switch(this.selectedRole){
-    case 'farmer':{
-      this.userRole = { roleId: 2 };
-      this.insertFarmer = {
-        user: this.user,
-        farmer: this.farmer,
-        userRole: this.userRole
-      };
-      console.log("insert farmer :" + this.insertFarmer);
-      this.svc.registerFarmer(this.insertFarmer).subscribe((response)=>{
-        if(response){
-          alert("register sucessfull")
-          // window.location.reload();
-        }
-        else
-        {
-          alert("register Failed")
-        }
-        
-      })
-    }
-    break;
-    case 'merchant':{
-      this.userRole = { roleId: 5 };
-      this.insertMerchant = {
-        user: this.user,
-        merchant: this.merchant,
-        userRole: this.userRole
-      };
-      console.log("insert merchant :" + this.insertMerchant);
-      this.svc.registerMerchant(this.insertMerchant).subscribe((response)=>{
-        console.log(response);
-        if(response){
-          alert("register sucessfull")
-          // window.location.reload();
-        }
-        else
-        {
-          alert("register Failed")
-        }
-        
-      })
-    } 
-      break;
+  onSubmit() {
+    switch (this.selectedRole) {
+      case 'farmer': {
+        this.userRole = { roleId: 2 };
+        this.insertFarmer = {
+          user: this.user,
+          farmer: this.farmer,
+          userRole: this.userRole
+        };
+        console.log("insert farmer :"  );
+        console.log(this.insertFarmer);
+        this.svc.registerFarmer(this.insertFarmer).subscribe((response) => {
+          console.log(response)
+          if (response === true) {
+            alert("register sucessfull")
+            // window.location.reload();
+          }
+          else {
+            alert("register Failed")
+          }
 
-        default:
-          break;
+        })
       }
+        break;
+      case 'merchant': {
+        this.userRole = { roleId: 5 };
+        this.insertMerchant = {
+          user: this.user,
+          merchant: this.merchant,
+          userRole: this.userRole
+        };
+        console.log("insert merchant :" );
+        console.log(this.insertMerchant);
+        this.svc.registerMerchant(this.insertMerchant).subscribe((response) => {
+          console.log(response);
+          if (response === true) {
+            alert("register sucessfull")
+            // window.location.reload();
+          }
+          else {
+            alert("register Failed")
+          }
+
+        })
+      }
+        break;
+
+      default:
+        break;
+    }
   }
 }
