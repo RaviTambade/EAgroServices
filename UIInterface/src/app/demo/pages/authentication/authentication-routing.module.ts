@@ -13,7 +13,7 @@ const routes: Routes = [
         path: 'register',
         loadComponent: () => import('./register/register.component')
       }
-    ]
+    ],
   }
 ];
 

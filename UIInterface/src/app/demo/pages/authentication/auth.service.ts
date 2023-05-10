@@ -15,6 +15,7 @@ export class AuthService {
 
   constructor(private httpClient:HttpClient) { }
   logIn(user:User):Observable<any>{
+    console.log("inside request")
     let url ="http://localhost:5148/api/auth/authenticate/";
       return this.httpClient.post<User>(url,user);
       }

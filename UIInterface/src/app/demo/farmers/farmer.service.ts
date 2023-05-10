@@ -10,18 +10,26 @@ import { Purchaseviewmodel } from './purchaseviewmodel';
 })
 export class FarmerService {
   constructor(private httpClient:HttpClient) { }
-  getFarmer(farmerId:number):Observable<any>{
+  getFarmer(farmerId:string):Observable<any>{
     let url =" http://localhost:5141/api/farmers/getdetails/" +farmerId;
     return this.httpClient.get<Farmer>(url);
   }
-  getFarmerRevenue(farmerId:number):Observable<any>{
+  getFarmerRevenue(farmerId:string):Observable<any>{
     let url =" http://localhost:5171/api/purchase/farmerselltotalamountbymonth/" +farmerId;
     return this.httpClient.get<Farmersell[]>(url);
+  }
+  updateFarmerDetails(farmerId:number,farmer:Farmer):Observable<any>{
+    let url =" http://localhost:5141/api/farmers/update/" +farmerId;
+    return this.httpClient.put<Farmer>(url,farmer);
+  }
+  getFarmerDetails(farmerId:number):Observable<any>{
+    let url =" http://localhost:5141/api/farmers/update/" +farmerId;
+    return this.httpClient.get<Farmer>(url)
   }
 
   getFarmerPurchaseDetails(farmerId:number):Observable<any>{
     let url =" http://localhost:5171/api/purchase/GetFarmerPurchaseDetails/" +farmerId;
     return this.httpClient.get<Purchaseviewmodel[]>(url);
   }
-  
+
 }

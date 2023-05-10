@@ -3,16 +3,17 @@ import { Farmer } from '../farmer';
 import { FarmerService } from '../farmer.service';
 import { Farmersell } from '../farmersell';
 import { ChartType } from 'angular-google-charts';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: './farmerdashboard.component.html',
+  styleUrls: ['./farmerdashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class FarmerDashboardComponent implements OnInit {
   farmer: Farmer | undefined;
-  farmerId: | number = 2;
+  farmerId:string | undefined ;
   farmerRevenue: Farmersell[];
 
   areaChart = ChartType.AreaChart;
@@ -32,14 +33,14 @@ export class DashboardComponent implements OnInit {
   donutOptions = {
     pieHole: 0.5
   }
-  constructor(private svc: FarmerService) { }
+  constructor(private svc: FarmerService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params)=>{
+      console.log(params)
+      this.farmerId=params.get('id');
+    });
     if (this.farmerId != undefined) {
-      this.svc.getFarmer(this.farmerId).subscribe((response) => {
-        this.farmer = response;
-        console.log(this.farmer);
-      });
 
       this.svc.getFarmerRevenue(this.farmerId).subscribe((response) => {
         this.farmerRevenue = response;
