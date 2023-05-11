@@ -4,7 +4,9 @@ import { FarmerService } from '../farmer.service';
 import { Farmersell } from '../farmersell';
 import { ChartType } from 'angular-google-charts';
 import { ActivatedRoute } from '@angular/router';
-
+import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import ApexCharts from 'apexcharts';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,9 +28,15 @@ export class FarmerDashboardComponent implements OnInit {
 
   columnNames = ['month', 'totalAmount'];
 
-  width = 1500;
+  width = 1000;
+  piewidth=555;
 
   height =500;
+  pieheight=222;
+
+  columnoptions={
+      colors: ['#3366CC', '#DC3912'],
+  };
 
   donutOptions = {
     pieHole: 0.5
@@ -47,8 +55,15 @@ export class FarmerDashboardComponent implements OnInit {
         console.log(this.farmerRevenue);
 
         for (let row in response) {
+          // var chart = new google.visualization.BarChart(document.getElementById('visualization'));
+          // chart.draw(month, {width: 400, height: 240, title: 'Company Performance',
+          //                   vAxis: {title: 'Year', titleTextStyle: {color: 'red'}},
+          //                   series: [{color: 'blue', visibleInLegend: true}, {color: 'red', visibleInLegend: false}]
+          //                  });
+          var month=response[row].month
+          month=month.slice(0,3)
           this.data.push([
-            response[row].month,
+            month,
             response[row].totalAmount,
           ]);
         }
