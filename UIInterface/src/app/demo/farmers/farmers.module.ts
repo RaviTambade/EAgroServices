@@ -5,8 +5,11 @@ import {  HttpClientModule } from '@angular/common/http';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { BrowserModule } from '@angular/platform-browser';
 import { ProfileComponent } from './profile/profile.component';
-import { PurchasedetailsComponent } from './purchasedetails/purchasedetails.component';
 import { FormsModule } from '@angular/forms';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { FarmerSelllistComponent } from './farmer-selllist/farmer-selllist.component';
+import { RouterModule } from '@angular/router';
+import { FarmerNavLeftComponent } from './farmer-nav-left/farmer-nav-left.component';
 
 
 
@@ -14,14 +17,18 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     FarmerDashboardComponent,
     ProfileComponent,
-    PurchasedetailsComponent
+    FarmerSelllistComponent,
+    FarmerNavLeftComponent,
+ 
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     GoogleChartsModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    NgScrollbarModule,
+    RouterModule
   ],
   
 })
