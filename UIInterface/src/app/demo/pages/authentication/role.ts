@@ -1,11 +1,3 @@
-export class Role {
-    rolename: string;
-  
-    constructor() {
-      this.rolename = "admin";
-      this.rolename = "farmer";
-      this.rolename = "employee";
-      this.rolename = "transport";
-      this.rolename = "merchant";
-    }
+export class Role {  
+    constructor(public roleId:number,public roleName:string) {}
 }

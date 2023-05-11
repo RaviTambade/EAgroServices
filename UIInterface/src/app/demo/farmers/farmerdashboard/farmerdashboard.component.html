@@ -31,8 +31,10 @@
 </div>
  <!-- <app-purchasedetails></app-purchasedetails> -->
 <!-- <app-profile></app-profile> -->
-
-    <div class="row">
+<div class="col-md-8">
+  <div class="card bg-light">
+      <div class="card-body">
+        <div class="card-header text-center"><b>Monthly Sales</b></div>
       <google-chart
         title="Column Chart"
         [type]="columnChart"
@@ -40,9 +42,17 @@
         [columns]="columnNames"
         [width]="width"
         [height]="height"
+        [options]="columnoptions"
+        
       >
       </google-chart>
     </div>
+  </div>
+</div>
+<div class="col-md-5">
+  <div class="card bg-light">
+      <div class="card-body-center">
+        <div class="card-header text-center"><b>Monthly Sales</b></div>
   <div class="row">
       <google-chart
         title="Donut Chart"
@@ -55,17 +65,27 @@
       >
       </google-chart>
     </div>
+  </div>
+</div>
+    </div>
+    <div class="col-md-5">
+      <div class="card bg-light">
+          <div class="card-body-center">
+            <div class="card-header text-center"><b>Monthly Sales</b></div>
     <div class="row">
       <google-chart
         title="Pie Chart"
         [type]="pieChart"
         [data]="data"
         [columns]="columnNames"
-        [width]="width"
-        [height]="height"
+        [width]="piewidth"
+        [height]="pieheight"
       >
       </google-chart>
     </div>
+    </div>
+  </div>
+  </div>
   <div class="row">
       <google-chart
         title="Line Chart"
@@ -100,3 +120,59 @@
         >
         </google-chart>
       </div> -->
+
+
+
+
+
+
+
+
+      <div class="col-xl-4 col-md-6">
+        <div class="card bg-primary-dark dashnum-card text-white overflow-hidden">
+          <span class="round small"></span>
+          <span class="round big"></span>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="avtar avtar-lg">
+                  <i class="text-white ti ti-credit-card"></i>
+                </div>
+              </div>
+              <div class="col-auto">
+               <!-- <ul ngbNav class="nav-tabs nav-pills" #nav="ngbNav" (navChange)="ngOnInit($event)">
+                  <li class="nav-item" [ngbNavItem]="1">
+                    <a class="nav-link text-white" ngbNavLink>Month</a> -->
+                    <ng-template ngbNavContent>
+                      <div class="row">
+                        <div class="col-6">
+                          <span class="text-white d-block f-34 f-w-500 my-2">$108<i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
+                          <p class="mb-0 opacity-50">Total Earning</p>
+                        </div>
+                        <div class="col-6">
+                          <div id="tab-chart-1"></div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  <!-- </li>
+                  <li class="nav-item" [ngbNavItem]="2"> -->
+                    <a class="nav-link text-white" ngbNavLink>Year</a>
+                    <ng-template ngbNavContent>
+                      <div class="row">
+                        <div class="col-6">
+                          <span class="text-white d-block f-34 f-w-500 my-2">$961<i class="ti ti-arrow-down-right-circle opacity-50"></i></span>
+                          <p class="mb-0 opacity-50">C/W Last Year</p>
+                        </div>
+                        <div class="col-6">
+                          <div id="tab-chart-2"></div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  <!-- </li>
+                </ul>
+              </div>
+            </div>
+            <div [ngbNavOutlet]="nav"> </div> -->
+          </div>
+        </div>
+      </div>

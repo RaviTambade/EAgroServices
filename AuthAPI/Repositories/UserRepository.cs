@@ -326,4 +326,13 @@ public class UserRepository : IUserRepository
             return user;
         }
     }
+
+    public async Task<IEnumerable<Role>> GetAllRoles()
+    {
+        using (var context = new UserContext(_configuration))
+        {
+            var roles = await context.Roles.ToListAsync();
+            return roles;
+        }
+    }
 }
