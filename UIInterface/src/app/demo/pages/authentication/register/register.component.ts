@@ -9,13 +9,13 @@ import { User } from '../user';
 import { FormsModule } from '@angular/forms';
 import { Merchant } from '../merchant';
 import { Usermerchantrole } from '../usermerchantrole';
-import { Authresponse } from '../authresponse';
 import { Admin } from '../admin';
 import { Employee } from '../employee';
 import { Transport } from '../transport';
 import { Useradminrole } from '../useradminrole';
 import { Useremployeerole } from '../useremployeerole';
 import { Usertransportrole } from '../usertransportrole';
+import { Role } from '../role';
 
 @Component({
   selector: 'app-register',
@@ -62,22 +62,8 @@ export default class RegisterComponent {
     roleId: 0
   };
 
-  rolename = [{
-    role: "Admin", value: "admin"
-  },
-  {
-    role: "Farmer", value: "farmer"
-  },
-  {
-    role: "Employee", value: "employee"
-  },
-  {
-    role: "Transport", value: "transport"
-  },
-  {
-    role: "Merchant", value: "merchant"
-  }
-  ];
+  roles:Role[] = [];
+    
   selectedRole: string | any;
 
   insertAdmin: Useradminrole = {
@@ -108,13 +94,17 @@ export default class RegisterComponent {
 
   constructor(private svc: AuthService) { }
   ngOnInit(): void {
-
+    this.svc.getRoles().subscribe((response)=>{
+      this.roles=response;
+      console.log(response);
+    })
   }
 
   onSubmit() {
+    console.log(this.selectedRole);
     switch (this.selectedRole) {
-      case 'admin': {
-        this.userRole = { roleId: 1 };
+      case '1': {
+        this.userRole = { roleId: this.selectedRole };
         this.insertAdmin = {
           user: this.user,
           admin: this.admin,
@@ -134,8 +124,8 @@ export default class RegisterComponent {
         })
       }
         break;
-      case 'farmer': {
-        this.userRole = { roleId: 2 };
+      case '2': {
+        this.userRole = { roleId: this.selectedRole };
         this.insertFarmer = {
           user: this.user,
           farmer: this.farmer,
@@ -155,14 +145,14 @@ export default class RegisterComponent {
         })
       }
         break;
-      case 'employees': {
-        this.userRole = { roleId: 3 };
+      case '3': {
+        this.userRole = { roleId: this.selectedRole };
         this.insertEmployee = {
           user: this.user,
           employee: this.employee,
           userRole: this.userRole
         };
-        console.log("insert employee :" + this.insertEmployee);
+        console.log("insert employee :" , this.insertEmployee);
         this.svc.registerEmployee(this.insertEmployee).subscribe((response) => {
           console.log(response);
           if (response) {
@@ -176,8 +166,8 @@ export default class RegisterComponent {
         })
       }
         break;
-      case 'transport': {
-        this.userRole = { roleId: 4 };
+      case '4': {
+        this.userRole = { roleId: this.selectedRole };
         this.insertTransport = {
           user: this.user,
           transport: this.transport,
@@ -197,8 +187,8 @@ export default class RegisterComponent {
         })
       }
         break;
-      case 'merchant': {
-        this.userRole = { roleId: 5 };
+      case '5': {
+        this.userRole = { roleId: this.selectedRole };
         this.insertMerchant = {
           user: this.user,
           merchant: this.merchant,
