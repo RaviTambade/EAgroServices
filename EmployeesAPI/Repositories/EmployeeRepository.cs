@@ -53,7 +53,7 @@ public class EmployeeRepository : IEmployeeRepository
     public async Task<bool> Insert(Employee employee,User user,UserRole userRole)
     {
         bool status = false;
-        int userId=0;
+        int userId=0;   
         try
         {
             using (var context = new EmployeeContext(_configuration))

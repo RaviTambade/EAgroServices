@@ -7,6 +7,7 @@ import { Usermerchantrole } from './usermerchantrole';
 import { Useremployeerole } from './useremployeerole';
 import { Usertransportrole } from './usertransportrole';
 import { Useradminrole } from './useradminrole';
+import { Role } from './role';
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +42,8 @@ export class AuthService {
       return this.httpClient.post<Useradminrole>(url,insertadmin);
     }
     
+    getRoles():Observable<Role[]>{
+      let url =" http://localhost:5148/api/auth/getroles";
+      return this.httpClient.get<Role[]>(url);
+    }
 }
