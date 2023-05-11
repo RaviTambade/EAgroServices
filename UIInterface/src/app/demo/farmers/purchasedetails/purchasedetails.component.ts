@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FarmerService } from '../farmer.service';
 import { Purchaseviewmodel } from '../purchaseviewmodel';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-purchasedetails',
@@ -8,23 +9,32 @@ import { Purchaseviewmodel } from '../purchaseviewmodel';
   styleUrls: ['./purchasedetails.component.scss']
 })
 export class PurchasedetailsComponent implements OnInit {
-  farmerId :number ;
-  purchaseViewModel:Purchaseviewmodel[];
-  constructor(private svc:FarmerService){}
+  farmerId: number | string;
+  purchaseViewModel: Purchaseviewmodel[];
+  constructor(private svc: FarmerService, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    this.svc.getFarmerPurchaseDetails(2).subscribe((response)=>{
-      this.purchaseViewModel = response;
-      console.log(this.purchaseViewModel);
-    }
-    )};
+    this.route.paramMap.subscribe((params) => {
+      console.log(params)
+      this.farmerId = params.get('id');
+    });
+    
+    if (this.farmerId != undefined) {
+      this.svc.getFarmerPurchaseDetails(this.farmerId).subscribe((response) => {
+        this.purchaseViewModel = response;
+        console.log(this.purchaseViewModel);
+      }
+      )
+    };
+  }
+
 
   // onClick(){
   // this.svc.getFarmerPurchaseDetails(this.farmerId).subscribe((response)=>{
   //   this.purchaseViewModel = response;
   //   console.log(this.purchaseViewModel);
   // })
-    
+
   //}
-  
+
 }
 

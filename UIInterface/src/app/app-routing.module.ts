@@ -24,6 +24,10 @@ const routes: Routes = [
         loadComponent: () => import('./demo/default/default.component')
       },
       {
+        path: 'default',
+        loadComponent: () => import('./demo/default/default.component')
+      },
+      {
         path: 'typography',
         loadComponent: () => import('./demo/elements/typography/typography.component')
       },
