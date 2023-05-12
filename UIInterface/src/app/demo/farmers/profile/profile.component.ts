@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Farmer } from '../farmer';
 import { FarmerService } from '../farmer.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -8,25 +9,33 @@ import { FarmerService } from '../farmer.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  farmer:Farmer|any={
-    firstName:'',
-    lastName:'',
-    location:''
+  farmer: Farmer | any = {
+    firstName: '',
+    lastName: '',
+    location: ''
   };
-  farmerId:number;
-  constructor(private svc:FarmerService){}
+  status: boolean = false;
+  farmerId: string;
+
+  constructor(private svc: FarmerService, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    this.svc.getFarmerDetails(2).subscribe((response) => {
+    this.route.paramMap.subscribe((params) => {
+      console.log(params)
+      this.farmerId = params.get('id');
+    });
+    this.svc.getFarmer(this.farmerId).subscribe((response) => {
       this.farmer = response;
       console.log(this.farmer);
-    })  }
-  editProfile(){
-    this.svc.updateFarmerDetails(2,this.farmer).subscribe((response)=>{
-      console.log(response)
     })
   }
-  
+  onClick() {
+    this.status = true;
+  }
+  editProfile() {
+    this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
+      console.log(response)
+    })
 
   }
 
-
+}

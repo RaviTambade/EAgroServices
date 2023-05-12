@@ -537,4 +537,5 @@ SELECT * FROM transports;
 SELECT * FROM admins;
 SELECT * FROM rates;
 SELECT * FROM varieties;
+SELECT * FROM Farmers;
 SELECT varieties.variety_name,rates.rate FROM varieties INNER JOIN rates WHERE varieties.variety_id=rates.variety_id;

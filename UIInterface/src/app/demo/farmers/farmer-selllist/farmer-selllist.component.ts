@@ -25,9 +25,7 @@ export class FarmerSelllistComponent {
       this.purchaseViewModel = response;
       console.log(this.purchaseViewModel);
     })
-
   }
-
       onClick(){
         this.svc.getFarmerPurchaseDetails(this.farmerId).subscribe((response) => {
           this.purchaseViewModel = response;

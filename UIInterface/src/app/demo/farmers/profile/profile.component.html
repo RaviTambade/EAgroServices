@@ -4,7 +4,31 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Update Farmer</h5>
+            <h5 class="card-title">Farmer Details</h5>
+            <form>
+              <div class="form-group">
+                <label for="firstName"><b>First Name:</b></label>{{farmer.firstName}}
+              </div>
+              <div class="form-group">
+                <label for="lastName"><b>Last Name:</b></label>{{farmer.lastName}}
+              </div>
+              <div class="form-group">
+                <label for="location"><b>Location:</b></label>{{farmer.location}}
+              </div>
+               <button type="submit" class="btn btn-primary" (click)="onClick()">Edit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="status == true">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Edit Profile</h5>
             <form>
               <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -18,7 +42,7 @@
                 <label for="location">Location</label>
                 <input type="text" class="form-control" id="location" [(ngModel)]="farmer.location" name="location">
               </div>
-              <button type="submit" class="btn btn-primary" (click)="editProfile()">Update</button>
+               <button type="submit" class="btn btn-primary" (click)="onClick()">Done</button>
             </form>
           </div>
         </div>
