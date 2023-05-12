@@ -13,4 +13,5 @@ public class RateService:IRateService{
     public async Task<bool> Insert(Rate rate)=>await _repo.Insert(rate);
     public async Task<bool> Update(int rateId,Rate rate)=>await _repo.Update(rateId,rate);
     public async Task<bool> Delete(int rateId)=>await _repo.Delete(rateId);
+   // public async Task<VarietyRate> VarietyRates() =>await _repo.VarietyRates();
 }

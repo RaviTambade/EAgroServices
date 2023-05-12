@@ -4,9 +4,6 @@ import { FarmerService } from '../farmer.service';
 import { Farmersell } from '../farmersell';
 import { ChartType } from 'angular-google-charts';
 import { ActivatedRoute } from '@angular/router';
-import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import { NgApexchartsModule } from 'ng-apexcharts';
-import ApexCharts from 'apexcharts';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +12,7 @@ import ApexCharts from 'apexcharts';
 })
 export class FarmerDashboardComponent implements OnInit {
   farmer: Farmer | undefined;
-  farmerId:string | undefined ;
+  farmerId: string | undefined;
   farmerRevenue: Farmersell[];
 
   areaChart = ChartType.AreaChart;
@@ -29,24 +26,24 @@ export class FarmerDashboardComponent implements OnInit {
   columnNames = ['month', 'totalAmount'];
 
   width = 1000;
-  piewidth=555;
+  piewidth = 555;
 
-  height =500;
-  pieheight=222;
+  height = 500;
+  pieheight = 222;
 
-  columnoptions={
-      colors: ['#3366CC', '#DC3912'],
+   columnoptions = {
+     color:'green',
   };
 
   donutOptions = {
     pieHole: 0.5
   }
-  constructor(private svc: FarmerService, private route:ActivatedRoute) { }
+  constructor(private svc: FarmerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params)=>{
+    this.route.paramMap.subscribe((params) => {
       console.log(params)
-      this.farmerId=params.get('id');
+      this.farmerId = params.get('id');
     });
     if (this.farmerId != undefined) {
 
@@ -55,13 +52,8 @@ export class FarmerDashboardComponent implements OnInit {
         console.log(this.farmerRevenue);
 
         for (let row in response) {
-          // var chart = new google.visualization.BarChart(document.getElementById('visualization'));
-          // chart.draw(month, {width: 400, height: 240, title: 'Company Performance',
-          //                   vAxis: {title: 'Year', titleTextStyle: {color: 'red'}},
-          //                   series: [{color: 'blue', visibleInLegend: true}, {color: 'red', visibleInLegend: false}]
-          //                  });
-          var month=response[row].month
-          month=month.slice(0,3)
+          var month = response[row].month
+          month = month.slice(0, 3)
           this.data.push([
             month,
             response[row].totalAmount,

@@ -12,6 +12,7 @@ public class RatesContext : DbContext
         _conString = this._configuration.GetConnectionString("DefaultConnection");   // Retrieves the connection string from the configuration and assigns it to the instance variable
     }
     public DbSet<Rate> Rates { get; set; }
+   // public DbSet<Variety> Varieties { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)   // Configures the context options
     {
         optionsBuilder.UseMySQL(_conString);    // Sets the connection string to be used by the context
@@ -26,5 +27,10 @@ public class RatesContext : DbContext
             entity.Property(e => e.Rates);
             modelBuilder.Entity<Rate>().ToTable("rates");  // Maps the Rate entity to a table named "rates"
         });
+        // modelBuilder.Entity<Variety>(entity =>{
+        //     entity.HasKey(e =>e.VarietyId);
+        //     entity.Property(e=>VarietyName);
+        //     modelBuilder.Entity<Variety>().ToTable("varieties");
+        // });
     }
 }

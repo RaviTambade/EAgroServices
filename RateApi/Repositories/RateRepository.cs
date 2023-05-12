@@ -114,4 +114,29 @@ public class RateRepository : IRateRepository
         return status;
     }
 
-}
+    //SELECT varieties.variety_name,rates.rate FROM varieties INNER JOIN rates WHERE varieties.variety_id=rates.variety_id;
+//         public async Task<VarietyRate> VarietyRates()
+//         {
+//             try{
+//                 using (var context = new RatesContext(_configuration))
+//                 {
+//                     VarietyRate varietyRate =await(from rate in context.Rates
+//                                                    join variety in context.Varieties
+//                                                    on rate.VarietyId equals variety.VarietyId
+//                                                    where rate.VarietyId == variety.VarietyId
+//                                                    select new VarietyRate()
+//                                                    {
+//                                                     Rate = rate,
+//                                                     Name = variety
+
+//                                                    }).FirstOrDefaultAsync();
+//                             return varietyRate;
+//             }
+//         }
+//         catch (Exception e)
+//         {
+//             throw e;
+//         }
+//     }
+
+ }

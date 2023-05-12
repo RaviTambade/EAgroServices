@@ -43,4 +43,11 @@ public class RatesController : ControllerBase
         return await _service.Delete(id);
 
     }
+    // [HttpGet("varietyrate")]
+    // public async Task<VarietyRate> VarietyRates() 
+    // {
+    //     return await _service.VarietyRates();
+
+    // }
+    
 }
