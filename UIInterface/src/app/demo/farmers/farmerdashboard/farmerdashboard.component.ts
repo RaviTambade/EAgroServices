@@ -58,7 +58,7 @@ export class FarmerDashboardComponent implements OnInit {
             month,
             response[row].totalAmount,
           ]);
-        }
+        } 
       })
     }
   }
