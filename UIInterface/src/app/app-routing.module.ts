@@ -57,7 +57,8 @@ const routes: Routes = [
    {
     path: 'farmers',
     children:[
-      { path:':id', component: FarmerDashboardComponent },
+      // { path:':id', component: FarmerDashboardComponent },
+      { path:'dashboard/:id', component: FarmerDashboardComponent },
       { path:'selllist/:id', component: FarmerSelllistComponent },
       { path:'profile/:id', component: ProfileComponent },
       {path:'update/:id',component:FarmerUpdateComponent}
