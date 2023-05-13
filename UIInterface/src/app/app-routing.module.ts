@@ -8,6 +8,7 @@ import { EmployeedashboardComponent } from './demo/employees/employeedashboard/e
 import { TransportdashboardComponent } from './demo/transports/transportdashboard/transportdashboard.component';
 import { FarmerSelllistComponent } from './demo/farmers/farmer-selllist/farmer-selllist.component';
 import { ProfileComponent } from './demo/farmers/profile/profile.component';
+import { FarmerUpdateComponent } from './demo/farmers/farmer-update/farmer-update.component';
 
 
 
@@ -56,9 +57,11 @@ const routes: Routes = [
    {
     path: 'farmers',
     children:[
-      { path:':id', component: FarmerDashboardComponent },
+      // { path:':id', component: FarmerDashboardComponent },
+      { path:'dashboard/:id', component: FarmerDashboardComponent },
       { path:'selllist/:id', component: FarmerSelllistComponent },
       { path:'profile/:id', component: ProfileComponent },
+      {path:'update/:id',component:FarmerUpdateComponent}
 
 
     ]
