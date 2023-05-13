@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -93,15 +93,11 @@ CREATE TABLE
         rate double NOT NULL
     );
     CREATE TABLE varieties(
-   variety_id int NOT Null AUTO_INCREMENT PRIMARY KEY,
-   variety_name VARCHAR(20)NOT NULL 
+         variety_id int NOT Null AUTO_INCREMENT PRIMARY KEY,
+         variety_name VARCHAR(20)NOT NULL UNIQUE,
+         rate DOUBLE NOT NULL DEFAULT 0
    );
-   CREATE TABLE  rates(
-    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   variety_id int NOT NULL UNIQUE,
-   rate int NOT NULL, 
-   CONSTRAINT fk_variety_id FOREIGN KEY(variety_id) REFERENCES varieties(variety_id) ON UPDATE CASCADE ON DELETE CASCADE
-   );
+ 
 CREATE TABLE
     farmer_purchases (
         purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -334,18 +330,12 @@ INSERT INTO user_roles(user_id,role_id)VALUES(12,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',12);
 INSERT INTO user_roles(user_id,role_id)VALUES(13,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',13);
-INSERT INTO varieties(variety_name)VALUES('potato');
-INSERT INTO varieties(variety_name)VALUES('Tomato');
-INSERT INTO varieties(variety_name)VALUES('Cabage');
-INSERT INTO varieties(variety_name)VALUES('Onion');
-INSERT INTO varieties(variety_name)VALUES('Bitroot');
+INSERT INTO varieties(variety_name,rate)VALUES('potato',32);
+INSERT INTO varieties(variety_name,rate)VALUES('Tomato',12);
+INSERT INTO varieties(variety_name,rate)VALUES('Cabage',21);
+INSERT INTO varieties(variety_name,rate)VALUES('Onion',22);
+INSERT INTO varieties(variety_name,rate)VALUES('Bitroot',30);
 INSERT INTO varieties(variety_name)VALUES('Beans');
-INSERT INTO rates(variety_id,rate)VALUES(1,10);
-INSERT INTO rates(variety_id,rate)VALUES(2,15);
-INSERT INTO rates(variety_id,rate)VALUES(3,20);
-INSERT INTO rates(variety_id,rate)VALUES(4,25);
-INSERT INTO rates(variety_id,rate)VALUES(5,25);
-INSERT INTO rates(variety_id,rate)VALUES(6,30);
 
 -- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(1,1,'bags', 50,'A', 2500, 25, 30,'2023-01-02');
 -- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(1,2 ,'bags', 50,'B', 2500, 25, 30,'2023-02-13');
@@ -532,7 +522,5 @@ SELECT * FROM user_roles;
 SELECT * FROM employees;
 SELECT * FROM transports;
 SELECT * FROM admins;
-SELECT * FROM rates;
 SELECT * FROM varieties;
-SELECT * FROM farmers;
-SELECT varieties.variety_name,rates.rate FROM varieties INNER JOIN rates WHERE varieties.variety_id=rates.variety_id;
+SELECT * FROM varieties;
