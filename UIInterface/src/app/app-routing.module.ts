@@ -8,11 +8,8 @@ import { EmployeedashboardComponent } from './demo/employees/employeedashboard/e
 import { TransportdashboardComponent } from './demo/transports/transportdashboard/transportdashboard.component';
 import { FarmerSelllistComponent } from './demo/farmers/farmer-selllist/farmer-selllist.component';
 import { ProfileComponent } from './demo/farmers/profile/profile.component';
-<<<<<<< HEAD
 import { FarmersdetailsComponent } from './demo/employees/farmersdetails/farmersdetails.component';
-=======
 import { FarmerUpdateComponent } from './demo/farmers/farmer-update/farmer-update.component';
->>>>>>> 8a33b5c6f4f45023648379950006bcb1d5befcb5
 
 
 
