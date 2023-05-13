@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-farmer-nav-left',
   templateUrl: './farmer-nav-left.component.html',

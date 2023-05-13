@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Farmer } from '../farmer';
 import { FarmerService } from '../farmer.service';
 import { ActivatedRoute } from '@angular/router';
+import { window } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
   editProfile() {
     this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
       console.log(response)
+    
     })
 
   }

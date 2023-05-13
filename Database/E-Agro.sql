@@ -1,8 +1,5 @@
-<<<<<<< HEAD
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
-=======
 -- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
->>>>>>> 9774f7067b16b778bd9f39367bdad1f68c5339a4
+
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -537,5 +534,5 @@ SELECT * FROM transports;
 SELECT * FROM admins;
 SELECT * FROM rates;
 SELECT * FROM varieties;
-SELECT * FROM Farmers;
+SELECT * FROM farmers;
 SELECT varieties.variety_name,rates.rate FROM varieties INNER JOIN rates WHERE varieties.variety_id=rates.variety_id;
