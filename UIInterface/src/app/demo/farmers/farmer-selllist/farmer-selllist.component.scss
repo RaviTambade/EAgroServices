@@ -1,7 +1,7 @@
 .my-card {
     position:sticky;
-    // align-content: center;
-    margin-left: 230px;
+    align-content: center;
+    margin-left: 16%;
     background-color: #f1f1f1;
 			padding: 10px;
 			border-radius: 5px;
@@ -11,7 +11,7 @@
   }
 
   .hiddenscroll{
-    overflow-x: hidden;
+    // overflow-x: hidden;
   }
   table {
     width: 100%;
