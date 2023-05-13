@@ -1,23 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Farmer } from '../farmer';
 import { FarmerService } from '../farmer.service';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { window } from 'rxjs';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-farmer-update',
+  templateUrl: './farmer-update.component.html',
+  styleUrls: ['./farmer-update.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class FarmerUpdateComponent {
   farmer: Farmer | any = {
     firstName: '',
     lastName: '',
     location: ''
   };
-  status: boolean = false;
-  farmerId: string;
-
+  farmerId: any;
   constructor(private svc: FarmerService, private route: ActivatedRoute,private router:Router) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -27,14 +24,15 @@ export class ProfileComponent implements OnInit {
     this.svc.getFarmer(this.farmerId).subscribe((response) => {
       this.farmer = response;
       console.log(this.farmer);
-    })
+    });
   }
-  onClick() {
-    this.status = true;
-    this.router.navigate(["farmers/update",this.farmerId]);
-  }
-  
+    editProfile() {
+      this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
+        console.log(response)
+      alert("Update Successfully")
+      this.router.navigate(["farmers/profile",this.farmerId]);
 
-  }
-
+      })
+}
+}
 
