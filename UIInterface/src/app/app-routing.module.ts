@@ -8,6 +8,7 @@ import { EmployeedashboardComponent } from './demo/employees/employeedashboard/e
 import { TransportdashboardComponent } from './demo/transports/transportdashboard/transportdashboard.component';
 import { FarmerSelllistComponent } from './demo/farmers/farmer-selllist/farmer-selllist.component';
 import { ProfileComponent } from './demo/farmers/profile/profile.component';
+import { FarmersdetailsComponent } from './demo/employees/farmersdetails/farmersdetails.component';
 
 
 
@@ -60,8 +61,21 @@ const routes: Routes = [
       { path:'selllist/:id', component: FarmerSelllistComponent },
       { path:'profile/:id', component: ProfileComponent },
 
+           
+    ],
+   },
 
-    ]
+   {
+    path: 'employees',
+    children:[
+      { path:'employeedashboard', component:EmployeedashboardComponent  },
+      { path:'farmerdetails', component:FarmersdetailsComponent },
+
+
+      
+
+           
+    ],
    },
    {
     path: 'merchants/:id',
