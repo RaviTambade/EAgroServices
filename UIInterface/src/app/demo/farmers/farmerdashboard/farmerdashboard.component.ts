@@ -25,7 +25,7 @@ export class FarmerDashboardComponent implements OnInit {
 
   columnNames = ['month', 'totalAmount'];
 
-  width = 1000;
+  width = 1100;
   piewidth = 450;
 
   height = 500;
