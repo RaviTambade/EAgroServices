@@ -1,29 +1,36 @@
 <app-farmer-nav-left></app-farmer-nav-left>
-<div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Farmer Details</h5>
-            <form>
-              <div class="form-group">
-                <label for="firstName"><b>First Name:</b></label>{{farmer.firstName}}
-              </div>
-              <div class="form-group">
-                <label for="lastName"><b>Last Name:</b></label>{{farmer.lastName}}
-              </div>
-              <div class="form-group">
-                <label for="location"><b>Location:</b></label>{{farmer.location}}
-              </div>
-               <button type="submit" class="btn btn-primary" (click)="onClick()">Edit</button>
-            </form>
-          </div>
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Farmer Details</h5>
+          <form>
+            <div class="form-group">
+              <label for="firstName"><b>First Name:</b></label>
+              <p class="form-control-plaintext">{{farmer.firstName}}</p>
+            </div>
+            <div class="form-group">
+              <label for="lastName"><b>Last Name:</b></label>
+              <p class="form-control-plaintext">{{farmer.lastName}}</p>
+            </div>
+            <div class="form-group">
+              <label for="location"><b>Location:</b></label>
+              <p class="form-control-plaintext">{{farmer.location}}</p>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm" (click)="onClick()">
+              <i class="fas fa-pencil-alt mr-2"></i>Edit
+            </button>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="status == true">
-  <div class="container">
+</div>
+
+<div *ngIf="status == true">
+  <div class="container mt-4">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card">
@@ -42,11 +49,13 @@
                 <label for="location">Location</label>
                 <input type="text" class="form-control" id="location" [(ngModel)]="farmer.location" name="location">
               </div>
-               <button type="submit" class="btn btn-primary" (click)="onClick()">Done</button>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check mr-2"></i>Done
+              </button>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

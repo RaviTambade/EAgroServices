@@ -68,4 +68,43 @@
   .sidebar .nav-link:hover i {
     color: #007bff;
   }
+
+  .custom-link {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    color: #555;
+  }
+  
+  .custom-link:hover {
+    background-color: #eee;
+  }
+  
+  .custom-link i {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+  }
+  
+  .custom-link .ml-2 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .logo {
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .logo .text-primary {
+    color: #007bff;
+  }
+  
+  .logo .text-success {
+    color: #28a745;
+  }
+  
+  .logo .text-warning {
+    color: #ffc107;
+  }
   
