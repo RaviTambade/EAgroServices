@@ -2,7 +2,6 @@ using VarietiesAPI.Contexts;
 using VarietiesAPI.Models;
 using VarietiesAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 namespace VarietiesAPI.Repositories;
 public class VarietyRepository : IVarietyRepository
 {
@@ -81,6 +80,7 @@ public class VarietyRepository : IVarietyRepository
                 if (oldVariety != null)
                 {
                     oldVariety.VarietyName = variety.VarietyName;
+                    oldVariety.Rate=variety.Rate;
                     await context.SaveChangesAsync();
                     status= true;
                 }

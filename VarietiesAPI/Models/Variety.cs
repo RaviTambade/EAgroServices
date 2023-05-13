@@ -5,5 +5,7 @@ public class Variety{
     [Column("variety_id")]
     public int VarietyId{get;set;}
     [Column("variety_name")]
-    public string VarietyName{get;set;}
+    public string? VarietyName{get;set;}
+    [Column("rate")]
+    public double Rate { get; set; }
 }
