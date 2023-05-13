@@ -26,14 +26,18 @@ export class FarmerDashboardComponent implements OnInit {
   columnNames = ['month', 'totalAmount'];
 
   width = 1000;
-  piewidth = 555;
+  piewidth = 450;
 
   height = 500;
-  pieheight = 222;
+  pieheight = 140;
 
    columnoptions = {
-     color:'green',
+     color:['green'],
   };
+
+  pieoptions={
+    is3D:true
+  }
 
   donutOptions = {
     pieHole: 0.5
