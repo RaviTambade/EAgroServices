@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -515,6 +515,8 @@ FROM transport_trucks
     INNER JOIN sells_billing ON sells.sell_id = sells_billing.sell_id
 WHERE sells.truck_id = 2
 ORDER BY date;
+
+SELECT SUM(sells.total_amount),MONTHNAME(sells.date) AS date FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.sell_id WHERE sells.sell_id=1;
 SELECT * FROM roles;
 SELECT * FROM merchants;
 SELECT * FROM users;
@@ -524,3 +526,5 @@ SELECT * FROM transports;
 SELECT * FROM admins;
 SELECT * FROM varieties;
 SELECT * FROM varieties;
+
+

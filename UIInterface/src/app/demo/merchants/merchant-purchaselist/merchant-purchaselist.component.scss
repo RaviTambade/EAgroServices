@@ -1,0 +1,32 @@
+.my-card {
+    position:sticky;
+    align-content: center;
+    margin-left: 16%;
+    background-color: #f1f1f1;
+			padding: 10px;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			margin-bottom: 20px;
+
+  }
+
+  .hiddenscroll{
+    // overflow-x: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .select{
+    text-align: center;
+    overflow: hidden;
+    width: 90px ;
+    border: none;
+    appearance: none;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 6px;
+    text-align: center;
+  }
