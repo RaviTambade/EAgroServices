@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Farmer } from './farmer';
 import { Farmersell } from './farmersell';
 import { Purchaseviewmodel } from './purchaseviewmodel';
+import { Variety } from './variety';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class FarmerService {
   getFarmerPurchaseDetails(farmerId:any):Observable<any>{
     let url =" http://localhost:5171/api/purchase/GetFarmerPurchaseDetails/" +farmerId;
     return this.httpClient.get<Purchaseviewmodel[]>(url);
+  }
+  getAllVarieties():Observable<any>{
+    let url = "http://localhost:5224/api/Variety/getall";
+    return this.httpClient.get<Variety[]>(url);
   }
 
 }

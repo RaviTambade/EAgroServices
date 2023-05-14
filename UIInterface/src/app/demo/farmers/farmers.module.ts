@@ -11,6 +11,7 @@ import { FarmerSelllistComponent } from './farmer-selllist/farmer-selllist.compo
 import { RouterModule } from '@angular/router';
 import { FarmerNavLeftComponent } from './farmer-nav-left/farmer-nav-left.component';
 import { FarmerUpdateComponent } from './farmer-update/farmer-update.component';
+import { VarietyComponent } from './variety/variety.component';
 
 
 
@@ -21,6 +22,7 @@ import { FarmerUpdateComponent } from './farmer-update/farmer-update.component';
     FarmerSelllistComponent,
     FarmerNavLeftComponent,
     FarmerUpdateComponent,
+    VarietyComponent,
  
   ],
   imports: [
