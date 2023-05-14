@@ -333,7 +333,7 @@ INSERT INTO user_roles(user_id,role_id)VALUES(13,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',13);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('potato','/assets/images/potato.jpeg',32);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('Cabage','/assets/images/cabbage.jpeg',21);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Onion','/assets/images/onion.jpg',22);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg',30);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
