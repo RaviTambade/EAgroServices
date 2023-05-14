@@ -20,7 +20,7 @@ public class MerchantsController : ControllerBase
         return await _service.GetAll();
     }
 
-    [HttpGet("getbyid/{id}")]
+    [HttpGet("getdetails/{id}")]
     public async Task<Merchant> GetById(int id)
     {
         return await _service.GetById(id);

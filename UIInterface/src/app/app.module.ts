@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './theme/layout/admin/admin.component';
@@ -20,6 +19,7 @@ import { ConfigurationComponent } from './theme/layout/admin/configuration/confi
 import { GuestComponent } from './theme/layout/guest/guest.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FarmersModule } from './demo/farmers/farmers.module';
+import { MerchantsModule } from './demo/merchants/merchants.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { FarmersModule } from './demo/farmers/farmers.module';
     ConfigurationComponent,
     GuestComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,HttpClientModule,FarmersModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,HttpClientModule,FarmersModule,MerchantsModule],
   providers: [NavigationItem],
   bootstrap: [AppComponent]
 })

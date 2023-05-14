@@ -46,7 +46,7 @@ export default class LoginComponent {
       if (role == "merchant") {
         const merchantId = this.getMerchantIdFromToken();
         console.log(merchantId);
-        this.router.navigate(['merchants', merchantId]);
+        this.router.navigate(['merchants/dashboard', merchantId]);
       }
       if (role == "transport") {
         const transporttId = this.getTransportIdFromToken();
