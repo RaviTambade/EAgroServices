@@ -17,9 +17,16 @@
     width: 100%;
     border-collapse: collapse;
   }
+  .select{
+    text-align: center;
+    overflow: hidden;
+    width: 90px ;
+    border: none;
+    appearance: none;
+  }
 
   th, td {
     border: 1px solid black;
-    padding: 8px;
-    text-align: left;
+    padding: 6px;
+    text-align: center;
   }

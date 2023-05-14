@@ -13,8 +13,15 @@
             <table>
               <thead>
                 <tr>
-                  <th>Farmer Name</th>
-                  <th>Variety Name</th>
+                  <!-- <th>Farmer Name</th> -->
+                  <th>Variety Name
+                    <br>
+                    <select class="select"  (change)="onSortByVarietyNameChange($event)">
+                      <option>sort by</option>
+                      <option  value="asc">Ascending</option>
+                      <option  value="desc">Descending</option>
+                    </select>
+                  </th>
                   <th>Container Type</th>
                   <th>Quantity</th>
                   <th>Grade</th>
@@ -22,7 +29,13 @@
                   <th>Tare Weight</th>
                   <th>Net Weight</th>
                   <th>Rate/Kg</th>
-                  <th>Amount</th>
+                  <th>Amount
+                    <select class="select" (change)="onSortByAmountChange($event)">
+                      <option>sort by</option>
+                      <option  value="asc">Ascending</option>
+                      <option value="desc">Descending</option>
+                    </select>
+                  </th>
                   <th>Date Of Sell</th>
                   <th>Labour Charges</th>
                   <th>Total Amount</th>
@@ -31,7 +44,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let purchasedetails of purchaseViewModel">
-                  <td>{{ purchasedetails.farmerName}}</td>
+                  <!-- <td>{{ purchasedetails.farmerName}}</td> -->
                   <td>{{ purchasedetails.varietyName}}</td>
                   <td>{{ purchasedetails.purchaseItem.containerType}}</td>
                   <td>{{ purchasedetails.purchaseItem.quantity}}</td>
@@ -41,10 +54,10 @@
                   <td>{{ purchasedetails.purchaseItem.netWeight}}</td>
                   <td>{{ purchasedetails.purchaseItem.ratePerKg}}</td>
                   <td>{{ purchasedetails.purchaseItem.amount}}</td>
-                  <td>{{ purchasedetails.purchaseItem.date}}</td>
+                  <td>{{ purchasedetails.purchaseItem.date |date }}</td>
                   <td>{{ purchasedetails.purchaseBilling.labourCharges}}</td>
                   <td>{{ purchasedetails.purchaseBilling.totalAmount}}</td>
-                  <td>{{ purchasedetails.purchaseBilling.date }}</td>
+                  <td>{{ purchasedetails.purchaseBilling.date |date }}</td>
                 </tr>
               </tbody>
             </table>
