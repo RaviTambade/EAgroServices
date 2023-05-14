@@ -1,5 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
-
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -95,6 +94,7 @@ CREATE TABLE
     CREATE TABLE varieties(
          variety_id int NOT Null AUTO_INCREMENT PRIMARY KEY,
          variety_name VARCHAR(20)NOT NULL UNIQUE,
+         image_url VARCHAR(30) NOT NULL,
          rate DOUBLE NOT NULL DEFAULT 0
    );
  
@@ -330,12 +330,14 @@ INSERT INTO user_roles(user_id,role_id)VALUES(12,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',12);
 INSERT INTO user_roles(user_id,role_id)VALUES(13,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',13);
-INSERT INTO varieties(variety_name,rate)VALUES('potato',32);
-INSERT INTO varieties(variety_name,rate)VALUES('Tomato',12);
-INSERT INTO varieties(variety_name,rate)VALUES('Cabage',21);
-INSERT INTO varieties(variety_name,rate)VALUES('Onion',22);
-INSERT INTO varieties(variety_name,rate)VALUES('Bitroot',30);
-INSERT INTO varieties(variety_name)VALUES('Beans');
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('potato','/assets/images/potato.jpeg',32);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Onion','/assets/images/onion.jpg',22);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg',30);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
+
 
 -- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(1,1,'bags', 50,'A', 2500, 25, 30,'2023-01-02');
 -- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(1,2 ,'bags', 50,'B', 2500, 25, 30,'2023-02-13');
@@ -515,6 +517,8 @@ FROM transport_trucks
     INNER JOIN sells_billing ON sells.sell_id = sells_billing.sell_id
 WHERE sells.truck_id = 2
 ORDER BY date;
+
+SELECT SUM(sells.total_amount),MONTHNAME(sells.date) AS date FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.sell_id WHERE sells.sell_id=1;
 SELECT * FROM roles;
 SELECT * FROM merchants;
 SELECT * FROM users;
@@ -524,3 +528,5 @@ SELECT * FROM transports;
 SELECT * FROM admins;
 SELECT * FROM varieties;
 SELECT * FROM varieties;
+
+

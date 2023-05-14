@@ -80,6 +80,7 @@ public class VarietyRepository : IVarietyRepository
                 if (oldVariety != null)
                 {
                     oldVariety.VarietyName = variety.VarietyName;
+                    oldVariety.ImageUrl = variety.ImageUrl;
                     oldVariety.Rate=variety.Rate;
                     await context.SaveChangesAsync();
                     status= true;

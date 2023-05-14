@@ -8,9 +8,11 @@ import { FarmerSelllistComponent } from './demo/farmers/farmer-selllist/farmer-s
 import { ProfileComponent } from './demo/farmers/profile/profile.component';
 import { FarmersdetailsComponent } from './demo/employees/farmersdetails/farmersdetails.component';
 import { FarmerUpdateComponent } from './demo/farmers/farmer-update/farmer-update.component';
+import { VarietyComponent } from './demo/farmers/variety/variety.component';
 import { MerchantDashboardComponent } from './demo/merchants/merchant-dashboard/merchant-dashboard.component';
 import { MerchantProfileComponent } from './demo/merchants/merchant-profile/merchant-profile.component';
 import { MerchantUpdateComponent } from './demo/merchants/merchant-update/merchant-update.component';
+import { MerchantPurchaselistComponent } from './demo/merchants/merchant-purchaselist/merchant-purchaselist.component';
 
 
 
@@ -63,7 +65,9 @@ const routes: Routes = [
       { path:'dashboard/:id', component: FarmerDashboardComponent },
       { path:'selllist/:id', component: FarmerSelllistComponent },
       { path:'profile/:id', component: ProfileComponent },
-      {path:'update/:id',component:FarmerUpdateComponent}       
+      {path:'update/:id',component:FarmerUpdateComponent},
+      {path:'variety',component:VarietyComponent},    
+      {path:'update/:id',component:FarmerUpdateComponent},       
     ],
    },
    {
@@ -72,6 +76,7 @@ const routes: Routes = [
       // { path:':id', component: FarmerDashboardComponent },
       { path:'dashboard/:id', component: MerchantDashboardComponent },
       { path:'profile/:id', component: MerchantProfileComponent },
+      { path:'purchaselist/:id', component: MerchantPurchaselistComponent },
       {path:'update/:id',component:MerchantUpdateComponent}       
     ],
    },

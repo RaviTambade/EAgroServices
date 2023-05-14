@@ -241,10 +241,13 @@ public class SellRepository : ISellRepository
                 var sells = await (from merchant in context.Merchants
                                    join s in context.Sells
                                    on merchant.MerchantId equals s.MerchantId
+                                   join p in context.PurchaseItems
+                                   on s.PurchaseId equals p.PurchaseId
                                    where s.MerchantId == merchantId
                                    select new MerchantSell()
                                    {
                                        Sell = s,
+                                       PurchaseItem=p,
                                        FullName = merchant.FirstName + " " + merchant.LastName
                                    }).ToListAsync();
                 return sells;

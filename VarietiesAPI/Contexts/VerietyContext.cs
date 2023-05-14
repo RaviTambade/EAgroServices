@@ -25,6 +25,7 @@ public class VarietyContext : DbContext
         {
             entity.HasKey(e => e.VarietyId);
             entity.Property(e => e.VarietyName);
+            entity.Property(e => e.ImageUrl);
             entity.Property(e => e.Rate);
             modelBuilder.Entity<Variety>().ToTable("varieties");
         });

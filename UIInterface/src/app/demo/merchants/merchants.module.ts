@@ -6,6 +6,7 @@ import { MerchantProfileComponent } from './merchant-profile/merchant-profile.co
 import { MerchantUpdateComponent } from './merchant-update/merchant-update.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MerchantPurchaselistComponent } from './merchant-purchaselist/merchant-purchaselist.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     MerchantNavLeftComponent,
     MerchantProfileComponent,
     MerchantUpdateComponent,
+    MerchantPurchaselistComponent,
   ],
   imports: [
     CommonModule,
