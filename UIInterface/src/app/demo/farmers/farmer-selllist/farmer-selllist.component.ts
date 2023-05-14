@@ -22,6 +22,7 @@ export class FarmerSelllistComponent {
   filterGrade: any;
   showFilters: boolean = false;
   filteredPurchases: Purchaseviewmodel[];
+  varieties: any;
   constructor(private svc: FarmerService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -32,6 +33,12 @@ export class FarmerSelllistComponent {
     this.svc.getFarmerPurchaseDetails(this.farmerId).subscribe((response) => {
       this.purchaseViewModel = response;
       console.log(this.purchaseViewModel);
+    })
+  }
+  getVarities() {
+    this.svc.getAllVarieties().subscribe((response) => {
+      this.varieties = response;
+      console.log(this.varieties);
     })
   }
 
@@ -86,24 +93,24 @@ export class FarmerSelllistComponent {
       console.log(this.filterStartDate)
       console.log(this.filterEndDate)
       filteredPurchases = filteredPurchases.filter(p => {
-        const purchaseDate = new Date(p.purchaseItem.date.slice(0,10)).toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}).split('/').join('-');
+        const purchaseDate = new Date(p.purchaseItem.date.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }).split('/').join('-');
         const [day, month, year] = purchaseDate.split("-")
         const pdate = `${year}-${month}-${day}`;
         return pdate >= this.filterStartDate
-         && pdate <= this.filterEndDate;
+          && pdate <= this.filterEndDate;
       });
     } else if (this.filterStartDate) {
       console.log(this.filterStartDate)
       filteredPurchases = filteredPurchases.filter(p => {
-        const purchaseDate = new Date( p.purchaseItem.date.slice(0,10)).toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}).split('/').join('-');
-       const [day, month, year] = purchaseDate.split("-")
-       const pdate = `${year}-${month}-${day}`;
+        const purchaseDate = new Date(p.purchaseItem.date.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }).split('/').join('-');
+        const [day, month, year] = purchaseDate.split("-")
+        const pdate = `${year}-${month}-${day}`;
         console.log(pdate)
         return pdate >= this.filterStartDate;
       });
     } else if (this.filterEndDate) {
       filteredPurchases = filteredPurchases.filter(p => {
-        const purchaseDate = new Date(p.purchaseItem.date.slice(0,10)).toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}).split('/').join('-');
+        const purchaseDate = new Date(p.purchaseItem.date.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }).split('/').join('-');
         const [day, month, year] = purchaseDate.split("-")
         const pdate = `${year}-${month}-${day}`;
         return pdate <= this.filterEndDate;

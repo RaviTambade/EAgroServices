@@ -15,21 +15,24 @@
             <div class="col-md-12">
               
               <div class="sort-container">
-                <button id="filterBtn" (click)="showFilters = true" style="margin: 6px;">Filters</button>
+                <button id="filterBtn" (click)="showFilters = true " (click)="getVarities()" style="margin: 6px;">Filters</button>
                 <form *ngIf="showFilters" (ngSubmit)="onFilterSubmit()">
                   <label for="startDate">Start Date:</label>
                   <input type="date" id="startDate" name="filterStartDate" [(ngModel)]="filterStartDate " />
                   <label for="endDate">End Date:</label>
                   <input type="date" id="endDate" name="endDate" [(ngModel)]="filterEndDate" />
                   <label for="variety">Variety:</label>
-                  <select id="variety" name="variety" [(ngModel)]="filterVariety">
-                    <option value="">-- Select Variety --</option>
-                    <!-- <option *ngFor="let variety of varieties" [value]="variety">{{ variety }}</option> -->
+                  <select id="variety" name="variety" [(ngModel)]="filterVariety" >
+                    <!-- <option value="" >-- Select Variety --</option> -->
+                    <option *ngFor="let variety of varieties" [value]="variety.varietyName">{{ variety.varietyName }}</option>
                   </select>
                   <label for="grade">Grade:</label>
                   <select id="grade" name="grade" [(ngModel)]="filterGrade">
-                    <option value="">-- Select Grade --</option>
-                    <!-- <option *ngFor="let grade of grades" [value]="grade">{{ grade }}</option> -->
+                    
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
                   </select>
                   <button type="submit">Filter</button>
                   <div class="cancel-button-container">

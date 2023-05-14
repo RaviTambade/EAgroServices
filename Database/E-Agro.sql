@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -330,7 +330,7 @@ INSERT INTO user_roles(user_id,role_id)VALUES(12,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',12);
 INSERT INTO user_roles(user_id,role_id)VALUES(13,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',13);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('potato','/assets/images/potato.jpeg',32);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Onion','/assets/images/onion.jpg',22);
