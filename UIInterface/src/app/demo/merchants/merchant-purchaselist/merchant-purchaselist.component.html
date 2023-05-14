@@ -1,0 +1,44 @@
+<div class="hiddenscroll">
+    <div class="row ">
+      <div class="col-md-2" >
+        <app-merchant-nav-left></app-merchant-nav-left>
+      </div>
+      <div class="col-md-10 center bg-danger" style="background-color: rgb(71, 71, 204);text-align: center;"><h2>Merchants Purchases Records</h2></div></div>
+      <div class="my-card">
+      <div class="row justify-content-center">
+        <div class="col-md-12 ">
+          <div class="card">
+            <div class="card-body">
+              <div class="col-md-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Container Type</th>
+                      <th>Quantity</th>
+                      <th>Grade</th>
+                      <th>Net Weight</th>
+                      <th>Rate/Kg</th>
+                      <th>Total Amount</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let selldetails of sellViewModel">
+                      <td>{{ selldetails.purchaseItem.containerType}}</td>
+                      <td>{{ selldetails.sell.quantity}}</td>
+                      <td>{{ selldetails.purchaseItem.grade}}</td>
+                      <td>{{ selldetails.sell.netWeight}}</td>
+                      <td>{{ selldetails.sell.ratePerKg}}</td>
+                      <td>{{ selldetails.sell.totalAmount}}</td>
+                      <td>{{ selldetails.sell.date |date }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- </div> -->

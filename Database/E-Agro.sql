@@ -1,5 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
-
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -331,7 +330,7 @@ INSERT INTO user_roles(user_id,role_id)VALUES(12,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',12);
 INSERT INTO user_roles(user_id,role_id)VALUES(13,5);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',13);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('potato','/assets/images/potato.jpeg',32);
+INSERT INTO varieties(variety_name,image_url,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Onion','/assets/images/onion.jpg',22);
@@ -518,6 +517,8 @@ FROM transport_trucks
     INNER JOIN sells_billing ON sells.sell_id = sells_billing.sell_id
 WHERE sells.truck_id = 2
 ORDER BY date;
+
+SELECT SUM(sells.total_amount),MONTHNAME(sells.date) AS date FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.sell_id WHERE sells.sell_id=1;
 SELECT * FROM roles;
 SELECT * FROM merchants;
 SELECT * FROM users;
@@ -527,3 +528,5 @@ SELECT * FROM transports;
 SELECT * FROM admins;
 SELECT * FROM varieties;
 SELECT * FROM varieties;
+
+

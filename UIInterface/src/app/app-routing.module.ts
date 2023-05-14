@@ -12,6 +12,7 @@ import { VarietyComponent } from './demo/farmers/variety/variety.component';
 import { MerchantDashboardComponent } from './demo/merchants/merchant-dashboard/merchant-dashboard.component';
 import { MerchantProfileComponent } from './demo/merchants/merchant-profile/merchant-profile.component';
 import { MerchantUpdateComponent } from './demo/merchants/merchant-update/merchant-update.component';
+import { MerchantPurchaselistComponent } from './demo/merchants/merchant-purchaselist/merchant-purchaselist.component';
 
 
 
@@ -75,6 +76,7 @@ const routes: Routes = [
       // { path:':id', component: FarmerDashboardComponent },
       { path:'dashboard/:id', component: MerchantDashboardComponent },
       { path:'profile/:id', component: MerchantProfileComponent },
+      { path:'purchaselist/:id', component: MerchantPurchaselistComponent },
       {path:'update/:id',component:MerchantUpdateComponent}       
     ],
    },

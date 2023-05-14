@@ -37,7 +37,7 @@ export default class LoginComponent {
         const farmerId = this.getFarmerIdFromToken();
         console.log(farmerId);
         this.router.navigate(['farmers/dashboard', farmerId]);
-      }
+      } 
       if (role == "employee") {
         const employeeId = this.getEmployeeIdFromToken();
         console.log(employeeId);
