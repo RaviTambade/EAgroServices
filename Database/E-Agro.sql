@@ -388,7 +388,21 @@ INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, g
 INSERT INTO farmer_purchases_billing (purchase_id,date)
 SELECT purchase_id,date FROM farmer_purchases  order by purchase_id ;
 
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(1,1,1,10,200,15);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-01-03 10:23:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-02-05 09:55:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-03-01 11:23:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-04-06 08:12:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-05-04 04:34:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-06-08 02:55:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-07-12 04:34:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-08-23 09:23:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-09-17 03:45:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-10-19 02:34:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-11-14 09:34:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-12-12 06:56:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-01-11 07:32:00');
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-02-16 08:12:00');
+
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(2,2,2,10,400,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(3,2,1,10,4000,200);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(4,2,2,10,1000,20);

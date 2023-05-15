@@ -12,6 +12,7 @@ public interface ISellRepository
     Task<SellBilling> GetSellBilling(int sellId);
     Task<List<MerchantSell>> GetSellByMerchantId(int merchantId);
     Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId);
+    Task<List<MerchantRevenue>> GetMerchantRevenues(int merchantId);
 
     
 }

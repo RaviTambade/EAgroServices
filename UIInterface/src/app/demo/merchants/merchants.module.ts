@@ -7,6 +7,8 @@ import { MerchantUpdateComponent } from './merchant-update/merchant-update.compo
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MerchantPurchaselistComponent } from './merchant-purchaselist/merchant-purchaselist.component';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { MerchantLogoutComponent } from './merchant-logout/merchant-logout.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -16,11 +18,13 @@ import { MerchantPurchaselistComponent } from './merchant-purchaselist/merchant-
     MerchantProfileComponent,
     MerchantUpdateComponent,
     MerchantPurchaselistComponent,
+    MerchantLogoutComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    GoogleChartsModule
   ]
 })
 export class MerchantsModule { }
