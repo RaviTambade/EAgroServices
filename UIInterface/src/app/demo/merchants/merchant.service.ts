@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tick } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { Farmer } from '../farmers/farmer';
 import { Merchant } from '../pages/authentication/merchant';
+import { Merchantrevenue } from './merchantrevenue';
 import { Sellviewmodel } from './sellviewmodel';
 
 @Injectable({
@@ -25,5 +27,10 @@ export class MerchantService {
   getMerchantHistory(merchantId:any):Observable<any>{
     let url ="http://localhost:5182/api/sells/getmerchantsells/" +merchantId;
     return this.httpClient.get<Sellviewmodel>(url);
+  }
+
+  getMerchantRevenue(merchantId:any):Observable<Merchantrevenue[]>{
+    let url="http://localhost:5182/api/sells/getmerchantrevenue/" +merchantId;
+    return this.httpClient.get<Merchantrevenue[]>(url);
   }
 }

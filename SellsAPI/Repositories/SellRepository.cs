@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -284,6 +286,28 @@ public class SellRepository : ISellRepository
             }
         }
         catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    public async Task<List<MerchantRevenue>> GetMerchantRevenues(int merchantId){
+        try{
+            using(var context=new SellsContext(_configuration)){
+                                   var merchantRevenues=await(from m in context.Merchants
+                                                        join s in context.Sells 
+                                                        on m.MerchantId equals s.MerchantId
+                                                        where s.MerchantId == merchantId
+                                                        group s by s.Date.Month into sellsgroup
+                                                        select new MerchantRevenue()
+                                                        {
+                                                        Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(sellsgroup.Key),
+                                                        TotalAmount = sellsgroup.Sum(s => s.TotalAmount),
+                                                        }).ToListAsync();
+                                                        return merchantRevenues;
+            }
+        }
+          catch (Exception e)   
         {
             throw e;
         }
