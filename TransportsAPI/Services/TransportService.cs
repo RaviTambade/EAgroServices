@@ -31,4 +31,9 @@ public class TransportService : ITransportService
     {
         return await _repository.Delete(transportId);;
     }
+
+    public async Task<List<SellBilling>> TransportHistory(int transportId)
+    {
+        return await _repository.TransportHistory(transportId);
+    }
 }

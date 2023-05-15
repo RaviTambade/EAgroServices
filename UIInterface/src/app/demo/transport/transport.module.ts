@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TransportdashboardComponent } from './transportdashboard/transportdashboard.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { TransportdetailsComponent } from './transportdetails/transportdetails.component';
 
 
 
@@ -13,7 +14,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
   declarations: [
     TransportNavLeftComponent,
     ProfileComponent,
-    TransportdashboardComponent
+    TransportdashboardComponent,
+    TransportdetailsComponent
   ],
   imports: [
     CommonModule,

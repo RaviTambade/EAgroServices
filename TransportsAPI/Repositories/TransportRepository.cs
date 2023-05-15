@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using TransportsAPI.Context;
 using TransportsAPI.Models;
@@ -132,5 +133,33 @@ public class TransportRepository : ITransportRepository
             Console.WriteLine(e);
         }
         return status;
+    }
+
+    public async Task<List<SellBilling>> TransportHistory(int transportId)
+    {
+        try{
+            using(var context =new TransportContext(_configuration)){
+                var transportHistory=await(from transport in context.Transports
+                                           join transportTruck in context.Trucks
+                                           on transport.TransportId equals transportTruck.TransportId
+                                           join sell in context.Sells 
+                                           on transportTruck.TruckId equals sell.TruckId
+                                           join billing in context.Billings
+                                           on sell.SellId equals billing.SellId
+                                           where transport.TransportId==transportId
+                                             select new SellBilling(){ 
+                                                Transports=transport,
+                                                Billing=billing,
+                                                Sell=sell,
+                                                Truck=transportTruck
+                                             }).ToListAsync();
+                                             return transportHistory;
+            }
+
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
     }
 }
