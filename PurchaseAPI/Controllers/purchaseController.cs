@@ -68,8 +68,13 @@ public class PurchaseController : ControllerBase
         return await _service.GetPurchaseByVarietyAndGrade(id, grade.GradeName);
     }
 
-    [HttpGet("farmerselltotalamountbymonth/{id}")]
+    [HttpGet("getfarmerselltotalamountbymonth/{id}")]
     public async Task<List<FarmerSell>> FarmerSellTotalAmountByMonth(int id){
         return await _service.FarmerSellTotalAmountByMonth(id);
     }
+    [HttpGet("getfarmerselltotalamount/{id}")]
+    public async Task<int> GetFarmerSellTotalAmount(int id){
+        return await _service.GetFarmerSellTotalAmount(id);
+    }
+
 }

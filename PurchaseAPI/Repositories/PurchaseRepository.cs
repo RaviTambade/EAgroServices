@@ -323,5 +323,25 @@ public class PurchaseRepository : IPurchaseRepository
             throw e;
         }
     }
+    public async Task<int> GetFarmerSellTotalAmount(int farmerId)
+    {
+        try
+        {
+            using (var context = new PurchaseContext(_configuration)) //Disposal Technique
+            {
+                var amount = await (from billing in context.PurchaseBillings
+                                    join purchase in context.PurchaseItems
+                                    on billing.PurchaseId equals purchase.PurchaseId
+                                    where purchase.FarmerId == farmerId
+                                    group billing by purchase.FarmerId into g
+                                    select g.Sum(bill => bill.TotalAmount)).FirstOrDefaultAsync();
+                return amount;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
 }
 

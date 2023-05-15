@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FarmerDashboardComponent implements OnInit {
   distinctYears: number[];
+  farmerTotalAmount: any;
   changeGraphByYear() {
     console.log(this.selectedYear)
     let newdata = this.farmerRevenue.filter(item => item.year == this.selectedYear);
@@ -45,14 +46,15 @@ export class FarmerDashboardComponent implements OnInit {
   piewidth = 450;
 
   height = 500;
-  pieheight = 140;
+  pieheight = 135;
 
   columnoptions = {
     colors: ['brown'],
   };
 
   pieoptions = {
-    is3D: true
+    is3D: true,
+    backgroundColor: 'lightblue',
   }
 
   donutOptions = {
@@ -66,7 +68,11 @@ export class FarmerDashboardComponent implements OnInit {
       this.farmerId = params.get('id');
     });
     if (this.farmerId != undefined) {
-      this.svc.getFarmerRevenue(this.farmerId).subscribe((response) => {
+
+      this.svc.getFarmerTotalAmont(this.farmerId).subscribe((response) => {
+        this.farmerTotalAmount = response;
+    });
+        this.svc.getFarmerRevenue(this.farmerId).subscribe((response) => {
         this.farmerRevenue = response;
         this.distinctYears = Array.from(new Set(this.farmerRevenue.map(item => item.year)));
         this.selectedYear = (new Date()).getFullYear();

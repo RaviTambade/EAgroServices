@@ -60,4 +60,9 @@ public class PurchaseService : IPurchaseService
     {
         return await _repo.FarmerSellTotalAmountByMonth(farmerId);
     }
+
+    public async Task<int> GetFarmerSellTotalAmount(int farmerId)
+    {
+        return await _repo.GetFarmerSellTotalAmount(farmerId);
+    }
 }
