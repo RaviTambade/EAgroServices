@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FarmersModule } from './demo/farmers/farmers.module';
 import { MerchantsModule } from './demo/merchants/merchants.module';
 import { TransportModule } from './demo/transport/transport.module';
+import { EmployeesModule } from './demo/employees/employees.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { TransportModule } from './demo/transport/transport.module';
     ConfigurationComponent,
     GuestComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,HttpClientModule,FarmersModule,MerchantsModule,TransportModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,HttpClientModule,FarmersModule,MerchantsModule,TransportModule,EmployeesModule],
   providers: [NavigationItem],
   bootstrap: [AppComponent]
 })

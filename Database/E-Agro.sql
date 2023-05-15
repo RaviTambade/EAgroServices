@@ -239,6 +239,7 @@ INT) BEGIN
 	    freight_charges = freightCharges
 	WHERE sells_billing.bill_id = bill_Id;
 END; 
+SELECT * FROM freight_rates;
 
 CREATE PROCEDURE calculate_labour_charges_of_sells(IN bill_Id 
 INT) BEGIN 
@@ -468,12 +469,23 @@ CALL calculate_freight_charges(16);
 
 
 
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
---INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,1);
+-- INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,1);
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
---INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
 INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,4);
---INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,5);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,6);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,7);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,8);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,9);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,10);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,11);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,12);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Mumbai',10,90,13);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,14);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,15);
+INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Mumbai',10,90,16);
 
 
 SELECT * FROM farmer_purchases;
@@ -594,7 +606,7 @@ SELECT * FROM transports;
 SELECT * FROM transport_trucks;
 SELECT * FROM sells;
 SELECT * FROM sells_billing;
- SELECT transports.office_name,transports.first_name,transports.last_name,transport_trucks.truck_number,sells_billing.freight_charges 
+ SELECT transport_trucks.truck_number,sells_billing.freight_charges,sells_billing.`date` 
  from transports INNER JOIN transport_trucks on transports.transport_id=transport_trucks.transport_id
 INNER JOIN sells ON sells.truck_id=transport_trucks.truck_id
 INNER join sells_billing on sells.sell_id=sells_billing.sell_id
