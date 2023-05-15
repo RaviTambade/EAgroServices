@@ -4,7 +4,7 @@
       <div class="card-body shadow">
         <label for="roleSelect">Select Role:</label>
         <select class="form-select" id="roleSelect" [(ngModel)]="selectedRole">
-          <option *ngFor="let role of roles" [value]="role.roleId">{{ role.roleName }}</option>
+          <option *ngFor="let role of roles" [value]="role.roleId">{{ role.roleName |uppercase}}</option>
         </select>
       </div>
     </div>

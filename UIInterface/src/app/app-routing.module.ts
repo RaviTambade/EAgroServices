@@ -23,7 +23,17 @@ import { FarmerLogoutComponent } from './demo/farmers/farmer-logout/farmer-logou
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent,
+    
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./demo/pages/authentication/login/login.component')
+      },
+    ]
+  },
+  {
+    path: '',
+    component:AdminComponent,
     children: [
       {
         path: '',
@@ -36,7 +46,7 @@ const routes: Routes = [
       },
       {
         path: 'default',
-        loadComponent: () => import('./demo/default/default.component')
+        loadComponent: () => import('./demo/pages/authentication/login/login.component')
       },
       {
         path: 'typography',

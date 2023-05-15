@@ -33,8 +33,6 @@ export class ProfileComponent implements OnInit {
     this.status = true;
     this.router.navigate(["farmers/update",this.farmerId]);
   }
-  
-
   }
 
 
