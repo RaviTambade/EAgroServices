@@ -1,10 +1,15 @@
-<app-farmer-nav-left></app-farmer-nav-left>
-<!-- <div style="padding-top: 80px;"> -->
+<div class="hiddenscroll">
+    <div class="row">
+      <div class="col-md-2">
+        <app-farmer-nav-left></app-farmer-nav-left>
+      </div>
+      <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center;;"
+        ><h2 style="margin-top: 22px;color:gold"><b>TODAY'S RATES</b></h2></div
+      ></div
+    >
 <div class="container mt-5" style="margin-left:200px;">
     <div class="row justify-content-center">
-        <h1 class="text-center">Today's Rate</h1>
-        <hr>
-        <br>
+      
         <div class="row row-cols-3 ">
             <div *ngFor="let variety of varieties" class="col">
                 <!-- <div class="card"> -->
