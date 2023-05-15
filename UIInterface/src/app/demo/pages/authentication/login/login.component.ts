@@ -49,9 +49,9 @@ export default class LoginComponent {
         this.router.navigate(['merchants/dashboard', merchantId]);
       }
       if (role == "transport") {
-        const transporttId = this.getTransportIdFromToken();
-        console.log(transporttId);
-        this.router.navigate(['transports', transporttId]);
+        const transportId = this.getTransportIdFromToken();
+        console.log(transportId);
+        this.router.navigate(['transports/dashboard', transportId]);
       }
       if (role == "admin") {
         const adminId = this.getAdminIdFromToken();
