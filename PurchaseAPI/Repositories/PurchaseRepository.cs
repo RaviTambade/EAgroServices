@@ -308,10 +308,11 @@ public class PurchaseRepository : IPurchaseRepository
                                      join purchase in context.PurchaseItems
                                      on billing.PurchaseId equals purchase.PurchaseId
                                      where purchase.FarmerId == farmerId
-                                     group billing by billing.Date.Month into billingGroup
+                                     group billing by new { billing.Date.Year, billing.Date.Month } into billingGroup
                                      select new FarmerSell()
                                      {
-                                         Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(billingGroup.Key),
+                                         Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(billingGroup.Key.Month),
+                                         Year = billingGroup.Key.Year,
                                          TotalAmount = billingGroup.Sum(billing => billing.TotalAmount),
                                      }).ToListAsync();
                 return results;
