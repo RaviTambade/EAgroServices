@@ -14,3 +14,27 @@
     color: #34b4ef;
 
   }
+
+
+  .card-img-zoom {
+    transition: transform 0.2s; /* add a smooth transition effect */
+  }
+  
+  .card-img-zoom:hover {
+    transform: scale(1.05); /* zoom in the image on hover */
+  }
+  
+//   @media screen and (min-width: 768px) and (max-width: 1024px) {
+//     /* adjust the card size when the screen width is between 768px and 1024px */
+//     .card {
+//       width: 80%;
+//     }
+//   }
+  
+//   @media screen and (min-width: 1025px) {
+//     /* adjust the card size when the screen width is greater than 1024px */
+//     .card {
+//       width: 80%;
+//     }
+//   }
+  

@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -322,6 +322,11 @@ INSERT INTO transports(office_name,first_name,last_name,location,user_id)VALUES(
 INSERT INTO user_roles(user_id,role_id)VALUES(10,4);
 INSERT INTO transports(office_name,first_name,last_name,location,user_id)VALUES('Urmila Transport','Shubham','Teli','Chas',10);
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(1, 'MH14RE3456');
+INSERT INTO transport_trucks(transport_id,truck_number)VALUES(1, 'MH14RE3455');
+INSERT INTO transport_trucks(transport_id,truck_number)VALUES(1, 'MH14RE3465');
+INSERT INTO transport_trucks(transport_id,truck_number)VALUES(1, 'MH14RE3476');
+INSERT INTO transport_trucks(transport_id,truck_number)VALUES(2, 'MH14RE3856');
+INSERT INTO transport_trucks(transport_id,truck_number)VALUES(3, 'MH14RE4656');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(2,'MH14RE1234');
 INSERT INTO transport_trucks(transport_id,truck_number)VALUES(3,'MH14RE2345');
 INSERT INTO user_roles(user_id,role_id)VALUES(11,5);
@@ -409,6 +414,18 @@ INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(5,2,1,10,150,20);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(6,2,1,10,200,12);
 INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(7,2,1,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(8,2,1,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(9,2,1,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(10,2,5,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(11,2,5,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(12,2,5,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(13,2,5,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(14,2,6,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(15,2,6,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(16,2,6,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(17,2,7,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(18,2,7,10,200,20);
+INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(19,2,7,10,200,20);
 
 
 SELECT * FROM sells;
@@ -417,8 +434,37 @@ INSERT INTO sells_billing(sell_id)VALUES(4);
 INSERT INTO sells_billing(sell_id)VALUES(5);
 INSERT INTO sells_billing(sell_id)VALUES(6);
 INSERT INTO sells_billing(sell_id)VALUES(7);
+INSERT INTO sells_billing(sell_id)VALUES(8);
+INSERT INTO sells_billing(sell_id)VALUES(9);
+INSERT INTO sells_billing(sell_id)VALUES(10);
+INSERT INTO sells_billing(sell_id)VALUES(11);
+INSERT INTO sells_billing(sell_id)VALUES(12);
+INSERT INTO sells_billing(sell_id)VALUES(13);
+INSERT INTO sells_billing(sell_id)VALUES(14);
+INSERT INTO sells_billing(sell_id)VALUES(15);
+INSERT INTO sells_billing(sell_id)VALUES(16);
+INSERT INTO sells_billing(sell_id)VALUES(17);
+INSERT INTO sells_billing(sell_id)VALUES(18);
+INSERT INTO sells_billing(sell_id)VALUES(19);
+
 SELECT * FROM sells_billing;
 CALL calculate_freight_charges(1);
+CALL calculate_freight_charges(2);
+CALL calculate_freight_charges(3);
+CALL calculate_freight_charges(4);
+CALL calculate_freight_charges(5);
+CALL calculate_freight_charges(6);
+CALL calculate_freight_charges(7);
+CALL calculate_freight_charges(8);
+CALL calculate_freight_charges(10);
+CALL calculate_freight_charges(10);
+CALL calculate_freight_charges(11);
+CALL calculate_freight_charges(12);
+CALL calculate_freight_charges(13);
+CALL calculate_freight_charges(14);
+CALL calculate_freight_charges(15);
+CALL calculate_freight_charges(16);
+
 
 
 
@@ -453,7 +499,7 @@ CALL call_procedures(34);
 SELECT * FROM farmer_purchases_billing;
 
 -- -- CALL calculate_freight_charges(2);
- CALL calculate_freight_charges(4);
+ CALL calculate_freight_charges(3);
 -- CALL calculate_labour_charges_of_sells(1);
 
 
@@ -539,8 +585,20 @@ SELECT * FROM users;
 SELECT * FROM user_roles;
 SELECT * FROM employees;
 SELECT * FROM transports;
+SELECT * FROM transport_trucks;
 SELECT * FROM admins;
 SELECT * FROM varieties;
 SELECT * FROM varieties;
+SELECT * FROM farmer_purchases;
+SELECT * FROM transports;
+SELECT * FROM transport_trucks;
+SELECT * FROM sells;
+SELECT * FROM sells_billing;
+ SELECT transports.office_name,transports.first_name,transports.last_name,transport_trucks.truck_number,sells_billing.freight_charges 
+ from transports INNER JOIN transport_trucks on transports.transport_id=transport_trucks.transport_id
+INNER JOIN sells ON sells.truck_id=transport_trucks.truck_id
+INNER join sells_billing on sells.sell_id=sells_billing.sell_id
+WHERE transports.transport_id=1;
+
 
 

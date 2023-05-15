@@ -13,8 +13,10 @@ import { MerchantDashboardComponent } from './demo/merchants/merchant-dashboard/
 import { MerchantProfileComponent } from './demo/merchants/merchant-profile/merchant-profile.component';
 import { MerchantUpdateComponent } from './demo/merchants/merchant-update/merchant-update.component';
 import { MerchantPurchaselistComponent } from './demo/merchants/merchant-purchaselist/merchant-purchaselist.component';
+import { TransportdashboardComponent } from './demo/transport/transportdashboard/transportdashboard.component';
 import { MerchantLogoutComponent } from './demo/merchants/merchant-logout/merchant-logout.component';
 import { FarmerLogoutComponent } from './demo/farmers/farmer-logout/farmer-logout.component';
+
 
 
 
@@ -82,7 +84,7 @@ const routes: Routes = [
       { path:'profile/:id', component: MerchantProfileComponent },
       { path:'purchaselist/:id', component: MerchantPurchaselistComponent },
       {path:'update/:id',component:MerchantUpdateComponent},
-      {path:'logout/:id',component:MerchantLogoutComponent}       
+      {path:'logout/:id',component:MerchantLogoutComponent},       
 
     ],
    },
@@ -93,6 +95,14 @@ const routes: Routes = [
       { path:'farmerdetails', component:FarmersdetailsComponent },       
     ],
    },
+   {
+    path: 'transports',
+    children:[
+      { path:'dashboard/:id', component: TransportdashboardComponent },
+
+      { path:'profile/:id', component: ProfileComponent },       
+    ],
+  }
   //  {
   //   path: 'merchants/:id',
   //   component: MerchantdashboardComponent,
