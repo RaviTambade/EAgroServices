@@ -21,7 +21,7 @@
                 </a>
               </li>
             <li class="nav-item">
-              <a [routerLink]="['/farmers/variety']" class="nav-link custom-link" routerLinkActive="active">
+              <a [routerLink]="['/farmers/variety',farmerId]" class="nav-link custom-link" routerLinkActive="active">
                 <i class="fas fa-cart-fill"></i>
                 <span class="ml-2">Todays Rate</span>
               </a>
@@ -30,6 +30,12 @@
               <a [routerLink]="['/farmers/selllist',farmerId]" class="nav-link custom-link" routerLinkActive="active">
                 <i class="fas fa-cart-fill"></i>
                 <span class="ml-2">Sell History</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/farmers/logout',farmerId]" class="nav-link custom-link" routerLinkActive="active">
+                <i class="fas fa-cart-fill"></i>
+                <span class="ml-2">Log Out</span>
               </a>
             </li>
           </ul>
