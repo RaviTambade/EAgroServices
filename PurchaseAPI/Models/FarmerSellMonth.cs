@@ -1,5 +1,5 @@
 namespace PurchaseAPI.Models;
-public class FarmerSell
+public class FarmerSellMonth
 {
     public double TotalAmount{get;set;}
     public  string? Month{get;set;}

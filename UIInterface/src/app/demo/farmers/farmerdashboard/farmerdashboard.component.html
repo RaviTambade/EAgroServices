@@ -3,14 +3,14 @@
   <div class="col-md-2">
     <app-farmer-nav-left></app-farmer-nav-left>
   </div>
-  <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center ;"
-    ><h2 style="margin-top: 22px; color: gold"><b>DASHBOARD</b></h2>
+  <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center">
+    <h2 style="margin-top: 22px; color: gold"><b>DASHBOARD</b></h2>
   </div>
 
   <div class="my-card justify-content-start">
     <div class="row">
       <div class="col-md-3">
-        <div class="card  dashnum-card text-white overflow-hidden" style="background-color: rgb(194, 178, 88);">
+        <div class="card dashnum-card text-white overflow-hidden" style="background-color: rgb(219, 202, 109)">
           <span class="round small"></span>
           <span class="round big"></span>
           <div class="card-body">
@@ -21,24 +21,17 @@
                 </div>
               </div>
             </div>
-            <span class="text-white d-block f-34 f-w-500 my-2">{{farmerTotalAmount}} <i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
+            <span class="text-white d-block f-34 f-w-500 my-2"
+              >{{ farmerTotalAmount }} <i class="ti ti-arrow-up-right-circle opacity-50"></i
+            ></span>
             <p class="mb-0 opacity-90"><b>Total Amount</b></p>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card bg-text-white overflow-hidden">
-          <div class="card-body" style="background-color: lightblue;" >
-            <google-chart 
-              title="Monthly Sales"
-              [type]="pieChart"
-              [data]="data"
-              [columns]="columnNames"
-              [width]="piewidth"
-              [height]="pieheight"
-              [options]="pieoptions"
-            >
-            </google-chart>
+          <div class="card-body" style="background-color: rgb(219, 202, 109)">
+            <farmer-pie-chart></farmer-pie-chart>
           </div>
         </div>
       </div>
@@ -49,108 +42,17 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <div class="avtar avtar-lg">
+                <div class="avtar avtar-lg"> </div>
               </div>
+              <span class="text-white d-block f-34 f-w-500 my-2">1350 <i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
+              <p class="mb-0 opacity-50">Total Pending </p>
             </div>
-            <span class="text-white d-block f-34 f-w-500 my-2">1350 <i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
-            <p class="mb-0 opacity-50">Total Pending </p>
           </div>
         </div>
       </div>
+      <div>
+        <farmer-column-chart></farmer-column-chart>
+      </div>
     </div>
-    <div style="position: relative">
-      <google-chart
-        title="Monthly Sales"
-        [type]="columnChart"
-        [data]="data"
-        [columns]="columnNames"
-        [width]="width"
-        [height]="height"
-        [options]="columnoptions"
-      >
-      </google-chart>
-
-      <select
-        class="sort-select"
-        style="position: absolute; top: 40px; right: 350px"
-        [(ngModel)]="selectedYear"
-        (ngModelChange)="changeGraphByYear()"
-      >
-        <option *ngFor="let year of distinctYears" [value]="year">{{ year }}</option>
-      </select>
-    </div>
-
-    <!--
-<div class="col-md-5">
-  <div class="card bg-light">
-      <div class="card-body-center">
-        <div class="card-header text-center"><b>Monthly Sales</b></div>
-  <div class="row">
-      <google-chart
-        title="Donut Chart"
-        [type]="pieChart"
-        [data]="data"
-        [columns]="columnNames"
-        [width]="width"
-        [height]="height"
-        [options]="donutOptions"
-      >
-      </google-chart>
-    </div>
-  </div>  
+  </div>
 </div>
-    </div> 
-    <div class="col-md-5">
-      <div class="card bg-light">
-          <div class="card-body-center">
-            <div class="card-header text-center"><b>Monthly Sales</b></div>
-    <div class="row">
-      <google-chart
-        title="Pie Chart"
-        [type]="pieChart"
-        [data]="data"
-        [columns]="columnNames"
-        [width]="piewidth"
-        [height]="pieheight"
-      >
-      </google-chart>
-    </div>
-    </div>
-  </div>
-  </div>
-  <div class="row">
-      <google-chart
-        title="Line Chart"
-        [type]="lineChart"
-        [data]="data"
-        [columns]="columnNames"
-        [width]="width"
-        [height]="height"
-      >
-      </google-chart>
-    </div>
-    <div class="row">
-      <google-chart
-        title="Area Chart"
-        [type]="areaChart"
-        [data]="data"
-        [columns]="columnNames"
-        [width]="width"
-        [height]="height"
-      >
-      </google-chart>
-    </div>
-    <div class="row">
-    
-        <google-chart
-          title="Bar Chart"
-          [type]="barChart"
-          [data]="data"
-          [columns]="columnNames"
-          [width]="width"
-          [height]="height"
-        >
-        </google-chart>
-      </div> --></div
-  ></div
->

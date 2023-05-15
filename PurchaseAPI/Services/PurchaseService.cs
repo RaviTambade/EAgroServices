@@ -56,7 +56,7 @@ public class PurchaseService : IPurchaseService
         return await _repo.GetPurchaseByVarietyAndGrade(varirtyId,grade);
     }
 
-    public async Task<List<FarmerSell>> FarmerSellTotalAmountByMonth(int farmerId)
+    public async Task<List<FarmerSellMonth>> FarmerSellTotalAmountByMonth(int farmerId)
     {
         return await _repo.FarmerSellTotalAmountByMonth(farmerId);
     }
@@ -64,5 +64,10 @@ public class PurchaseService : IPurchaseService
     public async Task<int> GetFarmerSellTotalAmount(int farmerId)
     {
         return await _repo.GetFarmerSellTotalAmount(farmerId);
+    }
+
+    public async Task<List<FarmerSellVariety>> GetFarmerSellByVariety(int farmerId)
+    {
+       return await _repo.GetFarmerSellByVariety(farmerId);
     }
 }
