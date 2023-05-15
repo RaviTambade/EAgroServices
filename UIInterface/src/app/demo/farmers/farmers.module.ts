@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { FarmerNavLeftComponent } from './farmer-nav-left/farmer-nav-left.component';
 import { FarmerUpdateComponent } from './farmer-update/farmer-update.component';
 import { VarietyComponent } from './variety/variety.component';
+import { FarmerLogoutComponent } from './farmer-logout/farmer-logout.component';
 
 
 
@@ -23,6 +24,7 @@ import { VarietyComponent } from './variety/variety.component';
     FarmerNavLeftComponent,
     FarmerUpdateComponent,
     VarietyComponent,
+    FarmerLogoutComponent,
  
   ],
   imports: [
