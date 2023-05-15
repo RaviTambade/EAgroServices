@@ -139,20 +139,8 @@ Description = Insert the New Admin
 Body
 
 ```console
-{
-    "admin": {
-        "firstName": "Ashok",
-        "lastName": "Chakkar",
-        "location": "Bhavadi"
-    },
-    "user": {
-        "contactNumber": "12457896312",
-        "password": "123456"
-    },
-    "userRole": {
-        "roleId": 1
-    }
-}
+
+
 ```
 <hr>
 
