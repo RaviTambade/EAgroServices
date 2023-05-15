@@ -14,6 +14,8 @@ import { MerchantProfileComponent } from './demo/merchants/merchant-profile/merc
 import { MerchantUpdateComponent } from './demo/merchants/merchant-update/merchant-update.component';
 import { MerchantPurchaselistComponent } from './demo/merchants/merchant-purchaselist/merchant-purchaselist.component';
 import { TransportdashboardComponent } from './demo/transport/transportdashboard/transportdashboard.component';
+import { MerchantLogoutComponent } from './demo/merchants/merchant-logout/merchant-logout.component';
+
 
 
 
@@ -78,7 +80,9 @@ const routes: Routes = [
       { path:'dashboard/:id', component: MerchantDashboardComponent },
       { path:'profile/:id', component: MerchantProfileComponent },
       { path:'purchaselist/:id', component: MerchantPurchaselistComponent },
-      {path:'update/:id',component:MerchantUpdateComponent}       
+      {path:'update/:id',component:MerchantUpdateComponent},
+      {path:'logout/:id',component:MerchantLogoutComponent},       
+
     ],
    },
    {

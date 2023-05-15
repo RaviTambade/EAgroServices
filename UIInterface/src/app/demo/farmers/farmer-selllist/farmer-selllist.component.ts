@@ -14,6 +14,7 @@ export class FarmerSelllistComponent {
   farmer: Farmer | undefined;
   farmerId: string;
   purchaseViewModel: Purchaseviewmodel[];
+  purchaseViewModel1: Purchaseviewmodel[];
   sortBy: string | undefined;
   sortOrder: string | undefined;
   filterStartDate: any;
@@ -32,13 +33,14 @@ export class FarmerSelllistComponent {
 
     this.svc.getFarmerPurchaseDetails(this.farmerId).subscribe((response) => {
       this.purchaseViewModel = response;
+      this.purchaseViewModel1=response;
       console.log(this.purchaseViewModel);
     })
   }
   getVarities() {
     this.svc.getAllVarieties().subscribe((response) => {
       this.varieties = response;
-      console.log(this.varieties);
+      // console.log(this.varieties);
     })
   }
 
@@ -87,7 +89,7 @@ export class FarmerSelllistComponent {
   }
 
   onFilterSubmit() {
-    let filteredPurchases = this.purchaseViewModel;
+    let filteredPurchases = this.purchaseViewModel1;
 
     if (this.filterStartDate && this.filterEndDate) {
       console.log(this.filterStartDate)
@@ -118,6 +120,7 @@ export class FarmerSelllistComponent {
     }
 
     if (this.filterVariety) {
+      console.log(this.filterVariety)
       filteredPurchases = filteredPurchases.filter(p => p.varietyName.toLowerCase().includes(this.filterVariety.toLowerCase()));
     }
 
