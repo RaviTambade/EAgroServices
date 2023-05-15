@@ -10,23 +10,125 @@
 
   }
 
-  .hiddenscroll{
-    // overflow-x: hidden;
-  }
+
   table {
     width: 100%;
     border-collapse: collapse;
-  }
-  .select{
-    text-align: center;
-    overflow: hidden;
-    width: 90px ;
-    border: none;
-    appearance: none;
   }
 
   th, td {
     border: 1px solid black;
     padding: 6px;
     text-align: center;
+  }
+
+  .sort-container {
+    margin: 10 px;
+    display:flex;
+    align-items: center;
+  }
+  
+  .sort-label {
+    margin-right: 1rem;
+  }
+  
+  .sort-select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  
+  .sort-select:hover {
+    border-color: #999;
+  }
+  
+  .sort-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .sort-select option {
+    background-color: #fff;
+    color: #333;
+    font-size: 1rem;
+  }
+  
+  .sort-select option:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  form {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 500px; 
+    height: 400px; 
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  
+  
+  .filters-container.open {
+    display: block;
+  }
+  
+  #filterBtn {
+    background-color: #e60073;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #filterBtn:hover {
+    background-color:#ec3a93;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="date"], select {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button[type="submit"],button[type="reset"]  {
+    background-color: #e60073;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button[type="submit"]:hover {
+    background-color:#ec3a93 ;
+  }
+  
+  .cancel-button-container {
+    float: right;
   }
