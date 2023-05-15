@@ -1,8 +1,12 @@
-
 <div class="row" style="overflow-x: hidden">
-  <div class="col-md-2 w-100">
+  <!-- <div class="row"> -->
+  <div class="col-md-2">
     <app-farmer-nav-left></app-farmer-nav-left>
   </div>
+  <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center ;"
+    ><h2 style="margin-top: 22px; color: gold"><b>DASHBOARD</b></h2>
+  </div>
+
   <div class="my-card justify-content-start">
     <div class="row">
       <div class="col-md-3">
@@ -16,92 +20,67 @@
                   <i class="text-white ti ti-credit-card"></i>
                 </div>
               </div>
-              <div class="col-auto">
-                <div class="btn-group" ngbDropdown>
-                  <a type="button" class="avtar bg-secondary dropdown-toggle arrow-none" data-bs-toggle="dropdown"
-                    ngbDropdownToggle>
-                    <i class="ti ti-dots"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                    <li><button class="dropdown-item" type="button">Import Card</button></li>
-                    <li><button class="dropdown-item" type="button">Export</button></li>
-                  </ul>
-                </div>
-              </div>
             </div>
-            <span class="text-white d-block f-34 f-w-500 my-2">1350 <i
-                class="ti ti-arrow-up-right-circle opacity-50"></i></span>
-            <p class="mb-0 opacity-50">Total Pending Orders</p>
+            <span class="text-white d-block f-34 f-w-500 my-2">1350 <i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
+            <p class="mb-0 opacity-90"><b>Total Amount</b></p>
           </div>
-
         </div>
       </div>
       <div class="col-md-4">
         <div class="card bg-text-white overflow-hidden">
-          <!-- <span class="round small"></span>
-    <span class="round big"></span> -->
           <div class="card-body">
-            <google-chart title="Monthly Sales" [type]="pieChart" [data]="data" [columns]="columnNames"
-              [width]="piewidth" [height]="pieheight" [options]="pieoptions">
+            <google-chart
+              title="Monthly Sales"
+              [type]="pieChart"
+              [data]="data"
+              [columns]="columnNames"
+              [width]="piewidth"
+              [height]="pieheight"
+              [options]="pieoptions"
+            >
             </google-chart>
           </div>
         </div>
       </div>
       <div class="col-md-3">
-      <div class="card bg-secondary-dark dashnum-card text-white overflow-hidden">
-        <span class="round small"></span>
-        <span class="round big"></span>
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <div class="avtar avtar-lg">
-                <i class="text-white ti ti-credit-card"></i>
+        <div class="card bg-secondary-dark dashnum-card text-white overflow-hidden">
+          <span class="round small"></span>
+          <span class="round big"></span>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="avtar avtar-lg">
               </div>
             </div>
-            <div class="col-auto">
-              <div class="btn-group" ngbDropdown>
-                <a type="button" class="avtar bg-secondary dropdown-toggle arrow-none" data-bs-toggle="dropdown"
-                  ngbDropdownToggle>
-                  <i class="ti ti-dots"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                  <li><button class="dropdown-item" type="button">Import Card</button></li>
-                  <li><button class="dropdown-item" type="button">Export</button></li>
-                </ul>
-              </div>
-            </div>
+            <span class="text-white d-block f-34 f-w-500 my-2">1350 <i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
+            <p class="mb-0 opacity-50">Total Pending </p>
           </div>
-          <span class="text-white d-block f-34 f-w-500 my-2">1350 <i
-              class="ti ti-arrow-up-right-circle opacity-50"></i></span>
-          <p class="mb-0 opacity-50">Total Pending Orders</p>
         </div>
-
       </div>
     </div>
-  </div>
+    <div style="position: relative">
+      <google-chart
+        title="Monthly Sales"
+        [type]="columnChart"
+        [data]="data"
+        [columns]="columnNames"
+        [width]="width"
+        [height]="height"
+        [options]="columnoptions"
+      >
+      </google-chart>
 
-      <!-- <div class="my-card">
-        
-         <div class="row justify-content-start">
-          <div class="col-md-9 ">
-            <div class="card-"> -->
-                  <google-chart title="Monthly Sales" [type]="columnChart" [data]="data" [columns]="columnNames"
-                    [width]="width" [height]="height" [options]="columnoptions">
-                    <!-- <div class="card-header text-center"><b>Monthly Sales</b></div> -->
-                  </google-chart>
-                </div>
-              </div>
-            <!-- </div>
-          </div>  
-     </div> -->
-    
-  
-<!-- </div>
-</div> -->
+      <select
+        class="sort-select"
+        style="position: absolute; top: 40px; right: 350px"
+        [(ngModel)]="selectedYear"
+        (ngModelChange)="changeGraphByYear()"
+      >
+        <option *ngFor="let year of distinctYears" [value]="year">{{ year }}</option>
+      </select>
+    </div>
 
-
-
-<!--
+    <!--
 <div class="col-md-5">
   <div class="card bg-light">
       <div class="card-body-center">
@@ -118,7 +97,7 @@
       >
       </google-chart>
     </div>
-  </div>
+  </div>  
 </div>
     </div> 
     <div class="col-md-5">
@@ -172,4 +151,6 @@
           [height]="height"
         >
         </google-chart>
-      </div> -->
+      </div> --></div
+  ></div
+>

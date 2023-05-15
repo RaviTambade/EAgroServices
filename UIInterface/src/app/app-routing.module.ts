@@ -15,6 +15,7 @@ import { MerchantUpdateComponent } from './demo/merchants/merchant-update/mercha
 import { MerchantPurchaselistComponent } from './demo/merchants/merchant-purchaselist/merchant-purchaselist.component';
 import { TransportdashboardComponent } from './demo/transport/transportdashboard/transportdashboard.component';
 import { MerchantLogoutComponent } from './demo/merchants/merchant-logout/merchant-logout.component';
+import { FarmerLogoutComponent } from './demo/farmers/farmer-logout/farmer-logout.component';
 
 
 
@@ -22,7 +23,17 @@ import { MerchantLogoutComponent } from './demo/merchants/merchant-logout/mercha
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent,
+    
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./demo/pages/authentication/login/login.component')
+      },
+    ]
+  },
+  {
+    path: '',
+    component:AdminComponent,
     children: [
       {
         path: '',
@@ -35,7 +46,7 @@ const routes: Routes = [
       },
       {
         path: 'default',
-        loadComponent: () => import('./demo/default/default.component')
+        loadComponent: () => import('./demo/pages/authentication/login/login.component')
       },
       {
         path: 'typography',
@@ -69,8 +80,10 @@ const routes: Routes = [
       { path:'selllist/:id', component: FarmerSelllistComponent },
       { path:'profile/:id', component: ProfileComponent },
       {path:'update/:id',component:FarmerUpdateComponent},
-      {path:'variety',component:VarietyComponent},    
-      {path:'update/:id',component:FarmerUpdateComponent},       
+      {path:'variety/:id',component:VarietyComponent},    
+      {path:'update/:id',component:FarmerUpdateComponent},     
+      {path:'logout/:id',component:FarmerLogoutComponent}       
+
     ],
    },
    {
