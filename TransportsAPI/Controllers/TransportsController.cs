@@ -43,4 +43,10 @@ public class TransportsController : ControllerBase
     {
         return await _service.Delete(id);
     }
+
+    [HttpGet("transporthistory/{id}")]
+    public async Task<List<SellBilling>> TransportHistory(int id)
+    {
+        return await _service.TransportHistory(id);
+    }
 }

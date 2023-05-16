@@ -13,6 +13,8 @@ import { FarmerNavLeftComponent } from './farmer-nav-left/farmer-nav-left.compon
 import { FarmerUpdateComponent } from './farmer-update/farmer-update.component';
 import { VarietyComponent } from './variety/variety.component';
 import { FarmerLogoutComponent } from './farmer-logout/farmer-logout.component';
+import { PieChartComponent } from './farmerdashboard/pie-chart/pie-chart.component';
+import { ColumnChartComponent } from './farmerdashboard/column-chart/column-chart.component';
 
 
 
@@ -25,6 +27,8 @@ import { FarmerLogoutComponent } from './farmer-logout/farmer-logout.component';
     FarmerUpdateComponent,
     VarietyComponent,
     FarmerLogoutComponent,
+    PieChartComponent,
+    ColumnChartComponent,
  
   ],
   imports: [

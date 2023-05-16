@@ -27,6 +27,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
        RouterModule,
        NgbDropdownModule,
        BrowserModule, BsDropdownModule,
+
   ]
 })
 export class EmployeesModule { }

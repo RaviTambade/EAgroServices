@@ -18,4 +18,8 @@ export class TransportService {
     return this.httpClient.put<Transport>(url,transport);
 
   }
+ transportHistory(transportId:any):Observable<any>{
+  let url ="http://localhost:5240/api/Transports/transporthistory/" +transportId;
+  return this.httpClient.get<Transport>(url);
+ }
 }

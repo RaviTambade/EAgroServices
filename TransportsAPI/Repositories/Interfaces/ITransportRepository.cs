@@ -11,4 +11,6 @@ public interface ITransportRepository
     Task<bool> Update(int transportId,Transport transport);
 
     Task<bool> Delete(int transportId);
+
+    Task<List<SellBilling>> TransportHistory(int transportId);
 }
