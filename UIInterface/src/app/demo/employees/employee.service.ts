@@ -60,53 +60,43 @@ export class EmployeeService {
 
   
   sendRole(role:any){
-    let data :any [];
     console.log("service is called")
     switch(role){
     
     case "Admin":{
-      
-      let data= this.getAllAdmin().subscribe((response)=>{
-        console.log(response)
-      });
-      console.log(data)
+      let url="http://localhost:5051/api/admins/getalladmins"
+      this.httpClient.get(url).subscribe((data) => {
       this.subject.next(data);
-      console.log(data)
+    });
     }
     break;
-    // case "Employee":   { 
-    //     let url =" http://localhost:5141/api/farmers/getallfarmers";
-    //     return this.httpClient.get<any>(url);
-      
-    //     this.subject.next(data);
-    //   console.log(data)
-
-    //   }
-    //   break;
-      case "Farmer":
-              {
-                let data :Observable<any>;
-                  let url =" http://localhost:5141/api/farmers/getallfarmers";
-                  data= this.httpClient.get<any[]>(url);
-
-        this.subject.next(data);
-      console.log(data)
-
+    case "Employee":   { 
+        let url =" http://localhost:5265/api/employees/getallemployees";
+        this.httpClient.get(url).subscribe((data) => {
+          this.subject.next(data);
+        });
       }
       break;
-      case "Merchant":      {
-        let data= this.getAllMerchants().subscribe((response)=>{
-          console.log(response);
+      case "Farmer":
+        let url='http://localhost:5141/api/farmers/getallfarmers';
+          this.httpClient.get(url).subscribe((data) => {
+          this.subject.next(data);
         });
+        
+      break;
+      case "Merchant":      {
+        let url='http://localhost:5188/api/merchants/getallmerchants';
+        this.httpClient.get(url).subscribe((data) => {
         this.subject.next(data);
+      });
       }
       break;
       case "Transport":      {
-        let data= this.getAllTransport().subscribe((response)=>{
-          console.log(response);
-        });
+        let url='http://localhost:5240/api/transports/alltransports';
+        this.httpClient.get(url).subscribe((data) => {
         this.subject.next(data);
-      }
+      });
+    }
       break;
 
       default:
