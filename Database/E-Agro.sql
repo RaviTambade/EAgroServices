@@ -394,15 +394,6 @@ INSERT INTO varieties(variety_name,image_url,rate)VALUES('Beans','/assets/images
 INSERT INTO varieties(variety_name,image_url,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
 
 
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(1,1,'bags', 50,'A', 2500, 25, 30,'2023-01-02');
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(1,2 ,'bags', 50,'B', 2500, 25, 30,'2023-02-13');
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES( 2,3 ,'bags', 500,'A', 500, 50, 10,'2023-03-22');
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'bags',1000,'C',50000,1000,12,'2023-04-09');
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,5,'crates',50,'A',1000,100,20,'2023-05-10');
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,6,'bags',30,'A',150,15,15,'2023-05-12');
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'leno_bags',20,'D',200,20,10,'2023-05-23');
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'leno_bags',20,'D',20012,20,10,'2023-06-23');
--- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'leno_bags',20,'D',200,20,10,'2023-06-23');
 
 INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, grade, total_weight, tare_weight, rate_per_kg, date) VALUES 
 (2, 1, 'crates', 50, 'A', 250, 10, 18.5, '2022-01-03 10:00:00'),
@@ -443,105 +434,36 @@ INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, g
 INSERT INTO farmer_purchases_billing (purchase_id,date)
 SELECT purchase_id,date FROM farmer_purchases  order by purchase_id ;
 
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-01-03 10:23:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-02-05 09:55:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-03-01 11:23:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-04-06 08:12:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-05-04 04:34:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-06-08 02:55:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-07-12 04:34:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-08-23 09:23:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-09-17 03:45:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-10-19 02:34:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-11-14 09:34:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-12-12 06:56:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-01-11 07:32:00');
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg,date)VALUES(1,1,1,10,200,15, '2022-02-16 08:12:00');
-
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(2,2,2,10,400,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(3,2,1,10,4000,200);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(4,2,2,10,1000,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(5,2,1,10,150,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(6,2,1,10,200,12);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(7,2,1,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(8,2,1,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(9,2,1,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(10,2,5,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(11,2,5,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(12,2,5,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(13,2,5,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(14,2,6,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(15,2,6,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(16,2,6,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(17,2,7,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(18,2,7,10,200,20);
-INSERT INTO sells(purchase_id,merchant_id,truck_id,quantity,net_weight,rate_per_kg)VALUES(19,2,7,10,200,20);
+INSERT INTO sells(purchase_id, merchant_id, truck_id, quantity, net_weight, rate_per_kg, date)
+SELECT RAND()*(25-1)+1,
+  RAND()*(3-1)+1,
+  RAND()*(8-1)+1,
+  RAND()*(1000-1)+1,
+  RAND()*(1000-1)+1,
+  RAND()*(100-1)+1,
+  DATE_ADD(CURDATE(), INTERVAL RAND()*(13)-1 MONTH)
+FROM information_schema.tables
+ORDER BY RAND()LIMIT 100;
 
 
-SELECT * FROM sells;
--- INSERT INTO farmer_purchases_billing(purchase_id)VALUES(1);
-INSERT INTO sells_billing(sell_id)VALUES(4);
-INSERT INTO sells_billing(sell_id)VALUES(5);
-INSERT INTO sells_billing(sell_id)VALUES(6);
-INSERT INTO sells_billing(sell_id)VALUES(7);
-INSERT INTO sells_billing(sell_id)VALUES(8);
-INSERT INTO sells_billing(sell_id)VALUES(9);
-INSERT INTO sells_billing(sell_id)VALUES(10);
-INSERT INTO sells_billing(sell_id)VALUES(11);
-INSERT INTO sells_billing(sell_id)VALUES(12);
-INSERT INTO sells_billing(sell_id)VALUES(13);
-INSERT INTO sells_billing(sell_id)VALUES(14);
-INSERT INTO sells_billing(sell_id)VALUES(15);
-INSERT INTO sells_billing(sell_id)VALUES(16);
-INSERT INTO sells_billing(sell_id)VALUES(17);
-INSERT INTO sells_billing(sell_id)VALUES(18);
-INSERT INTO sells_billing(sell_id)VALUES(19);
-
-SELECT * FROM sells_billing;
-CALL calculate_freight_charges(1);
-CALL calculate_freight_charges(2);
-CALL calculate_freight_charges(3);
-CALL calculate_freight_charges(4);
-CALL calculate_freight_charges(5);
-CALL calculate_freight_charges(6);
-CALL calculate_freight_charges(7);
-CALL calculate_freight_charges(8);
-CALL calculate_freight_charges(10);
-CALL calculate_freight_charges(10);
-CALL calculate_freight_charges(11);
-CALL calculate_freight_charges(12);
-CALL calculate_freight_charges(13);
-CALL calculate_freight_charges(14);
-CALL calculate_freight_charges(15);
-CALL calculate_freight_charges(16);
+INSERT INTO sells_billing(sell_id)
+SELECT sell_id FROM sells
+ORDER BY RAND() LIMIT 100;
 
 
+INSERT INTO freight_rates(from_destination, to_destination, kilometers, rate_per_km, bill_id)
+SELECT
+  'Bhavadi',
+  'Mumbai',
+  RAND()*(1000-1)+1,
+  RAND()*(10-1)+1,
+  bill_id
+FROM
+  sells_billing
+WHERE
+  bill_id BETWEEN 1 AND 100;
 
 
--- INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',100,40,1);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,1);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,2);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,3);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,4);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,5);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,6);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,7);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,8);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,9);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,10);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,11);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,12);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Mumbai',10,90,13);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,14);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Pune',10,40,15);
-INSERT INTO freight_rates(from_destination,to_destination,kilometers,rate_per_km,bill_id)VALUES('Bhavadi','Mumbai',10,90,16);
-
-
-SELECT * FROM farmer_purchases;
-SELECT * FROM varieties;
--- SELECT * FROM sells_billing;
--- CALL calculate_purchase_labour_charges(1);
--- CALL calculate_purchase_total_amount(1);
 DELIMITER //
 DROP PROCEDURE IF EXISTS call_procedures//
 CREATE PROCEDURE call_procedures(IN records INT)
@@ -557,31 +479,20 @@ DELIMITER ;
 
 CALL call_procedures(34);
 
-SELECT * FROM farmer_purchases_billing;
+DELIMITER //
+DROP PROCEDURE IF EXISTS call_proceduresofsells//
+CREATE PROCEDURE call_proceduresofsells(IN records INT)
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i <= records DO
+    CALL calculate_labour_charges_of_sells(i);
+    CALL calculate_freight_charges(i);
+    SET i = i + 1;
+  END WHILE;
+END//
+DELIMITER ;
+CALL call_proceduresofsells(100);
 
--- -- CALL calculate_freight_charges(2);
- CALL calculate_freight_charges(3);
--- CALL calculate_labour_charges_of_sells(1);
-
-
-SELECT * FROM freight_rates;
-
-SELECT * FROM users;
-SELECT * FROM farmer_purchases;
-SELECT * FROM sells_billing;
-CALL calculate_labour_charges_of_sells(1);
-CALL calculate_labour_charges_of_sells(2);
-CALL calculate_labour_charges_of_sells(3);
-CALL calculate_freight_charges(4);
-
--- SELECT * FROM farmer_purchases;
--- SELECT * FROM farmer_purchases_billing;
-
--- SELECT * FROM farmer_purchases WHERE farmer_id=1;
--- SELECT * from farmers ;
--- SELECT * FROM sells WHERE truck_id=1;
--- SELECT * FROM farmers WHERE farmer_id=1;
--- SELECT * FROM transports ;
 
 -- SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,sells.net_weight,sells.rate_per_kg,sells.total_amount FROM farmers
 -- INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id 
@@ -589,18 +500,6 @@ CALL calculate_freight_charges(4);
 -- INNER JOIN transport_trucks ON sells.truck_id=transport_trucks.truck_id 
 --  WHERE farmers.farmer_id=1;
 
---  SELECT * FROM users;
---  SELECT * FROM user_roles;
---  SELECT * FROM transports;
---  SELECT * FROM roles;
---  SELECT * FROM produce_merchants;
- 
--- SELECT * FROM produce_merchants WHERE user_id=1;
-
--- SELECT * FROM farmer_purchases;
--- SELECT * FROM sells ;
--- SELECT * FROM sells_billing;
--- SELECT * from freight_rates;
 
 
 -- for farmer sell toatal amount
@@ -620,47 +519,29 @@ CALL calculate_freight_charges(4);
 -- inner join farmer_purchases on farmer_purchases.purchase_id=farmer_purchases_billing.purchase_id
 -- inner join varieties on varieties.variety_id=farmer_purchases.variety_id
 -- where farmer_id=2 group by farmer_purchases.variety_id, date(farmer_purchases.date) order by  farmer_purchases.date  ;
-SELECT sells.sell_id,sells.merchant_id,sells_billing.total_charges,freight_rates.id FROM sells INNER JOIN sells_billing ON sells_billing.sell_id=sells.sell_id INNER JOIN freight_rates ON sells_billing.bill_id=freight_rates.bill_id WHERE sells.sell_id=5;
+-- SELECT sells.sell_id,sells.merchant_id,sells_billing.total_charges,freight_rates.id FROM sells INNER JOIN sells_billing ON sells_billing.sell_id=sells.sell_id INNER JOIN freight_rates ON sells_billing.bill_id=freight_rates.bill_id WHERE sells.sell_id=5;
 
 
 --SELECT merchants.merchant_id,SUM(sells.total_amount),MONTHNAME(sells.date) AS month FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.merchant_id WHERE merchants.merchant_id=2 GROUP BY MONTHNAME(sells.date);
 
 
 --day wise freight_charges of a truck
- SELECT
-    transport_trucks.truck_id,
-    DATE(sells.date) AS date,
-    SUM(
-        sells_billing.freight_charges
-    )
-FROM transport_trucks
-    INNER JOIN sells ON transport_trucks.truck_id = sells.truck_id
-    INNER JOIN sells_billing ON sells.sell_id = sells_billing.sell_id
-WHERE sells.truck_id = 2
-ORDER BY date;
+--  SELECT
+--     transport_trucks.truck_id,
+--     DATE(sells.date) AS date,
+--     SUM(
+--         sells_billing.freight_charges
+--     )
+-- FROM transport_trucks
+--     INNER JOIN sells ON transport_trucks.truck_id = sells.truck_id
+--     INNER JOIN sells_billing ON sells.sell_id = sells_billing.sell_id
+-- WHERE sells.truck_id = 2
+-- ORDER BY date;
 
-SELECT SUM(sells.total_amount),MONTHNAME(sells.date) AS date FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.sell_id WHERE sells.sell_id=1;
-SELECT * FROM roles;
-SELECT * FROM merchants;
-SELECT * FROM users;
-SELECT * FROM user_roles;
-SELECT * FROM employees;
-SELECT * FROM transports;
-SELECT * FROM transport_trucks;
-SELECT * FROM admins;
-SELECT * FROM varieties;
-SELECT * FROM varieties;
-SELECT * FROM farmer_purchases;
-SELECT * FROM transports;
-SELECT * FROM transport_trucks;
-SELECT * FROM sells;
-SELECT * FROM sells_billing;
-SELECT * FROM farmers;
- SELECT transport_trucks.truck_number,sells_billing.freight_charges,sells_billing.`date` 
- from transports INNER JOIN transport_trucks on transports.transport_id=transport_trucks.transport_id
-INNER JOIN sells ON sells.truck_id=transport_trucks.truck_id
-INNER join sells_billing on sells.sell_id=sells_billing.sell_id
-WHERE transports.transport_id=1;
+-- SELECT SUM(sells.total_amount),MONTHNAME(sells.date) AS date FROM merchants INNER JOIN sells ON merchants.merchant_id=sells.sell_id WHERE sells.sell_id=1;
 
-
-
+--  SELECT transport_trucks.truck_number,sells_billing.freight_charges,sells_billing.`date` 
+--  from transports INNER JOIN transport_trucks on transports.transport_id=transport_trucks.transport_id
+-- INNER JOIN sells ON sells.truck_id=transport_trucks.truck_id
+-- INNER join sells_billing on sells.sell_id=sells_billing.sell_id
+-- WHERE transports.transport_id=2;
