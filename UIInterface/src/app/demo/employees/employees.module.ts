@@ -6,10 +6,11 @@ import { FarmersListComponent } from './farmers-list/farmers-list.component';
 import { FarmerDetailsComponent } from './farmer-details/farmer-details.component';
 import { RouterModule } from '@angular/router';
 import { EmployeeNavLeftComponent } from './employee-nav-left/employee-nav-left.component';
-import { FarmerDeleteComponent } from './farmers-list/farmer-delete/farmer-delete.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { MerchantsListComponent } from './merchants-list/merchants-list.component';
+import { MerchantDetailsComponent } from './merchant-details/merchant-details.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     EmployeedashboardComponent,
    FarmersListComponent,
    FarmerDetailsComponent,
-   FarmerDeleteComponent
+   MerchantsListComponent,
+   MerchantDetailsComponent
   ],
   imports: [
     CommonModule,

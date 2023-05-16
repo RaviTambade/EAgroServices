@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Farmer } from '../../farmers/farmer';
+import { Employee } from '../../pages/authentication/employee';
 import { EmployeeService } from '../employee.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { EmployeeService } from '../employee.service';
 })
 export class FarmersListComponent implements OnInit{
   farmers:Farmer[] |any;
+
   constructor(private svc:EmployeeService,private router:Router){}
   ngOnInit(): void {
    this.svc.getAllFarmers().subscribe((response)=>{
