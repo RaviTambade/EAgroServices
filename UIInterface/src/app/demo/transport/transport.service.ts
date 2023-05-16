@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Transport } from './transport';
+import { Transportdetails } from './transportdetails';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,6 @@ export class TransportService {
   }
  transportHistory(transportId:any):Observable<any>{
   let url ="http://localhost:5240/api/Transports/transporthistory/" +transportId;
-  return this.httpClient.get<Transport>(url);
+  return this.httpClient.get<Transportdetails[]>(url);
  }
 }

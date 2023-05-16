@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Transport } from '../transport';
-import { TransportService } from '../transport.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TransportService } from '../transport.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-transportprofile',
+  templateUrl: './transportprofile.component.html',
+  styleUrls: ['./transportprofile.component.scss']
 })
-export class ProfileComponent implements OnInit{
- 
-  transport:Transport|any={
+export class TransportprofileComponent {
+  transport: Transport | any = {
     officeName:'',
-    firstName:'',
-    lastName:'',
-    location:''
+    firstName: '',
+    lastName: '',
+    location: ''
   };
   status: boolean = false;
   transportId: string;
+
   constructor(private svc: TransportService, private route: ActivatedRoute,private router:Router) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -31,7 +31,11 @@ export class ProfileComponent implements OnInit{
   }
   onClick() {
     this.status = true;
-    this.router.navigate(["transport/update",this.transportId]);
+    this.router.navigate(["transports/update",this.transportId]);
+  }
   }
 
-}
+
+
+
+

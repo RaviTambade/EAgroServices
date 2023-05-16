@@ -16,6 +16,9 @@ import { MerchantPurchaselistComponent } from './demo/merchants/merchant-purchas
 import { TransportdashboardComponent } from './demo/transport/transportdashboard/transportdashboard.component';
 import { MerchantLogoutComponent } from './demo/merchants/merchant-logout/merchant-logout.component';
 import { FarmerLogoutComponent } from './demo/farmers/farmer-logout/farmer-logout.component';
+import { TransportdetailsComponent } from './demo/transport/transportdetails/transportdetails.component';
+import { TransportprofileComponent } from './demo/transport/transportprofile/transportprofile.component';
+import { TransportupdateComponent } from './demo/transport/transportupdate/transportupdate.component';
 
 
 
@@ -109,8 +112,9 @@ const routes: Routes = [
     path: 'transports',
     children:[
       { path:'dashboard/:id', component: TransportdashboardComponent },
-
-      { path:'profile/:id', component: ProfileComponent },       
+      {path:'update/:id',component:TransportupdateComponent},
+      {path:'details/:id',component:TransportdetailsComponent},
+      {path:'profile/:id',component:TransportprofileComponent},
     ],
   }
   //  {

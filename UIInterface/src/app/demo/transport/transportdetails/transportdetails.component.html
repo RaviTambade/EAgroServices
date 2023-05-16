@@ -1,1 +1,141 @@
-<p>transportdetails works!</p>
+<div class="hiddenscroll">
+    <div class="row">
+        <div class="col-md-2">
+            <app-transport-nav-left></app-transport-nav-left>
+        </div>
+        <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center;">
+            <h2 style="margin-top: 22px;color:gold"><b>TRANSPORT RECORDS</b></h2>
+        </div>
+    </div>
+    <div class="my-card">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12">
+
+                             <!-- <div class="sort-container">
+                  <button id="filterBtn" (click)="showFilters = true " (click)="getVarities()" style="margin: 6px;">Search</button>
+                  <form *ngIf="showFilters" (ngSubmit)="onFilterSubmit()">
+                    <label for="variety">Variety:</label>
+                    <select id="variety" name="variety" [(ngModel)]="filterVariety" >
+                      <option></option>
+                      <option *ngFor="let variety of varieties" [value]="variety.varietyName">{{ variety.varietyName }}</option>
+                    </select>
+                    <label for="grade">Grade:</label>
+                    <select id="grade" name="grade" [(ngModel)]="filterGrade">
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                    </select>  -->
+                            <!-- <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" name="filterStartDate" [(ngModel)]="filterStartDate " />
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" name="endDate" [(ngModel)]="filterEndDate" />
+                    
+                  
+                    <button type="submit">Search</button>
+                    <div class="cancel-button-container">
+                    <button type="reset"(click)="reloadwindow()">Cancel</button>
+                  </div>
+                  </form>
+                  <label class="sort-label">Sort by:</label>
+                  <select class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()"> -->
+                            <!-- <option ></option> -->
+                            <!-- <option value="varietyName">Variety Name</option>
+                    <option value="purchaseItem.containerType">Container Type</option>
+                    <option value="purchaseItem.quantity">Quantity</option>
+                    <option value="purchaseItem.grade">Grade</option>
+                    <option value="purchaseItem.totalWeight">Total Weight</option>
+                    <option value="purchaseItem.tareWeight">Tare Weight</option>
+                    <option value="purchaseItem.netWeight">Net Weight</option>
+                    <option value="purchaseItem.ratePerKg">Rate Per Kg</option>
+                    <option value="purchaseItem.amount">Amount</option>
+                    <option value="purchaseItem.date">Date</option>
+                    <option value="purchaseBilling.labourCharges">Labour Charges</option>
+                    <option value="purchaseBilling.totalAmount">Total Amount</option>
+                    <option value="purchaseBilling.date">Billing Date</option>
+                  </select>
+                  <select class="sort-select" [(ngModel)]="sortOrder" (change)="onSortChange()">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                  </select>
+                </div>
+                <br />
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Variety Name </th>
+                      <th>Container Type</th>
+                      <th>Quantity</th>
+                      <th>Grade</th>
+                      <th>Total Weight</th>
+                      <th>Tare Weight</th>
+                      <th>Net Weight</th>
+                      <th>Rate/Kg</th>
+                      <th>Amount</th>
+                      <th>Date Of Sell</th>
+                      <th>Labour Charges</th>
+                      <th>Total Amount</th>
+                      <th>Date Of Billing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let purchasedetails of purchaseViewModel">
+                      <td>{{ purchasedetails.varietyName }}</td>
+                      <td>{{ purchasedetails.purchaseItem.containerType  }}</td>
+                      <td>{{ purchasedetails.purchaseItem.quantity }}</td>
+                      <td>{{ purchasedetails.purchaseItem.grade }}</td>
+                      <td>{{ purchasedetails.purchaseItem.totalWeight }}</td>
+                      <td>{{ purchasedetails.purchaseItem.tareWeight }}</td>
+                      <td>{{ purchasedetails.purchaseItem.netWeight }}</td>
+                      <td>{{ purchasedetails.purchaseItem.ratePerKg }}</td>
+                      <td>{{ purchasedetails.purchaseItem.amount }}</td>
+                      <td>{{ purchasedetails.purchaseItem.date | date }}</td>
+                      <td>{{ purchasedetails.purchaseBilling.labourCharges }}</td>
+                      <td>{{ purchasedetails.purchaseBilling.totalAmount }}</td>
+                      <td>{{ purchasedetails.purchaseBilling.date | date }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   -->
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Truck Number </th>
+                                        <th>From Destination</th>
+                                        <th>To Destination</th>
+                                        <th>Kilomiters</th>
+                                        <th>Rate/Kilomiters</th>
+                                        <th>Frieght Charges</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let transportdetails of transports">
+                                        <td>{{ transportdetails.trucks.truckNumber }}</td>
+                                        <td>{{ transportdetails.frieghtRate.fromDestination }}</td>
+                                        <td>{{ transportdetails.freightRate.toDestination }}</td>
+                                        <td>{{ transportdetails.freightRate.kilomiters }}</td>
+                                        <td>{{ transportdetails.freightRate.ratePerKilometers }}</td>
+                                        <td>{{ transportdetails.sellBilling.freightCharge }}</td>
+                                        <td>{{ transportdetails.sellBilling.freightCharge }}</td>
+                                        <td>{{ transportdetails.purchaseItem.date }}</td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

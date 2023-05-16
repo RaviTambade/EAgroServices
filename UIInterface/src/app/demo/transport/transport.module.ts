@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TransportNavLeftComponent } from './transport-nav-left/transport-nav-left.component';
-import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TransportdashboardComponent } from './transportdashboard/transportdashboard.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { TransportdetailsComponent } from './transportdetails/transportdetails.component';
+import { TransportprofileComponent } from './transportprofile/transportprofile.component';
+import { TransportupdateComponent } from './transportupdate/transportupdate.component';
 
 
 
 @NgModule({
   declarations: [
     TransportNavLeftComponent,
-    ProfileComponent,
     TransportdashboardComponent,
-    TransportdetailsComponent
+    TransportdetailsComponent,
+    TransportprofileComponent,
+    TransportupdateComponent
   ],
   imports: [
     CommonModule,
