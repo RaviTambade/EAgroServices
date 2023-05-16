@@ -13,8 +13,10 @@ public interface IPurchaseRepository
     Task<List<PurchaseViewModel>> GetFarmerPurchaseDetails(int farmerId);
     Task<List<PurchaseViewModel>> GetPurchaseByVariety(int varietyId);
     Task<List<PurchaseViewModel>> GetPurchaseByGrade(string grade);
-    Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int varirtyId,string grade);
-     Task<List<FarmerSell>> FarmerSellTotalAmountByMonth(int farmerId);
-
+    Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int varirtyId, string grade);
+    Task<List<FarmerSellMonth>> FarmerSellTotalAmountByMonth(int farmerId);
+    Task<int> GetFarmerSellTotalAmount(int farmerId);
+    Task<List<FarmerSellVariety>> GetFarmerSellByVariety(int farmerId);
+    Task<List<FarmerOrder>> GetFarmerOrdersPerMonth(int farmerId);
 
 }

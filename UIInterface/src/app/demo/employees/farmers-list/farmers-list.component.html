@@ -1,0 +1,27 @@
+<div class="hiddenscroll">
+  <div class="row">
+    <div class="col-md-2">
+      <app-employee-nav-left></app-employee-nav-left>
+    </div>
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Your Profile Details</h5>
+<!-- <div class="container mt-3" style="margin-left:;">          -->
+<table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Farmer Names</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let farmer of farmers">
+        <tr>
+          <td (click)="onSelect(farmer)">{{farmer.firstName}} {{farmer.lastName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  

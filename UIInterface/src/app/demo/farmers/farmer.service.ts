@@ -5,6 +5,7 @@ import { Farmer } from './farmer';
 import { Farmersell } from './farmersell';
 import { Purchaseviewmodel } from './purchaseviewmodel';
 import { Variety } from './variety';
+import { Farmersellvariety } from './farmersellvariety';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class FarmerService {
     return this.httpClient.get<Farmer>(url);
   }
   getFarmerRevenue(farmerId:string):Observable<any>{
-    let url =" http://localhost:5171/api/purchase/farmerselltotalamountbymonth/" +farmerId;
+    let url =" http://localhost:5171/api/purchase/getfarmerselltotalamountbymonth/" +farmerId;
     return this.httpClient.get<Farmersell[]>(url);
   }
   updateFarmerDetails(farmerId:any,farmer:Farmer):Observable<any>{
@@ -30,6 +31,19 @@ export class FarmerService {
   getAllVarieties():Observable<any>{
     let url = "http://localhost:5224/api/Variety/getall";
     return this.httpClient.get<Variety[]>(url);
+  }
+  getFarmerTotalAmont(farmerId:any):Observable<any>{
+    let url = "http://localhost:5171/api/purchase/getfarmerselltotalamount/"+farmerId;
+    return this.httpClient.get<number>(url);
+  }
+
+  getFarmerSellByVariety(farmerId:any):Observable<any>{
+    let url = "http://localhost:5171/api/purchase/getfarmersellbyvariety/"+farmerId;
+    return this.httpClient.get<Farmersellvariety[]>(url);
+  }
+  getFarmerOrdersPerMonth(farmerId:any):Observable<any>{
+    let url = "http://localhost:5171/api/purchase/getfarmerorderspermonth/"+farmerId;
+    return this.httpClient.get<Farmersellvariety[]>(url);
   }
 
 }

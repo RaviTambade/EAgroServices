@@ -1,0 +1,21 @@
+.sort-select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s; 
+
+  }
+  
+  .sort-select:hover {
+    border-color: #999;
+    transform: scale(1.02);
+  }
+  
+  .sort-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }

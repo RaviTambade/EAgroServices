@@ -1,0 +1,23 @@
+<div class="container">
+<div style="position: relative;">
+    <google-chart
+      title="Order Count of Year"
+      [type]="areaChart"
+      [data]="data"
+      [columns]="columnNames"
+      [width]="width"
+      [height]="height"
+      [options]="options"
+    >
+    </google-chart> 
+    
+    <select
+      class="sort-select"
+      style="position: absolute; top: 0px;right: 350px; background-color: silver; "
+      [(ngModel)]="selectedYear"
+      (ngModelChange)="changeGraphByYear()"
+    >
+      <option *ngFor="let year of distinctYears" [value]="year">{{ year }}</option>
+    </select>
+  </div>
+</div>
