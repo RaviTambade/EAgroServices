@@ -9,8 +9,8 @@
 
   <div class="my-card justify-content-start">
     <div class="row">
-      <div class="col-md-3">
-        <div class="card dashnum-card text-white overflow-hidden" style="background-color: rgb(219, 202, 109)">
+      <div class="col-md-2">
+        <div class="card dashnum-card text-bg-dark overflow-hidden" >
           <span class="round small"></span>
           <span class="round big"></span>
           <div class="card-body">
@@ -24,30 +24,22 @@
             <span class="text-white d-block f-34 f-w-500 my-2"
               >{{ farmerTotalAmount }} <i class="ti ti-arrow-up-right-circle opacity-50"></i
             ></span>
-            <p class="mb-0 opacity-90"><b>Total Amount</b></p>
+            <p class="mb-0 "><b>Total Amount</b></p>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card bg-text-white overflow-hidden">
-          <div class="card-body" style="background-color: rgb(219, 202, 109)">
+        <div class="card text-bg-dark overflow-hidden">
+          <div class="card-body " style="background-color: rgb(219, 202, 109)">
             <farmer-pie-chart></farmer-pie-chart>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card bg-secondary-dark dashnum-card text-white overflow-hidden">
-          <span class="round small"></span>
-          <span class="round big"></span>
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <div class="avtar avtar-lg"> </div>
-              </div>
-              <span class="text-white d-block f-34 f-w-500 my-2">1350 <i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
-              <p class="mb-0 opacity-50">Total Pending </p>
-            </div>
-          </div>
+      <div class="col-md-4">
+        <div class="card dashnum-card overflow-hidden"  >
+          <div class="card-body " style="background-color: silver">
+          <app-line-chart></app-line-chart>
+        </div>
         </div>
       </div>
       <div>

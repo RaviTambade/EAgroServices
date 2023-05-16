@@ -69,18 +69,26 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpGet("getfarmerselltotalamountbymonth/{id}")]
-    public async Task<List<FarmerSellMonth>> FarmerSellTotalAmountByMonth(int id){
+    public async Task<List<FarmerSellMonth>> FarmerSellTotalAmountByMonth(int id)
+    {
         return await _service.FarmerSellTotalAmountByMonth(id);
     }
     [HttpGet("getfarmerselltotalamount/{id}")]
-    public async Task<int> GetFarmerSellTotalAmount(int id){
+    public async Task<int> GetFarmerSellTotalAmount(int id)
+    {
         return await _service.GetFarmerSellTotalAmount(id);
     }
 
     [HttpGet("getfarmersellbyvariety/{id}")]
-    public async Task<List<FarmerSellVariety>> GetFarmerSellByVariety(int id){
+    public async Task<List<FarmerSellVariety>> GetFarmerSellByVariety(int id)
+    {
         return await _service.GetFarmerSellByVariety(id);
     }
 
+    [HttpGet("getfarmerorderspermonth/{id}")]
+    public async Task<List<FarmerOrder>> GetFarmerOrdersPerMonth(int id)
+    {
+        return await _service.GetFarmerOrdersPerMonth(id);
+    }
 
 }

@@ -1,21 +1,23 @@
-<div style="position: relative">
+<div class="container">
+<div style="position: relative;">
     <google-chart
-      title="Variety Sales of Year"
-      [type]="pieChart"
+      title="Order Count of Year"
+      [type]="areaChart"
       [data]="data"
       [columns]="columnNames"
-      [width]="pieWidth"
-      [height]="pieHeight"
-      [options]="pieOptions"
+      [width]="width"
+      [height]="height"
+      [options]="options"
     >
     </google-chart> 
     
     <select
       class="sort-select"
-      style="position: absolute; top: 10px;right: 0px; background-color: rgb(219, 202, 109); "
+      style="position: absolute; top: 0px;right: 350px; background-color: silver; "
       [(ngModel)]="selectedYear"
       (ngModelChange)="changeGraphByYear()"
     >
       <option *ngFor="let year of distinctYears" [value]="year">{{ year }}</option>
     </select>
   </div>
+</div>

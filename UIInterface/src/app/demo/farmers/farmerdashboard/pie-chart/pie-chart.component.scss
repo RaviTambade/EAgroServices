@@ -5,10 +5,13 @@
     font-size: 1rem;
     margin-right: 1rem;
     cursor: pointer;
+    transition: transform 0.2s; 
+
   }
   
   .sort-select:hover {
     border-color: #999;
+    transform: scale(1.02);
   }
   
   .sort-select:focus {

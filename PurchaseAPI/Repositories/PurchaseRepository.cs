@@ -371,5 +371,31 @@ public class PurchaseRepository : IPurchaseRepository
             throw e;
         }
     }
+
+    public async Task<List<FarmerOrder>> GetFarmerOrdersPerMonth(int farmerId)
+    {
+        try
+        {
+            using (var context = new PurchaseContext(_configuration)) 
+            {
+                var farmerOrdersCount = await (from purchase in context.PurchaseItems
+                                    where purchase.FarmerId == farmerId
+                                    group purchase by new { purchase.Date.Year, purchase.Date.Month } into billingGroup
+                                    select new FarmerOrder()
+                                    {
+                                        Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(billingGroup.Key.Month),
+                                        Year = billingGroup.Key.Year,
+                                        OrderCount = billingGroup.Count()
+                                    }).ToListAsync();
+
+                return farmerOrdersCount;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
 }
 

@@ -15,6 +15,7 @@ import { VarietyComponent } from './variety/variety.component';
 import { FarmerLogoutComponent } from './farmer-logout/farmer-logout.component';
 import { PieChartComponent } from './farmerdashboard/pie-chart/pie-chart.component';
 import { ColumnChartComponent } from './farmerdashboard/column-chart/column-chart.component';
+import { AreaChartComponent } from './farmerdashboard/area-chart/area-chart.component';
 
 
 
@@ -29,6 +30,7 @@ import { ColumnChartComponent } from './farmerdashboard/column-chart/column-char
     FarmerLogoutComponent,
     PieChartComponent,
     ColumnChartComponent,
+    AreaChartComponent,
  
   ],
   imports: [

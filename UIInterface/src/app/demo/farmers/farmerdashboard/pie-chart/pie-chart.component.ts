@@ -60,6 +60,7 @@ export class PieChartComponent {
 
 
   changeGraphByYear() {
+
     let newdata = this.farmerDataByvariety.filter(item => item.year == this.selectedYear);
     this.data = []
     for (let row in newdata) {
