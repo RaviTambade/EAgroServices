@@ -22,7 +22,6 @@ export class FarmerSelllistComponent {
   filterVariety: any;
   filterGrade: any;
   showFilters: boolean = false;
-  filteredPurchases: Purchaseviewmodel[];
   varieties: any;
   constructor(private svc: FarmerService, private route: ActivatedRoute) { }
   ngOnInit(): void {
@@ -45,29 +44,33 @@ export class FarmerSelllistComponent {
   }
 
   reloadwindow() {
+    // this.showFilters = false;
     window.location.reload();
   }
 
   onSortChange() {
     console.log(this.sortBy)
     console.log(this.sortOrder)
+    if(this.sortOrder!=undefined)
     this.purchaseViewModel = this.sortObjectsByProperty(this.purchaseViewModel, this.sortBy, this.sortOrder);
   }
 
 
-  sortObjectsByProperty(objects: any[], property: string, sortOrder: string) {
+  sortObjectsByProperty(objects: Purchaseviewmodel[], property: string, sortOrder: string) {
     const sortedObjects = objects.slice();
 
     sortedObjects.sort((a, b) => {
       let aValue = a[property];
       let bValue = b[property];
 
-
+      
       if (property.includes('.')) {
         const nestedProperties = property.split('.');
 
         aValue = a;
         bValue = b;
+      console.log(aValue)
+
 
         for (const nestedProperty of nestedProperties) {
           aValue = aValue[nestedProperty];
@@ -92,8 +95,6 @@ export class FarmerSelllistComponent {
     let filteredPurchases = this.purchaseViewModel1;
 
     if (this.filterStartDate && this.filterEndDate) {
-      console.log(this.filterStartDate)
-      console.log(this.filterEndDate)
       filteredPurchases = filteredPurchases.filter(p => {
         const purchaseDate = new Date(p.purchaseItem.date.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }).split('/').join('-');
         const [day, month, year] = purchaseDate.split("-")
@@ -102,12 +103,10 @@ export class FarmerSelllistComponent {
           && pdate <= this.filterEndDate;
       });
     } else if (this.filterStartDate) {
-      console.log(this.filterStartDate)
       filteredPurchases = filteredPurchases.filter(p => {
         const purchaseDate = new Date(p.purchaseItem.date.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }).split('/').join('-');
         const [day, month, year] = purchaseDate.split("-")
         const pdate = `${year}-${month}-${day}`;
-        console.log(pdate)
         return pdate >= this.filterStartDate;
       });
     } else if (this.filterEndDate) {

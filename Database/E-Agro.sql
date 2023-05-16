@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -404,7 +404,7 @@ INSERT INTO varieties(variety_name,image_url,rate)VALUES('Brinjal','/assets/imag
 -- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'leno_bags',20,'D',20012,20,10,'2023-06-23');
 -- INSERT INTO farmer_purchases(farmer_id,variety_id,container_type,quantity,grade,total_weight,tare_weight,rate_per_kg,date)VALUES(2,4,'leno_bags',20,'D',200,20,10,'2023-06-23');
 
-INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, grade, total_weight, tare_weight, rate_per_kg, date) VALUES
+INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, grade, total_weight, tare_weight, rate_per_kg, date) VALUES 
 (2, 1, 'crates', 50, 'A', 250, 10, 18.5, '2022-01-03 10:00:00'),
 (2, 2, 'bags', 40, 'B', 200, 8, 20, '2022-01-05 13:30:00'),
 (2, 3, 'leno_bags', 120, 'C', 600, 24, 19.5, '2022-02-02 09:45:00'),

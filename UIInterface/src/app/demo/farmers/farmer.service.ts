@@ -41,5 +41,9 @@ export class FarmerService {
     let url = "http://localhost:5171/api/purchase/getfarmersellbyvariety/"+farmerId;
     return this.httpClient.get<Farmersellvariety[]>(url);
   }
+  getFarmerOrdersPerMonth(farmerId:any):Observable<any>{
+    let url = "http://localhost:5171/api/purchase/getfarmerorderspermonth/"+farmerId;
+    return this.httpClient.get<Farmersellvariety[]>(url);
+  }
 
 }
