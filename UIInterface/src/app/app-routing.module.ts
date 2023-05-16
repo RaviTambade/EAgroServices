@@ -17,6 +17,9 @@ import { MerchantLogoutComponent } from './demo/merchants/merchant-logout/mercha
 import { FarmerLogoutComponent } from './demo/farmers/farmer-logout/farmer-logout.component';
 import { FarmersListComponent } from './demo/employees/farmers-list/farmers-list.component';
 import { FarmerDetailsComponent } from './demo/employees/farmer-details/farmer-details.component';
+import { MerchantsListComponent } from './demo/employees/merchants-list/merchants-list.component';
+import { MerchantDetailsComponent } from './demo/employees/merchant-details/merchant-details.component';
+
 
 
 
@@ -104,7 +107,11 @@ const routes: Routes = [
     children:[
       { path:'dashboard/:id', component:EmployeedashboardComponent  },
        { path:'farmerlist/:id', component:FarmersListComponent },  
-       { path:'farmerdetails/:id',component: FarmerDetailsComponent },       
+       { path:'farmerdetails/:id',component: FarmerDetailsComponent },   
+       { path:'merchantlist/:id',component: MerchantsListComponent },  
+       { path:'merchantdetails/:id',component: MerchantDetailsComponent },       
+
+
 
     ],
    },

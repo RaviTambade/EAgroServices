@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FarmerDeleteComponent } from './farmer-delete.component';
+import { MerchantsListComponent } from './merchants-list.component';
 
-describe('FarmerDeleteComponent', () => {
-  let component: FarmerDeleteComponent;
-  let fixture: ComponentFixture<FarmerDeleteComponent>;
+describe('MerchantsListComponent', () => {
+  let component: MerchantsListComponent;
+  let fixture: ComponentFixture<MerchantsListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FarmerDeleteComponent ]
+      declarations: [ MerchantsListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FarmerDeleteComponent);
+    fixture = TestBed.createComponent(MerchantsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

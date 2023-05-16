@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Farmer } from '../farmer';
 import { FarmerService } from '../farmer.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -10,11 +10,7 @@ import { window } from 'rxjs';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  farmer: Farmer | any = {
-    firstName: '',
-    lastName: '',
-    location: ''
-  };
+ @Input() farmer: Farmer | any ;
   status: boolean = false;
   farmerId: string;
 
