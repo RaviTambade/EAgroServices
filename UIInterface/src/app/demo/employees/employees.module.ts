@@ -11,6 +11,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MerchantsListComponent } from './merchants-list/merchants-list.component';
 import { MerchantDetailsComponent } from './merchant-details/merchant-details.component';
+import { ListComponent } from './list/list.component';
+import { DetailsComponent } from './details/details.component';
+
 
 
 @NgModule({
@@ -21,7 +24,9 @@ import { MerchantDetailsComponent } from './merchant-details/merchant-details.co
    FarmersListComponent,
    FarmerDetailsComponent,
    MerchantsListComponent,
-   MerchantDetailsComponent
+   MerchantDetailsComponent,
+   ListComponent,
+   DetailsComponent,
   ],
   imports: [
     CommonModule,

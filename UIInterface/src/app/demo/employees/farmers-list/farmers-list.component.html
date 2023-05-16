@@ -8,7 +8,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Your Profile Details</h5>
+     
 <!-- <div class="container mt-3" style="margin-left:;">          -->
 <table class="table table-striped">
       <thead>
@@ -25,3 +25,17 @@
   </div>
 </div>
   
+
+<!-- <tbody>
+  <ng-container *ngFor="let farmer of farmers">
+    <tr>
+      <td (click)="farmer.showDetails = !farmer.showDetails">{{farmer.firstName}} {{farmer.lastName}}
+      </td>
+    </tr>
+    <tr *ngIf="farmer.showDetails">
+      <td colspan="2">
+        <app-farmer-details [farmer]="farmer"></app-farmer-details>
+      </td>
+    </tr>
+  </ng-container>
+</tbody> -->

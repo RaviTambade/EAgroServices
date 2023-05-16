@@ -1,0 +1,32 @@
+<!-- <div>
+    <ul class="nav flex-column">
+      <li class="nav-item" ngbDropdown>
+        <a class="nav-link dropdown-toggle nav-link custom-link"  role="button" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+          Select Role
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" ngbDropdownMenu>
+          <li ngbDropdownItem>
+            <a class="nav-link custom-link"  ngbDropdownItem>
+              <i class="fas fa-cart-fill"></i>
+              <span class="ml-2">farmer</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link"  class="dropdown-item" ngbDropdownItem>
+              <i class="fas fa-cart-fill"></i>
+              <span class="ml-2">Merchant </span>
+            </a>
+          </li>
+        </ul>
+    </ul>
+  </div> -->
+
+  <select [(ngModel)]="selectedRole" (ngModelChange)="onSelect()">
+  <option value="Admin">Admin</option>
+  <option value="Employee">Employee</option>
+  <option value="Farmer">Farmer</option>
+  <option value="Merchant">Merchant</option>
+  <option value="Transport">Transport</option>
+</select>
+  <br/>
+<app-details></app-details>

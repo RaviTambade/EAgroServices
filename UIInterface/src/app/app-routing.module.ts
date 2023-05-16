@@ -19,6 +19,7 @@ import { FarmersListComponent } from './demo/employees/farmers-list/farmers-list
 import { FarmerDetailsComponent } from './demo/employees/farmer-details/farmer-details.component';
 import { MerchantsListComponent } from './demo/employees/merchants-list/merchants-list.component';
 import { MerchantDetailsComponent } from './demo/employees/merchant-details/merchant-details.component';
+import { ListComponent } from './demo/employees/list/list.component';
 
 
 
@@ -109,7 +110,9 @@ const routes: Routes = [
        { path:'farmerlist/:id', component:FarmersListComponent },  
        { path:'farmerdetails/:id',component: FarmerDetailsComponent },   
        { path:'merchantlist/:id',component: MerchantsListComponent },  
-       { path:'merchantdetails/:id',component: MerchantDetailsComponent },       
+       { path:'merchantdetails/:id',component: MerchantDetailsComponent }, 
+       { path:'list/:id',component: ListComponent },       
+
 
 
 

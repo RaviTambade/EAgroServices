@@ -10,7 +10,8 @@ import { FarmerService } from '../../farmers/farmer.service';
   styleUrls: ['./farmer-details.component.scss']
 })
 export class FarmerDetailsComponent implements OnInit{
-  @Input() farmer:Farmer |any;
+ //  @Input() selectedUser: any;
+  @Input() farmer: |any;
   farmerId:string ;
   constructor(private route:ActivatedRoute,private svc:FarmerService){}
 
@@ -24,3 +25,4 @@ ngOnInit(): void {
   })
 }
 }
+
