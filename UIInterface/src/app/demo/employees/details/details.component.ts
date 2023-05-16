@@ -19,11 +19,13 @@ transport:Transport|any;
 admin:Admin |any;
   
   data:any[];
+  role: any;
   constructor(private svc:EmployeeService){}
   ngOnInit(): void {
     this.svc.getData().subscribe((response)=>{
-      // this.data=response
-      this.farmers=response
+      this.role=response.role
+      this.data=response.data
+      console.log(this.role)
       console.log(response)
     })
     }

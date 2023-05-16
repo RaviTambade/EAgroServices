@@ -7,104 +7,104 @@ import { Farmer } from '../farmers/farmer';
   providedIn: 'root'
 })
 export class EmployeeService {
-  private subject=new Subject<any>();
-// roles:any [] =[{
-//   "roleName":"Admin",
-//   "firstName":"Sahil"
-// },
-// {
-//   "roleName":"Employee",
-//   "firstName":"Shubham"
-// },
-// {
-//   "roleName":"Merchant",
-//   "firstName":"Jayesh"
-// },
-// {
-//   "roleName":"Transport",
-//   "firstName":"Rajesh"
-// },
-// {
-//   "roleName":"Farmer",
-//   "firstName":"Tejas"
-// }
-// ]
+  private subject = new Subject<any>();
+  // roles:any [] =[{
+  //   "roleName":"Admin",
+  //   "firstName":"Sahil"
+  // },
+  // {
+  //   "roleName":"Employee",
+  //   "firstName":"Shubham"
+  // },
+  // {
+  //   "roleName":"Merchant",
+  //   "firstName":"Jayesh"
+  // },
+  // {
+  //   "roleName":"Transport",
+  //   "firstName":"Rajesh"
+  // },
+  // {
+  //   "roleName":"Farmer",
+  //   "firstName":"Tejas"
+  // }
+  // ]
 
-  constructor(private httpClient:HttpClient) { }
-  getAllFarmers():Observable<any>{
-    let url =" http://localhost:5141/api/farmers/getallfarmers";
+  constructor(private httpClient: HttpClient) { }
+  getAllFarmers(): Observable<any> {
+    let url = " http://localhost:5141/api/farmers/getallfarmers";
     return this.httpClient.get<any>(url);
   }
-  updateFarmer(farmerId:any,farmer:Farmer):Observable<any>{
-    let url =" http://localhost:5141/api/farmers/update/" +farmerId;
-    return this.httpClient.put<Farmer>(url,farmer);
+  updateFarmer(farmerId: any, farmer: Farmer): Observable<any> {
+    let url = " http://localhost:5141/api/farmers/update/" + farmerId;
+    return this.httpClient.put<Farmer>(url, farmer);
   }
-  getAllMerchants():Observable<any>{
-    let url=" http://localhost:5188/api/merchants/getallmerchants";
-    return this.httpClient.get<any>(url);
-  }
-
-  getAllTransport():Observable<any>{
-    let url="http://localhost:5240/api/transports/getalltransports" ;
+  getAllMerchants(): Observable<any> {
+    let url = " http://localhost:5188/api/merchants/getallmerchants";
     return this.httpClient.get<any>(url);
   }
 
-  getAllEmployee():Observable<any>{
-    let url="http://localhost:5265/api/employees/getallemployees" ;
-    return this.httpClient.get<any>(url);
-  }
-  getAllAdmin():Observable<any>{
-    let url="http://localhost:5051/api/admins/getalladmins" ;
+  getAllTransport(): Observable<any> {
+    let url = "http://localhost:5240/api/transports/getalltransports";
     return this.httpClient.get<any>(url);
   }
 
-  
-  sendRole(role:any){
+  getAllEmployee(): Observable<any> {
+    let url = "http://localhost:5265/api/employees/getallemployees";
+    return this.httpClient.get<any>(url);
+  }
+  getAllAdmin(): Observable<any> {
+    let url = "http://localhost:5051/api/admins/getalladmins";
+    return this.httpClient.get<any>(url);
+  }
+
+
+  sendRole(role: any) {
     console.log("service is called")
-    switch(role){
-    
-    case "Admin":{
-      let url="http://localhost:5051/api/admins/getalladmins"
-      this.httpClient.get(url).subscribe((data) => {
-      this.subject.next(data);
-    });
-    }
-    break;
-    case "Employee":   { 
-        let url =" http://localhost:5265/api/employees/getallemployees";
+    switch (role) {
+
+      case "Admin": {
+        let url = "http://localhost:5051/api/admins/getalladmins"
         this.httpClient.get(url).subscribe((data) => {
-          this.subject.next(data);
+          this.subject.next({ data, role });
         });
       }
-      break;
+        break;
+      case "Employee": {
+        let url = " http://localhost:5265/api/employees/getallemployees";
+        this.httpClient.get(url).subscribe((data) => {
+          this.subject.next({ data, role });
+        });
+      }
+        break;
       case "Farmer":
-        let url='http://localhost:5141/api/farmers/getallfarmers';
-          this.httpClient.get(url).subscribe((data) => {
-          this.subject.next(data);
+        let url = 'http://localhost:5141/api/farmers/getallfarmers';
+        this.httpClient.get(url).subscribe((data) => {
+          this.subject.next({ data, role });
         });
-        
-      break;
-      case "Merchant":      {
-        let url='http://localhost:5188/api/merchants/getallmerchants';
+
+        break;
+      case "Merchant": {
+        let url = 'http://localhost:5188/api/merchants/getallmerchants';
         this.httpClient.get(url).subscribe((data) => {
-        this.subject.next(data);
-      });
+          this.subject.next({ data, role });
+        });
       }
-      break;
-      case "Transport":      {
-        let url='http://localhost:5240/api/transports/alltransports';
+        break;
+      case "Transport": {
+        let url = 'http://localhost:5240/api/transports/alltransports';
         this.httpClient.get(url).subscribe((data) => {
-        this.subject.next(data);
-      });
-    }
-      break;
+          this.subject.next({ data, role });
+        });
+      }
+        break;
 
       default:
-      break;
+        break;
+    }
   }
-}
 
-  getData():Observable<any>{
+  getData(): Observable<any> {
     return this.subject.asObservable()
   }
 }
