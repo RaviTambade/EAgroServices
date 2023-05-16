@@ -6,7 +6,6 @@ import { FarmerDashboardComponent } from './demo/farmers/farmerdashboard/farmerd
 import { EmployeedashboardComponent } from './demo/employees/employeedashboard/employeedashboard.component';
 import { FarmerSelllistComponent } from './demo/farmers/farmer-selllist/farmer-selllist.component';
 import { ProfileComponent } from './demo/farmers/profile/profile.component';
-import { FarmersdetailsComponent } from './demo/employees/farmersdetails/farmersdetails.component';
 import { FarmerUpdateComponent } from './demo/farmers/farmer-update/farmer-update.component';
 import { VarietyComponent } from './demo/farmers/variety/variety.component';
 import { MerchantDashboardComponent } from './demo/merchants/merchant-dashboard/merchant-dashboard.component';
@@ -16,6 +15,8 @@ import { MerchantPurchaselistComponent } from './demo/merchants/merchant-purchas
 import { TransportdashboardComponent } from './demo/transport/transportdashboard/transportdashboard.component';
 import { MerchantLogoutComponent } from './demo/merchants/merchant-logout/merchant-logout.component';
 import { FarmerLogoutComponent } from './demo/farmers/farmer-logout/farmer-logout.component';
+import { FarmersListComponent } from './demo/employees/farmers-list/farmers-list.component';
+import { FarmerDetailsComponent } from './demo/employees/farmer-details/farmer-details.component';
 
 
 
@@ -101,8 +102,10 @@ const routes: Routes = [
    {
     path: 'employees',
     children:[
-      { path:'employeedashboard', component:EmployeedashboardComponent  },
-      { path:'farmerdetails', component:FarmersdetailsComponent },       
+      { path:'dashboard/:id', component:EmployeedashboardComponent  },
+       { path:'farmerlist/:id', component:FarmersListComponent },  
+       { path:'farmerdetails/:id',component: FarmerDetailsComponent },       
+
     ],
    },
    {

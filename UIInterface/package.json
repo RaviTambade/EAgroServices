@@ -31,6 +31,8 @@
     "chart.js": "^4.3.0",
     "jwt-decode": "^3.1.2",
     "ng-apexcharts": "^1.7.4",
+    "ng-dropdown": "^1.0.0",
+    "ngx-bootstrap": "^10.2.0",
     "ngx-scrollbar": "^10.0.1",
     "primeng": "^16.0.0-rc.1",
     "rxjs": "~7.5.7",

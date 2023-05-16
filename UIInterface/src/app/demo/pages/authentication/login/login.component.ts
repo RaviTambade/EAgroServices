@@ -41,7 +41,7 @@ export default class LoginComponent {
       if (role == "employee") {
         const employeeId = this.getEmployeeIdFromToken();
         console.log(employeeId);
-        this.router.navigate(['employees', employeeId]);
+        this.router.navigate(['employees/dashboard', employeeId]);
       }
       if (role == "merchant") {
         const merchantId = this.getMerchantIdFromToken();
