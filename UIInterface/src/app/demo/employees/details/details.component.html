@@ -1,25 +1,25 @@
-<div *ngFor="let farmer of data"  >
-  <p>{{farmer.firstName}}</p>
-  <p>{{farmer.lastName}}</p>
-  <p>{{farmer.location}}</p>
-</div>
-<!-- <div *ngIf="">
-    <p>{{admin.firstName}}</p>
-    <p>{{admin.lastName}}</p>
-    <p>{{admin.location}}</p>
+<!-- <div *ngIf="role=='Farmer'"> -->
+<div class="row"style="background-color: silver;">
+  <div class="col-md-12" >
+    <div class="mycard text-bg-dark overflow-hidden "  >
+      <div *ngFor="let farmer of data">
+        <div class="card-body ">
+            <div class="card" style="margin-bottom: 10px; margin-top: 5px; color: black; background-color: rgb(217, 209, 226)">
+              <div class="d-flex justify-content-left ">
+                <div>
+                  <img src="/assets/images/AkshayTanpure.jpg" width="150" />
+                </div>
+                <div class="m-4 pt-4 " >
+                  <h4 class="text-uppercase"><b>{{ farmer.firstName }} {{ farmer.lastName }}</b></h4>
+                  <div class="mt-2">
+                    <p><label><b>Location :</b></label>{{ farmer.location }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div *ngIf="">
-    <p>{{merchant.firstName}}</p>
-    <p>{{merchant.lastName}}</p>
-    <p>{{merchant.location}}</p>
-  </div>
-  <div *ngIf="">
-    <p>{{employee.firstName}}</p>
-    <p>{{employee.lastName}}</p>
-    <p>{{employee.location}}</p>
-  </div>
-  <div *ngIf="">
-    <p>{{transport.firstName}}</p>
-    <p>{{transport.lastName}}</p>
-    <p>{{transport.location}}</p>
-  </div> -->
+<!-- </div> -->

@@ -5,6 +5,7 @@ import { Employee } from '../../pages/authentication/employee';
 import { Merchant } from '../../pages/authentication/merchant';
 import { Transport } from '../../transport/transport';
 import { EmployeeService } from '../employee.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -15,19 +16,25 @@ export class DetailsComponent implements OnInit{
   farmers:  any [];
   merchant : Merchant |any;
   employee:Employee |any;
-transport:Transport|any;
-admin:Admin |any;
+  transport:Transport|any;
+  admin:Admin |any;
+  subscription: Subscription|undefined;
   
   data:any[];
-  role: any;
+  role: string;
   constructor(private svc:EmployeeService){}
   ngOnInit(): void {
-    this.svc.getData().subscribe((response)=>{
+    this.subscription = this.svc.getData().subscribe((response)=>{
       this.role=response.role
       this.data=response.data
       console.log(this.role)
       console.log(response)
     })
+    }
+    
+    ngOnDestroy() {
+      if(this.subscription !=undefined)
+      this.subscription.unsubscribe();
     }
   }
 

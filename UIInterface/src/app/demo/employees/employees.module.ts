@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeedashboardComponent } from './employeedashboard/employeedashboard.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FarmersListComponent } from './farmers-list/farmers-list.component';
 import { FarmerDetailsComponent } from './farmer-details/farmer-details.component';
 import { RouterModule } from '@angular/router';
@@ -33,6 +33,7 @@ import { DetailsComponent } from './details/details.component';
        RouterModule,
        NgbDropdownModule,
        BrowserModule,
+       ReactiveFormsModule
 
   ]
 })
