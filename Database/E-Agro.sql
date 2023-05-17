@@ -547,4 +547,14 @@ CALL call_proceduresofsells(100);
 -- INNER join sells_billing on sells.sell_id=sells_billing.sell_id
 -- WHERE transports.transport_id=2;
 SELECT * FROM employees;
+SELECT * FROM sells;
 SELECT * FROM sells_billing;
+SELECT 
+sum(sells_billing.freight_charges),MONTHNAME(sells_billing.date) from sells_billing
+INNER JOIN sells on sells.sell_id=sells_billing.sell_id
+INNER join transport_tru
+cks on transport_trucks.truck_id=sells.truck_id
+INNER JOIN transports on transports.transport_id=transport_trucks.transport_id
+where transports.transport_id=1
+GROUP BY MONTHNAME(sells_billing.date);
+

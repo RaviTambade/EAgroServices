@@ -8,6 +8,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { TransportdetailsComponent } from './transportdetails/transportdetails.component';
 import { TransportprofileComponent } from './transportprofile/transportprofile.component';
 import { TransportupdateComponent } from './transportupdate/transportupdate.component';
+import { TransportlogoutComponent } from './transportlogout/transportlogout.component';
+import { ColumnchartComponent } from './transportdashboard/columnchart/columnchart.component';
 
 
 
@@ -17,7 +19,9 @@ import { TransportupdateComponent } from './transportupdate/transportupdate.comp
     TransportdashboardComponent,
     TransportdetailsComponent,
     TransportprofileComponent,
-    TransportupdateComponent
+    TransportupdateComponent,
+    TransportlogoutComponent,
+    ColumnchartComponent
   ],
   imports: [
     CommonModule,

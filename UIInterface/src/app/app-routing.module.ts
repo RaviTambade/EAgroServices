@@ -23,6 +23,7 @@ import { FarmerDetailsComponent } from './demo/employees/farmer-details/farmer-d
 import { MerchantDetailsComponent } from './demo/employees/merchant-details/merchant-details.component';
 import { MerchantsListComponent } from './demo/employees/merchants-list/merchants-list.component';
 import { ListComponent } from './demo/employees/list/list.component';
+import { TransportlogoutComponent } from './demo/transport/transportlogout/transportlogout.component';
 
 
 
@@ -129,6 +130,7 @@ const routes: Routes = [
       {path:'update/:id',component:TransportupdateComponent},
       {path:'details/:id',component:TransportdetailsComponent},
       {path:'profile/:id',component:TransportprofileComponent},
+      {path:'logout/:id',component:TransportlogoutComponent},
     ],
   }
   //  {
