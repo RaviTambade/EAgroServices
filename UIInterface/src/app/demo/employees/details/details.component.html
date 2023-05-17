@@ -3,7 +3,8 @@
   <div class="col-md-12" >
     <div class="mycard text-bg-dark overflow-hidden "  >
       <div *ngFor="let farmer of data">
-        <div class="card-body ">
+        <emp-farmerdetails [farmer]="farmer"></emp-farmerdetails>
+       <!--  <div class="card-body ">
             <div class="card" style="margin-bottom: 10px; margin-top: 5px; color: black; background-color: rgb(217, 209, 226)">
               <div class="d-flex justify-content-left ">
                 <div>
@@ -17,7 +18,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

@@ -2,8 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { EmployeedashboardComponent } from './employeedashboard/employeedashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FarmersListComponent } from './farmers-list/farmers-list.component';
-import { FarmerDetailsComponent } from './farmer-details/farmer-details.component';
 import { RouterModule } from '@angular/router';
 import { EmployeeNavLeftComponent } from './employee-nav-left/employee-nav-left.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +10,7 @@ import { MerchantsListComponent } from './merchants-list/merchants-list.componen
 import { MerchantDetailsComponent } from './merchant-details/merchant-details.component';
 import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
+import { FarmerdetailsComponent } from './details/farmerdetails/farmerdetails.component';
 
 
 
@@ -20,12 +19,11 @@ import { DetailsComponent } from './details/details.component';
   declarations: [
     EmployeeNavLeftComponent,
     EmployeedashboardComponent,
-   FarmersListComponent,
-   FarmerDetailsComponent,
    MerchantsListComponent,
    MerchantDetailsComponent,
    ListComponent,
    DetailsComponent,
+   FarmerdetailsComponent,
   ],
   imports: [
     CommonModule,
