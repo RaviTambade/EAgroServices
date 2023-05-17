@@ -49,4 +49,9 @@ public class TransportsController : ControllerBase
     {
         return await _service.TransportHistory(id);
     }
+    [HttpGet("transporttruckhistorybymonth/{id}")]
+    public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int id)
+    {
+          return await _service.TransportTruckHistoryByMonth(id);
+    }
 }

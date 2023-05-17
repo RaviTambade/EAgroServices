@@ -36,4 +36,9 @@ public class TransportService : ITransportService
     {
         return await _repository.TransportHistory(transportId);
     }
+
+    public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int transportId)
+    {
+        return await _repository.TransportTruckHistoryByMonth(transportId);
+    }
 }

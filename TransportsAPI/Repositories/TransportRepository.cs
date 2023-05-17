@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using TransportsAPI.Context;
 using TransportsAPI.Models;
@@ -149,12 +150,44 @@ public class TransportRepository : ITransportRepository
                                            where transport.TransportId==transportId
                                              select new SellBilling(){ 
                                                 FreightRate=freightRate,
-                                                // Transports=transport,
                                                 Billing=billing,
-                                                // Sell=sell,
                                                 Truck=transportTruck
                                              }).ToListAsync();
                                              return transportHistory;
+            }
+
+        }
+        catch(Exception e){
+            throw e;
+        }
+        
+    }
+
+     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int transportId)
+    {
+        try{
+            using(var context =new TransportContext(_configuration)){
+                var transportHistory=
+             await( from sells_billing in context.Billings
+             join sells in context.Sells on sells_billing.SellId equals sells.SellId
+             join transport_trucks in context.Trucks on sells.TruckId equals transport_trucks.TruckId
+             join transports in context.Transports on transport_trucks.TransportId equals transports.TransportId
+             where transports.TransportId == 1
+             group sells_billing by new {
+                 transports.TransportId,
+                 sells_billing.Date.Month ,
+                 transport_trucks.TruckNumber,
+                 sells_billing.Date.Year
+             } into g
+             select new TransportTruckHistory(){
+                 TransportId = g.Key.TransportId,
+                 TotalFreightCharges = g.Sum(s => s.FreightCharges),
+                 Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month),
+                 TruckNumber = g.Key.TruckNumber,
+                 Year = g.Key.Year
+             }).ToListAsync();
+
+             return transportHistory;
             }
 
         }
