@@ -59,7 +59,8 @@ export class EmployeeService {
   }
 
 
-  sendRole(role: any) {
+  sendRole(data: any) {
+    let role=data.selectedRole;
     console.log("service is called")
     switch (role) {
 
@@ -78,8 +79,10 @@ export class EmployeeService {
       }
         break;
       case "Farmer":
+        console.log("farmer service called")
         let url = 'http://localhost:5141/api/farmers/getallfarmers';
         this.httpClient.get(url).subscribe((data) => {
+          console.log(data)
           this.subject.next({ data, role });
         });
 

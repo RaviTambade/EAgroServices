@@ -150,7 +150,7 @@ CREATE TABLE
             freight_charges + labour_charges
         ),
         
-        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT fk_sell_id FOREIGN KEY (sell_id) REFERENCES sells(sell_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
@@ -446,8 +446,8 @@ FROM information_schema.tables
 ORDER BY RAND()LIMIT 100;
 
 
-INSERT INTO sells_billing(sell_id)
-SELECT sell_id FROM sells
+INSERT INTO sells_billing(sell_id,date)
+SELECT sell_id,date FROM sells
 ORDER BY RAND() LIMIT 100;
 
 
@@ -545,3 +545,4 @@ CALL call_proceduresofsells(100);
 -- INNER JOIN sells ON sells.truck_id=transport_trucks.truck_id
 -- INNER join sells_billing on sells.sell_id=sells_billing.sell_id
 -- WHERE transports.transport_id=2;
+SELECT * FROM sells_billing;
