@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -545,20 +545,18 @@ CALL call_proceduresofsells(100);
 --  from transports INNER JOIN transport_trucks on transports.transport_id=transport_trucks.transport_id
 -- INNER JOIN sells ON sells.truck_id=transport_trucks.truck_id
 -- INNER join sells_billing on sells.sell_id=sells_billing.sell_id
-<<<<<<< HEAD
 -- WHERE transports.transport_id=2;
 SELECT * FROM employees;
 SELECT * FROM sells;
 SELECT * FROM sells_billing;
+
+--
 SELECT 
-sum(sells_billing.freight_charges),MONTHNAME(sells_billing.date) from sells_billing
+transports.transport_id,sum(sells_billing.freight_charges),MONTHNAME(sells_billing.date) ,transport_trucks.truck_number,year(sells_billing.date) from sells_billing
 INNER JOIN sells on sells.sell_id=sells_billing.sell_id
-INNER join transport_tru
-cks on transport_trucks.truck_id=sells.truck_id
+INNER join transport_trucks on transport_trucks.truck_id=sells.truck_id
 INNER JOIN transports on transports.transport_id=transport_trucks.transport_id
 where transports.transport_id=1
-GROUP BY MONTHNAME(sells_billing.date);
+GROUP BY  year(sells_billing.date), MONTHNAME(sells_billing.date),transport_trucks.truck_number ORDER BY year(sells_billing.date) ;
 
-=======
--- WHERE transports.transport_id=2;
->>>>>>> 23b51c44c0a9e1cdcdf6499da9cdb2cfdd018800
+

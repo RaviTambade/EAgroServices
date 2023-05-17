@@ -27,11 +27,12 @@ export class DetailsComponent implements OnInit{
     this.subscription = this.svc.getData().subscribe((response)=>{
       this.role=response.role
       this.data=response.data
-      console.log(this.role)
+    
+           console.log(this.role)
       console.log(response)
     })
     }
-    
+
     ngOnDestroy() {
       if(this.subscription !=undefined)
       this.subscription.unsubscribe();

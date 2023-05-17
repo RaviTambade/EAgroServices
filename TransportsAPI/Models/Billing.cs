@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TransportsAPI.Models;
 public class Billing
 {
+    private double freightCharges;
+
     [Column("bill_id")]
     public int BillId { get; set; }
 
@@ -10,7 +12,7 @@ public class Billing
     public int SellId { get; set; }
 
     [Column("freight_charges")]
-    public int FreightCharges { get; set; }
+    public double FreightCharges { get => freightCharges=Math.Round(freightCharges,2); set => freightCharges = value; }
 
     [Column("labour_charges")]
     public int LabourCharges { get; set; }
