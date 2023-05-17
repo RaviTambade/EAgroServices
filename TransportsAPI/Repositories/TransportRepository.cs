@@ -1,5 +1,3 @@
-
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using TransportsAPI.Context;
 using TransportsAPI.Models;
@@ -146,11 +144,14 @@ public class TransportRepository : ITransportRepository
                                            on transportTruck.TruckId equals sell.TruckId
                                            join billing in context.Billings
                                            on sell.SellId equals billing.SellId
+                                           join freightRate in context.FreightRates
+                                           on billing.BillId equals freightRate.BillId
                                            where transport.TransportId==transportId
                                              select new SellBilling(){ 
-                                                Transports=transport,
+                                                FreightRate=freightRate,
+                                                // Transports=transport,
                                                 Billing=billing,
-                                                Sell=sell,
+                                                // Sell=sell,
                                                 Truck=transportTruck
                                              }).ToListAsync();
                                              return transportHistory;
