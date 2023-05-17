@@ -3,8 +3,8 @@ using TransportsAPI.Models;
 namespace TransportsAPI.Models;
 public class SellBilling
 {
-    public Transport Transports{get;set;}
-    public Sell? Sell{get;set;}
+    // public Transport Transports{get;set;}
+    // public Sell? Sell{get;set;}
     public FreightRate? FreightRate{get;set;}
     public Billing? Billing{get;set;}
     public Truck Truck{get;set;}

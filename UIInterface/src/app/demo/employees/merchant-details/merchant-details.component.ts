@@ -11,7 +11,7 @@ import { EmployeeService } from '../employee.service';
   styleUrls: ['./merchant-details.component.scss']
 })
 export class MerchantDetailsComponent implements OnInit {
-  @Input() merchant:Merchant |any;
+@Input()   merchant:Merchant |any;
   merchantId:string ;
   constructor(private route:ActivatedRoute,private svc:MerchantService){}
 

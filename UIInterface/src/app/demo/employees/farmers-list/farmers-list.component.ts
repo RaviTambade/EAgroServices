@@ -11,7 +11,7 @@ import { EmployeeService } from '../employee.service';
 })
 export class FarmersListComponent implements OnInit{
   farmers:Farmer[] |any;
-
+  showDetails:boolean =false;
   constructor(private svc:EmployeeService,private router:Router){}
   ngOnInit(): void {
    this.svc.getAllFarmers().subscribe((response)=>{
@@ -22,6 +22,7 @@ export class FarmersListComponent implements OnInit{
   onSelect(farmer:any){
     if(farmer!=undefined)
     this.router.navigate(['employees/farmerdetails',farmer.farmerId]); 
+// this.showDetails=true;
    }
    
 }

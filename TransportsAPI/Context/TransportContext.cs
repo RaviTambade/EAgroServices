@@ -20,7 +20,7 @@ public class TransportContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
-    public object Sellbillings { get; internal set; }
+    // public object Sellbillings { get; internal set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
