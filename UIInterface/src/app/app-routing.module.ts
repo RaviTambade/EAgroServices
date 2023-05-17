@@ -20,9 +20,10 @@ import { TransportprofileComponent } from './demo/transport/transportprofile/tra
 import { TransportupdateComponent } from './demo/transport/transportupdate/transportupdate.component';
 import { FarmersListComponent } from './demo/employees/farmers-list/farmers-list.component';
 import { FarmerDetailsComponent } from './demo/employees/farmer-details/farmer-details.component';
-import { MerchantsListComponent } from './demo/employees/merchants-list/merchants-list.component';
 import { MerchantDetailsComponent } from './demo/employees/merchant-details/merchant-details.component';
+import { MerchantsListComponent } from './demo/employees/merchants-list/merchants-list.component';
 import { ListComponent } from './demo/employees/list/list.component';
+
 
 
 
