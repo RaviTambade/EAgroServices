@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Farmer } from '../farmers/farmer';
-import { FarmerDeleteComponent } from './farmers-list/farmer-delete/farmer-delete.component';
 
 @Injectable({
   providedIn: 'root'

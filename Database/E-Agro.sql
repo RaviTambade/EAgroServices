@@ -1,3 +1,4 @@
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -545,3 +546,5 @@ CALL call_proceduresofsells(100);
 -- INNER JOIN sells ON sells.truck_id=transport_trucks.truck_id
 -- INNER join sells_billing on sells.sell_id=sells_billing.sell_id
 -- WHERE transports.transport_id=2;
+SELECT * FROM employees;
+SELECT * FROM sells_billing;

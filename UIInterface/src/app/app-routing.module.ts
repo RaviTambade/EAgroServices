@@ -15,17 +15,13 @@ import { MerchantPurchaselistComponent } from './demo/merchants/merchant-purchas
 import { TransportdashboardComponent } from './demo/transport/transportdashboard/transportdashboard.component';
 import { MerchantLogoutComponent } from './demo/merchants/merchant-logout/merchant-logout.component';
 import { FarmerLogoutComponent } from './demo/farmers/farmer-logout/farmer-logout.component';
-<<<<<<< HEAD
 import { TransportdetailsComponent } from './demo/transport/transportdetails/transportdetails.component';
 import { TransportprofileComponent } from './demo/transport/transportprofile/transportprofile.component';
 import { TransportupdateComponent } from './demo/transport/transportupdate/transportupdate.component';
-=======
 import { FarmersListComponent } from './demo/employees/farmers-list/farmers-list.component';
 import { FarmerDetailsComponent } from './demo/employees/farmer-details/farmer-details.component';
-import { MerchantsListComponent } from './demo/employees/merchants-list/merchants-list.component';
 import { MerchantDetailsComponent } from './demo/employees/merchant-details/merchant-details.component';
-
->>>>>>> 13f4351656b9867abdbab4a3bbbc533a6c814c5f
+import { MerchantsListComponent } from './demo/employees/merchants-list/merchants-list.component';
 
 
 

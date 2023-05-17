@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { EmployeeNavLeftComponent } from './employee-nav-left/employee-nav-left.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MerchantsListComponent } from './merchants-list/merchants-list.component';
 import { MerchantDetailsComponent } from './merchant-details/merchant-details.component';
 
@@ -28,7 +27,7 @@ import { MerchantDetailsComponent } from './merchant-details/merchant-details.co
     FormsModule,
        RouterModule,
        NgbDropdownModule,
-       BrowserModule, BsDropdownModule,
+       BrowserModule,
 
   ]
 })

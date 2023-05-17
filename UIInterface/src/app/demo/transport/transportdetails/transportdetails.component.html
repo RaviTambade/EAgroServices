@@ -122,14 +122,13 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let transportdetails of transports">
-                                        <td>{{ transportdetails.trucks.truckNumber }}</td>
-                                        <td>{{ transportdetails.frieghtRate.fromDestination }}</td>
+                                        <td>{{ transportdetails.truck.truckNumber }}</td>
+                                        <td>{{ transportdetails.freightrate.fromDestination }}</td>
                                         <td>{{ transportdetails.freightRate.toDestination }}</td>
                                         <td>{{ transportdetails.freightRate.kilomiters }}</td>
                                         <td>{{ transportdetails.freightRate.ratePerKilometers }}</td>
                                         <td>{{ transportdetails.sellBilling.freightCharge }}</td>
-                                        <td>{{ transportdetails.sellBilling.freightCharge }}</td>
-                                        <td>{{ transportdetails.purchaseItem.date }}</td>
+                                        <td>{{ transportdetails.sellBilling.date }}</td>
                                 </tbody>
                             </table>
                         </div>
