@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
+import { Farmer } from 'src/app/demo/farmers/farmer';
+import { FarmerService } from 'src/app/demo/farmers/farmer.service';
+import { EmployeeService } from '../../employee.service';
 
 @Component({
   selector: 'emp-farmerdetails',
@@ -8,11 +11,12 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class FarmerdetailsComponent {
 
-  @Input() farmer:any;
+  @Input() farmer:Farmer;
   farmerId: any;
-  update:boolean = false;
+  updatestatus:boolean = false;
+  deletestatus:boolean=false;
 
-constructor(private route:ActivatedRoute){
+constructor(private route:ActivatedRoute,private farmersvc:FarmerService,private empsvc:EmployeeService ){
 }
 
 ngOnInit(): void {
@@ -20,6 +24,12 @@ ngOnInit(): void {
     console.log(params)
     this.farmerId = params.get('id');
   });
+}
+  confirm() {
+    this.farmersvc.deleteFarmer(this.farmer.farmerId).subscribe((response)=>{
+      console.log(response)
+      this.empsvc.sendRole({selectedRole:"Farmer"});    
+  })
 }
 }
 

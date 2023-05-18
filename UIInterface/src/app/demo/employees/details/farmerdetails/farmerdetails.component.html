@@ -1,19 +1,37 @@
-                <div *ngIf="farmer">
-                  <div class="card" style="margin-bottom: 10px; margin-top: 5px; color: black; background-color: rgb(217, 209, 226)">
-                    <div class="d-flex justify-content-left">
-                      <div>
-                        <img src="/assets/images/AkshayTanpure.jpg" width="100px" height="100px" />
-                      </div>
-                      <div class="m-4 p-2">
-                        <label style="padding-left: 20px;font-size: large;"><b>Name: {{ farmer.firstName }} {{ farmer.lastName }}</b></label>
-                        <label style="padding-left: 20px;font-size: large;"><b>Location: {{ farmer.location }}</b></label>
-                      <button type="submit" class="btn btn-primary btn-block fixed-update-button" (click)="update=true">
-                        <i class="fas fa-check mr-2"></i>Update</button>
-                  </div>
-                  <div *ngIf="update"> 
-                    <emp-farmer-update [farmer]="farmer"></emp-farmer-update>
-                    </div>
-                </div>
-                   
+<div *ngIf="farmer">
+  <div class="card" style="margin-bottom: 10px; margin-top: 5px; color: black; background-color: rgb(217, 209, 226)">
+    <div class="d-flex justify-content-left">
+      <div>
+        <img src="/assets/images/AkshayTanpure.jpg" width="100px" height="100px" />
+      </div>
+      <div class="m-4 p-2">
+        <label style="padding-left: 20px; font-size: large"
+          ><b>Name: {{ farmer.firstName }} {{ farmer.lastName }}</b></label
+        >
+        <label style="padding-left: 20px; font-size: large"
+          ><b>Location: {{ farmer.location }}</b></label
+        >
+        <button type="submit" class="btn btn-primary btn-block fixed-update-button" (click)="updatestatus = true">
+          <i class="fas fa-check mr-2"></i>Update</button
+        >
+        <button type="submit" class="btn btn-danger btn-block fixed-delete-button" (click)="deletestatus = true">
+          <i class="fas fa-trash-alt"></i> Delete</button
+        >
+      </div>
+    </div>
+    <div *ngIf="updatestatus" >
+      <emp-farmer-update [farmer]="farmer"></emp-farmer-update>
+    </div>
 
-        
+    <div *ngIf="deletestatus">
+      <div class="delete-confirmation">
+        <h2>Delete Confirmation</h2>
+        <p>Are you sure you want to delete?</p>
+        <div class="buttons">
+          <button type="button" class="delete-button" (click)="confirm()">Delete</button>
+          <button type="button" class="cancel-button" (click)="deletestatus = false">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
