@@ -11,9 +11,6 @@ public interface IPurchaseRepository
     Task<bool> Update(int purchaseId, PurchaseItem purchaseItem);
     Task<bool> Delete(int purchaseId);
     Task<List<PurchaseViewModel>> GetFarmerPurchaseDetails(int farmerId);
-    Task<List<PurchaseViewModel>> GetPurchaseByVariety(int varietyId);
-    Task<List<PurchaseViewModel>> GetPurchaseByGrade(string grade);
-    Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int varirtyId, string grade);
     Task<List<FarmerSellMonth>> FarmerSellTotalAmountByMonth(int farmerId);
     Task<int> GetFarmerSellTotalAmount(int farmerId);
     Task<List<FarmerSellVariety>> GetFarmerSellByVariety(int farmerId);

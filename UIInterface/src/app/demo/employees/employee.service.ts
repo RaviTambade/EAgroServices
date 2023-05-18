@@ -62,6 +62,7 @@ export class EmployeeService {
   sendRole(data: any) {
     let role=data.selectedRole;
     console.log("service is called")
+    console.log(role)
     switch (role) {
 
       case "Admin": {
@@ -110,5 +111,6 @@ export class EmployeeService {
   getData(): Observable<any> {
     return this.subject.asObservable()
   }
+
 }
 

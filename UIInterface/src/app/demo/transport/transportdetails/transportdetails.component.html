@@ -27,13 +27,13 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let transportdetails of transports">
-                    <td>{{ transportdetails.truck.truckNumber }}</td>
-                    <td>{{ transportdetails.freightRate.fromDestination}}</td>
-                    <td>{{ transportdetails.freightRate.toDestination }}</td>
-                    <td>{{ transportdetails.freightRate.kilometers}}</td>
-                    <td>{{ transportdetails.freightRate.ratePerKm }}</td>
-                    <td>{{ transportdetails.billing.freightCharges }}</td>
-                    <td>{{ transportdetails.billing.date |date }}</td>
+                    <td>{{ transportdetails.truckNumber }}</td>
+                    <td>{{ transportdetails.fromDestination}}</td>
+                    <td>{{ transportdetails.toDestination }}</td>
+                    <td>{{ transportdetails.kilometers}}</td>
+                    <td>{{ transportdetails.ratePerKm }}</td>
+                    <td>{{ transportdetails.freightCharges }}</td>
+                    <td>{{ transportdetails.date |date }}</td>
                 </tbody>
               </table>
             </div>

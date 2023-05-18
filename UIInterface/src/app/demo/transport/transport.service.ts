@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Transport } from './transport';
-import { Transportdetails } from './transportdetails';
+import { TransportFaredetails } from './transportFaredetails';
 import { TransportTruckdetails } from './transport-truckdetails';
 
 @Injectable({
@@ -20,13 +20,13 @@ export class TransportService {
     return this.httpClient.put<Transport>(url,transport);
 
   }
- transportHistory(transportId:any):Observable<any>{
-  let url ="http://localhost:5240/api/Transports/transporthistory/" +transportId;
-  return this.httpClient.get<Transportdetails[]>(url);
+ transportHistory(transportId:any):Observable<TransportFaredetails[]>{
+  let url ="http://localhost:5240/api/Transports/transport-history/" +transportId;
+  return this.httpClient.get<TransportFaredetails[]>(url);
  }
 
  transportTrucktHistory(transportId:any):Observable<TransportTruckdetails[]>{
-  let url ="http://localhost:5240/api/Transports/transporttruckhistorybymonth/" +transportId;
+  let url ="http://localhost:5240/api/Transports/transport-truck-history-by-month/" +transportId;
   return this.httpClient.get<TransportTruckdetails[]>(url);
  }
 }

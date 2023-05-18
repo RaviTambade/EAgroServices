@@ -44,14 +44,18 @@ public class TransportsController : ControllerBase
         return await _service.Delete(id);
     }
 
-    [HttpGet("transporthistory/{id}")]
-    public async Task<List<SellBilling>> TransportHistory(int id)
+    [HttpGet("transport-history/{id}")]  //for list print
+    public async Task<List<TransportFareDetails>> TransportHistory(int id)
     {
         return await _service.TransportHistory(id);
     }
-    [HttpGet("transporttruckhistorybymonth/{id}")]
+    [HttpGet("transport-truck-history-by-month/{id}")] //for column chart
     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int id)
     {
           return await _service.TransportTruckHistoryByMonth(id);
+    }
+    [HttpGet("transport-truck-history-by-year/{id}")] //for pie chart
+    public async Task<List<TransportTruckHistory>> TransportTruckHistoryByYear(int id){
+          return await _service.TransportTruckHistoryByYear(id);
     }
 }

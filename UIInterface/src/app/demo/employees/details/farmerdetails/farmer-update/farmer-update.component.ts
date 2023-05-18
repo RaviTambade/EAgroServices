@@ -1,21 +1,21 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FarmerService } from 'src/app/demo/farmers/farmer.service';
-import { EmployeeService } from '../../employee.service';
-
+import { EmployeeService } from '../../../employee.service';
 
 @Component({
-  selector: 'emp-farmerdetails',
-  templateUrl: './farmerdetails.component.html',
-  styleUrls: ['./farmerdetails.component.scss']
+  selector: 'emp-farmer-update',
+  templateUrl: './farmer-update.component.html',
+  styleUrls: ['./farmer-update.component.scss']
 })
-export class FarmerdetailsComponent {
+export class FarmerUpdateComponent {
 
   @Input() farmer:any;
   farmerId: any;
   update:boolean = false;
-constructor(private svc:FarmerService,private route:ActivatedRoute,private router:Router,private empsvc:EmployeeService){}
 
+constructor(private svc:FarmerService,private route:ActivatedRoute,private empsvc:EmployeeService){
+}
 
 ngOnInit(): void {
   this.route.paramMap.subscribe((params) => {
@@ -27,11 +27,7 @@ ngOnInit(): void {
   editProfile() {
     this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
       console.log(response)
-    alert("Update Successfully")
-    this.empsvc.sendRole({selectedRole:"Farmer"})
-    // window.location.reload();
-  
+    this.empsvc.sendRole({selectedRole:"Farmer"});   
 });
 }
 }
-

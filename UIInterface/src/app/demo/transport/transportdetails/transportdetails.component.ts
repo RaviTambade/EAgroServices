@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { TransportService } from '../transport.service';
 import { ActivatedRoute } from '@angular/router';
-import { Transport } from '../transport';
-import { Truck } from '../truck';
-import { FreightRate } from '../freight-rate';
-import { Transportdetails } from '../transportdetails';
+import { TransportFaredetails} from '../transportFaredetails';
 
 @Component({
   selector: 'app-transportdetails',
@@ -15,14 +12,8 @@ export class TransportdetailsComponent {
 constructor(private svc:TransportService ,private route:ActivatedRoute){}
 
 transportId:any;
-transports:Transportdetails[]|any
-sortBy: string | undefined;
-sortOrder: string | undefined;
-filterStartDate: any;
-filterEndDate: any;
-filterTruckNumber: any;
-showFilters: boolean = false;
-filteredCharges: Transportdetails[];
+transports:TransportFaredetails[];
+filteredCharges: TransportFaredetails[];
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
