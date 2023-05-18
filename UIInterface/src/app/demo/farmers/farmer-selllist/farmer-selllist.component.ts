@@ -96,25 +96,24 @@ export class FarmerSelllistComponent {
 
     if (this.filterStartDate && this.filterEndDate) {
       filteredPurchases = filteredPurchases.filter(p => {
-        const purchaseDate = new Date(p.purchaseItem.date.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }).split('/').join('-');
-        const [day, month, year] = purchaseDate.split("-")
-        const pdate = `${year}-${month}-${day}`;
-        return pdate >= this.filterStartDate
-          && pdate <= this.filterEndDate;
+        const purchaseDate = p.purchaseItem.date.slice(0, 10);
+        return purchaseDate >= this.filterStartDate
+          && purchaseDate <= this.filterEndDate;
       });
     } else if (this.filterStartDate) {
+      console.log("send date from here", this.filterStartDate)
       filteredPurchases = filteredPurchases.filter(p => {
-        const purchaseDate = new Date(p.purchaseItem.date.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }).split('/').join('-');
-        const [day, month, year] = purchaseDate.split("-")
-        const pdate = `${year}-${month}-${day}`;
-        return pdate >= this.filterStartDate;
+        const purchaseDate = p.purchaseItem.date.slice(0, 10);
+      console.log("from api date", purchaseDate);
+        return purchaseDate >= this.filterStartDate;
       });
     } else if (this.filterEndDate) {
+      console.log("send date from here", this.filterEndDate)
+
       filteredPurchases = filteredPurchases.filter(p => {
-        const purchaseDate = new Date(p.purchaseItem.date.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }).split('/').join('-');
-        const [day, month, year] = purchaseDate.split("-")
-        const pdate = `${year}-${month}-${day}`;
-        return pdate <= this.filterEndDate;
+        const purchaseDate = p.purchaseItem.date.slice(0, 10);
+        console.log("from api date", purchaseDate);
+        return purchaseDate <= this.filterEndDate;
       });
     }
 
