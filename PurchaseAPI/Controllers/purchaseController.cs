@@ -13,7 +13,7 @@ public class PurchaseController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("getallpurchaseitems")]
+    [HttpGet("get-all-purchaseitems")]
     public async Task<List<PurchaseViewModel>> GetPurchaseItems()
     {
         return await _service.GetAllPurchaseItems();
@@ -43,49 +43,30 @@ public class PurchaseController : ControllerBase
         return await _service.Delete(id);
     }
 
-    [HttpGet("getfarmerpurchasedetails/{id}")]
+    [HttpGet("get-farmer-purchase-details/{id}")] // print list of farmer purchase
     public async Task<List<PurchaseViewModel>> GetFarmerPurchaseDetails(int id)
     {
         return await _service.GetFarmerPurchaseDetails(id);
     }
 
-
-    [HttpGet("getpurchasedetailsbyvariety/{id}")]
-    public async Task<List<PurchaseViewModel>> GetPurchaseDetailsByVariety(int id)
-    {
-        return await _service.GetPurchaseByVariety(id);
-    }
-
-    [HttpPost("getpurchasebygrade")]
-    public async Task<List<PurchaseViewModel>> GetPurchaseByGrade([FromBody] Grade grade)
-    {
-        return await _service.GetPurchaseByGrade(grade.GradeName);
-    }
-
-    [HttpPost("getpurchasebyvarietyandgrade/{id}")]
-    public async Task<List<PurchaseViewModel>> GetPurchaseByVarietyAndGrade(int id, Grade grade)
-    {
-        return await _service.GetPurchaseByVarietyAndGrade(id, grade.GradeName);
-    }
-
-    [HttpGet("getfarmerselltotalamountbymonth/{id}")]
+    [HttpGet("get-farmer-sell-total-amount-by-month/{id}")] // column chart
     public async Task<List<FarmerSellMonth>> FarmerSellTotalAmountByMonth(int id)
     {
         return await _service.FarmerSellTotalAmountByMonth(id);
     }
-    [HttpGet("getfarmerselltotalamount/{id}")]
+    [HttpGet("get-farmer-sell-total-amount/{id}")]      //totalAmount card
     public async Task<int> GetFarmerSellTotalAmount(int id)
     {
         return await _service.GetFarmerSellTotalAmount(id);
     }
 
-    [HttpGet("getfarmersellbyvariety/{id}")]
+    [HttpGet("get-farmer-sell-by-variety/{id}")]        // sell data by variety - pie chart
     public async Task<List<FarmerSellVariety>> GetFarmerSellByVariety(int id)
     {
         return await _service.GetFarmerSellByVariety(id);
     }
 
-    [HttpGet("getfarmerorderspermonth/{id}")]
+    [HttpGet("get-farmer-orders-per-month/{id}")]        //counting orders per month - area chart
     public async Task<List<FarmerOrder>> GetFarmerOrdersPerMonth(int id)
     {
         return await _service.GetFarmerOrdersPerMonth(id);

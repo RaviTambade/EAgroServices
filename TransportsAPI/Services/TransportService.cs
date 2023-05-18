@@ -32,7 +32,7 @@ public class TransportService : ITransportService
         return await _repository.Delete(transportId);;
     }
 
-    public async Task<List<SellBilling>> TransportHistory(int transportId)
+    public async Task<List<TransportFareDetails>> TransportHistory(int transportId)
     {
         return await _repository.TransportHistory(transportId);
     }
@@ -40,5 +40,10 @@ public class TransportService : ITransportService
     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int transportId)
     {
         return await _repository.TransportTruckHistoryByMonth(transportId);
+    }
+
+    public async Task<List<TransportTruckHistory>> TransportTruckHistoryByYear(int transportId)
+    {
+        return await _repository.TransportTruckHistoryByYear(transportId);
     }
 }

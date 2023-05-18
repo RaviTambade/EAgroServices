@@ -12,7 +12,7 @@ public interface ITransportRepository
 
     Task<bool> Delete(int transportId);
 
-    Task<List<SellBilling>> TransportHistory(int transportId);
+    Task<List<TransportFareDetails>> TransportHistory(int transportId);
     Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int transportId);
-
+    Task<List<TransportTruckHistory>> TransportTruckHistoryByYear(int transportId);
 }

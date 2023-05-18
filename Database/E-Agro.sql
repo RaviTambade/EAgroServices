@@ -550,7 +550,7 @@ SELECT * FROM employees;
 SELECT * FROM sells;
 SELECT * FROM sells_billing;
 
---
+---- monthwise trucks bill total of a transport per year
 SELECT 
 transports.transport_id,sum(sells_billing.freight_charges),MONTHNAME(sells_billing.date) ,transport_trucks.truck_number,year(sells_billing.date) from sells_billing
 INNER JOIN sells on sells.sell_id=sells_billing.sell_id
@@ -559,4 +559,11 @@ INNER JOIN transports on transports.transport_id=transport_trucks.transport_id
 where transports.transport_id=1
 GROUP BY  year(sells_billing.date), MONTHNAME(sells_billing.date),transport_trucks.truck_number ORDER BY year(sells_billing.date) ;
 
-
+-- yearwise trucks bill total of a transport
+SELECT 
+transports.transport_id,sum(sells_billing.freight_charges),transport_trucks.truck_number,year(sells_billing.date) from sells_billing
+INNER JOIN sells on sells.sell_id=sells_billing.sell_id
+INNER join transport_trucks on transport_trucks.truck_id=sells.truck_id
+INNER JOIN transports on transports.transport_id=transport_trucks.transport_id
+where transports.transport_id=2
+GROUP BY  year(sells_billing.date),transport_trucks.truck_number ORDER BY year(sells_billing.date) ;

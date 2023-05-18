@@ -6,6 +6,6 @@ public class Truck{
     [Column("transport_id")]
     public int TransportId{get;set;}
     [Column("truck_number")]
-    public string TruckNumber{get;set;}
+    public string? TruckNumber{get;set;}
 }
 
