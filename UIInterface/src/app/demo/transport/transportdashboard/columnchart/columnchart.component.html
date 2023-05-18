@@ -1,1 +1,33 @@
-<p>columnchart works!</p>
+<div style="position: relative">
+    <google-chart
+      title="Monthly Profit"
+      [type]="columnChart"
+      [data]="data"
+      [columns]="columnNames"
+      [width]="width"
+      [height]="height"
+      [options]="columnoptions"
+    >
+    </google-chart>
+
+    <select
+      class="sort-select"
+      style="position: absolute; top: 40px; right: 350px"
+      [(ngModel)]="selectedYear"
+      (ngModelChange)="changeGraphByYearAndTruckNumber()"
+    >
+      <option *ngFor="let year of distinctYears" [value]="year">{{ year }}</option>
+    </select>
+
+    <select
+    class="sort-select"
+    style="position: absolute; top: 140px; right: 300px"
+    [(ngModel)]="selectedTruckNumber"
+    (ngModelChange)="changeGraphByYearAndTruckNumber()"
+  >
+    <option *ngFor="let truckNumber of distinctTruckNumbers" [value]="truckNumber">{{ truckNumber }}</option>
+  </select>
+  
+    
+  </div>
+

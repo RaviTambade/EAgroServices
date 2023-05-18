@@ -174,18 +174,16 @@ public class TransportRepository : ITransportRepository
              join transports in context.Transports on transport_trucks.TransportId equals transports.TransportId
              where transports.TransportId == 1
              group sells_billing by new {
-                 transports.TransportId,
                  sells_billing.Date.Month ,
                  transport_trucks.TruckNumber,
                  sells_billing.Date.Year
-             } into g
+             } into g  orderby g.Key.Month
              select new TransportTruckHistory(){
-                 TransportId = g.Key.TransportId,
                  TotalFreightCharges = g.Sum(s => s.FreightCharges),
                  Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month),
                  TruckNumber = g.Key.TruckNumber,
                  Year = g.Key.Year
-             }).ToListAsync();
+             }  ) .ToListAsync();
 
              return transportHistory;
             }

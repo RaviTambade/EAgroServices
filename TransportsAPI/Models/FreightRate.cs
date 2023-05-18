@@ -5,10 +5,10 @@ public class FreightRate
     private double ratePerKm;
 
     [Column("from_destination")]
-    public string FromDestination { get; set; }
+    public string? FromDestination { get; set; }
 
     [Column("to_destination")]
-    public string ToDestination { get; set; }
+    public string? ToDestination { get; set; }
 
     [Column("kilometers")]
     public int Kilometers { get; set; }
