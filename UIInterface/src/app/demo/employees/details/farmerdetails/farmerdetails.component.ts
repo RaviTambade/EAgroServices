@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FarmerService } from 'src/app/demo/farmers/farmer.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class FarmerdetailsComponent {
   farmerId: any;
   update:boolean = false;
 
-constructor(private svc:FarmerService,private route:ActivatedRoute){
+constructor(private svc:FarmerService,private route:ActivatedRoute,private router:Router){
 }
 
 ngOnInit(): void {
@@ -27,8 +27,7 @@ ngOnInit(): void {
     this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
       console.log(response)
     alert("Update Successfully")
-    window.location.reload();
-
+   window.location.reload();
 });
 }
 }

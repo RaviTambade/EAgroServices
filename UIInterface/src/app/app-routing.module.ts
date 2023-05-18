@@ -22,6 +22,7 @@ import { MerchantDetailsComponent } from './demo/employees/merchant-details/merc
 import { MerchantsListComponent } from './demo/employees/merchants-list/merchants-list.component';
 import { ListComponent } from './demo/employees/list/list.component';
 import { TransportlogoutComponent } from './demo/transport/transportlogout/transportlogout.component';
+import { DetailsComponent } from './demo/employees/details/details.component';
 
 
 
@@ -114,7 +115,9 @@ const routes: Routes = [
       //  { path:'farmerdetails/:id',component: FarmerDetailsComponent },   
        { path:'merchantlist/:id',component: MerchantsListComponent },  
        { path:'merchantdetails/:id',component: MerchantDetailsComponent }, 
-       { path:'list/:id',component: ListComponent },       
+       { path:'list/:id',component: ListComponent },   
+       { path:'details/:id',component: DetailsComponent },       
+
 
 
 
