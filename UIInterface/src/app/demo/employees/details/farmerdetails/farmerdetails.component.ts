@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FarmerService } from 'src/app/demo/farmers/farmer.service';
+import { ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'emp-farmerdetails',
@@ -13,7 +12,7 @@ export class FarmerdetailsComponent {
   farmerId: any;
   update:boolean = false;
 
-constructor(private svc:FarmerService,private route:ActivatedRoute,private router:Router){
+constructor(private route:ActivatedRoute){
 }
 
 ngOnInit(): void {
@@ -21,14 +20,6 @@ ngOnInit(): void {
     console.log(params)
     this.farmerId = params.get('id');
   });
-}
-
-  editProfile() {
-    this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
-      console.log(response)
-    alert("Update Successfully")
-   window.location.reload();
-});
 }
 }
 

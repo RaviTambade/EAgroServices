@@ -5,11 +5,6 @@ public class TransportFareDetails
 {
     private double ratePerKm;
     private double freightCharges;
-
-    // public FreightRate? FreightRate{get;set;}
-    // public Billing? Billing{get;set;}
-    // public Truck? Truck{get;set;}
-
     public string? TruckNumber{get;set;}
     public string? FromDestination { get; set; }
     public string? ToDestination { get; set; }

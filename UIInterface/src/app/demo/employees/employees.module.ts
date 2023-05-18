@@ -11,6 +11,7 @@ import { MerchantDetailsComponent } from './merchant-details/merchant-details.co
 import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
 import { FarmerdetailsComponent } from './details/farmerdetails/farmerdetails.component';
+import { FarmerUpdateComponent } from './details/farmerdetails/farmer-update/farmer-update.component';
 
 
 
@@ -24,6 +25,7 @@ import { FarmerdetailsComponent } from './details/farmerdetails/farmerdetails.co
    ListComponent,
    DetailsComponent,
    FarmerdetailsComponent,
+   FarmerUpdateComponent,
   ],
   imports: [
     CommonModule,
