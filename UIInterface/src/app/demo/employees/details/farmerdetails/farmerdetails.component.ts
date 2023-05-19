@@ -13,23 +13,30 @@ export class FarmerdetailsComponent {
 
   @Input() farmer:Farmer;
   farmerId: any;
-  updatestatus:boolean = false;
-  deletestatus:boolean=false;
+  updateStatus:boolean = false;
+  deleteStatus:boolean=false;
 
-constructor(private route:ActivatedRoute,private farmersvc:FarmerService,private empsvc:EmployeeService ){
+constructor(private farmersvc:FarmerService,private empsvc:EmployeeService ){
 }
 
 ngOnInit(): void {
-  this.route.paramMap.subscribe((params) => {
-    console.log(params)
-    this.farmerId = params.get('id');
-  });
 }
   confirm() {
     this.farmersvc.deleteFarmer(this.farmer.farmerId).subscribe((response)=>{
       console.log(response)
       this.empsvc.sendRole({selectedRole:"Farmer"});    
-  })
+  });
+}
+onUpdateClick(){
+    this.updateStatus=true;
+    this.deleteStatus=false;
+}
+onDeleteClick(){
+  this.updateStatus=false;
+  this.deleteStatus=true;
+}
+onCancelClick(){
+  this.deleteStatus=false;
 }
 }
 

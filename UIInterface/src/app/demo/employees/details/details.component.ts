@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Farmer } from '../../farmers/farmer';
-import { Admin } from '../../pages/authentication/admin';
-import { Employee } from '../../pages/authentication/employee';
-import { Merchant } from '../../pages/authentication/merchant';
-import { Transport } from '../../transport/transport';
 import { EmployeeService } from '../employee.service';
 import { Subscription } from 'rxjs';
+import { Farmer } from '../../farmers/farmer';
 
 @Component({
   selector: 'app-details',
@@ -13,25 +9,39 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit{
-  farmers:  any [];
-  merchant : Merchant |any;
-  employee:Employee |any;
-  transport:Transport|any;
-  admin:Admin |any;
+ 
   subscription: Subscription|undefined;
-  
-  data:any[];
+  userList:any[];
+  userList1:Farmer[];
   role: string;
+  searchString:string;
+  showAllStatus: boolean;
+
   constructor(private svc:EmployeeService){}
   ngOnInit(): void {
     this.subscription = this.svc.getData().subscribe((response)=>{
       this.role=response.role
-      this.data=response.data
-    
-           console.log(this.role)
+      this.userList=response.data.slice(0,10);
+      this.userList1=response.data;
+      console.log(this.role)
       console.log(response)
     })
     }
+   
+
+ onSearch(){
+  if(this.searchString==undefined){
+    return;
+  }
+  this.userList=this.userList1.filter(user=>(user.firstName.toLowerCase().startsWith(this.searchString)
+                ||  user.lastName.toLowerCase().startsWith(this.searchString)
+                || user.firstName.concat(" "+user.lastName).toLowerCase().startsWith(this.searchString)
+                || user.firstName.concat(user.lastName).toLowerCase().startsWith(this.searchString)));
+  console.log(this.userList)
+}
+onShowAll(){
+ this.userList=this.userList1;
+}
 
     ngOnDestroy() {
       if(this.subscription !=undefined)
