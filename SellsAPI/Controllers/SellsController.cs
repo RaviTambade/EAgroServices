@@ -75,7 +75,14 @@ namespace SellsAPI.Controllers
         public async Task<List<MerchantRevenue>> GetMerchantRevenues(int id){
             return await  _srv.GetMerchantRevenues(id);
         }
+
+         [HttpGet]
+        [Route("gettotalpurchaseamount/{id}")]
+        public async Task<double> GetTotalPurchaseAmountByMerchant(int id){
+            return await  _srv.GetTotalPurchaseAmountByMerchant(id);
+        }
     }
+
 }
 
 

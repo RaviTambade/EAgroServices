@@ -6,34 +6,34 @@ import { RouterModule } from '@angular/router';
 import { EmployeeNavLeftComponent } from './employee-nav-left/employee-nav-left.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
-import { MerchantsListComponent } from './merchants-list/merchants-list.component';
-import { MerchantDetailsComponent } from './merchant-details/merchant-details.component';
 import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
 import { FarmerdetailsComponent } from './details/farmerdetails/farmerdetails.component';
 import { FarmerUpdateComponent } from './details/farmerdetails/farmer-update/farmer-update.component';
+import { MerchantDetailsComponent } from './details/merchant-details/merchant-details.component';
+import { MerchantUpdateComponent } from './details/merchant-details/merchant-update/merchant-update.component';
 
 
 
 @NgModule({
-   schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     EmployeeNavLeftComponent,
     EmployeedashboardComponent,
-   MerchantsListComponent,
-   MerchantDetailsComponent,
-   ListComponent,
-   DetailsComponent,
-   FarmerdetailsComponent,
-   FarmerUpdateComponent,
+    ListComponent,
+    DetailsComponent,
+    FarmerdetailsComponent,
+    FarmerUpdateComponent,
+    MerchantDetailsComponent,
+    MerchantUpdateComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-       RouterModule,
-       NgbDropdownModule,
-       BrowserModule,
-       ReactiveFormsModule
+    RouterModule,
+    NgbDropdownModule,
+    BrowserModule,
+    ReactiveFormsModule
 
   ]
 })

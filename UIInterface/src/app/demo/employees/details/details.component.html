@@ -1,26 +1,28 @@
- <div *ngIf="role=='Farmer'"> 
+<div *ngIf="role=='Farmer'"> 
 <div class="row"style="background-color: silver;">
   <div class="col-md-12" >
     <div class="mycard text-bg-dark overflow-hidden "  >
-      <div *ngFor="let farmer of data">
+      <input type="text" [(ngModel)]="searchString">
+        <button type="submit" (click)="onSearch()">Search</button>
+        <button type="submit" (click)="onShowAll()">ShowAll</button>
+      <div *ngFor="let farmer of userList">
         <emp-farmerdetails [farmer]="farmer"></emp-farmerdetails>
-       <!--  <div class="card-body ">
-            <div class="card" style="margin-bottom: 10px; margin-top: 5px; color: black; background-color: rgb(217, 209, 226)">
-              <div class="d-flex justify-content-left ">
-                <div>
-                  <img src="/assets/images/AkshayTanpure.jpg" width="150" />
-                </div>
-                <div class="m-4 pt-4 " >
-                  <h4 class="text-uppercase"><b>{{ farmer.firstName }} {{ farmer.lastName }}</b></h4>
-                  <div class="mt-2">
-                    <p><label><b>Location :</b></label>{{ farmer.location }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
   </div>
-<!-- </div> -->
+</div>
+<div *ngIf="role=='Merchant'"> 
+  <div class="row"style="background-color: silver;">
+    <div class="col-md-12" >
+      <div class="mycard text-bg-dark overflow-hidden "  >
+        <input type="text" [(ngModel)]="searchString">
+        <button type="submit" (click)="onSearch()">Search</button>
+        <button type="submit" (click)="onShowAll()">ShowAll</button>
+        <div *ngFor="let merchant of userList">
+          <emp-merchant-details [merchant]="merchant"></emp-merchant-details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

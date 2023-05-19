@@ -33,4 +33,8 @@ export class MerchantService {
     let url="http://localhost:5182/api/sells/getmerchantrevenue/" +merchantId;
     return this.httpClient.get<Merchantrevenue[]>(url);
   }
+  deleteMerchant(merchantId:any):Observable<any>{
+    let url=" http://localhost:5188/api/merchants/delete/" +merchantId;
+    return this.httpClient.delete<Merchant>(url);
+  }
 }

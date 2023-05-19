@@ -52,6 +52,7 @@ export default class RegisterComponent {
     location: ''
   };
   merchant: Merchant = {
+    merchantId:0,
     firstName: '',
     lastName: '',
     companyName: '',
@@ -110,7 +111,7 @@ export default class RegisterComponent {
           admin: this.admin,
           userRole: this.userRole
         };
-        console.log("insert admin :" + this.insertAdmin);
+        console.log("insert admin :" , this.insertAdmin);
         this.svc.registerAdmin(this.insertAdmin).subscribe((response) => {
           console.log(response);
           if (response) {
