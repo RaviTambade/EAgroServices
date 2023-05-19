@@ -1,0 +1,45 @@
+
+  .container {
+    margin-top: 40px;
+  }
+
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #f8f9fa;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #343a40;
+  }
+
+  .list-group {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .list-group-item {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #313539;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+
+  .list-group-item:last-child {
+    border-bottom: none;
+  }
+
+  .list-group-item:hover {
+    background-color: #53a5f7;
+  }

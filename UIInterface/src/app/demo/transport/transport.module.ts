@@ -11,6 +11,7 @@ import { TransportupdateComponent } from './transportupdate/transportupdate.comp
 import { TransportlogoutComponent } from './transportlogout/transportlogout.component';
 import { ColumnchartComponent } from './transportdashboard/columnchart/columnchart.component';
 import { PiechartComponent } from './transportdashboard/piechart/piechart.component';
+import { TransportTruckComponent } from './transport-truck/transport-truck.component';
 
 
 
@@ -23,7 +24,8 @@ import { PiechartComponent } from './transportdashboard/piechart/piechart.compon
     TransportupdateComponent,
     TransportlogoutComponent,
     ColumnchartComponent,
-    PiechartComponent
+    PiechartComponent,
+    TransportTruckComponent
   ],
   imports: [
     CommonModule,
