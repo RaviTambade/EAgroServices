@@ -16,6 +16,10 @@ export class FarmerService {
     let url =" http://localhost:5141/api/farmers/getdetails/" +farmerId;
     return this.httpClient.get<Farmer>(url);
   }
+  deleteFarmer(farmerId:any):Observable<any>{ 
+    let url = "http://localhost:5141/api/farmers/delete/"+farmerId;
+    return this.httpClient.delete<any>(url);
+  }
   getFarmerRevenue(farmerId:string):Observable<any>{  //column chart
     let url =" http://localhost:5171/api/purchase/get-farmer-sell-total-amount-by-month/" +farmerId;
     return this.httpClient.get<Farmersell[]>(url);

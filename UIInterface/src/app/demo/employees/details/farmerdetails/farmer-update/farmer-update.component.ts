@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FarmerService } from 'src/app/demo/farmers/farmer.service';
 import { EmployeeService } from '../../../employee.service';
 
@@ -12,7 +12,6 @@ export class FarmerUpdateComponent {
 
   @Input() farmer:any;
   farmerId: any;
-  update:boolean = false;
 
 constructor(private svc:FarmerService,private route:ActivatedRoute,private empsvc:EmployeeService){
 }

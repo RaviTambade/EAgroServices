@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FarmerService } from 'src/app/demo/farmers/farmer.service';
 import { EmployeeService } from '../../employee.service';
+import { Farmer } from 'src/app/demo/farmers/farmer';
 
 
 @Component({
@@ -11,27 +12,47 @@ import { EmployeeService } from '../../employee.service';
 })
 export class FarmerdetailsComponent {
 
-  @Input() farmer:any;
+  @Input() farmer:Farmer;
   farmerId: any;
+
   update:boolean = false;
-constructor(private svc:FarmerService,private route:ActivatedRoute,private router:Router,private empsvc:EmployeeService){}
+constructor(private farmersvc:FarmerService,private route:ActivatedRoute,private router:Router,private empsvc:EmployeeService){}
+
+
+  updateStatus:boolean = false;
+  deleteStatus:boolean=false;
+
 
 
 ngOnInit(): void {
-  this.route.paramMap.subscribe((params) => {
-    console.log(params)
-    this.farmerId = params.get('id');
+}
+  confirm() {
+    this.farmersvc.deleteFarmer(this.farmer.farmerId).subscribe((response)=>{
+      console.log(response)
+      this.empsvc.sendRole({selectedRole:"Farmer"});    
   });
 }
 
+
   editProfile() {
-    this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
+    this.farmersvc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
       console.log(response)
     alert("Update Successfully")
     this.empsvc.sendRole({selectedRole:"Farmer"})
     // window.location.reload();
   
 });
+  }
+onUpdateClick(){
+    this.updateStatus=true;
+    this.deleteStatus=false;
+}
+onDeleteClick(){
+  this.updateStatus=false;
+  this.deleteStatus=true;
+}
+onCancelClick(){
+  this.deleteStatus=false;
 }
 }
 

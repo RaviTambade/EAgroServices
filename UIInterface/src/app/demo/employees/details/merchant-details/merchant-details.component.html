@@ -1,0 +1,41 @@
+<div *ngIf="merchant">
+    <div class="card" style="margin-bottom: 10px; margin-top: 5px; color: black; background-color: rgb(217, 209, 226)">
+      <div class="d-flex justify-content-left">
+        <div>
+          <img src="/assets/images/AkshayTanpure.jpg" width="100px" height="100px" />
+        </div>
+        <div class="m-4 p-2">
+          <label style="padding-left: 20px; font-size: large"
+            ><b>Name: {{ merchant.firstName }} {{ merchant.lastName }}</b></label
+          >
+          <label style="padding-left: 20px; font-size: large"
+            ><b>Location: {{ merchant.location }}</b></label
+          >
+          <label style="padding-left: 20px; font-size: large"
+          ><b>Company: {{ merchant.companyName }}</b></label
+        >
+          <button type="submit" class="btn btn-primary btn-block fixed-update-button" (click)="onUpdateClick()">
+            <i class="fas fa-check mr-2"></i>Update</button
+          >
+          <button type="submit" class="btn btn-danger btn-block fixed-delete-button" (click)="onDeleteClick()">
+            <i class="fas fa-trash-alt"></i> Delete</button
+          >
+        </div>
+      </div>
+      <div *ngIf="updateStatus" >
+        <emp-merchant-update [merchant]="merchant"></emp-merchant-update>
+      </div>
+  
+      <div *ngIf="deleteStatus">
+        <div class="delete-confirmation">
+          <h2>Delete Confirmation</h2>
+          <p>Are you sure you want to delete?</p>
+          <div class="buttons">
+            <button type="button" class="delete-button" (click)="confirm()">Delete</button>
+            <button type="button" class="cancel-button" (click)="onCancelClick()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
