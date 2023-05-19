@@ -21,6 +21,7 @@ import { TransportupdateComponent } from './demo/transport/transportupdate/trans
 import { ListComponent } from './demo/employees/list/list.component';
 import { TransportlogoutComponent } from './demo/transport/transportlogout/transportlogout.component';
 import { DetailsComponent } from './demo/employees/details/details.component';
+import { TransportTruckComponent } from './demo/transport/transport-truck/transport-truck.component';
 
 
 
@@ -130,6 +131,7 @@ const routes: Routes = [
       {path:'details/:id',component:TransportdetailsComponent},
       {path:'profile/:id',component:TransportprofileComponent},
       {path:'logout/:id',component:TransportlogoutComponent},
+      {path:'truckList/:id',component:TransportTruckComponent},
     ],
   }
   //  {
