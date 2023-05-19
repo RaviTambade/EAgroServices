@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Transport } from './transport';
 import { TransportFaredetails } from './transportFaredetails';
 import { TransportTruckdetails } from './transport-truckdetails';
+import { Truck } from './truck';
 
 @Injectable({
   providedIn: 'root'
@@ -29,4 +30,12 @@ export class TransportService {
   let url ="http://localhost:5240/api/Transports/transport-truck-history-by-month/" +transportId;
   return this.httpClient.get<TransportTruckdetails[]>(url);
  }
+ transportTrucktHistoryByYear(transportId:any):Observable<TransportTruckdetails[]>{
+  let url ="http://localhost:5240/api/Transports/transport-truck-history-by-year/" +transportId;
+  return this.httpClient.get<TransportTruckdetails[]>(url);
+}
+getAllTrucks(transportId:any):Observable<Truck[]>{
+  let url ="http://localhost:5240/api/transports/transport-trucks/" +transportId;
+  return this.httpClient.get<Truck[]>(url);
+}
 }

@@ -1,5 +1,14 @@
+<<<<<<< HEAD
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+=======
+<<<<<<< HEAD
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+>>>>>>> 42b96783d051a36f14bed36a6980e63fa1a59844
+
+=======
 -- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 select * from users;
+>>>>>>> 48f56b7911f57980ead1ffa5746acb8d8ab40a73
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;

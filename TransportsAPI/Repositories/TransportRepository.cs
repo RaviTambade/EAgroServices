@@ -242,4 +242,24 @@ public class TransportRepository : ITransportRepository
             throw e;
         }
     }
+    public async Task<List<Truck>>GetTransportsTrucks(int  transportId)
+    {
+        try{
+            using (var context = new TransportContext(_configuration))
+            {
+                var transportTrucks =
+               await( from transports in context.Transports
+                      join transportTruck in context.Trucks on transports.TransportId equals transportTruck.TransportId
+                     where transports.TransportId == transportId
+                      select transportTruck).ToListAsync();
+               return transportTrucks;
+
+            }
+
+        }
+        catch(Exception e)
+        {
+                throw e;
+        }
+    }
 }

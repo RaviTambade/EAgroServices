@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -308,6 +309,18 @@ public class SellRepository : ISellRepository
             }
         }
           catch (Exception e)   
+        {
+            throw e;
+        }
+    }
+
+    public async Task<double> GetTotalPurchaseAmountByMerchant(int merchantId){
+        try{
+            using(var context=new SellsContext(_configuration)){
+                var amount=context.Sells.Where(sell=>sell.MerchantId==merchantId).Sum(sell=>sell.TotalAmount);
+                return amount ;
+            }
+        } catch (Exception e)   
         {
             throw e;
         }
