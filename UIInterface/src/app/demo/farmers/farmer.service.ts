@@ -28,7 +28,7 @@ export class FarmerService {
     let url =" http://localhost:5141/api/farmers/update/" +farmerId;
     return this.httpClient.put<Farmer>(url,farmer);
   }
-  getFarmerPurchaseDetails(farmerId:any):Observable<any>{  
+  getFarmerPurchaseDetails(farmerId:any):Observable<Purchaseviewmodel[]>{  
     let url =" http://localhost:5171/api/purchase/get-farmer-purchase-details/" +farmerId;
     return this.httpClient.get<Purchaseviewmodel[]>(url);
   }

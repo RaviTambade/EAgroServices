@@ -23,6 +23,7 @@ export class FarmerSelllistComponent {
   filterGrade: any;
   showFilters: boolean = false;
   varieties: any;
+
   constructor(private svc: FarmerService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -31,7 +32,7 @@ export class FarmerSelllistComponent {
     });
 
     this.svc.getFarmerPurchaseDetails(this.farmerId).subscribe((response) => {
-      this.purchaseViewModel = response;
+      this.purchaseViewModel = response.slice(0,10);
       this.purchaseViewModel1=response;
       console.log(this.purchaseViewModel);
     })
@@ -43,9 +44,9 @@ export class FarmerSelllistComponent {
     })
   }
 
-  reloadwindow() {
-    // this.showFilters = false;
-    window.location.reload();
+  cancelFilters() {
+    this.showFilters = false;
+    
   }
 
   onSortChange() {
@@ -127,6 +128,10 @@ export class FarmerSelllistComponent {
     }
     this.purchaseViewModel = filteredPurchases;
     this.showFilters = false;
+  }
+  showAllRecords()
+  {
+    this.purchaseViewModel=this.purchaseViewModel1
   }
 }
 

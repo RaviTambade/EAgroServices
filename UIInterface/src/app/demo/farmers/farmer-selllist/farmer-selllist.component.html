@@ -3,23 +3,25 @@
     <div class="col-md-2">
       <app-farmer-nav-left></app-farmer-nav-left>
     </div>
-    <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center;">
-      <h2 style="margin-top: 22px;color:gold"><b>FARMER SELLS RECORDS</b></h2>
+    <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center">
+      <h2 style="margin-top: 22px; color: gold"><b>FARMER SELLS RECORDS</b></h2>
     </div>
   </div>
-  <div class="my-card" >
+  <div class="my-card">
     <div class="row justify-content-center">
-      <div class="col-md-12" >
+      <div class="col-md-12">
         <div class="card">
-          <div class="card-body" 
-          >
+          <div class="card-body">
             <div class="col-md-12">
-              
-              <div class="sort-container">
-                <button id="filterBtn" (click)="showFilters = true " (click)="getVarities()" style="margin: 6px;">Search</button>
+              <div class="sort-container" >
+                <button id="filterBtn" (click)="showFilters = true" (click)="getVarities()" style="margin: 6px">Filters</button>
                 <form *ngIf="showFilters" (ngSubmit)="onFilterSubmit()">
+                  <label for="startDate">Start Date:</label>
+                  <input type="date" id="startDate" name="filterStartDate" [(ngModel)]="filterStartDate" />
+                  <label for="endDate">End Date:</label>
+                  <input type="date" id="endDate" name="endDate" [(ngModel)]="filterEndDate" />
                   <label for="variety">Variety:</label>
-                  <select id="variety" name="variety" [(ngModel)]="filterVariety" >
+                  <select id="variety" name="variety" [(ngModel)]="filterVariety">
                     <option></option>
                     <option *ngFor="let variety of varieties" [value]="variety.varietyName">{{ variety.varietyName }}</option>
                   </select>
@@ -30,20 +32,15 @@
                     <option value="C">C</option>
                     <option value="D">D</option>
                   </select>
-                  <label for="startDate">Start Date:</label>
-                  <input type="date" id="startDate" name="filterStartDate" [(ngModel)]="filterStartDate " />
-                  <label for="endDate">End Date:</label>
-                  <input type="date" id="endDate" name="endDate" [(ngModel)]="filterEndDate" />
-                  
-                
-                  <button type="submit">Search</button>
+
+                  <button type="submit">Filter</button>
                   <div class="cancel-button-container">
-                  <button type="reset"(click)="reloadwindow()">Cancel</button>
-                </div>
+                    <button type="reset" (click)="cancelFilters()">Cancel</button>
+                  </div>
                 </form>
                 <label class="sort-label">Sort by:</label>
-                <select class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()">
-                  <!-- <option ></option> -->
+                <select   class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()">
+                  <option value="purchaseItem.date">Date</option>
                   <option value="varietyName">Variety Name</option>
                   <option value="purchaseItem.containerType">Container Type</option>
                   <option value="purchaseItem.quantity">Quantity</option>
@@ -53,20 +50,21 @@
                   <option value="purchaseItem.netWeight">Net Weight</option>
                   <option value="purchaseItem.ratePerKg">Rate Per Kg</option>
                   <option value="purchaseItem.amount">Amount</option>
-                  <option value="purchaseItem.date">Date</option>
                   <option value="purchaseBilling.labourCharges">Labour Charges</option>
                   <option value="purchaseBilling.totalAmount">Total Amount</option>
-                  <option value="purchaseBilling.date">Billing Date</option>
                 </select>
+                <label class="sort-label">Sort Order:</label>
                 <select class="sort-select" [(ngModel)]="sortOrder" (change)="onSortChange()">
                   <option value="asc">Ascending</option>
                   <option value="desc">Descending</option>
                 </select>
+                <button type="submit" (click)="showAllRecords()">ShowAll</button>
               </div>
               <br />
               <table>
                 <thead>
                   <tr>
+                    <th>Date </th>
                     <th>Variety Name </th>
                     <th>Container Type</th>
                     <th>Quantity</th>
@@ -76,16 +74,15 @@
                     <th>Net Weight</th>
                     <th>Rate/Kg</th>
                     <th>Amount</th>
-                    <th>Date Of Sell</th>
                     <th>Labour Charges</th>
                     <th>Total Amount</th>
-                    <th>Date Of Billing</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let purchasedetails of purchaseViewModel">
+                    <td>{{ purchasedetails.purchaseItem.date | date }}</td>
                     <td>{{ purchasedetails.varietyName }}</td>
-                    <td>{{ purchasedetails.purchaseItem.containerType  }}</td>
+                    <td>{{ purchasedetails.purchaseItem.containerType }}</td>
                     <td>{{ purchasedetails.purchaseItem.quantity }}</td>
                     <td>{{ purchasedetails.purchaseItem.grade }}</td>
                     <td>{{ purchasedetails.purchaseItem.totalWeight }}</td>
@@ -93,10 +90,8 @@
                     <td>{{ purchasedetails.purchaseItem.netWeight }}</td>
                     <td>{{ purchasedetails.purchaseItem.ratePerKg }}</td>
                     <td>{{ purchasedetails.purchaseItem.amount }}</td>
-                    <td>{{ purchasedetails.purchaseItem.date | date }}</td>
                     <td>{{ purchasedetails.purchaseBilling.labourCharges }}</td>
                     <td>{{ purchasedetails.purchaseBilling.totalAmount }}</td>
-                    <td>{{ purchasedetails.purchaseBilling.date | date }}</td>
                   </tr>
                 </tbody>
               </table>

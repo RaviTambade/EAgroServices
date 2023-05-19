@@ -189,14 +189,14 @@ public class PurchaseRepository : IPurchaseRepository
                                                                on item.FarmerId equals farmer.FarmerId
                                                                join variety in context.Varieties
                                                                on item.VarietyId equals variety.VarietyId
-                                                               where item.FarmerId == farmerId
+                                                               where item.FarmerId == farmerId orderby item.Date descending
                                                                select new PurchaseViewModel()
                                                                {
                                                                    PurchaseItem = item,
                                                                    PurchaseBilling = bill,
                                                                    FarmerName = farmer.FirstName + " " + farmer.LastName,
                                                                    VarietyName = variety.VarietyName
-                                                               }).ToListAsync();
+                                                               } ).ToListAsync();
                 return purchaseData;
             }
         }
