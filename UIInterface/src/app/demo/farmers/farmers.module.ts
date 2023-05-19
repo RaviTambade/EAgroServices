@@ -43,7 +43,8 @@ import { AreaChartComponent } from './farmerdashboard/area-chart/area-chart.comp
     RouterModule
   ],
   exports:[
-    FarmerSelllistComponent
+    FarmerSelllistComponent,
+    FarmerUpdateComponent
   ]
   
 })

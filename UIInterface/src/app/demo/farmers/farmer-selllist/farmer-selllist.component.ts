@@ -23,7 +23,7 @@ export class FarmerSelllistComponent {
   filterGrade: any;
   showFilters: boolean = false;
   varieties: any;
-  @Input() showNav:boolean=true;
+  @Input() callFromParent:boolean=false;
 
   constructor(private svc: FarmerService, private route: ActivatedRoute) { }
   ngOnInit(): void {

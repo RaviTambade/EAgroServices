@@ -40,16 +40,20 @@ ngOnInit(): void {
 onUpdateClick(){
     this.updateStatus=true;
     this.deleteStatus=false;
+    this.sellListStatus=false
 }
 onDeleteClick(){
   this.updateStatus=false;
   this.deleteStatus=true;
+  this.sellListStatus=false
 }
 onCancelClick(){
   this.deleteStatus=false;
 }
 onSellListClick(){
   this.sellListStatus=true;
+  this.updateStatus=false;
+  this.deleteStatus=false;
 }
 }
 
