@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Farmer } from '../farmer';
 import { FarmerService } from '../farmer.service';
@@ -12,7 +12,7 @@ import { Purchaseviewmodel } from '../purchaseviewmodel';
 })
 export class FarmerSelllistComponent {
   farmer: Farmer | undefined;
-  farmerId: string;
+  @Input() farmerId: number|string;
   purchaseViewModel: Purchaseviewmodel[];
   purchaseViewModel1: Purchaseviewmodel[];
   sortBy: string | undefined;
@@ -23,13 +23,16 @@ export class FarmerSelllistComponent {
   filterGrade: any;
   showFilters: boolean = false;
   varieties: any;
+  @Input() showNav:boolean=true;
 
   constructor(private svc: FarmerService, private route: ActivatedRoute) { }
   ngOnInit(): void {
+    if(this.farmerId==undefined){
     this.route.paramMap.subscribe((params) => {
       console.log(params)
       this.farmerId = params.get('id');
     });
+  }
 
     this.svc.getFarmerPurchaseDetails(this.farmerId).subscribe((response) => {
       this.purchaseViewModel = response.slice(0,10);

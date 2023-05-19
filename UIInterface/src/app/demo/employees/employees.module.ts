@@ -12,6 +12,7 @@ import { FarmerdetailsComponent } from './details/farmerdetails/farmerdetails.co
 import { FarmerUpdateComponent } from './details/farmerdetails/farmer-update/farmer-update.component';
 import { MerchantDetailsComponent } from './details/merchant-details/merchant-details.component';
 import { MerchantUpdateComponent } from './details/merchant-details/merchant-update/merchant-update.component';
+import { FarmersModule } from '../farmers/farmers.module';
 
 
 
@@ -26,6 +27,7 @@ import { MerchantUpdateComponent } from './details/merchant-details/merchant-upd
     FarmerUpdateComponent,
     MerchantDetailsComponent,
     MerchantUpdateComponent,
+   
   ],
   imports: [
     CommonModule,
@@ -33,8 +35,8 @@ import { MerchantUpdateComponent } from './details/merchant-details/merchant-upd
     RouterModule,
     NgbDropdownModule,
     BrowserModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    FarmersModule
   ]
 })
 export class EmployeesModule { }

@@ -17,10 +17,19 @@
         <button type="submit" class="btn btn-danger btn-block fixed-delete-button" (click)="onDeleteClick()">
           <i class="fas fa-trash-alt"></i> Delete</button
         >
+        <button type="submit" class="btn btn-primary btn-block fixed-selllist-button " (click)="onSellListClick()">
+          <i class="fas fa-list"></i>SellList</button
+        >
       </div>
     </div>
-    <div *ngIf="updateStatus" >
+    <div *ngIf="updateStatus" class="parent-container " >
       <emp-farmer-update [farmer]="farmer"></emp-farmer-update>
+    </div>
+    <div *ngIf="sellListStatus" >
+      <app-farmer-selllist style="--child-margin-left: 0;" [showNav]="false" [farmerId]="farmer.farmerId"></app-farmer-selllist>
+     <div style="text-align: center;" > <button type="submit" class="btn btn-danger btn-block "  (click)="sellListStatus=false">
+        <i class="fas fa-check mr-2"></i>Close</button>
+      </div>
     </div>
 
     <div *ngIf="deleteStatus">
