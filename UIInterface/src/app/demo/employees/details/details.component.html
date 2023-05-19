@@ -1,28 +1,30 @@
-<div *ngIf="role=='Farmer'"> 
-<div class="row"style="background-color: silver;">
-  <div class="col-md-12" >
-    <div class="mycard text-bg-dark overflow-hidden "  >
-      <input type="text" [(ngModel)]="searchString">
-        <button type="submit" (click)="onSearch()">Search</button>
-        <button type="submit" (click)="onShowAll()">ShowAll</button>
-      <div *ngFor="let farmer of userList">
-        <emp-farmerdetails [farmer]="farmer"></emp-farmerdetails>
+<div *ngIf="role == 'Farmer'">
+  <div class>
+    <input type="text" placeholder="Search here" (input)="onSearch()" [(ngModel)]="searchString" />
+    <button type="submit" (click)="onShowAll()">ShowAll</button>
+  </div>
+  <div class="mycard text-bg-white overflow-hidden">
+    <div class="row" style="background-color: silver">
+      <div class="col-md-12">
+        <div *ngFor="let farmer of userList">
+          <emp-farmerdetails [farmer]="farmer"></emp-farmerdetails>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div *ngIf="role=='Merchant'"> 
-  <div class="row"style="background-color: silver;">
-    <div class="col-md-12" >
-      <div class="mycard text-bg-dark overflow-hidden "  >
-        <input type="text" [(ngModel)]="searchString">
-        <button type="submit" (click)="onSearch()">Search</button>
-        <button type="submit" (click)="onShowAll()">ShowAll</button>
+<div *ngIf="role == 'Merchant'">
+  <div class>
+    <input type="text" placeholder="Search here" (input)="onSearch()" [(ngModel)]="searchString" />
+    <button type="submit" (click)="onShowAll()">ShowAll</button>
+  </div>
+  <div class="mycard text-bg-white overflow-hidden">
+    <div class="row" style="background-color: silver">
+      <div class="col-md-12">
         <div *ngFor="let merchant of userList">
           <emp-merchant-details [merchant]="merchant"></emp-merchant-details>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>

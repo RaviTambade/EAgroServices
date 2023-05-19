@@ -17,7 +17,7 @@ export class FarmerLogoutComponent {
     if(result){
       this.router.navigate(["guest/login"])
       console.log ("logging out");
-      localStorage.removeItem("jwt");
+      localStorage.removeItem("jwtToken");
     }
     else{
       this.router.navigate(["merchants/dashboard",this.farmerId]);
