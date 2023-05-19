@@ -21,6 +21,7 @@ import { TransportupdateComponent } from './demo/transport/transportupdate/trans
 import { ListComponent } from './demo/employees/list/list.component';
 import { TransportlogoutComponent } from './demo/transport/transportlogout/transportlogout.component';
 import { DetailsComponent } from './demo/employees/details/details.component';
+import { FarmerAuthGuard } from './demo/farmers/farmer-auth.guard';
 
 
 
@@ -81,6 +82,7 @@ const routes: Routes = [
   },
    {
     path: 'farmers',
+     canActivate:[FarmerAuthGuard],
     children:[
       // { path:':id', component: FarmerDashboardComponent },
       { path:'dashboard/:id', component: FarmerDashboardComponent },
