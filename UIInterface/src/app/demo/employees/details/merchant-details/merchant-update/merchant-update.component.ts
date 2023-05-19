@@ -17,6 +17,7 @@ constructor(private svc:MerchantService,private empsvc:EmployeeService){
 }
 
 ngOnInit(): void {
+  
 }
 
   editProfile() {
@@ -24,7 +25,7 @@ ngOnInit(): void {
       console.log(response)
     alert("Update Successfully")
     this.empsvc.sendRole({selectedRole:"Merchant"});   
-
   });
 }
+
 }
