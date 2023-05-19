@@ -15,4 +15,5 @@ public interface ITransportRepository
     Task<List<TransportFareDetails>> TransportHistory(int transportId);
     Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int transportId);
     Task<List<TransportTruckHistory>> TransportTruckHistoryByYear(int transportId);
+    Task<List<Truck>>GetTransportsTrucks(int  transportId);
 }
