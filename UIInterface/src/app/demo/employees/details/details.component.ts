@@ -33,6 +33,7 @@ export class DetailsComponent implements OnInit{
   if(this.searchString==undefined){
     return;
   }
+  this.searchString=this.searchString.toLowerCase();
   this.userList=this.userList1.filter(user=>(user.firstName.toLowerCase().startsWith(this.searchString)
                 ||  user.lastName.toLowerCase().startsWith(this.searchString)
                 || user.firstName.concat(" "+user.lastName).toLowerCase().startsWith(this.searchString)

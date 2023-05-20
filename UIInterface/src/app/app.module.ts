@@ -22,6 +22,7 @@ import { FarmersModule } from './demo/farmers/farmers.module';
 import { MerchantsModule } from './demo/merchants/merchants.module';
 import { TransportModule } from './demo/transport/transport.module';
 import { EmployeesModule } from './demo/employees/employees.module';
+import {  JWT_OPTIONS, JwtHelperService, } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,17 @@ import { EmployeesModule } from './demo/employees/employees.module';
     ConfigurationComponent,
     GuestComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,HttpClientModule,FarmersModule,MerchantsModule,TransportModule,EmployeesModule],
-  providers: [NavigationItem],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,
+    HttpClientModule,FarmersModule,MerchantsModule,TransportModule,EmployeesModule,
+],
+providers: [
+  { provide: JWT_OPTIONS, useValue: {
+    tokenGetter: () => {
+      return localStorage.getItem('jwtToken');
+    },
+    throwNoTokenError: true,
+  } },
+  NavigationItem,JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

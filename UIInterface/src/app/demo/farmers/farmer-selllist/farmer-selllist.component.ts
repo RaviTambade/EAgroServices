@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Farmer } from '../farmer';
 import { FarmerService } from '../farmer.service';
@@ -12,7 +12,7 @@ import { Purchaseviewmodel } from '../purchaseviewmodel';
 })
 export class FarmerSelllistComponent {
   farmer: Farmer | undefined;
-  farmerId: string;
+  @Input() farmerId: number|string;
   purchaseViewModel: Purchaseviewmodel[];
   purchaseViewModel1: Purchaseviewmodel[];
   sortBy: string | undefined;
@@ -23,15 +23,19 @@ export class FarmerSelllistComponent {
   filterGrade: any;
   showFilters: boolean = false;
   varieties: any;
+  @Input() callFromParent:boolean=false;
+
   constructor(private svc: FarmerService, private route: ActivatedRoute) { }
   ngOnInit(): void {
+    if(this.farmerId==undefined){
     this.route.paramMap.subscribe((params) => {
       console.log(params)
       this.farmerId = params.get('id');
     });
+  }
 
     this.svc.getFarmerPurchaseDetails(this.farmerId).subscribe((response) => {
-      this.purchaseViewModel = response;
+      this.purchaseViewModel = response.slice(0,10);
       this.purchaseViewModel1=response;
       console.log(this.purchaseViewModel);
     })
@@ -43,9 +47,9 @@ export class FarmerSelllistComponent {
     })
   }
 
-  reloadwindow() {
-    // this.showFilters = false;
-    window.location.reload();
+  cancelFilters() {
+    this.showFilters = false;
+    
   }
 
   onSortChange() {
@@ -127,6 +131,10 @@ export class FarmerSelllistComponent {
     }
     this.purchaseViewModel = filteredPurchases;
     this.showFilters = false;
+  }
+  showAllRecords()
+  {
+    this.purchaseViewModel=this.purchaseViewModel1
   }
 }
 

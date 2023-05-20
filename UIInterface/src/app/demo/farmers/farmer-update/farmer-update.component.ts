@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Farmer } from '../farmer';
 import { FarmerService } from '../farmer.service';
+import { EmployeeService } from '../../employees/employee.service';
 
 @Component({
   selector: 'app-farmer-update',
@@ -14,13 +15,17 @@ export class FarmerUpdateComponent {
     lastName: '',
     location: ''
   };
-  farmerId: any;
-  constructor(private svc: FarmerService, private route: ActivatedRoute,private router:Router) { }
+   @Input()farmerId: any;
+   @Input() callFromParent:boolean=false;
+  constructor(private svc: FarmerService, private route: ActivatedRoute,private router:Router,
+    private empsvc:EmployeeService) { }
   ngOnInit(): void {
+    if(this.farmerId==undefined){
     this.route.paramMap.subscribe((params) => {
       console.log(params)
       this.farmerId = params.get('id');
     });
+  }
     this.svc.getFarmer(this.farmerId).subscribe((response) => {
       this.farmer = response;
       console.log(this.farmer);
@@ -29,9 +34,12 @@ export class FarmerUpdateComponent {
     editProfile() {
       this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
         console.log(response)
-      alert("Update Successfully")
+      if(this.callFromParent==false){
       this.router.navigate(["farmers/profile",this.farmerId]);
-
+      }
+      else{
+       this.empsvc.sendRole({selectedRole:"Farmer"})  ;
+      }
       })
 }
 }

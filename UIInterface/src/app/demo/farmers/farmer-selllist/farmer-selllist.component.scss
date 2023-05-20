@@ -1,7 +1,7 @@
 .my-card {
     position:sticky;
     align-content: center;
-    margin-left: 16%;
+    margin-left: var(--child-margin-left, 16%);
     background-color: #f1f1f1;
 			padding: 10px;
 			border-radius: 5px;
@@ -31,10 +31,11 @@
   
   .sort-label {
     margin-right: 1rem;
+    margin-left: 1rem;
+
   }
   
   .sort-select {
-    padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
     font-size: 1rem;
@@ -64,16 +65,16 @@
   }
 
   form {
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
-    width: 500px; 
-    height: 400px; 
+    width: 400px; 
+    height: 440px; 
     background-color: rgb(234, 219, 140);
-    padding: 20px;
+    padding: 40px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }

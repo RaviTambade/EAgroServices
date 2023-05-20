@@ -42,6 +42,10 @@ import { AreaChartComponent } from './farmerdashboard/area-chart/area-chart.comp
     NgScrollbarModule,
     RouterModule
   ],
+  exports:[
+    FarmerSelllistComponent,
+    FarmerUpdateComponent
+  ]
   
 })
 

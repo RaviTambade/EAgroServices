@@ -46,6 +46,23 @@ input[type="text"] {
   }
   
   button[type="submit"]:hover {
-    background-color:#10cf3d ;
+    background-color:#bc0f8b ;
   }
+  .search-row {
+    background-color: #1e272e;
+    padding: 10px;
+    color: gold ;
+  }
+  
+  .search-input {
+    width: 200px;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 576px) {
+    .search-input {
+      width: 100%;
+    }
+  }
+  
   

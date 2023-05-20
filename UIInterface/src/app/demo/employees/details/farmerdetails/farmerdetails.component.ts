@@ -15,14 +15,10 @@ export class FarmerdetailsComponent {
   @Input() farmer:Farmer;
   farmerId: any;
 
-  update:boolean = false;
-constructor(private farmersvc:FarmerService,private route:ActivatedRoute,private router:Router,private empsvc:EmployeeService){}
-
-
+  sellListStatus: boolean=false;
   updateStatus:boolean = false;
   deleteStatus:boolean=false;
-
-
+constructor(private farmersvc:FarmerService,private route:ActivatedRoute,private router:Router,private empsvc:EmployeeService){}
 
 ngOnInit(): void {
 }
@@ -38,20 +34,25 @@ ngOnInit(): void {
     this.farmersvc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
       console.log(response)
     alert("Update Successfully")
-    this.empsvc.sendRole({selectedRole:"Farmer"})
-    // window.location.reload();
-  
+    this.empsvc.sendRole({selectedRole:"Farmer"})  
 });
   }
 onUpdateClick(){
     this.updateStatus=true;
     this.deleteStatus=false;
+    this.sellListStatus=false
 }
 onDeleteClick(){
   this.updateStatus=false;
   this.deleteStatus=true;
+  this.sellListStatus=false
 }
 onCancelClick(){
+  this.deleteStatus=false;
+}
+onSellListClick(){
+  this.sellListStatus=true;
+  this.updateStatus=false;
   this.deleteStatus=false;
 }
 }

@@ -9,9 +9,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
 import { FarmerdetailsComponent } from './details/farmerdetails/farmerdetails.component';
-import { FarmerUpdateComponent } from './details/farmerdetails/farmer-update/farmer-update.component';
 import { MerchantDetailsComponent } from './details/merchant-details/merchant-details.component';
-import { MerchantUpdateComponent } from './details/merchant-details/merchant-update/merchant-update.component';
+import { FarmersModule } from '../farmers/farmers.module';
 
 
 
@@ -23,9 +22,8 @@ import { MerchantUpdateComponent } from './details/merchant-details/merchant-upd
     ListComponent,
     DetailsComponent,
     FarmerdetailsComponent,
-    FarmerUpdateComponent,
     MerchantDetailsComponent,
-    MerchantUpdateComponent,
+   
   ],
   imports: [
     CommonModule,
@@ -33,8 +31,8 @@ import { MerchantUpdateComponent } from './details/merchant-details/merchant-upd
     RouterModule,
     NgbDropdownModule,
     BrowserModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    FarmersModule
   ]
 })
 export class EmployeesModule { }
