@@ -23,6 +23,7 @@ import { MerchantsModule } from './demo/merchants/merchants.module';
 import { TransportModule } from './demo/transport/transport.module';
 import { EmployeesModule } from './demo/employees/employees.module';
 import {  JWT_OPTIONS, JwtHelperService, } from '@auth0/angular-jwt';
+import { AdminModule } from './demo/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import {  JWT_OPTIONS, JwtHelperService, } from '@auth0/angular-jwt';
     GuestComponent
   ],
   imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,
-    HttpClientModule,FarmersModule,MerchantsModule,TransportModule,EmployeesModule,
+    HttpClientModule,FarmersModule,MerchantsModule,TransportModule,EmployeesModule,AdminModule,
 ],
 providers: [
   { provide: JWT_OPTIONS, useValue: {

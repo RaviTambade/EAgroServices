@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 select * from users;
 Drop DATABASE IF EXISTS eagroservicesdb;
@@ -548,7 +548,8 @@ CALL call_proceduresofsells(100);
 -- INNER join sells_billing on sells.sell_id=sells_billing.sell_id
 -- WHERE transports.transport_id=2;
 SELECT * FROM employees;
-SELECT * FROM sells;
+SELECT * FROM admins;
+SELECT * FROM users;
 SELECT * FROM sells_billing;
 
 ---- monthwise trucks bill total of a transport per year

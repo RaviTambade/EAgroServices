@@ -57,7 +57,7 @@ export default class LoginComponent {
       if (role == "admin") {
         const adminId = this.svc.getAdminIdFromToken();
         console.log(adminId);
-        this.router.navigate(['default', adminId]);
+        this.router.navigate(['admin/dashboard', adminId]);
       }
      
     });

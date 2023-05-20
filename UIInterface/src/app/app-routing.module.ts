@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
@@ -23,6 +23,7 @@ import { TransportlogoutComponent } from './demo/transport/transportlogout/trans
 import { DetailsComponent } from './demo/employees/details/details.component';
 import { TransportTruckComponent } from './demo/transport/transport-truck/transport-truck.component';
 import { FarmerAuthGuard } from './demo/farmers/farmer-auth.guard';
+import { AdmindashboardComponent } from './demo/admin/admindashboard/admindashboard.component';
 
 
 
@@ -118,10 +119,12 @@ const routes: Routes = [
       //  { path:'merchantdetails/:id',component: MerchantDetailsComponent }, 
        { path:'list/:id',component: ListComponent },   
        { path:'details/:id',component: DetailsComponent },       
-
-
-
-
+    ],
+  },
+  {
+    path:'admin',
+    children:[
+      { path:'dashboard/:id', component:AdmindashboardComponent },
 
     ],
    },
