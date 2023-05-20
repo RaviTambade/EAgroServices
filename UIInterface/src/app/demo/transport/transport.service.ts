@@ -38,8 +38,9 @@ getAllTrucks(transportId:any):Observable<Truck[]>{
   let url ="http://localhost:5240/api/transports/transport-trucks/" +transportId;
   return this.httpClient.get<Truck[]>(url);
 }
-addTruck(truck:Truck):Observable<Truck>{
-  let url="http://localhost:5240/api/truck/insert";
-  return this.httpClient.post<Truck>(url,truck);
+addTruck(transportId:any,truck:Truck):Observable<any>{
+  let url="http://localhost:5240/api/truck/insert/"+transportId;
+  return this.httpClient.post<any>(url,truck);
+  console.log(truck);
 }
 }

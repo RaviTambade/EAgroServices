@@ -9,8 +9,9 @@ import { Truck } from '../truck';
   styleUrls: ['./transport-truck.component.scss']
 })
 export class TransportTruckComponent {
-  truck:Truck|any
-  transportId: string;
+  truck:Truck|any;
+  transportId:any |undefined;
+  status:boolean=false;
   constructor(private svc:TransportService,private route:ActivatedRoute){}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -22,10 +23,13 @@ export class TransportTruckComponent {
       console.log(response)
     });
   }
-  addTruck(truck:Truck){
-    this.svc.addTruck(this.truck).subscribe((response)=>{
-this.truck=response
-console.log(this.truck);
+  addTruck(){
+    // this.truck.transportId=this.transportId
+    console.log(this.transportId)
+    this.svc.addTruck(1,this.truck).subscribe((response)=>{
+console.log(response)
+alert("Truck Inserted Successfully")
+ window.location.reload();
     })
   }
  
