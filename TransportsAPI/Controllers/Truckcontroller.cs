@@ -27,6 +27,9 @@ public class TruckController : ControllerBase
     public async Task<bool> Insert(int id,[FromBody] Truck truck)
     {
        truck.TransportId=id;
+    System.Console.WriteLine(truck.TruckId);
+       System.Console.WriteLine(truck.TransportId);
+       System.Console.WriteLine(truck.TruckNumber);
         return await _service.Insert(truck);
     }
     [HttpPut("update/{id}")]

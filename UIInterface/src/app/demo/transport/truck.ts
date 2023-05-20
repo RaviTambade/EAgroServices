@@ -1,4 +1,4 @@
 export class Truck {
-    constructor(public transportId:any, public truckNumber:string){}
+    constructor( public truckNumber:string){}
 }
 
