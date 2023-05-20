@@ -23,10 +23,13 @@ public class TruckController : ControllerBase
         return await _service.GetById(id);
     }
 
-    [HttpPost("insert")]
-    public async Task<bool> Insert([FromBody] Truck truck)
+    [HttpPost("insert/{id}")]
+    public async Task<bool> Insert(int id,[FromBody] Truck truck)
     {
-
+       truck.TransportId=id;
+    System.Console.WriteLine(truck.TruckId);
+       System.Console.WriteLine(truck.TransportId);
+       System.Console.WriteLine(truck.TruckNumber);
         return await _service.Insert(truck);
     }
     [HttpPut("update/{id}")]

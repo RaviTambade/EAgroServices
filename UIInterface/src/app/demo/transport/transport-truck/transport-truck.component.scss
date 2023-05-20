@@ -43,3 +43,113 @@
   .list-group-item:hover {
     background-color: #53a5f7;
   }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    padding: 48px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: #1e272e;
+    color: #fff;
+  }
+  
+  .sidebar-sticky {
+    position: sticky;
+    top: 48px; /* Height of navbar */
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  }
+  
+  .sidebar .nav-link {
+    font-weight: 500;
+    color: #fff;
+    transition: all 0.25s ease-in-out;
+  }
+  
+  .sidebar .nav-link.active {
+    color: #f2f4f7;
+    background-color: rgb(242, 16, 16);
+  }
+  
+  .sidebar .nav-link:hover {
+    color: #007bff;
+  }
+  
+  @media (max-width: 767.98px) {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: -100%;
+      z-index: 100;
+      display: block;
+      overflow-x: hidden;
+      transition: all 0.25s ease-in-out;
+      box-shadow: none;
+    }
+  
+    .sidebar.show {
+      left: 0;
+      box-shadow: 10px 0 30px -10px #000;
+    }
+  }
+  
+  /* Main content */
+  main {
+    padding-top: 48px; /* Height of navbar */
+  }
+  
+  /* Custom styles for the sidebar icons */
+  .sidebar .nav-link i {
+    font-size: 1.25rem;
+    margin-right: 10px;
+  }
+  
+  .sidebar .nav-link.active i,
+  .sidebar .nav-link:hover i {
+    color: #007bff;
+  }
+
+  .custom-link {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    color: #555;
+  }
+  
+  .custom-link:hover {
+    background-color: #eee;
+  }
+  
+  .custom-link i {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+  }
+  
+  .custom-link .ml-2 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .logo {
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .logo .text-primary {
+    color: #007bff;
+  }
+  
+  .logo .text-success {
+    color: #28a745;
+  }
+  
+  .logo .text-warning {
+    color: #ffc107;
+  }
+  
