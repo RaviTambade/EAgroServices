@@ -22,7 +22,7 @@ import { ListComponent } from './demo/employees/list/list.component';
 import { TransportlogoutComponent } from './demo/transport/transportlogout/transportlogout.component';
 import { DetailsComponent } from './demo/employees/details/details.component';
 import { TransportTruckComponent } from './demo/transport/transport-truck/transport-truck.component';
-import { FarmerAuthGuard } from './demo/farmers/farmer-auth.guard';
+import { FarmerAuthGuard } from 'src/Guards/farmer-auth.guard';
 
 
 

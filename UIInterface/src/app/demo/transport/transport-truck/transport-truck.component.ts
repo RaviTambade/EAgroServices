@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TransportService } from '../../../Services/transport.service';
 import { ActivatedRoute } from '@angular/router';
 import { Truck } from '../truck';
-import { AuthService } from '../../pages/authentication/auth.service';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-transport-truck',
