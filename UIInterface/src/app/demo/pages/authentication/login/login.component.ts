@@ -4,12 +4,13 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { User } from '../user';
 import { AuthService } from '../auth.service';
-import jwt_decode from 'jwt-decode';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
+  providers:[AuthService,JwtHelperService],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -31,68 +32,36 @@ export default class LoginComponent {
       //   console.log("invalid login")
       // }
       localStorage.setItem('jwtToken', response.token);
-      const role = this.getRoleFromToken();
+      const role = this.svc.getRoleFromToken();
       console.log(role)
       if (role == "farmer") {
-        const farmerId = this.getFarmerIdFromToken();
+        const farmerId = this.svc.getFarmerIdFromToken();
         console.log(farmerId);
-        this.router.navigate(['farmers/dashboard', farmerId]);
+        this.router.navigate(['farmers', farmerId,'dashboard']);
       } 
       if (role == "employee") {
-        const employeeId = this.getEmployeeIdFromToken();
+        const employeeId = this.svc.getEmployeeIdFromToken();
         console.log(employeeId);
         this.router.navigate(['employees/dashboard', employeeId]);
       }
       if (role == "merchant") {
-        const merchantId = this.getMerchantIdFromToken();
+        const merchantId = this.svc.getMerchantIdFromToken();
         console.log(merchantId);
         this.router.navigate(['merchants/dashboard', merchantId]);
       }
       if (role == "transport") {
-        const transportId = this.getTransportIdFromToken();
+        const transportId = this.svc.getTransportIdFromToken();
         console.log(transportId);
         this.router.navigate(['transports/dashboard', transportId]);
       }
       if (role == "admin") {
-        const adminId = this.getAdminIdFromToken();
+        const adminId = this.svc.getAdminIdFromToken();
         console.log(adminId);
         this.router.navigate(['default', adminId]);
       }
      
     });
   }
-  getRoleFromToken(): string {
-    const token = localStorage.getItem('jwtToken');
-    if (token) {
-      const decodedToken: any = jwt_decode(token);
-      return decodedToken.role;
-    }
-    return '';
-  }
-  getFarmerIdFromToken(): number {
-    const token = localStorage.getItem('jwtToken');
-    const decodedToken: any = jwt_decode(token);
-    return decodedToken.farmerId;
-  }
-  getAdminIdFromToken(): number {
-    const token = localStorage.getItem('jwtToken');
-    const decodedToken: any = jwt_decode(token);
-    return decodedToken.adminId;
-  }
-  getEmployeeIdFromToken(): number {
-    const token = localStorage.getItem('jwtToken');
-    const decodedToken: any = jwt_decode(token);
-    return decodedToken.employeeId;
-  }
-  getMerchantIdFromToken(): number {
-    const token = localStorage.getItem('jwtToken');
-    const decodedToken: any = jwt_decode(token);
-    return decodedToken.merchantId;
-  }
-  getTransportIdFromToken(): number {
-    const token = localStorage.getItem('jwtToken');
-    const decodedToken: any = jwt_decode(token);
-    return decodedToken.transportId;
-  }
+  
 }
 

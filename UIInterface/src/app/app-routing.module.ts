@@ -82,17 +82,17 @@ const routes: Routes = [
     ]
   },
    {
-    path: 'farmers',
+    path: 'farmers/:id',
      canActivate:[FarmerAuthGuard],
+     runGuardsAndResolvers: 'always',
     children:[
-      // { path:':id', component: FarmerDashboardComponent },
-      { path:'dashboard/:id', component: FarmerDashboardComponent },
-      { path:'selllist/:id', component: FarmerSelllistComponent },
-      { path:'profile/:id', component: ProfileComponent },
-      {path:'update/:id',component:FarmerUpdateComponent},
-      {path:'variety/:id',component:VarietyComponent},    
-      {path:'update/:id',component:FarmerUpdateComponent},     
-      {path:'logout/:id',component:FarmerLogoutComponent}       
+      { path:'dashboard', component: FarmerDashboardComponent },
+      { path:'selllist', component: FarmerSelllistComponent },
+      { path:'profile', component: ProfileComponent },
+      {path:'update',component:FarmerUpdateComponent},
+      {path:'variety',component:VarietyComponent},    
+      {path:'update',component:FarmerUpdateComponent},     
+      {path:'logout',component:FarmerLogoutComponent}       
 
     ],
    },
