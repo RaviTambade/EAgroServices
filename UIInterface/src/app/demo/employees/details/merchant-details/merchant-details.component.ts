@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { MerchantService } from 'src/app/demo/merchants/merchant.service';
-import { Merchant } from 'src/app/demo/pages/authentication/merchant';
-import { EmployeeService } from '../../employee.service';
+import { MerchantService } from 'src/app/Services/merchant.service';
+import { EmployeeService } from '../../../../Services/employee.service';
+import { Merchant } from 'src/app/Models/merchant';
 
 @Component({
   selector: 'emp-merchant-details',
@@ -9,33 +9,43 @@ import { EmployeeService } from '../../employee.service';
   styleUrls: ['./merchant-details.component.scss']
 })
 export class MerchantDetailsComponent {
-  @Input() merchant:Merchant;
+  @Input() merchant: Merchant;
   merchantId: any;
-  updateStatus:boolean = false;
-  deleteStatus:boolean=false;
+  updateStatus: boolean = false;
+  deleteStatus: boolean = false;
+  purchaseListStatus: boolean = false;
 
-constructor(private merchantsvc:MerchantService,private empsvc:EmployeeService ){
-}
+  constructor(private merchantsvc: MerchantService, private empsvc: EmployeeService) {
+  }
 
-ngOnInit(): void {
-  
+  ngOnInit(): void {
+
   };
 
   confirm() {
-    this.merchantsvc.deleteMerchant(this.merchant.merchantId).subscribe((response)=>{
+    this.merchantsvc.deleteMerchant(this.merchant.merchantId).subscribe((response) => {
       console.log(response)
-      this.empsvc.sendRole({selectedRole:"Merchant"});    
-  })
-}
-onUpdateClick(){
-  this.updateStatus=true;
-  this.deleteStatus=false;
-}
-onDeleteClick(){
-this.updateStatus=false;
-this.deleteStatus=true;
-}
-onCancelClick(){
-  this.deleteStatus=false;
-}
+      this.empsvc.sendRole({ selectedRole: "Merchant" });
+    })
+  }
+  onUpdateClick() {
+    this.updateStatus = true;
+    this.deleteStatus = false;
+    this.purchaseListStatus = false;
+
+  }
+  onDeleteClick() {
+    this.updateStatus = false;
+    this.deleteStatus = true;
+    this.purchaseListStatus = false;
+
+  }
+  onCancelClick() {
+    this.deleteStatus = false;
+  }
+  onSellListClick() {
+    this.purchaseListStatus = true;
+    this.updateStatus = false;
+    this.deleteStatus = false;
+  }
 }

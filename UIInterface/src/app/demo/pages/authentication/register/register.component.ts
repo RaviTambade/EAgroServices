@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { Userfarmerrole } from '../userfarmerrole';
-import { Userrole } from '../userrole';
-import { Farmer } from '../farmer';
-import { User } from '../user';
 import { FormsModule } from '@angular/forms';
-import { Merchant } from '../merchant';
-import { Usermerchantrole } from '../usermerchantrole';
-import { Admin } from '../admin';
-import { Employee } from '../employee';
-import { Transport } from '../transport';
-import { Useradminrole } from '../useradminrole';
-import { Useremployeerole } from '../useremployeerole';
-import { Usertransportrole } from '../usertransportrole';
-import { Role } from '../role';
+import { User } from 'src/app/Models/user';
+import { Admin } from 'src/app/Models/admin';
+import { Farmer } from 'src/app/Models/farmer';
+import { Employee } from 'src/app/Models/employee';
+import { Transport } from 'src/app/Models/transport';
+import { Merchant } from 'src/app/Models/merchant';
+import { Userrole } from 'src/app/Models/userrole';
+import { Role } from 'src/app/Models/role';
+import { Useradminrole } from 'src/app/Models/useradminrole';
+import { Userfarmerrole } from 'src/app/Models/userfarmerrole';
+import { Useremployeerole } from 'src/app/Models/useremployeerole';
+import { Usermerchantrole } from 'src/app/Models/usermerchantrole';
+import { AuthService } from 'src/app/Services/auth.service';
+import { Usertransportrole } from 'src/app/Models/usertransportrole';
+
 
 @Component({
   selector: 'app-register',
@@ -37,7 +38,8 @@ export default class RegisterComponent {
   farmer: Farmer = {
     firstName: '',
     lastName: '',
-    location: ''
+    location: '',
+    farmerId: 0
   };
   employee: Employee = {
     firstName: '',

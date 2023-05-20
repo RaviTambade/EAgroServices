@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FarmerService } from '../farmer.service';
+import { FarmerService } from '../../../Services/farmer.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

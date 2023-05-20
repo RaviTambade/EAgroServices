@@ -1,34 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Farmer } from '../farmers/farmer';
+import { Farmer } from '../Models/farmer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
   private subject = new Subject<any>();
-  // roles:any [] =[{
-  //   "roleName":"Admin",
-  //   "firstName":"Sahil"
-  // },
-  // {
-  //   "roleName":"Employee",
-  //   "firstName":"Shubham"
-  // },
-  // {
-  //   "roleName":"Merchant",
-  //   "firstName":"Jayesh"
-  // },
-  // {
-  //   "roleName":"Transport",
-  //   "firstName":"Rajesh"
-  // },
-  // {
-  //   "roleName":"Farmer",
-  //   "firstName":"Tejas"
-  // }it 
-  // ]
+
 
   constructor(private httpClient: HttpClient) { }
   getAllFarmers(): Observable<any> {

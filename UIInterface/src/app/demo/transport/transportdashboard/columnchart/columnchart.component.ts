@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Transport } from '../../transport';
 import { ChartType } from 'angular-google-charts';
-import { TransportService } from '../../transport.service';
+import { TransportService } from '../../../../Services/transport.service';
 import { ActivatedRoute } from '@angular/router';
 import { TransportTruckdetails } from '../../transport-truckdetails';
 

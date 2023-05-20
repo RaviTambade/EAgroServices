@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Variety } from '../variety';
-import { FarmerService } from '../farmer.service';
+import { FarmerService } from '../../../Services/farmer.service';
 import { ActivatedRoute } from '@angular/router';
+import { VarietyService } from 'src/app/Services/variety.service';
+import { Variety } from 'src/app/Models/variety';
 
 @Component({
   selector: 'app-variety',
@@ -9,23 +10,21 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./variety.component.scss']
 })
 export class VarietyComponent implements OnInit {
-  farmerId:string;
-  varieties:Variety [] | any={
+  farmerId: string;
+  varieties: Variety[] | any = {
     varietyName: '',
-    imageUrl:'',
-    rate:0
-    
+    imageUrl: '',
+    rate: 0
+
   }
-  constructor(private svc:FarmerService, private route: ActivatedRoute){}
+  constructor(private svc: FarmerService, private route: ActivatedRoute, private varietysvc: VarietyService) { }
   ngOnInit(): void {
-    this.route.paramMap.subscribe((response=>{
-      this.farmerId=response.get("id");
+    this.route.paramMap.subscribe((response => {
+      this.farmerId = response.get("id");
     }))
-    this.svc.getAllVarieties().subscribe((responce)=>{
-this.varieties=responce;
-console.log(this.varieties);
+    this.varietysvc.getAllVarieties().subscribe((responce) => {
+      this.varieties = responce;
+      console.log(this.varieties);
     })
   }
-
-  }
-
+}

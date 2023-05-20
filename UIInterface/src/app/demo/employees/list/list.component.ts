@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EmployeeService } from '../employee.service';
+import { EmployeeService } from '../../../Services/employee.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({

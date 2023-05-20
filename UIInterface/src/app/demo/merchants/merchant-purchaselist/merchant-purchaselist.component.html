@@ -1,44 +1,97 @@
 <div class="hiddenscroll">
-    <div class="row ">
-      <div class="col-md-2" >
-        <app-merchant-nav-left></app-merchant-nav-left>
-      </div>
-      <div class="col-md-10 center bg-danger" style="background-color: rgb(71, 71, 204);text-align: center;"><h2>Merchants Purchases Records</h2></div></div>
-      <div class="my-card">
-      <div class="row justify-content-center">
-        <div class="col-md-12 ">
-          <div class="card">
-            <div class="card-body">
-              <div class="col-md-12">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Container Type</th>
-                      <th>Quantity</th>
-                      <th>Grade</th>
-                      <th>Net Weight</th>
-                      <th>Rate/Kg</th>
-                      <th>Total Amount</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let selldetails of sellViewModel">
-                      <td>{{ selldetails.purchaseItem.containerType}}</td>
-                      <td>{{ selldetails.sell.quantity}}</td>
-                      <td>{{ selldetails.purchaseItem.grade}}</td>
-                      <td>{{ selldetails.sell.netWeight}}</td>
-                      <td>{{ selldetails.sell.ratePerKg}}</td>
-                      <td>{{ selldetails.sell.totalAmount}}</td>
-                      <td>{{ selldetails.sell.date |date }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+  <div *ngIf="callFromParent==false">
+  <div class="row">
+    <div class="col-md-2">
+      <app-merchant-nav-left></app-merchant-nav-left>
+    </div>
+    <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center">
+      <h2 style="margin-top: 22px; color: gold"><b>MERCHANT PURCHASE RECORDS</b></h2>
+    </div>
+  </div>
+</div>
+<div class="my-card">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-12">
+            <div class="sort-container" >
+              <button id="filterBtn" (click)="showFilters = true" (click)="getVarities()" style="margin: 6px">Filters</button>
+              <form *ngIf="showFilters" (ngSubmit)="onFilterSubmit()">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="filterStartDate" [(ngModel)]="filterStartDate" />
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" [(ngModel)]="filterEndDate" />
+                <label for="variety">Variety:</label>
+                <select id="variety" name="variety" [(ngModel)]="filterVariety">
+                  <option></option>
+                  <option *ngFor="let variety of varieties" [value]="variety.varietyName">{{ variety.varietyName }}</option>
+                </select>
+                <label for="grade">Grade:</label>
+                <select id="grade" name="grade" [(ngModel)]="filterGrade">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                </select>
+
+                <button type="submit">Filter</button>
+                <div class="cancel-button-container">
+                  <button type="reset" (click)="cancelFilters()">Cancel</button>
+                </div>
+              </form>
+              <label class="sort-label">Sort by:</label>
+              <select   class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()">
+                <option value="date">Date</option>
+                <option value="varietyName">Variety Name</option>
+                <option value="containerType">Container Type</option>
+                <option value="quantity">Quantity</option>
+                <option value="grade">Grade</option>
+                <option value="truckNumber">Truck Number</option>
+                <option value="netWeight">Net Weight</option>
+                <option value="ratePerKg">Rate Per Kg</option>
+                <option value="totalAmount">Total Amount</option>
+              </select>
+              <label class="sort-label">Sort Order:</label>
+              <select class="sort-select" [(ngModel)]="sortOrder" (change)="onSortChange()">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+              <button type="submit" (click)="showAllRecords()">ShowAll</button>
+            </div>
+            <br />
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Variety Name</th>
+                    <th>Grade</th>
+                    <th>Container Type</th>
+                    <th>TruckNumber</th>
+                    <th>Quantity</th>
+                    <th>Net Weight</th>
+                    <th>Rate Per Kg</th>
+                    <th>Total Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let selldetails of MerchantsellViewModel">
+                    <td>{{ selldetails.date | date }}</td>
+                    <td>{{ selldetails.varietyName }}</td>
+                    <td>{{ selldetails.grade }}</td>
+                    <td>{{ selldetails.containerType }}</td>
+                    <td>{{ selldetails.truckNumber }}</td>
+                    <td>{{ selldetails.quantity }}</td>
+                    <td>{{ selldetails.netWeight }}</td>
+                    <td>{{ selldetails.ratePerKg }}</td>
+                    <td>{{ selldetails.totalAmount }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-    <!-- </div> -->
+  </div>
+</div>

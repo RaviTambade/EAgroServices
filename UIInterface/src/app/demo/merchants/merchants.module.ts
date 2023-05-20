@@ -11,7 +11,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { MerchantLogoutComponent } from './merchant-logout/merchant-logout.component';
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     MerchantDashboardComponent,
     MerchantNavLeftComponent,
@@ -25,6 +24,11 @@ import { MerchantLogoutComponent } from './merchant-logout/merchant-logout.compo
     RouterModule,
     FormsModule,
     GoogleChartsModule
+  ],
+  exports:[
+    MerchantUpdateComponent,
+    MerchantPurchaselistComponent
   ]
+
 })
 export class MerchantsModule { }

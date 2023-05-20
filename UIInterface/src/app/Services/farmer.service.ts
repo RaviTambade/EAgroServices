@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Farmer } from './farmer';
-import { Farmersell } from './farmersell';
-import { Purchaseviewmodel } from './purchaseviewmodel';
-import { Variety } from './variety';
-import { Farmersellvariety } from './farmersellvariety';
+import { Farmer } from '../Models/farmer';
+import { Farmersell } from '../Models/farmersell';
+import { Purchaseviewmodel } from '../Models/purchaseviewmodel';
+import { Farmersellvariety } from '../Models/farmersellvariety';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +32,7 @@ export class FarmerService {
     let url =" http://localhost:5171/api/purchase/get-farmer-purchase-details/" +farmerId;
     return this.httpClient.get<Purchaseviewmodel[]>(url);
   }
-  getAllVarieties():Observable<any>{
-    let url = "http://localhost:5224/api/Variety/getall";
-    return this.httpClient.get<Variety[]>(url);
-  }
+  
   getFarmerTotalAmont(farmerId:any):Observable<any>{ //totalAmount card
     let url = "http://localhost:5171/api/purchase/get-farmer-sell-total-amount/"+farmerId;
     return this.httpClient.get<number>(url);

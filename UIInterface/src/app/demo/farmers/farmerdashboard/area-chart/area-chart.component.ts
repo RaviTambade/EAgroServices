@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FarmerService } from '../../farmer.service';
+import { FarmerService } from '../../../../Services/farmer.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChartType } from 'angular-google-charts';
-import { Farmerorderscount } from '../../farmer-orders-count';
+import { Farmerorderscount } from '../../../../Models/farmer-orders-count';
 
 @Component({
   selector: 'app-line-chart',

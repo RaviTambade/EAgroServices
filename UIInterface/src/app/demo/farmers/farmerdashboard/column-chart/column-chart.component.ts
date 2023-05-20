@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { FarmerService } from '../../farmer.service';
+import { FarmerService } from '../../../../Services/farmer.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChartType } from 'angular-google-charts';
-import { Farmersell } from '../../farmersell';
-import { Farmer } from '../../farmer';
+import { Farmer } from 'src/app/Models/farmer';
+import { Farmersell } from 'src/app/Models/farmersell';
+
 
 @Component({
   selector: 'farmer-column-chart',

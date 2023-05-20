@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Transport } from './transport';
-import { TransportFaredetails } from './transportFaredetails';
-import { TransportTruckdetails } from './transport-truckdetails';
-import { Truck } from './truck';
+import { Transport } from '../demo/transport/transport';
+import { TransportFaredetails } from '../demo/transport/transportFaredetails';
+import { TransportTruckdetails } from '../demo/transport/transport-truckdetails';
+import { Truck } from '../demo/transport/truck';
 
 @Injectable({
   providedIn: 'root'

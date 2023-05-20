@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Farmer } from '../farmer';
-import { FarmerService } from '../farmer.service';
-import { EmployeeService } from '../../employees/employee.service';
+import { FarmerService } from '../../../Services/farmer.service';
+import { EmployeeService } from '../../../Services/employee.service';
+import { Farmer } from 'src/app/Models/farmer';
 
 @Component({
   selector: 'app-farmer-update',

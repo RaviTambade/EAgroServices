@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FarmerService } from '../../farmer.service';
+import { FarmerService } from '../../../../Services/farmer.service';
 import { ActivatedRoute } from '@angular/router';
-import { Farmersellvariety } from '../../farmersellvariety';
 import { ChartType } from 'angular-google-charts';
+import { Farmersellvariety } from 'src/app/Models/farmersellvariety';
 
 @Component({
   selector: 'farmer-pie-chart',
