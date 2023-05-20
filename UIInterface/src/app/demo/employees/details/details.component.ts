@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../employee.service';
+import { EmployeeService } from '../../../Services/employee.service';
 import { Subscription } from 'rxjs';
-import { Farmer } from '../../farmers/farmer';
+import { Farmer } from 'src/app/Models/farmer';
 
 @Component({
   selector: 'app-details',

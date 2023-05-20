@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartType } from 'angular-google-charts';
-import { Merchant } from '../../pages/authentication/merchant';
-import { MerchantService } from '../merchant.service';
-import { Merchantrevenue } from '../merchantrevenue';
+import { MerchantService } from '../../../Services/merchant.service';
+import { Merchantrevenue } from '../../../Models/merchantrevenue';
+import { Merchant } from 'src/app/Models/merchant';
 
 @Component({
   selector: 'app-merchant-dashboard',

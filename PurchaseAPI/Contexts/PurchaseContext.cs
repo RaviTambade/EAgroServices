@@ -1,5 +1,5 @@
-using PurchaseAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using PurchaseAPI.Models;
 
 namespace PurchaseAPI.Contexts;
 public class PurchaseContext : DbContext
@@ -13,8 +13,8 @@ public class PurchaseContext : DbContext
     }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
     public DbSet<PurchaseBilling> PurchaseBillings { get; set; }
-    public DbSet<Farmer> Farmers { get; set; } 
-    public DbSet<Variety> Varieties { get; set; } 
+    public DbSet<Farmer> Farmers { get; set; }
+    public DbSet<Variety> Varieties { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,31 +41,30 @@ public class PurchaseContext : DbContext
             modelBuilder.Entity<PurchaseItem>().ToTable("farmer_purchases");
         });
 
-         modelBuilder.Entity<PurchaseBilling>(entity =>
-        {
-            entity.HasKey(e => e.BillId);
-            entity.Property(e => e.PurchaseId);
-            entity.Property(e => e.LabourCharges);
-            entity.Property(e => e.TotalAmount);
-            entity.Property(e => e.Date);
-            modelBuilder.Entity<PurchaseBilling>().ToTable("farmer_purchases_billing");
-        });
-             modelBuilder.Entity<Farmer>(entity =>     
-        {
-            entity.HasKey(e => e.FarmerId);      
-            entity.Property(e => e.FirstName);   
-            entity.Property(e => e.LastName);
-            entity.Property(e => e.Location);
-            entity.Property(e => e.UserId);
-            modelBuilder.Entity<Farmer>().ToTable("farmers"); 
-        });
+        modelBuilder.Entity<PurchaseBilling>(entity =>
+       {
+           entity.HasKey(e => e.BillId);
+           entity.Property(e => e.PurchaseId);
+           entity.Property(e => e.LabourCharges);
+           entity.Property(e => e.TotalAmount);
+           entity.Property(e => e.Date);
+           modelBuilder.Entity<PurchaseBilling>().ToTable("farmer_purchases_billing");
+       });
+        modelBuilder.Entity<Farmer>(entity =>
+   {
+       entity.HasKey(e => e.FarmerId);
+       entity.Property(e => e.FirstName);
+       entity.Property(e => e.LastName);
+       entity.Property(e => e.Location);
+       entity.Property(e => e.UserId);
+       modelBuilder.Entity<Farmer>().ToTable("farmers");
+   });
 
-          modelBuilder.Entity<Variety>(entity =>
-        {
-            entity.HasKey(e => e.VarietyId);
-            entity.Property(e => e.VarietyName);
-            modelBuilder.Entity<Variety>().ToTable("varieties");
-        });
+        modelBuilder.Entity<Variety>(entity =>
+      {
+          entity.HasKey(e => e.VarietyId);
+          entity.Property(e => e.VarietyName);
+          modelBuilder.Entity<Variety>().ToTable("varieties");
+      });
     }
 }
-

@@ -20,6 +20,8 @@ public class SellsContext : DbContext
     public DbSet<Merchant> Merchants{get;set;}
     public DbSet<Truck> Trucks{get;set;}
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
+    public DbSet<Variety> Varieties { get; set; } 
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -93,6 +95,12 @@ public class SellsContext : DbContext
             entity.Property(e => e.NetWeight);
             entity.Property(e => e.RatePerKg);
             modelBuilder.Entity<PurchaseItem>().ToTable("farmer_purchases");
+        });
+          modelBuilder.Entity<Variety>(entity =>
+        {
+            entity.HasKey(e => e.VarietyId);
+            entity.Property(e => e.VarietyName);
+            modelBuilder.Entity<Variety>().ToTable("varieties");
         });
     }
 }

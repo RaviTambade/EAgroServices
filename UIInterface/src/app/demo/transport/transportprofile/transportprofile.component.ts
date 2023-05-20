@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Transport } from '../transport';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TransportService } from '../transport.service';
+import { TransportService } from '../../../Services/transport.service';
 
 @Component({
   selector: 'app-transportprofile',

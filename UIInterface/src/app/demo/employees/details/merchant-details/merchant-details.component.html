@@ -20,10 +20,20 @@
           <button type="submit" class="btn btn-danger btn-block fixed-delete-button" (click)="onDeleteClick()">
             <i class="fas fa-trash-alt"></i> Delete</button
           >
+          <button type="submit" class="btn btn-primary btn-block fixed-purchaselist-button " (click)="onSellListClick()">
+            <i class="fas fa-list"></i>SellList</button
+          >
+        </div>
         </div>
       </div>
       <div *ngIf="updateStatus" >
-        <!-- <emp-merchant-update [merchant]="merchant"></emp-merchant-update> -->
+        <app-merchant-update [callFromParent]="true" [merchantId]="merchant.merchantId"></app-merchant-update>
+      </div>
+      <div *ngIf="purchaseListStatus" >
+        <app-merchant-purchaselist style="--child-margin-left: 0;" [callFromParent]="true" [merchantId]="merchant.merchantId"></app-merchant-purchaselist>
+       <div style="text-align: center;" > <button type="submit" class="btn btn-danger btn-block "  (click)="purchaseListStatus=false">
+          <i class="fas fa-check mr-2"></i>Close</button>
+        </div>
       </div>
   
       <div *ngIf="deleteStatus">
@@ -37,5 +47,5 @@
         </div>
       </div>
     </div>
-  </div>
+
   

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TransportService } from '../transport.service';
+import { TransportService } from '../../../Services/transport.service';
 import { ActivatedRoute } from '@angular/router';
 import { TransportFaredetails} from '../transportFaredetails';
 

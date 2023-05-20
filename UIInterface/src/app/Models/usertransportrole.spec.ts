@@ -1,4 +1,4 @@
-import { Usertransportrole } from './usertransportrole';
+import { Usertransportrole } from "./usertransportrole";
 
 describe('Usertransportrole', () => {
   it('should create an instance', () => {

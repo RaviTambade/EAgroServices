@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
-import { User } from './user';
-import { Userfarmerrole } from './userfarmerrole';
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Usermerchantrole } from './usermerchantrole';
-import { Useremployeerole } from './useremployeerole';
-import { Usertransportrole } from './usertransportrole';
-import { Useradminrole } from './useradminrole';
-import { Role } from './role';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../Models/user';
+import { Userfarmerrole } from '../Models/userfarmerrole';
+import { Usermerchantrole } from '../Models/usermerchantrole';
+import { Useremployeerole } from '../Models/useremployeerole';
+import { Useradminrole } from '../Models/useradminrole';
+import { Role } from '../Models/role';
+import { Usertransportrole } from '../Models/usertransportrole';
 
 
 @Injectable({

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Farmer } from '../farmer';
-import { FarmerService } from '../farmer.service';
-import { Farmersell } from '../farmersell';
-import { Purchaseviewmodel } from '../purchaseviewmodel';
+import { FarmerService } from '../../../Services/farmer.service';
+import { VarietyService } from 'src/app/Services/variety.service';
+import { Purchaseviewmodel } from 'src/app/Models/purchaseviewmodel';
+import { Farmer } from 'src/app/Models/farmer';
 
 @Component({
   selector: 'app-farmer-selllist',
@@ -25,7 +25,7 @@ export class FarmerSelllistComponent {
   varieties: any;
   @Input() callFromParent:boolean=false;
 
-  constructor(private svc: FarmerService, private route: ActivatedRoute) { }
+  constructor(private svc: FarmerService, private route: ActivatedRoute,private varietysvc:VarietyService) { }
   ngOnInit(): void {
     if(this.farmerId==undefined){
     this.route.paramMap.subscribe((params) => {
@@ -41,9 +41,8 @@ export class FarmerSelllistComponent {
     })
   }
   getVarities() {
-    this.svc.getAllVarieties().subscribe((response) => {
+    this.varietysvc.getAllVarieties().subscribe((response) => {
       this.varieties = response;
-      // console.log(this.varieties);
     })
   }
 

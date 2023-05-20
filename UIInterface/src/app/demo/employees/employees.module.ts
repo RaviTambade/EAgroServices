@@ -11,11 +11,11 @@ import { DetailsComponent } from './details/details.component';
 import { FarmerdetailsComponent } from './details/farmerdetails/farmerdetails.component';
 import { MerchantDetailsComponent } from './details/merchant-details/merchant-details.component';
 import { FarmersModule } from '../farmers/farmers.module';
+import { MerchantsModule } from '../merchants/merchants.module';
 
 
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     EmployeeNavLeftComponent,
     EmployeedashboardComponent,
@@ -32,7 +32,8 @@ import { FarmersModule } from '../farmers/farmers.module';
     NgbDropdownModule,
     BrowserModule,
     ReactiveFormsModule,
-    FarmersModule
+    FarmersModule,
+    MerchantsModule
   ]
 })
 export class EmployeesModule { }

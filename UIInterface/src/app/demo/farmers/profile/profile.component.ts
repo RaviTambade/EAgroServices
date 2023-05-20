@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Farmer } from '../farmer';
-import { FarmerService } from '../farmer.service';
+import { FarmerService } from '../../../Services/farmer.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { window } from 'rxjs';
+import { Farmer } from 'src/app/Models/farmer';
 
 @Component({
   selector: 'app-profile',

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FarmerService } from 'src/app/demo/farmers/farmer.service';
-import { EmployeeService } from '../../employee.service';
-import { Farmer } from 'src/app/demo/farmers/farmer';
+import { FarmerService } from 'src/app/Services/farmer.service';
+import { EmployeeService } from '../../../../Services/employee.service';
+import { Farmer } from 'src/app/Models/farmer';
 
 
 @Component({
@@ -29,14 +29,6 @@ ngOnInit(): void {
   });
 }
 
-
-  editProfile() {
-    this.farmersvc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
-      console.log(response)
-    alert("Update Successfully")
-    this.empsvc.sendRole({selectedRole:"Farmer"})  
-});
-  }
 onUpdateClick(){
     this.updateStatus=true;
     this.deleteStatus=false;

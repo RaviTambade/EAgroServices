@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tick } from '@angular/core/testing';
 import { Observable } from 'rxjs';
-import { Farmer } from '../farmers/farmer';
-import { Merchant } from '../pages/authentication/merchant';
-import { Merchantrevenue } from './merchantrevenue';
-import { Sellviewmodel } from './sellviewmodel';
+import { Merchantrevenue } from '../Models/merchantrevenue';
+import { Merchantsellviewmodel } from '../Models/Merchant-sell-viewmodel';
+import { Merchant } from '../Models/merchant';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +22,13 @@ export class MerchantService {
     return this.httpClient.put<Merchant>(url,merchant);
   }
 
-  getMerchantHistory(merchantId:any):Observable<any>{
-    let url ="http://localhost:5182/api/sells/getmerchantsells/" +merchantId;
-    return this.httpClient.get<Sellviewmodel>(url);
+  getMerchantHistory(merchantId:any):Observable<Merchantsellviewmodel[]>{
+    let url ="http://localhost:5182/api/sells/get-merchant-sells/" +merchantId;
+    return this.httpClient.get<Merchantsellviewmodel[]>(url);
   }
 
   getMerchantRevenue(merchantId:any):Observable<Merchantrevenue[]>{
-    let url="http://localhost:5182/api/sells/getmerchantrevenue/" +merchantId;
+    let url="http://localhost:5182/api/sells/get-merchant-revenue/" +merchantId;
     return this.httpClient.get<Merchantrevenue[]>(url);
   }
   deleteMerchant(merchantId:any):Observable<any>{

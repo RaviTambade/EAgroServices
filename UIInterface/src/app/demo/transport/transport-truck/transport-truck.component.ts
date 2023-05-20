@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { TransportService } from '../transport.service';
+import { TransportService } from '../../../Services/transport.service';
 import { ActivatedRoute } from '@angular/router';
 import { Truck } from '../truck';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-transport-truck',
@@ -9,27 +10,29 @@ import { Truck } from '../truck';
   styleUrls: ['./transport-truck.component.scss']
 })
 export class TransportTruckComponent {
-  truck:Truck|any;
+  truck:Truck={
+    truckNumber: ''
+  };
+  trucks:any ;
   transportId:any |undefined;
   status:boolean=false;
-  constructor(private svc:TransportService,private route:ActivatedRoute){}
+  constructor(private svc:TransportService,private route:ActivatedRoute,private authSvc:AuthService,){}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       console.log(params)
       this.transportId = params.get('id');
     });
     this.svc.getAllTrucks(this.transportId).subscribe((response)=>{
-      this.truck=response
+      this.trucks=response
       console.log(response)
     });
   }
   addTruck(){
-    // this.truck.transportId=this.transportId
-    console.log(this.transportId)
-    this.svc.addTruck(1,this.truck).subscribe((response)=>{
-console.log(response)
-alert("Truck Inserted Successfully")
- window.location.reload();
+    const transportId = this.transportId;
+    this.svc.addTruck(transportId, this.truck).subscribe((response) => {
+      console.log(response);
+      alert("Truck Inserted Successfully");
+      window.location.reload();
     })
   }
  

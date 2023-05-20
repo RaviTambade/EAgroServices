@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Merchant } from '../../pages/authentication/merchant';
-import { MerchantService } from '../merchant.service';
+import { MerchantService } from '../../../Services/merchant.service';
+import { Merchant } from 'src/app/Models/merchant';
 
 @Component({
   selector: 'app-merchant-profile',

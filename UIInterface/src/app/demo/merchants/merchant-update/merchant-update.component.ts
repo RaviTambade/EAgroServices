@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Merchant } from '../../pages/authentication/merchant';
-import { MerchantService } from '../merchant.service';
+import { MerchantService } from '../../../Services/merchant.service';
+import { EmployeeService } from '../../../Services/employee.service';
+import { Merchant } from 'src/app/Models/merchant';
 @Component({
   selector: 'app-merchant-update',
   templateUrl: './merchant-update.component.html',
@@ -14,13 +15,18 @@ export class MerchantUpdateComponent {
     companyName:'',
     location: ''
   };
-  merchantId: any;
-  constructor(private svc: MerchantService, private route: ActivatedRoute,private router:Router) { }
+  @Input() merchantId:string|number;
+  @Input() callFromParent:boolean=false;
+  constructor(private svc: MerchantService, private route: ActivatedRoute,private router:Router,
+    private empsvc:EmployeeService) { }
   ngOnInit(): void {
+    console.log("component called")
+    if(this.merchantId==undefined){
     this.route.paramMap.subscribe((params) => {
       console.log(params)
       this.merchantId = params.get('id');
     });
+  }
     this.svc.getMerchant(this.merchantId).subscribe((response) => {
       this.merchant = response;
       console.log(this.merchant);
@@ -29,8 +35,12 @@ export class MerchantUpdateComponent {
     editProfile() {
       this.svc.updateMerchant(this.merchantId, this.merchant).subscribe((response) => {
         console.log(response)
-      alert("Update Successfully")
+      if(this.callFromParent==false){
       this.router.navigate(["merchants/profile",this.merchantId]);
+      }
+      else{
+       this.empsvc.sendRole({selectedRole:"Merchant"})  ;
+      }
       })
 }
 }

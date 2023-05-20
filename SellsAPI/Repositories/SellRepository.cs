@@ -241,19 +241,30 @@ public class SellRepository : ISellRepository
         {
             using (var context = new SellsContext(_configuration))
             {
-                var sells = await (from merchant in context.Merchants
-                                   join s in context.Sells
-                                   on merchant.MerchantId equals s.MerchantId
-                                   join p in context.PurchaseItems
-                                   on s.PurchaseId equals p.PurchaseId
-                                   where s.MerchantId == merchantId
+                var sellsData = await (from merchant in context.Merchants
+                                   join sell in context.Sells
+                                   on merchant.MerchantId equals sell.MerchantId
+                                   join purchaseItem in context.PurchaseItems
+                                   on sell.PurchaseId equals purchaseItem.PurchaseId
+                                   join variety in context.Varieties
+                                   on purchaseItem.VarietyId equals variety.VarietyId 
+                                   join truck in context.Trucks
+                                   on sell.TruckId equals truck.TruckId
+                                   where sell.MerchantId == merchantId orderby sell.Date descending
                                    select new MerchantSell()
                                    {
-                                       Sell = s,
-                                       PurchaseItem=p,
-                                       FullName = merchant.FirstName + " " + merchant.LastName
+                                       VarietyName=variety.VarietyName,
+                                       ContainerType=purchaseItem.ContainerType,
+                                       Quantity=sell.Quantity,
+                                       Grade=purchaseItem.Grade,
+                                       NetWeight=sell.NetWeight,
+                                       RatePerKg=sell.RatePerKg,
+                                       TotalAmount=sell.TotalAmount,
+                                       TruckNumber=truck.TruckNumber,
+                                       FullName = merchant.FirstName + " " + merchant.LastName,
+                                       Date=sell.Date
                                    }).ToListAsync();
-                return sells;
+                return sellsData;
             }
 
         }

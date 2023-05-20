@@ -1,4 +1,5 @@
-import { Variety } from './variety';
+import { Variety } from "./variety";
+
 
 describe('Variety', () => {
   it('should create an instance', () => {

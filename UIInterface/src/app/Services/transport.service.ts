@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Transport } from './transport';
-import { TransportFaredetails } from './transportFaredetails';
-import { TransportTruckdetails } from './transport-truckdetails';
-import { Truck } from './truck';
+import { Transport } from '../demo/transport/transport';
+import { TransportFaredetails } from '../demo/transport/transportFaredetails';
+import { TransportTruckdetails } from '../demo/transport/transport-truckdetails';
+import { Truck } from '../demo/transport/truck';
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +34,9 @@ export class TransportService {
   let url ="http://localhost:5240/api/Transports/transport-truck-history-by-year/" +transportId;
   return this.httpClient.get<TransportTruckdetails[]>(url);
 }
-getAllTrucks(transportId:any):Observable<Truck[]>{
+getAllTrucks(transportId:any):Observable<any>{
   let url ="http://localhost:5240/api/transports/transport-trucks/" +transportId;
-  return this.httpClient.get<Truck[]>(url);
+  return this.httpClient.get<any>(url);
 }
 addTruck(transportId:any,truck:Truck):Observable<any>{
   let url="http://localhost:5240/api/truck/insert/"+transportId;
