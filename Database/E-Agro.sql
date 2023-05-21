@@ -216,7 +216,7 @@ INT) BEGIN
 	SELECT
 	    purchase_id INTO purchaseId
 	FROM farmer_purchases_billing
-	WHERE bill_id = billId;
+	-- WHERE bill_id = billId;
     SELECT labour_charges INTO labourChrges FROM farmer_purchases_billing WHERE bill_id = billId;
 	SELECT farmer_purchases.net_weight * farmer_purchases.rate_per_kg INTO totalAmount
 	FROM farmer_purchases WHERE purchase_id = purchaseId;

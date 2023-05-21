@@ -7,13 +7,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { RouterModule } from '@angular/router';
+import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 
 
 
 @NgModule({
   declarations: [
     AdmindashboardComponent,
-    AdminNavLeftComponent, 
+    AdminNavLeftComponent,
+    AdminprofileComponent, 
   ],
   imports:[
     CommonModule,
