@@ -76,6 +76,7 @@ public class SellRepository : ISellRepository
             throw e;
         }
     }
+    
     public async Task<bool> Insert(Sell sell, FreightRate freightRate)
     {
         bool status = false;
@@ -140,9 +141,7 @@ public class SellRepository : ISellRepository
 
 
 
-                // var sell= oldSellBilling.Sell;
-                // var billing= oldSellBilling.Billing;
-                // var freightRate = oldSellBilling.FreightRate;
+
                 if (oldSellBilling != null)
                 {
                     Sell? oldSell = oldSellBilling.Sell;
@@ -157,7 +156,7 @@ public class SellRepository : ISellRepository
                         oldSell.NetWeight = sell.NetWeight;
                         oldSell.RatePerKg = sell.RatePerKg;
                         oldSell.TruckId = sell.TruckId;
-                    }
+                    } 
 
                     if (oldFreightRate != null)
                     {
@@ -169,7 +168,7 @@ public class SellRepository : ISellRepository
 
                     await context.SaveChangesAsync();
                     Console.WriteLine(" procedure called");
-                    // var sellBilling = await context.Billings.FirstOrDefaultAsync(x => x.SellId == sellId);
+                     => x.SellId == sellId);
                     int billId = oldBilling.BillId;
 
                     Console.WriteLine(billId);
@@ -185,6 +184,7 @@ public class SellRepository : ISellRepository
         }
         return status;
     }
+    
     public async Task<bool> Delete(int sellId)
     {
         bool status = false;
