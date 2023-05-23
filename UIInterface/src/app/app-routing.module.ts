@@ -24,6 +24,8 @@ import { DetailsComponent } from './demo/employees/details/details.component';
 import { TransportTruckComponent } from './demo/transport/transport-truck/transport-truck.component';
 import { AdmindashboardComponent } from './demo/admin/admindashboard/admindashboard.component';
 import { FarmerAuthGuard } from 'src/Guards/farmer-auth.guard';
+import { UpdateadminComponent } from './demo/admin/updateadmin/updateadmin.component';
+import { AdminprofileComponent } from './demo/admin/adminprofile/adminprofile.component';
 
 
 
@@ -125,7 +127,10 @@ const routes: Routes = [
     path:'admin',
     children:[
       { path:'dashboard/:id', component:AdmindashboardComponent },
+      {path:'update/:id',component:UpdateadminComponent},
+      {path:'profile/:id',component:AdminprofileComponent},
 
+       
     ],
    },
    {
