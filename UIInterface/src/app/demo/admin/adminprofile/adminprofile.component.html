@@ -1,0 +1,42 @@
+<div class="hiddenscroll">
+    <div class="row">
+      <div class="col-md-2">
+        <admin-nav-left></admin-nav-left>
+      </div>
+      <div class="col-md-10 center bg-danger" style="background-color: #1e272e; text-align: center;">
+        <h2 style="margin-top: 22px;color:gold"><b>PROFILE</b></h2>
+      </div>
+    </div>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Your Profile Details</h5>
+            <form>
+              <div style="text-align:center;">
+                <img src="/assets/images/AkshayTanpure.jpg" style="border-radius: 50%; width: 200px; height: 200px;" />
+              </div>            
+              <div class="form-group">
+                <label for="firstName"><b>First Name:</b></label>
+                <p class="form-control-plaintext">{{admin.firstName}}</p>
+              </div>
+              <div class="form-group">
+                <label for="lastName"><b>Last Name:</b></label>
+                <p class="form-control-plaintext">{{admin.lastName}}</p>
+              </div>
+              <div class="form-group">
+                <label for="location"><b>Location:</b></label>
+                <p class="form-control-plaintext">{{admin.location}}</p>
+              </div>
+              <!-- <button type="submit" class="btn btn-primary btn-sm" (click)="onClick()">
+                <i class="fas fa-pencil-alt mr-2"></i>Edit Your Profile
+              </button> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
