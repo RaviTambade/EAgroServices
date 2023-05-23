@@ -14,7 +14,7 @@ export class MerchantDashboardComponent {
   merchant: Merchant | undefined;
   merchantId: string | undefined;
   merchantRevenue: Merchantrevenue[];
-
+  totalPurchaseAmount:number;
   areaChart = ChartType.AreaChart;
   barChart = ChartType.BarChart;
   columnChart = ChartType.ColumnChart;
@@ -66,5 +66,9 @@ export class MerchantDashboardComponent {
         } 
       })
     }
+
+    this.svc.getTotalPurchaseAmount(this.merchantId).subscribe((response)=>{
+      this.totalPurchaseAmount=response
+    })
   }
 }

@@ -168,7 +168,6 @@ public class SellRepository : ISellRepository
 
                     await context.SaveChangesAsync();
                     Console.WriteLine(" procedure called");
-                     => x.SellId == sellId);
                     int billId = oldBilling.BillId;
 
                     Console.WriteLine(billId);
@@ -328,7 +327,7 @@ public class SellRepository : ISellRepository
     public async Task<double> GetTotalPurchaseAmountByMerchant(int merchantId){
         try{
             using(var context=new SellsContext(_configuration)){
-                var amount=context.Sells.Where(sell=>sell.MerchantId==merchantId).Sum(sell=>sell.TotalAmount);
+                var amount=context.Sells.Where(sell=>sell.MerchantId==merchantId).Sum(sell=>((int)sell.TotalAmount));
                 return amount ;
             }
         } catch (Exception e)   

@@ -35,4 +35,9 @@ export class MerchantService {
     let url=" http://localhost:5188/api/merchants/delete/" +merchantId;
     return this.httpClient.delete<Merchant>(url);
   }
+
+  getTotalPurchaseAmount(merchantId:any):Observable<any>{
+    let url="  http://localhost:5182/api/sells/get-total-purchase-amount-merchant/" +merchantId;
+    return this.httpClient.get<number>(url);
+  }
 }

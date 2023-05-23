@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MerchantService } from 'src/app/Services/merchant.service';
 
 @Component({
   selector: 'app-merchant-nav-left',
@@ -8,11 +9,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MerchantNavLeftComponent {
   merchantId:any;
-  constructor( private route: ActivatedRoute) { }
+  farmer:any;
+  constructor( private route: ActivatedRoute,private svc:MerchantService) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       console.log(params)
       this.merchantId = params.get('id');
     });
+    this.svc.getMerchant(this.merchantId).subscribe((response)=>{
+       this.farmer=response
+    })
+    
   }
 }
