@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FarmerService } from 'src/app/Services/farmer.service';
 
 
 @Component({
@@ -9,12 +10,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FarmerNavLeftComponent {
   farmerId:any;
-  constructor( private route: ActivatedRoute) { }
+  farmer:any;
+  constructor( private route: ActivatedRoute, private farmersvc:FarmerService) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      console.log(params)
+      console.log(params);
       this.farmerId = params.get('id');
     });
+    this.farmersvc.getFarmer(this.farmerId).subscribe((response)=>{
+      this.farmer=response;
+      console.log(this.farmer);
+    })
   }
 }
 

@@ -10,31 +10,31 @@
           <ul class="nav flex-column">
             <li class="nav-item">
                 <a [routerLink]="['/farmers',farmerId,'profile']" class="nav-link custom-link" routerLinkActive="active">
-                  <i class="fas fa-person-circle"></i>
-                  <span class="ml-2">Profile</span>
+                  <i class="fas fa-user" style="color: rgb(92, 29, 202)"></i> 
+                   <span class="ml-2">{{farmer.firstName | uppercase}} {{ farmer.lastName |uppercase}}</span>
                 </a>
               </li>
             <li class="nav-item">
                 <a [routerLink]="['/farmers',farmerId,'dashboard']" class="nav-link custom-link" routerLinkActive="active">
-                  <i class="fas fa-cart-fill"></i>
+                  <i class="fas fa-chart-pie" style="color: aqua"></i>
                   <span class="ml-2">Dashboard</span>
                 </a>
               </li>
             <li class="nav-item">
               <a [routerLink]="['/farmers',farmerId,'variety']" class="nav-link custom-link" routerLinkActive="active">
-                <i class="fas fa-cart-fill"></i>
+                <i class="fas fa-indian-rupee-sign"style="color: gold;"></i>
                 <span class="ml-2">Todays Rate</span>
               </a>
             </li>
             <li class="nav-item">
               <a [routerLink]="['/farmers',farmerId,'selllist']" class="nav-link custom-link" routerLinkActive="active">
-                <i class="fas fa-cart-fill"></i>
+                <i class="fas fa-history"style="color: blue;"></i>
                 <span class="ml-2">Sell History</span>
               </a>
             </li>
             <li class="nav-item">
               <a [routerLink]="['/farmers',farmerId,'logout']" class="nav-link custom-link" routerLinkActive="active">
-                <i class="fas fa-cart-fill"></i>
+                <i class="fas fa-sign-out-alt" style="color: red;"></i>
                 <span class="ml-2">Log Out</span>
               </a>
             </li>
