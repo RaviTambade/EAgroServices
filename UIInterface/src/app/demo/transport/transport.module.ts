@@ -32,6 +32,9 @@ import { TransportTruckComponent } from './transport-truck/transport-truck.compo
     RouterModule,
     FormsModule,
     GoogleChartsModule
+  ],
+  exports:[
+    TransportupdateComponent
   ]
 })
 export class TransportModule { }
