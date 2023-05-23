@@ -1,1 +1,41 @@
-<p>farmer-purchase-form works!</p>
+<h1>Weight Slip Generator</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Weight</th>
+      <th>Bag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of weightRows; let i = index">
+      <td><input type="number" [(ngModel)]="row.weight" (ngModelChange)="updateSlip()" placeholder="Weight"></td>
+      <td>{{ i + 1 }}</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div>
+  <h2>Slip Information</h2>
+
+  <p>Total weight: {{ totalWeight }}</p>
+  <p>Total bags: {{ totalBags }}</p>
+
+  <h3>Weight Slip</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Weight</th>
+        <th>Bag</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let weight of weights; let i = index">
+        <td>{{ weight.weight }}</td>
+        <td>{{ i + 1 }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

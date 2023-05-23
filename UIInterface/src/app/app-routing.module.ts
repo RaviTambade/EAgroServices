@@ -24,6 +24,8 @@ import { DetailsComponent } from './demo/employees/details/details.component';
 import { TransportTruckComponent } from './demo/transport/transport-truck/transport-truck.component';
 import { AdmindashboardComponent } from './demo/admin/admindashboard/admindashboard.component';
 import { FarmerAuthGuard } from 'src/Guards/farmer-auth.guard';
+import { Farmer } from './Models/farmer';
+import { FarmerPurchaseFormComponent } from './demo/employees/farmer-purchase-form/farmer-purchase-form.component';
 
 
 
@@ -112,13 +114,10 @@ const routes: Routes = [
    {
     path: 'employees',
     children:[
-      { path:'dashboard/:id', component:EmployeedashboardComponent  },
-      //  { path:'farmerlist/:id', component:FarmersListComponent },  
-      //  { path:'farmerdetails/:id',component: FarmerDetailsComponent },   
-      //  { path:'merchantlist/:id',component: MerchantsListComponent },  
-      //  { path:'merchantdetails/:id',component: MerchantDetailsComponent }, 
+       { path:'dashboard/:id', component:EmployeedashboardComponent  }, 
        { path:'list/:id',component: ListComponent },   
        { path:'details/:id',component: DetailsComponent },       
+       { path:'purchaseform',component: FarmerPurchaseFormComponent },       
     ],
   },
   {
