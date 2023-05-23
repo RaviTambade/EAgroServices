@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Transport } from '../transport';
 import { ActivatedRoute } from '@angular/router';
 import { TransportService } from '../../../Services/transport.service';
 import { ChartType } from 'angular-google-charts';
+import { Transport } from 'src/app/Models/transport';
 
 @Component({
   selector: 'app-transportdashboard',

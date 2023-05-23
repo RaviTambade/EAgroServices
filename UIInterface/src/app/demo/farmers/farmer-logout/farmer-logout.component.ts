@@ -20,7 +20,7 @@ export class FarmerLogoutComponent {
       localStorage.removeItem("jwtToken");
     }
     else{
-      this.router.navigate(["merchants/dashboard",this.farmerId]);
+      this.router.navigate(["farmers",this.farmerId,"dashboard"]);
       console.log("logout canceled");
     }
     })
