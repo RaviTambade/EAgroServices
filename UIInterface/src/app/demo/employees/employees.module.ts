@@ -12,6 +12,9 @@ import { FarmerdetailsComponent } from './details/farmerdetails/farmerdetails.co
 import { MerchantDetailsComponent } from './details/merchant-details/merchant-details.component';
 import { FarmersModule } from '../farmers/farmers.module';
 import { MerchantsModule } from '../merchants/merchants.module';
+import { FarmerPurchaseFormComponent } from './farmer-purchase-form/farmer-purchase-form.component';
+import { TranportDetailsComponent } from './details/tranport-details/tranport-details.component';
+import { TransportModule } from '../transport/transport.module';
 
 
 
@@ -23,6 +26,8 @@ import { MerchantsModule } from '../merchants/merchants.module';
     DetailsComponent,
     FarmerdetailsComponent,
     MerchantDetailsComponent,
+    FarmerPurchaseFormComponent,
+    TranportDetailsComponent,
    
   ],
   imports: [
@@ -33,7 +38,8 @@ import { MerchantsModule } from '../merchants/merchants.module';
     BrowserModule,
     ReactiveFormsModule,
     FarmersModule,
-    MerchantsModule
+    MerchantsModule,
+    TransportModule
   ]
 })
 export class EmployeesModule { }

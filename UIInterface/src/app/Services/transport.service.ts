@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Transport } from '../demo/transport/transport';
-import { TransportFaredetails } from '../demo/transport/transportFaredetails';
-import { TransportTruckdetails } from '../demo/transport/transport-truckdetails';
-import { Truck } from '../demo/transport/truck';
+import { Transport } from '../Models/transport';
+import { TransportFaredetails } from '../Models/transportFaredetails';
+import { TransportTruckdetails } from '../Models/transport-truckdetails';
+import { Truck } from '../Models/truck';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class TransportService {
     let url="http://localhost:5240/api/Transports/update/" +transportId;
     return this.httpClient.put<Transport>(url,transport);
 
+  }
+  deleteTransport(transportId:any):Observable<any>{
+    let url="http://localhost:5240/api/Transports/delete/" +transportId;
+    return this.httpClient.delete(url);
   }
  transportHistory(transportId:any):Observable<TransportFaredetails[]>{
   let url ="http://localhost:5240/api/Transports/transport-history/" +transportId;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TransportService } from '../../../Services/transport.service';
 import { ActivatedRoute } from '@angular/router';
-import { TransportFaredetails} from '../transportFaredetails';
+import { TransportFaredetails } from 'src/app/Models/transportFaredetails';
 
 @Component({
   selector: 'app-transportdetails',

@@ -42,3 +42,26 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="role == 'Transport'">
+  <div class="row align-items-center search-row">
+    <div class="col-auto">
+      <input type="text" placeholder="Search here" (input)="onSearch()" [(ngModel)]="searchString" class="form-control search-input">
+    </div>
+    <div class="col text-center">
+      <h2 class="m-0">Transport List</h2>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary" (click)="onShowAll()">Show All</button>
+    </div>
+  </div>
+  <div class="mycard text-bg-white overflow-hidden">
+    <div class="row" style="background-color: silver">
+      <div class="col-md-12">
+        <div *ngFor="let transport of userList">
+          <emp-tranport-details [transport]="transport"></emp-tranport-details>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

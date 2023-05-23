@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { RouterModule } from '@angular/router';
 import { AdminprofileComponent } from './adminprofile/adminprofile.component';
+import { UpdateadminComponent } from './updateadmin/updateadmin.component';
 
 
 
@@ -15,7 +16,8 @@ import { AdminprofileComponent } from './adminprofile/adminprofile.component';
   declarations: [
     AdmindashboardComponent,
     AdminNavLeftComponent,
-    AdminprofileComponent, 
+    AdminprofileComponent,
+    UpdateadminComponent, 
   ],
   imports:[
     CommonModule,

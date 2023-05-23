@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { TransportTruckdetails } from '../../transport-truckdetails';
 import { ChartType } from 'angular-google-charts';
 import { TransportService } from '../../../../Services/transport.service';
 import { ActivatedRoute } from '@angular/router';
+import { TransportTruckdetails } from 'src/app/Models/transport-truckdetails';
 
 @Component({
   selector: 'transport-piechart',

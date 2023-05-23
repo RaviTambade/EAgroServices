@@ -51,7 +51,8 @@ export default class RegisterComponent {
     officeName: '',
     firstName: '',
     lastName: '',
-    location: ''
+    location: '',
+    transportId: 0
   };
   merchant: Merchant = {
     merchantId:0,

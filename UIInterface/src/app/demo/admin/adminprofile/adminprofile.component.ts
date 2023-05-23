@@ -9,17 +9,26 @@ import { AdminService } from '../admin.service';
   styleUrls: ['./adminprofile.component.scss']
 })
 export class AdminprofileComponent implements OnInit {
-  @Input() admin: Admin | any ;
+  // @Input() admin: Admin | any ;
+  admin: Admin | any;
   status: boolean = false;
-adminId: string;
+  adminId: any;
 
-  constructor(private svc: AdminService, private route: ActivatedRoute,private router:Router) { }
+  constructor(private svc: AdminService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       console.log(params)
       this.adminId = params.get('id');
     });
-   
+    this.svc.getAdmin(this.adminId).subscribe((response) => {
+      this.admin = response;
+      console.log(this.admin);
+    })
+  }
+  onClick() {
+    this.status = true;
+    this.router.navigate(["admin/update", this.adminId]);
+  }
+  
 
-}
 }
