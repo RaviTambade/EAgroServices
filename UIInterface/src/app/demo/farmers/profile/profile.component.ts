@@ -10,7 +10,7 @@ import { Farmer } from 'src/app/Models/farmer';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
- @Input() farmer: Farmer | any ;
+  farmer: Farmer;
   status: boolean = false;
   farmerId: string;
 

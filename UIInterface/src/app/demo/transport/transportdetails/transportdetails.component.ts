@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TransportService } from '../../../Services/transport.service';
 import { ActivatedRoute } from '@angular/router';
 import { TransportFaredetails } from 'src/app/Models/transportFaredetails';
-import { Transport } from 'src/app/Models/transport';
+import { Truck } from 'src/app/Models/truck';
 
 @Component({
   selector: 'app-transportdetails',
@@ -18,7 +18,9 @@ export class TransportdetailsComponent implements OnInit {
   sortOrder: string | undefined;
   filterStartDate: any;
   filterEndDate: any;
+  filterTruckNumber: any;
   showFilters: boolean = false;
+  transportTrucks: Truck[];
 
   @Input() callFromParent: boolean = false;
 
@@ -36,9 +38,14 @@ export class TransportdetailsComponent implements OnInit {
       this.transportfaredetails = response.slice(0, 10);
       this.transportfaredetails1 = response;
       console.log(this.transportfaredetails);
-    })
+    });
+  };
+  getAllTrucks() {
+    this.transportsvc.getAllTrucks(this.transportId).subscribe((response) => {
+      this.transportTrucks = response;
+      console.log(response)
+    });
   }
-
   cancelFilters() {
     this.showFilters = false;
   }
@@ -81,7 +88,7 @@ export class TransportdetailsComponent implements OnInit {
           && date <= this.filterEndDate;
       });
     } else if (this.filterStartDate) {
-     
+
       filteredTransportFareDetails = filteredTransportFareDetails.filter(p => {
         const date = p.date.slice(0, 10);
         return date >= this.filterStartDate;
@@ -93,6 +100,11 @@ export class TransportdetailsComponent implements OnInit {
         console.log("from api date", date);
         return date <= this.filterEndDate;
       });
+    }
+
+    if (this.filterTruckNumber) {
+      console.log(this.filterTruckNumber)
+      filteredTransportFareDetails = filteredTransportFareDetails.filter(p => p.truckNumber.toLowerCase().includes(this.filterTruckNumber.toLowerCase()));
     }
     this.transportfaredetails = filteredTransportFareDetails;
     this.showFilters = false;

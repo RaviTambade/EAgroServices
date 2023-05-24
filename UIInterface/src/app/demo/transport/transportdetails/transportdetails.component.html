@@ -13,12 +13,17 @@
           <div class="card-body">
             <div class="col-md-12">
               <div class="sort-container" >
-                <button id="filterBtn" (click)="showFilters = true"  style="margin: 6px">Filters</button>
+                <button id="filterBtn" (click)="showFilters = true" (click)="getAllTrucks()"  style="margin: 6px">Filters</button>
                 <form *ngIf="showFilters" (ngSubmit)="onFilterSubmit()">
                   <label for="startDate">Start Date:</label>
                   <input type="date" id="startDate" name="filterStartDate" [(ngModel)]="filterStartDate" />
                   <label for="endDate">End Date:</label>
                   <input type="date" id="endDate" name="endDate" [(ngModel)]="filterEndDate" />
+                  <label for="truckNumber">TruckNumber</label>
+                  <select id="truckNumber" name="truckNumber" [(ngModel)]="filterTruckNumber">
+                    <option></option>
+                    <option *ngFor="let truck of transportTrucks" [value]="truck.truckNumber">{{ truck.truckNumber }}</option>
+                  </select>
                   <button type="submit">Filter</button>
                   <div class="cancel-button-container">
                     <button type="reset" (click)="cancelFilters()">Cancel</button>
