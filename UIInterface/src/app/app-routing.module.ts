@@ -28,6 +28,7 @@ import { UpdateadminComponent } from './demo/admin/updateadmin/updateadmin.compo
 import { AdminprofileComponent } from './demo/admin/adminprofile/adminprofile.component';
 import { Farmer } from './Models/farmer';
 import { FarmerPurchaseFormComponent } from './demo/employees/farmer-purchase-form/farmer-purchase-form.component';
+import { UserlistComponent } from './demo/admin/userlist/userlist.component';
 
 
 
@@ -128,6 +129,8 @@ const routes: Routes = [
       { path:'dashboard/:id', component:AdmindashboardComponent },
       {path:'update/:id',component:UpdateadminComponent},
       {path:'profile/:id',component:AdminprofileComponent},
+      {path:'list/:id',component:UserlistComponent},
+
 
        
     ],

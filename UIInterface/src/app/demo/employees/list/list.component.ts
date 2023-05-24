@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EmployeeService } from '../../../Services/employee.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-list',
+  selector: 'list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent {
 // selectedRole:undefined;
-
+@Input() callFromParent:boolean=false;
 isSubmitted = false;
   roles: any = ['Admin','Employee','Farmer',  'Transport', 'Merchant'];
 

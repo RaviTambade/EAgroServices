@@ -9,6 +9,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { RouterModule } from '@angular/router';
 import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 import { UpdateadminComponent } from './updateadmin/updateadmin.component';
+import { UserlistComponent } from './userlist/userlist.component';
+import { EmployeesModule } from '../employees/employees.module';
 
 
 
@@ -17,7 +19,8 @@ import { UpdateadminComponent } from './updateadmin/updateadmin.component';
     AdmindashboardComponent,
     AdminNavLeftComponent,
     AdminprofileComponent,
-    UpdateadminComponent, 
+    UpdateadminComponent,
+    UserlistComponent, 
   ],
   imports:[
     CommonModule,
@@ -26,6 +29,7 @@ import { UpdateadminComponent } from './updateadmin/updateadmin.component';
     FormsModule,
     NgScrollbarModule,
     RouterModule,
+    EmployeesModule
   ]
 })
 export class AdminModule { }
