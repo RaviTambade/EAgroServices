@@ -5,6 +5,7 @@ import { Farmer } from '../Models/farmer';
 import { Farmersell } from '../Models/farmersell';
 import { Purchaseviewmodel } from '../Models/purchaseviewmodel';
 import { Farmersellvariety } from '../Models/farmersellvariety';
+import { Farmerorderscount } from '../Models/farmer-orders-count';
 
 
 @Injectable({
@@ -44,7 +45,7 @@ export class FarmerService {
   }
   getFarmerOrdersPerMonth(farmerId:any):Observable<any>{ //area chart
     let url = "http://localhost:5171/api/purchase/get-farmer-orders-per-month/"+farmerId;
-    return this.httpClient.get<Farmersellvariety[]>(url);
+    return this.httpClient.get<Farmerorderscount[]>(url);
   }
 
 }

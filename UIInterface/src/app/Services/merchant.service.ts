@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Merchantrevenue } from '../Models/merchantrevenue';
 import { Merchantsellviewmodel } from '../Models/Merchant-sell-viewmodel';
 import { Merchant } from '../Models/merchant';
+import { Merchantordercount } from '../Models/merchantordercount';
 
 @Injectable({
   providedIn: 'root'
@@ -40,4 +41,8 @@ export class MerchantService {
     let url="  http://localhost:5182/api/sells/get-total-purchase-amount-merchant/" +merchantId;
     return this.httpClient.get<number>(url);
   }
+  getTotalPurchaseOrderCount(merchantId:any):Observable<any>{
+    let url="http://localhost:5182/api/sells/get-total-purchase-orders-count/" +merchantId;
+    return this.httpClient.get<Merchantordercount>(url);
+    }
 }

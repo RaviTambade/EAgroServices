@@ -86,6 +86,14 @@ namespace SellsAPI.Controllers
         {
             return await _srv.GetTotalPurchaseAmountByMerchant(id);
         }
+    
+
+     [HttpGet]
+        [Route("get-total-purchase-orders-count/{id}")]
+        public async Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int id)
+        {
+            return await _srv.GetTotalPurchaseOrdersCount(id);
+        }
     }
 
 }

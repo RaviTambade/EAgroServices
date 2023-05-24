@@ -10,25 +10,25 @@
           <ul class="nav flex-column">
             <li class="nav-item">
                 <a [routerLink]="['/merchants/profile',merchantId]" class="nav-link custom-link" routerLinkActive="active">
-                  <i class="fas fa-person-circle"></i>
-                  <span class="ml-2">Profile</span>
-                </a>
+                  <i class="fas fa-user" style="color: rgb(92, 29, 202)"></i> 
+                  <span class="ml-2">{{merchant.firstName | uppercase}} {{ merchant.lastName |uppercase}}</span>
+               </a>
               </li>
             <li class="nav-item">
                 <a [routerLink]="['/merchants/dashboard',merchantId]" class="nav-link custom-link" routerLinkActive="active">
-                  <i class="fas fa-cart-fill"></i>
+                  <i class="fas fa-chart-pie" style="color: aqua"></i>
                   <span class="ml-2">Dashboard</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a [routerLink]="['/merchants/purchaselist',merchantId]" class="nav-link custom-link" routerLinkActive="active">
-                  <i class="fas fa-cart-fill"></i>
+                  <i class="fas fa-shopping-cart" style="color:darkorange;"></i>
                   <span class="ml-2">View Purchased List</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a [routerLink]="['/merchants/logout',merchantId]" class="nav-link custom-link" routerLinkActive="active">
-                  <i class="fas fa-cart-fill"></i>
+                  <i class="fas fa-sign-out-alt" style="color:crimson;"></i>
                   <span class="ml-2">Log Out</span>
                 </a>
               </li>
