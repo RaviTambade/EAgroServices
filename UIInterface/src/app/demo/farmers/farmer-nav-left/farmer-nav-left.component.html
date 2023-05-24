@@ -8,12 +8,14 @@
           </div>          
         <div class="sidebar-sticky pt-3" style="margin-top: 15px;">
           <ul class="nav flex-column">
+            <div *ngIf="farmer">
             <li class="nav-item">
                 <a [routerLink]="['/farmers',farmerId,'profile']" class="nav-link custom-link" routerLinkActive="active">
                   <i class="fas fa-user" style="color: rgb(92, 29, 202)"></i> 
                    <span class="ml-2">{{farmer.firstName | uppercase}} {{ farmer.lastName |uppercase}}</span>
                 </a>
               </li>
+            </div>
             <li class="nav-item">
                 <a [routerLink]="['/farmers',farmerId,'dashboard']" class="nav-link custom-link" routerLinkActive="active">
                   <i class="fas fa-chart-pie" style="color: aqua"></i>

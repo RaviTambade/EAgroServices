@@ -152,9 +152,6 @@ public class TransportRepository : ITransportRepository
                                               where transport.TransportId == transportId
                                               select new TransportFareDetails()
                                               {
-                                                //   FreightRate = freightRate,
-                                                //   Billing = billing,
-                                                //   Truck = transportTruck,
                                                   TruckNumber=transportTruck.TruckNumber,
                                                   FromDestination=freightRate.FromDestination,
                                                   ToDestination=freightRate.ToDestination,

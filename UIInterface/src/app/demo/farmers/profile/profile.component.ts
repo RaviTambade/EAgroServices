@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   }
   onClick() {
     this.status = true;
-    this.router.navigate(["farmers/update",this.farmerId]);
+    this.router.navigate(["farmers",this.farmerId,"update"]);
   }
   }
 

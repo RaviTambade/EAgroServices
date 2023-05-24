@@ -8,11 +8,40 @@
     </div>
   </div>
   <div class="my-card">
-    <!-- <div class="row justify-content-center"> -->
       <div class="col-md-11.2 rem">
-      <div class="card" style="margin-left:230px;">
+      <div class="card">
           <div class="card-body">
             <div class="col-md-12">
+              <div class="sort-container" >
+                <button id="filterBtn" (click)="showFilters = true"  style="margin: 6px">Filters</button>
+                <form *ngIf="showFilters" (ngSubmit)="onFilterSubmit()">
+                  <label for="startDate">Start Date:</label>
+                  <input type="date" id="startDate" name="filterStartDate" [(ngModel)]="filterStartDate" />
+                  <label for="endDate">End Date:</label>
+                  <input type="date" id="endDate" name="endDate" [(ngModel)]="filterEndDate" />
+                  <button type="submit">Filter</button>
+                  <div class="cancel-button-container">
+                    <button type="reset" (click)="cancelFilters()">Cancel</button>
+                  </div>
+                </form>
+                <label class="sort-label">Sort by:</label>
+                <select   class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()">
+                  <option value="date">Date</option>
+                  <option value="truckNumber">TruckNumber</option>
+                    <option value="fromDestination">FromDestination</option>
+                    <option value="toDestination">ToDestination</option>
+                  <option value="ratePerKm">RatePerKm</option>
+                    <option value="kilometers">Kilometers</option>
+                  <option value="freightCharges">FreightCharges</option>
+                </select>
+                <label class="sort-label">Sort Order:</label>
+                <select class="sort-select" [(ngModel)]="sortOrder" (change)="onSortChange()">
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+                <button type="submit" (click)="showAllRecords()">ShowAll</button>
+              </div>
+              <br />
               <table class="table table-bordered w-100">
                 <thead>
                   <tr>
@@ -26,7 +55,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let transportdetails of transports">
+                  <tr *ngFor="let transportdetails of transportfaredetails">
                     <td>{{ transportdetails.truckNumber }}</td>
                     <td>{{ transportdetails.fromDestination}}</td>
                     <td>{{ transportdetails.toDestination }}</td>
@@ -42,5 +71,4 @@
       </div>
     </div>
   </div>
-<!-- </div> -->
 
