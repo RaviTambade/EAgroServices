@@ -1,5 +1,5 @@
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
   }
@@ -11,12 +11,12 @@
   }
   
   .card {
-    
+
     margin-bottom: 30px;
   }
   
   .card-img-top {
-    height: 200px;
+    height: 300px;
     object-fit: cover;
   }
   
@@ -31,3 +31,14 @@
     color: #666;
       margin-bottom: 20
   }
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    height: 60px;
+    margin-right: 10px;
+  }
+  
