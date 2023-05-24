@@ -9,7 +9,7 @@ import { MerchantService } from 'src/app/Services/merchant.service';
 })
 export class MerchantNavLeftComponent {
   merchantId:any;
-  farmer:any;
+  merchant:any;
   constructor( private route: ActivatedRoute,private svc:MerchantService) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -17,7 +17,7 @@ export class MerchantNavLeftComponent {
       this.merchantId = params.get('id');
     });
     this.svc.getMerchant(this.merchantId).subscribe((response)=>{
-       this.farmer=response
+       this.merchant=response
     })
     
   }

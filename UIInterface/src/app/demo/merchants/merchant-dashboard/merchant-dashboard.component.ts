@@ -4,6 +4,7 @@ import { ChartType } from 'angular-google-charts';
 import { MerchantService } from '../../../Services/merchant.service';
 import { Merchantrevenue } from '../../../Models/merchantrevenue';
 import { Merchant } from 'src/app/Models/merchant';
+import { Merchantordercount } from 'src/app/Models/merchantordercount';
 
 @Component({
   selector: 'app-merchant-dashboard',
@@ -14,7 +15,12 @@ export class MerchantDashboardComponent {
   merchant: Merchant | undefined;
   merchantId: string | undefined;
   merchantRevenue: Merchantrevenue[];
+  merchantOrderCount:Merchantordercount[];
   totalPurchaseAmount:number;
+  distinctYears:number[];
+  selectedYear:number;
+
+  
   areaChart = ChartType.AreaChart;
   barChart = ChartType.BarChart;
   columnChart = ChartType.ColumnChart;
@@ -34,6 +40,12 @@ export class MerchantDashboardComponent {
    columnoptions = {
      color:['green'],
   };
+  
+  options = {
+    is3D: true,
+    backgroundColor: 'silver',
+    colors:['green']
+  }
 
   pieoptions={
     is3D:true
@@ -42,9 +54,11 @@ export class MerchantDashboardComponent {
   donutOptions = {
     pieHole: 0.5
   }
+  
   constructor(private svc: MerchantService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe((params) => {
       console.log(params)
       this.merchantId = params.get('id');
@@ -70,5 +84,39 @@ export class MerchantDashboardComponent {
     this.svc.getTotalPurchaseAmount(this.merchantId).subscribe((response)=>{
       this.totalPurchaseAmount=response
     })
+
+    if (this.merchantId != undefined) {
+
+
+      this.svc.getTotalPurchaseOrderCount(this.merchantId).subscribe((response) => {
+        this.merchantOrderCount = response;
+        this.distinctYears = Array.from(new Set(this.merchantOrderCount.map(item => item.year)));
+        this.selectedYear = (new Date()).getFullYear();
+        for (let row in response) {
+          if (response[row].year == this.selectedYear) {
+            var month = response[row].month;
+            month = month.slice(0, 3)
+            this.data.push([
+              month,
+              response[row].orderCount +Math.random(),
+            ]);
+          }
+        }
+      })
+    }
+  }
+  changeGraphByYear() {
+
+    let newdata = this.merchantOrderCount.filter(item => item.year == this.selectedYear);
+    this.data = []
+    for (let row in newdata) {
+      var month = newdata[row].month
+      month = month.slice(0, 3)
+      this.data.push([
+        month,
+        newdata[row].orderCount+Math.random(),
+      ]);
+    }
   }
 }
+
