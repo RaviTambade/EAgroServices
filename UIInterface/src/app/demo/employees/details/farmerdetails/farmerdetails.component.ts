@@ -42,6 +42,9 @@ onDeleteClick(){
 onCancelClick(){
   this.deleteStatus=false;
 }
+onCloseListClick(){
+  this.sellListStatus=false;
+}
 onSellListClick(){
   this.sellListStatus=true;
   this.updateStatus=false;

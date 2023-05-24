@@ -5,7 +5,7 @@ import { TransportFaredetails } from 'src/app/Models/transportFaredetails';
 import { Truck } from 'src/app/Models/truck';
 
 @Component({
-  selector: 'app-transportdetails',
+  selector: 'app-transport-details',
   templateUrl: './transportdetails.component.html',
   styleUrls: ['./transportdetails.component.scss']
 })

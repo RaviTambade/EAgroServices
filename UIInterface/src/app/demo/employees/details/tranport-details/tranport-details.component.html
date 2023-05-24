@@ -21,7 +21,7 @@
             <i class="fas fa-trash-alt"></i> Delete</button
           >
           <button type="submit" class="btn btn-primary btn-block fixed-purchaselist-button " (click)="onSellListClick()">
-            <i class="fas fa-list"></i>SellList</button
+            <i class="fas fa-list"></i>Fare List</button
           >
         </div>
         </div>
@@ -30,12 +30,12 @@
         <app-transport-update [callFromParent]="true" [transportId]="transport.transportId"></app-transport-update>
       </div> 
       
-     <!--  <div *ngIf="purchaseListStatus" >
-        <app-transport-purchaselist style="--child-margin-left: 0;" [callFromParent]="true" [merchantId]="transport.merchantId"></app-transport-purchaselist>
-       <div style="text-align: center;" > <button type="submit" class="btn btn-danger btn-block "  (click)="purchaseListStatus=false">
+     <div *ngIf="transportListStatus" >
+        <app-transport-details style="--child-margin-left: 0;" [callFromParent]="true" [transportId]="transport.transportId"></app-transport-details>
+       <div style="text-align: center;" > <button type="submit" class="btn btn-danger btn-block "  (click)="onCloseListClick()">
           <i class="fas fa-check mr-2"></i>Close</button>
         </div>
-      </div>-->
+      </div>
   
       <div *ngIf="deleteStatus">
         <div class="delete-confirmation">

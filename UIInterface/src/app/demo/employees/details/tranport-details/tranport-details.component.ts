@@ -13,7 +13,7 @@ export class TranportDetailsComponent {
   merchantId: any;
   updateStatus: boolean = false;
   deleteStatus: boolean = false;
-  purchaseListStatus: boolean = false;
+  transportListStatus: boolean = false;
 
   constructor(private transportsvc: TransportService, private empsvc: EmployeeService) {
   }
@@ -31,20 +31,23 @@ export class TranportDetailsComponent {
   onUpdateClick() {
     this.updateStatus = true;
     this.deleteStatus = false;
-    this.purchaseListStatus = false;
+    this.transportListStatus = false;
 
   }
   onDeleteClick() {
     this.updateStatus = false;
     this.deleteStatus = true;
-    this.purchaseListStatus = false;
+    this.transportListStatus = false;
 
   }
   onCancelClick() {
     this.deleteStatus = false;
   }
+  onCloseListClick(){
+    this.transportListStatus=false;
+  }
   onSellListClick() {
-    this.purchaseListStatus = true;
+    this.transportListStatus = true;
     this.updateStatus = false;
     this.deleteStatus = false;
   }
