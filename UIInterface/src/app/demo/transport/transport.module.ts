@@ -34,7 +34,8 @@ import { TransportTruckComponent } from './transport-truck/transport-truck.compo
     GoogleChartsModule
   ],
   exports:[
-    TransportupdateComponent
+    TransportupdateComponent,
+    TransportdetailsComponent
   ]
 })
 export class TransportModule { }

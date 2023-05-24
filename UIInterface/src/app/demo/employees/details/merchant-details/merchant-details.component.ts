@@ -43,6 +43,9 @@ export class MerchantDetailsComponent {
   onCancelClick() {
     this.deleteStatus = false;
   }
+  onCloseListClick(){
+    this.purchaseListStatus=false;
+  }
   onSellListClick() {
     this.purchaseListStatus = true;
     this.updateStatus = false;

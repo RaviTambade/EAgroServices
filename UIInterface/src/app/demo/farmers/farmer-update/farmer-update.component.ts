@@ -35,7 +35,7 @@ export class FarmerUpdateComponent {
       this.svc.updateFarmerDetails(this.farmerId, this.farmer).subscribe((response) => {
         console.log(response)
       if(this.callFromParent==false){
-      this.router.navigate(["farmers/profile",this.farmerId]);
+      this.router.navigate(["farmers",this.farmerId,"profile"]);
       }
       else{
        this.empsvc.sendRole({selectedRole:"Farmer"})  ;

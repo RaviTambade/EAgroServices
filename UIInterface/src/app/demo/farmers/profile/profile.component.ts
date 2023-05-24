@@ -10,7 +10,7 @@ import { Farmer } from 'src/app/Models/farmer';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
- @Input() farmer: Farmer | any ;
+  farmer: Farmer;
   status: boolean = false;
   farmerId: string;
 
@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   }
   onClick() {
     this.status = true;
-    this.router.navigate(["farmers/update",this.farmerId]);
+    this.router.navigate(["farmers",this.farmerId,"update"]);
   }
   }
 

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Admin } from '../admin';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../admin.service';
+import { Admin } from '../admin';
 
 @Component({
   selector: 'app-adminprofile',
@@ -9,8 +9,8 @@ import { AdminService } from '../admin.service';
   styleUrls: ['./adminprofile.component.scss']
 })
 export class AdminprofileComponent implements OnInit {
-  // @Input() admin: Admin | any ;
-  admin: Admin | any;
+  @Input() admin: Admin | any ;
+
   status: boolean = false;
   adminId: any;
 

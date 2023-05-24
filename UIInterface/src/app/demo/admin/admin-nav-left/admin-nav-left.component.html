@@ -8,10 +8,17 @@
           </div>          
          <div class="sidebar-sticky pt-3" style="margin-top: 15px;">
           <ul class="nav flex-column">
+
             <li class="nav-item">
-                <a [routerLink]="['/admin/profile',adminId]" class="nav-link custom-link" routerLinkActive="active">
+              <a [routerLink]="['/admin/profile',adminId]" class="nav-link custom-link" routerLinkActive="active">
+                <i class="fas fa-user" style="color: rgb(92, 29, 202)"></i> 
+                 <span class="ml-2">{{admin.firstName | uppercase}} {{ admin.lastName |uppercase}}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/admin/list',adminId]" class="nav-link custom-link" routerLinkActive="active">
                   <i class="fas fa-person-circle"></i>
-                  <span class="ml-2">Profile</span>
+                  <span class="ml-2">List Of Users</span>
                 </a>
               </li>
           <!--  <li class="nav-item">

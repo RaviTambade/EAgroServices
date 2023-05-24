@@ -64,22 +64,6 @@ export class MerchantPurchaselistComponent {
     sortedObjects.sort((a, b) => {
       let aValue = a[property];
       let bValue = b[property];
-
-
-      if (property.includes('.')) {
-        const nestedProperties = property.split('.');
-
-        aValue = a;
-        bValue = b;
-        console.log(aValue)
-
-
-        for (const nestedProperty of nestedProperties) {
-          aValue = aValue[nestedProperty];
-          bValue = bValue[nestedProperty];
-        }
-      }
-
       if (sortOrder == 'asc') {
         return aValue > bValue ? 1 : -1;
       } else if (sortOrder == 'desc') {
@@ -89,7 +73,6 @@ export class MerchantPurchaselistComponent {
         return 0;
       }
     });
-
     return sortedObjects;
   }
 

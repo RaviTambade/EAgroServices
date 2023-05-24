@@ -2,99 +2,51 @@
   <div class="row">
     <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
       <div class="logo">
-          <span class="text-primary">E-</span>
-          <span class="text-success">AGRO</span>
-          <span class="text-warning">SERVICES</span>
-        </div>          
+        <span class="text-primary">E-</span>
+        <span class="text-success">AGRO</span>
+        <span class="text-warning">SERVICES</span>
+      </div>
       <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
-          <li class="nav-item">
-              <a [routerLink]="['/transports/profile',transportId]" class="nav-link custom-link" routerLinkActive="active">
-                <i class="fas fa-person-circle"></i>
-                <span class="ml-2">Profile</span>
+          <div *ngIf="transport">
+            <li class="nav-item">
+              <a [routerLink]="['/transports/profile', transportId]" class="nav-link custom-link" routerLinkActive="active">
+                <i class="fas fa-user" style="color: rgb(92, 29, 202)"></i>
+                <span class="ml-2">{{ transport.firstName | uppercase }} {{ transport.lastName | uppercase }}</span>
               </a>
             </li>
+          </div>
           <li class="nav-item">
-              <a [routerLink]="['/transports/dashboard',transportId]" class="nav-link custom-link" routerLinkActive="active">
-                <i class="fas fa-cart-fill"></i>
-                <span class="ml-2">Dashboard</span>
-              </a>
-            </li>
-          <!-- <li class="nav-item">
-            <a [routerLink]="['/transport/variety']" class="nav-link custom-link" routerLinkActive="active">
-              <i class="fas fa-cart-fill"></i>
-              <span class="ml-2">Todays Rate</span>
-            </a>
-          </li> -->
-          <li class="nav-item">
-            <a [routerLink]="['/transports/details',transportId]" class="nav-link custom-link" routerLinkActive="active">
-              <i class="fas fa-cart-fill"></i>
-              <span class="ml-2">Transport Details</span>
+            <a [routerLink]="['/transports/dashboard', transportId]" class="nav-link custom-link" routerLinkActive="active">
+              <i class="fas fa-chart-pie" style="color: aqua"></i>
+              <span class="ml-2">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/transports/logout',transportId]" class="nav-link custom-link" routerLinkActive="active">
-              <i class="fas fa-cart-fill"></i>
+            <a [routerLink]="['/transports/details', transportId]" class="nav-link custom-link" routerLinkActive="active">
+              <i class="fas fa-truck" style="color: yellow"></i>
+
+              <span class="ml-2">Transport Fare Details</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a [routerLink]="['/transports/truckList', transportId]" class="nav-link custom-link" routerLinkActive="active">
+              <i class="fas fa-truck" style="color: yellow"></i>
+              <span class="ml-2">My Trucks</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/transports/logout', transportId]" class="nav-link custom-link" routerLinkActive="active">
+              <i class="fas fa-sign-out-alt" style="color: red"></i>
               <span class="ml-2">Log Out</span>
-              </a>
-              </li>
-              <li class="nav-item">
-                <a [routerLink]="['/transports/truckList',transportId]" class="nav-link custom-link" routerLinkActive="active">
-                  <i class="fas fa-cart-fill"></i>
-                  <span class="ml-2">Trucks</span>
-                  </a>
-                  </li>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      </div>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> </div>
     </main>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-<!-- <app-transport-nav-left></app-transport-nav-left>
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Your Profile Details</h5>
-          <form>
-            <div style="text-align:center;">
-              <img src="/assets/images/AkshayTanpure.jpg" style="border-radius: 50%; width: 200px; height: 200px;" />
-            </div> 
-            <div class="form-group">
-                <label for="officeName"><b>Office Name:</b></label>
-                <p class="form-control-plaintext">{{transport.officeName}}</p>
-              </div>           
-            <div class="form-group">
-              <label for="firstName"><b>First Name:</b></label>
-              <p class="form-control-plaintext">{{transport.firstName}}</p>
-            </div>
-            <div class="form-group">
-              <label for="lastName"><b>Last Name:</b></label>
-              <p class="form-control-plaintext">{{transport.lastName}}</p>
-            </div>
-            <div class="form-group">
-              <label for="location"><b>Location:</b></label>
-              <p class="form-control-plaintext">{{transport.location}}</p>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm" (click)="onClick()">
-              <i class="fas fa-pencil-alt mr-2"></i>Edit Your Profile
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
