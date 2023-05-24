@@ -40,6 +40,13 @@ import { TransportModule } from '../transport/transport.module';
     FarmersModule,
     MerchantsModule,
     TransportModule
+  ],
+  exports:[
+    ListComponent
   ]
 })
-export class EmployeesModule { }
+
+
+export class EmployeesModule {
+
+ }

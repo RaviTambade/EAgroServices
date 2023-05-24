@@ -28,6 +28,11 @@ import { UpdateadminComponent } from './demo/admin/updateadmin/updateadmin.compo
 import { AdminprofileComponent } from './demo/admin/adminprofile/adminprofile.component';
 import { Farmer } from './Models/farmer';
 import { FarmerPurchaseFormComponent } from './demo/employees/farmer-purchase-form/farmer-purchase-form.component';
+import { HomeComponent } from './demo/eagro-default/home/home.component';
+import { ContactComponent } from './demo/eagro-default/contact/contact.component';
+import { AboutusComponent } from './demo/eagro-default/aboutus/aboutus.component';
+import { UserlistComponent } from './demo/admin/userlist/userlist.component';
+
 
 
 
@@ -43,6 +48,9 @@ const routes: Routes = [
         path: '',
         loadComponent: () => import('./demo/pages/authentication/login/login.component')
       },
+      { path:'home', component: HomeComponent },
+      { path:'contact', component: ContactComponent },
+      { path:'aboutus', component: AboutusComponent },
     ]
   },
   {
@@ -113,6 +121,7 @@ const routes: Routes = [
 
     ],
    },
+ 
    {
     path: 'employees',
     children:[
@@ -128,6 +137,8 @@ const routes: Routes = [
       { path:'dashboard/:id', component:AdmindashboardComponent },
       {path:'update/:id',component:UpdateadminComponent},
       {path:'profile/:id',component:AdminprofileComponent},
+      {path:'list/:id',component:UserlistComponent},
+
 
        
     ],

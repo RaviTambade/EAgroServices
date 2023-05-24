@@ -14,6 +14,7 @@ public interface ISellRepository
     Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId);
     Task<List<MerchantRevenue>> GetMerchantRevenues(int merchantId);
     Task<double> GetTotalPurchaseAmountByMerchant(int merchantId);
+    Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int merchantId);
 
     
 }

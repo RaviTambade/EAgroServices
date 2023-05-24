@@ -335,4 +335,29 @@ public class SellRepository : ISellRepository
             throw e;
         }
     }
+
+    public async Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int merchantId){
+         try
+        {
+            using (var context = new SellsContext(_configuration))
+            {
+                var merchantOrdersCount = await (from sell in context.Sells
+
+                                               where sell.MerchantId == merchantId
+                                               group sell by new { sell.Date.Year, sell.Date.Month } into billingGroup
+                                               select new MerchantOrder()
+                                               {
+                                                   Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(billingGroup.Key.Month),
+                                                   Year = billingGroup.Key.Year,
+                                                   OrderCount = billingGroup.Count()
+                                               }).ToListAsync();
+
+                return merchantOrdersCount;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
 }
