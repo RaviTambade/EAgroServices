@@ -11,6 +11,7 @@ import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 import { UpdateadminComponent } from './updateadmin/updateadmin.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { EmployeesModule } from '../employees/employees.module';
+import { AdminLogoutComponent } from './admin-logout/admin-logout.component';
 
 
 
@@ -20,7 +21,8 @@ import { EmployeesModule } from '../employees/employees.module';
     AdminNavLeftComponent,
     AdminprofileComponent,
     UpdateadminComponent,
-    UserlistComponent, 
+    UserlistComponent,
+    AdminLogoutComponent, 
   ],
   imports:[
     CommonModule,
