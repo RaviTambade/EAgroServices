@@ -150,11 +150,9 @@ public class TransportRepository : ITransportRepository
                                               join freightRate in context.FreightRates
                                               on billing.BillId equals freightRate.BillId
                                               where transport.TransportId == transportId
+                                              orderby billing.Date descending
                                               select new TransportFareDetails()
                                               {
-                                                //   FreightRate = freightRate,
-                                                //   Billing = billing,
-                                                //   Truck = transportTruck,
                                                   TruckNumber=transportTruck.TruckNumber,
                                                   FromDestination=freightRate.FromDestination,
                                                   ToDestination=freightRate.ToDestination,

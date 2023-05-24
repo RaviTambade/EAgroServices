@@ -31,7 +31,7 @@
       </div>
       <div *ngIf="purchaseListStatus" >
         <app-merchant-purchaselist style="--child-margin-left: 0;" [callFromParent]="true" [merchantId]="merchant.merchantId"></app-merchant-purchaselist>
-       <div style="text-align: center;" > <button type="submit" class="btn btn-danger btn-block "  (click)="purchaseListStatus=false">
+       <div style="text-align: center;" > <button type="submit" class="btn btn-danger btn-block "  (click)="onCloseListClick()">
           <i class="fas fa-check mr-2"></i>Close</button>
         </div>
       </div>

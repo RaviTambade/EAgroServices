@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Farmer } from 'src/app/Models/farmer';
 import { FarmerService } from 'src/app/Services/farmer.service';
 
 
@@ -10,7 +11,7 @@ import { FarmerService } from 'src/app/Services/farmer.service';
 })
 export class FarmerNavLeftComponent {
   farmerId:any;
-  farmer:any;
+  farmer:Farmer;
   constructor( private route: ActivatedRoute, private farmersvc:FarmerService) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
