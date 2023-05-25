@@ -9,10 +9,12 @@ namespace TransportsAPI.Repositories;
 public class TransportRepository : ITransportRepository
 {
     private IConfiguration _configuration;
+
     public TransportRepository(IConfiguration configuration)
     {
         _configuration = configuration;
     }
+
     public async Task<List<Transport>> GetAll()
     {
         try
@@ -33,7 +35,6 @@ public class TransportRepository : ITransportRepository
             throw e;
         }
     }
-
 
     public async Task<Transport> GetById(int transportId)
     {
@@ -110,7 +111,6 @@ public class TransportRepository : ITransportRepository
         return status;
     }
 
-
     public async Task<bool> Delete(int transportId)
     {
         bool status = false;
@@ -134,55 +134,57 @@ public class TransportRepository : ITransportRepository
         return status;
     }
 
+    // for records of a Transport fare details -used in TransportList
     public async Task<List<TransportFareDetails>> TransportHistory(int transportId)
     {
         try
         {
             using (var context = new TransportContext(_configuration))
             {
-                var transportHistory = await (from transport in context.Transports
-                                              join transportTruck in context.Trucks
-                                              on transport.TransportId equals transportTruck.TransportId
-                                              join sell in context.Sells
-                                              on transportTruck.TruckId equals sell.TruckId
-                                              join billing in context.Billings
-                                              on sell.SellId equals billing.SellId
-                                              join freightRate in context.FreightRates
-                                              on billing.BillId equals freightRate.BillId
-                                              where transport.TransportId == transportId
-                                              orderby billing.Date descending
-                                              select new TransportFareDetails()
-                                              {
-                                                  TruckNumber=transportTruck.TruckNumber,
-                                                  FromDestination=freightRate.FromDestination,
-                                                  ToDestination=freightRate.ToDestination,
-                                                  Kilometers=freightRate.Kilometers,
-                                                  RatePerKm=freightRate.RatePerKm,
-                                                  FreightCharges=billing.FreightCharges,
-                                                  Date=billing.Date
-                                              }).ToListAsync();
+                var transportHistory = await (
+                    from transport in context.Transports
+                    join transportTruck in context.Trucks
+                        on transport.TransportId equals transportTruck.TransportId
+                    join sell in context.Sells on transportTruck.TruckId equals sell.TruckId
+                    join billing in context.Billings on sell.SellId equals billing.SellId
+                    join freightRate in context.FreightRates
+                        on billing.BillId equals freightRate.BillId
+                    where transport.TransportId == transportId
+                    orderby billing.Date descending
+                    select new TransportFareDetails()
+                    {
+                        TruckNumber = transportTruck.TruckNumber,
+                        FromDestination = freightRate.FromDestination,
+                        ToDestination = freightRate.ToDestination,
+                        Kilometers = freightRate.Kilometers,
+                        RatePerKm = freightRate.RatePerKm,
+                        FreightCharges = billing.FreightCharges,
+                        Date = billing.Date
+                    }
+                ).ToListAsync();
                 return transportHistory;
             }
-
         }
         catch (Exception e)
         {
             throw e;
         }
-
     }
 
+    //used for  column chart-one truck revenue per month of a year
     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int transportId)
     {
         try
         {
             using (var context = new TransportContext(_configuration))
             {
-                var transportHistory =
-             await (from sells_billing in context.Billings
+                var transportHistory = await (
+                    from sells_billing in context.Billings
                     join sells in context.Sells on sells_billing.SellId equals sells.SellId
-                    join transport_trucks in context.Trucks on sells.TruckId equals transport_trucks.TruckId
-                    join transports in context.Transports on transport_trucks.TransportId equals transports.TransportId
+                    join transport_trucks in context.Trucks
+                        on sells.TruckId equals transport_trucks.TruckId
+                    join transports in context.Transports
+                        on transport_trucks.TransportId equals transports.TransportId
                     where transports.TransportId == transportId
                     group sells_billing by new
                     {
@@ -197,7 +199,8 @@ public class TransportRepository : ITransportRepository
                         Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month),
                         TruckNumber = g.Key.TruckNumber,
                         Year = g.Key.Year
-                    }).ToListAsync();
+                    }
+                ).ToListAsync();
 
                 return transportHistory;
             }
@@ -208,17 +211,20 @@ public class TransportRepository : ITransportRepository
         }
     }
 
+    //used for piechart -all trucks revenue per year of one transport
     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByYear(int transportId)
     {
         try
         {
             using (var context = new TransportContext(_configuration))
             {
-                var transportHistory =
-             await (from sells_billing in context.Billings
+                var transportHistory = await (
+                    from sells_billing in context.Billings
                     join sells in context.Sells on sells_billing.SellId equals sells.SellId
-                    join transport_trucks in context.Trucks on sells.TruckId equals transport_trucks.TruckId
-                    join transports in context.Transports on transport_trucks.TransportId equals transports.TransportId
+                    join transport_trucks in context.Trucks
+                        on sells.TruckId equals transport_trucks.TruckId
+                    join transports in context.Transports
+                        on transport_trucks.TransportId equals transports.TransportId
                     where transports.TransportId == transportId
                     group sells_billing by new
                     {
@@ -230,7 +236,8 @@ public class TransportRepository : ITransportRepository
                         TotalFreightCharges = g.Sum(s => s.FreightCharges),
                         TruckNumber = g.Key.TruckNumber,
                         Year = g.Key.Year
-                    }).ToListAsync();
+                    }
+                ).ToListAsync();
 
                 return transportHistory;
             }
@@ -240,24 +247,68 @@ public class TransportRepository : ITransportRepository
             throw e;
         }
     }
-    public async Task<List<Truck>>GetTransportsTrucks(int  transportId)
+
+    // truck orders count  per month of a transport
+    public async Task<List<TransportOrderCount>> TransportTruckOrdersPerMonth(int transportId)
     {
-        try{
+        try
+        {
             using (var context = new TransportContext(_configuration))
             {
-                var transportTrucks =
-               await( from transports in context.Transports
-                      join transportTruck in context.Trucks on transports.TransportId equals transportTruck.TransportId
-                     where transports.TransportId == transportId
-                      select transportTruck).ToListAsync();
-               return transportTrucks;
-
+                var transportOrdersCount = await (
+                    from sell in context.Sells
+                    join truck in context.Trucks on sell.TruckId equals truck.TruckId
+                    where truck.TransportId == transportId
+                    group sell by new
+                    {
+                        sell.Date.Year,
+                        sell.Date.Month,
+                        sell.TruckId
+                    } into billingGroup
+                    orderby billingGroup.Key.Month, billingGroup.Key.Year descending
+                    select new TransportOrderCount()
+                    {
+                        Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(
+                            billingGroup.Key.Month
+                        ),
+                        Year = billingGroup.Key.Year,
+                        OrderCount = billingGroup.Count(),
+                        TruckNumber = (
+                            from truck in context.Trucks
+                            where truck.TruckId == billingGroup.Key.TruckId
+                            select truck.TruckNumber
+                        ).FirstOrDefault()
+                    }
+                ).ToListAsync();
+                return transportOrdersCount;
             }
-
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-                throw e;
+            throw e;
+        }
+    }
+
+    // for getting all trucks of transport
+    public async Task<List<Truck>> GetTransportsTrucks(int transportId)
+    {
+        try
+        {
+            using (var context = new TransportContext(_configuration))
+            {
+                var transportTrucks = await (
+                    from transports in context.Transports
+                    join transportTruck in context.Trucks
+                        on transports.TransportId equals transportTruck.TransportId
+                    where transports.TransportId == transportId
+                    select transportTruck
+                ).ToListAsync();
+                return transportTrucks;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
         }
     }
 }

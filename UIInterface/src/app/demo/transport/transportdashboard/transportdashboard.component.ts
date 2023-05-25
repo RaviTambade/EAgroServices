@@ -11,36 +11,36 @@ import { Transport } from 'src/app/Models/transport';
 })
 export class TransportdashboardComponent implements OnInit {
   transport: Transport | undefined;
-transportId: string | undefined;
+  transportId: string | undefined;
 
 
-areaChart = ChartType.AreaChart;
-barChart = ChartType.BarChart;
-columnChart = ChartType.ColumnChart;
-lineChart = ChartType.LineChart;
-pieChart = ChartType.PieChart;
+  areaChart = ChartType.AreaChart;
+  barChart = ChartType.BarChart;
+  columnChart = ChartType.ColumnChart;
+  lineChart = ChartType.LineChart;
+  pieChart = ChartType.PieChart;
 
-data: any[] = [];
+  data: any[] = [];
 
-columnNames = ['month', 'totalAmount'];
+  columnNames = ['month', 'totalAmount'];
 
-width = 1200;
-piewidth = 450;
+  width = 1200;
+  piewidth = 450;
 
-height = 500;
-pieheight = 140;
+  height = 500;
+  pieheight = 140;
 
- columnoptions = {
-   color:['green'],
-};
+  columnoptions = {
+    color: ['green'],
+  };
 
-pieoptions={
-  is3D:true
-}
+  pieoptions = {
+    is3D: true
+  }
 
-donutOptions = {
-  pieHole: 0.5
-}
+  donutOptions = {
+    pieHole: 0.5
+  }
 
   constructor(private svc: TransportService, private route: ActivatedRoute) { }
 
@@ -50,4 +50,5 @@ donutOptions = {
       this.transportId = params.get('id');
     });
   }
+ 
 }

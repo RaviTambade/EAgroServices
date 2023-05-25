@@ -19,17 +19,17 @@ public class TransportService : ITransportService
     {
         return await _repository.GetById(transportId);
     }
-    public async Task<bool> Insert(User user,Transport transport,UserRole userRole)
+    public async Task<bool> Insert(User user, Transport transport, UserRole userRole)
     {
-        return await _repository.Insert(user,transport,userRole);
+        return await _repository.Insert(user, transport, userRole);
     }
     public async Task<bool> Update(int transportId, Transport transport)
     {
-        return await _repository.Update(transportId,transport);
+        return await _repository.Update(transportId, transport);
     }
     public async Task<bool> Delete(int transportId)
     {
-        return await _repository.Delete(transportId);;
+        return await _repository.Delete(transportId); ;
     }
 
     public async Task<List<TransportFareDetails>> TransportHistory(int transportId)
@@ -38,7 +38,7 @@ public class TransportService : ITransportService
     }
 
     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int transportId)
-    {
+    { 
         return await _repository.TransportTruckHistoryByMonth(transportId);
     }
 
@@ -50,5 +50,11 @@ public class TransportService : ITransportService
     public async Task<List<Truck>> GetTransportsTrucks(int transportId)
     {
         return await _repository.GetTransportsTrucks(transportId);
+    }
+
+    public async Task<List<TransportOrderCount>> TransportTruckOrdersPerMonth(int transportId)
+
+    {
+        return await _repository.TransportTruckOrdersPerMonth(transportId);
     }
 }

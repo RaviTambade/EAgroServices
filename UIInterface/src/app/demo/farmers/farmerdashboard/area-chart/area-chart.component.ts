@@ -5,7 +5,7 @@ import { ChartType } from 'angular-google-charts';
 import { Farmerorderscount } from '../../../../Models/farmer-orders-count';
 
 @Component({
-  selector: 'app-line-chart',
+  selector: 'app-area-chart',
   templateUrl: './area-chart.component.html',
   styleUrls: ['./area-chart.component.scss']
 })
