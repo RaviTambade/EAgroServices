@@ -13,44 +13,44 @@ namespace FarmersAPI.Controllers
             this._srv = srv;
         }
         [HttpGet]
-        [Route("getallfarmers")]
-        public async Task<List<Farmer>> GetAllFarmers()
+        [Route("farmers")]
+        public async Task<List<Farmer>> GetAll()
         {
-            List<Farmer> farmers = await _srv.GetAllFarmers();
+            List<Farmer> farmers = await _srv.GetAll();
             return farmers;
         }
 
         [HttpGet]
-        [Route("getdetails/{id}")]
-        public async Task<Farmer> GetFarmerById(int id)
+        [Route("farmer/{id}")]
+        public async Task<Farmer> GetById(int id)
         {
-            Farmer farmer = await _srv.GetFarmerById(id);
+            Farmer farmer = await _srv.GetById(id);
             return farmer;
         }
 
         [HttpPost]
-        [Route("insert")]
-        public async Task<bool> InsertFarmer([FromBody] UserFarmerRole userFarmerRole)
+        [Route("farmer")]
+        public async Task<bool> Insert([FromBody] UserFarmerRole userFarmerRole)
         {
-            User user=userFarmerRole.User;
-            Farmer farmer=userFarmerRole.Farmer;
-            UserRole userRole=userFarmerRole.UserRole;
-            Console.WriteLine(user.ContactNumber + " "+ user.Password + " " +farmer.FirstName + " " +farmer.LastName + " "+farmer.Location + " " +userRole.Id); 
-            return await _srv.InsertFarmer(user,farmer,userRole);
+            User? user=userFarmerRole.User;
+            Farmer? farmer=userFarmerRole.Farmer;
+            UserRole? userRole=userFarmerRole.UserRole;
+            Console.WriteLine(user?.ContactNumber + " "+ user?.Password + " " +farmer?.FirstName + " " +farmer?.LastName + " "+farmer?.Location + " " +userRole?.Id); 
+            return await _srv.Insert(user,farmer,userRole);
         }
 
         [HttpPut]
-        [Route("update/{id}")]
-        public async Task<bool> UpdateFarmer(int id, [FromBody] Farmer farmer)
+        [Route("farmer/{id}")]
+        public async Task<bool> Update(int id, [FromBody] Farmer farmer)
         { 
-             return await _srv.UpdateFarmer(id, farmer);
+             return await _srv.Update(id, farmer);
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
-        public async Task<bool> DeleteFarmer(int id)
+        [Route("farmer/{id}")]
+        public async Task<bool> Delete(int id)
         {
-            return await _srv.DeleteFarmer(id);
+            return await _srv.Delete(id);
         }
 
     }

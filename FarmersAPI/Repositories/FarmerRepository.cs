@@ -2,7 +2,6 @@ using FarmersAPI.Contexts;
 using FarmersAPI.Models;
 using FarmersAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 namespace FarmersAPI.Repositories;
 public class FarmerRepository : IFarmerRepository
 {
@@ -11,7 +10,7 @@ public class FarmerRepository : IFarmerRepository
     {
         _configuration = configuration;
     }
-    public async Task<List<Farmer>> GetAllFarmers()
+    public async Task<List<Farmer>> GetAll()
     {
         try
         {
@@ -31,13 +30,13 @@ public class FarmerRepository : IFarmerRepository
         }
     }
 
-    public async Task<Farmer> GetFarmerById(int farmerId)
+    public async Task<Farmer> GetById(int farmerId)
     {
         try
         {
             using (var context = new FarmersContext(_configuration))
             {
-                Farmer farmer = await context.Farmers.FindAsync(farmerId);
+                Farmer? farmer = await context.Farmers.FindAsync(farmerId);
                 if (farmer == null)
                 {
                     return null;
@@ -50,7 +49,7 @@ public class FarmerRepository : IFarmerRepository
             throw e;
         }
     }
-    public async Task<bool> InsertFarmer(User user,Farmer farmer,UserRole userRole)
+    public async Task<bool> Insert(User user,Farmer farmer,UserRole userRole)
     {
             Console.WriteLine(user.ContactNumber + " "+ user.Password + " " +farmer.FirstName + " " +farmer.LastName + " "+farmer.Location + " " +userRole.Id); 
         bool status = false;
@@ -77,7 +76,7 @@ public class FarmerRepository : IFarmerRepository
         return status;
     }
 
-    public async Task<bool> UpdateFarmer(int farmerId, Farmer farmer)
+    public async Task<bool> Update(int farmerId, Farmer farmer)
     {
         bool status = false;
         try
@@ -101,7 +100,7 @@ public class FarmerRepository : IFarmerRepository
         }
         return status;
     }
-    public async Task<bool> DeleteFarmer(int farmerId)
+    public async Task<bool> Delete(int farmerId)
     {
         bool status = false;
         try
