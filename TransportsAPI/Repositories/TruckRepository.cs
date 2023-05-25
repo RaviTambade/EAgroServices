@@ -77,10 +77,9 @@ public class TruckRepository:ITruckRepository{
         {
             using (var context = new TruckContext(_configuration))
             {
-                Truck? oldTruck = await context.Truck.FindAsync(truck);
+                Truck? oldTruck = await context.Truck.FindAsync(id);
                 if (oldTruck != null)
                 {
-                    
                     oldTruck.TransportId = truck.TransportId;
                     oldTruck.TruckNumber = truck.TruckNumber;
                     await context.SaveChangesAsync();

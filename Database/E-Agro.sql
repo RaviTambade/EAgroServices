@@ -1,6 +1,5 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
-select * from users;
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -166,7 +165,7 @@ CREATE TABLE
   CONSTRAINT fk_bill_id FOREIGN KEY (bill_id) REFERENCES sells_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
  
- --query for calculating freight charges of one truck
+ /* query for calculating freight charges of one truck */
 SELECT sells.sell_id,sells.truck_id,sells_billing.freight_charges,sells.quantity,sells.date 
 from sells,sells_billing
 WHERE sells.sell_id=sells_billing.sell_id and sells.truck_id=1;
@@ -195,8 +194,8 @@ CREATE TABLE
         CONSTRAINT fk_bill_id_1 FOREIGN KEY (bill_id) REFERENCES farmer_purchases_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-
---for calculating labour_charges
+SELECT * FROM farmer_purchases_billing;
+/* for calculating labour_charges */
 CREATE PROCEDURE calculate_purchase_labour_charges(IN billId INT) BEGIN 
 	DECLARE labourRate DOUBLE DEFAULT 0;
 	DECLARE Quantity INT DEFAULT 0;
@@ -204,30 +203,27 @@ CREATE PROCEDURE calculate_purchase_labour_charges(IN billId INT) BEGIN
 	SELECT purchase_id INTO purchaseId FROM farmer_purchases_billing WHERE bill_id = billId;
     SELECT rate INTO labourRate FROM labour_rates,farmer_purchases WHERE  farmer_purchases.purchase_id= purchaseId AND labour_rates.container_type=farmer_purchases.container_type;
     SELECT farmer_purchases.quantity INTO Quantity  FROM farmer_purchases WHERE farmer_purchases.purchase_id = purchaseId;
-    UPDATE farmer_purchases_billing SET labour_charges = labourRate * Quantity WHERE bill_id = BillId;
+    UPDATE farmer_purchases_billing SET labour_charges = labourRate * Quantity WHERE bill_id = billId;
 END;
 SELECT * FROM farmer_purchases_billing;
---for calculating total_amount
-CREATE PROCEDURE calculate_purchase_total_amount(IN billId 
-INT) BEGIN 
-	DECLARE totalAmount DOUBLE ;
+/* for calculating total_amount  */ 
+CREATE PROCEDURE calculate_purchase_total_amount(IN billId INT)
+ BEGIN 
+	DECLARE totalAmount DOUBLE DEFAULT 0 ;
 	DECLARE labourChrges DOUBLE DEFAULT 0;
 	DECLARE purchaseId INT;
-	SELECT
-	    purchase_id INTO purchaseId
-	FROM farmer_purchases_billing
-	-- WHERE bill_id = billId;
+	SELECT purchase_id INTO purchaseId FROM farmer_purchases_billing WHERE bill_id = billId;
     SELECT labour_charges INTO labourChrges FROM farmer_purchases_billing WHERE bill_id = billId;
 	SELECT farmer_purchases.net_weight * farmer_purchases.rate_per_kg INTO totalAmount
 	FROM farmer_purchases WHERE purchase_id = purchaseId;
-	UPDATE
-	    farmer_purchases_billing
+	UPDATE farmer_purchases_billing
 	SET total_amount = totalAmount - labour_charges
 	WHERE bill_id = billId;
 END; 
+SELECT bill_id, purchase_id  FROM farmer_purchases_billing ;
+SELECT * FROM farmer_purchases;
 
--- DROP PROCEDURE calculate_purchase_total_amount;
---for calculating freight_charges
+  /* --for calculating freight_charges  */
 CREATE PROCEDURE calculate_freight_charges(IN bill_Id 
 INT) BEGIN 
 	DECLARE freightCharges DOUBLE;
@@ -243,8 +239,8 @@ INT) BEGIN
 END; 
 SELECT * FROM freight_rates;
 
-CREATE PROCEDURE calculate_labour_charges_of_sells(IN bill_Id 
-INT) BEGIN 
+CREATE PROCEDURE calculate_labour_charges_of_sells(IN bill_Id INT) 
+BEGIN 
 UPDATE 
     sells_billing 
     INNER JOIN sells ON sells_billing.sell_id = sells.sell_id
@@ -466,8 +462,7 @@ WHERE
   bill_id BETWEEN 1 AND 100;
 
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS call_procedures//
+DROP PROCEDURE IF EXISTS call_procedures;
 CREATE PROCEDURE call_procedures(IN records INT)
 BEGIN
   DECLARE i INT DEFAULT 1;
@@ -476,13 +471,14 @@ BEGIN
     CALL calculate_purchase_total_amount(i);
     SET i = i + 1;
   END WHILE;
-END//
-DELIMITER ;
+END;
+
+    CALL calculate_purchase_total_amount(1);
 
 CALL call_procedures(34);
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS call_proceduresofsells//
+
+DROP PROCEDURE IF EXISTS call_proceduresofsells;
 CREATE PROCEDURE call_proceduresofsells(IN records INT)
 BEGIN
   DECLARE i INT DEFAULT 1;
@@ -491,11 +487,11 @@ BEGIN
     CALL calculate_freight_charges(i);
     SET i = i + 1;
   END WHILE;
-END//
-DELIMITER ;
+END;
+
 CALL call_proceduresofsells(100);
 
-
+/*
 -- SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,sells.net_weight,sells.rate_per_kg,sells.total_amount FROM farmers
 -- INNER JOIN farmer_purchases On farmers.farmer_id=farmer_purchases.farmer_id 
 -- INNER JOIN sells on farmer_purchases.purchase_id=sells.purchase_id 
@@ -569,3 +565,4 @@ INNER join transport_trucks on transport_trucks.truck_id=sells.truck_id
 INNER JOIN transports on transports.transport_id=transport_trucks.transport_id
 where transports.transport_id=2
 GROUP BY  year(sells_billing.date),transport_trucks.truck_number ORDER BY year(sells_billing.date) ;
+*/
