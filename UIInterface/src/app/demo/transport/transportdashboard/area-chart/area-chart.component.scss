@@ -1,0 +1,36 @@
+.container {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+  }
+  
+  .container::-webkit-scrollbar {
+    display: none; 
+  }
+  
+  .sort-select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+  }
+  
+  .sort-select:hover {
+    border-color: #999;
+    transform: scale(1.02);
+
+  }
+  
+  .sort-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
