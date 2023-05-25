@@ -14,7 +14,7 @@ import { Farmerorderscount } from '../Models/farmer-orders-count';
 export class FarmerService {
   constructor(private httpClient:HttpClient) { }
   getFarmer(farmerId:string):Observable<any>{
-    let url =" http://localhost:5141/api/farmers/getdetails/" +farmerId;
+    let url ="http://localhost:5141/api/farmer/" +farmerId;
     return this.httpClient.get<Farmer>(url);
   }
   deleteFarmer(farmerId:any):Observable<any>{ 
@@ -26,7 +26,7 @@ export class FarmerService {
     return this.httpClient.get<Farmersell[]>(url);
   }
   updateFarmerDetails(farmerId:any,farmer:Farmer):Observable<any>{
-    let url =" http://localhost:5141/api/farmers/update/" +farmerId;
+    let url =" http://localhost:5141/api/farmer/" +farmerId;
     return this.httpClient.put<Farmer>(url,farmer);
   }
   getFarmerPurchaseDetails(farmerId:any):Observable<Purchaseviewmodel[]>{  

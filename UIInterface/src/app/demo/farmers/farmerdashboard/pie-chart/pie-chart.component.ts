@@ -58,6 +58,10 @@ export class PieChartComponent {
     }
   }
 
+  isDataExist(): boolean {
+    return this.data.length > 0;
+  }
+
 
   changeGraphByYear() {
 

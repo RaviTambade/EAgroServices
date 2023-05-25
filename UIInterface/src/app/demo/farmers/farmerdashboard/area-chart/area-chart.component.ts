@@ -60,6 +60,9 @@ export class AreaChartComponent {
     }
   }
 
+  isDataExist(): boolean {
+    return this.data.length > 0;
+  }
 
   changeGraphByYear() {
 
