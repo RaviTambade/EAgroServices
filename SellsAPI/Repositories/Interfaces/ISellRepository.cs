@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using SellsAPI.Models;
 namespace SellsAPI.Repositories.Interfaces;
 public interface ISellRepository
@@ -9,12 +8,10 @@ public interface ISellRepository
     Task<bool> Insert(Sell sell,FreightRate freightRate);
     Task<bool> Update(int sellId,Sell sell,FreightRate freightRate);
     Task<bool> Delete(int sellId);
-    Task<SellBilling> GetSellBilling(int sellId);
     Task<List<MerchantSell>> GetSellByMerchantId(int merchantId);
     Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId);
     Task<List<MerchantRevenue>> GetMerchantRevenues(int merchantId);
-    Task<double> GetTotalPurchaseAmountByMerchant(int merchantId);
+    Task<double> GetTotalPurchaseAmountOfMerchant(int merchantId);
     Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int merchantId);
 
-    
 }
