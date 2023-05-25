@@ -1,7 +1,8 @@
 namespace PurchaseAPI.Models;
+
 public class FarmerOrder
 {
-    public int OrderCount{get;set;}
-    public  string? Month{get;set;}
-    public int Year {get;set;}
+    public int OrderCount { get; set; }
+    public string? Month { get; set; }
+    public int Year { get; set; }
 }

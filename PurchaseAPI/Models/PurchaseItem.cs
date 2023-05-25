@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PurchaseAPI.Models;
+
 public class PurchaseItem
 {
     [Column("purchase_id")]
@@ -17,8 +18,10 @@ public class PurchaseItem
 
     [Column("quantity")]
     public int Quantity { get; set; }
+
     [Column("grade")]
     public string? Grade { get; set; }
+
     [Column("total_weight")]
     public double TotalWeight { get; set; }
 
@@ -34,12 +37,9 @@ public class PurchaseItem
 
     public double Amount
     {
-        get
-        {
-            return this.NetWeight * this.RatePerKg;
-        }
+        get { return this.NetWeight * this.RatePerKg; }
     }
 
     [Column("date")]
-    public DateTime Date {get;set;}
+    public DateTime Date { get; set; }
 }
