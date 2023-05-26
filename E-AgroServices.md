@@ -5,7 +5,7 @@
 URL
 
 ```console
-localhost:5107/api/accounts/getallaccounts
+localhost:5107/api/accounts/accounts
 ```
 
 Method = GET
@@ -19,7 +19,7 @@ Body = None
 URL
 
 ```console
-localhost:5107/api/accounts/getaccount/{id}
+localhost:5107/api/accounts/{id}
 ```
 
 Id = accountId
@@ -35,7 +35,7 @@ Body = None
 URL
 
 ```console
-localhost:5107/api/accounts/insert
+localhost:5107/api/accounts/accounts
 ```
 
 Method = POST
@@ -56,7 +56,7 @@ Body
 URL
 
 ```console
-localhost:5107/api/accounts/update/{id}
+localhost:5107/api/accounts/accounts/{id}
 ```
 
 Id = accountId
@@ -79,7 +79,7 @@ Body
 URL
 
 ```console
-localhost:5107/api/accounts/delete/{id}
+localhost:5107/api/accounts/accounts/{id}
 ```
 
 Id = accountId
@@ -99,7 +99,7 @@ Body = None
 URL
 
 ```console
- http://localhost:5051/api/admins/getalladmins
+ http://localhost:5051/api/admins/admins
 ```
 
 Method = GET
@@ -113,7 +113,7 @@ Body = None
 URL
 
 ```console
- http://localhost:5051/api/admins/getbyid/{id}
+ http://localhost:5051/api/admins/admins/{id}
 ```
 
 Id = adminId
@@ -129,7 +129,7 @@ Body = None
 URL
 
 ```console
-http://localhost:5051/api/admins/insert
+http://localhost:5051/api/admins/admins
 ```
 
 Method = POST
@@ -146,7 +146,7 @@ Body
 
 URL 
 ```console
-http://localhost:5051/api/admins/update/{id}
+http://localhost:5051/api/admins/admins/{id}
 ```
 Id  =  adminId
 
@@ -166,7 +166,7 @@ Body
 
 URL
 ```console
-http://localhost:5051/api/admins/delete/{id}
+http://localhost:5051/api/admins/admins/{id}
 ```
 Id = adminId
 
@@ -182,7 +182,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5265/api/employees/getallemployees
+ http://localhost:5265/api/employees/employees
  ```
 Method = GET
 
@@ -193,7 +193,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5265/api/employees/getbyid/{id}
+ http://localhost:5265/api/employees/employees/{id}
  ```
 Id = adminId
 
@@ -206,7 +206,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5265/api/employees/insert
+http://localhost:5265/api/employees/employees
 ```
 Method = Post
 
@@ -234,7 +234,7 @@ Body
 
 URL
 ```console
-http://localhost:5265/api/employees/update/{id}
+http://localhost:5265/api/employees/employees/{id}
 ```
 Id = employeeId
 
@@ -255,7 +255,7 @@ Body
 
  URL
 ```console
-  http://localhost:5265/api/employees/delete/{id}
+  http://localhost:5265/api/employees/employees/{id}
 ```
 Id =  employeeId
 
@@ -273,7 +273,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5141/api/farmers/getallfarmers
+ http://localhost:5141/api/farmers/farmers
 ```
 Method = GET
 
@@ -284,7 +284,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5141/api/farmers/getdetails/{id}
+http://localhost:5141/api/farmers/farmers/{id}
 ```
 Id = farmerId
 
@@ -297,7 +297,7 @@ Body = None
 
  URL
 ```console
- http://localhost:5141/api/farmers/insert
+ http://localhost:5141/api/farmers/farmers
 ```
 Method = POST
 
@@ -324,7 +324,7 @@ Body
 
 URL
 ```console
- http://localhost:5141/api/farmers/update/{id}
+ http://localhost:5141/api/farmers/farmers/{id}
 ```
 Id = farmerId
 
@@ -345,7 +345,7 @@ Body
 
 URL
 ```console
- http://localhost:5141/api/farmers/delete/{id}
+ http://localhost:5141/api/farmers/farmers/{id}
 ```
 Id = farmerId
 
@@ -362,7 +362,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5188/api/merchants/getallmerchants
+http://localhost:5188/api/merchants/merchants
 ```
 Method = GET
 
@@ -374,7 +374,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5188/api/merchants/getbyid/{id}
+ http://localhost:5188/api/merchants/merchants/{id}
 ```
 Id = merchantId
 
@@ -388,7 +388,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5188/api/merchants/insert
+http://localhost:5188/api/merchants/merchants
 ```
 Method = POST
 Description = Insert new Merchant
@@ -415,7 +415,7 @@ Body
 
 URL
 ```console
-http://localhost:5188/api/merchants/Update/{id}
+http://localhost:5188/api/merchants/merchants/{id}
 ```
 Id = merchantId
 
@@ -436,7 +436,7 @@ Body
 
 URL
 ```console
- http://localhost:5188/api/merchants/Delete/{id}
+ http://localhost:5188/api/merchants/merchants/{id}
 ```
 Id = merchantId
 
@@ -452,7 +452,7 @@ Body =  None
 URL
 
 ```console
-http://localhost:5240/api/transports/alltransports
+http://localhost:5240/api/transports/transports
 ```
 Method = GET
 
@@ -465,7 +465,7 @@ Body = None
 URL
 
 ```console
-http://localhost:5240/api/transports/getdetails/{id}
+http://localhost:5240/api/transports/transports/{id}
 ```
 Id = transportId
 
@@ -479,7 +479,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5240/api/transports/insert
+http://localhost:5240/api/transports/transports
 ```
 Method = POST
 
@@ -505,7 +505,7 @@ Body
 ```
 URL
 ```console
-http://localhost:5240/api/Transports/Update/{id}
+http://localhost:5240/api/Transports/transports/{id}
 ```
 Id = transportId
 
@@ -524,7 +524,7 @@ Body
 ```
 URL
 ```console
-http://localhost:5240/api/Transports/Delete/{id}
+http://localhost:5240/api/Transports/transports/{id}
 ```
 Id = transportId
 
@@ -538,7 +538,7 @@ Description = Delete an existing Transport Data
 
 URL
 ```console
-http://localhost:5224/api/variety/getall
+http://localhost:5224/api/variety/variety
 ```
 Method = GET
 
@@ -550,7 +550,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5224/api/variety/getbyid/{id}
+http://localhost:5224/api/variety/variety/{id}
 ```
 Id = varietyId
 
@@ -563,7 +563,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5224/api/variety/insert
+http://localhost:5224/api/variety/variety
 ```
 Method = POST
 Description = Insert new Variety
@@ -575,7 +575,7 @@ Body
 ```
 URL
 ```console
-http://localhost:5224/api/variety/update/{id}
+http://localhost:5224/api/variety/variety/{id}
 ```
 Id = varietyId
 
@@ -591,7 +591,7 @@ Body
 ```
 URL
 ```console
-http://localhost:5224/api/variety/delete/{id}
+http://localhost:5224/api/variety/variety/{id}
 ```
 Id = varietyId
 
@@ -605,7 +605,7 @@ Description = Delete an existing Variety Data
 
 URL
 ```console
-http://localhost:5171/api/purchase/getallpurchaseitems
+http://localhost:5171/api/purchase/purchase
 ```
 Method = GET
 
@@ -618,7 +618,7 @@ Body = None
 URL
 
 ```console
- http://localhost:5171/api/purchase/getbyid/{id}
+ http://localhost:5171/api/purchase/purchase/{id}
 ```
 Id = purchaseId
 
@@ -632,7 +632,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5171/api/purchase/insert
+ http://localhost:5171/api/purchase/purchase
 ```
 Method = POST
 
@@ -660,7 +660,7 @@ Body
 URL
 
 ```console
-http://localhost:5224/api/purchase/update/{id}
+http://localhost:5224/api/purchase/purchase/{id}
 ```
 Id = purchaseId
 
@@ -686,7 +686,7 @@ Body
 
 URL
 ```console
-http://localhost:5224/api/purchase/delete/{id}
+http://localhost:5224/api/purchase/purchase/{id}
 ```
 Id = purchaseId
 
@@ -700,7 +700,7 @@ Description = Delete an existing purchase Data
 
 URL
 ```console
-http://localhost:5182/api/sells/getallsells
+http://localhost:5182/api/sells/sells
 ```
 Method = GET
 
@@ -713,7 +713,7 @@ Body = None
 URL
 
 ```console
- http://localhost:5182/api/sells/getdetails/{id}
+ http://localhost:5182/api/sells/sells/{id}
 ```
 Id = sellId
 
@@ -727,7 +727,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5182/api/sells/insert
+http://localhost:5182/api/sells/sells
 ```
 Method = POST
 
@@ -762,7 +762,7 @@ Body
 URL
 
 ```console
-http://localhost:5182/api/sells/update/{id}
+http://localhost:5182/api/sells/sells/{id}
 ```
 Id = sellId
 
@@ -794,7 +794,7 @@ Body
 
 URL
 ```console
-http://localhost:5182/api/sells/delete/{id}
+http://localhost:5182/api/sells/sells/{id}
 ```
 Id = sellId
 
