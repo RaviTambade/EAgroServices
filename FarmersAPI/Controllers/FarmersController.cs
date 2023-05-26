@@ -20,7 +20,7 @@ namespace FarmersAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/{id}")]
+        [Route("{id}")]
         public async Task<Farmer> GetById(int id)
         {
             Farmer farmer = await _srv.GetById(id);
@@ -38,14 +38,14 @@ namespace FarmersAPI.Controllers
         }
 
         [HttpPut]
-        [Route("/{id}")]
+        [Route("{id}")]
         public async Task<bool> Update(int id, [FromBody] Farmer farmer)
         { 
              return await _srv.Update(id, farmer);
         }
 
         [HttpDelete]
-        [Route("/{id}")]
+        [Route("{id}")]
         public async Task<bool> Delete(int id)
         {
             return await _srv.Delete(id);

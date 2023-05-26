@@ -16,31 +16,29 @@ public class AccountsController:ControllerBase
         _srv = srv;
     }
     [HttpGet]
-    [Route("accounts")]
     public async Task<IEnumerable<Account>> GetAll()
     {
         return await _srv.GetAll();
     }
     [HttpGet]
-    [Route("accounts/{id}")]
+    [Route("{id}")]
     public async Task<Account> GetById(int id)
     {
         return await _srv.GetById(id);
     }
     [HttpPost]
-    [Route("accounts")]
     public async Task<bool> Insert(Account account)
     {
         return await _srv.Insert(account);
     }
     [HttpPut]
-    [Route("accounts/{id}")]
+    [Route("{id}")]
     public async Task<bool> Update(int id,[FromBody]Account account)
     {
         return await _srv.Update(id,account);
     }
     [HttpDelete]
-    [Route("accounts/{id}")]
+    [Route("{id}")]
     public async Task<bool> Delete(int id){
     return await _srv.Delete(id);
     }
