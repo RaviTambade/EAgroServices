@@ -1,7 +1,9 @@
 using EmployeesAPI.Models;
 using EmployeesAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+
 namespace EmployeesAPI.Controller;
+
 [ApiController]
 [Route("/api/[controller]")]
 public class EmployeesController : ControllerBase
@@ -11,30 +13,34 @@ public class EmployeesController : ControllerBase
     {
         this._service = service;
     }
-    [HttpGet("employees")]
+
+    [HttpGet]
     public async Task<List<Employee>> GetAll()
     {
         return await _service.GetAll();
     }
-    [HttpGet("employees/{id}")]
+
+    [HttpGet("{id}")]
     public async Task<Employee> GetById(int id)
     {
         return await _service.GetById(id);
     }
-    [HttpPost("employees")]
+    [HttpPost]
     public async Task<bool> Insert([FromBody] UserEmployeeRole userEmployeeRole)
     {
-        Employee employee=userEmployeeRole.Employee;
-        User user=userEmployeeRole.User;
-        UserRole userRole=userEmployeeRole.UserRole;
-        return await _service.Insert(employee,user,userRole);
+        Employee employee = userEmployeeRole.Employee;
+        User user = userEmployeeRole.User;
+        UserRole userRole = userEmployeeRole.UserRole;
+        return await _service.Insert(employee, user, userRole);
     }
-    [HttpPut("employees/{id}")]
+
+    [HttpPut("{id}")]
     public async Task<bool> Update(int id, [FromBody] Employee employee)
     {
         return await _service.Update(id, employee);
     }
-    [HttpDelete("employees/{id}")]
+
+    [HttpDelete("{id}")]
     public async Task<bool> Delete(int id)
     {
         return await _service.Delete(id);
