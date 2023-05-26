@@ -23,7 +23,7 @@ public class VarietyContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Variety>(entity =>
         {
-            entity.HasKey(e => e.VarietyId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.VarietyName);
             entity.Property(e => e.ImageUrl);
             entity.Property(e => e.Rate);

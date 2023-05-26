@@ -31,7 +31,7 @@ public class TransportContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Transport>(entity =>
         {
-            entity.HasKey(e => e.TransportId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.OfficeName);
             entity.Property(e => e.FirstName);
             entity.Property(e => e.LastName);
@@ -41,7 +41,7 @@ public class TransportContext : DbContext
         });
         modelBuilder.Entity<User>(entity =>
        {
-           entity.HasKey(e => e.UserId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.ContactNumber);
            entity.Property(e => e.Password);
            modelBuilder.Entity<User>().ToTable("users");
@@ -55,14 +55,14 @@ public class TransportContext : DbContext
         });
         modelBuilder.Entity<Truck>(entity =>
        {
-           entity.HasKey(e => e.TruckId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.TransportId);
            entity.Property(e => e.TruckNumber);
            modelBuilder.Entity<Truck>().ToTable("transport_trucks");
        });
         modelBuilder.Entity<Sell>(entity =>
       {
-          entity.HasKey(e => e.SellId);
+          entity.HasKey(e => e.Id);
           entity.Property(e => e.PurchaseId);
           entity.Property(e => e.MerchantId);
           entity.Property(e => e.TruckId);
@@ -85,7 +85,7 @@ public class TransportContext : DbContext
    });
         modelBuilder.Entity<Billing>(entity =>
 {
-        entity.HasKey(e => e.BillId);
+        entity.HasKey(e => e.Id);
         entity.Property(e => e.SellId);
         entity.Property(e => e.FreightCharges);
         entity.Property(e => e.LabourCharges);

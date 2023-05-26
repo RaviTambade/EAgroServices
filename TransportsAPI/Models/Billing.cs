@@ -6,7 +6,7 @@ public class Billing
     private double freightCharges;
 
     [Column("bill_id")]
-    public int BillId { get; set; }
+    public int Id { get; set; }
 
     [Column("sell_id")]
     public int SellId { get; set; }
