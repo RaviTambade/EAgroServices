@@ -1,6 +1,5 @@
 using AdminAPI.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace AdminAPI.Context;
 public class AdminContext : DbContext
 {
@@ -14,19 +13,16 @@ public class AdminContext : DbContext
     public DbSet<Admin> Admin { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-
     {
         optionsBuilder.UseMySQL(_conString);
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Admin>(entity =>
         {
-            entity.HasKey(e => e.AdminId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.FirstName);
             entity.Property(e => e.LastName);
             entity.Property(e => e.Location);
@@ -36,12 +32,11 @@ public class AdminContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.ContactNumber);
             entity.Property(e => e.Password);
             modelBuilder.Entity<User>().ToTable("users");
         });
-
         modelBuilder.Entity<UserRole>(entity =>
        {
            entity.HasKey(e=> e.UserRoleId);

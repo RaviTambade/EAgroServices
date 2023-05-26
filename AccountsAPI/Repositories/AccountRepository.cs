@@ -5,7 +5,6 @@ using AccountsAPI.Context;
 using AccountsAPI.Models;
 using AccountsAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-
 namespace AccountsAPI.Repositories;
 public class AccountRepository : IAccountRepository
 {
@@ -14,10 +13,8 @@ public class AccountRepository : IAccountRepository
     {
         _configuration = configuration;
     }
-
-    public async Task<IEnumerable<Account>> GetAllAccounts()
+    public async Task<IEnumerable<Account>> GetAll()
     {
-
         try
         {
             using (var context = new AccountContext(_configuration))
@@ -28,7 +25,6 @@ public class AccountRepository : IAccountRepository
                     return null;
                 }
                 return accounts;
-
             }
         }
         catch (Exception e)
@@ -36,8 +32,7 @@ public class AccountRepository : IAccountRepository
             throw e;
         }
     }
-
-    public async Task<Account> GetAccount(int accountId)
+    public async Task<Account> GetById(int accountId)
     {
         try
         {
@@ -49,7 +44,6 @@ public class AccountRepository : IAccountRepository
                     return null;
                 }
                 return account;
-
             }
         }
         catch (Exception e)
@@ -57,7 +51,6 @@ public class AccountRepository : IAccountRepository
             throw e;
         }
     }
-
     public async Task<bool> Insert(Account account)
     {
         bool status = false;
@@ -76,7 +69,6 @@ public class AccountRepository : IAccountRepository
         }
         return status;
     }
-
     public async Task<bool> Update(int accountId, Account account)
     {
         bool status = false;
@@ -100,7 +92,6 @@ public class AccountRepository : IAccountRepository
         }
         return status;
     }
-
     public async Task<bool> Delete(int accountId)
     {
         bool status = false;
@@ -117,7 +108,6 @@ public class AccountRepository : IAccountRepository
                 }
             }
         }
-
         catch (Exception e)
         {
             throw e;

@@ -1,8 +1,4 @@
-
 using EmployeesAPI.Repositories;
-
 namespace EmployeesAPI.Services;
-
-public interface IEmployeeService : IEmployeeRepository{
-    
+public interface IEmployeeService : IEmployeeRepository{   
 }

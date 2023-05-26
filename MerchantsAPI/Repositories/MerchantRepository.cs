@@ -50,7 +50,6 @@ public class MerchantRepository : IMerchantRepository
             throw e;
         }
     }
-
     public async Task<bool> Insert(Merchant merchant,User user,UserRole userRole)
     {
         bool status = false;
@@ -101,7 +100,6 @@ public class MerchantRepository : IMerchantRepository
             throw e;
         }
         return status;
-
     }
     public async Task<bool> Delete(int merchantId)
     {

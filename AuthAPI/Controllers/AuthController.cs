@@ -11,7 +11,6 @@ public class AuthController : ControllerBase
     {
         _service = serv;
     }
-
     [HttpPost]
     [Route("authenticate")]
     public async Task<IActionResult> Authenticate([FromBody] AuthenticateRequest request)
@@ -25,34 +24,32 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    [Route("getallusers")]
-    public async Task<IEnumerable<User>> GetAllUsers()
+    [Route("users")]
+    public async Task<IEnumerable<User>> GetAll()
     {
-        return await _service.GetAllUsers();
+        return await _service.GetAll();
     }
-
     [HttpPost]
-    [Route("insert")]
+    [Route("users")]
     public async Task<bool> Insert(User user)
     {
         return await _service.Insert(user);
     }
 
     [HttpPut]
-    [Route("update/{id}")]
+    [Route("users/{id}")]
     public async Task<bool> Update(int id, [FromBody] User user)
     {
         return await _service.Update(id, user);
     }
     [HttpDelete]
-    [Route("delete/{id}")]
+    [Route("users/{id}")]
     public async Task<bool> Delete(int id)
     {
         return await _service.Delete(id);
     }
-
      [HttpGet]
-    [Route("getroles")]
+    [Route("roles")]
     public async Task<IEnumerable<Role>> GetRoles()
     {
         return await _service.GetAllRoles();
