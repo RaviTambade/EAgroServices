@@ -1,4 +1,4 @@
-namespace PurchaseAPI.Models;
+namespace PurchasingAPI.Models;
 public class FarmerOrder
 {
     public int OrderCount { get; set; }

@@ -1,10 +1,9 @@
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
-using PurchaseAPI.Contexts;
-using PurchaseAPI.Models;
-using PurchaseAPI.Repositories.Interfaces;
-namespace PurchaseAPI.Repositories;
-
+using PurchasingAPI.Contexts;
+using PurchasingAPI.Models;
+using PurchasingAPI.Repositories.Interfaces;
+namespace PurchasingAPI.Repositories;
 public class PurchaseRepository : IPurchaseRepository
 {
     private readonly IConfiguration _configuration;
