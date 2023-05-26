@@ -67,7 +67,7 @@ public class TransportRepository : ITransportRepository
             {
                 await context.Users.AddAsync(user);
                 await context.SaveChangesAsync();
-                userId = user.UserId;
+                userId = user.Id;
                 transport.UserId = userId;
                 userRole.UserId = userId;
                 await context.Transports.AddAsync(transport);
@@ -144,12 +144,12 @@ public class TransportRepository : ITransportRepository
                 var transportHistory = await (
                     from transport in context.Transports
                     join transportTruck in context.Trucks
-                        on transport.TransportId equals transportTruck.TransportId
-                    join sell in context.Sells on transportTruck.TruckId equals sell.TruckId
-                    join billing in context.Billings on sell.SellId equals billing.SellId
+                        on transport.Id equals transportTruck.TransportId
+                    join sell in context.Sells on transportTruck.Id equals sell.TruckId
+                    join billing in context.Billings on sell.Id equals billing.SellId
                     join freightRate in context.FreightRates
-                        on billing.BillId equals freightRate.BillId
-                    where transport.TransportId == transportId
+                        on billing.Id equals freightRate.BillId
+                    where transport.Id == transportId
                     orderby billing.Date descending
                     select new TransportFareDetails()
                     {
@@ -180,12 +180,12 @@ public class TransportRepository : ITransportRepository
             {
                 var transportHistory = await (
                     from sells_billing in context.Billings
-                    join sells in context.Sells on sells_billing.SellId equals sells.SellId
+                    join sells in context.Sells on sells_billing.SellId equals sells.Id
                     join transport_trucks in context.Trucks
-                        on sells.TruckId equals transport_trucks.TruckId
+                        on sells.TruckId equals transport_trucks.Id
                     join transports in context.Transports
-                        on transport_trucks.TransportId equals transports.TransportId
-                    where transports.TransportId == transportId
+                        on transport_trucks.TransportId equals transports.Id
+                    where transports.Id == transportId
                     group sells_billing by new
                     {
                         sells_billing.Date.Month,
@@ -220,12 +220,12 @@ public class TransportRepository : ITransportRepository
             {
                 var transportHistory = await (
                     from sells_billing in context.Billings
-                    join sells in context.Sells on sells_billing.SellId equals sells.SellId
+                    join sells in context.Sells on sells_billing.SellId equals sells.Id
                     join transport_trucks in context.Trucks
-                        on sells.TruckId equals transport_trucks.TruckId
+                        on sells.TruckId equals transport_trucks.Id
                     join transports in context.Transports
-                        on transport_trucks.TransportId equals transports.TransportId
-                    where transports.TransportId == transportId
+                        on transport_trucks.TransportId equals transports.Id
+                    where transports.Id == transportId
                     group sells_billing by new
                     {
                         transport_trucks.TruckNumber,
@@ -257,7 +257,7 @@ public class TransportRepository : ITransportRepository
             {
                 var transportOrdersCount = await (
                     from sell in context.Sells
-                    join truck in context.Trucks on sell.TruckId equals truck.TruckId
+                    join truck in context.Trucks on sell.TruckId equals truck.Id
                     where truck.TransportId == transportId
                     group sell by new
                     {
@@ -275,7 +275,7 @@ public class TransportRepository : ITransportRepository
                         OrderCount = billingGroup.Count(),
                         TruckNumber = (
                             from truck in context.Trucks
-                            where truck.TruckId == billingGroup.Key.TruckId
+                            where truck.Id == billingGroup.Key.TruckId
                             select truck.TruckNumber
                         ).FirstOrDefault()
                     }
@@ -299,8 +299,8 @@ public class TransportRepository : ITransportRepository
                 var transportTrucks = await (
                     from transports in context.Transports
                     join transportTruck in context.Trucks
-                        on transports.TransportId equals transportTruck.TransportId
-                    where transports.TransportId == transportId
+                        on transports.Id equals transportTruck.TransportId
+                    where transports.   Id == transportId
                     select transportTruck
                 ).ToListAsync();
                 return transportTrucks;

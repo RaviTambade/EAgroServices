@@ -24,7 +24,7 @@ public class TruckContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Truck>(entity =>
         {
-            entity.HasKey(e => e.TruckId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.TransportId);
             entity.Property(e => e.TruckNumber);
             modelBuilder.Entity<Truck>().ToTable("transport_trucks");

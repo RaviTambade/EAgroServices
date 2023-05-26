@@ -15,19 +15,19 @@ public class TransportsController : ControllerBase
         this._service = service;
     }
 
-    [HttpGet("alltransports")]
+    [HttpGet]
     public async Task<IEnumerable<Transport>> GetAll()
     {
         return await _service.GetAll();
     }
 
-    [HttpGet("getdetails/{id}")]
+    [HttpGet("{id}")]
     public async Task<Transport> GetById(int id)
     {
         return await _service.GetById(id);
     }
 
-    [HttpPost("insert")]
+    [HttpPost]
     public async Task<bool> Insert([FromBody] UserTransportRole userTransportRole)
     {
         User user = userTransportRole.user;
@@ -37,43 +37,43 @@ public class TransportsController : ControllerBase
         return await _service.Insert(user, transport, userRole);
     }
 
-    [HttpPut("update/{id}")]
+    [HttpPut("{id}")]
     public async Task<bool> Update(int id, [FromBody] Transport transport)
     {
         return await _service.Update(id, transport);
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}")]
     public async Task<bool> Delete(int id)
     {
         return await _service.Delete(id);
     }
 
-    [HttpGet("transport-history/{id}")] //for list print
+    [HttpGet("{id}/history")] //for list print
     public async Task<List<TransportFareDetails>> TransportHistory(int id)
     {
         return await _service.TransportHistory(id);
     }
 
-    [HttpGet("transport-truck-history-by-month/{id}")] //for column chart
+    [HttpGet("{id}/monthhistory")] //for column chart
     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int id)
     {
         return await _service.TransportTruckHistoryByMonth(id);
     }
 
-    [HttpGet("transport-truck-history-by-year/{id}")] //for pie chart
+    [HttpGet("{id}/yearhistory")] //for pie chart
     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByYear(int id)
     {
         return await _service.TransportTruckHistoryByYear(id);
     }
 
-    [HttpGet("transport-trucks/{id}")] //all trucks of a transport
+    [HttpGet("{id}/trucks")] //all trucks of a transport
     public async Task<List<Truck>> TransportTrucks(int id)
     {
         return await _service.GetTransportsTrucks(id);
     }
 
-    [HttpGet("transport-truck-orders-per-month/{id}")]
+    [HttpGet("{id}/truckordersmonth")]
     public async Task<List<TransportOrderCount>> TransportTruckOrdersPerMonth(int id)
     {
         return await _service.TransportTruckOrdersPerMonth(id);
