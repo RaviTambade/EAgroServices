@@ -155,7 +155,7 @@ public class PurchaseRepository : IPurchaseRepository
                                         join variety in context.Varieties
                                         on purchase.VarietyId equals variety.Id
                                         where purchase.FarmerId == farmerId 
-                                        && purchase.VarietyId==varietyId
+                                        && variety.Id==varietyId    
                                         group billing by new { billing.Date.Year, variety.VarietyName } into billingGroup
                                         select new FarmerSellVariety()
                                         {

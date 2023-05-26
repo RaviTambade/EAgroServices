@@ -20,6 +20,7 @@ public class PurchaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
+        optionsBuilder.LogTo(System.Console.WriteLine,LogLevel.Information);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
