@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using SellsAPI.Models;
-
-
 namespace SellsAPI.Contexts;
 public class SellsContext : DbContext
 {
@@ -30,7 +28,7 @@ public class SellsContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Sell>(entity =>
         {
-            entity.HasKey(e => e.SellId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.PurchaseId);
             entity.Property(e => e.MerchantId);
             entity.Property(e => e.TruckId);
@@ -44,7 +42,7 @@ public class SellsContext : DbContext
         });
         modelBuilder.Entity<Billing>(entity =>
 {
-    entity.HasKey(e => e.BillId);
+    entity.HasKey(e => e.Id);
     entity.Property(e => e.SellId);
     entity.Property(e => e.FreightCharges);
     entity.Property(e => e.LabourCharges);
@@ -64,7 +62,7 @@ public class SellsContext : DbContext
        });
         modelBuilder.Entity<Merchant>(entity =>
                {
-                   entity.HasKey(e => e.MerchantId);
+                   entity.HasKey(e => e.Id);
                    entity.Property(e => e.FirstName);
                    entity.Property(e => e.LastName);
                    entity.Property(e => e.CompanyName);
@@ -74,7 +72,7 @@ public class SellsContext : DbContext
                });
         modelBuilder.Entity<Truck>(entity =>
        {
-           entity.HasKey(e => e.TruckId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.TransportId);
            entity.Property(e => e.TruckNumber);
            modelBuilder.Entity<Truck>().ToTable("transport_trucks");
@@ -82,7 +80,7 @@ public class SellsContext : DbContext
 
        modelBuilder.Entity<PurchaseItem>(entity =>
         {
-            entity.HasKey(e => e.PurchaseId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.FarmerId);
             entity.Property(e => e.VarietyId);
             entity.Property(e => e.ContainerType);
@@ -96,7 +94,7 @@ public class SellsContext : DbContext
         });
           modelBuilder.Entity<Variety>(entity =>
         {
-            entity.HasKey(e => e.VarietyId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.VarietyName);
             modelBuilder.Entity<Variety>().ToTable("varieties");
         });

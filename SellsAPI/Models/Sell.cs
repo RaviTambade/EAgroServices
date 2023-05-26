@@ -8,7 +8,7 @@ public class Sell
     private double totalAmount;
 
     [Column("sell_id")]
-    public int SellId { get; set; }
+    public int Id { get; set; }
 
     [Column("purchase_id")]
     public int PurchaseId { get; set; }

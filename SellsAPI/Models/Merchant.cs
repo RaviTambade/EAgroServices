@@ -3,7 +3,7 @@ namespace SellsAPI.Models;
 public class Merchant
 {
     [Column("merchant_id")]
-    public int MerchantId { get; set; }
+    public int Id { get; set; }
 
     [Column("first_name")]
     public string FirstName { get; set; }
