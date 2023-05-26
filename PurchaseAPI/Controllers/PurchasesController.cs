@@ -60,9 +60,9 @@ public class PurchasesController : ControllerBase
         return await _service.GetFarmerSellTotalAmount(id);
     }
 
-    //http://localhost:8989/api/farmer/{id}/selling/
+    //http://localhost:8989/api/farmers/{id}/selling/
 
-    //http://localhost:8989/api/farmer/{id}/selling/variety/{varietyid}
+    //http://localhost:8989/api/farmers/{id}/selling/variety/{varietyid}
 
 
 
