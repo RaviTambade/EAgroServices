@@ -2,9 +2,7 @@ using AdminAPI.Context;
 using AdminAPI.Models;
 using AdminAPI.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
-
 namespace AdminAPI.Repositories;
-
 public class AdminRepository : IAdminRepository
 {
     private readonly IConfiguration _configuration;
@@ -50,7 +48,6 @@ public class AdminRepository : IAdminRepository
             throw e;
         }
     }
-
     public async Task<bool> Insert(Admin admin,User user,UserRole userRole)
     {
         bool status = false;
@@ -61,9 +58,9 @@ public class AdminRepository : IAdminRepository
             {
                 await context.Users.AddAsync(user);
                 await context.SaveChangesAsync();
-                userId=user.UserId;
+                userId=user.Id;
                 Console.WriteLine(userId);
-                admin.UserId=userId;
+                admin.Id=userId;
                 userRole.UserId=userId;
                 await context.UserRoles.AddAsync(userRole);
                 await context.Admin.AddAsync(admin);
@@ -100,7 +97,6 @@ public class AdminRepository : IAdminRepository
             throw e;
         }
         return status;
-
     }
     public async Task<bool> Delete(int adminId)
     {

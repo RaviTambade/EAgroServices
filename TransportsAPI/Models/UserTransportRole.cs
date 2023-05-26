@@ -1,4 +1,5 @@
 namespace TransportsAPI.Models;
+
 public class UserTransportRole
 {
     public User user { get; set; }

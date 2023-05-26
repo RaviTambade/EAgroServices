@@ -1,11 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 namespace AuthAPI.Models;
-
 public class Employee
 {
-
     [Column("employee_id")]
-    public int EmployeeId { get; set; }
+    public int Id { get; set; }
     [Column("first_name")]
     public string FirstName { get; set; }
     [Column("last_name")]

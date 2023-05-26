@@ -5,50 +5,42 @@ using AccountsAPI.Models;
 using AccountsAPI.Services;
 using AccountsAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
 namespace AccountsAPI.Controller;
-
 [ApiController]
 [Route("/api/[controller]")]
-
 public class AccountsController:ControllerBase
 {
-
     private readonly IAccountServices _srv;
     public AccountsController(IAccountServices srv)
     {
         _srv = srv;
     }
-
     [HttpGet]
-    [Route("getallAccounts")]
-    public async Task<IEnumerable<Account>> GetAllAccounts()
+    [Route("accounts")]
+    public async Task<IEnumerable<Account>> GetAll()
     {
-        return await _srv.GetAllAccounts();
+        return await _srv.GetAll();
     }
     [HttpGet]
-    [Route("getAccount/{id}")]
-    public async Task<Account> GetAccount(int id)
+    [Route("accounts/{id}")]
+    public async Task<Account> GetById(int id)
     {
-        return await _srv.GetAccount(id);
+        return await _srv.GetById(id);
     }
-
     [HttpPost]
-    [Route("insert")]
+    [Route("accounts")]
     public async Task<bool> Insert(Account account)
     {
         return await _srv.Insert(account);
-
     }
     [HttpPut]
-    [Route("update/{id}")]
+    [Route("accounts/{id}")]
     public async Task<bool> Update(int id,[FromBody]Account account)
     {
         return await _srv.Update(id,account);
-
     }
     [HttpDelete]
-    [Route("delete/{id}")]
+    [Route("accounts/{id}")]
     public async Task<bool> Delete(int id){
     return await _srv.Delete(id);
     }

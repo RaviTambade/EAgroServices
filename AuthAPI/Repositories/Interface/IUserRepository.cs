@@ -1,7 +1,7 @@
 using AuthAPI.Models;
 namespace AuthAPI.Repository.Interfaces;
 public interface IUserRepository {
-    Task<IEnumerable<User>> GetAllUsers();
+    Task<IEnumerable<User>> GetAll();
     Task<bool> Insert(User user);
     Task<bool> Update(int userId,User user);
     Task<bool> Delete(int userId);

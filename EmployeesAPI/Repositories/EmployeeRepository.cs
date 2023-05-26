@@ -1,9 +1,7 @@
 using EmployeesAPI.Context;
 using EmployeesAPI.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace EmployeesAPI.Repositories;
-
 public class EmployeeRepository : IEmployeeRepository
 {
     private readonly IConfiguration _configuration;
@@ -11,7 +9,7 @@ public class EmployeeRepository : IEmployeeRepository
     {
         _configuration = configuration;
     }
-    public async Task<List<Employee>> AllEmployee()
+    public async Task<List<Employee>> GetAll()
     {
         try
         {
@@ -49,7 +47,6 @@ public class EmployeeRepository : IEmployeeRepository
             throw e;
         }
     }
-
     public async Task<bool> Insert(Employee employee,User user,UserRole userRole)
     {
         bool status = false;
@@ -60,7 +57,7 @@ public class EmployeeRepository : IEmployeeRepository
             {
                 await context.Users.AddAsync(user);
                 await context.SaveChangesAsync();
-                userId=user.UserId;
+                userId=user.Id;
                 Console.WriteLine(userId);
                 employee.UserId=userId;
                 userRole.UserId=userId;
@@ -100,7 +97,6 @@ public class EmployeeRepository : IEmployeeRepository
             throw e;
         }
         return status;
-
     }
     public async Task<bool> Delete(int employeeId)
     {

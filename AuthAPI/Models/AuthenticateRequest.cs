@@ -1,4 +1,3 @@
-
 namespace AuthAPI.Models
 {
     public class AuthenticateRequest

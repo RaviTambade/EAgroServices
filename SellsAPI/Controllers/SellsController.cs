@@ -9,10 +9,12 @@ namespace SellsAPI.Controllers
     public class SellsController : ControllerBase
     {
         private readonly ISellService _srv;
+
         public SellsController(ISellService srv)
         {
             this._srv = srv;
         }
+
         [HttpGet]
         [Route("getallsells")]
         public async Task<List<SellBillingView>> GetAll()
@@ -33,8 +35,8 @@ namespace SellsAPI.Controllers
         [Route("insert")]
         public async Task<bool> Insert([FromBody] SellBilling sellBilling)
         {
-            Sell sell = sellBilling.Sell;
-            FreightRate freightRate = sellBilling.FreightRate;
+            Sell? sell = sellBilling.Sell;
+            FreightRate? freightRate = sellBilling.FreightRate;
             return await _srv.Insert(sell, freightRate);
         }
 
@@ -50,13 +52,6 @@ namespace SellsAPI.Controllers
         public async Task<bool> Delete(int id)
         {
             return await _srv.Delete(id);
-        }
-
-        [HttpGet]
-        [Route("getsellbilling/{id}")]
-        public async Task<SellBilling> GetSellBilling(int id)
-        {
-            return await _srv.GetSellBilling(id);
         }
 
         [HttpGet]
@@ -82,18 +77,16 @@ namespace SellsAPI.Controllers
 
         [HttpGet]
         [Route("get-total-purchase-amount-merchant/{id}")]
-        public async Task<double> GetTotalPurchaseAmountByMerchant(int id)
+        public async Task<double> GetTotalPurchaseAmountOfMerchant(int id)
         {
-            return await _srv.GetTotalPurchaseAmountByMerchant(id);
+            return await _srv.GetTotalPurchaseAmountOfMerchant(id);
         }
-    
 
-     [HttpGet]
+        [HttpGet]
         [Route("get-total-purchase-orders-count/{id}")]
         public async Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int id)
         {
             return await _srv.GetTotalPurchaseOrdersCount(id);
         }
     }
-
 }

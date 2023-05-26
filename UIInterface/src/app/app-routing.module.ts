@@ -23,7 +23,7 @@ import { TransportlogoutComponent } from './demo/transport/transportlogout/trans
 import { DetailsComponent } from './demo/employees/details/details.component';
 import { TransportTruckComponent } from './demo/transport/transport-truck/transport-truck.component';
 import { AdmindashboardComponent } from './demo/admin/admindashboard/admindashboard.component';
-import { FarmerAuthGuard } from 'src/Guards/farmer-auth.guard';
+import { FarmerAuthGuard } from 'src/app/Guards/farmer-auth.guard';
 import { UpdateadminComponent } from './demo/admin/updateadmin/updateadmin.component';
 import { AdminprofileComponent } from './demo/admin/adminprofile/adminprofile.component';
 import { Farmer } from './Models/farmer';

@@ -1,4 +1,15 @@
-.sort-select {
+.container {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+  }
+  
+  .container::-webkit-scrollbar {
+    display: none; 
+  }
+  
+  .sort-select {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
@@ -15,6 +26,7 @@
   .sort-select:hover {
     border-color: #999;
     transform: scale(1.02);
+
   }
   
   .sort-select:focus {

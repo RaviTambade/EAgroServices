@@ -9,8 +9,7 @@ public class UserServices : IUserServices
     {
         _repo = repo;
     }
-
-    public async Task<IEnumerable<User>> GetAllUsers() => await _repo.GetAllUsers();
+    public async Task<IEnumerable<User>> GetAll() => await _repo.GetAll();
     public async Task<bool> Insert(User user) => await _repo.Insert(user);
     public async Task<bool> Update(int userId, User user) => await _repo.Update(userId, user);
     public async Task<bool> Delete(int userId) => await _repo.Delete(userId);

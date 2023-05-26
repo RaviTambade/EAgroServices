@@ -56,7 +56,6 @@ public class TruckRepository:ITruckRepository{
         {
             using (var context = new TruckContext(_configuration))
             {
-                
                 await context.Truck.AddAsync(truck);
                 await context.SaveChangesAsync();
                 status = true;
@@ -64,7 +63,6 @@ public class TruckRepository:ITruckRepository{
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
             throw e;
         }
         return status;

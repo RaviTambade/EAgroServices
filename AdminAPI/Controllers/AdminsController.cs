@@ -13,39 +13,32 @@ public class AdminsController : ControllerBase
     {
         this._service = service;
     }
-
-    [HttpGet("getallAdmins")]
-    public async Task<List<Admin>> GetEmployees()
+    [HttpGet("admins")]
+    public async Task<List<Admin>> GetAll()
     {
         return await _service.GetAll();
     }
-
-    [HttpGet("GetById/{id}")]
+    [HttpGet("admins/{id}")]
     public async Task<Admin> GetById(int id)
     {
         return await _service.GetById(id);
     }
-
-    [HttpPost("insert")]
+    [HttpPost("admins")]
     public async Task<bool> Insert([FromBody] UserAdminRole userAdminRole)
     {
         Admin admin=userAdminRole.Admin;
         User user=userAdminRole.User;
         UserRole userRole=userAdminRole.UserRole;
-
         return await _service.Insert(admin,user,userRole);
     }
-
-    [HttpPut("update/{id}")]
+    [HttpPut("admins/{id}")]
     public async Task<bool> Update(int id, [FromBody] Admin admin)
     {
         return await _service.Update(id, admin);
     }
-
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("admins/{id}")]
     public async Task<bool> Delete(int id)
     {
         return await _service.Delete(id);
-
     }
 }

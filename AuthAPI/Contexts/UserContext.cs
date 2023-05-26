@@ -29,7 +29,7 @@ public class UserContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.ContactNumber);
             entity.Property(e => e.Password);
             modelBuilder.Entity<User>().ToTable("users");
@@ -37,21 +37,21 @@ public class UserContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
        {
-           entity.HasKey(e => e.RoleId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.RoleName);
            modelBuilder.Entity<Role>().ToTable("roles");
        });
 
         modelBuilder.Entity<UserRole>(entity =>
        {
-           entity.HasKey(e => e.UserRoleId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.UserId);
            entity.Property(e => e.RoleId);
            modelBuilder.Entity<UserRole>().ToTable("user_roles");
        });
         modelBuilder.Entity<Farmer>(entity =>
         {
-            entity.HasKey(e => e.FarmerId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.FirstName);
             entity.Property(e => e.LastName);
             entity.Property(e => e.Location);
@@ -60,7 +60,7 @@ public class UserContext : DbContext
         });
         modelBuilder.Entity<Admin>(entity =>
        {
-           entity.HasKey(e => e.AdminId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.FirstName);
            entity.Property(e => e.LastName);
            entity.Property(e => e.Location);
@@ -69,7 +69,7 @@ public class UserContext : DbContext
        });
         modelBuilder.Entity<Employee>(entity =>
        {
-           entity.HasKey(e => e.EmployeeId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.FirstName);
            entity.Property(e => e.LastName);
            entity.Property(e => e.Location);
@@ -79,7 +79,7 @@ public class UserContext : DbContext
        });
         modelBuilder.Entity<Merchant>(entity =>
      {
-         entity.HasKey(e => e.MerchantId);
+         entity.HasKey(e => e.Id);
          entity.Property(e => e.FirstName);
          entity.Property(e => e.LastName);
          entity.Property(e => e.CompanyName);
@@ -89,7 +89,7 @@ public class UserContext : DbContext
      });
         modelBuilder.Entity<Transport>(entity =>
        {
-           entity.HasKey(e => e.TransportId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.OfficeName);
            entity.Property(e => e.FirstName);
            entity.Property(e => e.LastName);

@@ -14,38 +14,32 @@ public class MerchantsController : ControllerBase
         this._service = service;
     }
 
-    [HttpGet("getallmerchants")]
+    [HttpGet("merchants")]
     public async Task<List<Merchant>> GetAll()
     {
         return await _service.GetAll();
     }
-
-    [HttpGet("getdetails/{id}")]
+    [HttpGet("merchants/{id}")]
     public async Task<Merchant> GetById(int id)
     {
         return await _service.GetById(id);
     }
-
-    [HttpPost("insert")]
+    [HttpPost("merchants")]
     public async Task<bool> Insert([FromBody] UserMerchantRole userMerchantRole)
     {
-    
         Merchant merchant=userMerchantRole.Merchant;
         User user=userMerchantRole.User;
         UserRole userRole=userMerchantRole.UserRole;
         return await _service.Insert(merchant,user,userRole);
     }
-
-    [HttpPut("update/{id}")]
+    [HttpPut("merchants/{id}")]
     public async Task<bool> Update(int id, [FromBody] Merchant merchant)
     {
         return await _service.Update(id, merchant);
     }
-
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("merchants/{id}")]
     public async Task<bool> Delete(int id)
     {
         return await _service.Delete(id);
-
     }
 }
