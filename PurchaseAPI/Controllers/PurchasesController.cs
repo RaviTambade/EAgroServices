@@ -5,10 +5,10 @@ using PurchaseAPI.Services.Interfaces;
 namespace PurchaseAPI.Controller;
 [ApiController]
 [Route("/api/[controller]")]
-public class PurchaseController : ControllerBase
+public class PurchasesController : ControllerBase
 {
     private readonly IPurchaseService _service;
-    public PurchaseController(IPurchaseService service)
+    public PurchasesController(IPurchaseService service)
     {
         _service = service;
     }

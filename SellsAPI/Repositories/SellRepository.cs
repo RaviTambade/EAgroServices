@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SellsAPI.Contexts;
 using SellsAPI.Models;
 using SellsAPI.Repositories.Interfaces;
-
 namespace SellsAPI.Repositories;
 
 public class SellRepository : ISellRepository
@@ -23,11 +22,11 @@ public class SellRepository : ISellRepository
             {
                 List<SellBillingView> sellBillingViews = await (
                     from merchant in context.Merchants
-                    join sell in context.Sells on merchant.MerchantId equals sell.MerchantId
-                    join truck in context.Trucks on sell.TruckId equals truck.TruckId
-                    join bill in context.Billings on sell.SellId equals bill.SellId
+                    join sell in context.Sells on merchant.Id equals sell.MerchantId
+                    join truck in context.Trucks on sell.TruckId equals truck.Id
+                    join bill in context.Billings on sell.Id equals bill.SellId
                     join freightRate in context.FreightRates
-                        on bill.BillId equals freightRate.BillId
+                        on bill.Id equals freightRate.BillId
                     select new SellBillingView()
                     {
                         Sell = sell,
@@ -82,7 +81,7 @@ public class SellRepository : ISellRepository
             {
                 var remainingQuantity = await (
                     from p in context.PurchaseItems
-                    where p.PurchaseId == sell.PurchaseId
+                    where p.Id == sell.PurchaseId
                     select p.Quantity
                         - context.Sells
                             .Where(s => s.PurchaseId == sell.PurchaseId)
@@ -98,10 +97,10 @@ public class SellRepository : ISellRepository
 
                     await context.Sells.AddAsync(sell);
                     await context.SaveChangesAsync();
-                    billing.SellId = sell.SellId;
+                    billing.SellId = sell.Id;
                     await context.Billings.AddAsync(billing);
                     await context.SaveChangesAsync();
-                    billId = billing.BillId;
+                    billId = billing.Id;
                     freightRate.BillId = billId;
                     await context.FreightRates.AddAsync(freightRate);
                     await context.SaveChangesAsync();
@@ -130,9 +129,9 @@ public class SellRepository : ISellRepository
             {
                 SellBilling? oldSellBilling = await (
                     from s in context.Sells
-                    join bill in context.Billings on s.SellId equals bill.SellId
-                    join fRate in context.FreightRates on bill.BillId equals fRate.BillId
-                    where s.SellId == sellId
+                    join bill in context.Billings on s.Id equals bill.SellId
+                    join fRate in context.FreightRates on bill.Id equals fRate.BillId
+                    where s.Id == sellId
                     select new SellBilling()
                     {
                         Sell = s,
@@ -166,7 +165,7 @@ public class SellRepository : ISellRepository
 
                     await context.SaveChangesAsync();
                     Console.WriteLine(" procedure called");
-                    int billId = oldBilling.BillId;
+                    int billId = oldBilling.Id;
 
                     Console.WriteLine(billId);
                     context.Database.ExecuteSqlRaw(
@@ -216,12 +215,12 @@ public class SellRepository : ISellRepository
             {
                 var sellsData = await (
                     from merchant in context.Merchants
-                    join sell in context.Sells on merchant.MerchantId equals sell.MerchantId
+                    join sell in context.Sells on merchant.Id equals sell.MerchantId
                     join purchaseItem in context.PurchaseItems
-                        on sell.PurchaseId equals purchaseItem.PurchaseId
+                        on sell.PurchaseId equals purchaseItem.Id
                     join variety in context.Varieties
-                        on purchaseItem.VarietyId equals variety.VarietyId
-                    join truck in context.Trucks on sell.TruckId equals truck.TruckId
+                        on purchaseItem.VarietyId equals variety.Id
+                    join truck in context.Trucks on sell.TruckId equals truck.Id
                     where sell.MerchantId == merchantId
                     orderby sell.Date descending
                     select new MerchantSell()
@@ -255,10 +254,10 @@ public class SellRepository : ISellRepository
             {
                 List<TruckBilling> truckBillings = await (
                     from truck in context.Trucks
-                    join sell in context.Sells on truck.TruckId equals sell.TruckId
-                    join bill in context.Billings on sell.SellId equals bill.SellId
+                    join sell in context.Sells on truck.Id equals sell.TruckId
+                    join bill in context.Billings on sell.Id equals bill.SellId
                     join freightRate in context.FreightRates
-                        on bill.BillId equals freightRate.BillId
+                        on bill.Id equals freightRate.BillId
                     where sell.TruckId == truckId
                     select new TruckBilling()
                     {
@@ -284,7 +283,7 @@ public class SellRepository : ISellRepository
             {
                 var merchantRevenues = await (
                     from m in context.Merchants
-                    join s in context.Sells on m.MerchantId equals s.MerchantId
+                    join s in context.Sells on m.Id equals s.MerchantId
                     where s.MerchantId == merchantId
                     group s by s.Date.Month into sellsgroup
                     select new MerchantRevenue()

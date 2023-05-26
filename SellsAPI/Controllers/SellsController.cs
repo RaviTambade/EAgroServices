@@ -16,7 +16,7 @@ namespace SellsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("getallsells")]
+        [Route("sells")]
         public async Task<List<SellBillingView>> GetAll()
         {
             List<SellBillingView> sellBillingViews = await _srv.GetAll();
@@ -24,7 +24,7 @@ namespace SellsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("getdetails/{id}")]
+        [Route("sells/{id}")]
         public async Task<Sell> GetById(int id)
         {
             Sell sell = await _srv.GetById(id);
@@ -32,7 +32,7 @@ namespace SellsAPI.Controllers
         }
 
         [HttpPost]
-        [Route("insert")]
+        [Route("sells")]
         public async Task<bool> Insert([FromBody] SellBilling sellBilling)
         {
             Sell? sell = sellBilling.Sell;
@@ -41,49 +41,49 @@ namespace SellsAPI.Controllers
         }
 
         [HttpPut]
-        [Route("update/{id}")]
+        [Route("sells/{id}")]
         public async Task<bool> Update(int id, [FromBody] SellBilling sellBilling)
         {
             return await _srv.Update(id, sellBilling.Sell, sellBilling.FreightRate);
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("sells/{id}")]
         public async Task<bool> Delete(int id)
         {
             return await _srv.Delete(id);
         }
 
         [HttpGet]
-        [Route("get-merchant-sells/{id}")]
+        [Route("merchant-sells/{id}")]
         public async Task<List<MerchantSell>> GetMerchantSellById(int id)
         {
             return await _srv.GetSellByMerchantId(id);
         }
 
         [HttpGet]
-        [Route("get-truck-billing/{id}")]
+        [Route("truck-billing/{id}")]
         public async Task<List<TruckBilling>> GetTruckBillingsByTruckId(int id)
         {
             return await _srv.GetTruckBillingsByTruckId(id);
         }
 
         [HttpGet]
-        [Route("get-merchant-revenue/{id}")]
+        [Route("merchant-revenue/{id}")]
         public async Task<List<MerchantRevenue>> GetMerchantRevenues(int id)
         {
             return await _srv.GetMerchantRevenues(id);
         }
 
         [HttpGet]
-        [Route("get-total-purchase-amount-merchant/{id}")]
+        [Route("total-purchase-amount-merchant/{id}")]
         public async Task<double> GetTotalPurchaseAmountOfMerchant(int id)
         {
             return await _srv.GetTotalPurchaseAmountOfMerchant(id);
         }
 
         [HttpGet]
-        [Route("get-total-purchase-orders-count/{id}")]
+        [Route("total-purchase-orders-count/{id}")]
         public async Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int id)
         {
             return await _srv.GetTotalPurchaseOrdersCount(id);

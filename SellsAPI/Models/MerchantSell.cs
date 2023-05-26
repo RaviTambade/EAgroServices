@@ -6,7 +6,6 @@ public class MerchantSell
     private double ratePerKg;
     private double netWeight;
     private double totalAmount;
-
     public string? FullName{get;set;}
     public string? ContainerType{get;set;}
     public string? Grade{get;set;}
@@ -17,5 +16,4 @@ public class MerchantSell
     public string? TruckNumber{get;set;}
     public DateTime Date{get;set;}
     public string? VarietyName{get;set;}
-
 }
