@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TransportsAPI.Models;
+
 public class Transport
 {
     [Column("transport_id")]
@@ -19,5 +21,4 @@ public class Transport
 
     [Column("user_id")]
     public int UserId { get; set; }
-
 }

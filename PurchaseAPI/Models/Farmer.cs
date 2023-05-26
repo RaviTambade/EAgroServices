@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace PurchaseAPI.Models;
+
 public class Farmer
 {
     [Column("farmer_id")]
@@ -8,13 +10,12 @@ public class Farmer
     [Column("first_name")]
     public string FirstName { get; set; }
 
-     [Column("last_name")]
+    [Column("last_name")]
     public string LastName { get; set; }
-    
+
     [Column("location")]
     public string Location { get; set; }
 
-     [Column("user_id")]
+    [Column("user_id")]
     public int UserId { get; set; }
-
 }

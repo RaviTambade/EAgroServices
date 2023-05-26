@@ -20,12 +20,11 @@ public class TransportContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
-    // public object Sellbillings { get; internal set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        //  string conString = "server=localhost; database=eagroservicesdb; user=root; password=password";  
         optionsBuilder.UseMySQL(_conString);
+        optionsBuilder.LogTo(Console.WriteLine,LogLevel.Information);
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

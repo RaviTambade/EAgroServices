@@ -1,0 +1,26 @@
+<div *ngIf="isDataExist()">
+<div class="container">
+    <div style="position: relative;">
+        <google-chart
+          title="Order Count of Year"
+          [type]="areaChart"
+          [data]="data"
+          [columns]="columnNames"
+          [width]="width"
+          [height]="height"
+          [options]="options"
+        >
+        </google-chart> 
+        
+        <select class="sort-select" style="margin-left: 80px;" [(ngModel)]="selectedYear"
+        (ngModelChange)="changeGraphByYearAndTruckNumber()">
+        <option *ngFor="let year of distinctYears" [value]="year">{{ year }}</option>
+      </select>
+    
+      <select class="sort-select"  [(ngModel)]="selectedTruckNumber"
+        (ngModelChange)="changeGraphByYearAndTruckNumber()">
+        <option *ngFor="let truckNumber of distinctTruckNumbers" [value]="truckNumber">{{ truckNumber }}</option>
+      </select>
+      </div>
+    </div>
+  </div>

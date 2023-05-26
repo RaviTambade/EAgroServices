@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PurchaseAPI.Models;
+
 public class PurchaseBilling
 {
     [Column("bill_id")]

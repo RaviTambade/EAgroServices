@@ -15,7 +15,7 @@ export class TransportTruckComponent {
     truckNumber: ''
   };
   trucks: any[];
-  trucks1: any[];
+  trucks1: Truck[];
   transportId: any | undefined;
   status: boolean = false;
   deleteStatus: boolean;
@@ -42,6 +42,8 @@ export class TransportTruckComponent {
     this.searchString = this.searchString.toLowerCase();
     this.trucks = this.trucks1.filter(truck => (truck.truckNumber.toLowerCase().startsWith(this.searchString))
       || (truck.truckNumber.slice(6, 10).startsWith(this.searchString)));
+
+
   }
 
   addTruck() {

@@ -1,4 +1,5 @@
-<div class="container">
+<div *ngIf="isDataExist()">
+  <div class="container">
 <div style="position: relative;">
     <google-chart
       title="Order Count of Year"
@@ -20,4 +21,5 @@
       <option *ngFor="let year of distinctYears" [value]="year">{{ year }}</option>
     </select>
   </div>
+</div>
 </div>

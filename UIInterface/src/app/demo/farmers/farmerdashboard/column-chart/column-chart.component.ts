@@ -70,6 +70,10 @@ export class ColumnChartComponent {
       })
     }
   }
+  
+  isDataExist(): boolean {
+    return this.data.length > 0;
+  }
 
   changeGraphByYear() {
     console.log(this.selectedYear)

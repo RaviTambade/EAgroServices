@@ -1,16 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using TransportsAPI.Models;
 using TransportsAPI.Services.Interfaces;
+
 namespace TransportsAPI.Controller;
+
 [ApiController]
 [Route("/api/[controller]")]
 public class TransportsController : ControllerBase
 {
     private readonly ITransportService _service;
+
     public TransportsController(ITransportService service)
     {
         this._service = service;
     }
+
     [HttpGet("alltransports")]
     public async Task<IEnumerable<Transport>> GetAll()
     {
@@ -26,12 +30,13 @@ public class TransportsController : ControllerBase
     [HttpPost("insert")]
     public async Task<bool> Insert([FromBody] UserTransportRole userTransportRole)
     {
-        User user=userTransportRole.user;
-        Transport transport=userTransportRole.transport;
-        UserRole userRole=userTransportRole.userRole;
+        User user = userTransportRole.user;
+        Transport transport = userTransportRole.transport;
+        UserRole userRole = userTransportRole.userRole;
 
-        return await _service.Insert(user,transport,userRole);
+        return await _service.Insert(user, transport, userRole);
     }
+
     [HttpPut("update/{id}")]
     public async Task<bool> Update(int id, [FromBody] Transport transport)
     {
@@ -44,22 +49,33 @@ public class TransportsController : ControllerBase
         return await _service.Delete(id);
     }
 
-    [HttpGet("transport-history/{id}")]  //for list print
+    [HttpGet("transport-history/{id}")] //for list print
     public async Task<List<TransportFareDetails>> TransportHistory(int id)
     {
         return await _service.TransportHistory(id);
     }
+
     [HttpGet("transport-truck-history-by-month/{id}")] //for column chart
     public async Task<List<TransportTruckHistory>> TransportTruckHistoryByMonth(int id)
     {
-          return await _service.TransportTruckHistoryByMonth(id);
+        return await _service.TransportTruckHistoryByMonth(id);
     }
+
     [HttpGet("transport-truck-history-by-year/{id}")] //for pie chart
-    public async Task<List<TransportTruckHistory>> TransportTruckHistoryByYear(int id){
-          return await _service.TransportTruckHistoryByYear(id);
+    public async Task<List<TransportTruckHistory>> TransportTruckHistoryByYear(int id)
+    {
+        return await _service.TransportTruckHistoryByYear(id);
     }
-    [HttpGet("transport-trucks/{id}")]
-    public async Task<List<Truck>>TransportTrucks(int id){
+
+    [HttpGet("transport-trucks/{id}")] //all trucks of a transport
+    public async Task<List<Truck>> TransportTrucks(int id)
+    {
         return await _service.GetTransportsTrucks(id);
+    }
+
+    [HttpGet("transport-truck-orders-per-month/{id}")]
+    public async Task<List<TransportOrderCount>> TransportTruckOrdersPerMonth(int id)
+    {
+        return await _service.TransportTruckOrdersPerMonth(id);
     }
 }

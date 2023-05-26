@@ -15,12 +15,12 @@ export class ColumnchartComponent {
   distinctYears: number[];
   distinctTruckNumbers: string[];
   transportId: string | undefined;
-  transportData:TransportTruckdetails[];
+  transportData: TransportTruckdetails[];
   selectedYear: number;
-  selectedTruckNumber:string;
+  selectedTruckNumber: string;
 
   columnChart = ChartType.ColumnChart;
- 
+
 
   data: any[] = [];
 
@@ -41,20 +41,20 @@ export class ColumnchartComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       console.log(params)
-      this.transportId= params.get('id');
+      this.transportId = params.get('id');
     });
     if (this.transportId != undefined) {
 
-        this.svc.transportTrucktHistory(this.transportId).subscribe((response) => {
+      this.svc.transportTrucktHistory(this.transportId).subscribe((response) => {
         this.transportData = response;
         console.log(response)
         this.distinctYears = Array.from(new Set(this.transportData.map(item => item.year)));
-        this.distinctTruckNumbers=Array.from(new Set(this.transportData.map(item => item.truckNumber)));
+        this.distinctTruckNumbers = Array.from(new Set(this.transportData.map(item => item.truckNumber)));
         console.log(this.distinctTruckNumbers);
         this.selectedYear = (new Date()).getFullYear();
-        this.selectedTruckNumber=this.distinctTruckNumbers[0];
+        this.selectedTruckNumber = this.distinctTruckNumbers[0];
         for (let row in response) {
-          if (response[row].year == this.selectedYear && response[row].truckNumber==this.selectedTruckNumber) {
+          if (response[row].year == this.selectedYear && response[row].truckNumber == this.selectedTruckNumber) {
             var month = response[row].month;
             month = month.slice(0, 3)
             this.data.push([
@@ -67,9 +67,13 @@ export class ColumnchartComponent {
     }
   }
 
+  isDataExist(): boolean {
+    return this.data.length > 0;
+  }
+
   changeGraphByYearAndTruckNumber() {
     console.log(this.selectedYear)
-    let newdata = this.transportData.filter(item => item.year == this.selectedYear && item.truckNumber==this.selectedTruckNumber);
+    let newdata = this.transportData.filter(item => item.year == this.selectedYear && item.truckNumber == this.selectedTruckNumber);
     this.data = []
     for (let row in newdata) {
       var month = newdata[row].month
