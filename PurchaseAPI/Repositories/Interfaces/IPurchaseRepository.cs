@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PurchaseAPI.Models;
+using PurchasingAPI.Models;
 
-namespace PurchaseAPI.Repositories.Interfaces;
+namespace PurchasingAPI.Repositories.Interfaces;
 public interface IPurchaseRepository
 {
     Task<List<PurchaseViewModel>> GetAllPurchaseItems();

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using PurchaseAPI.Models;
-namespace PurchaseAPI.Contexts;
+using PurchasingAPI.Models;
+
+namespace PurchasingAPI.Contexts;
 public class PurchaseContext : DbContext
 {
     private readonly IConfiguration _configuration;
@@ -14,10 +15,14 @@ public class PurchaseContext : DbContext
     public DbSet<PurchaseBilling> PurchaseBillings { get; set; }
     public DbSet<Farmer> Farmers { get; set; }
     public DbSet<Variety> Varieties { get; set; }
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
+        optionsBuilder.LogTo(System.Console.WriteLine,LogLevel.Information);
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

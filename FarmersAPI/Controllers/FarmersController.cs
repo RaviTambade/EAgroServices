@@ -13,7 +13,6 @@ namespace FarmersAPI.Controllers
             this._srv = srv;
         }
         [HttpGet]
-        [Route("farmers")]
         public async Task<List<Farmer>> GetAll()
         {
             List<Farmer> farmers = await _srv.GetAll();
@@ -21,7 +20,7 @@ namespace FarmersAPI.Controllers
         }
 
         [HttpGet]
-        [Route("farmers/{id}")]
+        [Route("/{id}")]
         public async Task<Farmer> GetById(int id)
         {
             Farmer farmer = await _srv.GetById(id);
@@ -29,7 +28,6 @@ namespace FarmersAPI.Controllers
         }
 
         [HttpPost]
-        [Route("farmers")]
         public async Task<bool> Insert([FromBody] UserFarmerRole userFarmerRole)
         {
             User? user=userFarmerRole.User;
@@ -40,14 +38,14 @@ namespace FarmersAPI.Controllers
         }
 
         [HttpPut]
-        [Route("farmers/{id}")]
+        [Route("/{id}")]
         public async Task<bool> Update(int id, [FromBody] Farmer farmer)
         { 
              return await _srv.Update(id, farmer);
         }
 
         [HttpDelete]
-        [Route("farmers/{id}")]
+        [Route("/{id}")]
         public async Task<bool> Delete(int id)
         {
             return await _srv.Delete(id);
