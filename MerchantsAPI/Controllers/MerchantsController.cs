@@ -13,7 +13,6 @@ public class MerchantsController : ControllerBase
     {
         this._service = service;
     }
-
     [HttpGet]
     public async Task<List<Merchant>> GetAll()
     {
