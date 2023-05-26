@@ -5,7 +5,7 @@ namespace TransportsAPI.Models;
 public class Transport
 {
     [Column("transport_id")]
-    public int TransportId { get; set; }
+    public int Id { get; set; }
 
     [Column("office_name")]
     public string? OfficeName { get; set; }

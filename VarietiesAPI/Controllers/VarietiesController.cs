@@ -13,31 +13,31 @@ public class VarietyController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("getall")]
+    [HttpGet]
     public async Task<List<Variety>> GetAll()
     {
         return await _service.GetAll();
     }
 
-    [HttpGet("GetById/{id}")]
+    [HttpGet("{id}")]
     public async Task<Variety> GeById(int id)
     {
         return await _service.GetById(id);
     }
 
-    [HttpPost("insert")]
+    [HttpPost]
     public async Task<bool> Insert([FromBody] Variety variety)
     {
         return await _service.Insert(variety);
     }
 
-    [HttpPut("update/{id}")]
+    [HttpPut("{id}")]
     public async Task<bool> Update(int id, [FromBody] Variety variety)
     {
         return await _service.Update(id, variety);
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}")]
     public async Task<bool> Delete(int id)
     {
         return await _service.Delete(id);
