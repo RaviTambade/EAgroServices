@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PurchaseAPI.Models;
 using PurchaseAPI.Services.Interfaces;
-
 namespace PurchaseAPI.Controller;
 [ApiController]
 [Route("/api/[controller]")]
