@@ -5,7 +5,7 @@ namespace PurchaseAPI.Models;
 public class PurchaseBilling
 {
     [Column("bill_id")]
-    public int BillId { get; set; }
+    public int Id { get; set; }
 
     [Column("purchase_id")]
     public int PurchaseId { get; set; }

@@ -23,7 +23,7 @@ public class FarmersContext : DbContext // Defines a DbContext called FarmersCon
         base.OnModelCreating(modelBuilder);     // Calls the base implementation
         modelBuilder.Entity<Farmer>(entity =>     // Configures the Farmer entity
         {
-            entity.HasKey(e => e.FarmerId);      // Defines the primary key of farmer
+            entity.HasKey(e => e.Id);      // Defines the primary key of farmer
             entity.Property(e => e.FirstName);   // Defines a property 
             entity.Property(e => e.LastName);
             entity.Property(e => e.Location);
@@ -32,7 +32,7 @@ public class FarmersContext : DbContext // Defines a DbContext called FarmersCon
         });
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.ContactNumber);
             entity.Property(e => e.Password);
             modelBuilder.Entity<User>().ToTable("users");

@@ -21,11 +21,11 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 var purchaseViewData = await (from item in context.PurchaseItems
                                               join bill in context.PurchaseBillings
-                                              on item.PurchaseId equals bill.PurchaseId
+                                              on item.Id equals bill.PurchaseId
                                               join farmer in context.Farmers
-                                              on item.FarmerId equals farmer.FarmerId
+                                              on item.FarmerId equals farmer.Id
                                               join variety in context.Varieties
-                                              on item.VarietyId equals variety.VarietyId
+                                              on item.VarietyId equals variety.Id
                                               select new PurchaseViewModel()
                                               {
                                                   PurchaseItem = item,
@@ -50,12 +50,12 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 PurchaseViewModel? purchaseViewData = await (from item in context.PurchaseItems
                                                              join bill in context.PurchaseBillings
-                                                             on item.PurchaseId equals bill.PurchaseId
+                                                             on item.Id equals bill.PurchaseId
                                                              join farmer in context.Farmers
-                                                             on item.FarmerId equals farmer.FarmerId
+                                                             on item.FarmerId equals farmer.Id
                                                              join variety in context.Varieties
-                                                             on item.VarietyId equals variety.VarietyId
-                                                             where item.PurchaseId == purchaseId
+                                                             on item.VarietyId equals variety.Id
+                                                             where item.Id == purchaseId
                                                              select new PurchaseViewModel()
                                                              {
                                                                  PurchaseItem = item,
@@ -83,10 +83,10 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 await context.PurchaseItems.AddAsync(purchaseItem);
                 await context.SaveChangesAsync();
-                purchaseBilling.PurchaseId = purchaseItem.PurchaseId;
+                purchaseBilling.PurchaseId = purchaseItem.Id;
                 await context.PurchaseBillings.AddAsync(purchaseBilling);
                 await context.SaveChangesAsync();
-                int billId = purchaseBilling.BillId;
+                int billId = purchaseBilling.Id;
                 context.Database.ExecuteSqlRaw("CALL calculate_purchase_labour_charges(@p0)", billId);
                 context.Database.ExecuteSqlRaw("CALL calculate_purchase_total_amount(@p0)", billId);
                 status = true;
@@ -137,7 +137,7 @@ public class PurchaseRepository : IPurchaseRepository
                     {
                         Console.WriteLine(" procedure called");
                         var purchaseBilling = await context.PurchaseBillings.FirstOrDefaultAsync(x => x.PurchaseId == purchaseId);
-                        int billId = purchaseBilling.BillId;
+                        int billId = purchaseBilling.Id;
                         Console.WriteLine(billId);
                         context.Database.ExecuteSqlRaw("CALL calculate_purchase_labour_charges(@p0)", billId);
                         context.Database.ExecuteSqlRaw("CALL calculate_purchase_total_amount(@p0)", billId);
@@ -184,11 +184,11 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 List<PurchaseViewModel>? purchaseData = await (from item in context.PurchaseItems
                                                                join bill in context.PurchaseBillings
-                                                               on item.PurchaseId equals bill.PurchaseId
+                                                               on item.Id equals bill.PurchaseId
                                                                join farmer in context.Farmers
-                                                               on item.FarmerId equals farmer.FarmerId
+                                                               on item.FarmerId equals farmer.Id
                                                                join variety in context.Varieties
-                                                               on item.VarietyId equals variety.VarietyId
+                                                               on item.VarietyId equals variety.Id
                                                                where item.FarmerId == farmerId orderby item.Date descending
                                                                select new PurchaseViewModel()
                                                                {
@@ -213,7 +213,7 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 var results = await (from billing in context.PurchaseBillings
                                      join purchase in context.PurchaseItems
-                                     on billing.PurchaseId equals purchase.PurchaseId
+                                     on billing.PurchaseId equals purchase.Id
                                      where purchase.FarmerId == farmerId
                                      group billing by new { billing.Date.Year, billing.Date.Month } into billingGroup
                                      select new FarmerSellMonth()
@@ -239,9 +239,9 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 var varityData = await (from billing in context.PurchaseBillings
                                         join purchase in context.PurchaseItems
-                                        on billing.PurchaseId equals purchase.PurchaseId
+                                        on billing.PurchaseId equals purchase.Id
                                         join variety in context.Varieties
-                                        on purchase.VarietyId equals variety.VarietyId
+                                        on purchase.VarietyId equals variety.Id
                                         where purchase.FarmerId == farmerId
                                         group billing by new { billing.Date.Year, variety.VarietyName } into billingGroup
                                         select new FarmerSellVariety()
@@ -266,7 +266,7 @@ public class PurchaseRepository : IPurchaseRepository
             {
                 var amount = await (from billing in context.PurchaseBillings
                                     join purchase in context.PurchaseItems
-                                    on billing.PurchaseId equals purchase.PurchaseId
+                                    on billing.PurchaseId equals purchase.Id
                                     where purchase.FarmerId == farmerId
                                     group billing by purchase.FarmerId into g
                                     select g.Sum(bill => bill.TotalAmount)).FirstOrDefaultAsync();

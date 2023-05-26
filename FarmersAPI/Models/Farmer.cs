@@ -3,7 +3,7 @@ namespace FarmersAPI.Models;
 public class Farmer
 {
     [Column("farmer_id")]
-    public int FarmerId { get; set; }
+    public int Id { get; set; }
 
     [Column("first_name")]
     public string? FirstName { get; set; }

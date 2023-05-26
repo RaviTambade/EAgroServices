@@ -27,7 +27,7 @@ public class PurchaseContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<PurchaseItem>(entity =>
         {
-            entity.HasKey(e => e.PurchaseId);
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.FarmerId);
             entity.Property(e => e.VarietyId);
             entity.Property(e => e.ContainerType);
@@ -43,7 +43,7 @@ public class PurchaseContext : DbContext
 
         modelBuilder.Entity<PurchaseBilling>(entity =>
        {
-           entity.HasKey(e => e.BillId);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.PurchaseId);
            entity.Property(e => e.LabourCharges);
            entity.Property(e => e.TotalAmount);
@@ -52,7 +52,7 @@ public class PurchaseContext : DbContext
        });
         modelBuilder.Entity<Farmer>(entity =>
    {
-       entity.HasKey(e => e.FarmerId);
+       entity.HasKey(e => e.Id);
        entity.Property(e => e.FirstName);
        entity.Property(e => e.LastName);
        entity.Property(e => e.Location);
@@ -62,7 +62,7 @@ public class PurchaseContext : DbContext
 
         modelBuilder.Entity<Variety>(entity =>
       {
-          entity.HasKey(e => e.VarietyId);
+          entity.HasKey(e => e.Id);
           entity.Property(e => e.VarietyName);
           modelBuilder.Entity<Variety>().ToTable("varieties");
       });

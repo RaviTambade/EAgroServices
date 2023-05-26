@@ -29,7 +29,6 @@ public class FarmerRepository : IFarmerRepository
             throw e;
         }
     }
-
     public async Task<Farmer> GetById(int farmerId)
     {
         try
@@ -60,7 +59,7 @@ public class FarmerRepository : IFarmerRepository
             {
                 await context.Users.AddAsync(user);
                 await context.SaveChangesAsync();
-                userId=user.UserId;
+                userId=user.Id;
                 farmer.UserId=userId;
                 userRole.UserId=userId;
                 await context.UserRoles.AddAsync(userRole);
@@ -75,7 +74,6 @@ public class FarmerRepository : IFarmerRepository
         }
         return status;
     }
-
     public async Task<bool> Update(int farmerId, Farmer farmer)
     {
         bool status = false;
@@ -122,5 +120,4 @@ public class FarmerRepository : IFarmerRepository
         }
         return status;
     }
-
 }

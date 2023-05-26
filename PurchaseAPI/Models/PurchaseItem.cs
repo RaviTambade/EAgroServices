@@ -5,7 +5,7 @@ namespace PurchaseAPI.Models;
 public class PurchaseItem
 {
     [Column("purchase_id")]
-    public int PurchaseId { get; set; }
+    public int Id { get; set; }
 
     [Column("farmer_id")]
     public int FarmerId { get; set; }
