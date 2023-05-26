@@ -60,12 +60,24 @@ public class PurchasesController : ControllerBase
         return await _service.GetFarmerSellTotalAmount(id);
     }
 
+    //http://localhost:8989/api/farmer/{id}/selling/
+
+    //http://localhost:8989/api/farmer/{id}/selling/variety/{varietyid}
+
+
+
+    //http://localhost:8989/api/farmer/{id}/variety/
+    // [HttpGet("farmers/{id}/selling")]
+
     [HttpGet("farmer-sell-by-variety/{id}")]        // sell data by variety - pie chart
     public async Task<List<FarmerSellVariety>> GetFarmerSellByVariety(int id)
     {
         return await _service.GetFarmerSellByVariety(id);
     }
 
+    //http://localhost:8989/api/farmer/{id}/orders/
+
+    // [HttpGet("farmers/{id}/orders")]
     [HttpGet("farmer-orders-per-month/{id}")]        //counting orders per month - area chart
     public async Task<List<FarmerOrder>> GetFarmerOrdersPerMonth(int id)
     {
