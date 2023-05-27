@@ -7,5 +7,7 @@ public interface IUserRepository{
     Task<User> GetUser(int userId);
     Task<bool> Insert(User user,UserRole userRole);
     Task<bool> Update(int userId,User user);
+    Task<bool> Delete(int userId);
+
 
 }

@@ -97,4 +97,26 @@ public class UserRepository : IUserRepository
         }
         return status;
     }
+         public async Task<bool> Delete(int userId)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                User? user = await context.Users.FindAsync(userId);
+                if (user != null)
+                {
+                    context.Users.Remove(user);
+                    await context.SaveChangesAsync();
+                    status= true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
 }

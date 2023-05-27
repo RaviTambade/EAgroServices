@@ -33,4 +33,8 @@ public class UsersController : ControllerBase
     public async Task<bool> Update(int id,[FromBody]User user){
         return await _srv.Update(id,user); 
     }
+        [HttpDelete("{id}")]
+    public async Task<bool> Delete(int id){
+        return await _srv.Delete(id); 
+    }
 }
