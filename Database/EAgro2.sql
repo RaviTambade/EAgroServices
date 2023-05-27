@@ -1,93 +1,50 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
+
 CREATE TABLE
     users(
-        user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        contact_number VARCHAR(15) NOT NULL UNIQUE,
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        contactNumber VARCHAR(15) NOT NULL UNIQUE,
+        firstname VARCHAR(30) NOT NULL,
+        lastname VARCHAR(30) NOT NULL,
+        location VARCHAR(20) NOT NULL,
         password varchar(15) NOT NULL
     );
 CREATE TABLE
     roles(
-        role_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        role_name varchar(20)
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        name varchar(20)
     );
 CREATE TABLE
-    user_roles(
+    userRoles(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        user_id INT NOT NULL,
-        CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        role_id INT NOT NULL,
-        CONSTRAINT fk_role_id FOREIGN KEY(role_id) REFERENCES roles(role_id) ON UPDATE CASCADE ON DELETE CASCADE
+        userId INT NOT NULL,
+        roleId INT NOT NULL,
+        CONSTRAINT fk_userid FOREIGN KEY(userId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_roleid FOREIGN KEY(roleId) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
     accounts(
-        account_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        account_number VARCHAR(20),
-        ifsc_code VARCHAR(20),
-        user_id INT NOT NULL,
-        CONSTRAINT fk_user8_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        number VARCHAR(20),
+        ifscCode VARCHAR(20),
+        userId INT NOT NULL,
+        CONSTRAINT fk_userid2 FOREIGN KEY(userId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+drop TABLE trucks;
+CREATE TABLE trucks(
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        transportId INT NOT NULL,
+        number VARCHAR(15) NOT NULL UNIQUE,
+        CONSTRAINT fk_transportid FOREIGN KEY (transportId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+-- ALTER TABLE trucks ADD  CONSTRAINT userid_check CHECK (transportId IN (SELECT userId FROM userRoles WHERE roleId = 2));
 
 CREATE TABLE
-    farmers(
-        farmer_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        first_name VARCHAR(30) NOT NULL,
-        last_name VARCHAR(30) NOT NULL,
-        location VARCHAR(20) NOT NULL,
-        user_id INT NOT NULL,
-        CONSTRAINT fk_user3_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-CREATE TABLE
-    admins(
-        admin_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        first_name VARCHAR(30) NOT NULL,
-        last_name VARCHAR(30) NOT NULL,
-        location VARCHAR(20) NOT NULL,
-        user_id INT NOT NULL,
-        CONSTRAINT fk_user4_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-CREATE TABLE
-    employees(
-        employee_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        first_name VARCHAR(30) NOT NULL,
-        last_name VARCHAR(30) NOT NULL,
-        location VARCHAR(20) NOT NULL,
-        salary double,
-        user_id INT NOT NULL,
-        CONSTRAINT fk_user5_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-CREATE TABLE
-    transports(
-        transport_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        office_name VARCHAR(20) NOT NULL,
-        first_name VARCHAR(20) NOT NULL,                                                               
-        last_name VARCHAR(20) NOT NULL,
-        location VARCHAR(20) NOT NULL,
-        user_id INT NOT NULL,
-        CONSTRAINT fk_user6_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-CREATE TABLE
-    transport_trucks(
-        truck_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        transport_id INT NOT NULL,
-        truck_number VARCHAR(15) NOT NULL UNIQUE,
-        CONSTRAINT fk_transport_id FOREIGN KEY (transport_id) REFERENCES transports(transport_id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-CREATE TABLE
-    merchants(
-        merchant_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        first_name VARCHAR(20) NOT NULL,
-        last_name VARCHAR(25) NOT NULL,
-        company_name VARCHAR(30),
-        location VARCHAR(20) NOT NULL,
-        user_id INT NOT NULL,
-        CONSTRAINT fk_user7_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-CREATE TABLE
-    labour_rates(
-        container_type ENUM('crates', 'bags', 'leno_bags') PRIMARY KEY,
+    labourRates(
+        containerType ENUM('crates', 'bags', 'leno_bags') PRIMARY KEY,
         rate double NOT NULL
     );
     CREATE TABLE crops(
@@ -99,20 +56,20 @@ CREATE TABLE
    );
  
 CREATE TABLE
-    farmer_purchases (
-        purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        farmer_id INT NOT NULL,
+    farmerPurchases (
+        purchaseId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        farmerId INT NOT NULL,
         cropId int NOT NULL,
-        container_type ENUM('crates','bags','leno_bags'),
+        containerType ENUM('crates','bags','leno_bags'),
         quantity INT NOT NULL,
         grade ENUM('A','B','C','D'),
-        total_weight DOUBLE NOT NULL,
-        tare_weight DOUBLE NOT NULL,
-        net_weight DOUBLE AS (total_weight - tare_weight),
-        rate_per_kg DOUBLE NOT NULL,
-        CONSTRAINT fk_farmer_id FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        totalWeight DOUBLE NOT NULL,
+        tareWeight DOUBLE NOT NULL,
+        netWeight DOUBLE AS (total_weight - tare_weight),
+        ratePerKg DOUBLE NOT NULL,
+        CONSTRAINT fk_farmerId FOREIGN KEY (farmerId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
-        CONSTRAINT fk_container_type FOREIGN KEY (container_type) REFERENCES labour_rates(container_type),
+        CONSTRAINT fk_container_type FOREIGN KEY (containerType) REFERENCES labourRates(containerType),
         CONSTRAINT fk_crop FOREIGN KEY (cropId)REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
  CREATE TABLE
