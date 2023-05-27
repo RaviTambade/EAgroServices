@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -33,7 +33,6 @@ CREATE TABLE
         userId INT NOT NULL,
         CONSTRAINT fk_userid2 FOREIGN KEY(userId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-drop TABLE trucks;
 CREATE TABLE trucks(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         transportId INT NOT NULL,
@@ -57,68 +56,66 @@ CREATE TABLE
  
 CREATE TABLE
     farmerPurchases (
-        purchaseId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         farmerId INT NOT NULL,
-        cropId int NOT NULL,
+        cropId INT NOT NULL,
         containerType ENUM('crates','bags','leno_bags'),
         quantity INT NOT NULL,
         grade ENUM('A','B','C','D'),
         totalWeight DOUBLE NOT NULL,
         tareWeight DOUBLE NOT NULL,
-        netWeight DOUBLE AS (total_weight - tare_weight),
+        netWeight DOUBLE AS (totalWeight - tareWeight),
         ratePerKg DOUBLE NOT NULL,
-        CONSTRAINT fk_farmerId FOREIGN KEY (farmerId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
-        CONSTRAINT fk_container_type FOREIGN KEY (containerType) REFERENCES labourRates(containerType),
-        CONSTRAINT fk_crop FOREIGN KEY (cropId)REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_farmerid FOREIGN KEY (farmerId)  REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
  CREATE TABLE
-    farmer_purchases_billing(
-        bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        purchase_id INT NOT NULL,
-        labour_charges DOUBLE DEFAULT 0,
-        total_amount DOUBLE DEFAULT 0,
-        CONSTRAINT fk_purchase_id FOREIGN KEY (purchase_id) REFERENCES farmer_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    farmerPurchasesBilling(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        purchaseId INT NOT NULL,
+        labourCharges DOUBLE DEFAULT 0,
+        totalAmount DOUBLE DEFAULT 0,
+        CONSTRAINT fk_purchaseid FOREIGN KEY (purchaseId) REFERENCES farmerPurchases(id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() 
     );
 CREATE TABLE
     sells(
-        sell_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        purchase_id INT NOT NULL,
-        merchant_id INT,
-        truck_id INT,
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        purchaseId INT NOT NULL,
+        merchantId INT,
+        truckId INT,
         quantity INT NOT NULL,
-        net_weight DOUBLE NOT NULL,
-        rate_per_kg DOUBLE NOT NULL DEFAULT 0,
-        total_amount DOUBLE AS (net_weight * rate_per_kg),
+        netWeight DOUBLE NOT NULL,
+        ratePerKg DOUBLE NOT NULL DEFAULT 0,
+        totalAmount DOUBLE AS (netWeight * ratePerKg),
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        CONSTRAINT fk_purchase2_id FOREIGN KEY (purchase_id) REFERENCES farmer_purchases(purchase_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_merchant_id FOREIGN KEY (merchant_id) REFERENCES merchants(merchant_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_truck_id FOREIGN KEY (truck_id) REFERENCES transport_trucks(truck_id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_purchaseid2 FOREIGN KEY (purchaseId) REFERENCES farmerPurchases(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_merchantid FOREIGN KEY (merchantId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_truckId FOREIGN KEY (truckId) REFERENCES trucks(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
     -- SELECT * FROM sells;
    CREATE TABLE
-    sells_billing(
-        bill_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        sell_id INT NOT NULL,
-        freight_charges DOUBLE DEFAULT 0,
-        labour_charges DOUBLE NOT NULL DEFAULT 0,
-        total_charges DOUBLE AS(
-            freight_charges + labour_charges
+    sellsBilling(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        sellId INT NOT NULL,
+        freightCharges DOUBLE DEFAULT 0,
+        labourCharges DOUBLE NOT NULL DEFAULT 0,
+        totalCharges DOUBLE AS(
+            freightCharges + labourCharges
         ),
         
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        CONSTRAINT fk_sell_id FOREIGN KEY (sell_id) REFERENCES sells(sell_id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_sellid FOREIGN KEY (sellId) REFERENCES sells(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-    CREATE TABLE freight_rates (
+    CREATE TABLE freightRates (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  from_destination VARCHAR(50) NOT NULL,
-  to_destination VARCHAR(50) NOT NULL,
+  fromDestination VARCHAR(50) NOT NULL,
+  toDestination VARCHAR(50) NOT NULL,
   kilometers INT NOT NULL,
-  rate_per_km DOUBLE NOT NULL,
-  bill_id INT NOT NULL,
-  CONSTRAINT fk_bill_id FOREIGN KEY (bill_id) REFERENCES sells_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
+  ratePerKm DOUBLE NOT NULL,
+  billId INT NOT NULL,
+  CONSTRAINT fk_billid FOREIGN KEY (billId) REFERENCES sellsBilling(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
  
  /* query for calculating freight charges of one truck */
@@ -127,27 +124,27 @@ CREATE TABLE
 -- WHERE sells.sell_id=sells_billing.sell_id and sells.truck_id=1;
 CREATE TABLE
     transactions(
-        transaction_id INT PRIMARY KEY AUTO_INCREMENT,
-        from_acount_number VARCHAR(20),
-        to_account_number VARCHAR(20),
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        fromAcountNumber VARCHAR(20),
+        toAccountNumber VARCHAR(20),
         amount DOUBLE,
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        from_account_id INT NOT NULL,
-        to_account_id INT NOT NULL,
-        CONSTRAINT fk_account2_id FOREIGN KEY (from_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_account3_id FOREIGN KEY (to_account_id) REFERENCES accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE
+        fromAccountId INT NOT NULL,
+        toAccountId INT NOT NULL,
+        CONSTRAINT fk_account2id FOREIGN KEY (fromAccountId) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_account3id FOREIGN KEY (toAccountId) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE
     payments(
-        payment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        payment_date DATETIME,
-        payment_mode ENUM(
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        date DATETIME,
+        paymentMode ENUM(
             'by cash',
             'by bank transaction'
         ),
-        transection_id INT NOT NULL,
-        bill_id INT NOT NULL,
-        CONSTRAINT fk_bill_id_1 FOREIGN KEY (bill_id) REFERENCES farmer_purchases_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
+        transectionId INT NOT NULL,
+        billId INT NOT NULL,
+        CONSTRAINT fk_bill1id FOREIGN KEY (billId) REFERENCES farmerPurchasesBilling(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 SELECT * FROM farmer_purchases_billing;
