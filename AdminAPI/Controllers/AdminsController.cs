@@ -13,16 +13,19 @@ public class AdminsController : ControllerBase
     {
         this._service = service;
     }
+    
     [HttpGet]
     public async Task<List<Admin>> GetAll()
     {
         return await _service.GetAll();
     }
+
     [HttpGet("{id}")]
     public async Task<Admin> GetById(int id)
     {
         return await _service.GetById(id);
     }
+
     [HttpPost]
     public async Task<bool> Insert([FromBody] UserAdminRole userAdminRole)
     {
@@ -31,6 +34,7 @@ public class AdminsController : ControllerBase
         UserRole userRole=userAdminRole.UserRole;
         return await _service.Insert(admin,user,userRole);
     }
+
     [HttpPut("{id}")]
     public async Task<bool> Update(int id, [FromBody] Admin admin)
     {
