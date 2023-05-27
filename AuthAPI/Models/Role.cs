@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AuthAPI.Models;
 public class Role
 {
-    [Column("role_id")]
+    [Column("id")]
     public int Id { get; set; }
-    [Column("role_name")]
+    [Column("name")]
     public string? RoleName { get; set; }
 }

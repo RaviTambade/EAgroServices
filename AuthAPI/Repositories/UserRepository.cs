@@ -17,97 +17,15 @@ public class UserRepository : IUserRepository
         _configuration = configuration;
         _appsettings = appsettings.Value;
     }
-    public async Task<IEnumerable<User>> GetAll()
-    {
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                List<User> users = await context.Users.ToListAsync();
-                if (users == null)
-                {
-                    return null;
-                }
-                return users;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-    public async Task<bool> Insert(User user)
-    {
-        bool status = false;
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                await context.Users.AddAsync(user);
-                await context.SaveChangesAsync();
-                status = true;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
-    public async Task<bool> Update(int userId, User user)
-    {
-        bool status = false;
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                User? oldUser = await context.Users.FindAsync(userId);
-                if (oldUser != null)
-                {
-                    oldUser.ContactNumber = user.ContactNumber;
-                    oldUser.Password = user.Password;
-                    await context.SaveChangesAsync();
-                    status = true;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
-    public async Task<bool> Delete(int userId)
-    {
-        bool status = false;
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                User? user = await context.Users.FindAsync(userId);
-                if (user != null)
-                {
-                    context.Users.Remove(user);
-                    await context.SaveChangesAsync();
-                    status = true;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
+
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request)
     {
-        Console.WriteLine("authenticate method is called");
         User user = await GetUser(request);
         // return null if user not found
         if (user == null) { return null; }
         // authentication successful so generate jwt token
         var token = await generateJwtToken(user);
-        return new AuthenticateResponse(user, token);
+        return new AuthenticateResponse( token);
     }
     private async Task<string> generateJwtToken(User user)
     {
@@ -134,49 +52,6 @@ public class UserRepository : IUserRepository
         {
             claims.Add(new Claim("role", role));
         }
-        foreach (string role in roles)
-        {
-            if (role == "farmer")
-            {
-                int farmerId = await GetIdOfFarmer(user.Id);
-                if (farmerId != 0)
-                {
-                    claims.Add(new Claim("farmerId", farmerId.ToString()));
-                }
-            }
-            if (role == "admin")
-            {
-                int adminId = await GetIdOfAdmin(user.Id);
-                if (adminId != 0)
-                {
-                    claims.Add(new Claim("adminId", adminId.ToString()));
-                }
-            }
-            if (role == "transport")
-            {
-                int transportId = await GetIdOfTransport(user.Id);
-                if (transportId != 0)
-                {
-                    claims.Add(new Claim("transportId", transportId.ToString()));
-                }
-            }
-            if (role == "employee")
-            {
-                int employeeId = await GetIdOfEmployee(user.Id);
-                if (employeeId != 0)
-                {
-                    claims.Add(new Claim("employeeId", employeeId.ToString()));
-                }
-            }
-            if (role == "merchant")
-            {
-                int merchantId = await GetIdOfMerchant(user.Id);
-                if (merchantId != 0)
-                {
-                    claims.Add(new Claim("merchantId", merchantId.ToString()));
-                }
-            }
-        }
         return claims;
     }
     private async Task<List<string>> GetRolesOfUser(int userId)
@@ -189,10 +64,6 @@ public class UserRepository : IUserRepository
                                    join userRole in context.UserRoles on role.Id equals userRole.RoleId
                                    where userRole.UserId == userId
                                    select role.RoleName).ToListAsync();
-                foreach (var role in roles)
-                {
-                    Console.WriteLine(role);
-                }
                 return roles;
             }
         }
@@ -201,113 +72,13 @@ public class UserRepository : IUserRepository
             throw e;
         }
     }
-    private async Task<int> GetIdOfFarmer(int userId)
-    {
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                var farmerId = await (from user in context.Users
-                                      join farmer in context.Farmers on user.Id equals farmer.UserId
-                                      where user.Id == userId
-                                      select farmer.Id).FirstOrDefaultAsync();
-                return farmerId;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-
-    private async Task<int> GetIdOfAdmin(int userId)
-    {
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                var adminId = await (from user in context.Users
-                                     join admin in context.Admin on user.Id equals admin.UserId
-                                     where user.Id == userId
-                                     select admin.Id).FirstOrDefaultAsync();
-                return adminId;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-
-    private async Task<int> GetIdOfEmployee(int userId)
-    {
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                var employeeId = await (from user in context.Users
-                                        join employee in context.Employees on user.Id equals employee.UserId
-                                        where user.Id == userId
-                                        select employee.Id).FirstOrDefaultAsync();
-                return employeeId;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-    private async Task<int> GetIdOfMerchant(int userId)
-    {
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                var merchantId = await (from user in context.Users
-                                        join merchant in context.Merchants on user.Id equals merchant.UserId
-                                        where user.Id == userId
-                                        select merchant.Id).FirstOrDefaultAsync();
-                return merchantId;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-
-    private async Task<int> GetIdOfTransport(int userId)
-    {
-        try
-        {
-            using (var context = new UserContext(_configuration))
-            {
-                var transportId = await (from user in context.Users
-                                         join transport in context.Transports on user.Id equals transport.UserId
-                                         where user.Id == userId
-                                         select transport.Id).FirstOrDefaultAsync();
-                return transportId;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-    public async Task<User> GetUser(AuthenticateRequest request)
+    
+    private async Task<User> GetUser(AuthenticateRequest request)
     {
         using (var context = new UserContext(_configuration))
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.ContactNumber == request.ContactNumber && u.Password == request.Password);
             return user;
-        }
-    }
-    public async Task<IEnumerable<Role>> GetAllRoles()
-    {
-        using (var context = new UserContext(_configuration))
-        {
-            var roles = await context.Roles.ToListAsync();
-            return roles;
         }
     }
 }
