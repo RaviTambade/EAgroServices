@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -91,10 +91,11 @@ CREATE TABLE
         container_type ENUM('crates', 'bags', 'leno_bags') PRIMARY KEY,
         rate double NOT NULL
     );
-    CREATE TABLE varieties(
-         variety_id int NOT Null AUTO_INCREMENT PRIMARY KEY,
-         variety_name VARCHAR(20)NOT NULL UNIQUE,
-         image_url VARCHAR(30) NOT NULL,
+    CREATE TABLE crops(
+         id int NOT Null AUTO_INCREMENT PRIMARY KEY,
+         name VARCHAR(20)NOT NULL UNIQUE,
+         imageUrl VARCHAR(30) NOT NULL,
+         category VARCHAR(10) NOT NULL,
          rate DOUBLE NOT NULL DEFAULT 0
    );
  
@@ -102,7 +103,7 @@ CREATE TABLE
     farmer_purchases (
         purchase_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         farmer_id INT NOT NULL,
-        variety_id int NOT NULL,
+        cropId int NOT NULL,
         container_type ENUM('crates','bags','leno_bags'),
         quantity INT NOT NULL,
         grade ENUM('A','B','C','D'),
@@ -113,7 +114,7 @@ CREATE TABLE
         CONSTRAINT fk_farmer_id FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_container_type FOREIGN KEY (container_type) REFERENCES labour_rates(container_type),
-        CONSTRAINT fk_variety FOREIGN KEY (variety_id)REFERENCES Varieties(variety_id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_crop FOREIGN KEY (cropId)REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
  CREATE TABLE
     farmer_purchases_billing(
@@ -165,9 +166,9 @@ CREATE TABLE
 );
  
  /* query for calculating freight charges of one truck */
-SELECT sells.sell_id,sells.truck_id,sells_billing.freight_charges,sells.quantity,sells.date 
-from sells,sells_billing
-WHERE sells.sell_id=sells_billing.sell_id and sells.truck_id=1;
+-- SELECT sells.sell_id,sells.truck_id,sells_billing.freight_charges,sells.quantity,sells.date 
+-- from sells,sells_billing
+-- WHERE sells.sell_id=sells_billing.sell_id and sells.truck_id=1;
 CREATE TABLE
     transactions(
         transaction_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -382,17 +383,18 @@ INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES 
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Nighot Company','Anuj','Nighot','Manchar',26);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Madivale Company','Suresh','Nighot','Mumbai',27);
 INSERT INTO merchants(company_name,first_name,last_name,location,user_id)VALUES ('Sidhhivinayk Company','Raju','shinde','Pune',28);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('Onion','/assets/images/onion.jpg',22);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg',30);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
-INSERT INTO varieties(variety_name,image_url,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
+INSERT INTO crops(name,imageUrl,category,rate)VALUES('Potato','/assets/images/potato.jpeg','vegetables',32);
+INSERT INTO crops(name,imageUrl,category,rate)VALUES('Tomato','/assets/images/tomato.jpeg','vegetables',12);
+INSERT INTO crops(name,imageUrl,category,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg','vegetables',21);
+INSERT INTO crops(name,imageUrl,category,rate)VALUES('Onion','/assets/images/onion.jpg','vegetables',22);
+INSERT INTO crops(name,imageUrl,category,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg','vegetables',30);
+INSERT INTO crops(name,imageUrl,category,rate)VALUES('Beans','/assets/images/beans.jpeg','vegetables',29);
+INSERT INTO crops(name,imageUrl,category,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg','vegetables',29);
+INSERT INTO crops(name,imageUrl,category,rate)VALUES('wheat','/assets/images/wheat.jpeg','grains',29);
 
 
 
-INSERT INTO farmer_purchases (farmer_id, variety_id, container_type, quantity, grade, total_weight, tare_weight, rate_per_kg, date) VALUES 
+INSERT INTO farmer_purchases (farmer_id, cropId, container_type, quantity, grade, total_weight, tare_weight, rate_per_kg, date) VALUES 
 (2, 1, 'crates', 50, 'A', 250, 10, 18.5, '2022-01-03 10:00:00'),
 (2, 2, 'bags', 40, 'B', 200, 8, 20, '2022-01-05 13:30:00'),
 (2, 3, 'leno_bags', 120, 'C', 600, 24, 19.5, '2022-02-02 09:45:00'),
