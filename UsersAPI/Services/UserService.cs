@@ -12,5 +12,7 @@ public class UserService:IUserService{
     }
     public async Task<List<User>> GetAll()=>await _repo.GetAll();
     public async Task<User> GetUser(int userId)=>await _repo.GetUser(userId);
+    public async Task<bool> Insert(User user,UserRole userRole )=>await _repo.Insert(user,userRole);
+
 
 }

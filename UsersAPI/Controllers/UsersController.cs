@@ -23,4 +23,11 @@ public class UsersController : ControllerBase
     public async Task<User> GetUser(int id){
         return await _srv.GetUser(id);
     }
+      [HttpPost]
+    public async Task<bool> Insert(UserRoleInsert userRoleInsert){
+        User user=userRoleInsert.User;
+        UserRole userRole=userRoleInsert.UserRole;
+        return await _srv.Insert(user,userRole);
+        
+    }
 }

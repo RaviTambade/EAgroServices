@@ -49,4 +49,25 @@ public class UserRepository : IUserRepository
             throw e;
         }
     }
+    public async Task<bool> Insert(User user,UserRole userRole) {
+        bool status=false;
+        int userId=0;
+        try{
+            using(var context=new UserContext(_configuration))
+            {
+                 await context.Users.AddAsync(user);
+                 await context.SaveChangesAsync();
+                 userId=user.Id;
+                 userRole.UserId=userId;
+                 await context.UserRoles.AddAsync(userRole);
+                 await context.SaveChangesAsync();
+                 status=true;
+            }
+        }
+         catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
 }

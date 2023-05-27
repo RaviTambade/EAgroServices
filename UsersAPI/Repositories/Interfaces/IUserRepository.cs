@@ -5,4 +5,5 @@ namespace UsersAPI.Repositories.Interfaces;
 public interface IUserRepository{
     Task<List<User>> GetAll();
     Task<User> GetUser(int userId);
+    Task<bool> Insert(User user,UserRole userRole);
 }
