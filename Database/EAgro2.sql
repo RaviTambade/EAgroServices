@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -156,62 +156,59 @@ CREATE TABLE
     );
 
 /* for calculating labour_charges */
--- CREATE PROCEDURE calculate_purchase_labour_charges(IN billId INT) BEGIN 
--- 	DECLARE labourRate DOUBLE DEFAULT 0;
--- 	DECLARE Quantity INT DEFAULT 0;
--- 	DECLARE purchaseId INT ;
--- 	SELECT purchase_id INTO purchaseId FROM farmer_purchases_billing WHERE bill_id = billId;
---     SELECT rate INTO labourRate FROM labour_rates,farmer_purchases WHERE  farmer_purchases.purchase_id= purchaseId AND labour_rates.container_type=farmer_purchases.container_type;
---     SELECT farmer_purchases.quantity INTO Quantity  FROM farmer_purchases WHERE farmer_purchases.purchase_id = purchaseId;
---     UPDATE farmer_purchases_billing SET labour_charges = labourRate * Quantity WHERE bill_id = billId;
--- END;
+CREATE PROCEDURE calculate_purchase_labour_charges(IN billId INT) BEGIN 
+	DECLARE labourRate DOUBLE DEFAULT 0;
+	DECLARE Quantity INT DEFAULT 0;
+	DECLARE collection_Id INT ;
+	SELECT collectionid INTO collection_Id FROM billing WHERE id = billId;
+    SELECT rate INTO labourRate FROM labourrates,collections WHERE  collections.id= collection_Id AND labourrates.containertype=collections.containertype;
+    SELECT collections.quantity INTO Quantity  FROM collections WHERE collections.id = collection_Id;
+    UPDATE billing SET labourcharges = labourRate * Quantity WHERE id = billId;
+END;
 /* for calculating total_amount  */ 
--- CREATE PROCEDURE calculate_purchase_total_amount(IN billId INT)
---  BEGIN 
--- 	DECLARE totalAmount DOUBLE DEFAULT 0 ;
--- 	DECLARE labourChrges DOUBLE DEFAULT 0;
--- 	DECLARE purchaseId INT;
--- 	SELECT purchase_id INTO purchaseId FROM farmer_purchases_billing WHERE bill_id = billId;
---     SELECT labour_charges INTO labourChrges FROM farmer_purchases_billing WHERE bill_id = billId;
--- 	SELECT farmer_purchases.net_weight * farmer_purchases.rate_per_kg INTO totalAmount
--- 	FROM farmer_purchases WHERE purchase_id = purchaseId;
--- 	UPDATE farmer_purchases_billing
--- 	SET total_amount = totalAmount - labour_charges
--- 	WHERE bill_id = billId;
--- END; 
-
+CREATE PROCEDURE calculate_purchase_total_amount(IN billId INT)
+ BEGIN 
+	DECLARE totalAmount DOUBLE DEFAULT 0 ;
+	DECLARE labour_Charges DOUBLE DEFAULT 0;
+	DECLARE collection_Id INT;
+	SELECT collectionid INTO collection_Id FROM billing WHERE id = billId;
+    SELECT labourcharges INTO labour_Charges FROM billing WHERE id = billId;
+	SELECT collections.netweight * collections.rateperkg INTO totalAmount
+	FROM collections WHERE id = collection_Id;
+	UPDATE billing
+	SET totalamount = totalAmount - labour_Charges
+	WHERE id = billId;
+END; 
+-- drop PROCEDURE calculate_purchase_total_amount;
   /* --for calculating freight_charges  */
--- CREATE PROCEDURE calculate_freight_charges(IN bill_Id 
--- INT) BEGIN 
--- 	DECLARE freightCharges DOUBLE;
-    
--- 	SELECT
--- 	    freight_rates.kilometers * freight_rates.rate_per_km INTO freightCharges
--- 	FROM freight_rates WHERE freight_rates.bill_id = bill_Id  ;
--- 	UPDATE
--- 	    sells_billing
--- 	SET
--- 	    freight_charges = freightCharges
--- 	WHERE sells_billing.bill_id = bill_Id;
--- END; 
+CREATE PROCEDURE calculate_freight_charges(IN billId INT)
+    BEGIN 
+	DECLARE freightCharges DOUBLE;
+	SELECT freightrates.kilometers * freightrates.rateperkm INTO freightCharges
+	FROM freightrates WHERE freightrates.billid = billId  ;
+	UPDATE sellsbilling
+	SET freightcharges = freightCharges
+	WHERE sellsbilling.id = billId;
+END; 
 
--- CREATE PROCEDURE calculate_labour_charges_of_sells(IN bill_Id INT) 
--- BEGIN 
--- UPDATE 
---     sells_billing 
---     INNER JOIN sells ON sells_billing.sell_id = sells.sell_id
---     INNER JOIN farmer_purchases ON sells.purchase_id = farmer_purchases.purchase_id
---     INNER JOIN labour_rates ON farmer_purchases.container_type = labour_rates.container_type 
--- SET 
---     sells_billing.labour_charges = farmer_purchases.quantity * labour_rates.rate
--- WHERE 
---     sells_billing.bill_id =bill_Id;
---     END;
+-- DROP PROCEDURE calculate_labour_charges_of_sells;
+CREATE PROCEDURE calculate_labour_charges_of_sells(IN billId INT) 
+BEGIN 
+UPDATE 
+    sellsbilling 
+    INNER JOIN sells ON sellsbilling.sellid = sells.id
+    INNER JOIN collections ON sells.collectionid = collections.id
+    INNER JOIN labourrates ON collections.containertype = labourrates.containertype 
+SET 
+    sellsbilling.labourcharges = collections.quantity * labourrates.rate
+WHERE 
+    sellsbilling.id =billId;
+END;
 
 
-INSERT INTO labourrates(containerType,rate)VALUES('crates',5);
-INSERT INTO labourrates(containerType,rate)VALUES('bags',6);
-INSERT INTO labourrates(containerType,rate)VALUES('lenobags',4);
+INSERT INTO labourrates(containertype,rate)VALUES('crates',5);
+INSERT INTO labourrates(containertype,rate)VALUES('bags',6);
+INSERT INTO labourrates(containertype,rate)VALUES('lenobags',4);
 INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9078678767', 'password','Sahil','Mankar','Pargaon');
 INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9898909090', 'password','Anuja','Waghule','Chakan');
 INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9000909807', 'password','Shubham','Teli','Bhavadi');
@@ -389,34 +386,34 @@ WHERE
   id BETWEEN 1 AND 100;
 
 
--- DROP PROCEDURE IF EXISTS call_procedures;
--- CREATE PROCEDURE call_procedures(IN records INT)
--- BEGIN
---   DECLARE i INT DEFAULT 1;
---   WHILE i <= records DO
---     CALL calculate_purchase_labour_charges(i);
---     CALL calculate_purchase_total_amount(i);
---     SET i = i + 1;
---   END WHILE;
--- END;
+DROP PROCEDURE IF EXISTS call_procedures;
+CREATE PROCEDURE call_procedures(IN records INT)
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i <= records DO
+    CALL calculate_purchase_labour_charges(i);
+    CALL calculate_purchase_total_amount(i);
+    SET i = i + 1;
+  END WHILE;
+END;
 
---     CALL calculate_purchase_total_amount(1);
+    -- CALL calculate_purchase_total_amount(1);
 
--- CALL call_procedures(34);
+CALL call_procedures(34);
 
 
--- DROP PROCEDURE IF EXISTS call_proceduresofsells;
--- CREATE PROCEDURE call_proceduresofsells(IN records INT)
--- BEGIN
---   DECLARE i INT DEFAULT 1;
---   WHILE i <= records DO
---     CALL calculate_labour_charges_of_sells(i);
---     CALL calculate_freight_charges(i);
---     SET i = i + 1;
---   END WHILE;
--- END;
+DROP PROCEDURE IF EXISTS call_proceduresofsells;
+CREATE PROCEDURE call_proceduresofsells(IN records INT)
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i <= records DO
+    CALL calculate_labour_charges_of_sells(i);
+    CALL calculate_freight_charges(i);
+    SET i = i + 1;
+  END WHILE;
+END;
 
--- CALL call_proceduresofsells(100);
+CALL call_proceduresofsells(100);
 
 /*
 -- SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,sells.net_weight,sells.rate_per_kg,sells.total_amount FROM farmers
