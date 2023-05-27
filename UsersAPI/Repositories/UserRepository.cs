@@ -70,4 +70,31 @@ public class UserRepository : IUserRepository
         }
         return status;
     }
+
+     public async Task<bool> Update(int userId,User user)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                User? oldUser = await context.Users.FindAsync(userId);
+                if (oldUser != null)
+                {
+                    oldUser.ContactNumber = user.ContactNumber;
+                    oldUser.Password = user.Password;
+                    oldUser.FirstName = user.FirstName;
+                    oldUser.LastName = user.LastName;
+                    oldUser.Location = user.Location;
+                    await context.SaveChangesAsync();
+                    status= true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
 }
