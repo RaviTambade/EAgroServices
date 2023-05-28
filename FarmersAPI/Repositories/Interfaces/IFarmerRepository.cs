@@ -10,5 +10,6 @@ public interface IFarmerRepository
     Task<List<FarmerCollectionPerMonth>> GetFarmerCollectionAmountByMonth(int farmerId);
     Task<List<FarmerCollectionByCrop>> GetFarmerCollectionAmountByCrop(int farmerId);
     Task<List<FarmerCollection>> GetFarmerCollectionsBetweenDates(int farmerId,DateFilter dateFilter);
+    Task<List<FarmerCollection>> GetFarmerCollectionByCrop(int farmerId, int cropId);
 
 }

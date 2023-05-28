@@ -69,6 +69,8 @@ public class FarmerRepository : IFarmerRepository
 
     public async Task<List<FarmerCollection>> GetFarmerCollections(int farmerId)
     {
+        // int pagesize=10;
+        // int page=1;
         try
         {
             using (var context = new FarmersContext(_configuration))
@@ -87,6 +89,8 @@ public class FarmerRepository : IFarmerRepository
                         Crop = crop.Name
                     }
                 ).ToListAsync();
+                // collections=collections.Skip((page-1)*pagesize).Take(pagesize).ToList();
+                Console.WriteLine(collections.Count);
                 return collections;
             }
         }
@@ -117,6 +121,35 @@ public class FarmerRepository : IFarmerRepository
                             || collection.Date >= dateFilter.StartDate
                         )
                         && (dateFilter.EndDate == default || collection.Date <= dateFilter.EndDate)
+                    orderby collection.Date ascending
+                    select new FarmerCollection()
+                    {
+                        Collection = collection,
+                        Billing = bill,
+                        Crop = crop.Name
+                    }
+                ).ToListAsync();
+                return collections;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    public async Task<List<FarmerCollection>> GetFarmerCollectionByCrop(int farmerId, int cropId)
+    {
+        try
+        {
+            using (var context = new FarmersContext(_configuration))
+            {
+                List<FarmerCollection>? collections = await (
+                    from collection in context.Collections
+                    join bill in context.Billings on collection.Id equals bill.CollectionId
+                    join farmer in context.Farmers on collection.FarmerId equals farmer.Id
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    where collection.FarmerId == farmerId && crop.Id==cropId
                     orderby collection.Date ascending
                     select new FarmerCollection()
                     {
