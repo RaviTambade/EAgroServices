@@ -2,19 +2,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FarmersAPI.Models;
 public class Farmer
 {
-    [Column("farmer_id")]
+    [Column("id")]
     public int Id { get; set; }
 
-    [Column("first_name")]
+    [Column("firstname")]
     public string? FirstName { get; set; }
 
-     [Column("last_name")]
+     [Column("lastname")]
     public string? LastName { get; set; }
     
     [Column("location")]
     public string? Location { get; set; }
 
-     [Column("user_id")]
-    public int UserId { get; set; }
+     [Column("contactnumber")]
+    public string? ContactNumber { get; set; }
 
 }

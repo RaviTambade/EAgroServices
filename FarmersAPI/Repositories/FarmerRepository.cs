@@ -10,18 +10,25 @@ public class FarmerRepository : IFarmerRepository
     {
         _configuration = configuration;
     }
-    public async Task<List<Farmer>> GetAll()
+    public async Task<List<Farmer>> GetFarmers()
     {
         try
         {
                using (var context = new FarmersContext(_configuration))
             {
-                List<Farmer> farmers = await context.Farmers.ToListAsync();
+                var  farmers =
+                        await (from farmer in context.Farmers 
+                        join  userRole in context.UserRoles
+                        on farmer.Id equals userRole.UserId
+                        join role in context.Roles
+                        on userRole.RoleId equals role.Id
+                        where role.Name=="farmer"
+                        select farmer).ToListAsync();
                 if (farmers == null)
                 {
                     return null;
                 }
-                return farmers;
+                return  farmers;
             }
         }
         catch (Exception e)
@@ -29,13 +36,20 @@ public class FarmerRepository : IFarmerRepository
             throw e;
         }
     }
-    public async Task<Farmer> GetById(int farmerId)
+    public async Task<Farmer> GetFarmer(int farmerId)
     {
         try
         {
             using (var context = new FarmersContext(_configuration))
             {
-                Farmer? farmer = await context.Farmers.FindAsync(farmerId);
+                Farmer? farmer = 
+                 await (from f in context.Farmers 
+                        join  userRole in context.UserRoles
+                        on f.Id equals userRole.UserId
+                        join role in context.Roles
+                        on userRole.RoleId equals role.Id
+                        where role.Name=="farmer" && f.Id==farmerId
+                        select f).FirstOrDefaultAsync();
                 if (farmer == null)
                 {
                     return null;
@@ -48,76 +62,5 @@ public class FarmerRepository : IFarmerRepository
             throw e;
         }
     }
-    public async Task<bool> Insert(User user,Farmer farmer,UserRole userRole)
-    {
-            Console.WriteLine(user.ContactNumber + " "+ user.Password + " " +farmer.FirstName + " " +farmer.LastName + " "+farmer.Location + " " +userRole.Id); 
-        bool status = false;
-        int userId=0;
-        try
-        {
-            using (var context = new FarmersContext(_configuration))
-            {
-                await context.Users.AddAsync(user);
-                await context.SaveChangesAsync();
-                userId=user.Id;
-                farmer.UserId=userId;
-                userRole.UserId=userId;
-                await context.UserRoles.AddAsync(userRole);
-                await context.Farmers.AddAsync(farmer);
-                await context.SaveChangesAsync();
-                status = true;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
-    public async Task<bool> Update(int farmerId, Farmer farmer)
-    {
-        bool status = false;
-        try
-        {
-            using (var context = new FarmersContext(_configuration))
-            {
-                Farmer? oldFarmer = await context.Farmers.FindAsync(farmerId);
-                if (oldFarmer != null)
-                {
-                    oldFarmer.FirstName = farmer.FirstName;
-                    oldFarmer.LastName = farmer.LastName;
-                    oldFarmer.Location = farmer.Location;
-                    await context.SaveChangesAsync();
-                    status= true;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
-    public async Task<bool> Delete(int farmerId)
-    {
-        bool status = false;
-        try
-        {
-            using (var context = new FarmersContext(_configuration))
-            {
-                Farmer? farmer = await context.Farmers.FindAsync(farmerId);
-                if (farmer != null)
-                {
-                    context.Farmers.Remove(farmer);
-                    await context.SaveChangesAsync();
-                    return true;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
+   
 }

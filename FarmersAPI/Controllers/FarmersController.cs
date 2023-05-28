@@ -1,6 +1,7 @@
 using FarmersAPI.Models;
 using FarmersAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+
 namespace FarmersAPI.Controllers
 {
     [ApiController]
@@ -8,52 +9,22 @@ namespace FarmersAPI.Controllers
     public class FarmersController : ControllerBase
     {
         private readonly IFarmerService _srv;
+
         public FarmersController(IFarmerService srv)
         {
             this._srv = srv;
         }
-        [HttpGet]
-        public async Task<List<Farmer>> GetAll()
-        {
-            List<Farmer> farmers = await _srv.GetAll();
-            return farmers;
-        }
 
         [HttpGet]
-        [Route("{id}")]
-        public async Task<Farmer> GetById(int id)
+        public async Task<List<Farmer>> GetFarmers()
         {
-            Farmer farmer = await _srv.GetById(id);
-            return farmer;
+            return await _srv.GetFarmers();
         }
 
-        [HttpPost]
-        public async Task<bool> Insert([FromBody] UserFarmerRole userFarmerRole)
+        [HttpGet("{id}")]
+        public async Task<Farmer> GetFarmer(int id)
         {
-            User? user=userFarmerRole.User;
-            Farmer? farmer=userFarmerRole.Farmer;
-            UserRole? userRole=userFarmerRole.UserRole;
-            Console.WriteLine(user?.ContactNumber + " "+ user?.Password + " " +farmer?.FirstName + " " +farmer?.LastName + " "+farmer?.Location + " " +userRole?.Id); 
-            return await _srv.Insert(user,farmer,userRole);
+            return await _srv.GetFarmer(id);
         }
-
-        [HttpPut]
-        [Route("{id}")]
-        public async Task<bool> Update(int id, [FromBody] Farmer farmer)
-        { 
-             return await _srv.Update(id, farmer);
-        }
-
-        [HttpDelete]
-        [Route("{id}")]
-        public async Task<bool> Delete(int id)
-        {
-            return await _srv.Delete(id);
-        }
-
     }
 }
-
-
-
-
