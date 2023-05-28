@@ -12,13 +12,20 @@ public class MerchantRepository : IMerchantRepository
     {
         _configuration = configuration;
     }
-    public async Task<List<Merchant>> GetAll()
+    public async Task<List<User>> GetAll()
     {
         try
         {
             using (var context = new MerchantContext(_configuration))
             {
-                List<Merchant> merchants = await context.Merchants.ToListAsync();
+                var merchants = await (from user in context.Users 
+                                                  join userrole in context.UserRoles 
+                                                  on user.Id equals userrole.UserId 
+                                                  join role in context.Roles
+                                                  on userrole.RoleId equals role.Id
+                                                  where role.RoleName=="merchant"
+                                                  select user
+                                                   ).ToListAsync();
                 if (merchants == null)
                 {
                     return null;
@@ -30,97 +37,25 @@ public class MerchantRepository : IMerchantRepository
         {
             throw e;
         }
-    }
-    public async Task<Merchant> GetById(int merchantId)
-    {
-        try
-        {
-            using (var context = new MerchantContext(_configuration))
-            {
-                Merchant merchant = await context.Merchants.FindAsync(merchantId);
-                if (merchant == null)
-                {
-                    return null;
-                }
-                return merchant;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-    public async Task<bool> Insert(Merchant merchant,User user,UserRole userRole)
-    {
-        bool status = false;
-        int userId=0;
-        try
-        {
-            using (var context = new MerchantContext(_configuration))
-            {
-
-                 await context.Users.AddAsync(user);
-                await context.SaveChangesAsync();
-                userId=user.UserId;
-                merchant.UserId=userId;
-                userRole.UserId=userId;
-                await context.UserRoles.AddAsync(userRole);
-                await context.Merchants.AddAsync(merchant);
-                await context.SaveChangesAsync();
-                status = true;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
-    public async Task<bool> Update(int merchantId, Merchant merchant)
-    {
-        bool status = false;
-        try
-        {
-            using (var context = new MerchantContext(_configuration))
-            {
-                Merchant? oldMerchant = await context.Merchants.FindAsync(merchantId);
-                if (oldMerchant != null)
-                {
-                    oldMerchant.FirstName = merchant.FirstName;
-                    oldMerchant.LastName = merchant.LastName;
-                    oldMerchant.CompanyName = merchant.CompanyName;
-                    oldMerchant.Location = merchant.Location;
-                    await context.SaveChangesAsync();
-                    return true;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
-    public async Task<bool> Delete(int merchantId)
-    {
-        bool status = false;
-        try
-        {
-            using (var context = new MerchantContext(_configuration))
-            {
-                Merchant? merchant = await context.Merchants.FindAsync(merchantId);
-                if (merchant != null)
-                {
-                    context.Merchants.Remove(merchant);
-                    await context.SaveChangesAsync();
-                    status = true;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return status;
-    }
+     }
+    // public async Task<Merchant> GetById(int merchantId)
+    // {
+    //     try
+    //     {
+    //         using (var context = new MerchantContext(_configuration))
+    //         {
+    //             Merchant merchant = await context.Merchants.FindAsync(merchantId);
+    //             if (merchant == null)
+    //             {
+    //                 return null;
+    //             }
+    //             return merchant;
+    //         }
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         throw e;
+    //     }
+    // }
+  
 }

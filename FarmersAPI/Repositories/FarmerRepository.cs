@@ -27,7 +27,7 @@ public class FarmerRepository : IFarmerRepository
                     join role in context.Roles on userRole.RoleId equals role.Id
                     where role.Name == "farmer"
                     select farmer
-                ).ToListAsync();
+                    ).ToListAsync();
                 if (farmers == null)
                 {
                     return null;
