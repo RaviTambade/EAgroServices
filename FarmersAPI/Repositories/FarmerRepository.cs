@@ -96,7 +96,45 @@ public class FarmerRepository : IFarmerRepository
         }
     }
 
-    public async Task<List<FarmerCollectionPerMonth>> GetFarmerCollectionAmountByMonth(int farmerId )
+    public async Task<List<FarmerCollection>> GetFarmerCollectionsBetweenDates(
+        int farmerId,
+        DateFilter dateFilter
+    )
+    {
+        try
+        {
+            using (var context = new FarmersContext(_configuration))
+            {
+                List<FarmerCollection>? collections = await (
+                    from collection in context.Collections
+                    join bill in context.Billings on collection.Id equals bill.CollectionId
+                    join farmer in context.Farmers on collection.FarmerId equals farmer.Id
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    where
+                        collection.FarmerId == farmerId
+                        && (
+                            dateFilter.StartDate == default
+                            || collection.Date >= dateFilter.StartDate
+                        )
+                        && (dateFilter.EndDate == default || collection.Date <= dateFilter.EndDate)
+                    orderby collection.Date ascending
+                    select new FarmerCollection()
+                    {
+                        Collection = collection,
+                        Billing = bill,
+                        Crop = crop.Name
+                    }
+                ).ToListAsync();
+                return collections;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    public async Task<List<FarmerCollectionPerMonth>> GetFarmerCollectionAmountByMonth(int farmerId)
     {
         try
         {

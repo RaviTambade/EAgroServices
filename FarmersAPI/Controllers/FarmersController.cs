@@ -44,5 +44,14 @@ namespace FarmersAPI.Controllers
         {
             return await _srv.GetFarmerCollectionAmountByCrop(id);
         }
+
+        [HttpPost("datefilter/{id}")]
+        public async Task<List<FarmerCollection>> GetFarmerCollectionsBetweenDates(
+            int id,
+            DateFilter dateFilter
+        )
+        {
+            return await _srv.GetFarmerCollectionsBetweenDates(id, dateFilter);
+        }
     }
 }

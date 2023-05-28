@@ -37,4 +37,10 @@ public class FarmerService : IFarmerService
     {
         return await _repo.GetFarmerCollectionAmountByCrop(farmerId);
     }
+
+    public async Task<List<FarmerCollection>> GetFarmerCollectionsBetweenDates(int farmerId, DateFilter dateFilter)
+    {
+        return await _repo.GetFarmerCollectionsBetweenDates(farmerId,dateFilter);
+        
+    }
 }
