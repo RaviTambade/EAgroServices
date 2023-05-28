@@ -27,4 +27,14 @@ public class FarmerService : IFarmerService
     {
         return await _repo.GetFarmerCollections(farmerId);
     }
+
+    public async Task<List<FarmerCollectionPerMonth>> GetFarmerCollectionAmountByMonth(int farmerId)
+    {
+        return await _repo.GetFarmerCollectionAmountByMonth(farmerId);
+    }
+
+    public async Task<List<FarmerCollectionByCrop>> GetFarmerCollectionAmountByCrop(int farmerId)
+    {
+        return await _repo.GetFarmerCollectionAmountByCrop(farmerId);
+    }
 }

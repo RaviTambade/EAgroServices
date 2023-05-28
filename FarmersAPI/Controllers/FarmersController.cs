@@ -32,5 +32,17 @@ namespace FarmersAPI.Controllers
         {
             return await _srv.GetFarmerCollections(id);
         }
+
+        [HttpGet("collectionsamountpermonth/{id}")]
+        public async Task<List<FarmerCollectionPerMonth>> GetFarmerCollectionAmountByMonth(int id)
+        {
+            return await _srv.GetFarmerCollectionAmountByMonth(id);
+        }
+
+        [HttpGet("collectionsamountbycrop/{id}")]
+        public async Task<List<FarmerCollectionByCrop>> GetFarmerCollectionAmountByCrop(int id)
+        {
+            return await _srv.GetFarmerCollectionAmountByCrop(id);
+        }
     }
 }

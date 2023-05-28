@@ -71,6 +71,7 @@ public class FarmersContext : DbContext
            entity.Property(e => e.CollectionId);
            entity.Property(e => e.LabourCharges);
            entity.Property(e => e.TotalAmount);
+           entity.Property(e => e.Date);
            modelBuilder.Entity<Billing>().ToTable("billing");
        });
         modelBuilder.Entity<Crop>(entity =>
