@@ -26,5 +26,11 @@ namespace FarmersAPI.Controllers
         {
             return await _srv.GetFarmer(id);
         }
+
+        [HttpGet("collections/{id}")]
+        public async Task<List<FarmerCollection>> GetFarmerCollections(int id)
+        {
+            return await _srv.GetFarmerCollections(id);
+        }
     }
 }

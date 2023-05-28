@@ -15,7 +15,4 @@ public class Billing
 
     [Column("totalamount")]
     public int TotalAmount { get; set; }
-
-    [Column("date")]
-    public DateTime Date { get; set; }
 }

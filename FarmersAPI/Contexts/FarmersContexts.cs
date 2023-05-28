@@ -14,6 +14,9 @@ public class FarmersContext : DbContext
     public DbSet<Farmer> Farmers { get; set; }   
     public DbSet<UserRole> UserRoles { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<Collection> Collections { get; set; }
+    public DbSet<Billing> Billings { get; set; }
+    public DbSet<Crop> Crops { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)  
     {
         optionsBuilder.UseMySQL(_conString);    
@@ -45,5 +48,36 @@ public class FarmersContext : DbContext
             entity.Property(e => e.RoleId);
             modelBuilder.Entity<UserRole>().ToTable("userroles");
         });
+
+           modelBuilder.Entity<Collection>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.FarmerId);
+            entity.Property(e => e.CropId);
+            entity.Property(e => e.ContainerType);
+            entity.Property(e => e.Quantity);
+            entity.Property(e => e.Grade);
+            entity.Property(e => e.TotalWeight);
+            entity.Property(e => e.TareWeight);
+            entity.Property(e => e.NetWeight);
+            entity.Property(e => e.RatePerKg);
+            entity.Property(e => e.Date);
+            modelBuilder.Entity<Collection>().ToTable("collections");
+        });
+
+        modelBuilder.Entity<Billing>(entity =>
+       {
+           entity.HasKey(e => e.Id);
+           entity.Property(e => e.CollectionId);
+           entity.Property(e => e.LabourCharges);
+           entity.Property(e => e.TotalAmount);
+           modelBuilder.Entity<Billing>().ToTable("billing");
+       });
+        modelBuilder.Entity<Crop>(entity =>
+      {
+          entity.HasKey(e => e.Id);
+          entity.Property(e => e.Name);
+          modelBuilder.Entity<Crop>().ToTable("crops");
+      });
     }
 }

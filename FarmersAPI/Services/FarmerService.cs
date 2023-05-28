@@ -13,13 +13,18 @@ public class FarmerService : IFarmerService
         this._repo = repo;
     }
 
+    public async Task<List<Farmer>> GetFarmers()
+    {
+        return await _repo.GetFarmers();
+    }
+
     public async Task<Farmer> GetFarmer(int farmerId)
     {
         return await _repo.GetFarmer(farmerId);
     }
 
-    public async Task<List<Farmer>> GetFarmers()
+    public async Task<List<FarmerCollection>> GetFarmerCollections(int farmerId)
     {
-        return await _repo.GetFarmers();
+        return await _repo.GetFarmerCollections(farmerId);
     }
 }
