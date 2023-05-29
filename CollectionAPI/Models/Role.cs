@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CollectionAPI.Models;
-public class Crop
+
+public class Role
 {
     [Column("id")]
     public int Id { get; set; }
 
-    [Column("title")]
-    public string? Title { get; set; }
+    [Column("name")]
+    public string? Name { get; set; }
 }

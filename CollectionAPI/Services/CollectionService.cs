@@ -13,5 +13,18 @@ public class CollectionService : ICollectionService
         _repo = repo;
     }
 
+    public async Task<CollectionBillingRecord> GetCollectionBillingRecord(int collectionId)
+    {
+        return await _repo.GetCollectionBillingRecord(collectionId);
+    }
 
+    public async Task<List<CollectionBillingRecord>> GetCollectionBillingRecords()
+    {
+        return await _repo.GetCollectionBillingRecords();
+    }
+
+    public async Task<bool> Insert(Collection collection)
+    {
+        return await _repo.Insert(collection);
+    }
 }
