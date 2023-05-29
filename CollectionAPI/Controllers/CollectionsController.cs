@@ -30,8 +30,18 @@ public class CollectionsController : ControllerBase
     [HttpPost]
     public async Task<bool> Insert([FromBody] Collection collection)
     {
-        System.Console.WriteLine("--> inside Request");
-        System.Console.WriteLine(collection.ToString());
         return await _service.Insert(collection);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<bool> Update(int id, Collection collection)
+    {
+        return await _service.Update(id, collection);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<bool> Delete(int id)
+    {
+        return await _service.Delete(id);
     }
 }

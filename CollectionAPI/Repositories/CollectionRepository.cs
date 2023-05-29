@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using CollectionAPI.Contexts;
 using CollectionAPI.Models;
 using CollectionAPI.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CollectionAPI.Repositories;
 
@@ -75,17 +76,16 @@ public class CollectionRepository : ICollectionRepository
 
     public async Task<bool> Insert(Collection collection)
     {
-        bool FarmerExists = await IsUserFarmer(collection.FarmerId);
-        if (!FarmerExists)
-        {
-            System.Console.WriteLine("--> user is not farmer");
-            return false;
-        }
-
         bool status = false;
         Billing Billing = new Billing();
         try
         {
+            bool FarmerExists = await IsUserFarmer(collection.FarmerId);
+            if (!FarmerExists)
+            {
+                System.Console.WriteLine("--> user is not farmer");
+                return false;
+            }
             using (var context = new CollectionContext(_configuration))
             {
                 await context.Collections.AddAsync(collection);
@@ -101,6 +101,7 @@ public class CollectionRepository : ICollectionRepository
         }
         catch (Exception e)
         {
+            status=false;
             throw e;
         }
         return status;
@@ -112,18 +113,15 @@ public class CollectionRepository : ICollectionRepository
         {
             using (var context = new CollectionContext(_configuration))
             {
-                var farmerCount = await (
+                var FarmerExists = await (
                     from farmer in context.Farmers
                     join userRole in context.UserRoles on farmer.Id equals userRole.UserId
                     join role in context.Roles on userRole.RoleId equals role.Id
                     where role.Name == "farmer" && farmer.Id == farmerId
                     select farmer
-                ).CountAsync();
-                if (farmerCount == 1)
-                {
-                    return true;
-                }
-                return false;
+                ).AnyAsync();
+
+                return FarmerExists;
             }
         }
         catch (Exception e)
@@ -132,81 +130,91 @@ public class CollectionRepository : ICollectionRepository
         }
     }
 
-    // public async Task<bool> Update(int collectionId, Collection Collection)
-    // {
-    //     bool status = false;
-    //     try
-    //     {
-    //         using (var context = new CollectionContext(_configuration))
-    //         {
-    //             Collection? oldPurchaseItem = await context.Collections.FindAsync(collectionId);
+    public async Task<bool> Update(int collectionId, Collection collection)
+    {
+        bool status = false;
+        try
+        {
+            bool FarmerExists = await IsUserFarmer(collection.FarmerId);
+            if (!FarmerExists)
+            {
+                System.Console.WriteLine("--> user is not farmer");
+                return false;
+            }
+            using (var context = new CollectionContext(_configuration))
+            {
+                Collection? oldCollection = await context.Collections.FindAsync(collectionId);
 
-    //             string containerType = oldPurchaseItem.ContainerType;
-    //             int quantity = oldPurchaseItem.Quantity;
-    //             double tareWeight = oldPurchaseItem.TareWeight;
-    //             double totalWeight = oldPurchaseItem.TotalWeight;
-    //             double ratePerKg = oldPurchaseItem.RatePerKg;
+                if (oldCollection != null)
+                {
+                    var hasValueChanges = CheckForChanges(oldCollection, collection);
 
-    //             if (oldPurchaseItem != null)
-    //             {
-    //                 oldPurchaseItem.FarmerId = Collection.FarmerId;
-    //                 oldPurchaseItem.CropId = Collection.CropId;
-    //                 oldPurchaseItem.ContainerType = Collection.ContainerType;
-    //                 oldPurchaseItem.Quantity = Collection.Quantity;
-    //                 oldPurchaseItem.Grade = Collection.Grade;
-    //                 oldPurchaseItem.TareWeight = Collection.TareWeight;
-    //                 oldPurchaseItem.TotalWeight = Collection.TotalWeight;
-    //                 oldPurchaseItem.RatePerKg = Collection.RatePerKg;
-    //                 await context.SaveChangesAsync();
-    //                 status = true;
+                    oldCollection.FarmerId = collection.FarmerId;
+                    oldCollection.CropId = collection.CropId;
+                    oldCollection.ContainerType = collection.ContainerType;
+                    oldCollection.Quantity = collection.Quantity;
+                    oldCollection.Grade = collection.Grade;
+                    oldCollection.TareWeight = collection.TareWeight;
+                    oldCollection.TotalWeight = collection.TotalWeight;
+                    oldCollection.RatePerKg = collection.RatePerKg;
+                    await context.SaveChangesAsync();
+                    status = true;
 
-    //                 if (
-    //                       containerType != oldPurchaseItem.ContainerType ||
-    //                       quantity != oldPurchaseItem.Quantity ||
-    //                       tareWeight != oldPurchaseItem.TareWeight ||
-    //                       totalWeight != oldPurchaseItem.TotalWeight ||
-    //                       ratePerKg != oldPurchaseItem.RatePerKg
-    //                     )
-    //                 {
-    //                     Console.WriteLine(" procedure called");
-    //                     var Billing = await context.Billings.FirstOrDefaultAsync(x => x.CollectionId == collectionId);
-    //                     int billId = Billing.Id;
-    //                     Console.WriteLine(billId);
-    //                     context.Database.ExecuteSqlRaw("CALL calculate_purchase_labour_charges(@p0)", billId);
-    //                     context.Database.ExecuteSqlRaw("CALL calculate_purchase_total_amount(@p0)", billId);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         throw e;
-    //     }
-    //     return status;
+                    if (hasValueChanges)
+                    {
+                        Console.WriteLine("--> procedure called");
+                        var Billing = await context.Billings.FirstOrDefaultAsync(
+                            x => x.CollectionId == collectionId
+                        );
+                        int billId = Billing.Id;
+                        context.Database.ExecuteSqlRaw("CALL ApplyLabourCharges(@p0)", billId);
+                        context.Database.ExecuteSqlRaw(
+                            "CALL DeductLabourChargesFromRevenue(@p0)",
+                            billId
+                        );
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
 
-    // }
-    // public async Task<bool> Delete(int collectionId)
-    // {
-    //     bool status = false;
-    //     try
-    //     {
-    //         using (var context = new CollectionContext(_configuration))
-    //         {
-    //             Collection Collection = await context.Collections.FindAsync(collectionId);
-    //             if (Collection != null)
-    //             {
-    //                 context.Collections.Remove(Collection);
-    //                 await context.SaveChangesAsync();
-    //                 status = true;
-    //             }
-    //         }
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         throw e;
-    //     }
-    //     return status;
-    // }
+    private bool CheckForChanges(Collection oldCollection, Collection newCollection)
+    {
+        return oldCollection.ContainerType != newCollection.ContainerType
+            || oldCollection.Quantity != newCollection.Quantity
+            || oldCollection.TareWeight != newCollection.TareWeight
+            || oldCollection.TotalWeight != newCollection.TotalWeight
+            || oldCollection.RatePerKg != newCollection.RatePerKg;
+    }
+
+    public async Task<bool> Delete(int collectionId)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new CollectionContext(_configuration))
+            {
+                Collection Collection = await context.Collections.FindAsync(collectionId);
+                if (Collection != null)
+                {
+                    context.Collections.Remove(Collection);
+                    var affectedRows = await context.SaveChangesAsync();
+                    if (affectedRows >= 1)
+                        status = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
 
     // public async Task<List<CollectionBillingRecord>> GetFarmerPurchaseDetails(int farmerId)
     // {

@@ -7,6 +7,6 @@ public interface ICollectionRepository
     Task<List<CollectionBillingRecord>> GetCollectionBillingRecords();
     Task<CollectionBillingRecord> GetCollectionBillingRecord(int collectionId);
     Task<bool> Insert(Collection collection);
-
-
+    Task<bool> Update(int collectionId, Collection collection);
+    Task<bool> Delete(int collectionId);
 }
