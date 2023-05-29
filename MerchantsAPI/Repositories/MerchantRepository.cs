@@ -12,19 +12,19 @@ public class MerchantRepository : IMerchantRepository
     {
         _configuration = configuration;
     }
-    public async Task<List<User>> GetAll()
+    public async Task<List<Merchant>> GetAll()
     {
         try
         {
             using (var context = new MerchantContext(_configuration))
             {
-                var merchants = await (from user in context.Users 
+                var merchants = await (from merchant in context.Merchants 
                                                   join userrole in context.UserRoles 
-                                                  on user.Id equals userrole.UserId 
+                                                  on merchant.Id equals userrole.UserId 
                                                   join role in context.Roles
                                                   on userrole.RoleId equals role.Id
                                                   where role.RoleName=="merchant"
-                                                  select user
+                                                  select merchant
                                                    ).ToListAsync();
                 if (merchants == null)
                 {
@@ -38,24 +38,30 @@ public class MerchantRepository : IMerchantRepository
             throw e;
         }
      }
-    // public async Task<Merchant> GetById(int merchantId)
-    // {
-    //     try
-    //     {
-    //         using (var context = new MerchantContext(_configuration))
-    //         {
-    //             Merchant merchant = await context.Merchants.FindAsync(merchantId);
-    //             if (merchant == null)
-    //             {
-    //                 return null;
-    //             }
-    //             return merchant;
-    //         }
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         throw e;
-    //     }
-    // }
+    public async Task<Merchant> GetById(int merchantId)
+    {
+        try
+        {
+            using (var context = new MerchantContext(_configuration))
+            {
+                Merchant merchant = await  (
+                    from m in context.Merchants
+                    join userRole in context.UserRoles on m.Id equals userRole.UserId
+                    join role in context.Roles on userRole.RoleId equals role.Id
+                    where role.RoleName == "merchant" && m.Id == merchantId
+                    select m
+                ).FirstOrDefaultAsync();;
+                if (merchant == null)
+                {
+                    return null;
+                }
+                return merchant;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
   
 }

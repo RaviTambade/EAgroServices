@@ -10,7 +10,7 @@ public class MerchantService : IMerchantService
     {
         this._repo=repo;
     }
-    public async Task<List<User>> GetAll()=> await _repo.GetAll();
-    // public async Task<Merchant> GetById(int merchantId)=> await _repo.GetById(merchantId);
+    public async Task<List<Merchant>> GetAll()=> await _repo.GetAll();
+    public async Task<Merchant> GetById(int merchantId)=> await _repo.GetById(merchantId);
    
 }
