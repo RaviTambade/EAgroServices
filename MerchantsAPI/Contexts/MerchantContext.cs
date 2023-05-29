@@ -23,15 +23,14 @@ public class MerchantContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<Merchant>(entity =>
        {
            entity.HasKey(e => e.Id);
            entity.Property(e => e.FirstName);
            entity.Property(e => e.LastName);
            entity.Property(e => e.Location);
            entity.Property(e => e.ContactNumber);
-           entity.Property(e => e.Password);
-           modelBuilder.Entity<User>().ToTable("users");
+           modelBuilder.Entity<Merchant>().ToTable("users");
        });
         modelBuilder.Entity<UserRole>(entity =>
        {
