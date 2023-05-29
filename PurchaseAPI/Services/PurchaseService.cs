@@ -2,7 +2,7 @@ using PurchaseAPI.Models;
 using PurchaseAPI.Repositories.Interfaces;
 using PurchaseAPI.Services.Interfaces;
 
-namespace PurchaseAPI.Repositories;
+namespace PurchaseAPI.Services;
 
 public class PurchaseService : IPurchaseService
 {

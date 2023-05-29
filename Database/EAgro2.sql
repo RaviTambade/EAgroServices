@@ -317,14 +317,14 @@ INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE2345');
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Nighot Company','Anuj','Nighot','Manchar',26);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Madivale Company','Suresh','Nighot','Mumbai',27);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Sidhhivinayk Company','Raju','shinde','Pune',28);
-INSERT INTO crops(title,imageUrl,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
-INSERT INTO crops(title,imageUrl,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
-INSERT INTO crops(title,imageUrl,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
-INSERT INTO crops(title,imageUrl,rate)VALUES('Onion','/assets/images/onion.jpg',22);
-INSERT INTO crops(title,imageUrl,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg',30);
-INSERT INTO crops(title,imageUrl,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
-INSERT INTO crops(title,imageUrl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
-INSERT INTO crops(title,imageUrl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
+INSERT INTO crops(title,imageurl,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
+INSERT INTO crops(title,imageurl,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
+INSERT INTO crops(title,imageurl,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
+INSERT INTO crops(title,imageurl,rate)VALUES('Onion','/assets/images/onion.jpg',22);
+INSERT INTO crops(title,imageurl,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg',30);
+INSERT INTO crops(title,imageurl,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
+INSERT INTO crops(title,imageurl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
+INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
 
 
 
