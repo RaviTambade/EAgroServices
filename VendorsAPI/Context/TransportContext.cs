@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using TransportsAPI.Models;
-namespace TransportsAPI.Context;
-public class TransportContext : DbContext
+using VendorsAPI.Models;
+namespace VendorsAPI.Context;
+public class VendorsContext : DbContext
 {
     private IConfiguration _configuration;
     private string _conString;
 
-    public TransportContext(IConfiguration configuration)
+    public VendorsContext(IConfiguration configuration)
     {
         _configuration = configuration;
         _conString = this._configuration.GetConnectionString("DefaultConnection");
     }
-    public DbSet<Transport> Transports { get; set; }
+    public DbSet<Vendor> Vendors { get; set; }
     public DbSet<Truck> Trucks { get; set; } 
     public DbSet<Sell> Sells { get; set; } 
     public DbSet<FreightRate> FreightRates { get; set; } 
@@ -29,15 +29,12 @@ public class TransportContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Transport>(entity =>
+        modelBuilder.Entity<Vendors>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.OfficeName);
-            entity.Property(e => e.FirstName);
-            entity.Property(e => e.LastName);
-            entity.Property(e => e.Location);
-            entity.Property(e => e.UserId);
-            modelBuilder.Entity<Transport>().ToTable("transports");
+            entity.Property(e => e.CompanyName);
+            entity.Property(e => e.TransportId);
+            modelBuilder.Entity<Vendors>().ToTable("vendors");
         });
         modelBuilder.Entity<User>(entity =>
        {
@@ -51,14 +48,14 @@ public class TransportContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.UserId);
             entity.Property(e => e.RoleId);
-            modelBuilder.Entity<UserRole>().ToTable("user_roles");
+            modelBuilder.Entity<UserRole>().ToTable("userroles");
         });
         modelBuilder.Entity<Truck>(entity =>
        {
            entity.HasKey(e => e.Id);
-           entity.Property(e => e.TransportId);
+           entity.Property(e => e.VendorsId);
            entity.Property(e => e.TruckNumber);
-           modelBuilder.Entity<Truck>().ToTable("transport_trucks");
+           modelBuilder.Entity<Truck>().ToTable("trucks");
        });
         modelBuilder.Entity<Sell>(entity =>
       {
@@ -81,7 +78,7 @@ public class TransportContext : DbContext
        entity.Property(e => e.ToDestination);
        entity.Property(e => e.Kilometers);
        entity.Property(e => e.RatePerKm);
-       modelBuilder.Entity<FreightRate>().ToTable("freight_rates");
+       modelBuilder.Entity<FreightRate>().ToTable("freightrates");
    });
         modelBuilder.Entity<Billing>(entity =>
 {
@@ -91,7 +88,7 @@ public class TransportContext : DbContext
         entity.Property(e => e.LabourCharges);
         entity.Property(e => e.TotalCharges);
         entity.Property(e => e.Date);
-    modelBuilder.Entity<Billing>().ToTable("sells_billing");
+    modelBuilder.Entity<Billing>().ToTable("sellsbilling");
 
 });
     }

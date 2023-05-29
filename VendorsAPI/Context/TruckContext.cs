@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using TransportsAPI.Models;
-namespace TransportsAPI.Context;
+using VendorsAPI.Models;
+namespace VendorsAPI.Context;
 public class TruckContext : DbContext
 {
     private IConfiguration _configuration;
@@ -27,7 +27,7 @@ public class TruckContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.TransportId);
             entity.Property(e => e.TruckNumber);
-            modelBuilder.Entity<Truck>().ToTable("transport_trucks");
+            modelBuilder.Entity<Truck>().ToTable("trucks");
         });
   
     }
