@@ -28,7 +28,7 @@ CREATE TABLE
 CREATE TABLE
     accounts(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        number VARCHAR(20),
+        acctnumber VARCHAR(20),
         ifsccode VARCHAR(20),
         userid INT NOT NULL,
         CONSTRAINT fk_userid2 FOREIGN KEY(userid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -40,10 +40,10 @@ CREATE TABLE vendors(
       transportid INT NOT NULL,
       CONSTRAINT fk_userid3 FOREIGN KEY(transportid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE TABLE trucks(
+CREATE TABLE vehicles(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         vendorid INT NOT NULL,
-        number VARCHAR(15) NOT NULL UNIQUE,
+        vehiclenumber VARCHAR(15) NOT NULL UNIQUE,
         CONSTRAINT fk_transportid FOREIGN KEY (vendorid) REFERENCES vendors(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 -- ALTER TABLE trucks ADD  CONSTRAINT userid_check CHECK (transportId IN (SELECT userid FROM userRoles WHERE roleId = 2));
@@ -55,7 +55,7 @@ CREATE TABLE
     );
     CREATE TABLE crops(
          id int NOT Null AUTO_INCREMENT PRIMARY KEY,
-         name VARCHAR(20)NOT NULL UNIQUE,
+         title VARCHAR(20)NOT NULL UNIQUE,
          imageurl VARCHAR(30) NOT NULL,
          rate DOUBLE NOT NULL DEFAULT 0
    );
@@ -156,7 +156,7 @@ CREATE TABLE
     );
 
 /* for calculating labour_charges */
-CREATE PROCEDURE calculate_purchase_labour_charges(IN billId INT) BEGIN 
+CREATE PROCEDURE ApplyLabourCharges(IN billId INT) BEGIN 
 	DECLARE labourRate DOUBLE DEFAULT 0;
 	DECLARE Quantity INT DEFAULT 0;
 	DECLARE collection_Id INT ;
@@ -166,33 +166,33 @@ CREATE PROCEDURE calculate_purchase_labour_charges(IN billId INT) BEGIN
     UPDATE billing SET labourcharges = labourRate * Quantity WHERE id = billId;
 END;
 /* for calculating total_amount  */ 
-CREATE PROCEDURE calculate_purchase_total_amount(IN billId INT)
+CREATE PROCEDURE DeductLabourChargesFromRevenue(billId INT)
  BEGIN 
-	DECLARE totalAmount DOUBLE DEFAULT 0 ;
-	DECLARE labour_Charges DOUBLE DEFAULT 0;
+	DECLARE revenue DOUBLE DEFAULT 0 ;
+    	DECLARE labour_Charges DOUBLE DEFAULT 0;
 	DECLARE collection_Id INT;
 	SELECT collectionid INTO collection_Id FROM billing WHERE id = billId;
     SELECT labourcharges INTO labour_Charges FROM billing WHERE id = billId;
-	SELECT collections.netweight * collections.rateperkg INTO totalAmount
+	SELECT collections.netweight * collections.rateperkg INTO revenue
 	FROM collections WHERE id = collection_Id;
 	UPDATE billing
-	SET totalamount = totalAmount - labour_Charges
+	SET totalamount = revenue - labour_Charges
 	WHERE id = billId;
 END; 
 -- drop PROCEDURE calculate_purchase_total_amount;
   /* --for calculating freight_charges  */
-CREATE PROCEDURE calculate_freight_charges(IN billId INT)
+CREATE PROCEDURE ApplyFreightCharges(IN billId INT)
     BEGIN 
-	DECLARE freightCharges DOUBLE;
-	SELECT freightrates.kilometers * freightrates.rateperkm INTO freightCharges
+	DECLARE totalFreightCharges DOUBLE;
+	SELECT freightrates.kilometers * freightrates.rateperkm INTO totalFreightCharges
 	FROM freightrates WHERE freightrates.billid = billId  ;
 	UPDATE sellsbilling
-	SET freightcharges = freightCharges
+	SET freightcharges = totalFreightCharges
 	WHERE sellsbilling.id = billId;
 END; 
 
 -- DROP PROCEDURE calculate_labour_charges_of_sells;
-CREATE PROCEDURE calculate_labour_charges_of_sells(IN billId INT) 
+CREATE PROCEDURE ApplyLabourChargesToBilling(IN billId INT) 
 BEGIN 
 UPDATE 
     sellsbilling 
@@ -231,19 +231,19 @@ INSERT INTO roles(name)VALUES('farmer');
 INSERT INTO roles(name)VALUES('employee');
 INSERT INTO roles(name)VALUES('transport');
 INSERT INTO roles(name)VALUES('merchant');
-INSERT into accounts(number,ifsccode,userid)VALUES('9898989657','UBIN1852',1);
-INSERT into accounts(number,ifsccode,userid)VALUES('3457656756','UBIN1852',2);
-INSERT into accounts(number,ifsccode,userid)VALUES('4565675667','UBIN1852',3);
-INSERT into accounts(number,ifsccode,userid)VALUES('3455445445','UBIN1852',4);
-INSERT into accounts(number,ifsccode,userid)VALUES('4556556656','UBIN1852',5);
-INSERT into accounts(number,ifsccode,userid)VALUES('4554465465','UBIN1852',6);
-INSERT into accounts(number,ifsccode,userid)VALUES('3454556565','UBIN1852',7);
-INSERT into accounts(number,ifsccode,userid)VALUES('2445456656','UBIN1852',8);
-INSERT into accounts(number,ifsccode,userid)VALUES('6767545456','UBIN1852',9);
-INSERT into accounts(number,ifsccode,userid)VALUES('4566544555','UBIN1852',10);
-INSERT into accounts(number,ifsccode,userid)VALUES('2344332233','UBIN1852',11);
-INSERT into accounts(number,ifsccode,userid)VALUES('5654445456','UBIN1852',12);
-INSERT into accounts(number,ifsccode,userid)VALUES('5656566566','UBIN1852',13);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('9898989657','UBIN1852',1);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('3457656756','UBIN1852',2);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('4565675667','UBIN1852',3);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('3455445445','UBIN1852',4);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('4556556656','UBIN1852',5);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('4554465465','UBIN1852',6);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('3454556565','UBIN1852',7);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('2445456656','UBIN1852',8);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('6767545456','UBIN1852',9);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('4566544555','UBIN1852',10);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('2344332233','UBIN1852',11);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('5654445456','UBIN1852',12);
+INSERT into accounts(acctnumber,ifsccode,userid)VALUES('5656566566','UBIN1852',13);
 INSERT INTO userRoles(userid,roleId)VALUES(1,1);
 INSERT INTO userRoles(userid,roleId)VALUES(2,1);
 INSERT INTO userroles(userid,roleid)VALUES(3,2);
@@ -292,28 +292,28 @@ INSERT INTO vendors(companyname,transportid) VALUES ("OM Transports",10);
 INSERT INTO vendors(companyname,transportid) VALUES ("Navale Transport",11);
 INSERT INTO vendors(companyname,transportid) VALUES ("Karale Transport",12);
 INSERT INTO vendors(companyname,transportid) VALUES ("Sakore Transport",13);
-INSERT INTO trucks(vendorid,number)VALUES(1, 'MH14RE3456');
-INSERT INTO trucks(vendorid,number)VALUES(1, 'MH14RE3455');
-INSERT INTO trucks(vendorid,number)VALUES(2, 'MH14RE3465');
-INSERT INTO trucks(vendorid,number)VALUES(2, 'MH14RE3476');
-INSERT INTO trucks(vendorid,number)VALUES(3, 'MH14RE3856');
-INSERT INTO trucks(vendorid,number)VALUES(3, 'MH14RE4656');
-INSERT INTO trucks(vendorid,number)VALUES(4,'MH14RE1234');
-INSERT INTO trucks(vendorid,number)VALUES(4,'MH14RE2345');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3456');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3455');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3465');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3476');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3, 'MH14RE3856');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3, 'MH14RE4656');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE1234');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE2345');
 
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',24);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',25);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Nighot Company','Anuj','Nighot','Manchar',26);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Madivale Company','Suresh','Nighot','Mumbai',27);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Sidhhivinayk Company','Raju','shinde','Pune',28);
-INSERT INTO crops(name,imageUrl,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
-INSERT INTO crops(name,imageUrl,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
-INSERT INTO crops(name,imageUrl,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
-INSERT INTO crops(name,imageUrl,rate)VALUES('Onion','/assets/images/onion.jpg',22);
-INSERT INTO crops(name,imageUrl,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg',30);
-INSERT INTO crops(name,imageUrl,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
-INSERT INTO crops(name,imageUrl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
-INSERT INTO crops(name,imageUrl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
+INSERT INTO crops(title,imageUrl,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
+INSERT INTO crops(title,imageUrl,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
+INSERT INTO crops(title,imageUrl,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
+INSERT INTO crops(title,imageUrl,rate)VALUES('Onion','/assets/images/onion.jpg',22);
+INSERT INTO crops(title,imageUrl,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg',30);
+INSERT INTO crops(title,imageUrl,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
+INSERT INTO crops(title,imageUrl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
+INSERT INTO crops(title,imageUrl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
 
 
 
