@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MerchantsAPI.Models;
 using MerchantsAPI.Repositories;
 using MerchantsAPI.Repositories.Interfaces;
@@ -10,7 +11,8 @@ public class MerchantService : IMerchantService
     {
         this._repo=repo;
     }
-    public async Task<List<Merchant>> GetAll()=> await _repo.GetAll();
-    public async Task<Merchant> GetById(int merchantId)=> await _repo.GetById(merchantId);
+    public async Task<List<Merchant>> GetMerchants()=> await _repo.GetMerchants();
+    public async Task<Merchant> GetMerchant(int merchantId)=> await _repo.GetMerchant(merchantId);
+    public async Task<List<MerchantRecord>> GetMerchantSellRecords(int merchantId)=>await _repo.GetMerchantSellRecords(merchantId);
    
 }

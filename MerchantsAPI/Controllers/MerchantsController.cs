@@ -14,13 +14,18 @@ public class MerchantsController : ControllerBase
         this._service = service;
     }
     [HttpGet]
-    public async Task<List<Merchant>> GetAll()
+    public async Task<List<Merchant>> GetMerchants()
     {
-        return await _service.GetAll();
+        return await _service.GetMerchants();
     }
     [HttpGet("{id}")]
-    public async Task<Merchant> GetById(int id)
+    public async Task<Merchant> GetMerchant(int id)
     {
-        return await _service.GetById(id);
+        return await _service.GetMerchant(id);
+    }
+      [HttpGet("{id}/sellsrecord")]
+    public async Task<List<MerchantRecord>> GetMerchantSellRecords(int id)
+    {
+        return await _service.GetMerchantSellRecords(id);
     }
 }

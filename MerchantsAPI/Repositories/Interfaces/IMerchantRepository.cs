@@ -3,7 +3,8 @@ using MerchantsAPI.Models;
 namespace MerchantsAPI.Repositories.Interfaces;
 public interface IMerchantRepository
 {
-     Task<List<Merchant>> GetAll();
-     Task<Merchant> GetById(int merchantId);
+     Task<List<Merchant>> GetMerchants();
+     Task<Merchant> GetMerchant(int merchantId);
+     Task<List<MerchantRecord>> GetMerchantSellRecords(int merchantId);
 
 }
