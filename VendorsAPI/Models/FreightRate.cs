@@ -1,21 +1,24 @@
 using System.ComponentModel.DataAnnotations.Schema;
-namespace TransportsAPI.Models;
+namespace VendorsAPI.Models;
 public class FreightRate
 {
     private double ratePerKm;
 
-    [Column("from_destination")]
+    [Column("id")]
+    public int Id { get; set; }
+
+    [Column("fromdestination")]
     public string? FromDestination { get; set; }
 
-    [Column("to_destination")]
+    [Column("todestination")]
     public string? ToDestination { get; set; }
 
     [Column("kilometers")]
     public int Kilometers { get; set; }
 
-    [Column("rate_per_km")]
-    public double RatePerKm { get => ratePerKm=Math.Round(ratePerKm,2); set => ratePerKm = value; }
+    [Column("rateperkm")]
+    public double RatePerKm { get => ratePerKm = Math.Round(ratePerKm, 2); set => ratePerKm = value; }
 
-    [Column("bill_id")]
+    [Column("billid")]
     public int BillId { get; set; }
 }

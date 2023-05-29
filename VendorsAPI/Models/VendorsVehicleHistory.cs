@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
-namespace TransportsAPI.Models;
-public class TransportTruckHistory
+namespace VendorsAPI.Models;
+public class VendorsVehicleHistory
 {
     private double totalFreightCharges;
     public double TotalFreightCharges
@@ -11,6 +11,6 @@ public class TransportTruckHistory
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? Month { get; set; }
-    public string? TruckNumber { get; set; }
+    public string? VehicleNumber { get; set; }
     public int Year { get; set; }
 }

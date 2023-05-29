@@ -2,14 +2,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VendorsAPI.Models;
 
-public class Vendors
+public class Vendor
 {
     [Column("id")]
     public int Id { get; set; }
 
     [Column("companyname")]
     public string? CompanyName { get; set; }
-    [column("transportid")]
+    [Column("transportid")]
     public int TransportId{get;set;}
 
    

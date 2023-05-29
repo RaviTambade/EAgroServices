@@ -1,7 +1,7 @@
-using TransportsAPI.Repositories.Interfaces;
-using TransportsAPI.Repositories;
-using TransportsAPI.Services;
-using TransportsAPI.Services.Interfaces;
+using VendorsAPI.Repositories.Interfaces;
+using VendorsAPI.Repositories;
+using VendorsAPI.Services;
+using VendorsAPI.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
 builder.Services.AddControllers();
-builder.Services.AddTransient<ITruckRepository,TruckRepository>();
-builder.Services.AddTransient<ITruckServices,TruckServices>();
-builder.Services.AddTransient<ITransportRepository,TransportRepository>();
-builder.Services.AddTransient<ITransportService,TransportService>();
+builder.Services.AddTransient<IVehicleRepository,VehicleRepository>();
+builder.Services.AddTransient<IVehicleServices,VehicleServices>();
+builder.Services.AddTransient<IVendorRepository,VendorRepository>();
+builder.Services.AddTransient<IVendorService,VendorsService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -1,10 +1,9 @@
-namespace TransportsAPI.Models;
-
-public class TransportFareDetails
+namespace VendorsAPI.Models;
+public class VendorsFareDetails
 {
     private double ratePerKm;
     private double freightCharges;
-    public string? TruckNumber { get; set; }
+    public string? VehicleNumber { get; set; }
     public string? FromDestination { get; set; }
     public string? ToDestination { get; set; }
     public int Kilometers { get; set; }

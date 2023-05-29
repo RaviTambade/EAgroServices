@@ -1,32 +1,28 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace TransportsAPI.Models;
+namespace VendorsAPI.Models;
 public class Sell
 {
-    [Column("sell_id")]
+    [Column("id")]
     public int Id { get; set; }
 
-    [Column("purchase_id")]
+    [Column("collectionid")]
     public int PurchaseId { get; set; }
 
-    [Column("merchant_id")]
+    [Column("merchantid")]
     public int MerchantId { get; set; }
 
-    [Column("truck_id")]
-    public int TruckId { get; set; }
+    [Column("vehicleid")]
+    public int VehicleId { get; set; }
 
     [Column("quantity")]
     public int Quantity { get; set; }
 
-    [Column("net_weight")]
+    [Column("netweight")]
     public Double NetWeight { get; set; }
 
-    [Column("rate_per_kg")]
+    [Column("rateperkg")]
     public Double RatePerKg { get; set; }
-
-    [Column("total_amount")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    public Double TotalAmount { get; set; }
 
     [Column("date")]
     public DateTime Date { get; set; }

@@ -1,26 +1,26 @@
 using Microsoft.EntityFrameworkCore;
-using TransportsAPI.Context;
-using TransportsAPI.Models;
-using TransportsAPI.Repositories.Interfaces;
-namespace TransportsAPI.Repositories;
-public class TruckRepository:ITruckRepository{
+using VendorsAPI.Context;
+using VendorsAPI.Models;
+using VendorsAPI.Repositories.Interfaces;
+namespace VendorsAPI.Repositories;
+public class VehicleRepository:IVehicleRepository{
 
  private IConfiguration _configuration;
-    public TruckRepository(IConfiguration configuration)
+    public VehicleRepository(IConfiguration configuration)
     {
         _configuration = configuration;
     }
 
-    public async Task<List<Truck>> GetAll(){
+    public async Task<List<Vehicle>> GetAll(){
       try  {
-            using (var context = new TruckContext(_configuration))
+            using (var context = new VehicleContext(_configuration))
             {
-                var trucks = await context.Truck.ToListAsync();
-                if (trucks == null)
+                var Vehicles = await context.Vehicle.ToListAsync();
+                if (Vehicles == null)
                 {
                     return null;
                 }
-                return trucks;
+                return Vehicles;
             }
         } catch (Exception e)
         {
@@ -29,17 +29,17 @@ public class TruckRepository:ITruckRepository{
         }  
 }
 
-    public async Task<Truck> GetById(int id)
+    public async Task<Vehicle> GetById(int id)
     {
       try  {
-            using (var context = new TruckContext(_configuration))
+            using (var context = new VehicleContext(_configuration))
             {
-                Truck? truck = await context.Truck.FindAsync(id);
-                if (truck == null)
+                Vehicle? Vehicle = await context.Vehicle.FindAsync(id);
+                if (Vehicle == null)
                 {
                     return null;
                 }
-                return truck;
+                return Vehicle;
             }
         }
         catch (Exception e)
@@ -49,14 +49,14 @@ public class TruckRepository:ITruckRepository{
         }
     }
 
-    public async Task<bool> Insert(Truck truck)
+    public async Task<bool> Insert(Vehicle Vehicle)
     {
         bool status = false;
         try
         {
-            using (var context = new TruckContext(_configuration))
+            using (var context = new VehicleContext(_configuration))
             {
-                await context.Truck.AddAsync(truck);
+                await context.Vehicle.AddAsync(Vehicle);
                 await context.SaveChangesAsync();
                 status = true;
             }
@@ -68,18 +68,18 @@ public class TruckRepository:ITruckRepository{
         return status;
     }
 
-    public async Task<bool> Update(int id, Truck truck)
+    public async Task<bool> Update(int id, Vehicle Vehicle)
     {
                bool status = false;
         try
         {
-            using (var context = new TruckContext(_configuration))
+            using (var context = new VehicleContext(_configuration))
             {
-                Truck? oldTruck = await context.Truck.FindAsync(id);
-                if (oldTruck != null)
+                Vehicle? oldVehicle = await context.Vehicle.FindAsync(id);
+                if (oldVehicle != null)
                 {
-                    oldTruck.TransportId = truck.TransportId;
-                    oldTruck.TruckNumber = truck.TruckNumber;
+                    oldVehicle.VendorId = Vehicle.VendorId;
+                    oldVehicle.VehicleNumber = Vehicle.VehicleNumber;
                     await context.SaveChangesAsync();
                     status = true;
                 }
@@ -98,12 +98,12 @@ public class TruckRepository:ITruckRepository{
        bool status = false;
         try
         {
-            using (var context = new TruckContext(_configuration))
+            using (var context = new VehicleContext(_configuration))
             {
-                Truck? truck = await context.Truck.FindAsync(id);
-                if (truck != null)
+                Vehicle? Vehicle = await context.Vehicle.FindAsync(id);
+                if (Vehicle != null)
                 {
-                    context.Truck.Remove(truck);
+                    context.Vehicle.Remove(Vehicle);
                     await context.SaveChangesAsync();
                     status = true;
                 }
