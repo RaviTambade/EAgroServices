@@ -18,4 +18,7 @@ public class Billing
 
     [Column("date")]
     public DateTime Date { get; set; }
+     public Billing(){
+        Date=DateTime.Now;
+    }
 }

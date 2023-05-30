@@ -42,4 +42,8 @@ public class Collection
 
     [Column("date")]
     public DateTime Date { get; set; }
+
+    public Collection(){
+        Date=DateTime.Now;
+    }
 }

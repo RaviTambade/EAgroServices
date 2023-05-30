@@ -17,10 +17,15 @@ public class CollectionContext : DbContext
 
     public DbSet<Collection> Collections { get; set; }
     public DbSet<Billing> Billings { get; set; }
+    public DbSet<Farmer> Farmers { get; set; }
+    public DbSet<Crop> Crops     { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
+        optionsBuilder.LogTo(Console.WriteLine,LogLevel.Information);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,11 +65,25 @@ public class CollectionContext : DbContext
             entity.Property(e => e.ContactNumber);
             modelBuilder.Entity<Farmer>().ToTable("users");
         });
+           modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name);
+            modelBuilder.Entity<UserRole>().ToTable("roles");
+        });
+
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.UserId);
+            entity.Property(e => e.RoleId);
+            modelBuilder.Entity<UserRole>().ToTable("userroles");
+        });
 
         modelBuilder.Entity<Crop>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name);
+            entity.Property(e => e.Title);
             modelBuilder.Entity<Crop>().ToTable("crops");
         });
     }
