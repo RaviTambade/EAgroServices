@@ -184,13 +184,7 @@ CREATE TABLE
     payments(
         payment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         payment_date DATETIME,
-        payment_mode ENUM(
-            'by cash',
-            'by bank transaction'
-        ),
-        transection_id INT NOT NULL,
-        bill_id INT NOT NULL,
-        CONSTRAINT fk_bill_id_1 FOREIGN KEY (bill_id) REFERENCES farmer_purchases_billing(bill_id) ON UPDATE CASCADE ON DELETE CASCADE
+        transaction_id INT NOT NULL
     );
 
 SELECT * FROM farmer_purchases_billing;
