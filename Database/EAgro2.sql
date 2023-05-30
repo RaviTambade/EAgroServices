@@ -25,15 +25,6 @@ CREATE TABLE
         CONSTRAINT fk_userid FOREIGN KEY(userid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_roleid FOREIGN KEY(roleid) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-CREATE TABLE
-    accounts(
-        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        acctnumber VARCHAR(20),
-        ifsccode VARCHAR(20),
-        userid INT NOT NULL,
-        CONSTRAINT fk_userid2 FOREIGN KEY(userid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-
 CREATE TABLE vendors(
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
       companyname VARCHAR(20),
@@ -129,18 +120,7 @@ CREATE TABLE freightrates (
 -- SELECT sells.sell_id,sells.truck_id,sells_billing.freight_charges,sells.quantity,sells.date 
 -- from sells,sells_billing
 -- WHERE sells.sell_id=sells_billing.sell_id and sells.truck_id=1;
-CREATE TABLE
-    transactions(
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        fromacountnumber VARCHAR(20),
-        toaccountnumber VARCHAR(20),
-        amount DOUBLE,
-        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        fromaccountid INT NOT NULL,
-        toaccountid INT NOT NULL,
-        CONSTRAINT fk_account2id FOREIGN KEY (fromaccountid) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_account3id FOREIGN KEY (toaccountid) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
+
 CREATE TABLE
     payments(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -149,7 +129,7 @@ CREATE TABLE
             'by cash',
             'by bank transaction'
         ),
-        transectionid INT NOT NULL,
+        transactionid INT NOT NULL,
         billid INT NOT NULL,
         CONSTRAINT fk_bill1id FOREIGN KEY (billid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
@@ -242,19 +222,6 @@ INSERT INTO roles(name)VALUES('farmer');
 INSERT INTO roles(name)VALUES('employee');
 INSERT INTO roles(name)VALUES('transport');
 INSERT INTO roles(name)VALUES('merchant');
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('9898989657','UBIN1852',1);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('3457656756','UBIN1852',2);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('4565675667','UBIN1852',3);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('3455445445','UBIN1852',4);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('4556556656','UBIN1852',5);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('4554465465','UBIN1852',6);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('3454556565','UBIN1852',7);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('2445456656','UBIN1852',8);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('6767545456','UBIN1852',9);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('4566544555','UBIN1852',10);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('2344332233','UBIN1852',11);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('5654445456','UBIN1852',12);
-INSERT into accounts(acctnumber,ifsccode,userid)VALUES('5656566566','UBIN1852',13);
 INSERT INTO userRoles(userid,roleId)VALUES(1,1);
 INSERT INTO userRoles(userid,roleId)VALUES(2,1);
 INSERT INTO userroles(userid,roleid)VALUES(3,2);
