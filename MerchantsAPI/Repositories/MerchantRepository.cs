@@ -100,4 +100,6 @@ public class MerchantRepository : IMerchantRepository
             throw e;
         }
     }
+      
+
 }

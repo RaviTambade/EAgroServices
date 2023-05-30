@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using MerchantsAPI.Models;
 using MerchantsAPI.Repositories;
@@ -14,5 +15,4 @@ public class MerchantService : IMerchantService
     public async Task<List<Merchant>> GetMerchants()=> await _repo.GetMerchants();
     public async Task<Merchant> GetMerchant(int merchantId)=> await _repo.GetMerchant(merchantId);
     public async Task<List<MerchantRecord>> GetMerchantSellRecords(int merchantId)=>await _repo.GetMerchantSellRecords(merchantId);
-   
 }

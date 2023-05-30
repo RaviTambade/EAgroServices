@@ -1,4 +1,5 @@
 using System.Reflection.Metadata;
+using System.Threading.Tasks;
 using MerchantsAPI.Models;
 using MerchantsAPI.Services;
 using MerchantsAPI.Services.Interfaces;
@@ -28,4 +29,6 @@ public class MerchantsController : ControllerBase
     {
         return await _service.GetMerchantSellRecords(id);
     }
+
+    
 }
