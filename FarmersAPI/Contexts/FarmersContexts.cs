@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using FarmersAPI.Models;
-using Microsoft.AspNetCore.Identity;
 namespace FarmersAPI.Contexts;
 public class FarmersContext : DbContext 
 {

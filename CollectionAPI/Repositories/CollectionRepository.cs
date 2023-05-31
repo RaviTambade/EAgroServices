@@ -1,9 +1,7 @@
-using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using CollectionAPI.Contexts;
 using CollectionAPI.Models;
 using CollectionAPI.Repositories.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CollectionAPI.Repositories;
 
@@ -101,7 +99,7 @@ public class CollectionRepository : ICollectionRepository
         }
         catch (Exception e)
         {
-            status=false;
+            status = false;
             throw e;
         }
         return status;
@@ -215,6 +213,4 @@ public class CollectionRepository : ICollectionRepository
         }
         return status;
     }
-
-
 }

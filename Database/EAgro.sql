@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -116,10 +116,6 @@ CREATE TABLE freightrates (
   CONSTRAINT fk_billid FOREIGN KEY (billid) REFERENCES sellsBilling(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
  
- /* query for calculating freight charges of one truck */
--- SELECT sells.sell_id,sells.truck_id,sells_billing.freight_charges,sells.quantity,sells.date 
--- from sells,sells_billing
--- WHERE sells.sell_id=sells_billing.sell_id and sells.truck_id=1;
 
 CREATE TABLE
     payments(
@@ -239,33 +235,6 @@ INSERT INTO userroles(userid,roleid)VALUES(14,5);
 INSERT INTO userroles(userid,roleid)VALUES(15,5);
 INSERT INTO userroles(userid,roleid)VALUES(16,5);
 
---  INSERT INTO admins(first_name,last_name,location,userid)VALUES('Ashok','Bajare','Bhavadi',1);
---  INSERT INTO admins(first_name,last_name,location,userid)VALUES('Ashok','Chakkar','Bhavadi',2);
---  INSERT INTO admins(first_name,last_name,location,userid)VALUES('Ashok','Chakkar','Bhavadi',3);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Akshay','Tanpure','Wada',4);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Akshay','Chakkar','Bhavadi',5);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Akshay','Bajare','Kudalewadi',6);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Akshay','Mankar','Bhavadi',7);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Akshay','Kudale','Kudalewadi',8);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Abhay','Mankar','Kudalewadi',9);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Aniket','Tanpure','Pargaon',10);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Sagar','Tanpure','Bhavadi',11);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Sahil','Mankar','Bhavadi',12);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Sahil','Teli','Bhavadi',13);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Shubham','Tanpure','Pargaon',29);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Sohil','Chakkar','Pargaon',30);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Suresh','Chakkar','Bhavadi',31);
--- INSERT INTO farmers(first_name,last_name,location,userid)VALUES ('Sumit','Mankar','Kudalewadi',32);
---  INSERT INTO employees(first_name,last_name,location,salary,userid)VALUES('Abhay','Navale','Bhavadi',15000,14);
---  INSERT INTO employees(first_name,last_name,location,salary,userid)VALUES('Shubham','Teli','Bhavadi',15000,15);
---  INSERT INTO employees(first_name,last_name,location,salary,userid)VALUES('Sahil','Mankar','Bhavadi',15000,16);
---  INSERT INTO employees(first_name,last_name,location,salary,userid)VALUES('shubham','Navale','Bhavadi',15000,17);
---  INSERT INTO employees(first_name,last_name,location,salary,userid)VALUES('Abhay','Kale','Bhavadi',15000,18);
---  INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('OM Transports','Ashok','Chakkar','Karegaon',19);
---  INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Waghule Transport','Sahil','Mankar','Bahirwadi',20);
--- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Navale Transport','Abhay','Navale','Bahirwadi',21);
--- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Karale Transport','Abhay','Karale','Karegaon',22);
--- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Sakore Transport','Shubham','Teli','Chas',23);
 INSERT INTO vendors(companyname,transportid) VALUES ("OM Transports",10);
 INSERT INTO vendors(companyname,transportid) VALUES ("Navale Transport",11);
 INSERT INTO vendors(companyname,transportid) VALUES ("Karale Transport",12);
@@ -278,12 +247,6 @@ INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3, 'MH14RE3856');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3, 'MH14RE4656');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE1234');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE2345');
-
--- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',24);
--- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',25);
--- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Nighot Company','Anuj','Nighot','Manchar',26);
--- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Madivale Company','Suresh','Nighot','Mumbai',27);
--- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Sidhhivinayk Company','Raju','shinde','Pune',28);
 INSERT INTO crops(title,imageurl,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
 INSERT INTO crops(title,imageurl,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
 INSERT INTO crops(title,imageurl,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
@@ -519,3 +482,4 @@ GROUP BY  year(sells_billing.date),transport_trucks.truck_number ORDER BY year(s
 
 SELECT users.firstname,users.lastname,userroles.roleid,roles.name FROM users INNER JOIN userroles ON users.id=userroles.userid INNER JOIN roles ON userroles.roleid=roles.id WHERE roles.name="merchant";
 SELECT * FROM roles;
+
