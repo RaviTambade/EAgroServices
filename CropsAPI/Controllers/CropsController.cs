@@ -1,38 +1,38 @@
 using Microsoft.AspNetCore.Mvc;
-using VarietiesAPI.Models;
-using VarietiesAPI.Services.Interfaces;
+using CropsAPI.Models;
+using CropsAPI.Services.Interfaces;
 
-namespace VarietiesAPI.Controller;
+namespace CropsAPI.Controller;
 [ApiController]
 [Route("/api/[controller]")]
-public class VarietyController : ControllerBase
+public class CropsController : ControllerBase
 {
-    private readonly IVarietyService _service;
-    public VarietyController(IVarietyService service)
+    private readonly ICropService _service;
+    public CropsController(ICropService service)
     {
         _service = service;
     }
 
     [HttpGet]
-    public async Task<List<Variety>> GetAll()
+    public async Task<List<Crop>> GetAll()
     {
         return await _service.GetAll();
     }
 
     [HttpGet("{id}")]
-    public async Task<Variety> GeById(int id)
+    public async Task<Crop> GeById(int id)
     {
         return await _service.GetById(id);
     }
 
     [HttpPost]
-    public async Task<bool> Insert([FromBody] Variety variety)
+    public async Task<bool> Insert([FromBody] Crop variety)
     {
         return await _service.Insert(variety);
     }
 
     [HttpPut("{id}")]
-    public async Task<bool> Update(int id, [FromBody] Variety variety)
+    public async Task<bool> Update(int id, [FromBody] Crop variety)
     {
         return await _service.Update(id, variety);
     }

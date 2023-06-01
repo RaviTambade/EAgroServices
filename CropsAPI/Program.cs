@@ -1,7 +1,7 @@
-using VarietiesAPI.Repositories.Interfaces;
-using VarietiesAPI.Repositories;
-using VarietiesAPI.Services;
-using VarietiesAPI.Services.Interfaces;
+using CropsAPI.Repositories.Interfaces;
+using CropsAPI.Repositories;
+using CropsAPI.Services;
+using CropsAPI.Services.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors();
 builder.Services.AddControllers();
-builder.Services.AddTransient<IVarietyRepository,VarietyRepository>();
-builder.Services.AddTransient<IVarietyService,VarietyService>();
+builder.Services.AddTransient<ICropRepository,CropRepository>();
+builder.Services.AddTransient<ICropService,CropService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

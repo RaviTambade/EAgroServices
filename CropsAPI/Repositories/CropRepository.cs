@@ -1,22 +1,22 @@
-using VarietiesAPI.Contexts;
-using VarietiesAPI.Models;
-using VarietiesAPI.Repositories.Interfaces;
+using CropsAPI.Contexts;
+using CropsAPI.Models;
+using CropsAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-namespace VarietiesAPI.Repositories;
-public class VarietyRepository : IVarietyRepository
+namespace CropsAPI.Repositories;
+public class CropRepository : ICropRepository
 {
     private readonly IConfiguration _configuration;
-    public VarietyRepository(IConfiguration configuration)
+    public CropRepository(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-    public async Task<List<Variety>> GetAll()
+    public async Task<List<Crop>> GetAll()
     {
         try
         {
-               using (var context = new VarietyContext(_configuration))
+               using (var context = new CropContext(_configuration))
             {
-                List<Variety> varieties = await context.Variety.ToListAsync();
+                List<Crop> varieties = await context.Crop.ToListAsync();
                 if (varieties == null)
                 {
                     return null;
@@ -30,13 +30,13 @@ public class VarietyRepository : IVarietyRepository
         }
     }
 
-    public async Task<Variety> GetById(int varietyId)
+    public async Task<Crop> GetById(int varietyId)
     {
         try
         {
-            using (var context = new VarietyContext(_configuration))
+            using (var context = new CropContext(_configuration))
             {
-                Variety variety = await context.Variety.FindAsync(varietyId);
+                Crop variety = await context.Crop.FindAsync(varietyId);
                 if (variety == null)
                 {
                     return null;
@@ -49,15 +49,15 @@ public class VarietyRepository : IVarietyRepository
             throw e;
         }
     }
-    public async Task<bool> Insert(Variety variety)
+    public async Task<bool> Insert(Crop variety)
     {
         bool status = false;
         try
         {
-            using (var context = new VarietyContext(_configuration))
+            using (var context = new CropContext(_configuration))
             {
                 
-                await context.Variety.AddAsync(variety);
+                await context.Crop.AddAsync(variety);
                 await context.SaveChangesAsync();
                 status = true;
             }
@@ -69,17 +69,17 @@ public class VarietyRepository : IVarietyRepository
         return status;
     }
 
-    public async Task<bool> Update(int varietyId, Variety variety)
+    public async Task<bool> Update(int varietyId, Crop variety)
     {
         bool status = false;
         try
         {
-            using (var context = new VarietyContext(_configuration))
+            using (var context = new CropContext(_configuration))
             {
-                Variety? oldVariety = await context.Variety.FindAsync(varietyId);
+                Crop? oldVariety = await context.Crop.FindAsync(varietyId);
                 if (oldVariety != null)
                 {
-                    oldVariety.VarietyName = variety.VarietyName;
+                    oldVariety.Title = variety.Title;
                     oldVariety.ImageUrl = variety.ImageUrl;
                     oldVariety.Rate=variety.Rate;
                     await context.SaveChangesAsync();
@@ -98,12 +98,12 @@ public class VarietyRepository : IVarietyRepository
         bool status = false;
         try
         {
-            using (var context = new VarietyContext(_configuration))
+            using (var context = new CropContext(_configuration))
             {
-                Variety? variety = await context.Variety.FindAsync(varietyId);
+                Crop? variety = await context.Crop.FindAsync(varietyId);
                 if (variety != null)
                 {
-                    context.Variety.Remove(variety);
+                    context.Crop.Remove(variety);
                     await context.SaveChangesAsync();
                     return true;
                 }
