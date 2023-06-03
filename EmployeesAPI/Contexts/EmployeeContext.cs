@@ -10,7 +10,6 @@ public class EmployeeContext : DbContext
         _configuration = configuration;
         _conString = _configuration.GetConnectionString("DefaultConnection");
     }
-    // public DbSet<Employee> Employees { get; set; }
     public DbSet<User> Employees { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
     public DbSet<Role>Roles{get;set;}
@@ -31,13 +30,6 @@ public class EmployeeContext : DbContext
 
             modelBuilder.Entity<User>().ToTable("users");
         });
-        // modelBuilder.Entity<User>(entity =>
-        // {
-        //     entity.HasKey(e => e.Id);
-        //     entity.Property(e => e.ContactNumber);
-        //     entity.Property(e => e.Password);
-        //     modelBuilder.Entity<User>().ToTable("users");
-        // });
         modelBuilder.Entity<UserRole>(entity =>
        {
            entity.HasKey(e=> e.Id);
