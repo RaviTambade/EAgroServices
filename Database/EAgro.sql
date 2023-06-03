@@ -2,7 +2,13 @@
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
-
+SELECT `c`.`id`, `c`.`containertype`, `c`.`cropid`, `c`.`date`, `c`.`farmerid`, `c`.`grade`, `c`.`netweight`, `c`.`quantity`, `c`.`rateperkg`, `c`.`tareweight`, `c`.`totalweight`, `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount`, `c0`.`title` AS `Crop`
+      FROM `collections` AS `c`
+      INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid`
+      INNER JOIN `users` AS `u` ON `c`.`farmerid` = `u`.`id`
+      INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
+      WHERE ((((`c`.`farmerid` = 3) AND (`c0`.`title` = 'Potato')) AND (`c`.`date` >= '2022-01-01 00:00:00.000000')) AND (`c`.`date` <= '2022-12-31 00:00:00.000000')) AND (`b`.`totalamount` <= 20000)
+      ORDER BY `c`.`date`;
 CREATE TABLE
     users(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -37,7 +43,6 @@ CREATE TABLE vehicles(
         vehiclenumber VARCHAR(15) NOT NULL UNIQUE,
         CONSTRAINT fk_transportid FOREIGN KEY (vendorid) REFERENCES vendors(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
--- ALTER TABLE trucks ADD  CONSTRAINT userid_check CHECK (transportId IN (SELECT userid FROM userRoles WHERE roleId = 2));
 
 CREATE TABLE
     labourrates(
@@ -479,7 +484,3 @@ INNER JOIN transports on transports.transport_id=transport_trucks.transport_id
 where transports.transport_id=2
 GROUP BY  year(sells_billing.date),transport_trucks.truck_number ORDER BY year(sells_billing.date) ;
 */
-
-SELECT users.firstname,users.lastname,userroles.roleid,roles.name FROM users INNER JOIN userroles ON users.id=userroles.userid INNER JOIN roles ON userroles.roleid=roles.id WHERE roles.name="merchant";
-SELECT * FROM roles;
-
