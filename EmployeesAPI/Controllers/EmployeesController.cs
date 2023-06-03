@@ -25,24 +25,5 @@ public class EmployeesController : ControllerBase
     {
         return await _service.GetEmployee(id);
     }
-    // [HttpPost]
-    // public async Task<bool> Insert([FromBody] UserEmployeeRole userEmployeeRole)
-    // {
-    //     Employee employee = userEmployeeRole.Employee;
-    //     User user = userEmployeeRole.User;
-    //     UserRole userRole = userEmployeeRole.UserRole;
-    //     return await _service.Insert(employee, user, userRole);
-    // }
-
-    // [HttpPut("{id}")]
-    // public async Task<bool> Update(int id, [FromBody] Employee employee)
-    // {
-    //     return await _service.Update(id, employee);
-    // }
-
-    // [HttpDelete("{id}")]
-    // public async Task<bool> Delete(int id)
-    // {
-    //     return await _service.Delete(id);
-    // }
+   
 }
