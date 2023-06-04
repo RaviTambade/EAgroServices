@@ -9,13 +9,14 @@ namespace EmployeesAPI.Controller;
 public class EmployeesController : ControllerBase
 {
     private readonly IEmployeeService _service;
+
     public EmployeesController(IEmployeeService service)
     {
         this._service = service;
     }
 
     [HttpGet]
-    public async Task<List<User>>getEmployees()
+    public async Task<List<User>> getEmployees()
     {
         return await _service.GetEmployees();
     }
@@ -25,5 +26,4 @@ public class EmployeesController : ControllerBase
     {
         return await _service.GetEmployee(id);
     }
-   
 }
