@@ -19,7 +19,7 @@ ngOnInit(){}
 
 Pay(){
   this.svc.payWithCard(this.cardPayment).subscribe((response)=>{
-    console.log("hiii")
+    console.log("---")
     console.log(response)
     return this.status=response;
  
