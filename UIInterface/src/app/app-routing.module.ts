@@ -33,6 +33,7 @@ import { ContactComponent } from './demo/eagro-default/contact/contact.component
 import { AboutusComponent } from './demo/eagro-default/aboutus/aboutus.component';
 import { UserlistComponent } from './demo/admin/userlist/userlist.component';
 import { AdminLogoutComponent } from './demo/admin/admin-logout/admin-logout.component';
+import { CreditcardComponent } from './card-processing/creditcard/creditcard.component';
 
 
 
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path:'home', component: HomeComponent },
       { path:'contact', component: ContactComponent },
       { path:'aboutus', component: AboutusComponent },
+      {path:'creditCard',component:CreditcardComponent}
     ]
   },
   {

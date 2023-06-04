@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using MerchantsAPI.Models;
@@ -16,5 +17,5 @@ public class MerchantService : IMerchantService
     public async Task<Merchant> GetMerchant(int merchantId)=> await _repo.GetMerchant(merchantId);
     public async Task<List<MerchantRecord>> GetMerchantSellRecords(int merchantId)=>await _repo.GetMerchantSellRecords(merchantId);
     public async Task<List<MerchantRecord>> GetMerchantSellRecordsByDate(int merchantId,DateFilter dateFilter)=>await _repo.GetMerchantSellRecordsByDate(merchantId,dateFilter);
-
+    public async Task<List<Merchant>> SearchByName(string name)=> await _repo.SearchByName(name);
 }

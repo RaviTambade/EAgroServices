@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -141,6 +142,22 @@ public class MerchantRepository : IMerchantRepository
             throw e;
         }
     }
-      
 
+    public async Task<List<Merchant>> SearchByName(string name){
+        try{
+            using(var context =new MerchantContext(_configuration)){
+            List<Merchant> merchants=await (from merchant in context.Merchants
+                                            join userrole in context.UserRoles 
+                                            on merchant.Id equals userrole.UserId
+                                            join role in context.Roles
+                                            on userrole.RoleId equals role.Id
+                                            where role.RoleName=="merchant" &&
+                                            merchant.FirstName.Contains(name) select merchant).ToListAsync();
+            return merchants;
+            }
+        }
+        catch(Exception e){ 
+            throw e;
+        }
+    }
 }

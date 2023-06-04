@@ -9,5 +9,6 @@ public interface IMerchantRepository
      Task<Merchant> GetMerchant(int merchantId);
      Task<List<MerchantRecord>> GetMerchantSellRecords(int merchantId);
      Task<List<MerchantRecord>> GetMerchantSellRecordsByDate(int merchantId,DateFilter dateFilter);
+     Task<List<Merchant>>  SearchByName(string name);
 
 }

@@ -35,5 +35,11 @@ public class MerchantsController : ControllerBase
     {
         return await _service.GetMerchantSellRecordsByDate(id,dateFilter);
     }
+    [HttpGet("search")]
+    public async Task<List<Merchant>> SearchByName(  [FromQuery] string name){
+        System.Console.WriteLine("Hi");
+        System.Console.WriteLine(name);
+        return await _service.SearchByName(name);
+    }
     
 }
