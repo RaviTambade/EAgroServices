@@ -13,10 +13,9 @@
     </div>
 
     <div class="form-body">
-      <!-- Card Number -->
-      <input type="text" class="form-control" placeholder="cardNumber" id="cardNumber"  name="cardNumber" #cardNumber="ngModel" [(ngModel)]="cardPayment.cardNumber" >
 
-      <!-- Date Field -->
+      <input type="text" class="form-control" placeholder="cardNumber" [(ngModel)]="cardPayment.cardNumber" name="cardNumber" />
+
       <div class="date-field">
         <div class="month">
           <select name="Month">

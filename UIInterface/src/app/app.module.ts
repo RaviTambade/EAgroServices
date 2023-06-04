@@ -24,6 +24,7 @@ import { TransportModule } from './demo/transport/transport.module';
 import { EmployeesModule } from './demo/employees/employees.module';
 import {  JWT_OPTIONS, JwtHelperService, } from '@auth0/angular-jwt';
 import { AdminModule } from './demo/admin/admin.module';
+import { CardProcessingModule } from './card-processing/card-processing.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { AdminModule } from './demo/admin/admin.module';
     GuestComponent
   ],
   imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,
-    HttpClientModule,FarmersModule,MerchantsModule,TransportModule,EmployeesModule,AdminModule,
+    HttpClientModule,FarmersModule,MerchantsModule,TransportModule,EmployeesModule,AdminModule,CardProcessingModule
 ],
 providers: [
   { provide: JWT_OPTIONS, useValue: {
