@@ -30,6 +30,7 @@ public class CollectionsController : ControllerBase
     [HttpPost]
     public async Task<bool> Insert([FromBody] Collection collection)
     {
+        System.Console.WriteLine("function called");
         return await _service.Insert(collection);
     }
 

@@ -15,7 +15,12 @@ import { MerchantsModule } from '../merchants/merchants.module';
 import { FarmerPurchaseFormComponent } from './farmer-purchase-form/farmer-purchase-form.component';
 import { TranportDetailsComponent } from './details/tranport-details/tranport-details.component';
 import { TransportModule } from '../transport/transport.module';
+<<<<<<< HEAD
 import { CollectionsellComponent } from './collectionsell/collectionsell.component';
+=======
+import { CollectionformComponent } from './collectionform/collectionform.component';
+import { HttpClientModule } from '@angular/common/http';
+>>>>>>> fb6da2a14f4a744136388b556020f190594fc339
 
 
 
@@ -29,7 +34,11 @@ import { CollectionsellComponent } from './collectionsell/collectionsell.compone
     MerchantDetailsComponent,
     FarmerPurchaseFormComponent,
     TranportDetailsComponent,
+<<<<<<< HEAD
     CollectionsellComponent,
+=======
+    CollectionformComponent,
+>>>>>>> fb6da2a14f4a744136388b556020f190594fc339
    
   ],
   imports: [
@@ -41,7 +50,8 @@ import { CollectionsellComponent } from './collectionsell/collectionsell.compone
     ReactiveFormsModule,
     FarmersModule,
     MerchantsModule,
-    TransportModule
+    TransportModule,
+    HttpClientModule
   ],
   exports:[
     ListComponent,CollectionsellComponent,
