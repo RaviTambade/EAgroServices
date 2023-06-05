@@ -12,12 +12,14 @@ export class EmployeeService {
 
 
   constructor(private httpClient: HttpClient) { }
-  addCollection(collection:Collection):Observable<any>{
-    console.log(collection)
-    console.log("f called")
-        let url:"http://localhost:5031/api/collections" 
-        return this.httpClient.post(url,collection)
+
+  addCollection(collection:Collection){
+        let url="http://localhost:5031/api/collections" 
+        this.httpClient.post<any>(url,collection).subscribe((res)=>{
+          console.log(res)
+        });  
   }
+
   getAllFarmers(): Observable<any> {
     let url = " http://localhost:5141/api/farmers/getallfarmers";
     return this.httpClient.get<any>(url);

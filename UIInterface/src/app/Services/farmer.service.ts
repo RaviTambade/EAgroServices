@@ -6,6 +6,7 @@ import { Farmersell } from '../Models/farmersell';
 import { Purchaseviewmodel } from '../Models/purchaseviewmodel';
 import { Farmersellvariety } from '../Models/farmersellvariety';
 import { Farmerorderscount } from '../Models/farmer-orders-count';
+import { Collection } from '../Models/collection';
 
 
 @Injectable({
@@ -47,5 +48,4 @@ export class FarmerService {
     let url = "http://localhost:5171/api/purchase/farmer-orders-per-month/"+farmerId;
     return this.httpClient.get<Farmerorderscount[]>(url);
   }
-
 }

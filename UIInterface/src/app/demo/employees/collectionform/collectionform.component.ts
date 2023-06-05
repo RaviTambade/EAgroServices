@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Collection } from 'src/app/Models/collection';
 import { EmployeeService } from 'src/app/Services/employee.service';
+import { FarmerService } from 'src/app/Services/farmer.service';
 
 @Component({
   selector: 'app-collectionform',
@@ -9,7 +10,7 @@ import { EmployeeService } from 'src/app/Services/employee.service';
   styleUrls: ['./collectionform.component.scss']
 })
 export class CollectionformComponent {
-  collection:Collection={
+  collection: Collection= {
     farmerId: 3,
     cropId: 1,
     containerType: 'bags',
@@ -19,21 +20,9 @@ export class CollectionformComponent {
     tareWeight: 100,
     ratePerKg: 30
   }
-  status :boolean=false;
-  constructor(private svc:EmployeeService,private http:HttpClient){}
-  addNewCollection(){
-    // console.log(this.collection);
-    // this.svc.addCollection(this.collection).subscribe((response)=>{
-    //   console.log(response)
-    // })
-
-    console.log(this.collection)
-    console.log("f called")
-        let url:"http://localhost:5031/api/collections" 
-        return this.http.post<Collection>(url,this.collection).subscribe((res)=>{
-          console.log(res);
-          console.log("response sent")
-        })
-  
+  constructor(private svc: EmployeeService, private http: HttpClient) { }
+  addNewCollection() {
+    console.log(this.collection);
+    this.svc.addCollection(this.collection)
   }
 }

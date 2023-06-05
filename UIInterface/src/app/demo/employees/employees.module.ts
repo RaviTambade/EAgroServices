@@ -16,6 +16,7 @@ import { FarmerPurchaseFormComponent } from './farmer-purchase-form/farmer-purch
 import { TranportDetailsComponent } from './details/tranport-details/tranport-details.component';
 import { TransportModule } from '../transport/transport.module';
 import { CollectionformComponent } from './collectionform/collectionform.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -41,7 +42,8 @@ import { CollectionformComponent } from './collectionform/collectionform.compone
     ReactiveFormsModule,
     FarmersModule,
     MerchantsModule,
-    TransportModule
+    TransportModule,
+    HttpClientModule
   ],
   exports:[
     ListComponent
