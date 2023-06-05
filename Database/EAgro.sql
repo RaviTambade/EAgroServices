@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -484,3 +484,5 @@ INNER JOIN transports on transports.transport_id=transport_trucks.transport_id
 where transports.transport_id=2
 GROUP BY  year(sells_billing.date),transport_trucks.truck_number ORDER BY year(sells_billing.date) ;
 */
+SELECT * FROM collections;
+SELECT * FROM billing;

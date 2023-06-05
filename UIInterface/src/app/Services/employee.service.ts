@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { Collection } from '../Models/collection';
 import { Farmer } from '../Models/farmer';
 
 @Injectable({
@@ -11,6 +12,12 @@ export class EmployeeService {
 
 
   constructor(private httpClient: HttpClient) { }
+  addCollection(collection:Collection):Observable<any>{
+    console.log(collection)
+    console.log("f called")
+        let url:"http://localhost:5031/api/collections" 
+        return this.httpClient.post(url,collection)
+  }
   getAllFarmers(): Observable<any> {
     let url = " http://localhost:5141/api/farmers/getallfarmers";
     return this.httpClient.get<any>(url);
@@ -92,5 +99,8 @@ export class EmployeeService {
     return this.subject.asObservable()
   }
 
+ 
 }
+
+
 
