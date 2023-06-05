@@ -2,18 +2,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SellsAPI.Models;
 public class FreightRate
 {
-    [Column("from_destination")]
+    [Column("id")]
+    public int Id { get; set; }
+    
+    [Column("fromdestination")]
     public string FromDestination { get; set; }
 
-    [Column("to_destination")]
+    [Column("todestination")]
     public string ToDestination { get; set; }
 
     [Column("kilometers")]
     public int Kilometers { get; set; }
 
-    [Column("rate_per_km")]
+    [Column("rateperkm")]
     public double RatePerKm { get; set; }
 
-    [Column("bill_id")]
+    [Column("billid")]
     public int BillId { get; set; }
 }

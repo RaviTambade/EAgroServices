@@ -15,6 +15,7 @@ import { MerchantsModule } from '../merchants/merchants.module';
 import { FarmerPurchaseFormComponent } from './farmer-purchase-form/farmer-purchase-form.component';
 import { TranportDetailsComponent } from './details/tranport-details/tranport-details.component';
 import { TransportModule } from '../transport/transport.module';
+import { CollectionsellComponent } from './collectionsell/collectionsell.component';
 
 
 
@@ -28,6 +29,7 @@ import { TransportModule } from '../transport/transport.module';
     MerchantDetailsComponent,
     FarmerPurchaseFormComponent,
     TranportDetailsComponent,
+    CollectionsellComponent,
    
   ],
   imports: [
@@ -42,7 +44,7 @@ import { TransportModule } from '../transport/transport.module';
     TransportModule
   ],
   exports:[
-    ListComponent
+    ListComponent,CollectionsellComponent,
   ]
 })
 

@@ -9,9 +9,9 @@ public interface ISellRepository
     Task<bool> Update(int sellId,Sell sell,FreightRate freightRate);
     Task<bool> Delete(int sellId);
     Task<List<MerchantSell>> GetSellByMerchantId(int merchantId);
-    Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId);
+    Task<List<VehicleBilling>> GetTruckBillingsByTruckId(int truckId);
     Task<List<MerchantRevenue>> GetMerchantRevenues(int merchantId);
-    Task<double> GetTotalPurchaseAmountOfMerchant(int merchantId);
+    // Task<double> GetTotalPurchaseAmountOfMerchant(int merchantId);
     Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int merchantId);
 
 }

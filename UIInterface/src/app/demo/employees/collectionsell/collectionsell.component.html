@@ -1,0 +1,41 @@
+<form #sellForm="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="collectionId">Collection Id:</label>
+      <input type="number" id="collectionId" name="collectionId" [(ngModel)]="collectionsell.sell.collectionId" required>
+    </div>
+    <div>
+      <label for="merchantId">Merchant Id:</label>
+      <input type="number" id="merchantId" name="merchantId" [(ngModel)]="collectionsell.sell.merchantId" required>
+    </div>
+    <div>
+      <label for="vehicleId">Vehicle Id:</label>
+      <input type="number" id="vehicleId" name="vehicleId" [(ngModel)]="collectionsell.sell.vehicleId" required>
+    </div>
+   <div>
+      <label for="netWeight">Net Weight:</label>
+      <input type="number" id="netWeight" name="netWeight" [(ngModel)]="collectionsell.sell.netWeight" required>
+    </div>
+    <div>
+      <label for="ratePerKg">Rate Per KG:</label>
+      <input type="number" id="ratePerKg" name="ratePerKg" [(ngModel)]="collectionsell.sell.ratePerKg" required>
+    </div>
+    <div>
+      <label for="fromDestinatio">From Destinatio:</label>
+      <input type="text" id="fromDestination" name="fromDestination" [(ngModel)]="collectionsell.freightRate.fromDestination" required>
+    </div>
+    <div>
+      <label for="toDestination">To Destination:</label>
+      <input type="text" id="toDestination" name="toDestination" [(ngModel)]="collectionsell.freightRate.toDestination" required>
+    </div>
+   
+    <div>
+    <label for="kilomiters">Kilomiters:</label>
+    <input type="number" id="kilometers" name="kilometers" [(ngModel)]="collectionsell.freightRate.kilometers" required>
+  </div>
+  <div>
+    <label for="ratePerKm">Rate Per Km:</label>
+    <input type="number" id="ratePerKm" name="ratePerKm" [(ngModel)]="collectionsell.freightRate.ratePerKm" required>
+  </div>
+    <button type="submit" [disabled]="sellForm.invalid">Submit</button>
+  </form>
+  

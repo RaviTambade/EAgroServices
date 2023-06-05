@@ -3,26 +3,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SellsAPI.Models;
 public class Billing
 {
-    [Column("bill_id")]
+    [Column("id")]
     public int Id { get; set; }
 
-    [Column("sell_id")]
+    [Column("sellid")]
     public int SellId { get; set; }
 
-    [Column("freight_charges")]
+    [Column("freightcharges")]
     public int FreightCharges { get; set; }
 
-    [Column("labour_charges")]
+    [Column("labourcharges")]
     public int LabourCharges { get; set; }
 
-    [Column("total_charges")]
+    [Column("totalcharges")]
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public int TotalCharges { get; set; }
+    [Column("totalamount")]
+    public double TotalAmount { get; set; }
 
     [Column("date")]
     public DateTime Date { get; set; }
 
-    public Billing(){
-        Date=DateTime.Now;
+    public Billing()
+    {
+        Date = DateTime.Now;
     }
 }

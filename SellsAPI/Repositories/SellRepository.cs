@@ -23,7 +23,7 @@ public class SellRepository : ISellRepository
                 List<SellBillingView> sellBillingViews = await (
                     from merchant in context.Merchants
                     join sell in context.Sells on merchant.Id equals sell.MerchantId
-                    join truck in context.Trucks on sell.TruckId equals truck.Id
+                    join vehicle in context.Vehicle on sell.VehicleId equals vehicle.Id
                     join bill in context.Billings on sell.Id equals bill.SellId
                     join freightRate in context.FreightRates
                         on bill.Id equals freightRate.BillId
@@ -33,7 +33,7 @@ public class SellRepository : ISellRepository
                         Billing = bill,
                         FreightRate = freightRate,
                         FullName = merchant.FirstName + " " + merchant.LastName,
-                        TruckNumber = truck.TruckNumber
+                        VehicleNumber = vehicle.VehicleNumber
                     }
                 ).ToListAsync();
 
@@ -80,15 +80,15 @@ public class SellRepository : ISellRepository
             using (var context = new SellsContext(_configuration))
             {
                 var remainingQuantity = await (
-                    from p in context.PurchaseItems
-                    where p.Id == sell.PurchaseId
+                    from p in context.Collections
+                    where p.Id == sell.CollectionId
                     select p.Quantity
                         - context.Sells
-                            .Where(s => s.PurchaseId == sell.PurchaseId)
+                            .Where(s => s.CollectionId == sell.CollectionId)
                             .Sum(s => s.Quantity)
                 ).FirstOrDefaultAsync();
                 Console.WriteLine(remainingQuantity);
-                if (sell.Quantity <= remainingQuantity && remainingQuantity == 0)
+                if (sell.Quantity <= remainingQuantity && remainingQuantity != 0)
                 {
                     Console.WriteLine("inside function");
                     Console.WriteLine(
@@ -105,10 +105,11 @@ public class SellRepository : ISellRepository
                     await context.FreightRates.AddAsync(freightRate);
                     await context.SaveChangesAsync();
                     context.Database.ExecuteSqlRaw(
-                        "CALL calculate_labour_charges_of_sells(@p0)",
+                        "CALL ApplyLabourChargesToBilling(@p0)",
                         billId
                     );
-                    context.Database.ExecuteSqlRaw("CALL calculate_freight_charges(@p0)", billId);
+                    context.Database.ExecuteSqlRaw("CALL ApplyFreightCharges(@p0)", billId);
+                    context.Database.ExecuteSqlRaw("CALL ApplyTotalAmount(@p0)", billId);
                     status = true;
                 }
             }
@@ -148,11 +149,11 @@ public class SellRepository : ISellRepository
 
                     if (oldSell != null)
                     {
-                        oldSell.PurchaseId = sell.PurchaseId;
+                        oldSell.CollectionId = sell.CollectionId;
                         oldSell.MerchantId = sell.MerchantId;
                         oldSell.NetWeight = sell.NetWeight;
                         oldSell.RatePerKg = sell.RatePerKg;
-                        oldSell.TruckId = sell.TruckId;
+                        oldSell.VehicleId = sell.VehicleId;
                     }
 
                     if (oldFreightRate != null)
@@ -216,23 +217,22 @@ public class SellRepository : ISellRepository
                 var sellsData = await (
                     from merchant in context.Merchants
                     join sell in context.Sells on merchant.Id equals sell.MerchantId
-                    join purchaseItem in context.PurchaseItems
-                        on sell.PurchaseId equals purchaseItem.Id
-                    join variety in context.Varieties
-                        on purchaseItem.VarietyId equals variety.Id
-                    join truck in context.Trucks on sell.TruckId equals truck.Id
+                    join purchaseItem in context.Collections
+                        on sell.CollectionId equals purchaseItem.Id
+                    join variety in context.Crops
+                        on purchaseItem.CropId equals variety.Id
+                    join vehicle in context.Vehicle on sell.VehicleId equals vehicle.Id
                     where sell.MerchantId == merchantId
                     orderby sell.Date descending
                     select new MerchantSell()
                     {
-                        VarietyName = variety.VarietyName,
+                        VarietyName = variety.CropName,
                         ContainerType = purchaseItem.ContainerType,
                         Quantity = sell.Quantity,
                         Grade = purchaseItem.Grade,
                         NetWeight = sell.NetWeight,
                         RatePerKg = sell.RatePerKg,
-                        TotalAmount = sell.TotalAmount,
-                        TruckNumber = truck.TruckNumber,
+                        TruckNumber = vehicle.VehicleNumber,
                         FullName = merchant.FirstName + " " + merchant.LastName,
                         Date = sell.Date
                     }
@@ -246,24 +246,24 @@ public class SellRepository : ISellRepository
         }
     }
 
-    public async Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId)
+    public async Task<List<VehicleBilling>> GetTruckBillingsByTruckId(int truckId)
     {
         try
         {
             using (var context = new SellsContext(_configuration))
             {
-                List<TruckBilling> truckBillings = await (
-                    from truck in context.Trucks
-                    join sell in context.Sells on truck.Id equals sell.TruckId
+                List<VehicleBilling> truckBillings = await (
+                    from truck in context.Vehicle
+                    join sell in context.Sells on truck.Id equals sell.VehicleId
                     join bill in context.Billings on sell.Id equals bill.SellId
                     join freightRate in context.FreightRates
                         on bill.Id equals freightRate.BillId
-                    where sell.TruckId == truckId
-                    select new TruckBilling()
+                    where sell.VehicleId == truckId
+                    select new VehicleBilling()
                     {
                         Billing = bill,
                         FreightRate = freightRate,
-                        TruckNumber = truck.TruckNumber
+                        TruckNumber = truck.VehicleNumber
                     }
                 ).ToListAsync();
                 return truckBillings;
@@ -291,7 +291,7 @@ public class SellRepository : ISellRepository
                         Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(
                             sellsgroup.Key
                         ),
-                        TotalAmount = sellsgroup.Sum(s => s.TotalAmount),
+                        // TotalAmount = sellsgroup.Sum(s => s.TotalAmount),
                     }
                 ).ToListAsync();
                 return merchantRevenues;
@@ -303,23 +303,23 @@ public class SellRepository : ISellRepository
         }
     }
 
-    public async Task<double> GetTotalPurchaseAmountOfMerchant(int merchantId)
-    {
-        try
-        {
-            using (var context = new SellsContext(_configuration))
-            {
-                var amount = context.Sells
-                    .Where(sell => sell.MerchantId == merchantId)
-                    .Sum(sell => (sell.TotalAmount));
-                return Math.Round(amount,2) ;
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
+    // public async Task<double> GetTotalPurchaseAmountOfMerchant(int merchantId)
+    // {
+    //     try
+    //     {
+    //         using (var context = new SellsContext(_configuration))
+    //         {
+    //             var amount = context.Sells
+    //                 .Where(sell => sell.MerchantId == merchantId)
+    //                 // .Sum(sell => (sell.TotalAmount));
+    //             return Math.Round(amount,2) ;
+    //         }
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         throw e;
+    //     }
+    // }
 
     public async Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int merchantId)
     {

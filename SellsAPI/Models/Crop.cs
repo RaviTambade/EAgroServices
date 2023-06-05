@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SellsAPI.Models;
 public class Variety
 {
-    [Column("variety_id")]
+    [Column("id")]
     public int Id { get; set; }
 
-    [Column("variety_name")]
-    public string? VarietyName { get; set; }
+    [Column("cropname")]
+    public string? CropName { get; set; }
 }
