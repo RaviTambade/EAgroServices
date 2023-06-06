@@ -1,0 +1,16 @@
+
+
+   <div *ngFor="let vendor of vendors">
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center" (click)="onselect(vendor)">
+        {{vendor.companyName}}
+      </li>
+      <li *ngIf="selectedVendor && selectedVendor.id == vendor.id" class="list-group-item">
+        <ul>
+          <li *ngFor="let vehicle of vehicles">
+            {{vehicle.vehicleNumber}}
+          </li>
+        </ul>
+    </li>
+  </ul>
+  </div>

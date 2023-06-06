@@ -46,7 +46,7 @@ public class VendorsController : ControllerBase
     }
 
     [HttpGet("{id}/Vehicles")] //all Vehicles of a Vendor
-    public async Task<List<Vehicle>> VendorVehicles(int id)
+    public async Task<List<Vehicle>> GetVendorVehicles(int id)
     {
         return await _service.GetVendorsVehicles(id);
     }

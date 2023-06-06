@@ -8,7 +8,6 @@ public interface IVendorRepository
 
     Task<Vendor> GetById(int VendorId);
     Task<List<Vehicle>> GetVendorsVehicles(int VendorId);
-
     Task<List<VendorsFareDetails>> VendorHistory(int VendorId);
 
     Task<List<VendorsVehicleHistory>> VendorVehicleHistoryByMonth(int VendorId);

@@ -2,13 +2,6 @@
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
-SELECT `c`.`id`, `c`.`containertype`, `c`.`cropid`, `c`.`date`, `c`.`farmerid`, `c`.`grade`, `c`.`netweight`, `c`.`quantity`, `c`.`rateperkg`, `c`.`tareweight`, `c`.`totalweight`, `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount`, `c0`.`title` AS `Crop`
-      FROM `collections` AS `c`
-      INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid`
-      INNER JOIN `users` AS `u` ON `c`.`farmerid` = `u`.`id`
-      INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
-      WHERE ((((`c`.`farmerid` = 3) AND (`c0`.`title` = 'Potato')) AND (`c`.`date` >= '2022-01-01 00:00:00.000000')) AND (`c`.`date` <= '2022-12-31 00:00:00.000000')) AND (`b`.`totalamount` <= 20000)
-      ORDER BY `c`.`date`;
 CREATE TABLE
     users(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -71,7 +64,6 @@ CREATE TABLE
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_farmerid FOREIGN KEY (farmerid)  REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_cropid FOREIGN KEY (cropid)  REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE
-
     );
  CREATE TABLE
     billing(
@@ -245,13 +237,13 @@ INSERT INTO vendors(companyname,transportid) VALUES ("Navale Transport",11);
 INSERT INTO vendors(companyname,transportid) VALUES ("Karale Transport",12);
 INSERT INTO vendors(companyname,transportid) VALUES ("Sakore Transport",13);
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3456');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3455');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3455');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3465');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3476');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3, 'MH14RE3856');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3, 'MH14RE4656');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE1234');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE2345');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3476');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3856');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE4656');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3,'MH14RE1234');
+INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3,'MH14RE2345');
 INSERT INTO crops(title,imageurl,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
 INSERT INTO crops(title,imageurl,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
 INSERT INTO crops(title,imageurl,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
@@ -484,5 +476,3 @@ INNER JOIN transports on transports.transport_id=transport_trucks.transport_id
 where transports.transport_id=2
 GROUP BY  year(sells_billing.date),transport_trucks.truck_number ORDER BY year(sells_billing.date) ;
 */
-SELECT * FROM collections;
-SELECT * FROM billing;

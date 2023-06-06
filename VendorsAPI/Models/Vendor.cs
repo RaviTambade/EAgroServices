@@ -9,8 +9,10 @@ public class Vendor
 
     [Column("companyname")]
     public string? CompanyName { get; set; }
-[Column("vendorid")]
-    public int VendorId{get;set;}
+
+     [Column("transportid")]
+     public int TransportId{get;set;}
+ 
 
    
 }
