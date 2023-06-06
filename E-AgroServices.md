@@ -4,7 +4,7 @@
 URL
 
 ```console
- http://localhost:5051/api/admins/admins
+ http://localhost:5051/api/admins
 ```
 
 Method = GET
@@ -18,7 +18,7 @@ Body = None
 URL
 
 ```console
- http://localhost:5051/api/admins/admins/{id}
+ http://localhost:5051/api/admins/{id}
 ```
 
 Id = adminId
@@ -34,7 +34,7 @@ Body = None
 URL
 
 ```console
-http://localhost:5051/api/admins/admins
+http://localhost:5051/api/admins
 ```
 
 Method = POST
@@ -53,8 +53,7 @@ URL
 ```console
 http://localhost:5051/api/admins/admins/{id}
 ```
-Id  =  adminId
-
+Id  =  adminI
 Method = Put
 
 Description =  Update an existing Admin details
@@ -87,7 +86,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5265/api/employees/employees
+ http://localhost:5265/api/employees
  ```
 Method = GET
 
@@ -98,7 +97,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5265/api/employees/employees/{id}
+ http://localhost:5265/api/employees/{id}
  ```
 Id = adminId
 
@@ -111,7 +110,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5265/api/employees/employees
+http://localhost:5265/api/employees
 ```
 Method = Post
 
@@ -139,7 +138,7 @@ Body
 
 URL
 ```console
-http://localhost:5265/api/employees/employees/{id}
+http://localhost:5265/api/employees/{id}
 ```
 Id = employeeId
 
@@ -160,7 +159,7 @@ Body
 
  URL
 ```console
-  http://localhost:5265/api/employees/employees/{id}
+  http://localhost:5265/api/employees/{id}
 ```
 Id =  employeeId
 
@@ -178,7 +177,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5141/api/farmers/farmers
+ http://localhost:5141/api/farmers
 ```
 Method = GET
 
@@ -189,7 +188,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5141/api/farmers/farmers/{id}
+http://localhost:5141/api/farmers/{id}
 ```
 Id = farmerId
 
@@ -202,7 +201,7 @@ Body = None
 
  URL
 ```console
- http://localhost:5141/api/farmers/farmers
+ http://localhost:5141/api/farmers
 ```
 Method = POST
 
@@ -229,7 +228,7 @@ Body
 
 URL
 ```console
- http://localhost:5141/api/farmers/farmers/{id}
+ http://localhost:5141/api/farmers/{id}
 ```
 Id = farmerId
 
@@ -250,7 +249,7 @@ Body
 
 URL
 ```console
- http://localhost:5141/api/farmers/farmers/{id}
+ http://localhost:5141/api/farmers/{id}
 ```
 Id = farmerId
 
@@ -267,7 +266,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5188/api/merchants/merchants
+http://localhost:5188/api/merchants
 ```
 Method = GET
 
@@ -279,7 +278,7 @@ Body = None
 
 URL
 ```console
- http://localhost:5188/api/merchants/merchants/{id}
+ http://localhost:5188/api/merchants/{id}
 ```
 Id = merchantId
 
@@ -293,7 +292,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5188/api/merchants/merchants
+http://localhost:5188/api/merchants
 ```
 Method = POST
 Description = Insert new Merchant
@@ -320,7 +319,7 @@ Body
 
 URL
 ```console
-http://localhost:5188/api/merchants/merchants/{id}
+http://localhost:5188/api/merchants/{id}
 ```
 Id = merchantId
 
