@@ -28,14 +28,14 @@ public class SellService : ISellService
     public async Task<List<MerchantSell>> GetSellByMerchantId(int merchantId) =>
         await _repo.GetSellByMerchantId(merchantId);
 
-    public async Task<List<TruckBilling>> GetTruckBillingsByTruckId(int truckId) =>
+    public async Task<List<VehicleBilling>> GetTruckBillingsByTruckId(int truckId) =>
         await _repo.GetTruckBillingsByTruckId(truckId);
 
     public async Task<List<MerchantRevenue>> GetMerchantRevenues(int merchantId) =>
         await _repo.GetMerchantRevenues(merchantId);
 
-    public async Task<double> GetTotalPurchaseAmountOfMerchant(int merchantId) =>
-        await _repo.GetTotalPurchaseAmountOfMerchant(merchantId);
+    // public async Task<double> GetTotalPurchaseAmountOfMerchant(int merchantId) =>
+    //     await _repo.GetTotalPurchaseAmountOfMerchant(merchantId);
 
     public async Task<List<MerchantOrder>> GetTotalPurchaseOrdersCount(int merchantId) =>
         await _repo.GetTotalPurchaseOrdersCount(merchantId);

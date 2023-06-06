@@ -5,6 +5,6 @@ public class SellBillingView
     public FreightRate? FreightRate{get;set;}
     public Billing? Billing{get;set;}
     public string? FullName{get;set;}
-    public string? TruckNumber{get;set;}
+    public string? VehicleNumber{get;set;}
 
 }

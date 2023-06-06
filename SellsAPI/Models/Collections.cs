@@ -1,32 +1,32 @@
 using System.ComponentModel.DataAnnotations.Schema;
 namespace SellsAPI.Models;
-public class PurchaseItem
+public class Collections
 {
-    [Column("purchase_id")]
+    [Column("id")]
     public int Id { get; set; }
-    [Column("farmer_id")]
+    [Column("farmerid")]
     public int FarmerId { get; set; }
-    [Column("variety_id")]
-    public int VarietyId { get; set; }
+    [Column("cropid")]
+    public int CropId { get; set; }
 
-    [Column("container_type")]
+    [Column("containertype")]
     public string? ContainerType { get; set; }
 
     [Column("quantity")]
     public int Quantity { get; set; }
     [Column("grade")]
     public string? Grade { get; set; }
-    [Column("total_weight")]
+    [Column("totalweight")]
     public double TotalWeight { get; set; }
 
-    [Column("tare_weight")]
+    [Column("tareweight")]
     public double TareWeight { get; set; }
 
-    [Column("net_weight")]
+    [Column("netweight")]
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public double NetWeight { get; set; }
 
-    [Column("rate_per_kg")]
+    [Column("rateperkg")]
     public double RatePerKg { get; set; }
 
     public double Amount
