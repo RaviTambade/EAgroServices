@@ -1,16 +1,32 @@
-
-
-   <div *ngFor="let vendor of vendors">
+<div>
+    <select class="form-select" [(ngModel)]="vendor" (change)="onselect(vendor)" >
+      <option disabled selected>Select a vendor</option>
+      <option *ngFor="let vendor of vendors" [ngValue]="vendor">{{vendor.companyName}}</option>
+    </select>
+  </div>
+  <div *ngIf="selectedVendor">
     <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center" (click)="onselect(vendor)">
-        {{vendor.companyName}}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{selectedVendor.companyName}}
       </li>
-      <li *ngIf="selectedVendor && selectedVendor.id == vendor.id" class="list-group-item">
+      <li class="list-group-item">
         <ul>
           <li *ngFor="let vehicle of vehicles">
             {{vehicle.vehicleNumber}}
           </li>
         </ul>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary" (click)="onInsertClick()">Insert New</button>
   </div>
+  <div *ngIf="insertStatus" class="form-group">
+    <label>Truck Number</label>
+    <input type="text" class="form-control" [(ngModel)]="vehicle.vehicleNumber" name="truckNumber" />
+    <button type="submit" class="btn btn-primary btn-block" (click)="addVehicle(vendor)">
+      <i class="fas fa-check mr-2"></i>Add
+    </button>
+  </div>
+  </div>
+
+  

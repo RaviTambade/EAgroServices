@@ -11,6 +11,7 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var vendorvehicles_component_1 = require("./vendorvehicles/vendorvehicles.component");
 var http_1 = require("@angular/common/http");
+var forms_1 = require("@angular/forms");
 var VendorsModule = /** @class */ (function () {
     function VendorsModule() {
     }
@@ -21,7 +22,8 @@ var VendorsModule = /** @class */ (function () {
             ],
             imports: [
                 common_1.CommonModule,
-                http_1.HttpClientModule
+                http_1.HttpClientModule,
+                forms_1.FormsModule
             ],
             exports: [
                 vendorvehicles_component_1.VendorvehiclesComponent,

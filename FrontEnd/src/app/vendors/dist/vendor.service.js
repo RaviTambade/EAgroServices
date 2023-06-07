@@ -20,6 +20,18 @@ var VendorService = /** @class */ (function () {
         var url = "http://localhost:5240/api/vendors/" + id + "/vehicles";
         return this.httpClient.get(url, id);
     };
+    VendorService.prototype.addVehicle = function (vendorId, vehicle) {
+        var url = "http://localhost:5240/api/vehicles/" + vendorId;
+        return this.httpClient.post(url, vehicle);
+    };
+    VendorService.prototype.updateVendor = function (vendorId, vendor) {
+        var url = "http://localhost:5240/api/vendors/" + vendorId;
+        return this.httpClient.put(url, vendor);
+    };
+    VendorService.prototype.DeleteVendor = function (vendorId) {
+        var url = "http://localhost:5240/api/vendors/" + vendorId;
+        return this.httpClient["delete"](url);
+    };
     VendorService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
