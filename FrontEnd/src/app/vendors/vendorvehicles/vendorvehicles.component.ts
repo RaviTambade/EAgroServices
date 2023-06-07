@@ -19,7 +19,8 @@ export class VendorvehiclesComponent implements OnInit{
   selectedVendor:any;
   vendor:Vendor |any;
   insertStatus:boolean=false;
-  
+  updateStatus:boolean=false;
+  deleteStatus:boolean=false;
   
   constructor(private svc:VendorService){}
     ngOnInit(): void {
@@ -38,9 +39,30 @@ export class VendorvehiclesComponent implements OnInit{
       onInsertClick(){
         this.insertStatus=true;
       }
+      onUpdateClick(vendor: any) {
+        this.selectedVendor = vendor;
+      
+        this.updateStatus = true;
+      }
+      
+onDeleteClick(vendor: any) {
+  this.selectedVendor = vendor;
+  this.deleteStatus = true;
+}
+
       addVehicle(vendor:any){
         this.svc.addVehicle(vendor.id,this.vehicle).subscribe((response)=>{
           console.log(response)
+    })
+  }
+  onUpdateDone(vendor:any){
+    this.svc.updateVendor(vendor.id,this.vendor).subscribe((response)=>{
+      console.log(response)
+    })
+  }
+  onDeleteDone(vendor:any){
+    this.svc.DeleteVendor(vendor.id).subscribe((response)=>{
+      console.log(response);
     })
   }
   }

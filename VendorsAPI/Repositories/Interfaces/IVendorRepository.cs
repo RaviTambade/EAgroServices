@@ -15,4 +15,6 @@ public interface IVendorRepository
     Task<List<VendorsVehicleHistory>> VendorVehicleHistoryByYear(int VendorId);
     
     Task<List<VendorOrderCount>> VendorVehicleOrdersPerMonth(int VendorId);
+    Task<bool> Update(int vendorId,Vendor vendor);
+    Task<bool> Delete(int vendorId);
 }

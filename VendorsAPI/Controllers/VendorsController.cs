@@ -56,4 +56,17 @@ public class VendorsController : ControllerBase
     {
         return await _service.VendorVehicleOrdersPerMonth(id);
     }
+
+    [HttpPut("{vendorId}")]
+     public async Task<bool> Update(int vendorId,Vendor vendor){
+        System.Console.WriteLine(vendorId);
+        System.Console.WriteLine(vendor.CompanyName);
+        System.Console.WriteLine(vendor.TransportId);
+       return  await  _service.Update(vendorId,vendor);
+     } 
+
+      [HttpDelete("{vendorId}")]
+     public async Task<bool> Delete(int vendorId){
+       return  await  _service.Delete(vendorId);
+}
 }

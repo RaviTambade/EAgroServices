@@ -3,8 +3,8 @@
       <option disabled selected>Select a vendor</option>
       <option *ngFor="let vendor of vendors" [ngValue]="vendor">{{vendor.companyName}}</option>
     </select>
-  </div>
-  <div *ngIf="selectedVendor">
+ </div> 
+ <!--   <div *ngIf="selectedVendor">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
         {{selectedVendor.companyName}}
@@ -27,6 +27,51 @@
       <i class="fas fa-check mr-2"></i>Add
     </button>
   </div>
-  </div>
+  </div> -->
 
+  
+
+<div *ngIf="vendor">
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{selectedVendor.companyName}}
+        <div class="btn-group" role="group" aria-label="Actions">
+          <button type="button" class="btn btn-primary" (click)="onUpdateClick(vendor)">Change Vendor</button>
+          <button type="button" class="btn btn-danger" (click)="onDeleteClick(vendor)">Remove Vendor</button>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <ul>
+          <li *ngFor="let vehicle of vehicles">
+            {{vehicle.vehicleNumber}}
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div *ngIf="updateStatus" class="form-group">
+      <label>Update Vendor Details:</label>
+      <input type="text" class="form-control" [(ngModel)]="vendor.companyName" name="companyName" />
+      <button type="submit" class="btn btn-primary btn-block" (click)="onUpdateDone(vendor)">
+        <i class="fas fa-check mr-2"></i>Done
+      </button>
+    </div>
+    <div *ngIf="deleteStatus" class="form-group">
+      <p>Are you sure you want to delete the vendor "{{ vendor.companyName }}"?</p>
+      <button type="submit" class="btn btn-danger btn-block" (click)="onDeleteDone(vendor)">
+        <i class="fas fa-trash mr-2"></i>Remove Vendor
+      </button>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary" (click)="onInsertClick()">Add New Vehicle</button>
+      </div>
+      <div *ngIf="insertStatus" class="form-group">
+        <label>Truck Number</label>
+        <input type="text" class="form-control" [(ngModel)]="vehicle.vehicleNumber" name="truckNumber" />
+        <button type="submit" class="btn btn-primary btn-block" (click)="addVehicle(vendor)">
+          <i class="fas fa-check mr-2"></i>Add 
+        </button>
+      </div>
+  </div>
+  
+  <!-- ... -->
   

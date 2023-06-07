@@ -17,6 +17,8 @@ var VendorvehiclesComponent = /** @class */ (function () {
             vehicleNumber: ''
         };
         this.insertStatus = false;
+        this.updateStatus = false;
+        this.deleteStatus = false;
     }
     VendorvehiclesComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -36,8 +38,26 @@ var VendorvehiclesComponent = /** @class */ (function () {
     VendorvehiclesComponent.prototype.onInsertClick = function () {
         this.insertStatus = true;
     };
+    VendorvehiclesComponent.prototype.onUpdateClick = function (vendor) {
+        this.selectedVendor = vendor;
+        this.updateStatus = true;
+    };
+    VendorvehiclesComponent.prototype.onDeleteClick = function (vendor) {
+        this.selectedVendor = vendor;
+        this.deleteStatus = true;
+    };
     VendorvehiclesComponent.prototype.addVehicle = function (vendor) {
         this.svc.addVehicle(vendor.id, this.vehicle).subscribe(function (response) {
+            console.log(response);
+        });
+    };
+    VendorvehiclesComponent.prototype.onUpdateDone = function (vendor) {
+        this.svc.updateVendor(vendor.id, this.vendor).subscribe(function (response) {
+            console.log(response);
+        });
+    };
+    VendorvehiclesComponent.prototype.onDeleteDone = function (vendor) {
+        this.svc.DeleteVendor(vendor.id).subscribe(function (response) {
             console.log(response);
         });
     };

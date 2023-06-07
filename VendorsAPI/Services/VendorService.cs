@@ -51,4 +51,8 @@ public class VendorsService : IVendorService
                 return await _repository.VendorVehicleOrdersPerMonth(VendorId);
 
     }
+    public async Task<bool> Update(int vendorId,Vendor vendor)=>await _repository.Update(vendorId,vendor);
+    public async Task<bool> Delete(int vendorId )=>await _repository.Delete(vendorId);
+
+
 }

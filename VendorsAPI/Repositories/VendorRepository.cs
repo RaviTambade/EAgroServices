@@ -234,5 +234,48 @@ public class VendorRepository : IVendorRepository
             throw e;
         }
     }
+    public async Task<bool> Update(int vendorId,Vendor vendor){
+        bool status=false;
+         try
+        {
+            using (var context = new VendorsContext(_configuration))
+            {
+               Vendor oldVendor=await context.Vendors.FindAsync(vendorId);
+               if(oldVendor != null){
+                oldVendor.CompanyName=vendor.CompanyName;
+                oldVendor.TransportId=vendor.TransportId;
+                await context.SaveChangesAsync();
+                status=true;    
+               }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+            System.Console.WriteLine(e);
+        }
+        return status;
+    }
+     public async Task<bool> Delete(int vendorId){
+        bool status=false;
+        try{
+            using (var context = new VendorsContext(_configuration)){
+                 Vendor? vendor = await context.Vendors.FindAsync(vendorId);
+                if (vendor != null)
+                {
+                 context.Vendors.Remove(vendor);
+                await context.SaveChangesAsync();
+                return true;
+            }
+        }
+        }
+        catch(Exception e){
+            throw e;
+        }
+        return status;
+        
+   }
+
+
 
 }
