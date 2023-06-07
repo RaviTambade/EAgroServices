@@ -16,7 +16,6 @@ namespace SellsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("sells")]
         public async Task<List<SellBillingView>> GetAll()
         {
             List<SellBillingView> sellBillingViews = await _srv.GetAll();
@@ -24,7 +23,7 @@ namespace SellsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("sells/{id}")]
+        [Route("{id}")]
         public async Task<Sell> GetById(int id)
         {
             Sell sell = await _srv.GetById(id);
@@ -36,26 +35,19 @@ namespace SellsAPI.Controllers
         {
             Sell? sell = sellBilling.Sell;
             FreightRate? freightRate = sellBilling.FreightRate;
-             Console.WriteLine(sell.NetWeight);
-            Console.WriteLine(sell.Quantity);
-            Console.WriteLine(sell.RatePerKg);
-            Console.WriteLine(sell.VehicleId);
-            Console.WriteLine(freightRate.Kilometers);
-            Console.WriteLine(freightRate.RatePerKm);
-            Console.WriteLine(freightRate.ToDestination);
             return await _srv.Insert(sell, freightRate);
            
         }
 
         [HttpPut]
-        [Route("sells/{id}")]
+        [Route("{id}")]
         public async Task<bool> Update(int id, [FromBody] SellBilling sellBilling)
         {
             return await _srv.Update(id, sellBilling.Sell, sellBilling.FreightRate);
         }
 
         [HttpDelete]
-        [Route("sells/{id}")]
+        [Route("{id}")]
         public async Task<bool> Delete(int id)
         {
             return await _srv.Delete(id);
