@@ -15,7 +15,13 @@ public class CollectionsController : ControllerBase
         _service = service;
     }
 
-    [HttpGet]
+     [HttpGet]
+    public async Task<List<CollectionViewModel>> GetCollection()
+    {
+        return await _service.GetCollections();
+    }
+
+    [HttpGet("billing")]
     public async Task<List<CollectionBillingRecord>> GetCollectionBillingRecords()
     {
         return await _service.GetCollectionBillingRecords();

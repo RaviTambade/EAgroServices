@@ -12,13 +12,15 @@ var common_1 = require("@angular/common");
 var vendorvehicles_component_1 = require("./vendorvehicles/vendorvehicles.component");
 var http_1 = require("@angular/common/http");
 var forms_1 = require("@angular/forms");
+var gridlist_component_1 = require("./gridlist/gridlist.component");
 var VendorsModule = /** @class */ (function () {
     function VendorsModule() {
     }
     VendorsModule = __decorate([
         core_1.NgModule({
             declarations: [
-                vendorvehicles_component_1.VendorvehiclesComponent
+                vendorvehicles_component_1.VendorvehiclesComponent,
+                gridlist_component_1.GridlistComponent
             ],
             imports: [
                 common_1.CommonModule,
@@ -28,6 +30,7 @@ var VendorsModule = /** @class */ (function () {
             ],
             exports: [
                 vendorvehicles_component_1.VendorvehiclesComponent,
+                gridlist_component_1.GridlistComponent
             ]
         })
     ], VendorsModule);

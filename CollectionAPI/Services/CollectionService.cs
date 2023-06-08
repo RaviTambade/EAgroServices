@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using CollectionAPI.Models;
 using CollectionAPI.Repositories.Interfaces;
 using CollectionAPI.Services.Interfaces;
@@ -37,4 +39,6 @@ public class CollectionService : ICollectionService
     {
         return await _repo.Update(collectionId, collection);
     }
+
+    public async Task<List<CollectionViewModel>> GetCollections()=>await _repo.GetCollections();
 }

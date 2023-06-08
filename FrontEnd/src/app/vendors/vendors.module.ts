@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { VendorvehiclesComponent } from './vendorvehicles/vendorvehicles.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GridlistComponent } from './gridlist/gridlist.component';
 
 
 
 @NgModule({
   declarations: [
-    VendorvehiclesComponent
+    VendorvehiclesComponent,
+    GridlistComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   exports:[
     VendorvehiclesComponent,
+    GridlistComponent
   ]
 })
 export class VendorsModule { }

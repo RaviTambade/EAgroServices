@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -535,3 +535,11 @@ INNER JOIN sells ON vehicles.id=sells.vehicleid
 INNER JOIN sellsbilling ON sells.id=sellsbilling.sellid
 INNER JOIN freightrates ON sellsbilling.id=freightrates.billid WHERE vehicles.id=1;
 
+SELECT * FROM collections;
+
+    SELECT CONCAT(users.firstname,users.lastname) AS farmer ,crops.title,collections.containertype,
+collections.grade,collections.quantity,collections.totalweight,collections.tareweight,collections.netweight,
+collections.rateperkg,collections.date FROM users INNER JOIN collections
+ON users.id=collections.farmerid 
+INNER JOIN crops
+ON crops.id=collections.cropid;

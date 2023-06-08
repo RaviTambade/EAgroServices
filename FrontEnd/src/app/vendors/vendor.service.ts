@@ -30,4 +30,8 @@ DeleteVendor(vendorId: number): Observable<any> {
   let url = "http://localhost:5240/api/vendors/" + vendorId;
   return this.httpClient.delete(url)
 }
+GetCollections():Observable<any>{
+  let url="http://localhost:5031/api/collections"
+  return this.httpClient.get<any>(url)
+}
 }

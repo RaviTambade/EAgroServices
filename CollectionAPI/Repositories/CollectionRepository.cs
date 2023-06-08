@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using CollectionAPI.Contexts;
 using CollectionAPI.Models;
 using CollectionAPI.Repositories.Interfaces;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System;
 
 namespace CollectionAPI.Repositories;
 
@@ -213,4 +216,38 @@ public class CollectionRepository : ICollectionRepository
         }
         return status;
     }
+
+    public async Task<List<CollectionViewModel>> GetCollections(){
+        try{
+            using(var context=new CollectionContext(_configuration)){
+                  var collections = await (from farmer in context.Farmers
+                                              join collection in context.Collections
+                                              on farmer.Id equals collection.FarmerId
+                                              join crop in context.Crops
+                                              on collection.CropId equals crop.Id
+                                              select new CollectionViewModel()
+                                              {
+                                                  Collection = collection,
+                                                  FarmerName = farmer.FirstName + " " + farmer.LastName,
+                                                  CropName = crop.Title
+                                              }).ToListAsync();
+                return collections;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+
+    // public async Task<List<Collection>> GetCollections(){
+    //     try{
+    //         using(var context=new CollectionContext(_configuration)){
+    //           List<Collection> collections=await context.Collections.ToListAsync();
+    //                 return collections; 
+    //         }
+    //     }
+    //     catch(Exception e){
+    //         throw e;
+    //     } 
+    // }
 }
