@@ -1,3 +1,4 @@
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -82,7 +83,7 @@ CREATE TABLE
         merchantid INT,
         vehicleid INT,
         quantity INT NOT NULL,
-        netweight DOUBLE NOT NULL,32
+        netweight DOUBLE NOT NULL,
         rateperkg DOUBLE NOT NULL DEFAULT 0,
         date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_collectionid2 FOREIGN KEY (collectionid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -90,7 +91,6 @@ CREATE TABLE
         CONSTRAINT fk_vehicleid FOREIGN KEY (vehicleid) REFERENCES vehicles(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
     SELECT * FROM sells;
-    -- SELECT * FROM sells;
    CREATE TABLE
     sellsbilling(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -279,12 +279,6 @@ INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3856');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE4656');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3,'MH14RE1234');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3,'MH14RE2345');
-=======
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3476');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3, 'MH14RE3856');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3, 'MH14RE4656');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE1234');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(4,'MH14RE2345');
 
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',24);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',25);
