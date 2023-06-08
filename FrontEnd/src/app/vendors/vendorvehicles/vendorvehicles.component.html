@@ -1,9 +1,9 @@
-<div>
+<!-- <div>
     <select class="form-select" [(ngModel)]="vendor" (change)="onselect(vendor)" >
       <option disabled selected>Select a vendor</option>
       <option *ngFor="let vendor of vendors" [ngValue]="vendor">{{vendor.companyName}}</option>
     </select>
- </div> 
+ </div>  -->
  <!--   <div *ngIf="selectedVendor">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -30,7 +30,7 @@
   </div> -->
 
   
-
+<!-- 
 <div *ngIf="vendor">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -64,14 +64,108 @@
     <div class="col-auto">
         <button type="submit" class="btn btn-primary" (click)="onInsertClick()">Add New Vehicle</button>
       </div>
-      <div *ngIf="insertStatus" class="form-group">
+      <div *ngIf="insertStatus" class="form-group"> 
         <label>Truck Number</label>
         <input type="text" class="form-control" [(ngModel)]="vehicle.vehicleNumber" name="truckNumber" />
         <button type="submit" class="btn btn-primary btn-block" (click)="addVehicle(vendor)">
           <i class="fas fa-check mr-2"></i>Add 
         </button>
       </div>
-  </div>
+  </div>-->
   
   <!-- ... -->
+<!--   
+  <form [formGroup]="vendorForm">
+    <select class="form-select" formControlName="vendor" [formControl]="vendor"  name="vendor">
+      <option disabled [selected]="!vendorForm.value.vendor">Select a vendor</option>
+      <option *ngFor="let vendor of vendors" [ngValue]="vendor">{{vendor.companyName}}</option>
+    </select>
+  </form>
   
+  <div *ngIf="vendor">
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{vendor.companyName}} -->
+        <!-- <div class="btn-group" role="group" aria-label="Actions">
+          <button type="button" class="btn btn-primary" (click)="onUpdateClick(vendor)">Change Vendor</button>
+          <button type="button" class="btn btn-danger" (click)="onDeleteClick(vendor)">Remove Vendor</button>
+        </div> -->
+      <!-- </li>
+      <li class="list-group-item">
+        <ul>
+          <li *ngFor="let vehicle of vehicles">
+            {{vehicle.vehicleNumber}}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+   -->
+
+   
+<form [formGroup]="vendorForm">
+  <h4> Vendor:</h4>
+  <table>
+      <tr>
+          <td>
+              <label>Vendor</label>
+          </td>
+          <td>
+              <select  [formControl]="vendor"  name="vendor">
+              <option *ngFor="let vendor of vendors" [value]="vendor.companyName">
+              {{ vendor.companyName }}
+              </option>
+              </select>
+          </td>
+      </tr>
+      <tr>
+          <td>
+          </td>
+          <td>
+              <button (click)="vendor.reset()">Clear</button>
+          </td>
+      </tr>
+      
+      <tr>
+          <td>
+              <label>Vehicle</label>
+          </td>
+          <td>
+              <select  [formControl]="vehicle"  name="vehicle">
+              <option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleNumber">
+              {{ vehicle.vehicleNumber }}
+              </option>
+              </select>
+          </td>
+      </tr>
+      <tr>
+          <td>
+          </td>
+          <td>
+              <button (click)="vehicle.reset()">Clear</button>
+          </td>
+      </tr>
+      <tr>
+          <td>
+              <label></label>
+          </td>
+          <!-- <td>
+              <select  [formControl]="city"  name="city">
+              <option *ngFor="let city of cities" [value]="city">
+              {{ city }}
+              </option>
+              </select>
+          </td>
+      </tr>
+      <tr>
+          <td>
+          </td>
+          <td>
+              <button (click)="city.reset()">Clear</button>
+          </td> -->
+      </tr>
+  </table>
+  
+  <p>Vendor: {{ vendor.value }}</p>
+  <p>Vehicle: {{ vehicle.value }}</p>
+</form>

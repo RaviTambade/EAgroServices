@@ -529,3 +529,15 @@ SELECT * FROM roles;
 
 SELECT * FROM collections;
 SELECT * FROM billing;
+SELECT * FROM sells;
+SELECT * FROM vehicles;
+SELECT * FROM freightrates;
+SELECT * FROM sellsbilling;
+SELECT * FROM sells;
+SELECT sellsbilling.freightcharges,freightrates.fromdestination,freightrates.todestination,
+freightrates.kilometers,sells.quantity,
+freightrates.rateperkm from vehicles 
+INNER JOIN sells ON vehicles.id=sells.vehicleid 
+INNER JOIN sellsbilling ON sells.id=sellsbilling.sellid
+INNER JOIN freightrates ON sellsbilling.id=freightrates.billid WHERE vehicles.id=1;
+

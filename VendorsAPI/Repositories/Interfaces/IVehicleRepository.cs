@@ -9,5 +9,7 @@ public interface IVehicleRepository
     Task<bool> Insert(Vehicle Vehicle);
     Task<bool> Update(int id, Vehicle Vehicle);
     Task<bool> Delete(int id);
+
+    Task<
     
 }

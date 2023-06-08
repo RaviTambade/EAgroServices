@@ -8,57 +8,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.VendorvehiclesComponent = void 0;
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var VendorvehiclesComponent = /** @class */ (function () {
     function VendorvehiclesComponent(svc) {
         this.svc = svc;
-        this.vehicle = {
-            id: 0,
-            vendorId: 0,
-            vehicleNumber: ''
-        };
-        this.insertStatus = false;
-        this.updateStatus = false;
-        this.deleteStatus = false;
+        this.vendors = [];
+        this.vehicles = [];
+        this.vendor = new forms_1.FormControl('', [forms_1.Validators.required]);
+        this.vehicle = new forms_1.FormControl('', [forms_1.Validators.required]);
+        this.vendorForm = new forms_1.FormGroup({
+            vendor: this.vendor,
+            vehicle: this.vehicle
+        });
     }
     VendorvehiclesComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.svc.getVendors().subscribe(function (response) {
-            _this.vendors = response;
+        this.svc.getVendors().subscribe(function (vendors) {
+            _this.vendors = vendors;
             console.log(_this.vendors);
         });
-    };
-    VendorvehiclesComponent.prototype.onselect = function (vendor) {
-        var _this = this;
-        this.selectedVendor = vendor;
-        this.svc.getVendorVehicles(vendor.id).subscribe(function (response) {
-            _this.vehicles = response;
-            console.log(_this.vehicles);
-        });
-    };
-    VendorvehiclesComponent.prototype.onInsertClick = function () {
-        this.insertStatus = true;
-    };
-    VendorvehiclesComponent.prototype.onUpdateClick = function (vendor) {
-        this.selectedVendor = vendor;
-        this.updateStatus = true;
-    };
-    VendorvehiclesComponent.prototype.onDeleteClick = function (vendor) {
-        this.selectedVendor = vendor;
-        this.deleteStatus = true;
-    };
-    VendorvehiclesComponent.prototype.addVehicle = function (vendor) {
-        this.svc.addVehicle(vendor.id, this.vehicle).subscribe(function (response) {
-            console.log(response);
-        });
-    };
-    VendorvehiclesComponent.prototype.onUpdateDone = function (vendor) {
-        this.svc.updateVendor(vendor.id, this.vendor).subscribe(function (response) {
-            console.log(response);
-        });
-    };
-    VendorvehiclesComponent.prototype.onDeleteDone = function (vendor) {
-        this.svc.DeleteVendor(vendor.id).subscribe(function (response) {
-            console.log(response);
+        this.vendor.valueChanges.subscribe(function (selectedVendorId) {
+            _this.vehicle.reset();
+            // this.vehicle.disable();
+            if (selectedVendorId) {
+                // const vendorId = Number(selectedVendorId);
+                var selectedVendor = _this.vendors.find(function (vendor) { return vendor.companyName === selectedVendorId; });
+                if (selectedVendor) {
+                    _this.svc.getVendorVehicles(selectedVendor.id).subscribe(function (vehicles) {
+                        _this.vehicles = vehicles;
+                        console.log(_this.vehicles);
+                    });
+                }
+            }
         });
     };
     VendorvehiclesComponent = __decorate([
@@ -71,3 +52,35 @@ var VendorvehiclesComponent = /** @class */ (function () {
     return VendorvehiclesComponent;
 }());
 exports.VendorvehiclesComponent = VendorvehiclesComponent;
+// onselect(vendor:any){
+//   this.svc.getVendorVehicles(this.vendors.id).subscribe((response)=>{
+//     this.vehicles=response
+//     console.log(this.vehicles)
+//   })
+//   }
+//       onInsertClick(){
+//         this.insertStatus=true;
+//       }
+//       onUpdateClick(vendor: any) {
+//         this.selectedVendor = vendor;
+//         this.updateStatus = true;
+//       }
+// onDeleteClick(vendor: any) {
+//   this.selectedVendor = vendor;
+//   this.deleteStatus = true;
+// }
+//       addVehicle(vendor:any){
+//         this.svc.addVehicle(vendor.id,this.vehicle).subscribe((response)=>{
+//           console.log(response)
+//     })
+//   }
+//   onUpdateDone(vendor:any){
+//     this.svc.updateVendor(vendor.id,this.vendor).subscribe((response)=>{
+//       console.log(response)
+//     })
+//   }
+//   onDeleteDone(vendor:any){
+//     this.svc.DeleteVendor(vendor.id).subscribe((response)=>{
+//       console.log(response);
+//     })
+// }

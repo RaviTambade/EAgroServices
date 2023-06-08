@@ -23,7 +23,8 @@ var VendorsModule = /** @class */ (function () {
             imports: [
                 common_1.CommonModule,
                 http_1.HttpClientModule,
-                forms_1.FormsModule
+                forms_1.FormsModule,
+                forms_1.ReactiveFormsModule
             ],
             exports: [
                 vendorvehicles_component_1.VendorvehiclesComponent,
