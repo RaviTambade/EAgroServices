@@ -11,17 +11,60 @@ var core_1 = require("@angular/core");
 var GridlistComponent = /** @class */ (function () {
     function GridlistComponent(svc) {
         this.svc = svc;
-        this.collections = [];
+        this.collectionviewmodel = [];
+        this.updateStatus = false;
+        this.deleteStatus = false;
+        this.viewStatus = false;
+        this.currentPage = 0;
+        this.arrLenght = 0;
+        this.results = [],
+            this.arrLenght = this.collectionviewmodel.length;
     }
     GridlistComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.svc.GetCollections().subscribe(function (collections) {
-            _this.collections = collections.slice(0, 10);
-            console.log(collections);
+        this.svc.GetCollections().subscribe(function (collectionview) {
+            console.log(collectionview);
         });
     };
-    GridlistComponent.prototype.viewCollection = function () {
-        this.svc.GetCollections().subscribe(function (response) {
+    ;
+    GridlistComponent.prototype.next = function () {
+        // if(this.currentPage >= this.arrLenght )
+        this.currentPage++;
+    };
+    GridlistComponent.prototype.previous = function () {
+        if (this.currentPage > 0) {
+            this.currentPage--;
+        }
+    };
+    // onViewClick(collection:any){
+    //   this.selCollection=collection;
+    //   this.viewStatus=true
+    // }
+    GridlistComponent.prototype.onUpdateClick = function (collection) {
+        this.selCollection = collection;
+        this.updateStatus = true;
+    };
+    GridlistComponent.prototype.onDeleteClick = function (collection) {
+        this.selCollection = collection;
+        this.deleteStatus = true;
+    };
+    GridlistComponent.prototype.onViewDone = function (collectionId) {
+        this.viewStatus = true;
+        // console.log("hii");
+        // if(collectionId){
+        // const selCollection=this.collectionviewmodel.find(collection=>collection.collection.id===selCollection.collectionId)
+        // }
+        // this.svc.GetCollection(selCollection.collection.id).subscribe((response) => {
+        //   console.log(collection.id)
+        //   console.log(response)
+        // })
+    };
+    GridlistComponent.prototype.onUpdateDone = function (collection) {
+        this.svc.UpdateCollection(collection.id, this.collection).subscribe(function (response) {
+            console.log(response);
+        });
+    };
+    GridlistComponent.prototype.onDeleteDone = function (collection) {
+        this.svc.DeleteCollection(collection.id).subscribe(function (response) {
             console.log(response);
         });
     };

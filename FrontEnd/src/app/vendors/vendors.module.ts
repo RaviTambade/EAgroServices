@@ -4,13 +4,15 @@ import { VendorvehiclesComponent } from './vendorvehicles/vendorvehicles.compone
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GridlistComponent } from './gridlist/gridlist.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 
 @NgModule({
   declarations: [
     VendorvehiclesComponent,
-    GridlistComponent
+    GridlistComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { GridlistComponent } from './gridlist/gridlist.component';
   ],
   exports:[
     VendorvehiclesComponent,
-    GridlistComponent
+    GridlistComponent,
+    PaginationComponent
   ]
 })
 export class VendorsModule { }

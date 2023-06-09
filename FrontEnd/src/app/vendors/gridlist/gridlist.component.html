@@ -1,46 +1,44 @@
 <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>ContainerType</th>
-        <th>Amount</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let collection of collections">
-        <td>{{ collection.date |date }}</td>
-        <td>{{ collection.containerType }}</td>
-        <td>{{ collection.amount  }}</td>
-        <td>
-          <a (click)="viewCollection()">View</a> |
-          <a href="">Remove</a> |
-          <a href="">Update</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Container Type</th>
+      <th>Quantity</th>
+      <th>Amount</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let collection of results">
+      <td>{{ collection.collection.date |date }}</td>
+      <td>{{ collection.collection.containerType }}</td>
+      <td>{{ collection.collection.quantity }}</td>
+      <td>{{ collection.collection.amount }}</td>
+      <td>
+      <button (click)="onViewDone(collection.collection.id)">View</button>
+      <button (click)="onUpdateClick(collection)">Update</button>
+      <button (click)="onDeleteClick(collection)">Delete</button>
+    </td>
+    </tr>
+  </tbody>
+  <button (click)="previous()">previous</button>
+<button (click)="next()">next</button>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>ContainerType</th>
-        <th>Amount</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let collection of collections">
-        <td>{{ collection.date |date }}</td>
-        <td>{{ collection.containerType }}</td>
-        <td>{{ collection.amount  }}</td>
-        <td>
-          <a href="" (click)="viewCollection()">View</a> |
-          <a href="">Remove</a> |
-          <a href="">Update</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+
+</table>
+
+<!-- <div *ngIf="selCollection && selCollection.id && !updateStatus && !deleteStatus">
+  <h2>View Collection Details</h2>
+  <p>Date: {{ selCollection.collection.date }}</p>
+  <p>Container Type: {{ selCollection.collection.containerType }}</p>
+  <p>Quantity: {{ selCollection.collection.quantity }}</p>
+  <p>Grade: {{ selCollection.collection.grade }}</p>
+  <p>Total Weight: {{ selCollection.collection.totalWeight }}</p>
+  <p>Tare Weight: {{ selCollection.collection.tareWeight }}</p>
+  <p>Net Weight: {{ selCollection.collection.netWeight }}</p>
+  <p>Rate Per Kg: {{ selCollection.collection.ratePerKg }}</p>
+  <p>Amount: {{ selCollection.collection.amount }}</p>
+  <p>Farmer Name: {{ selCollection.farmerName }}</p>
+  <p>Crop Name: {{ selCollection.cropName }}</p>
+  <button >Close</button>  
+</div> -->

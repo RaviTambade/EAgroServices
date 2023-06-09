@@ -36,6 +36,18 @@ var VendorService = /** @class */ (function () {
         var url = "http://localhost:5031/api/collections";
         return this.httpClient.get(url);
     };
+    VendorService.prototype.GetCollection = function (collectionId) {
+        var url = "http://localhost:5031/api/collections/" + collectionId;
+        return this.httpClient.get(url);
+    };
+    VendorService.prototype.UpdateCollection = function (collectionId, collection) {
+        var url = "http://localhost:5031/api/collections/" + collectionId;
+        return this.httpClient.put(url, collection);
+    };
+    VendorService.prototype.DeleteCollection = function (collectionId) {
+        var url = "http://localhost:5031/api/collections/" + collectionId;
+        return this.httpClient["delete"](url);
+    };
     VendorService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Vehicle } from './vehicle';
 import { Vendor } from './vendor';
+import { Collectionviewmodel } from './collectionviewmodel';
+import { Collection } from './collection';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +36,17 @@ GetCollections():Observable<any>{
   let url="http://localhost:5031/api/collections"
   return this.httpClient.get<any>(url)
 }
+GetCollection(collectionId:number):Observable<any>{
+  let url="http://localhost:5031/api/collections/" +collectionId
+  return this.httpClient.get<any>(url)
+}
+UpdateCollection(collectionId:number,collection:Collection):Observable<any>{
+  let url="http://localhost:5031/api/collections/" +collectionId
+  return this.httpClient.put<any>(url,collection)
+}
+DeleteCollection(collectionId:number):Observable<any>{
+  let url="http://localhost:5031/api/collections/" +collectionId
+  return this.httpClient.delete<any>(url)
+}
+
 }

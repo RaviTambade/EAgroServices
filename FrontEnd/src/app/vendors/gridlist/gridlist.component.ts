@@ -1,28 +1,89 @@
 import { Component, OnInit } from '@angular/core';
 import { Collection } from '../collection';
-import { VendorService } from '../vendor.service';
+import { Collectionviewmodel } from '../collectionviewmodel';
+  import { VendorService } from '../vendor.service';
 
-@Component({
-  selector: 'app-gridlist',
-  templateUrl: './gridlist.component.html',
-  styleUrls: ['./gridlist.component.css']
-})
+  @Component({
+    selector: 'app-gridlist',
+    templateUrl: './gridlist.component.html',
+    styleUrls: ['./gridlist.component.css']
+  })
 export class GridlistComponent implements OnInit {
-  collections: Collection[] = [];
-
-  constructor(private svc: VendorService) {}
-
-  ngOnInit(): void {
-    this.svc.GetCollections().subscribe((collections: Collection[]) => {
-      this.collections = collections.slice(0,10);
-      console.log(collections);
-    });
+  collection:Collection |any;
+  collectionviewmodel: Collectionviewmodel[] = [];
+  selCollection: any;
+  updateStatus: boolean = false;
+  deleteStatus: boolean = false;
+  viewStatus: boolean = false;
+  results: any[] = [];
+  currentPage = 0;
+  arrLength = 0;
+  constructor(private svc: VendorService) {
+    this.results=[],
+  this.arrLength=this.collectionviewmodel.length
   }
-  viewCollection(){
-    this.svc.GetCollections().subscribe((response)=>{
-      console.log(response)
+  ngOnInit(): void{
+    const startindex = this.currentPage * 5;
+    const endindex = startindex + 5;  
+    this.svc.GetCollections().subscribe((collections: Collectionviewmodel[]) => {
+      this.collectionviewmodel = collections; 
+      this.results = collections.slice(startindex, endindex);
+      console.log(this.results);
     })
-
   }
+  next() {
+    this.currentPage++;
+      const startindex = this.currentPage * 5;
+      const endindex = startindex + 5;
+      this.results = this.collectionviewmodel.slice(startindex, endindex);
+    }
+  previous() {
+      this.currentPage--;
+      const startindex = this.currentPage * 5;
+      const endindex = startindex + 5;
+      this.results = this.collectionviewmodel.slice(startindex, endindex);
   
 }
+  
+
+
+
+   
+  // onViewClick(collection:any){
+  //   this.selCollection=collection;
+  //   this.viewStatus=true
+  // }
+  onUpdateClick(collection: any) {
+    this.selCollection = collection;
+    this.updateStatus = true;
+  }
+
+  onDeleteClick(collection: any) {
+    this.selCollection = collection;
+    this.deleteStatus = true;
+  }
+  onViewDone(collectionId: any) {
+    this.viewStatus = true;
+    // console.log("hii");
+    // if(collectionId){
+    // const selCollection=this.collectionviewmodel.find(collection=>collection.collection.id===selCollection.collectionId)
+    // }
+    // this.svc.GetCollection(selCollection.collection.id).subscribe((response) => {
+    //   console.log(collection.id)
+    //   console.log(response)
+    // })
+  }
+  onUpdateDone(collection: any) {
+    this.svc.UpdateCollection(collection.id, this.collection).subscribe((response) => {
+      console.log(response)
+    })
+  }
+  onDeleteDone(collection: any) {
+    this.svc.DeleteCollection(collection.id).subscribe((response) => {
+      console.log(response);
+    })
+  }
+
+}
+
+
