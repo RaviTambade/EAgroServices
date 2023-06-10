@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GridlistComponent } from './gridlist/gridlist.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { ListsortComponent } from './listsort/listsort.component';
 
 
 
@@ -12,7 +13,8 @@ import { PaginationComponent } from './pagination/pagination.component';
   declarations: [
     VendorvehiclesComponent,
     GridlistComponent,
-    PaginationComponent
+    PaginationComponent,
+    ListsortComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { PaginationComponent } from './pagination/pagination.component';
   exports:[
     VendorvehiclesComponent,
     GridlistComponent,
-    PaginationComponent
+    PaginationComponent,
+    ListsortComponent
   ]
 })
 export class VendorsModule { }

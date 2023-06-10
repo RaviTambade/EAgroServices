@@ -18,6 +18,8 @@ export class GridlistComponent implements OnInit {
   results: any[] = [];
   currentPage = 0;
   arrLength = 0;
+  isDisabledPrev=false;
+  isDisabledNext=false;
   constructor(private svc: VendorService) {
     this.results=[],
   this.arrLength=this.collectionviewmodel.length
@@ -29,6 +31,7 @@ export class GridlistComponent implements OnInit {
       this.collectionviewmodel = collections; 
       this.results = collections.slice(startindex, endindex);
       console.log(this.results);
+      this.isDisabledPrev = true;
     })
   }
   next() {
@@ -36,16 +39,24 @@ export class GridlistComponent implements OnInit {
       const startindex = this.currentPage * 5;
       const endindex = startindex + 5;
       this.results = this.collectionviewmodel.slice(startindex, endindex);
+      this.isDisabledPrev = false;
+      if (endindex <= this.arrLength)
+      {
+        this.isDisabledNext = true;
+      }
     }
   previous() {
       this.currentPage--;
       const startindex = this.currentPage * 5;
       const endindex = startindex + 5;
       this.results = this.collectionviewmodel.slice(startindex, endindex);
+      this.isDisabledNext = false;
+      if (startindex <= 0) 
+      {
+        this.isDisabledPrev = true;
+      }
   
 }
-  
-
 
 
    

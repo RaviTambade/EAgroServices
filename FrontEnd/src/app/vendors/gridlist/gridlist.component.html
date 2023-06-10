@@ -21,8 +21,8 @@
     </td>
     </tr>
   </tbody>
-  <button (click)="previous()">previous</button>
-<button (click)="next()">next</button>
+  <button (click)="previous()" [disabled]="isDisabledPrev">previous</button>
+<button (click)="next()" [disabled]="isDisabledNext">next</button>
 
 
 </table>
