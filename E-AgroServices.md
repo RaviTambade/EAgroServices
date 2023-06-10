@@ -631,7 +631,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5182/api/sells/sells
+http://localhost:5182/api/sells
 ```
 Method = POST
 
@@ -666,7 +666,7 @@ Body
 URL
 
 ```console
-http://localhost:5182/api/sells/sells/{id}
+http://localhost:5182/api/sells/{id}
 ```
 Id = sellId
 
@@ -698,7 +698,7 @@ Body
 
 URL
 ```console
-http://localhost:5182/api/sells/sells/{id}
+http://localhost:5182/api/sells{id}
 ```
 Id = sellId
 
