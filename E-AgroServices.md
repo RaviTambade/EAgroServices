@@ -590,7 +590,7 @@ Body
 
 URL
 ```console
-http://localhost:5224/api/purchase/purchase/{id}
+http://localhost:5224/api/purchase/{id}
 ```
 Id = purchaseId
 
@@ -604,7 +604,7 @@ Description = Delete an existing purchase Data
 
 URL
 ```console
-http://localhost:5182/api/sells/sells
+http://localhost:5182/api/sells
 ```
 Method = GET
 
@@ -617,7 +617,7 @@ Body = None
 URL
 
 ```console
- http://localhost:5182/api/sells/sells/{id}
+ http://localhost:5182/api/sells/{id}
 ```
 Id = sellId
 
