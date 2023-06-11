@@ -17,14 +17,14 @@ export class GridlistComponent implements OnInit {
   viewStatus: boolean = false;
   results: any[] = [];
   currentPage = 0;
-  arrLength = 0;
+  arrLength:number |any;
   isDisabledPrev=false;
   isDisabledNext=false;
   constructor(private svc: VendorService) {
-    this.results=[],
-  this.arrLength=this.collectionviewmodel.length
+    this.results=[]
   }
   ngOnInit(): void{
+   
     const startindex = this.currentPage * 5;
     const endindex = startindex + 5;  
     this.svc.GetCollections().subscribe((collections: Collectionviewmodel[]) => {
@@ -40,7 +40,8 @@ export class GridlistComponent implements OnInit {
       const endindex = startindex + 5;
       this.results = this.collectionviewmodel.slice(startindex, endindex);
       this.isDisabledPrev = false;
-      if (endindex <= this.arrLength)
+      this.arrLength=this.collectionviewmodel.length
+      if (endindex === this.arrLength)
       {
         this.isDisabledNext = true;
       }

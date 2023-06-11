@@ -17,11 +17,9 @@ var GridlistComponent = /** @class */ (function () {
         this.viewStatus = false;
         this.results = [];
         this.currentPage = 0;
-        this.arrLength = 0;
         this.isDisabledPrev = false;
         this.isDisabledNext = false;
-        this.results = [],
-            this.arrLength = this.collectionviewmodel.length;
+        this.results = [];
     }
     GridlistComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -40,7 +38,8 @@ var GridlistComponent = /** @class */ (function () {
         var endindex = startindex + 5;
         this.results = this.collectionviewmodel.slice(startindex, endindex);
         this.isDisabledPrev = false;
-        if (endindex <= this.arrLength) {
+        this.arrLength = this.collectionviewmodel.length;
+        if (endindex === this.arrLength) {
             this.isDisabledNext = true;
         }
     };

@@ -14,6 +14,8 @@ var http_1 = require("@angular/common/http");
 var forms_1 = require("@angular/forms");
 var gridlist_component_1 = require("./gridlist/gridlist.component");
 var pagination_component_1 = require("./pagination/pagination.component");
+var listsort_component_1 = require("./listsort/listsort.component");
+var listdetails_component_1 = require("./listdetails/listdetails.component");
 var VendorsModule = /** @class */ (function () {
     function VendorsModule() {
     }
@@ -22,7 +24,9 @@ var VendorsModule = /** @class */ (function () {
             declarations: [
                 vendorvehicles_component_1.VendorvehiclesComponent,
                 gridlist_component_1.GridlistComponent,
-                pagination_component_1.PaginationComponent
+                pagination_component_1.PaginationComponent,
+                listsort_component_1.ListsortComponent,
+                listdetails_component_1.ListdetailsComponent
             ],
             imports: [
                 common_1.CommonModule,
@@ -33,7 +37,9 @@ var VendorsModule = /** @class */ (function () {
             exports: [
                 vendorvehicles_component_1.VendorvehiclesComponent,
                 gridlist_component_1.GridlistComponent,
-                pagination_component_1.PaginationComponent
+                pagination_component_1.PaginationComponent,
+                listsort_component_1.ListsortComponent,
+                listdetails_component_1.ListdetailsComponent
             ]
         })
     ], VendorsModule);

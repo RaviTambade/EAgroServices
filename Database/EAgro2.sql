@@ -543,3 +543,7 @@ collections.rateperkg,collections.date FROM users INNER JOIN collections
 ON users.id=collections.farmerid 
 INNER JOIN crops
 ON crops.id=collections.cropid;
+
+
+SELECT * FROM users;
+SELECT * FROM vendors;

@@ -48,6 +48,14 @@ var VendorService = /** @class */ (function () {
         var url = "http://localhost:5031/api/collections/" + collectionId;
         return this.httpClient["delete"](url);
     };
+    VendorService.prototype.GetFarmers = function () {
+        var url = "http://localhost:5141/api/farmers";
+        return this.httpClient.get(url);
+    };
+    VendorService.prototype.GetFarmer = function (farmerId) {
+        var url = "http://localhost:5141/api/farmers/" + farmerId;
+        return this.httpClient.get(url);
+    };
     VendorService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

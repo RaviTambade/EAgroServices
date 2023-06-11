@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GridlistComponent } from './gridlist/gridlist.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ListsortComponent } from './listsort/listsort.component';
+import { ListdetailsComponent } from './listdetails/listdetails.component';
 
 
 
@@ -14,7 +15,8 @@ import { ListsortComponent } from './listsort/listsort.component';
     VendorvehiclesComponent,
     GridlistComponent,
     PaginationComponent,
-    ListsortComponent
+    ListsortComponent,
+    ListdetailsComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { ListsortComponent } from './listsort/listsort.component';
     VendorvehiclesComponent,
     GridlistComponent,
     PaginationComponent,
-    ListsortComponent
+    ListsortComponent,
+    ListdetailsComponent
   ]
 })
 export class VendorsModule { }
