@@ -19,6 +19,7 @@ var sparouter_component_1 = require("./sparouter/sparouter.component");
 var addcollection_component_1 = require("./addcollection/addcollection.component");
 var collectiondetails_component_1 = require("./collectiondetails/collectiondetails.component");
 var editcollection_component_1 = require("./editcollection/editcollection.component");
+var forms_1 = require("@angular/forms");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
     { path: 'addcollection', component: addcollection_component_1.AddcollectionComponent },
@@ -49,7 +50,8 @@ var SpaModule = /** @class */ (function () {
             ],
             imports: [
                 common_1.CommonModule,
-                router_1.RouterModule.forRoot(routes)
+                router_1.RouterModule.forRoot(routes),
+                forms_1.FormsModule
             ],
             exports: [
                 home_component_1.HomeComponent,

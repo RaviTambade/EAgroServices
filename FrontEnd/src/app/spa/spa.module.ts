@@ -10,6 +10,7 @@ import { SparouterComponent } from './sparouter/sparouter.component';
 import { AddcollectionComponent } from './addcollection/addcollection.component';
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
 import { EditcollectionComponent } from './editcollection/editcollection.component';
+import { FormsModule } from '@angular/forms';
 
 const childRoutes:Routes=[
   {path:'',redirectTo:'collections',pathMatch:"full"},
@@ -43,7 +44,8 @@ const routes: Routes=
   ],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   exports:[
     HomeComponent,

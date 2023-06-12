@@ -71,6 +71,25 @@ getCollections():any
 getCollection(id:number):any{ 
   return this.collections[id];
  }
+ editCollection(id:number,updateddata:any):any{
+ let olddata=this.collections.find(c=>c.id==updateddata.collectionId)
+ for (var o in olddata){
+
+  if(olddata.hasOwnProperty(o)){
+
+    for (var u in updateddata){
+
+      if(updateddata.hasOwnProperty(u)){
+
+      if(o==u){
+
+        olddata[o]=updateddata[u];
+      }
+    }
+  }
+}
+ }
+ }
 }
 
 

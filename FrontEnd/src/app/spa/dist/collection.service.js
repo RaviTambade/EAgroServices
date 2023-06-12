@@ -74,6 +74,20 @@ var CollectionService = /** @class */ (function () {
     CollectionService.prototype.getCollection = function (id) {
         return this.collections[id];
     };
+    CollectionService.prototype.editCollection = function (id, updateddata) {
+        var olddata = this.collections.find(function (c) { return c.id == updateddata.collectionId; });
+        for (var o in olddata) {
+            if (olddata.hasOwnProperty(o)) {
+                for (var u in updateddata) {
+                    if (updateddata.hasOwnProperty(u)) {
+                        if (o == u) {
+                            olddata[o] = updateddata[u];
+                        }
+                    }
+                }
+            }
+        }
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
