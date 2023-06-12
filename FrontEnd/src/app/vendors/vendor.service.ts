@@ -49,4 +49,4 @@ DeleteCollection(collectionId:number):Observable<any>{
   return this.httpClient.delete<any>(url)
 }
 
-}
+}   

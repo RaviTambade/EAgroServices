@@ -10,20 +10,29 @@ import { VendorService } from '../vendor.service';
   styleUrls: ['./vehicledetails.component.css']
 })
 export class VehicledetailsComponent implements OnInit {
-  vendor:Vendor |any;
+  vendors:Vendor |any;
   vehicle:Vehicle |any;
   vehicles:Vehicle[] |any;
   selectedVendor: any;
   insertStatus:boolean |undefined;
-  constructor(private svc:VendorService,private route:ActivatedRoute){}
-  ngOnInit(): void {
-    const vendorId=this.route.snapshot.paramMap.get('vendorId');
-    this.svc.getVendorVehicles(vendorId).subscribe((response)=>{
+  vendorId: any;
+  
+  constructor(private svc:VendorService){}
+  
+  ngOnInit(): void { 
+this.svc.getVendors().subscribe((responce)=>{
+  this.vendors=responce;
+  console.log(responce);
+})
+  }
+  
+onclick(){
+    this.svc.getVendorVehicles(this.vendorId).subscribe((response)=>{
       this.vehicles=response
       console.log(this.vehicles)
     })
   }
-
+  }
    
-}
+
 
