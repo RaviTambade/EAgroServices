@@ -2,15 +2,16 @@
 <br><br><br>
 <form>
     <label for="quantity">Quantity:</label>
-    <input type="text" name="quantity" >
+    <input type="text" name="quantity" [(ngModel)]="collection.quantity" >
     <br>
     <label for="container">Container:</label>
-    <input type="text" name="container">
+    <input type="text" name="container" [(ngModel)]="collection.container">
     <br>
     <label for="crop">Crop :</label>
-    <input type="text" name="crop">
+    <input type="text" name="crop" [(ngModel)]="collection.crop">
     <br>
-    <label for="rateperkg">Rateperkg :</label>
-    <input type="text" name="rateperkg">
+    <label for="rateperkg">Rateperkg:</label>
+    <input type="text" name="rateperkg" [(ngModel)]="collection.rateperkg">
     <br>
+    <button type="submit"(click)="edit()">Done</button>
  </form>
