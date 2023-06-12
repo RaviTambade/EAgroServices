@@ -12,6 +12,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
 var spa_module_1 = require("./spa/spa.module");
 var vendors_module_1 = require("./vendors/vendors.module");
+var http_1 = require("@angular/common/http");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -23,7 +24,8 @@ var AppModule = /** @class */ (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 vendors_module_1.VendorsModule,
-                spa_module_1.SpaModule
+                spa_module_1.SpaModule,
+                http_1.HttpClientModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

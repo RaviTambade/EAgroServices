@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { SpaModule } from './spa/spa.module';
 import { VendorsModule } from './vendors/vendors.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,9 @@ import { VendorsModule } from './vendors/vendors.module';
   imports: [
     BrowserModule,
     VendorsModule,
-    SpaModule
+    SpaModule,
+    HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
