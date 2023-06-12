@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
@@ -7,7 +7,6 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrls: ['./collectionlist.component.css']
 })
 export class CollectionlistComponent {
-  
 collections:any[]=[{
   'date':'2022-08-09',
   'collectionId':1,
@@ -64,9 +63,14 @@ collections:any[]=[{
   'crop':'potato',
   'rateperkg':60,
 }]
+
+@Output() collection =new EventEmitter<string>();
+
 constructor(private router:Router,private route:ActivatedRoute){}
 
 OnClickCollection(id:number){
-  this.router.navigate(['details/',id],{relativeTo:this.route})
+this.router.navigate(['details/',id],{relativeTo:this.route})
+this.collection.emit("")
 }
 }
+

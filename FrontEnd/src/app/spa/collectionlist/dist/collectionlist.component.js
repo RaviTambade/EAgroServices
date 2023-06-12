@@ -68,10 +68,15 @@ var CollectionlistComponent = /** @class */ (function () {
                 'crop': 'potato',
                 'rateperkg': 60
             }];
+        this.collection = new core_1.EventEmitter();
     }
     CollectionlistComponent.prototype.OnClickCollection = function (id) {
         this.router.navigate(['details/', id], { relativeTo: this.route });
+        this.collection.emit("");
     };
+    __decorate([
+        core_1.Output()
+    ], CollectionlistComponent.prototype, "collection");
     CollectionlistComponent = __decorate([
         core_1.Component({
             selector: 'app-collectionlist',
