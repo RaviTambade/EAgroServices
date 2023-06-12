@@ -48,5 +48,13 @@ DeleteCollection(collectionId:number):Observable<any>{
   let url="http://localhost:5031/api/collections/" +collectionId
   return this.httpClient.delete<any>(url)
 }
+GetFarmers():Observable<any>{
+  let url = "http://localhost:5141/api/farmers"
+  return this.httpClient.get<any>(url)
+}
+GetFarmer(farmerId:number):Observable<any>{
+  let url = "http://localhost:5141/api/farmers/" +farmerId
+  return this.httpClient.get<any>(url)
+}
 
 }   

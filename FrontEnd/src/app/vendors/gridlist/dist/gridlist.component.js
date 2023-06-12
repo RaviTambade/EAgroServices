@@ -15,24 +15,42 @@ var GridlistComponent = /** @class */ (function () {
         this.updateStatus = false;
         this.deleteStatus = false;
         this.viewStatus = false;
+        this.results = [];
         this.currentPage = 0;
-        this.arrLenght = 0;
-        this.results = [],
-            this.arrLenght = this.collectionviewmodel.length;
+        this.isDisabledPrev = false;
+        this.isDisabledNext = false;
+        this.results = [];
     }
     GridlistComponent.prototype.ngOnInit = function () {
-        this.svc.GetCollections().subscribe(function (collectionview) {
-            console.log(collectionview);
+        var _this = this;
+        var startindex = this.currentPage * 5;
+        var endindex = startindex + 5;
+        this.svc.GetCollections().subscribe(function (collections) {
+            _this.collectionviewmodel = collections;
+            _this.results = collections.slice(startindex, endindex);
+            console.log(_this.results);
+            _this.isDisabledPrev = true;
         });
     };
-    ;
     GridlistComponent.prototype.next = function () {
-        // if(this.currentPage >= this.arrLenght )
         this.currentPage++;
+        var startindex = this.currentPage * 5;
+        var endindex = startindex + 5;
+        this.results = this.collectionviewmodel.slice(startindex, endindex);
+        this.isDisabledPrev = false;
+        this.arrLength = this.collectionviewmodel.length;
+        if (endindex === this.arrLength) {
+            this.isDisabledNext = true;
+        }
     };
     GridlistComponent.prototype.previous = function () {
-        if (this.currentPage > 0) {
-            this.currentPage--;
+        this.currentPage--;
+        var startindex = this.currentPage * 5;
+        var endindex = startindex + 5;
+        this.results = this.collectionviewmodel.slice(startindex, endindex);
+        this.isDisabledNext = false;
+        if (startindex <= 0) {
+            this.isDisabledPrev = true;
         }
     };
     // onViewClick(collection:any){

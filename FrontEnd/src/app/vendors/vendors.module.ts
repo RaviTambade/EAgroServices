@@ -5,9 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GridlistComponent } from './gridlist/gridlist.component';
 import { PaginationComponent } from './pagination/pagination.component';
+
 import { VehicledetailsComponent } from './vehicledetails/vehicledetails.component';
 import { VendorService } from './vendor.service';
 import { ActivatedRoute } from '@angular/router';
+
+import { ListsortComponent } from './listsort/listsort.component';
+import { ListdetailsComponent } from './listdetails/listdetails.component';
 
 
 
@@ -34,6 +38,9 @@ import { ActivatedRoute } from '@angular/router';
   ],
   providers:[
 VendorService,
+    ListsortComponent,
+    ListdetailsComponent
+
   ]
 })
 export class VendorsModule { }

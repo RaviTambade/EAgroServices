@@ -1,0 +1,63 @@
+<section style="background-color: rgb(252, 248, 248);">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <ul>
+            <li *ngFor="let farmer of farmers">
+              <a (click)="onClick(farmer.id)">
+                {{ farmer.firstName }}{{ farmer.lastName }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card mb-4" *ngIf="selectedFarmer">
+              <div class="card-body">
+                <h4>Details</h4>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="mb-0">FirstName:</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="text-muted mb-0" id="firstName">{{ selectedFarmer.firstName }}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="mb-0">LastName:</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="text-muted mb-0" id="lastName">{{ selectedFarmer.lastName }}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="mb-0">Location:</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="text-muted mb-0" id="location">{{ selectedFarmer.location }}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="mb-0">ContactNumber:</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="text-muted mb-0" id="contactNumber">{{ selectedFarmer.contactNumber }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
