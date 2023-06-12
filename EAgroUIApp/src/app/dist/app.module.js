@@ -9,22 +9,22 @@ exports.__esModule = true;
 exports.AppModule = void 0;
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
-var spa_module_1 = require("./spa/spa.module");
-var vendors_module_1 = require("./vendors/vendors.module");
+var default_module_1 = require("./default/default.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             declarations: [
-                app_component_1.AppComponent
+                app_component_1.AppComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
-                vendors_module_1.VendorsModule,
-                spa_module_1.SpaModule
+                default_module_1.DefaultModule
             ],
+            exports: [router_1.RouterModule],
             providers: [],
             bootstrap: [app_component_1.AppComponent]
         })

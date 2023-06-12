@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FrontEnd';
+  loggedInStatus:boolean |undefined;
+  constructor(){
+    this.loggedInStatus=true;
+  }
 }

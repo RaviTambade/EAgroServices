@@ -6,29 +6,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.AppModule = void 0;
+exports.DefaultModule = void 0;
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var app_component_1 = require("./app.component");
-var spa_module_1 = require("./spa/spa.module");
-var vendors_module_1 = require("./vendors/vendors.module");
-var AppModule = /** @class */ (function () {
-    function AppModule() {
+var common_1 = require("@angular/common");
+var home_component_1 = require("./home/home.component");
+var contact_component_1 = require("./contact/contact.component");
+var privacy_component_1 = require("./privacy/privacy.component");
+var DefaultModule = /** @class */ (function () {
+    function DefaultModule() {
     }
-    AppModule = __decorate([
+    DefaultModule = __decorate([
         core_1.NgModule({
             declarations: [
-                app_component_1.AppComponent
+                home_component_1.HomeComponent,
+                contact_component_1.ContactComponent,
+                privacy_component_1.PrivacyComponent
             ],
             imports: [
-                platform_browser_1.BrowserModule,
-                vendors_module_1.VendorsModule,
-                spa_module_1.SpaModule
+                common_1.CommonModule
             ],
-            providers: [],
-            bootstrap: [app_component_1.AppComponent]
+            exports: [
+                home_component_1.HomeComponent
+            ]
         })
-    ], AppModule);
-    return AppModule;
+    ], DefaultModule);
+    return DefaultModule;
 }());
-exports.AppModule = AppModule;
+exports.DefaultModule = DefaultModule;

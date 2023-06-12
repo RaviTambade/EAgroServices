@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { SpaModule } from './spa/spa.module';
 import { VendorsModule } from './vendors/vendors.module';
 
 @NgModule({
@@ -10,7 +11,8 @@ import { VendorsModule } from './vendors/vendors.module';
   ],
   imports: [
     BrowserModule,
-    VendorsModule
+    VendorsModule,
+    SpaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
