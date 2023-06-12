@@ -13,6 +13,10 @@ export class EditcollectionComponent {
   constructor(private route: ActivatedRoute,public svc:CollectionService){}
   ngOnInit(): void {
     this.collectionId=this.route.snapshot.paramMap.get('id');
-    this.svc.getCollection(this.collectionId)
-  }
+    this.collection=this.svc.getCollection(this.collectionId)
+   }
+edit():any{
+  this.svc.editCollection(this.collection);
+  console.log(this.collection);
+}
 }
