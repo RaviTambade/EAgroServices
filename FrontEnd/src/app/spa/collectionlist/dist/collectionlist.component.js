@@ -9,74 +9,17 @@ exports.__esModule = true;
 exports.CollectionlistComponent = void 0;
 var core_1 = require("@angular/core");
 var CollectionlistComponent = /** @class */ (function () {
-    function CollectionlistComponent(router, route) {
+    function CollectionlistComponent(svc, router, route) {
+        this.svc = svc;
         this.router = router;
         this.route = route;
-        this.collections = [{
-                'date': '2022-08-09',
-                'collectionId': 1,
-                'quantity': 20,
-                'container': 'bags',
-                'crop': 'potato',
-                'rateperkg': 20
-            },
-            {
-                'date': '2022-08-09',
-                'collectionId': 2,
-                'quantity': 30,
-                'container': 'bags',
-                'crop': 'onion',
-                'rateperkg': 30
-            },
-            {
-                'date': '2022-08-09',
-                'collectionId': 3,
-                'quantity': 24,
-                'container': 'bags',
-                'crop': 'onion',
-                'rateperkg': 40
-            },
-            {
-                'date': '2022-08-09',
-                'collectionId': 4,
-                'quantity': 25,
-                'container': 'bags',
-                'crop': 'onion',
-                'rateperkg': 50
-            },
-            {
-                'date': '2022-08-09',
-                'collectionId': 5,
-                'quantity': 35,
-                'container': 'bags',
-                'crop': 'potato',
-                'rateperkg': 50
-            },
-            {
-                'date': '2022-08-09',
-                'collectionId': 6,
-                'quantity': 40,
-                'container': 'bags',
-                'crop': 'potato',
-                'rateperkg': 70
-            },
-            {
-                'date': '2022-08-09',
-                'collectionId': 7,
-                'quantity': 20,
-                'container': 'bags',
-                'crop': 'potato',
-                'rateperkg': 60
-            }];
-        this.collection = new core_1.EventEmitter();
     }
-    CollectionlistComponent.prototype.OnClickCollection = function (id) {
-        this.router.navigate(['details/', id], { relativeTo: this.route });
-        this.collection.emit("");
+    CollectionlistComponent.prototype.ngOnInit = function () {
+        this.collections = this.svc.getCollections();
     };
-    __decorate([
-        core_1.Output()
-    ], CollectionlistComponent.prototype, "collection");
+    CollectionlistComponent.prototype.OnClickCollection = function (id) {
+        this.router.navigate(['./', id], { relativeTo: this.route });
+    };
     CollectionlistComponent = __decorate([
         core_1.Component({
             selector: 'app-collectionlist',

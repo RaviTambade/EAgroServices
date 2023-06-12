@@ -9,6 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SparouterComponent } from './sparouter/sparouter.component';
 import { AddcollectionComponent } from './addcollection/addcollection.component';
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
+import { EditcollectionComponent } from './editcollection/editcollection.component';
 
 const childRoutes:Routes=[
   {path:'',redirectTo:'collections',pathMatch:"full"},
@@ -21,7 +22,10 @@ const routes: Routes=
       { path: 'farmers', component:FarmerlistComponent},
       { path: 'vendors', component:VendorlistComponent},
       { path: 'collections', component:CollectionlistComponent,children:childRoutes},
-      { path: 'collections/details/:id', component:CollectiondetailsComponent},
+      { path: 'collections/:id', component:CollectiondetailsComponent},
+      { path: 'collections/:id/edit', component:EditcollectionComponent},
+
+
 
   ]
 
@@ -35,6 +39,7 @@ const routes: Routes=
     SparouterComponent,
     AddcollectionComponent,
     CollectiondetailsComponent,
+    EditcollectionComponent,
   ],
   imports: [
     CommonModule,

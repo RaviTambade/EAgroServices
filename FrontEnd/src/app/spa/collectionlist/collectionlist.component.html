@@ -9,7 +9,6 @@
             <th>quantity</th><hr>
             <th>container</th><hr>
             <th>crop</th><hr>
-            <th>rate per kg</th><hr>
            <th>actions</th><hr>
         </thead>
         <tbody *ngFor="let collection of collections">
@@ -18,7 +17,7 @@
             <td>{{collection.quantity}}</td><hr>
             <td>{{collection.container}}</td><hr>
             <td>{{collection.crop}}</td><hr>
-            <td ><a (click)="OnClickCollection(collection.collectionId)" >details</a></td><hr>
+            <td ><button (click)="OnClickCollection(collection.collectionId)" >details</button></td><hr>
         </tbody>
     </table>
 </div>

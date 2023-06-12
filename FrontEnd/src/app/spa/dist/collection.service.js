@@ -10,7 +10,70 @@ exports.CollectionService = void 0;
 var core_1 = require("@angular/core");
 var CollectionService = /** @class */ (function () {
     function CollectionService() {
+        this.collections = [{
+                'date': '2022-08-09',
+                'collectionId': 1,
+                'quantity': 20,
+                'container': 'bags',
+                'crop': 'potato',
+                'rateperkg': 20
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 2,
+                'quantity': 30,
+                'container': 'bags',
+                'crop': 'onion',
+                'rateperkg': 30
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 3,
+                'quantity': 24,
+                'container': 'bags',
+                'crop': 'onion',
+                'rateperkg': 40
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 4,
+                'quantity': 25,
+                'container': 'bags',
+                'crop': 'onion',
+                'rateperkg': 50
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 5,
+                'quantity': 35,
+                'container': 'bags',
+                'crop': 'potato',
+                'rateperkg': 50
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 6,
+                'quantity': 40,
+                'container': 'bags',
+                'crop': 'potato',
+                'rateperkg': 70
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 7,
+                'quantity': 20,
+                'container': 'bags',
+                'crop': 'potato',
+                'rateperkg': 60
+            }];
     }
+    CollectionService.prototype.getCollections = function () {
+        console.log("service called");
+        return this.collections;
+    };
+    CollectionService.prototype.getCollection = function (id) {
+        return this.collections[id];
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

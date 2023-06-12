@@ -9,11 +9,13 @@ exports.__esModule = true;
 exports.CollectiondetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var CollectiondetailsComponent = /** @class */ (function () {
-    function CollectiondetailsComponent(route) {
+    function CollectiondetailsComponent(route, svc) {
         this.route = route;
+        this.svc = svc;
     }
     CollectiondetailsComponent.prototype.ngOnInit = function () {
-        this.route.snapshot.paramMap.get('id');
+        this.collectionId = this.route.snapshot.paramMap.get('id');
+        this.svc.getCollection(this.collectionId);
     };
     CollectiondetailsComponent = __decorate([
         core_1.Component({

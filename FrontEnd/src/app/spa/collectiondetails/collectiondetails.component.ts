@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CollectionService } from '../collection.service';
 
 @Component({
   selector: 'app-collectiondetails',
@@ -7,10 +8,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./collectiondetails.component.css']
 })
 export class CollectiondetailsComponent implements OnInit{
-  
-  constructor(private route: ActivatedRoute){}
+collectionId:number |any;
+  constructor(private route: ActivatedRoute,public svc:CollectionService){}
   ngOnInit(): void {
-  this.route.snapshot.paramMap.get('id');
+    this.collectionId=this.route.snapshot.paramMap.get('id');
+    this.svc.getCollection(this.collectionId)
   }
 
 }
