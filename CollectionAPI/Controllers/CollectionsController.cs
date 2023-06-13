@@ -14,6 +14,10 @@ public class CollectionsController : ControllerBase
     {
         _service = service;
     }
+    [HttpGet("{collectionId}/")]
+    public async Task<Collection> GetCollection(int collectionId){
+        return await _service.GetCollection(collectionId);
+    }
 
      [HttpPost("getall")]
     public async Task<List<CollectionViewModel>> GetCollections([FromBody]StartDateFilter startDate)
@@ -28,7 +32,7 @@ public class CollectionsController : ControllerBase
         return await _service.GetCollectionBillingRecords();
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}/billing")]
     public async Task<CollectionBillingRecord> GetCollectionBillingRecord(int id)
     {
         return await _service.GetCollectionBillingRecord(id);

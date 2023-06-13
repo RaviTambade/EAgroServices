@@ -16,9 +16,9 @@ var CollectiondetailsComponent = /** @class */ (function () {
     CollectiondetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.collectionId = this.route.snapshot.paramMap.get('id');
-        this.svc.getCollection(this.collectionId).subscribe(function (collectionViewModel) {
-            _this.collection = collectionViewModel;
-            console.log(collectionViewModel);
+        this.svc.getCollection(this.collectionId).subscribe(function (collection) {
+            _this.data = collection;
+            console.log(collection);
         });
     };
     CollectiondetailsComponent = __decorate([

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Collectionviewmodel } from '../vendors/collectionviewmodel';
 import { DatePipe } from '@angular/common';
+import { Collection } from '../vendors/collection';
 
 @Injectable({
   providedIn: 'root'
@@ -133,7 +134,7 @@ export class CollectionService {
 
   getCollection(id: number): Observable<any> {
     let url = "http://localhost:5031/api/collections/" + id;
-    return this.http.get<Collectionviewmodel>(url);
+    return this.http.get<Collection>(url);
   }
   // editCollection(updateddata: any): any {
   //   console.log("edit successful")

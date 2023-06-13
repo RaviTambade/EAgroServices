@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CollectionAPI.Models;
 using CollectionAPI.Repositories.Interfaces;
@@ -44,4 +45,6 @@ public class CollectionService : ICollectionService
     {
         return await _repo.GetCollections(startDate);
     }
+
+    public async Task<Collection> GetCollection(int collectionId)=>await _repo.GetCollection(collectionId);
 }

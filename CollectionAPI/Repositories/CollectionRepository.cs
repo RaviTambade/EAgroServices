@@ -245,6 +245,37 @@ public class CollectionRepository : ICollectionRepository
         }
     }
 
+    public async Task<Collection> GetCollection(int collectionId){
+         try{
+            using(var context=new CollectionContext(_configuration)){
+                  var data = await (from farmer in context.Farmers
+                                              join collection in context.Collections
+                                              on farmer.Id equals collection.FarmerId
+                                              join crop in context.Crops
+                                              on collection.CropId equals crop.Id
+                                              where collection.Id ==collectionId
+                                              select new Collection()
+                                              {
+                                                  Id = collection.Id,
+                                                  FarmerId=collection.FarmerId,
+                                                  CropId=collection.CropId,
+                                                  ContainerType=collection.ContainerType,
+                                                  Quantity=collection.Quantity,
+                                                  Date=collection.Date,
+                                                  Grade=collection.Grade,
+                                                  TotalWeight=collection.TotalWeight,
+                                                  TareWeight=collection.TareWeight,
+                                                  NetWeight=collection.NetWeight,
+                                                  RatePerKg=collection.RatePerKg
+                                              }).FirstOrDefaultAsync();
+                return data;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+
     // public async Task<List<Collection>> GetCollections(){
     //     try{
     //         using(var context=new CollectionContext(_configuration)){
