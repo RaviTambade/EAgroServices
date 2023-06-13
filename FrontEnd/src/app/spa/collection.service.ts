@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Collectionviewmodel } from '../vendors/collectionviewmodel';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -67,15 +68,20 @@ export class CollectionService {
   constructor(private http: HttpClient) { }
 
   getCollections(): Observable<Collectionviewmodel[]> {
-    const Data = {
-      "date": "2023-06-13"
+
+    const datePipe = new DatePipe('en-US');
+    const currentDate = datePipe.transform(new Date(), 'yyyy-MM-dd');
+    console.log(currentDate);
+
+    const date = {
+      "date": currentDate
     }
     let url = "http://localhost:5031/api/collections/getall"
-    return this.http.post<Collectionviewmodel[]>(url, Data);
+    return this.http.post<Collectionviewmodel[]>(url, date);
   }
 
   getCollection(id: number): Observable<any> {
-    let url = "http://localhost:5031/api/collections/"+id;
+    let url = "http://localhost:5031/api/collections/" + id;
     return this.http.get<any>(url);
   }
   editCollection(updateddata: any): any {
