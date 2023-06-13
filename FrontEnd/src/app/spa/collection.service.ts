@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Collectionviewmodel } from '../vendors/collectionviewmodel';
 import { DatePipe } from '@angular/common';
+import { Collection } from '../vendors/collection';
 
 @Injectable({
   providedIn: 'root'
@@ -135,25 +136,11 @@ export class CollectionService {
     let url = "http://localhost:5031/api/collections/" + id;
     return this.http.get<Collectionviewmodel>(url);
   }
-  // editCollection(updateddata: any): any {
-  //   console.log("edit successful")
-  //   let olddata = this.collections.find(c => c.collectionId == updateddata.collectionId)
-  //   for (var o in olddata) {
+  editCollection(id:number,collection:Collection):Observable<any>{
+    let url = "http://localhost:5031/api/collections/" + id;
+    return this.http.put<any>(url,collection);
 
-  //     if (olddata.hasOwnProperty(o)) {
-
-  //       for (var u in updateddata) {
-
-  //         if (updateddata.hasOwnProperty(u)) {
-
-  //           if (o == u) {
-
-  //             olddata[o] = updateddata[u];
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
+  }
    }
 
 

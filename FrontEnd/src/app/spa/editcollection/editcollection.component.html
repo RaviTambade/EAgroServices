@@ -1,6 +1,7 @@
 
 <br><br><br>
-<form>
+<form *ngIf="collection">
+    
     <label for="quantity">Quantity:</label>
     <input type="text" name="quantity" [(ngModel)]="collection.quantity" >
     <br>
@@ -13,5 +14,5 @@
     <label for="rateperkg">Rateperkg:</label>
     <input type="text" name="rateperkg" [(ngModel)]="collection.rateperkg">
     <br>
-    <!-- <button type="submit"(click)="edit()">Done</button> -->
+     <button type="submit"(click)="edit()">Done</button> 
  </form>
