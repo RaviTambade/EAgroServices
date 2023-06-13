@@ -15,7 +15,7 @@ var EditcollectionComponent = /** @class */ (function () {
     }
     EditcollectionComponent.prototype.ngOnInit = function () {
         this.collectionId = this.route.snapshot.paramMap.get('id');
-        this.svc.getCollection(this.collectionId);
+        this.collection = this.svc.getCollection(this.collectionId);
     };
     EditcollectionComponent = __decorate([
         core_1.Component({

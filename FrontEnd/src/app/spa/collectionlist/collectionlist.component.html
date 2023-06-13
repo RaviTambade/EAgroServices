@@ -5,7 +5,6 @@
     <table>
         <thead>
             <th>date</th><hr>
-            <th>collectionid</th><hr>
             <th>quantity</th><hr>
             <th>container</th><hr>
             <th>crop</th><hr>
@@ -13,7 +12,6 @@
         </thead>
         <tbody *ngFor="let collection of collections">
             <td>{{collection.date |date}}</td><hr>
-            <td>{{collection.id}}</td><hr>
             <td>{{collection.quantity}}</td><hr>
             <td>{{collection.containerType}}</td><hr>
             <td>{{collection.cropName}}</td><hr>

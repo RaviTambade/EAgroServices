@@ -15,8 +15,8 @@ export class EditcollectionComponent {
     this.collectionId=this.route.snapshot.paramMap.get('id');
     this.collection=this.svc.getCollection(this.collectionId)
    }
-edit():any{
-  this.svc.editCollection(this.collection);
-  console.log(this.collection);
-}
+// edit():any{
+//   this.svc.editCollection(this.collection);
+//   console.log(this.collection);
+// }
 }
