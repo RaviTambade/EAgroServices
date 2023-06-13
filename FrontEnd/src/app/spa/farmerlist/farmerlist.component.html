@@ -1,1 +1,24 @@
-<p>farmerlist works!</p>
+<br><br>
+<div>
+<!-- <a routerLink="addcollection">addcollection</a><br> -->
+<!-- <a (click)="getFarmers()" routerLink="farmerList">farmerList</a> -->
+<div>
+    <table>
+        <thead>
+            <th>firstname</th><hr>
+            <th>lastname</th><hr>
+            <th>location</th><hr>
+           
+        </thead>
+        <tbody *ngFor="let farmer of farmers">
+            <td>{{farmer.firstname}}</td><hr>
+            <td>{{farmer.lastname}}</td><hr>
+            <td>{{farmer.location}}</td><hr>
+          
+            <!-- <td ><button (click)="OnClickCollection(collection.collectionId)" >details</button></td><hr> -->
+        </tbody>
+    </table>
+</div>
+</div>
+
+<router-outlet></router-outlet>

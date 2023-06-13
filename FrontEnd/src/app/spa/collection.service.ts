@@ -60,6 +60,48 @@ export class CollectionService {
     'crop':'potato',
     'rateperkg':60,
   }]
+  farmerslist:any[]=[{
+    'Id':1,
+    'firstname':'Shubham',
+    'lastname':'Teli',
+    'location':'Bhavadi'
+  },
+  {
+  'Id':2,
+  'firstname':'Abhay',
+  'lastname':'Navale',
+  'location':'Peth'
+},
+{
+  'Id':3,
+  'firstname':'Jayesh',
+  'lastname':'Erande',
+  'location':'Thugaon'
+},
+{
+  'Id':4,
+  'firstname':'Sahil',
+  'lastname':'Mankar',
+  'location':'Pargaon'
+}, {
+  'Id':5,
+  'firstname':'Rohit',
+  'lastname':'Gore',
+  'location':'Satara'
+},
+{
+  'Id':6,
+  'firstname':'Rushikesh',
+  'lastname':'Chikane',
+  'location':'Satara'
+},
+{
+  'Id':7,
+  'firstname':'Akshay',
+  'lastname':'Tanpure',
+  'location':'Wada'
+},
+]
 
   
 getCollections():any
@@ -91,6 +133,13 @@ getCollection(id:number):any{
 }
  }
  }
+ getFarmers():any
+{   
+  console.log("service called")
+  console.log(this.farmerslist);
+  return this.farmerslist; 
+ 
+}
 }
 
 

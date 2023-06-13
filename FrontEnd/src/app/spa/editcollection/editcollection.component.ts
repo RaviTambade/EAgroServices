@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CollectionService } from '../collection.service';
 
 @Component({
@@ -10,13 +10,15 @@ import { CollectionService } from '../collection.service';
 export class EditcollectionComponent {
   collectionId:number |any;
   collection:any;
-  constructor(private route: ActivatedRoute,public svc:CollectionService){}
+  constructor(private route: ActivatedRoute,public svc:CollectionService,private router:Router){}
   ngOnInit(): void {
     this.collectionId=this.route.snapshot.paramMap.get('id');
     this.collection=this.svc.getCollection(this.collectionId)
    }
 edit():any{
   this.svc.editCollection(this.collection);
+this.router.navigate(['./collections']);
   console.log(this.collection);
+
 }
 }

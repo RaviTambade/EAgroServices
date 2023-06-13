@@ -25,6 +25,8 @@ const routes: Routes=
       { path: 'collections', component:CollectionlistComponent,children:childRoutes},
       { path: 'collections/:id', component:CollectiondetailsComponent},
       { path: 'collections/:id/edit', component:EditcollectionComponent},
+      {path:'farmerlist',component:FarmerlistComponent}
+
 
 
 

@@ -9,6 +9,7 @@ import { CollectionService } from '../collection.service';
 })
 export class CollectionlistComponent implements OnInit {
 collections:any[] |any;
+farmers:any[]|any;
 
 constructor(private svc:CollectionService,private router:Router,private route:ActivatedRoute){}
   ngOnInit(): void {
@@ -16,6 +17,9 @@ constructor(private svc:CollectionService,private router:Router,private route:Ac
   }
 OnClickCollection(id:number){
 this.router.navigate(['./',id],{relativeTo:this.route})
+}
+getFarmers(){
+  this.router.navigate(['./farmerlist']);
 }
 }
 
