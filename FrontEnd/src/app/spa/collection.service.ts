@@ -141,8 +141,9 @@ export class CollectionService {
     let url="http://localhost:5031/api/collections/" + id;
     return this.http.put<any>(url,collection)
   }
- 
-   }
+
+  }
+
 
 
 

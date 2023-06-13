@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Collection } from 'src/app/vendors/collection';
 import { CollectionService } from '../collection.service';
 
+
 @Component({
   selector: 'app-editcollection',
   templateUrl: './editcollection.component.html',
@@ -26,4 +27,6 @@ edit(){
 receiveCollection($event: any) {
   this.collection = $event.collection
 }
+
 }
+

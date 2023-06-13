@@ -2,6 +2,7 @@
 <br><br><br>
 <app-collectiondetails [collectionId]="collectionId" (sendCollection)="receiveCollection($event)" hidden></app-collectiondetails>
 <form *ngIf="collection && collectionId != 0">
+
     <label for="quantity">Quantity:</label>
     <input type="text" name="quantity" [(ngModel)]="collection.quantity" >
     <br>
@@ -11,5 +12,7 @@
     <label for="rateperkg">Rateperkg:</label>
     <input type="text" name="grade" [(ngModel)]="collection.grade">
     <br>
+
     <button type="submit"(click)="edit()">Done</button>
+
  </form>
