@@ -1,33 +1,38 @@
 <div></div>
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
 <div *ngIf="collection">
-  <table>
-    <tr>
-          <th>date</th>
-          <td>{{collection.collection.date |date}}</td>
+    <table>
+        <tr>
+            <th>farmer name</th>
+            <td>{{collection.farmerName}}</td>
         </tr>
         <tr>
-          <th>quantity</th>
-          <td>{{collection.collection.quantity}}</td>
+            <th>crop</th>
+            <td>{{collection.crop}}</td>
         </tr>
         <tr>
-          <th>container</th>
-          <td>{{collection.collection.containerType}}</td>
+            <th>quantity</th>
+            <td>{{collection.collection.quantity}}</td>
         </tr>
         <tr>
-          <th>crop</th>
-          <td>{{collection.crop}}</td>
-        </tr>
-      <tr> 
-         <th>rate per kg</th>
-         <td>{{collection.collection.ratePerKg}}</td>
-        </tr>
-        <tr>
-          <a routerLink="edit">Edit</a>
+            <th>container</th>
+            <td>{{collection.collection.containerType}}</td>
         </tr>
 
-  </table>
+        <tr>
+            <th>rate per kg</th>
+            <td>{{collection.collection.ratePerKg}}</td>
+        </tr>
+        <tr>
+            <th>date</th>
+            <td>{{collection.collection.date |date}}</td>
+        </tr>
+        <tr>
+            <a routerLink="edit">Edit</a>
+        </tr>
+
+    </table>
 </div>
 <router-outlet></router-outlet>
