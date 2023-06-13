@@ -40,5 +40,8 @@ public class CollectionService : ICollectionService
         return await _repo.Update(collectionId, collection);
     }
 
-    public async Task<List<CollectionViewModel>> GetCollections()=>await _repo.GetCollections();
+    public async Task<List<CollectionViewModel>> GetCollections(StartDateFilter startDate)
+    {
+        return await _repo.GetCollections(startDate);
+    }
 }

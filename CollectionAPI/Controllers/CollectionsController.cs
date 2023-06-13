@@ -15,10 +15,11 @@ public class CollectionsController : ControllerBase
         _service = service;
     }
 
-     [HttpGet]
-    public async Task<List<CollectionViewModel>> GetCollections()
+     [HttpPost("getall")]
+    public async Task<List<CollectionViewModel>> GetCollections([FromBody]StartDateFilter startDate)
     {
-        return await _service.GetCollections();
+        Console.WriteLine(startDate.Date);
+        return await _service.GetCollections(startDate);
     }
 
     [HttpGet("billing")]

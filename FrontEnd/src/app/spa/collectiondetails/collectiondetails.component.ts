@@ -9,10 +9,16 @@ import { CollectionService } from '../collection.service';
 })
 export class CollectiondetailsComponent implements OnInit{
 collectionId:number |any;
+collection:any;
   constructor(private route: ActivatedRoute,public svc:CollectionService){}
   ngOnInit(): void {
     this.collectionId=this.route.snapshot.paramMap.get('id');
-    this.svc.getCollection(this.collectionId)
+    this.svc.getCollection(this.collectionId).subscribe((response)=>{
+      this.collection=response;
+      console.log(response);
+    }
+
+    )
   }
 
 }

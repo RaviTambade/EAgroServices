@@ -1,5 +1,9 @@
-import { Collection } from "./collection";
 
 export class Collectionviewmodel {
-    constructor(public collection:Collection,public farmerName:string,public cropName:string){}
+    constructor(public id: number,
+               public farmerName: string, 
+               public cropName: string,
+               public containerType:string,
+               public quantity:number,
+               public date:string) { }
 }

@@ -217,7 +217,7 @@ public class CollectionRepository : ICollectionRepository
         return status;
     }
 
-    public async Task<List<CollectionViewModel>> GetCollections(){
+    public async Task<List<CollectionViewModel>> GetCollections( StartDateFilter startDate){
         try{
             using(var context=new CollectionContext(_configuration)){
                   var collections = await (from farmer in context.Farmers
@@ -225,9 +225,15 @@ public class CollectionRepository : ICollectionRepository
                                               on farmer.Id equals collection.FarmerId
                                               join crop in context.Crops
                                               on collection.CropId equals crop.Id
+                                              where  collection.Date.Year == startDate.Date.Year
+                                              && collection.Date.Month == startDate.Date.Month
+                                              && collection.Date.Day == startDate.Date.Day
                                               select new CollectionViewModel()
                                               {
-                                                  Collection = collection,
+                                                  Id = collection.Id,
+                                                  ContainerType=collection.ContainerType,
+                                                  Quantity=collection.Quantity,
+                                                  Date=collection.Date,
                                                   FarmerName = farmer.FirstName + " " + farmer.LastName,
                                                   CropName = crop.Title
                                               }).ToListAsync();
