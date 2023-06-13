@@ -12,15 +12,23 @@ var CollectiondetailsComponent = /** @class */ (function () {
     function CollectiondetailsComponent(route, svc) {
         this.route = route;
         this.svc = svc;
+        this.sendCollection = new core_1.EventEmitter();
     }
     CollectiondetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.collectionId = this.route.snapshot.paramMap.get('id');
-        this.svc.getCollection(this.collectionId).subscribe(function (collection) {
-            _this.data = collection;
-            console.log(collection);
+        this.svc.getCollection(this.collectionId).subscribe(function (response) {
+            _this.collection = response;
+            _this.sendCollection.emit({ ollection: _this.collection });
+            console.log(response);
         });
     };
+    __decorate([
+        core_1.Output()
+    ], CollectiondetailsComponent.prototype, "sendCollection");
+    __decorate([
+        core_1.Input()
+    ], CollectiondetailsComponent.prototype, "collectionId");
     CollectiondetailsComponent = __decorate([
         core_1.Component({
             selector: 'app-collectiondetails',

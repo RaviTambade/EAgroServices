@@ -130,6 +130,11 @@ var CollectionService = /** @class */ (function () {
         var url = "http://localhost:5031/api/collections/" + id;
         return this.http.get(url);
     };
+    CollectionService.prototype.editCollection = function (id, collection) {
+        console.log("service called");
+        var url = "http://localhost:5031/api/collections/" + id;
+        return this.http.put(url, collection);
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

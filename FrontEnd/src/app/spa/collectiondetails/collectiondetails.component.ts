@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Collection } from 'src/app/vendors/collection';
 import { Collectionviewmodel } from 'src/app/vendors/collectionviewmodel';
@@ -11,18 +11,20 @@ import { CollectionService } from '../collection.service';
 })
 export class CollectiondetailsComponent implements OnInit{
   collectionViewModel:Collectionviewmodel |any;
-  data:Collection |any;
-collectionId:number |any;
-collection:any;
+  @Output() sendCollection =new EventEmitter();
+ @Input() collectionId:number |any;
+collection:Collection |any;
   constructor(private route: ActivatedRoute,public svc:CollectionService){}
   ngOnInit(): void {
     this.collectionId=this.route.snapshot.paramMap.get('id');
-    this.svc.getCollection(this.collectionId).subscribe((collection:Collection)=>{
-      this.data=collection;
-      console.log(collection);
+    this.svc.getCollection(this.collectionId).subscribe((response)=>{
+      this.collection=response;
+      this.sendCollection.emit({ollection:this.collection})
+      console.log(response);
     }
 
     )
   }
+
 
 }

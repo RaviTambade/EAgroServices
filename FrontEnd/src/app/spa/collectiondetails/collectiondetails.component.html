@@ -2,40 +2,40 @@
 <br />
 <br />
 <br />
-<div *ngIf="data">
+<div *ngIf="collection">
     <table>
       <tr>
         <th>container</th>
-        <td>{{data.containerType}}</td>
+        <td>{{collection.containerType}}</td>
     </tr>
     <tr>
       <th>quantity</th>
-      <td>{{data.quantity}}</td>
+      <td>{{collection.quantity}}</td>
   </tr>
         <tr>
             <th>grade</th>
-            <td>{{data.grade}}</td>
+            <td>{{collection.grade}}</td>
         </tr>
         <tr>
             <th>Total Weight</th>
-            <td>{{data.totalWeight}}</td>
+            <td>{{collection.totalWeight}}</td>
         </tr>
 
         <tr>
             <th>Tare Weight</th>
-            <td>{{data.tareWeight}}</td>
+            <td>{{collection.tareWeight}}</td>
         </tr>
         <tr>
           <th>Net Weight</th>
-          <td>{{data.netWeight}}</td>
+          <td>{{collection.netWeight}}</td>
       </tr>
       <tr>
         <th>Rate Per Kg</th>
-        <td>{{data.ratePerKg}}</td>
+        <td>{{collection.ratePerKg}}</td>
     </tr>
         <tr>
             <th>date</th>
-            <td>{{data.date |date}}</td>
+            <td>{{collection.date |date}}</td>
         </tr>
         <tr>
             <a routerLink="edit">Edit</a>

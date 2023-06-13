@@ -136,25 +136,12 @@ export class CollectionService {
     let url = "http://localhost:5031/api/collections/" + id;
     return this.http.get<Collection>(url);
   }
-  // editCollection(updateddata: any): any {
-  //   console.log("edit successful")
-  //   let olddata = this.collections.find(c => c.collectionId == updateddata.collectionId)
-  //   for (var o in olddata) {
-
-  //     if (olddata.hasOwnProperty(o)) {
-
-  //       for (var u in updateddata) {
-
-  //         if (updateddata.hasOwnProperty(u)) {
-
-  //           if (o == u) {
-
-  //             olddata[o] = updateddata[u];
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
+  editCollection(id:number,collection:Collection):Observable<any>{
+    console.log("service called")
+    let url="http://localhost:5031/api/collections/" + id;
+    return this.http.put<any>(url,collection)
+  }
+ 
    }
 
 
