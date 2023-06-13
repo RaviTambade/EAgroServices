@@ -1,12 +1,14 @@
 <br><br>
 <div>
+
 <a routerLink="addcollection">addcollection</a><br>
 <a (click)="getFarmers()" routerLink="farmerList">farmerList</a>
 <div>
+<a routerLink="addcollection">addcollection</a>
+<div *ngIf="collections">
     <table>
         <thead>
             <th>date</th><hr>
-            <th>collectionid</th><hr>
             <th>quantity</th><hr>
             <th>container</th><hr>
             <th>crop</th><hr>
@@ -14,11 +16,10 @@
         </thead>
         <tbody *ngFor="let collection of collections">
             <td>{{collection.date |date}}</td><hr>
-            <td>{{collection.collectionId}}</td><hr>
             <td>{{collection.quantity}}</td><hr>
-            <td>{{collection.container}}</td><hr>
-            <td>{{collection.crop}}</td><hr>
-            <td ><button (click)="OnClickCollection(collection.collectionId)" >details</button></td><hr>
+            <td>{{collection.containerType}}</td><hr>
+            <td>{{collection.cropName}}</td><hr>
+            <td ><button (click)="OnClickCollection(collection.id)" >details</button></td><hr>
         </tbody>
     </table>
 </div>

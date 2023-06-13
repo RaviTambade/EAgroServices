@@ -1,6 +1,6 @@
 <div *ngFor="let item of getItems">
     <p>{{item}}</p>
 </div>
-    <button (click)="previous()">previous</button>
-    <button (click)="next()">next</button>
+    <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
+    <button *ngIf="hasNextPage()" (click)="next()">next</button>
 

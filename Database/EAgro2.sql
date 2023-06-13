@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -330,7 +330,22 @@ INSERT INTO collections (farmerid, cropid, containertype, quantity, grade, total
 (4, 1, 'lenobags', 200, 'C', 1000, 40, 17, '2023-04-03 09:30:00'),
 (4, 2, 'crates', 75, 'D', 375, 15, 16.5, '2023-04-06 12:45:00'),
 (4, 3, 'bags', 50, 'A', 250, 10, 22, '2023-05-02 08:00:00'),
-(4, 4, 'lenobags', 120, 'B', 600, 24, 19, '2023-05-05 11:15:00');
+(4, 4, 'lenobags', 120, 'B', 600, 24, 19, '2023-05-05 11:15:00'),
+(4, 4, 'bags', 120, 'B', 600, 24, 19, '2023-06-12 11:15:00'),
+(4, 4, 'bags', 120, 'B', 600, 34, 34, '2023-06-12 11:15:00'),
+(2, 4, 'bags', 120, 'B', 500, 12, 34, '2023-06-12 11:15:00'),
+(1, 4, 'bags', 120, 'B', 300, 67, 45, '2023-06-12 11:15:00'),
+(2, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-13 11:15:00'),
+(2, 4, 'bags', 120, 'B', 700, 34, 23, '2023-06-13 11:15:00'),
+(3, 4, 'bags', 120, 'B', 800, 23, 22, '2023-06-13 11:15:00'),
+(4, 4, 'bags', 120, 'B', 600, 24, 19, '2023-06-13 11:15:00'),
+(4, 4, 'bags', 120, 'B', 600, 34, 34, '2023-06-13 11:15:00'),
+(2, 4, 'bags', 120, 'B', 500, 12, 34, '2023-06-13 11:15:00'),
+(1, 4, 'bags', 120, 'B', 300, 67, 45, '2023-06-13 11:15:00'),
+(2, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-13 11:15:00'),
+(2, 4, 'bags', 120, 'B', 700, 34, 23, '2023-06-13 11:15:00'),
+(3, 4, 'bags', 120, 'B', 800, 23, 22, '2023-06-13 11:15:00');
+
 
 INSERT INTO billing (collectionid,date)
 SELECT id,date FROM collections  order by id ;
@@ -542,8 +557,9 @@ collections.grade,collections.quantity,collections.totalweight,collections.tarew
 collections.rateperkg,collections.date FROM users INNER JOIN collections
 ON users.id=collections.farmerid 
 INNER JOIN crops
-ON crops.id=collections.cropid;
+ON crops.id=collections.cropid WHERE collections.date >= CURRENT_DATE;
 
 
 SELECT * FROM users;
 SELECT * FROM vendors;
+
