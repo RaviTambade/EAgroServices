@@ -134,7 +134,7 @@ export class CollectionService {
 
   getCollection(id: number): Observable<any> {
     let url = "http://localhost:5031/api/collections/" + id;
-    return this.http.get<Collectionviewmodel>(url);
+    return this.http.get<Collection>(url);
   }
   editCollection(id:number,collection:Collection):Observable<any>{
     let url = "http://localhost:5031/api/collections/" + id;

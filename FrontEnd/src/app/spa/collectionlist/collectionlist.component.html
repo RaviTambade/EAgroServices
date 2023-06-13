@@ -8,6 +8,7 @@
 <div *ngIf="collections">
     <table>
         <thead>
+            <th>FarmerName</th>
             <th>date</th><hr>
             <th>quantity</th><hr>
             <th>container</th><hr>
@@ -15,6 +16,7 @@
            <th>actions</th><hr>
         </thead>
         <tbody *ngFor="let collection of collections">
+            <td>{{collection.farmerName}}</td><hr>
             <td>{{collection.date |date}}</td><hr>
             <td>{{collection.quantity}}</td><hr>
             <td>{{collection.containerType}}</td><hr>

@@ -12,6 +12,104 @@ var common_1 = require("@angular/common");
 var CollectionService = /** @class */ (function () {
     function CollectionService(http) {
         this.http = http;
+        this.collections = [{
+                'date': '2022-08-09',
+                'collectionId': 1,
+                'quantity': 20,
+                'container': 'bags',
+                'crop': 'potato',
+                'rateperkg': 20
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 2,
+                'quantity': 30,
+                'container': 'bags',
+                'crop': 'onion',
+                'rateperkg': 30
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 3,
+                'quantity': 24,
+                'container': 'bags',
+                'crop': 'onion',
+                'rateperkg': 40
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 4,
+                'quantity': 25,
+                'container': 'bags',
+                'crop': 'onion',
+                'rateperkg': 50
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 5,
+                'quantity': 35,
+                'container': 'bags',
+                'crop': 'potato',
+                'rateperkg': 50
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 6,
+                'quantity': 40,
+                'container': 'bags',
+                'crop': 'potato',
+                'rateperkg': 70
+            },
+            {
+                'date': '2022-08-09',
+                'collectionId': 7,
+                'quantity': 20,
+                'container': 'bags',
+                'crop': 'potato',
+                'rateperkg': 60
+            }];
+        this.farmerslist = [{
+                'Id': 1,
+                'firstname': 'Shubham',
+                'lastname': 'Teli',
+                'location': 'Bhavadi'
+            },
+            {
+                'Id': 2,
+                'firstname': 'Abhay',
+                'lastname': 'Navale',
+                'location': 'Peth'
+            },
+            {
+                'Id': 3,
+                'firstname': 'Jayesh',
+                'lastname': 'Erande',
+                'location': 'Thugaon'
+            },
+            {
+                'Id': 4,
+                'firstname': 'Sahil',
+                'lastname': 'Mankar',
+                'location': 'Pargaon'
+            }, {
+                'Id': 5,
+                'firstname': 'Rohit',
+                'lastname': 'Gore',
+                'location': 'Satara'
+            },
+            {
+                'Id': 6,
+                'firstname': 'Rushikesh',
+                'lastname': 'Chikane',
+                'location': 'Satara'
+            },
+            {
+                'Id': 7,
+                'firstname': 'Akshay',
+                'lastname': 'Tanpure',
+                'location': 'Wada'
+            },
+        ];
     }
     CollectionService.prototype.getCollections = function () {
         var datePipe = new common_1.DatePipe('en-US');
@@ -22,6 +120,11 @@ var CollectionService = /** @class */ (function () {
         };
         var url = "http://localhost:5031/api/collections/getall";
         return this.http.post(url, date);
+    };
+    CollectionService.prototype.getFarmers = function () {
+        console.log("service called");
+        console.log(this.farmerslist);
+        return this.farmerslist;
     };
     CollectionService.prototype.getCollection = function (id) {
         var url = "http://localhost:5031/api/collections/" + id;
