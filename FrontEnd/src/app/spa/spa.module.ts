@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { FarmercollectiondetailsComponent } from './farmercollectiondetails/farmercollectiondetails.component';
 import { FarmerdetailsComponent } from './farmerdetails/farmerdetails.component';
 import { FarmerbillingComponent } from './farmerbilling/farmerbilling.component';
+import { CollectiontransportationComponent } from './collectiontransportation/collectiontransportation.component';
 
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
@@ -30,8 +31,8 @@ const routes: Routes =
   { path: 'collections/:id/edit', component: EditcollectionComponent },
   { path: 'farmers', component: FarmerlistComponent },
   { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
-  { path: 'farmerbilling/:id', component: FarmerbillingComponent }
-
+  { path: 'farmerbilling/:id', component: FarmerbillingComponent },
+  { path: 'transport/:id',component:CollectiontransportationComponent},
 
 
   ]
@@ -50,6 +51,7 @@ const routes: Routes =
     FarmercollectiondetailsComponent,
     FarmerdetailsComponent,
     FarmerbillingComponent,
+    CollectiontransportationComponent,
   ],
   imports: [
     CommonModule,

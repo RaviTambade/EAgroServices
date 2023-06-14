@@ -1,0 +1,53 @@
+<div></div>
+<br />
+<br />
+<br />
+<div *ngIf="transport">
+  <table>
+    <tr>
+      <th>farmer name</th>
+      <td>{{transport.farmerName}}</td>
+    </tr>
+    <tr>
+      <th>crop</th>
+      <td>{{transport.cropName}}</td>
+    </tr>
+    <tr>
+      <th>container</th>
+      <td>{{transport.collection.containerType}}</td>
+    </tr>
+    <tr>
+      <th>quantity</th>
+      <td>{{transport.collection.quantity}}</td>
+    </tr>
+    <tr>
+      <th>grade</th>
+      <td>{{transport.collection.grade}}</td>
+    </tr>
+    <tr>
+      <th>Total Weight</th>
+      <td>{{transport.collection.totalWeight}}</td>
+    </tr>
+    <tr>
+      <th>Tare Weight</th>
+      <td>{{transport.collection.tareWeight}}</td>
+    </tr>
+    <tr>
+      <th>Net Weight</th>
+      <td>{{transport.collection.netWeight}}</td>
+    </tr>
+    <tr>
+      <th>Rate Per Kg</th>
+      <td>{{transport.collection.ratePerKg}}</td>
+    </tr>
+    <tr>
+      <th>date</th>
+      <td>{{transport.collection.date |date}}</td>
+    </tr>
+    <tr>
+      <th>amount</th>
+      <td>{{transport.collection.amount}}</td>
+    </tr>
+  </table>
+</div>
+<router-outlet></router-outlet>

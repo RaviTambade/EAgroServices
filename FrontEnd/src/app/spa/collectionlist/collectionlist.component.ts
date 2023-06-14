@@ -25,5 +25,7 @@ constructor(private svc:CollectionService,private router:Router,private route:Ac
 OnClickCollection(id:number){
 this.router.navigate(['./',id],{relativeTo:this.route})
 }
+transport(id:number){
+  this.router.navigate(['transport/',id],{relativeTo:this.route})
 }
-
+}
