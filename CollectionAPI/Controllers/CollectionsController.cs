@@ -37,6 +37,11 @@ public class CollectionsController : ControllerBase
        return await _service.GetCollectionBill(collectionId);
     }
 
+     [HttpGet("{collectionId}/sell")]
+    public async Task<SellViewModel> GetCollectionSell(int collectionId){
+       return await _service.GetCollectionSell(collectionId);
+    }
+
     // [HttpGet("{id}/collectionbilling")]
     // public async Task<CollectionBillingRecord> GetCollectionBillingRecord(int id)
     // {

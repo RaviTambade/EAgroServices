@@ -64,6 +64,31 @@ public class CollectionRepository : ICollectionRepository
         }
     }
 
+    
+    public async Task<SellViewModel> GetCollectionSell(int collectionId){
+        try{
+            using(var context=new CollectionContext(_configuration)){
+              var collectionsell = await (
+                    from sell in context.Sells
+                    join collection in context.Collections on sell.CollectionId equals collection.Id
+                    join farmer in context.Farmers on sell.MerchantId equals farmer.Id
+                    join vehicle in context.Vehicles on sell.VehicleId equals vehicle.Id
+                    where collection.Id == collectionId
+                    select new SellViewModel()
+                    {
+                       Sell=sell,
+                       MerchantName=farmer.FirstName + " " + farmer.LastName,
+                       VehicleNumber=vehicle.VehicleNumber
+                    }
+                ).FirstOrDefaultAsync();
+                return collectionsell;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+
     public async Task<CollectionBillingRecord> GetCollectionBillingRecord(int collectionId)
     {
         try
