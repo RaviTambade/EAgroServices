@@ -5,6 +5,7 @@ using CollectionAPI.Repositories.Interfaces;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
+using System.Numerics;
 
 namespace CollectionAPI.Repositories;
 
@@ -42,6 +43,23 @@ public class CollectionRepository : ICollectionRepository
         }
         catch (Exception e)
         {
+            throw e;
+        }
+    }
+
+    public async Task<Billing> GetCollectionBill(int collectionId){
+        try{
+            using(var context=new CollectionContext(_configuration)){
+                 var billing = await (
+                    from collection in context.Collections
+                    join bill in context.Billings on collection.Id equals bill.CollectionId
+                    where collection.Id == collectionId
+                    select bill
+                ).FirstOrDefaultAsync();
+            return billing;
+            }
+        }
+        catch(Exception e){
             throw e;
         }
     }

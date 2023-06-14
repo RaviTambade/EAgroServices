@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using CollectionAPI.Models;
 
@@ -7,6 +8,8 @@ namespace CollectionAPI.Repositories.Interfaces;
 public interface ICollectionRepository
 {
     Task<List<CollectionBillingRecord>> GetCollectionBillingRecords();
+
+    Task <Billing> GetCollectionBill(int collectionId);
     Task<List<CollectionViewModel>> GetCollections(StartDateFilter startDate);
     Task<CollectionViewModel> GetCollection(int collectionId);
     Task<CollectionBillingRecord> GetCollectionBillingRecord(int collectionId);

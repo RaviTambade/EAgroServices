@@ -26,17 +26,22 @@ public class CollectionsController : ControllerBase
         return await _service.GetCollections(startDate);
     }
 
-    [HttpGet("billing")]
+    [HttpGet("collectionbilling")]
     public async Task<List<CollectionBillingRecord>> GetCollectionBillingRecords()
     {
         return await _service.GetCollectionBillingRecords();
     }
-
-    [HttpGet("{id}/billing")]
-    public async Task<CollectionBillingRecord> GetCollectionBillingRecord(int id)
-    {
-        return await _service.GetCollectionBillingRecord(id);
+    
+     [HttpGet("{collectionId}/billing")]
+    public async Task<Billing> GetCollectionBill(int collectionId){
+       return await _service.GetCollectionBill(collectionId);
     }
+
+    // [HttpGet("{id}/collectionbilling")]
+    // public async Task<CollectionBillingRecord> GetCollectionBillingRecord(int id)
+    // {
+    //     return await _service.GetCollectionBillingRecord(id);
+    // }
 
     [HttpPost]
     public async Task<bool> Insert([FromBody] Collection collection)
