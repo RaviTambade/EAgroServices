@@ -48,7 +48,7 @@ export class CollectionService {
     let url="http://localhost:5141/api/farmers/collections/" +farmerId
     return this.http.get<any>(url)
   }
-  collectionBill(collectionid:number):Observable<any>{
+  getcollectionBill(collectionid:number):Observable<any>{
     let url="http://localhost:5031/api/collections/" +collectionid+ "/billing" ;
     return this.http.get<any>(url)
   }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../collection.service';
-import { Collection } from 'src/app/vendors/collection';
-import { Billing } from 'src/app/vendors/billing';
 import { ActivatedRoute } from '@angular/router';
+import { Collectionbill } from 'src/app/vendors/collectionbill';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-farmerbilling',
@@ -10,18 +10,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./farmerbilling.component.css']
 })
 export class FarmerbillingComponent implements OnInit{
-  billing:Billing|any;
+  billing:Collectionbill|undefined;
   collectionId:any;
-  constructor(private svc:CollectionService,private route:ActivatedRoute){}
+  constructor(private svc:CollectionService,private route:ActivatedRoute,private location:Location){}
 
   ngOnInit(): void {
 this.collectionId=this.route.snapshot.paramMap.get('id')
-      this.svc.collectionBill(this.collectionId).subscribe((response)=>{
+      this.svc.getcollectionBill(this.collectionId).subscribe((response)=>{
   this.billing=response;
   console.log(response);
   })
 
 }
+goBack(): void {
+  this.location.back();
+}
+
 }
 
 

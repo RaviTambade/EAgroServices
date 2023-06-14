@@ -47,28 +47,43 @@ public class CollectionRepository : ICollectionRepository
         }
     }
 
-    public async Task<Billing> GetCollectionBill(int collectionId){
-        try{
-            using(var context=new CollectionContext(_configuration)){
-                 var billing = await (
+    public async Task<CollectionBill> GetCollectionBill(int collectionId)
+    {
+        try
+        {
+            using (var context = new CollectionContext(_configuration))
+            {
+                var billing = await (
                     from collection in context.Collections
                     join bill in context.Billings on collection.Id equals bill.CollectionId
+                    join farmer in context.Farmers on collection.FarmerId equals farmer.Id
                     where collection.Id == collectionId
-                    select bill
+                    select new CollectionBill()
+                    {
+                        BillId = bill.Id,
+                        LabourCharges = bill.LabourCharges,
+                        Amount = bill.TotalAmount,
+                        FarmerName = farmer.FirstName + " " + farmer.LastName,
+                        BillingDate = bill.Date,
+                        CollectionDate = collection.Date
+                    }
                 ).FirstOrDefaultAsync();
-            return billing;
+                return billing;
             }
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             throw e;
         }
     }
 
-    
-    public async Task<SellViewModel> GetCollectionSell(int collectionId){
-        try{
-            using(var context=new CollectionContext(_configuration)){
-              var collectionsell = await (
+    public async Task<SellViewModel> GetCollectionSell(int collectionId)
+    {
+        try
+        {
+            using (var context = new CollectionContext(_configuration))
+            {
+                var collectionsell = await (
                     from sell in context.Sells
                     join collection in context.Collections on sell.CollectionId equals collection.Id
                     join farmer in context.Farmers on sell.MerchantId equals farmer.Id
@@ -76,15 +91,16 @@ public class CollectionRepository : ICollectionRepository
                     where collection.Id == collectionId
                     select new SellViewModel()
                     {
-                       Sell=sell,
-                       MerchantName=farmer.FirstName + " " + farmer.LastName,
-                       VehicleNumber=vehicle.VehicleNumber
+                        Sell = sell,
+                        MerchantName = farmer.FirstName + " " + farmer.LastName,
+                        VehicleNumber = vehicle.VehicleNumber
                     }
                 ).FirstOrDefaultAsync();
                 return collectionsell;
             }
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             throw e;
         }
     }
@@ -261,50 +277,59 @@ public class CollectionRepository : ICollectionRepository
         return status;
     }
 
-    public async Task<List<CollectionViewModel>> GetCollections( StartDateFilter startDate){
-        try{
-            using(var context=new CollectionContext(_configuration)){
-                  var collections = await (from farmer in context.Farmers
-                                              join collection in context.Collections
-                                              on farmer.Id equals collection.FarmerId
-                                              join crop in context.Crops
-                                              on collection.CropId equals crop.Id
-                                              where  collection.Date.Year == startDate.Date.Year
-                                              && collection.Date.Month == startDate.Date.Month
-                                              && collection.Date.Day == startDate.Date.Day
-                                              select new CollectionViewModel()
-                                              {
-                                                  Collection=collection,
-                                                  FarmerName = farmer.FirstName + " " + farmer.LastName,
-                                                  CropName = crop.Title
-                                              }).ToListAsync();
+    public async Task<List<CollectionViewModel>> GetCollections(StartDateFilter startDate)
+    {
+        try
+        {
+            using (var context = new CollectionContext(_configuration))
+            {
+                var collections = await (
+                    from farmer in context.Farmers
+                    join collection in context.Collections on farmer.Id equals collection.FarmerId
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    where
+                        collection.Date.Year == startDate.Date.Year
+                        && collection.Date.Month == startDate.Date.Month
+                        && collection.Date.Day == startDate.Date.Day
+                    select new CollectionViewModel()
+                    {
+                        Collection = collection,
+                        FarmerName = farmer.FirstName + " " + farmer.LastName,
+                        CropName = crop.Title
+                    }
+                ).ToListAsync();
                 return collections;
             }
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             throw e;
         }
     }
 
-    public async Task<CollectionViewModel> GetCollection(int collectionId){
-         try{
-            using(var context=new CollectionContext(_configuration)){
-                  var data = await (from farmer in context.Farmers
-                                              join collection in context.Collections
-                                              on farmer.Id equals collection.FarmerId
-                                              join crop in context.Crops
-                                              on collection.CropId equals crop.Id
-                                              where collection.Id ==collectionId
-                                              select new CollectionViewModel()
-                                              {
-                                                  Collection=collection,
-                                                  FarmerName = farmer.FirstName + " " + farmer.LastName,
-                                                  CropName = crop.Title
-                                              }).FirstOrDefaultAsync();
+    public async Task<CollectionViewModel> GetCollection(int collectionId)
+    {
+        try
+        {
+            using (var context = new CollectionContext(_configuration))
+            {
+                var data = await (
+                    from farmer in context.Farmers
+                    join collection in context.Collections on farmer.Id equals collection.FarmerId
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    where collection.Id == collectionId
+                    select new CollectionViewModel()
+                    {
+                        Collection = collection,
+                        FarmerName = farmer.FirstName + " " + farmer.LastName,
+                        CropName = crop.Title
+                    }
+                ).FirstOrDefaultAsync();
                 return data;
             }
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             throw e;
         }
     }
@@ -313,11 +338,11 @@ public class CollectionRepository : ICollectionRepository
     //     try{
     //         using(var context=new CollectionContext(_configuration)){
     //           List<Collection> collections=await context.Collections.ToListAsync();
-    //                 return collections; 
+    //                 return collections;
     //         }
     //     }
     //     catch(Exception e){
     //         throw e;
-    //     } 
+    //     }
     // }
 }

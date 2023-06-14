@@ -33,7 +33,7 @@ public class CollectionsController : ControllerBase
     }
     
      [HttpGet("{collectionId}/billing")]
-    public async Task<Billing> GetCollectionBill(int collectionId){
+    public async Task<CollectionBill> GetCollectionBill(int collectionId){
        return await _service.GetCollectionBill(collectionId);
     }
 
