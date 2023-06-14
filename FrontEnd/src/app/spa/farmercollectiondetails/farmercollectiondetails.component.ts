@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Collection } from 'src/app/vendors/collection';
 import { Collectionviewmodel } from 'src/app/vendors/collectionviewmodel';
 import { CollectionService } from '../collection.service';
@@ -13,7 +13,7 @@ export class FarmercollectiondetailsComponent implements OnInit{
   collectionViewModels:Collectionviewmodel[] |any;
   collection:Collection|any;
   farmerId:any;
-  constructor(private svc:CollectionService,private route:ActivatedRoute){}
+  constructor(private svc:CollectionService,private route:ActivatedRoute,private router:Router){}
 ngOnInit(): void {
  this.farmerId= this.route.snapshot.paramMap.get('id');
  this.svc.getCollectionByFarmer(this.farmerId).subscribe((response)=>{
@@ -21,6 +21,5 @@ ngOnInit(): void {
   console.log(response)
  })
 }
-
 
 }

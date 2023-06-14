@@ -9,9 +9,10 @@ exports.__esModule = true;
 exports.FarmercollectiondetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var FarmercollectiondetailsComponent = /** @class */ (function () {
-    function FarmercollectiondetailsComponent(svc, route) {
+    function FarmercollectiondetailsComponent(svc, route, router) {
         this.svc = svc;
         this.route = route;
+        this.router = router;
     }
     FarmercollectiondetailsComponent.prototype.ngOnInit = function () {
         var _this = this;

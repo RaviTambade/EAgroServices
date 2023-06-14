@@ -7,17 +7,13 @@
         <thead>
             <th>firstname</th><hr>
             <th>lastname</th><hr>
-            <th>location</th><hr>
-            <th>contact number</th>
             <th>actions</th>
            
         </thead>
         <tbody *ngFor="let farmer of farmers">
             <td>{{farmer.firstName}}</td><hr>
             <td>{{farmer.lastName}}</td><hr>
-            <td>{{farmer.location}}</td><hr>
-            <td>{{farmer.contactNumber}}</td>
-            <td><button (click)="onClick(farmer.id)">collectiondetails</button></td>
+            <td><button (click)="onClick(farmer.id)">collections</button></td>
           
             <!-- <td ><button (click)="OnClickCollection(collection.collectionId)" >details</button></td><hr> -->
         </tbody>

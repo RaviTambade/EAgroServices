@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Linq.Expressions;
 using FarmersAPI.Contexts;
 using FarmersAPI.Models;
 using FarmersAPI.Repositories.Interfaces;
@@ -219,4 +220,19 @@ public class FarmerRepository : IFarmerRepository
             throw e;
         }
     }
+
+      public async Task<int> GetFarmerId(string farmerName){
+        try{
+            using(var context=new FarmersContext(_configuration)){
+                int farmerId= await context.Farmers
+                .Where(f => (f.FirstName + " " + f.LastName) == farmerName)
+                .Select(f => f.Id)
+                .FirstOrDefaultAsync();
+                return farmerId;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+      }
 }

@@ -12,4 +12,6 @@ public interface IFarmerRepository
     Task<List<FarmerCollection>> GetFarmerCollectionsBetweenDates(int farmerId,DateFilter dateFilter);
     Task<List<FarmerCollection>> GetFarmerCollectionByCrop(int farmerId, int cropId);
 
+    Task<int> GetFarmerId(string farmerName);
+
 }

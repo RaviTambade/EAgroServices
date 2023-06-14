@@ -13,7 +13,12 @@ namespace FarmersAPI.Controllers
         public FarmersController(IFarmerService srv)
         {
             this._srv = srv;
-        }
+        }     
+
+        //   [HttpGet("{farmername}")]
+        // public async Task<int> GetFarmerId(string farmerName){
+        //     return await _srv.GetFarmerId(farmerName);
+        // }
 
         [HttpGet]
         public async Task<List<Farmer>> GetFarmers()

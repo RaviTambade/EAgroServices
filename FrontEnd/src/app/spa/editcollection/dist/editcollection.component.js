@@ -19,13 +19,29 @@ var EditcollectionComponent = /** @class */ (function () {
     EditcollectionComponent.prototype.edit = function () {
         var _this = this;
         console.log("edit called");
+        this.farmer = this.getFarmerByName(this.collectionViewModel.farmerName);
+        this.crop = this.getCropByName(this.collectionViewModel.cropName);
+        if (this.farmer && this.crop) {
+            this.collectionViewModel.collection.farmerId = this.farmer.id;
+            this.collectionViewModel.collection.cropId = this.crop.id;
+        }
         this.svc.editCollection(this.collectionId, this.collectionViewModel).subscribe(function (response) {
             _this.status = response;
             console.log(response);
         });
     };
+    EditcollectionComponent.prototype.getFarmerByName = function (farmerName) {
+        var farmer = this.farmers.find(function (f) { return (f.firstName + ' ' + f.lastName) === farmerName; });
+        return farmer;
+    };
+    EditcollectionComponent.prototype.getCropByName = function (cropName) {
+        var crop = this.crops.find(function (c) { return c.cropName == cropName; });
+        return crop;
+    };
     EditcollectionComponent.prototype.receiveCollection = function ($event) {
         this.collectionViewModel = $event.collectionViewModel;
+        this.collectionViewModel.collection.farmerId = $event.farmerId;
+        this.collectionViewModel.collection.cropId = $event.cropId;
     };
     EditcollectionComponent = __decorate([
         core_1.Component({

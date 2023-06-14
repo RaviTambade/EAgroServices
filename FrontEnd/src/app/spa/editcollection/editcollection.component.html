@@ -2,17 +2,31 @@
 <br><br><br>
 <app-collectiondetails [collectionId]="collectionId" (sendCollection)="receiveCollection($event)" hidden></app-collectiondetails>
 <form *ngIf="collectionViewModel && collectionId != 0">
-
+    <label for="farmername">FarmerName:</label>
+    <input type="text" name="farmername" [(ngModel)]="collectionViewModel.farmerName">
+    <br>
+    <label for="cropname">CropName:</label>
+    <input type="text" name="cropname" [(ngModel)]="collectionViewModel.cropName">
+    <input type="hidden" name="farmerId" [(ngModel)]="collectionViewModel.collection.farmerId">
+    <input type="hidden" name="cropId" [(ngModel)]="collectionViewModel.collection.cropId">
+    <br>
     <label for="quantity">Quantity:</label>
-    <input type="text" name="quantity" [(ngModel)]="collectionViewModel.collection.quantity" >
+    <input type="text" name="quantity" [(ngModel)]="collectionViewModel.collection.quantity">
     <br>
     <label for="container">Container:</label>
     <input type="text" name="containerType" [(ngModel)]="collectionViewModel.collection.containerType">
     <br>
-    <label for="rateperkg">Rateperkg:</label>
+    <label for="grade">Grade:</label>
     <input type="text" name="grade" [(ngModel)]="collectionViewModel.collection.grade">
     <br>
-
-    <button type="submit"(click)="edit()">Done</button>
-
- </form>
+    <label for="totalweight">totalWeight:</label>
+    <input type="text" name="totalweight" [(ngModel)]="collectionViewModel.collection.totalWeight">
+    <br>
+    <label for="tareweight">TareWeight:</label>
+    <input type="text" name="tareweight" [(ngModel)]="collectionViewModel.collection.tareWeight">
+    <br>
+    <label for="rateperkg">Rateperkg:</label>
+    <input type="text" name="rateperkg" [(ngModel)]="collectionViewModel.collection.ratePerKg">
+    <br>
+    <button type="submit" (click)="edit()">Done</button>
+</form>

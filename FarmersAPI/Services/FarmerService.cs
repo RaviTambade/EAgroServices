@@ -48,4 +48,9 @@ public class FarmerService : IFarmerService
     {
         return await _repo.GetFarmerCollectionByCrop(farmerId,cropId);
     }
+
+    public Task<int> GetFarmerId(string farmerName)
+    {
+       return _repo.GetFarmerId(farmerName);
+    }
 }

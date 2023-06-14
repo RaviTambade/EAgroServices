@@ -36,6 +36,10 @@ var CollectionService = /** @class */ (function () {
         var url = "http://localhost:5141/api/farmers";
         return this.http.get(url);
     };
+    CollectionService.prototype.getfarmer = function (farmerId) {
+        var url = "http://localhost:5141/api/farmers/" + farmerId;
+        return this.http.get(url);
+    };
     CollectionService.prototype.getCollectionByFarmer = function (farmerId) {
         var url = "http://localhost:5141/api/farmers/collections/" + farmerId;
         return this.http.get(url);

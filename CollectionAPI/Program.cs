@@ -6,7 +6,7 @@ using CollectionAPI.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ICollectionRepository,CollectionRepository>();
 builder.Services.AddScoped<ICollectionService,CollectionService>();

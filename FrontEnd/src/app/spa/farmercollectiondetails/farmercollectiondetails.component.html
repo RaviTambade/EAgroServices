@@ -6,30 +6,20 @@
     <table>
         <thead>
 <tr>
-    <th>crop</th>
-    <th>container</th>
-    <th>quantity</th>
-    <th>grade</th>
-    <th>Total Weight</th>
-    <th>Tare Weight</th>
-    <th>Net Weight</th>
-    <th>Rate Per Kg</th>
     <th>date</th>
-    <th>Amount</th>
+    <th>crop</th>
+    <th>quantity</th>
+    <th>Total Weight</th>
+    <th>Actions</th>
 </tr>
         </thead>
         <tbody *ngFor="let collectionViewModel of collectionViewModels ">
             <tr>
-            <td>{{collectionViewModel.cropName}}</td>
-            <td>{{collectionViewModel.collection?.containerType}}</td>
-          <td>{{collectionViewModel.collection?.quantity}}</td>
-                <td>{{collectionViewModel.collection?.grade}}</td>
-                <td>{{collectionViewModel.collection?.totalWeight}}</td>
-                <td>{{collectionViewModel.collection?.tareWeight}}</td>
-              <td>{{collectionViewModel.collection?.netWeight}}</td>
-            <td>{{collectionViewModel.collection?.ratePerKg}}</td>
                 <td>{{collectionViewModel.collection?.date |date}}</td>
-                <td>{{collectionViewModel.collection?.amount}}</td>
+            <td>{{collectionViewModel.cropName}}</td>
+          <td>{{collectionViewModel.collection?.quantity}}</td>
+          <td>{{collectionViewModel.collection?.totalWeight}}</td>
+          <td><a routerLink="collections/:id">details</a></td>
             </tr>
         </tbody>
     </table>
