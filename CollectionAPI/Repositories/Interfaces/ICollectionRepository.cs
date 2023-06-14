@@ -9,7 +9,7 @@ public interface ICollectionRepository
 {
     Task<List<CollectionBillingRecord>> GetCollectionBillingRecords();
 
-    Task<Billing> GetCollectionBill(int collectionId);
+    Task<CollectionBill> GetCollectionBill(int collectionId);
 
     Task<SellViewModel> GetCollectionSell(int CollectionId);
     Task<List<CollectionViewModel>> GetCollections(StartDateFilter startDate);

@@ -27,6 +27,9 @@ export class CollectiondetailsComponent implements OnInit{
   showBill(id: any) {
     this.router.navigate(['/farmerbilling',id],{relativeTo:this.route});
   }
+  onClick(id: number) {
+    this.router.navigate(['/farmers', id]);
+  }
  
   }
 

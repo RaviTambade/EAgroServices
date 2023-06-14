@@ -6,7 +6,7 @@
   <table>
     <tr>
       <th>farmer name</th>
-      <td>{{collectionViewModel.farmerName}}</td>
+      <td (click)="onClick(collectionViewModel.collection.farmerId)" style="color: blue;"> {{collectionViewModel.farmerName}}</td>
     </tr>
     <tr>
       <th>crop</th>
@@ -51,7 +51,7 @@
     </tr>
     <tr>
       <hr>
-      <button (click)="showBill(collectionViewModel.collection?.id)">bill</button>
+      <button (click)="showBill(collectionViewModel.collection?.id)">billing details</button>
       <hr>
       <a routerLink="edit">edit</a>
       <hr>
