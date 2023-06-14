@@ -1,24 +1,21 @@
 <br><br>
 <div>
-<!-- <a routerLink="addcollection">addcollection</a><br> -->
-<!-- <a (click)="getFarmers()" routerLink="farmerList">farmerList</a> -->
-<div>
-    <table>
-        <thead>
-            <th>firstname</th><hr>
-            <th>lastname</th><hr>
-            <th>actions</th>
-           
-        </thead>
-        <tbody *ngFor="let farmer of farmers">
-            <td>{{farmer.firstName}}</td><hr>
-            <td>{{farmer.lastName}}</td><hr>
-            <td><button (click)="onClick(farmer.id)">collections</button></td>
-          
-            <!-- <td ><button (click)="OnClickCollection(collection.collectionId)" >details</button></td><hr> -->
-        </tbody>
-    </table>
-</div>
+    <div>
+        <table>
+            <thead>
+                <th>FarmerName</th>
+                <hr>
+                <th>actions</th>
+
+            </thead>
+            <tbody *ngFor="let farmer of farmers">
+                <td>{{farmer.firstName}}{{farmer.lastName}}</td>
+                <hr>
+                <hr>
+                <td><button (click)="onClick(farmer.id)">collections</button></td>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <router-outlet></router-outlet>

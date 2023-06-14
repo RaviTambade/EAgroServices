@@ -440,7 +440,7 @@ BEGIN
 END;
 
 
-CALL call_procedures(34);
+CALL call_procedures(48);
 
 
 DROP PROCEDURE IF EXISTS call_proceduresofsells;
@@ -455,7 +455,7 @@ BEGIN
   END WHILE;
 END;
 
-CALL call_proceduresofsells(34);
+CALL call_proceduresofsells(48);
 
 /*
 -- SELECT farmers.first_name,farmers.last_name,farmers.location,farmer_purchases.variety,farmer_purchases.quantity,farmer_purchases.total_weight,farmer_purchases.tare_weight,farmer_purchases.net_weight,farmer_purchases.`date`,transport_trucks.truck_number,sells.net_weight,sells.rate_per_kg,sells.total_amount FROM farmers
@@ -562,5 +562,6 @@ ON crops.id=collections.cropid WHERE collections.date >= CURRENT_DATE;
 
 SELECT * FROM users;
 SELECT * FROM vendors;
-
+SELECT * FROM collections;
+SELECT * FROM billing;
 SELECT `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount` FROM `collections` AS `c` INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid` WHERE `c`.`id` = @__collectionId_0;

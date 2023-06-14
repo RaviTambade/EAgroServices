@@ -9,16 +9,15 @@ import { Farmer } from 'src/app/vendors/farmer';
   styleUrls: ['./farmerlist.component.css']
 })
 export class FarmerlistComponent {
-farmers:Farmer[] |any;
-  constructor(private svc:CollectionService,private router:Router,private route:ActivatedRoute){}
+  farmers: Farmer[] | any;
+  constructor(private svc: CollectionService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
-  this.svc.getfarmers().subscribe((response)=>{
-   this.farmers= response
-   console.log(response)
-  })
+    this.svc.getfarmers().subscribe((response) => {
+      this.farmers = response
+      console.log(response)
+    })
   }
-  onClick(id:number){
-    this.router.navigate(['./',id],{relativeTo:this.route});
+  onClick(id: number) {
+    this.router.navigate(['./', id], { relativeTo: this.route });
   }
-
 }
