@@ -1,0 +1,18 @@
+
+<br>
+<br>
+<table *ngIf="billing">
+<tr>
+    <th>date</th>
+    <td>{{billing.date |date}}</td>
+</tr>
+<tr>
+  <th>Labour Charge</th>
+  <td>{{billing.labourCharge}}</td>
+</tr>
+ 
+  <tr>
+    <th>amount</th>
+    <td>{{billing.totalAmount}}</td>
+</tr>
+</table>

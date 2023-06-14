@@ -563,3 +563,4 @@ ON crops.id=collections.cropid WHERE collections.date >= CURRENT_DATE;
 SELECT * FROM users;
 SELECT * FROM vendors;
 
+SELECT `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount` FROM `collections` AS `c` INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid` WHERE `c`.`id` = @__collectionId_0;

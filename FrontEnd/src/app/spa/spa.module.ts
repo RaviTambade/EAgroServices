@@ -13,23 +13,24 @@ import { EditcollectionComponent } from './editcollection/editcollection.compone
 import { FormsModule } from '@angular/forms';
 import { FarmercollectiondetailsComponent } from './farmercollectiondetails/farmercollectiondetails.component';
 import { FarmerdetailsComponent } from './farmerdetails/farmerdetails.component';
+import { FarmerbillingComponent } from './farmerbilling/farmerbilling.component';
 
-const childRoutes:Routes=[
-  {path:'',redirectTo:'collections',pathMatch:"full"},
-  {path:'addcollection',component:AddcollectionComponent},
+const childRoutes: Routes = [
+  { path: '', redirectTo: 'collections', pathMatch: "full" },
+  { path: 'addcollection', component: AddcollectionComponent },
 
 ]
-const routes: Routes=
-  [   {path:'', redirectTo:'home',pathMatch:"full"},
-      { path: 'home', component: HomeComponent },
-      { path: 'farmers', component:FarmerlistComponent},
-      { path: 'vendors', component:VendorlistComponent},
-      { path: 'collections', component:CollectionlistComponent,children:childRoutes},
-      { path: 'collections/:id', component:CollectiondetailsComponent},
-      { path: 'collections/:id/edit', component:EditcollectionComponent},
-      { path:'farmers',component:FarmerlistComponent},
-      { path:'farmers/:id', component:FarmercollectiondetailsComponent},
-
+const routes: Routes =
+  [{ path: '', redirectTo: 'home', pathMatch: "full" },
+  { path: 'home', component: HomeComponent },
+  { path: 'farmers', component: FarmerlistComponent },
+  { path: 'vendors', component: VendorlistComponent },
+  { path: 'collections', component: CollectionlistComponent, children: childRoutes },
+  { path: 'collections/:id', component: CollectiondetailsComponent },
+  { path: 'collections/:id/edit', component: EditcollectionComponent },
+  { path: 'farmers', component: FarmerlistComponent },
+  { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
+  { path: 'farmerbilling/:id', component: FarmerbillingComponent }
 
 
 
@@ -48,13 +49,14 @@ const routes: Routes=
     EditcollectionComponent,
     FarmercollectiondetailsComponent,
     FarmerdetailsComponent,
+    FarmerbillingComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
     FormsModule
   ],
-  exports:[
+  exports: [
     HomeComponent,
     SparouterComponent
   ]
