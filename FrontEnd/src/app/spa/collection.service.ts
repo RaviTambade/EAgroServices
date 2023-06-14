@@ -38,6 +38,11 @@ export class CollectionService {
     let url="http://localhost:5141/api/farmers"
     return this.http.get(url)
   }
+  getfarmer(farmerId:number):Observable<any>{
+    let url="http://localhost:5141/api/farmers/"+farmerId;
+    return this.http.get(url)
+  }
+
   getCollectionByFarmer(farmerId:number):Observable<any>{
     let url="http://localhost:5141/api/farmers/collections/" +farmerId
     return this.http.get<any>(url)

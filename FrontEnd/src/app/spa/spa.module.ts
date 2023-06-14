@@ -12,6 +12,7 @@ import { CollectiondetailsComponent } from './collectiondetails/collectiondetail
 import { EditcollectionComponent } from './editcollection/editcollection.component';
 import { FormsModule } from '@angular/forms';
 import { FarmercollectiondetailsComponent } from './farmercollectiondetails/farmercollectiondetails.component';
+import { FarmerdetailsComponent } from './farmerdetails/farmerdetails.component';
 
 const childRoutes:Routes=[
   {path:'',redirectTo:'collections',pathMatch:"full"},
@@ -46,6 +47,7 @@ const routes: Routes=
     CollectiondetailsComponent,
     EditcollectionComponent,
     FarmercollectiondetailsComponent,
+    FarmerdetailsComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,20 @@
+
+<div>
+    <table>
+        <thead>
+            <th>firstname</th><hr>
+            <th>lastname</th><hr>
+            <th>location</th><hr>
+            <th>contact number</th>
+        </thead>
+        <tbody *ngIf="farmer">
+            <td>{{farmer.firstName}}</td><hr>
+            <td>{{farmer.lastName}}</td><hr>
+            <td>{{farmer.location}}</td><hr>
+            <td>{{farmer.contactNumber}}</td>
+          
+        </tbody>
+    </table>
+</div>
+
+<router-outlet></router-outlet>
