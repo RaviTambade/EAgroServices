@@ -24,7 +24,5 @@ ngOnInit(): void {
 showDetails(id: any) {
   this.router.navigate(['/collections', id],{relativeTo:this.route});
 }
-showBill(id: any) {
-  this.router.navigate(['/farmerbilling',id],{relativeTo:this.route});
-}
+
 }

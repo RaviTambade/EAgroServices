@@ -3,57 +3,60 @@
 <br />
 <br />
 <div *ngIf="collectionViewModel">
-    <table>
-      <tr>
-        <th>farmer name</th>
-        <td>{{collectionViewModel.farmerName}}</td>
+  <table>
+    <tr>
+      <th>farmer name</th>
+      <td>{{collectionViewModel.farmerName}}</td>
     </tr>
-      <tr>
-        <th>crop</th>
-        <td>{{collectionViewModel.cropName}}</td>
+    <tr>
+      <th>crop</th>
+      <td>{{collectionViewModel.cropName}}</td>
     </tr>
-      <tr>
-        <th>container</th>
-        <td>{{collectionViewModel.collection.containerType}}</td>
+    <tr>
+      <th>container</th>
+      <td>{{collectionViewModel.collection.containerType}}</td>
     </tr>
     <tr>
       <th>quantity</th>
       <td>{{collectionViewModel.collection.quantity}}</td>
-  </tr>
-        <tr>
-            <th>grade</th>
-            <td>{{collectionViewModel.collection.grade}}</td>
-        </tr>
-        <tr>
-            <th>Total Weight</th>
-            <td>{{collectionViewModel.collection.totalWeight}}</td>
-        </tr>
-
-        <tr>
-            <th>Tare Weight</th>
-            <td>{{collectionViewModel.collection.tareWeight}}</td>
-        </tr>
-        <tr>
-          <th>Net Weight</th>
-          <td>{{collectionViewModel.collection.netWeight}}</td>
-      </tr>
-      <tr>
-        <th>Rate Per Kg</th>
-        <td>{{collectionViewModel.collection.ratePerKg}}</td>
     </tr>
-        <tr>
-            <th>date</th>
-            <td>{{collectionViewModel.collection.date |date}}</td>
-        </tr>
-        <tr>
-          <th>amount</th>
-          <td>{{collectionViewModel.collection.amount}}</td>
-      </tr>
-        <tr>
-            <a routerLink="edit">edit</a><hr>
-            <a href="#">cancel</a>
-        </tr>
+    <tr>
+      <th>grade</th>
+      <td>{{collectionViewModel.collection.grade}}</td>
+    </tr>
+    <tr>
+      <th>Total Weight</th>
+      <td>{{collectionViewModel.collection.totalWeight}}</td>
+    </tr>
 
-    </table>
+    <tr>
+      <th>Tare Weight</th>
+      <td>{{collectionViewModel.collection.tareWeight}}</td>
+    </tr>
+    <tr>
+      <th>Net Weight</th>
+      <td>{{collectionViewModel.collection.netWeight}}</td>
+    </tr>
+    <tr>
+      <th>Rate Per Kg</th>
+      <td>{{collectionViewModel.collection.ratePerKg}}</td>
+    </tr>
+    <tr>
+      <th>date</th>
+      <td>{{collectionViewModel.collection.date |date}}</td>
+    </tr>
+    <tr>
+      <th>amount</th>
+      <td>{{collectionViewModel.collection.amount}}</td>
+    </tr>
+    <tr>
+      <hr>
+      <button (click)="showBill(collectionViewModel.collection?.id)">bill</button>
+      <hr>
+      <a routerLink="edit">edit</a>
+      <hr>
+      <a href="#">cancel</a>
+    </tr>
+  </table>
 </div>
 <router-outlet></router-outlet>
