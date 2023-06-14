@@ -5,6 +5,13 @@ public class Crop
     [Column("id")]
     public int Id { get; set; }
 
-    [Column("name")]
-    public string? Name { get; set; }
+    [Column("title")]
+    public string? Title { get; set; }
+
+     [Column("imageurl")]
+    public string? ImageUrl { get; set; }
+
+     [Column("rate")]
+    public string? Rate { get; set; }
+
 }

@@ -77,7 +77,6 @@ public class FarmerRepository : IFarmerRepository
             {
                 List<FarmerCollection>? collections = await (
                     from collection in context.Collections
-                    join bill in context.Billings on collection.Id equals bill.CollectionId
                     join farmer in context.Farmers on collection.FarmerId equals farmer.Id
                     join crop in context.Crops on collection.CropId equals crop.Id
                     where collection.FarmerId == farmerId
@@ -85,8 +84,7 @@ public class FarmerRepository : IFarmerRepository
                     select new FarmerCollection()
                     {
                         Collection = collection,
-                        Billing = bill,
-                        Crop = crop.Name
+                        CropName = crop.Title
                     }
                 ).ToListAsync();
                 // collections=collections.Skip((page-1)*pagesize).Take(pagesize).ToList();
@@ -111,7 +109,6 @@ public class FarmerRepository : IFarmerRepository
             {
                 List<FarmerCollection>? collections = await (
                     from collection in context.Collections
-                    join bill in context.Billings on collection.Id equals bill.CollectionId
                     join farmer in context.Farmers on collection.FarmerId equals farmer.Id
                     join crop in context.Crops on collection.CropId equals crop.Id
                     where
@@ -125,8 +122,7 @@ public class FarmerRepository : IFarmerRepository
                     select new FarmerCollection()
                     {
                         Collection = collection,
-                        Billing = bill,
-                        Crop = crop.Name
+                        CropName = crop.Title
                     }
                 ).ToListAsync();
                 return collections;
@@ -146,7 +142,6 @@ public class FarmerRepository : IFarmerRepository
             {
                 List<FarmerCollection>? collections = await (
                     from collection in context.Collections
-                    join bill in context.Billings on collection.Id equals bill.CollectionId
                     join farmer in context.Farmers on collection.FarmerId equals farmer.Id
                     join crop in context.Crops on collection.CropId equals crop.Id
                     where collection.FarmerId == farmerId && crop.Id==cropId
@@ -154,8 +149,7 @@ public class FarmerRepository : IFarmerRepository
                     select new FarmerCollection()
                     {
                         Collection = collection,
-                        Billing = bill,
-                        Crop = crop.Name
+                        CropName = crop.Title
                     }
                 ).ToListAsync();
                 return collections;
@@ -209,10 +203,10 @@ public class FarmerRepository : IFarmerRepository
                         on billing.CollectionId equals collection.Id
                     join crop in context.Crops on collection.CropId equals crop.Id
                     where collection.FarmerId == farmerId
-                    group billing by new { billing.Date.Year, crop.Name } into billingGroup
+                    group billing by new { billing.Date.Year, crop.Title } into billingGroup
                     select new FarmerCollectionByCrop()
                     {
-                        Crop = billingGroup.Key.Name,
+                        Crop = billingGroup.Key.Title,
                         Year = billingGroup.Key.Year,
                         TotalAmount = billingGroup.Sum(billing => billing.TotalAmount),
                     }

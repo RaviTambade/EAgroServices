@@ -76,7 +76,9 @@ public class FarmersContext : DbContext
         modelBuilder.Entity<Crop>(entity =>
       {
           entity.HasKey(e => e.Id);
-          entity.Property(e => e.Name);
+          entity.Property(e => e.Title);
+          entity.Property(e => e.ImageUrl);
+          entity.Property(e => e.Rate);
           modelBuilder.Entity<Crop>().ToTable("crops");
       });
     }

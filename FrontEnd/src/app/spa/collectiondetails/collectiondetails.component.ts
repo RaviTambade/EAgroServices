@@ -13,13 +13,13 @@ export class CollectiondetailsComponent implements OnInit{
   collectionViewModel:Collectionviewmodel |any;
   @Output() sendCollection =new EventEmitter();
  @Input() collectionId:number |any;
-collection:Collection |any;
+ collection:Collection |any;
   constructor(private route: ActivatedRoute,public svc:CollectionService,private router:Router){}
   ngOnInit(): void {
     this.collectionId=this.route.snapshot.paramMap.get('id');
     this.svc.getCollection(this.collectionId).subscribe((response)=>{
-      this.collection=response;
-      this.sendCollection.emit({collection:this.collection})
+      this.collectionViewModel=response;
+      this.sendCollection.emit({collectionViewModel:this.collectionViewModel})
       console.log(response);
     }
     

@@ -10,105 +10,6 @@ import { Collection } from '../vendors/collection';
 })
 export class CollectionService {
 
-  collections:any[]=[{
-    'date':'2022-08-09',
-    'collectionId':1,
-    'quantity':20,
-    'container':'bags',
-    'crop':'potato',
-    'rateperkg':20,
-  },
-  {
-    'date':'2022-08-09',
-    'collectionId':2,
-    'quantity':30,
-    'container':'bags',
-    'crop':'onion',
-    'rateperkg':30,
-  },
-  {
-    'date':'2022-08-09',
-    'collectionId':3,
-    'quantity':24,
-    'container':'bags',
-    'crop':'onion',
-    'rateperkg':40,
-  },
-  {
-    'date':'2022-08-09',
-    'collectionId':4,
-    'quantity':25,
-    'container':'bags',
-    'crop':'onion',
-    'rateperkg':50,
-  },
-  {
-    'date':'2022-08-09',
-    'collectionId':5,
-    'quantity':35,
-    'container':'bags',
-    'crop':'potato',
-    'rateperkg':50,
-  },
-  {
-    'date':'2022-08-09',
-    'collectionId':6,
-    'quantity':40,
-    'container':'bags',
-    'crop':'potato',
-    'rateperkg':70,
-  },
-  {
-    'date':'2022-08-09',
-    'collectionId':7,
-    'quantity':20,
-    'container':'bags',
-    'crop':'potato',
-    'rateperkg':60,
-  }]
-  farmerslist:any[]=[{
-    'Id':1,
-    'firstname':'Shubham',
-    'lastname':'Teli',
-    'location':'Bhavadi'
-  },
-  {
-  'Id':2,
-  'firstname':'Abhay',
-  'lastname':'Navale',
-  'location':'Peth'
-},
-{
-  'Id':3,
-  'firstname':'Jayesh',
-  'lastname':'Erande',
-  'location':'Thugaon'
-},
-{
-  'Id':4,
-  'firstname':'Sahil',
-  'lastname':'Mankar',
-  'location':'Pargaon'
-}, {
-  'Id':5,
-  'firstname':'Rohit',
-  'lastname':'Gore',
-  'location':'Satara'
-},
-{
-  'Id':6,
-  'firstname':'Rushikesh',
-  'lastname':'Chikane',
-  'location':'Satara'
-},
-{
-  'Id':7,
-  'firstname':'Akshay',
-  'lastname':'Tanpure',
-  'location':'Wada'
-},
-]
-
   constructor(private http: HttpClient) { }
 
   getCollections(): Observable<Collectionviewmodel[]> {
@@ -123,24 +24,25 @@ export class CollectionService {
     let url = "http://localhost:5031/api/collections/getall"
     return this.http.post<Collectionviewmodel[]>(url, date);
   }
- 
- getFarmers():any
-{   
-  console.log("service called")
-  console.log(this.farmerslist);
-  return this.farmerslist; 
- 
-}
 
   getCollection(id: number): Observable<any> {
     let url = "http://localhost:5031/api/collections/" + id;
-    return this.http.get<Collection>(url);
+    return this.http.get<Collectionviewmodel>(url);
   }
   editCollection(id:number,collection:Collection):Observable<any>{
     console.log("service called")
     let url="http://localhost:5031/api/collections/" + id;
     return this.http.put<any>(url,collection)
   }
+  getfarmers():Observable<any>{
+    let url="http://localhost:5141/api/farmers"
+    return this.http.get(url)
+  }
+  getCollectionByFarmer(farmerId:number):Observable<any>{
+    let url="http://localhost:5141/api/farmers/collections/" +farmerId
+    return this.http.get<any>(url)
+  }
+
 
   }
 

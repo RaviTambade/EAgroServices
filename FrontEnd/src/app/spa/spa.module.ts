@@ -11,6 +11,7 @@ import { AddcollectionComponent } from './addcollection/addcollection.component'
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
 import { EditcollectionComponent } from './editcollection/editcollection.component';
 import { FormsModule } from '@angular/forms';
+import { FarmercollectiondetailsComponent } from './farmercollectiondetails/farmercollectiondetails.component';
 
 const childRoutes:Routes=[
   {path:'',redirectTo:'collections',pathMatch:"full"},
@@ -25,7 +26,8 @@ const routes: Routes=
       { path: 'collections', component:CollectionlistComponent,children:childRoutes},
       { path: 'collections/:id', component:CollectiondetailsComponent},
       { path: 'collections/:id/edit', component:EditcollectionComponent},
-      {path:'farmerlist',component:FarmerlistComponent}
+      { path:'farmers',component:FarmerlistComponent},
+      { path:'farmers/:id', component:FarmercollectiondetailsComponent},
 
 
 
@@ -43,6 +45,7 @@ const routes: Routes=
     AddcollectionComponent,
     CollectiondetailsComponent,
     EditcollectionComponent,
+    FarmercollectiondetailsComponent,
   ],
   imports: [
     CommonModule,

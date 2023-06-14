@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CollectionService } from '../collection.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouteReuseStrategy } from '@angular/router';
+import { Farmer } from 'src/app/vendors/farmer';
 
 @Component({
   selector: 'app-farmerlist',
@@ -8,12 +9,16 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./farmerlist.component.css']
 })
 export class FarmerlistComponent {
-farmers:any[]|any;
+farmers:Farmer[] |any;
   constructor(private svc:CollectionService,private router:Router,private route:ActivatedRoute){}
   ngOnInit(): void {
-  this.farmers=this.svc.getFarmers();
-   console.log(this.farmers);
-   console.log("service is called successfuly");
+  this.svc.getfarmers().subscribe((response)=>{
+   this.farmers= response
+   console.log(response)
+  })
+  }
+  onClick(id:number){
+    this.router.navigate(['./',id],{relativeTo:this.route});
   }
 
 }

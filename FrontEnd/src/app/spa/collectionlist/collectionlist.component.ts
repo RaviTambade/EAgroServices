@@ -10,9 +10,9 @@ import { Collectionviewmodel } from 'src/app/vendors/collectionviewmodel';
 })
 export class CollectionlistComponent implements OnInit {
 
-collections:any[] |any;
+// collections:any[] |any;
 farmers:any[]|any;
-//collections:Collectionviewmodel[] =[];
+collections:Collectionviewmodel[] =[];
 
 
 constructor(private svc:CollectionService,private router:Router,private route:ActivatedRoute){}
@@ -24,9 +24,6 @@ constructor(private svc:CollectionService,private router:Router,private route:Ac
   } 
 OnClickCollection(id:number){
 this.router.navigate(['./',id],{relativeTo:this.route})
-}
-getFarmers(){
-  this.router.navigate(['./farmerlist']);
 }
 }
 

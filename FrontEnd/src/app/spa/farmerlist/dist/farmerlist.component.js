@@ -6,32 +6,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.CollectionlistComponent = void 0;
+exports.FarmerlistComponent = void 0;
 var core_1 = require("@angular/core");
-var CollectionlistComponent = /** @class */ (function () {
-    function CollectionlistComponent(svc, router, route) {
+var FarmerlistComponent = /** @class */ (function () {
+    function FarmerlistComponent(svc, router, route) {
         this.svc = svc;
         this.router = router;
         this.route = route;
-        this.collections = [];
     }
-    CollectionlistComponent.prototype.ngOnInit = function () {
+    FarmerlistComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.svc.getCollections().subscribe(function (res) {
-            _this.collections = res;
-            console.log(_this.collections);
+        this.svc.getfarmers().subscribe(function (response) {
+            _this.farmers = response;
+            console.log(response);
         });
     };
-    CollectionlistComponent.prototype.OnClickCollection = function (id) {
+    FarmerlistComponent.prototype.onClick = function (id) {
         this.router.navigate(['./', id], { relativeTo: this.route });
     };
-    CollectionlistComponent = __decorate([
+    FarmerlistComponent = __decorate([
         core_1.Component({
-            selector: 'app-collectionlist',
-            templateUrl: './collectionlist.component.html',
-            styleUrls: ['./collectionlist.component.css']
+            selector: 'app-farmerlist',
+            templateUrl: './farmerlist.component.html',
+            styleUrls: ['./farmerlist.component.css']
         })
-    ], CollectionlistComponent);
-    return CollectionlistComponent;
+    ], FarmerlistComponent);
+    return FarmerlistComponent;
 }());
-exports.CollectionlistComponent = CollectionlistComponent;
+exports.FarmerlistComponent = FarmerlistComponent;

@@ -2,40 +2,48 @@
 <br />
 <br />
 <br />
-<div *ngIf="collection">
+<div *ngIf="collectionViewModel">
     <table>
       <tr>
+        <th>farmer name</th>
+        <td>{{collectionViewModel.farmerName}}</td>
+    </tr>
+      <tr>
+        <th>crop</th>
+        <td>{{collectionViewModel.cropName}}</td>
+    </tr>
+      <tr>
         <th>container</th>
-        <td>{{collection.containerType}}</td>
+        <td>{{collectionViewModel.collection.containerType}}</td>
     </tr>
     <tr>
       <th>quantity</th>
-      <td>{{collection.quantity}}</td>
+      <td>{{collectionViewModel.collection.quantity}}</td>
   </tr>
         <tr>
             <th>grade</th>
-            <td>{{collection.grade}}</td>
+            <td>{{collectionViewModel.collection.grade}}</td>
         </tr>
         <tr>
             <th>Total Weight</th>
-            <td>{{collection.totalWeight}}</td>
+            <td>{{collectionViewModel.collection.totalWeight}}</td>
         </tr>
 
         <tr>
             <th>Tare Weight</th>
-            <td>{{collection.tareWeight}}</td>
+            <td>{{collectionViewModel.collection.tareWeight}}</td>
         </tr>
         <tr>
           <th>Net Weight</th>
-          <td>{{collection.netWeight}}</td>
+          <td>{{collectionViewModel.collection.netWeight}}</td>
       </tr>
       <tr>
         <th>Rate Per Kg</th>
-        <td>{{collection.ratePerKg}}</td>
+        <td>{{collectionViewModel.collection.ratePerKg}}</td>
     </tr>
         <tr>
             <th>date</th>
-            <td>{{collection.date |date}}</td>
+            <td>{{collectionViewModel.collection.date |date}}</td>
         </tr>
         <tr>
             <a routerLink="edit">Edit</a>

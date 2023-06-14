@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Collection } from 'src/app/vendors/collection';
+import { Collectionviewmodel } from 'src/app/vendors/collectionviewmodel';
 import { CollectionService } from '../collection.service';
 
 
@@ -10,6 +11,7 @@ import { CollectionService } from '../collection.service';
   styleUrls: ['./editcollection.component.css']
 })
 export class EditcollectionComponent {
+  collectionViewModel:Collectionviewmodel | any;
   collectionId:number |any;
   collection:Collection |any;
   status:boolean |any;
@@ -19,13 +21,13 @@ export class EditcollectionComponent {
    }
 edit(){
   console.log("edit called")
-  this.svc.editCollection(this.collectionId,this.collection).subscribe((response)=>{
+  this.svc.editCollection(this.collectionId,this.collectionViewModel).subscribe((response)=>{
     this.status=response
     console.log(response)
   });
 }
 receiveCollection($event: any) {
-  this.collection = $event.collection
+  this.collectionViewModel = $event.collectionViewModel
 }
 
 }

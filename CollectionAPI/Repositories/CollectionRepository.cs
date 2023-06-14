@@ -188,6 +188,7 @@ public class CollectionRepository : ICollectionRepository
     {
         return oldCollection.ContainerType != newCollection.ContainerType
             || oldCollection.Quantity != newCollection.Quantity
+            || oldCollection.Grade != newCollection.Grade
             || oldCollection.TareWeight != newCollection.TareWeight
             || oldCollection.TotalWeight != newCollection.TotalWeight
             || oldCollection.RatePerKg != newCollection.RatePerKg;
@@ -230,10 +231,7 @@ public class CollectionRepository : ICollectionRepository
                                               && collection.Date.Day == startDate.Date.Day
                                               select new CollectionViewModel()
                                               {
-                                                  Id = collection.Id,
-                                                  ContainerType=collection.ContainerType,
-                                                  Quantity=collection.Quantity,
-                                                  Date=collection.Date,
+                                                  Collection=collection,
                                                   FarmerName = farmer.FirstName + " " + farmer.LastName,
                                                   CropName = crop.Title
                                               }).ToListAsync();
@@ -245,7 +243,7 @@ public class CollectionRepository : ICollectionRepository
         }
     }
 
-    public async Task<Collection> GetCollection(int collectionId){
+    public async Task<CollectionViewModel> GetCollection(int collectionId){
          try{
             using(var context=new CollectionContext(_configuration)){
                   var data = await (from farmer in context.Farmers
@@ -254,19 +252,11 @@ public class CollectionRepository : ICollectionRepository
                                               join crop in context.Crops
                                               on collection.CropId equals crop.Id
                                               where collection.Id ==collectionId
-                                              select new Collection()
+                                              select new CollectionViewModel()
                                               {
-                                                  Id = collection.Id,
-                                                  FarmerId=collection.FarmerId,
-                                                  CropId=collection.CropId,
-                                                  ContainerType=collection.ContainerType,
-                                                  Quantity=collection.Quantity,
-                                                  Date=collection.Date,
-                                                  Grade=collection.Grade,
-                                                  TotalWeight=collection.TotalWeight,
-                                                  TareWeight=collection.TareWeight,
-                                                  NetWeight=collection.NetWeight,
-                                                  RatePerKg=collection.RatePerKg
+                                                  Collection=collection,
+                                                  FarmerName = farmer.FirstName + " " + farmer.LastName,
+                                                  CropName = crop.Title
                                               }).FirstOrDefaultAsync();
                 return data;
             }

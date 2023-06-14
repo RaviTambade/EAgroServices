@@ -19,13 +19,13 @@ var EditcollectionComponent = /** @class */ (function () {
     EditcollectionComponent.prototype.edit = function () {
         var _this = this;
         console.log("edit called");
-        this.svc.editCollection(this.collectionId, this.collection).subscribe(function (response) {
+        this.svc.editCollection(this.collectionId, this.collectionViewModel).subscribe(function (response) {
             _this.status = response;
             console.log(response);
         });
     };
     EditcollectionComponent.prototype.receiveCollection = function ($event) {
-        this.collection = $event.collection;
+        this.collectionViewModel = $event.collectionViewModel;
     };
     EditcollectionComponent = __decorate([
         core_1.Component({

@@ -9,17 +9,18 @@ exports.__esModule = true;
 exports.CollectiondetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var CollectiondetailsComponent = /** @class */ (function () {
-    function CollectiondetailsComponent(route, svc) {
+    function CollectiondetailsComponent(route, svc, router) {
         this.route = route;
         this.svc = svc;
+        this.router = router;
         this.sendCollection = new core_1.EventEmitter();
     }
     CollectiondetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.collectionId = this.route.snapshot.paramMap.get('id');
         this.svc.getCollection(this.collectionId).subscribe(function (response) {
-            _this.collection = response;
-            _this.sendCollection.emit({ ollection: _this.collection });
+            _this.collectionViewModel = response;
+            _this.sendCollection.emit({ collectionViewModel: _this.collectionViewModel });
             console.log(response);
         });
     };
