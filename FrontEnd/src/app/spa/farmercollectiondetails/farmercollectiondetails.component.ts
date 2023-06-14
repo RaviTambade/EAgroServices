@@ -21,5 +21,7 @@ ngOnInit(): void {
   console.log(response)
  })
 }
-
+showDetails(id: any) {
+  this.router.navigate(['/collections', id]);
+}
 }

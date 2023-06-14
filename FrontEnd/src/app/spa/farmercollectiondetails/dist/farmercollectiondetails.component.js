@@ -22,6 +22,9 @@ var FarmercollectiondetailsComponent = /** @class */ (function () {
             console.log(response);
         });
     };
+    FarmercollectiondetailsComponent.prototype.showDetails = function (id) {
+        this.router.navigate(['/collections', id]);
+    };
     FarmercollectiondetailsComponent = __decorate([
         core_1.Component({
             selector: 'app-farmercollectiondetails',

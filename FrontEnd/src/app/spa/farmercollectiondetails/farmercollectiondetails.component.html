@@ -19,7 +19,7 @@
             <td>{{collectionViewModel.cropName}}</td>
           <td>{{collectionViewModel.collection?.quantity}}</td>
           <td>{{collectionViewModel.collection?.totalWeight}}</td>
-          <td><a routerLink="collections/:id">details</a></td>
+          <td><button (click)="showDetails(collectionViewModel.collection?.id)"></button></td>
             </tr>
         </tbody>
     </table>
