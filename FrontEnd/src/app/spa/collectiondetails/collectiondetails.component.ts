@@ -22,8 +22,6 @@ export class CollectiondetailsComponent implements OnInit{
       this.sendCollection.emit({collectionViewModel:this.collectionViewModel})
       console.log(response);
     }
-    
-
     )
   }
   showBill(id: any) {

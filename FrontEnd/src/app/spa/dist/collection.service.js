@@ -44,6 +44,14 @@ var CollectionService = /** @class */ (function () {
         var url = "http://localhost:5141/api/farmers/collections/" + farmerId;
         return this.http.get(url);
     };
+    CollectionService.prototype.collectionBill = function (collectionid) {
+        var url = "http://localhost:5031/api/collections/" + collectionid + "/billing";
+        return this.http.get(url);
+    };
+    CollectionService.prototype.collectiontransportation = function (collectionid) {
+        var url = "http://localhost:5031/api/collections/" + collectionid + "/sell";
+        return this.http.get(url);
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

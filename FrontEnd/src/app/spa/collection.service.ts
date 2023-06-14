@@ -54,7 +54,7 @@ export class CollectionService {
   }
 
   collectiontransportation(collectionid:number):Observable<any>{
-    let url="http://localhost:5031/api/collections/" +collectionid+ "/billing" ;
+    let url="http://localhost:5031/api/collections/" +collectionid+ "/sell" ;
     return this.http.get<any>(url)
   }
 

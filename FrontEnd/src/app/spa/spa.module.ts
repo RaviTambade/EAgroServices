@@ -32,7 +32,7 @@ const routes: Routes =
   { path: 'farmers', component: FarmerlistComponent },
   { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
   { path: 'farmerbilling/:id', component: FarmerbillingComponent },
-  { path: 'transport/:id',component:CollectiontransportationComponent},
+  { path: 'collections/:id/transport',component:CollectiontransportationComponent},
 
 
   ]

@@ -26,6 +26,6 @@ OnClickCollection(id:number){
 this.router.navigate(['./',id],{relativeTo:this.route})
 }
 transport(id:number){
-  this.router.navigate(['transport/',id],{relativeTo:this.route})
+  this.router.navigate(['./',id,'transport'],{relativeTo:this.route})
 }
 }

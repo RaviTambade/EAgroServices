@@ -24,6 +24,9 @@ var CollectiondetailsComponent = /** @class */ (function () {
             console.log(response);
         });
     };
+    CollectiondetailsComponent.prototype.showBill = function (id) {
+        this.router.navigate(['/farmerbilling', id], { relativeTo: this.route });
+    };
     __decorate([
         core_1.Output()
     ], CollectiondetailsComponent.prototype, "sendCollection");

@@ -25,6 +25,9 @@ var CollectionlistComponent = /** @class */ (function () {
     CollectionlistComponent.prototype.OnClickCollection = function (id) {
         this.router.navigate(['./', id], { relativeTo: this.route });
     };
+    CollectionlistComponent.prototype.transport = function (id) {
+        this.router.navigate(['./', id, 'transport'], { relativeTo: this.route });
+    };
     CollectionlistComponent = __decorate([
         core_1.Component({
             selector: 'app-collectionlist',

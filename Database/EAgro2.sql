@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -379,16 +379,24 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 (26, 15, 2, 5, 25, 4.3, '2023-10-27'),
 (27, 16, 3, 18, 90, 6.6, '2023-11-13'),
 (28, 14, 4, 10, 50, 5.0, '2023-11-30'),
-(29, 15, 5, 13, 65, 5.6, '2023-12-17'),
-(30, 16, 6, 8, 40, 6.9, '2023-12-31'),
-(31, 14, 1, 11, 55, 5.2, '2022-01-15'),
-(32, 15, 2, 14, 70, 6.0, '2022-02-01'),
-(33, 16, 3, 7, 35, 4.8, '2022-02-18'),
-(34, 14, 4, 20, 100, 5.8, '2022-03-05');
+(29, 15, 5, 13, 65, 5.6, '2023-12-14'),
+(30, 16, 6, 8, 40, 6.9, '2023-12-14'),
+(31, 14, 1, 11, 55, 5.2, '2023-01-14'),
+(32, 15, 2, 14, 70, 6.0, '2023-02-14'),
+(33, 16, 3, 7, 35, 4.8, '2023-02-14'),
+(34, 14, 4, 20, 100, 5.8, '2023-03-14'),
+(35, 16, 3, 18, 90, 6.6, '2023-11-14'),
+(36, 14, 4, 10, 50, 5.0, '2023-11-14'),
+(37, 15, 5, 13, 65, 5.6, '2023-12-14'),
+(38, 16, 6, 8, 40, 6.9, '2023-12-14'),
+(39, 14, 1, 11, 55, 5.2, '2023-01-14'),
+(40, 15, 2, 14, 70, 6.0, '2023-02-14'),
+(41, 16, 3, 7, 35, 4.8, '2023-02-14'),
+(42, 14, 4, 20, 100, 5.8, '2023-03-14');
 
 
 INSERT INTO sellsbilling(sellid,date)
-SELECT id,date FROM sells LIMIT 34;
+SELECT id,date FROM sells LIMIT 42;
 
 
 INSERT INTO freightrates(fromdestination, todestination, kilometers, rateperkm, billid) VALUES
@@ -564,4 +572,4 @@ SELECT * FROM users;
 SELECT * FROM vendors;
 SELECT * FROM collections;
 SELECT * FROM billing;
-SELECT `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount` FROM `collections` AS `c` INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid` WHERE `c`.`id` = @__collectionId_0;
+SELECT `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount` FROM `collections` AS `c` INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid` WHERE `c`.`id` =1;

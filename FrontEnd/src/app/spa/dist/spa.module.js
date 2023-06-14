@@ -21,6 +21,9 @@ var collectiondetails_component_1 = require("./collectiondetails/collectiondetai
 var editcollection_component_1 = require("./editcollection/editcollection.component");
 var forms_1 = require("@angular/forms");
 var farmercollectiondetails_component_1 = require("./farmercollectiondetails/farmercollectiondetails.component");
+var farmerdetails_component_1 = require("./farmerdetails/farmerdetails.component");
+var farmerbilling_component_1 = require("./farmerbilling/farmerbilling.component");
+var collectiontransportation_component_1 = require("./collectiontransportation/collectiontransportation.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
     { path: 'addcollection', component: addcollection_component_1.AddcollectionComponent },
@@ -34,6 +37,8 @@ var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'collections/:id/edit', component: editcollection_component_1.EditcollectionComponent },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
     { path: 'farmers/:id', component: farmercollectiondetails_component_1.FarmercollectiondetailsComponent },
+    { path: 'farmerbilling/:id', component: farmerbilling_component_1.FarmerbillingComponent },
+    { path: 'collections/:id/transport', component: collectiontransportation_component_1.CollectiontransportationComponent },
 ];
 var SpaModule = /** @class */ (function () {
     function SpaModule() {
@@ -51,6 +56,9 @@ var SpaModule = /** @class */ (function () {
                 collectiondetails_component_1.CollectiondetailsComponent,
                 editcollection_component_1.EditcollectionComponent,
                 farmercollectiondetails_component_1.FarmercollectiondetailsComponent,
+                farmerdetails_component_1.FarmerdetailsComponent,
+                farmerbilling_component_1.FarmerbillingComponent,
+                collectiontransportation_component_1.CollectiontransportationComponent,
             ],
             imports: [
                 common_1.CommonModule,
