@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -440,7 +440,7 @@ BEGIN
 END;
 
 
-CALL call_procedures(34);
+CALL call_procedures(48);
 
 
 DROP PROCEDURE IF EXISTS call_proceduresofsells;
