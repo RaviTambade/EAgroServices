@@ -44,12 +44,20 @@ var CollectionService = /** @class */ (function () {
         var url = "http://localhost:5141/api/farmers/collections/" + farmerId;
         return this.http.get(url);
     };
-    CollectionService.prototype.collectionBill = function (collectionid) {
+    CollectionService.prototype.getcollectionBill = function (collectionid) {
         var url = "http://localhost:5031/api/collections/" + collectionid + "/billing";
         return this.http.get(url);
     };
     CollectionService.prototype.collectiontransportation = function (collectionid) {
         var url = "http://localhost:5031/api/collections/" + collectionid + "/sell";
+        return this.http.get(url);
+    };
+    CollectionService.prototype.addCollection = function (collection) {
+        var url = "http://localhost:5031/api/collections";
+        return this.http.post(url, collection);
+    };
+    CollectionService.prototype.getCrops = function () {
+        var url = " http://localhost:5224/api/crops";
         return this.http.get(url);
     };
     CollectionService = __decorate([

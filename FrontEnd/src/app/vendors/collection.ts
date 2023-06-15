@@ -1,5 +1,6 @@
 export class Collection {
-    constructor(public id:number,public farmerId:number,
+    constructor(public id:number,
+        public farmerId:number,
         public cropId:number,
         public containerType:string,
         public quantity:number,

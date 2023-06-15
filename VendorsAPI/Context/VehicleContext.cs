@@ -11,7 +11,7 @@ public class VehicleContext : DbContext
         _configuration = configuration;
         _conString = this._configuration.GetConnectionString("DefaultConnection");
     }
-    public DbSet<Vehicle> Vehicle { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
     
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

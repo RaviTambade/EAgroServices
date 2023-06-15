@@ -65,6 +65,16 @@ export class CollectionService {
     let url = "http://localhost:5182/api/sells";
     return this.http.post<any>(url, sellbill)
   }
+  addCollection(collection:Collection):Observable<any>{
+    let url="http://localhost:5031/api/collections"
+    return this.http.post<any>(url,collection)
+  }
+
+  getCrops():Observable<any>{
+    let url=" http://localhost:5224/api/crops"
+    return this.http.get<any>(url)
+  }
+
 
 
 }

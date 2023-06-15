@@ -2,9 +2,9 @@
 exports.__esModule = true;
 exports.Crop = void 0;
 var Crop = /** @class */ (function () {
-    function Crop(id, cropName, imageUrl, rate) {
+    function Crop(id, title, imageUrl, rate) {
         this.id = id;
-        this.cropName = cropName;
+        this.title = title;
         this.imageUrl = imageUrl;
         this.rate = rate;
     }

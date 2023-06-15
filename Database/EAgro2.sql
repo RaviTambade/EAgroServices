@@ -1,5 +1,3 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
-
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -62,7 +60,7 @@ CREATE TABLE
         totalweight DOUBLE NOT NULL,
         tareweight DOUBLE NOT NULL,
         netweight DOUBLE AS (totalweight - tareweight),
-        rateperkg DOUBLE NOT NULL,
+        rateperkg DOUBLE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_farmerid FOREIGN KEY (farmerid)  REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_cropid FOREIGN KEY (cropid)  REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE
