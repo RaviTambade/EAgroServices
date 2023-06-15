@@ -5,19 +5,17 @@
 <div *ngIf="collections">
     <table>
         <thead>
-            <th>FarmerName</th>
-            <th>date</th><hr>
+            <th>crop</th><hr>
             <th>quantity</th><hr>
             <th>container</th><hr>
-            <th>crop</th><hr>
+            <th>date</th><hr>
            <th>actions</th><hr>
         </thead>
         <tbody *ngFor="let collection of collections">
-            <td>{{collection.farmerName}}</td><hr>
-            <td>{{collection.collection.date |date}}</td><hr>
+            <td>{{collection.cropName}}</td><hr>
             <td>{{collection.collection.quantity}}</td><hr>
             <td>{{collection.collection.containerType}}</td><hr>
-            <td>{{collection.cropName}}</td><hr>
+            <td>{{collection.collection.date |date}}</td><hr>
             <td ><button (click)="OnClickCollection(collection.collection.id)" >details</button></td><hr>
             <td ><button (click)="transport(collection.collection.id)" >transport</button></td><hr>
         </tbody>
