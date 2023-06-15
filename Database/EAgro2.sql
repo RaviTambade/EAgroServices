@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 
 Drop DATABASE IF EXISTS eagroservicesdb;
@@ -63,7 +63,7 @@ CREATE TABLE
         totalweight DOUBLE NOT NULL,
         tareweight DOUBLE NOT NULL,
         netweight DOUBLE AS (totalweight - tareweight),
-        rateperkg DOUBLE NOT NULL,
+        rateperkg DOUBLE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_farmerid FOREIGN KEY (farmerid)  REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_cropid FOREIGN KEY (cropid)  REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -559,6 +559,4 @@ ON crops.id=collections.cropid WHERE collections.date >= CURRENT_DATE;
 SELECT * FROM users;
 SELECT * FROM vendors;
 SELECT * FROM collections;
-SELECT merchant.m
-SELECT `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount` FROM `collections` AS `c` INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid` WHERE `c`.`id` =1;
 SELECT * FROM vehicles;

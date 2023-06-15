@@ -27,7 +27,7 @@ public class CropContext : DbContext
             entity.Property(e => e.Title);
             entity.Property(e => e.ImageUrl);
             entity.Property(e => e.Rate);
-            modelBuilder.Entity<Crop>().ToTable("varieties");
+            modelBuilder.Entity<Crop>().ToTable("crops");
         });
 
     }

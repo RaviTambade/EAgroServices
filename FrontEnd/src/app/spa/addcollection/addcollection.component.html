@@ -1,0 +1,43 @@
+<h2>Add Collection</h2>
+<form (submit)="addCollection()">
+  <label>
+    Farmer:
+    <select name="farmerId" [(ngModel)]="collection.farmerId" required>
+      <option *ngFor="let farmer of farmers" [value]="farmer.id">{{ farmer.firstName }}{{ farmer.lastName }}</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    Crop:
+    <select name="cropId" [(ngModel)]="collection.cropId" required>
+      <option *ngFor="let crop of crops" [value]="crop.id">{{ crop.title }}</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    Container Type:
+    <select  name="containerType" [(ngModel)]="collection.containerType" required>
+        <option value="bags">bags</option>
+      <option value="lenobags">lenobags</option>
+      <option value="crates">crates</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    Quantity:
+    <input type="number" name="quantity" [(ngModel)]="collection.quantity" required>
+  </label>
+  <br>
+  <label>
+    TotalWeight:
+    <input type="number" name="totalWeight" [(ngModel)]="collection.totalWeight" required>
+  </label>
+  <br>
+  <label>
+    TareWeight:
+    <input type="number" name="tareWeight" [(ngModel)]="collection.tareWeight" required>
+  </label>
+  <br>
+  <br>
+  <button type="submit">Submit</button>
+</form>
