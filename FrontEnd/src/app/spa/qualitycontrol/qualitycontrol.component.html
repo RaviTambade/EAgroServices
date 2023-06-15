@@ -1,4 +1,5 @@
 <h2>Edit Collection</h2>
+<app-collectiondetails (sendCollection)="recieveCollection($event)" hidden></app-collectiondetails>
 <form *ngIf="collection" (submit)="updateCollection()">
   <label>
     Container Type:

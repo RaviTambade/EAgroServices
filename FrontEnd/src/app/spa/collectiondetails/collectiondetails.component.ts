@@ -12,19 +12,14 @@ import { CollectionService } from '../collection.service';
 export class CollectiondetailsComponent implements OnInit{
   collectionViewModel:Collectionviewmodel |any;
   @Output() sendCollection =new EventEmitter();
-  @Output() sendCollect =new EventEmitter();
-
- @Input() collectionId:number |any;
+  @Input() collectionId:number |any;
  collection:Collection |any;
   constructor(private route: ActivatedRoute,public svc:CollectionService,private router:Router){}
   ngOnInit(): void {
     this.collectionId=this.route.snapshot.paramMap.get('id');
     this.svc.getCollection(this.collectionId).subscribe((response)=>{
       this.collectionViewModel=response;
-      this.collectionViewModel.collection=response
-      this.sendCollection.emit({collectionViewModel:this.collectionViewModel})
-      this.sendCollection.emit({collectionViewModel:this.collectionViewModel})
-
+      this.sendCollection.emit({collection:this.collectionViewModel.collection})
       console.log(response);
     }
     )

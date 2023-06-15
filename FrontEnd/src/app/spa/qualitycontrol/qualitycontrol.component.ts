@@ -16,24 +16,20 @@ export class QualitycontrolComponent implements OnInit {
   collection: Collection |any;
   farmers:Farmer |any;
   crops :Crop |any;
-    constructor(private svc: CollectionService, private route: ActivatedRoute) {
-      this.collection={
-        containerType: '',
-        quantity: 0,
-        grade: '',
-        totalWeight: 0,
-        tareWeight: 0,
-        ratePerKg: 0
-      }
-    }
+    constructor(private svc: CollectionService, private route: ActivatedRoute) {}
   ngOnInit(): void {
     this.collectionId=this.route.snapshot.paramMap.get('id')
     
   }
   updateCollection(): void {
+    console.log("🚀 ", this.collection);
     this.svc.editCollection(this.collectionId, this.collection).subscribe((response) => {
       console.log(response);
     });
+  }
+  recieveCollection(event:any){
+    this.collection=event.collection;
+    console.log("🚀 ~ recieveCollection ~ this.collection:", this.collection);
   }
  
 
