@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Collectionviewmodel } from '../vendors/collectionviewmodel';
 import { DatePipe } from '@angular/common';
 import { Collection } from '../vendors/collection';
+import { SellBilling } from '../vendors/sell-billing';
 
 @Injectable({
   providedIn: 'root'
@@ -29,35 +30,41 @@ export class CollectionService {
     let url = "http://localhost:5031/api/collections/" + id;
     return this.http.get<Collectionviewmodel>(url);
   }
-  editCollection(id:number,collection:Collection):Observable<any>{
+  editCollection(id: number, collection: Collection): Observable<any> {
     console.log("service called")
-    let url="http://localhost:5031/api/collections/" + id;
-    return this.http.put<any>(url,collection)
+    let url = "http://localhost:5031/api/collections/" + id;
+    return this.http.put<any>(url, collection)
   }
-  getfarmers():Observable<any>{
-    let url="http://localhost:5141/api/farmers"
-    return this.http.get(url)
-  }
-  
-  getfarmer(farmerId:number):Observable<any>{
-    let url="http://localhost:5141/api/farmers/" +farmerId;
+  getfarmers(): Observable<any> {
+    let url = "http://localhost:5141/api/farmers"
     return this.http.get(url)
   }
 
-  getCollectionByFarmer(farmerId:number):Observable<any>{
-    let url="http://localhost:5141/api/farmers/collections/" +farmerId
+  getfarmer(farmerId: number): Observable<any> {
+    let url = "http://localhost:5141/api/farmers/" + farmerId;
+    return this.http.get(url)
+  }
+
+  getCollectionByFarmer(farmerId: number): Observable<any> {
+    let url = "http://localhost:5141/api/farmers/collections/" + farmerId
     return this.http.get<any>(url)
   }
-  getcollectionBill(collectionid:number):Observable<any>{
-    let url="http://localhost:5031/api/collections/" +collectionid+ "/billing" ;
+  getcollectionBill(collectionid: number): Observable<any> {
+    let url = "http://localhost:5031/api/collections/" + collectionid + "/billing";
     return this.http.get<any>(url)
   }
 
-  collectiontransportation(collectionid:number):Observable<any>{
-    let url="http://localhost:5031/api/collections/" +collectionid+ "/sell" ;
+  collectiontransportation(collectionid: number): Observable<any> {
+    let url = "http://localhost:5031/api/collections/" + collectionid + "/sell";
     return this.http.get<any>(url)
   }
 
+  insertBillDetails(sellbill: any): Observable<any> {
+    console.log("fuc called")
+    console.log(sellbill)
+    let url = "http://localhost:5182/api/sells";
+    return this.http.post<any>(url, sellbill)
+  }
 
 
 }

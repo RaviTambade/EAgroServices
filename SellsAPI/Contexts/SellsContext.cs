@@ -13,10 +13,10 @@ public class SellsContext : DbContext
     public DbSet<Sell> Sells { get; set; }
     public DbSet<Billing> Billings { get; set; }
     public DbSet<FreightRate> FreightRates { get; set; }
-    public DbSet<User> Merchants {get;set;}
+    public DbSet<Merchant> Merchants {get;set;}
     public DbSet<Vehicle> Vehicle  {get;set;}
     public DbSet<Collections> Collections { get; set; }
-    public DbSet<Variety> Crops { get; set; } 
+    public DbSet<Crop> Crops { get; set; } 
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -59,13 +59,13 @@ public class SellsContext : DbContext
            entity.Property(e => e.RatePerKm);
            modelBuilder.Entity<FreightRate>().ToTable("freightrates");
        });
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<Merchant>(entity =>
                {
                    entity.HasKey(e => e.Id);
                    entity.Property(e => e.FirstName);
                    entity.Property(e => e.LastName);
                    entity.Property(e => e.Location);
-                   modelBuilder.Entity<User>().ToTable("merchants");
+                   modelBuilder.Entity<Merchant>().ToTable("users");
                });
         modelBuilder.Entity<Vehicle>(entity =>
        {
@@ -89,11 +89,11 @@ public class SellsContext : DbContext
             entity.Property(e => e.RatePerKg);
             modelBuilder.Entity<Collections>().ToTable("collections");
         });
-          modelBuilder.Entity<Variety>(entity =>
+          modelBuilder.Entity<Crop>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.CropName);
-            modelBuilder.Entity<Variety>().ToTable("varieties");
+            entity.Property(e => e.Title);
+            modelBuilder.Entity<Crop>().ToTable("crops");
         });
     }
 }

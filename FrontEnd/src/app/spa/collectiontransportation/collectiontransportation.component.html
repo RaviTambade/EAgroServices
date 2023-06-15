@@ -2,23 +2,60 @@
 <br />
 <br />
 <br />
+
+<div>
+
+  <form >
+    <label for="collectionId">Collection Id:</label>
+    <input type="number" name="collectionId" [(ngModel)]="collectionId">
+    <br>
+    <label for="merchantName">Merchant Name:</label>
+    <input type="number" name="merchantName" [(ngModel)]="sellBill.sell.merchantId">
+    <br>
+    <label for="vehicle Name">vehicle Number:</label>
+    <input type="text" name="vehicle Name" [(ngModel)]="sellBill.sell.vehicleId">
+    <br>
+    <label for="quantity">Quantity:</label>
+    <input type="text" name="quantity" [(ngModel)]="sellBill.sell.quantity">
+    <br>
+    <label for="netweight">NetWeight:</label>
+    <input type="text" name="netweight" [(ngModel)]="sellBill.sell.netWeight">
+    <br>
+    <label for="rateperkg">Rateperkg:</label>
+    <input type="text" name="rateperkg" [(ngModel)]="sellBill.sell.ratePerKg">
+    <br>
+    <label for="fromDestination">From Destination:</label>
+    <input type="text" name="fromDestination" [(ngModel)]="sellBill.freightRate.fromDestination">
+    <br>
+    <label for="toDestination">To Destination:</label>
+    <input type="text" name="toDestination" [(ngModel)]="sellBill.freightRate.toDestination">
+    <br>
+    <label for="kilometers">Kilometers:</label>
+    <input type="text" name="kilometers" [(ngModel)]="sellBill.freightRate.kilometers">
+    <br>
+    <label for="ratePerKm">Rate Per Km:</label>
+    <input type="text" name="ratePerKm" [(ngModel)]="sellBill.freightRate.ratePerKm">
+    <br>
+    <button type="submit" (click)="insert()"> Insert</button>
+</form>
+</div>
 <div *ngIf="sellview">
   <table>
     <tr>
       <th>Quantity</th>
-      <td>{{sellview.sell?.quantity}}</td>
+      <td>{{sellview.sell.quantity}}</td>
     </tr>
     <tr>
       <th>Net Weight</th>
-      <td>{{sellview.sell?.netWeight}}</td>
+      <td>{{sellview.sell.netWeight}}</td>
     </tr>
     <tr>
       <th>Rate Per Kg</th>
-      <td>{{sellview.sell?.ratePerKg}}</td>
+      <td>{{sellview.sell.ratePerKg}}</td>
     </tr>
     <tr>
       <th>date</th>
-      <td>{{sellview.sell?.date |date}}</td>
+      <td>{{sellview.sell.date |date}}</td>
     </tr>
     <tr>
       <th>merchantName</th>

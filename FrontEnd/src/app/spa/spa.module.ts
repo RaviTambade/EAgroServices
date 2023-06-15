@@ -10,7 +10,7 @@ import { SparouterComponent } from './sparouter/sparouter.component';
 import { AddcollectionComponent } from './addcollection/addcollection.component';
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
 import { EditcollectionComponent } from './editcollection/editcollection.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FarmercollectiondetailsComponent } from './farmercollectiondetails/farmercollectiondetails.component';
 import { FarmerdetailsComponent } from './farmerdetails/farmerdetails.component';
 import { FarmerbillingComponent } from './farmerbilling/farmerbilling.component';
@@ -56,7 +56,8 @@ const routes: Routes =
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     HomeComponent,
