@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VendorsAPI.Context;
 using VendorsAPI.Models;
@@ -15,7 +18,7 @@ public class VehicleRepository:IVehicleRepository{
       try  {
             using (var context = new VehicleContext(_configuration))
             {
-                var Vehicles = await context.Vehicle.ToListAsync();
+                var Vehicles = await context.Vehicles.ToListAsync();
                 if (Vehicles == null)
                 {
                     return null;
@@ -34,7 +37,7 @@ public class VehicleRepository:IVehicleRepository{
       try  {
             using (var context = new VehicleContext(_configuration))
             {
-                Vehicle? Vehicle = await context.Vehicle.FindAsync(id);
+                Vehicle? Vehicle = await context.Vehicles.FindAsync(id);
                 if (Vehicle == null)
                 {
                     return null;
@@ -49,6 +52,18 @@ public class VehicleRepository:IVehicleRepository{
         }
     }
 
+    public async Task<List<string>> GetVehicles(){
+        try{
+            using(var context=new VehicleContext(_configuration)){
+                var vehicles=await context.Vehicles.Select(v=>v.VehicleNumber).ToListAsync();
+                return vehicles;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+
     public async Task<bool> Insert(Vehicle Vehicle)
     {
         bool status = false;
@@ -56,7 +71,7 @@ public class VehicleRepository:IVehicleRepository{
         {
             using (var context = new VehicleContext(_configuration))
             {
-                await context.Vehicle.AddAsync(Vehicle);
+                await context.Vehicles.AddAsync(Vehicle);
                 await context.SaveChangesAsync();
                 status = true;
             }
@@ -75,7 +90,7 @@ public class VehicleRepository:IVehicleRepository{
         {
             using (var context = new VehicleContext(_configuration))
             {
-                Vehicle? oldVehicle = await context.Vehicle.FindAsync(id);
+                Vehicle? oldVehicle = await context.Vehicles.FindAsync(id);
                 if (oldVehicle != null)
                 {
                     oldVehicle.VendorId = Vehicle.VendorId;
@@ -100,10 +115,10 @@ public class VehicleRepository:IVehicleRepository{
         {
             using (var context = new VehicleContext(_configuration))
             {
-                Vehicle? Vehicle = await context.Vehicle.FindAsync(id);
+                Vehicle? Vehicle = await context.Vehicles.FindAsync(id);
                 if (Vehicle != null)
                 {
-                    context.Vehicle.Remove(Vehicle);
+                    context.Vehicles.Remove(Vehicle);
                     await context.SaveChangesAsync();
                     status = true;
                 }

@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
 using VendorsAPI.Models;
 using VendorsAPI.Services.Interfaces;
@@ -21,6 +22,12 @@ public class VehiclesController : ControllerBase
     public async Task<Vehicle> GetById(int id)
     {
         return await _service.GetById(id);
+    }
+
+    
+    [HttpGet("vehicles")]
+    public async Task<List<string>> GetVehicles(){
+        return await _service.GetVehicles();
     }
 
     [HttpPost("{id}")]

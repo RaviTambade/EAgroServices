@@ -80,10 +80,10 @@ public class SellRepository : ISellRepository
             using (var context = new SellsContext(_configuration))
             {
                 var remainingQuantity = await (
-                    from p in context.Collections
-                    where p.Id == sell.CollectionId
-                    select p.Quantity
-                        - context.Sells
+                    from collection in context.Collections
+                    where collection.Id == sell.CollectionId
+                    select collection.Quantity
+                            - context.Sells
                             .Where(s => s.CollectionId == sell.CollectionId)
                             .Sum(s => s.Quantity)
                 ).FirstOrDefaultAsync();
@@ -219,14 +219,14 @@ public class SellRepository : ISellRepository
                     join sell in context.Sells on merchant.Id equals sell.MerchantId
                     join purchaseItem in context.Collections
                         on sell.CollectionId equals purchaseItem.Id
-                    join variety in context.Crops
-                        on purchaseItem.CropId equals variety.Id
+                    join crop in context.Crops
+                        on purchaseItem.CropId equals crop.Id
                     join vehicle in context.Vehicle on sell.VehicleId equals vehicle.Id
                     where sell.MerchantId == merchantId
                     orderby sell.Date descending
                     select new MerchantSell()
                     {
-                        VarietyName = variety.CropName,
+                        CropName = crop.Title,
                         ContainerType = purchaseItem.ContainerType,
                         Quantity = sell.Quantity,
                         Grade = purchaseItem.Grade,

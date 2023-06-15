@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 namespace SellsAPI.Models;
-public class Variety
+public class Crop
 {
     [Column("id")]
     public int Id { get; set; }
 
-    [Column("cropname")]
-    public string? CropName { get; set; }
+    [Column("title")]
+    public string? Title { get; set; }
 }

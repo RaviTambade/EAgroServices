@@ -15,5 +15,5 @@ public class MerchantSell
     public double TotalAmount { get => totalAmount=Math.Round(totalAmount,2); set => totalAmount = value; }
     public string? TruckNumber{get;set;}
     public DateTime Date{get;set;}
-    public string? VarietyName{get;set;}
+    public string? CropName{get;set;}
 }

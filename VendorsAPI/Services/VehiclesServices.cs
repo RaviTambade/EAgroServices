@@ -19,6 +19,9 @@ public class VehicleServices : IVehicleServices
     {
         return await _repository.GetById(id);
     }
+    public async Task<List<string>> GetVehicles(){
+        return await _repository.GetVehicles();
+    }
     public async Task<bool> Insert(Vehicle Vehicle)
     {
         return await _repository.Insert(Vehicle);
