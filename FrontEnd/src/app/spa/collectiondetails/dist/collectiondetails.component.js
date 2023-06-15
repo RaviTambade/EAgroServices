@@ -14,12 +14,15 @@ var CollectiondetailsComponent = /** @class */ (function () {
         this.svc = svc;
         this.router = router;
         this.sendCollection = new core_1.EventEmitter();
+        this.sendCollect = new core_1.EventEmitter();
     }
     CollectiondetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.collectionId = this.route.snapshot.paramMap.get('id');
         this.svc.getCollection(this.collectionId).subscribe(function (response) {
             _this.collectionViewModel = response;
+            _this.collectionViewModel.collection = response;
+            _this.sendCollection.emit({ collectionViewModel: _this.collectionViewModel });
             _this.sendCollection.emit({ collectionViewModel: _this.collectionViewModel });
             console.log(response);
         });
@@ -27,9 +30,15 @@ var CollectiondetailsComponent = /** @class */ (function () {
     CollectiondetailsComponent.prototype.showBill = function (id) {
         this.router.navigate(['/farmerbilling', id], { relativeTo: this.route });
     };
+    CollectiondetailsComponent.prototype.onClick = function (id) {
+        this.router.navigate(['/farmers', id]);
+    };
     __decorate([
         core_1.Output()
     ], CollectiondetailsComponent.prototype, "sendCollection");
+    __decorate([
+        core_1.Output()
+    ], CollectiondetailsComponent.prototype, "sendCollect");
     __decorate([
         core_1.Input()
     ], CollectiondetailsComponent.prototype, "collectionId");

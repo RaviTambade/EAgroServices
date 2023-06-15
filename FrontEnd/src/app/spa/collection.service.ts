@@ -39,7 +39,6 @@ export class CollectionService {
     let url = "http://localhost:5141/api/farmers"
     return this.http.get(url)
   }
-
   getfarmer(farmerId: number): Observable<any> {
     let url = "http://localhost:5141/api/farmers/" + farmerId;
     return this.http.get(url)

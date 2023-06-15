@@ -34,7 +34,6 @@ var AddcollectionComponent = /** @class */ (function () {
     AddcollectionComponent.prototype.addCollection = function () {
         var _this = this;
         this.svc.addCollection(this.collection).subscribe(function (response) {
-            console.log(JSON.stringify(_this.collection));
             _this.status = response;
             console.log(response);
         });

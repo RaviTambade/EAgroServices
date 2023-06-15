@@ -52,6 +52,12 @@ var CollectionService = /** @class */ (function () {
         var url = "http://localhost:5031/api/collections/" + collectionid + "/sell";
         return this.http.get(url);
     };
+    CollectionService.prototype.insertBillDetails = function (sellbill) {
+        console.log("fuc called");
+        console.log(sellbill);
+        var url = "http://localhost:5182/api/sells";
+        return this.http.post(url, sellbill);
+    };
     CollectionService.prototype.addCollection = function (collection) {
         var url = "http://localhost:5031/api/collections";
         return this.http.post(url, collection);

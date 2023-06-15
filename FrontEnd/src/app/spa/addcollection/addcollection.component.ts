@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Collection } from 'src/app/vendors/collection';
 import { Crop } from 'src/app/vendors/crop';
 import { Farmer } from 'src/app/vendors/farmer';
@@ -40,7 +40,6 @@ export class AddcollectionComponent implements OnInit {
 
   addCollection(): void {
     this.svc.addCollection(this.collection).subscribe((response) => {
-      console.log(JSON.stringify(this.collection))
       this.status = response;
       console.log(response);
     });
