@@ -23,6 +23,11 @@ public class MerchantsController : ControllerBase
     {
         return await _service.GetMerchants();
     }
+    [HttpGet("name")]
+     public async Task<List<string>> GetMerchantsNames()
+    {
+        return await _service.GetMerchantsNames();
+    }
 
     [HttpGet("{id}")]
     public async Task<Merchant> GetMerchant(int id)

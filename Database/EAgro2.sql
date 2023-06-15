@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 
 Drop DATABASE IF EXISTS eagroservicesdb;
@@ -559,6 +559,6 @@ ON crops.id=collections.cropid WHERE collections.date >= CURRENT_DATE;
 SELECT * FROM users;
 SELECT * FROM vendors;
 SELECT * FROM collections;
-SELECT * FROM billing;
+SELECT merchant.m
 SELECT `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount` FROM `collections` AS `c` INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid` WHERE `c`.`id` =1;
 SELECT * FROM vehicles;
