@@ -43,6 +43,31 @@ public class MerchantRepository : IMerchantRepository
             throw e;
         }
     }
+    public async Task<List<string>> GetMerchantsNames()
+    {
+        try
+        {
+            using (var context = new MerchantContext(_configuration))
+            {
+                var merchants = await (
+                    from merchant in context.Merchants
+                    join userrole in context.UserRoles on merchant.Id equals userrole.UserId
+                    join role in context.Roles on userrole.RoleId equals role.Id
+                    where role.RoleName == "merchant"
+                    select (merchant.FirstName+" "+merchant.LastName) 
+                ).ToListAsync();
+                // if (merchants == null)
+                // {
+                //     return null;
+                // }
+                return merchants;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
 
     public async Task<Merchant> GetMerchant(int merchantId)
     {
