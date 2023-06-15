@@ -561,3 +561,4 @@ SELECT * FROM vendors;
 SELECT * FROM collections;
 SELECT * FROM billing;
 SELECT `b`.`id`, `b`.`collectionid`, `b`.`date`, `b`.`labourcharges`, `b`.`totalamount` FROM `collections` AS `c` INNER JOIN `billing` AS `b` ON `c`.`id` = `b`.`collectionid` WHERE `c`.`id` =1;
+SELECT * FROM vehicles;
