@@ -28,4 +28,7 @@ this.router.navigate(['./',id],{relativeTo:this.route})
 transport(id:number){
   this.router.navigate(['./',id,'transport'],{relativeTo:this.route})
 }
+OnClickQualityControl(id:number){
+  this.router.navigate(['./',id,'qualitycontrol'],{relativeTo:this.route})
+}
 }

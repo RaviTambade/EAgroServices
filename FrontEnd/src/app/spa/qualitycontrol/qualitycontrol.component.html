@@ -1,0 +1,52 @@
+<div></div>
+<br />
+<br />
+<br />
+<!-- <form *ngIf="collection && collectionId != 0"> -->
+
+  
+  <label for="farmername">FarmerName:</label>
+  <input type="text" name="quantity" [(ngModel)]="collection.quantity">
+  <br>
+  <!-- <tr>
+      <th>FarmerName</th>
+      <td (click)="onClick(collection.farmerId)" style="color: blue;"> {{collectionViewModel.farmerName}}</td>
+    </tr>-->
+
+  <label for="cropName">CropName:</label>
+  <input type="text" name="cropName" [(ngModel)]="collection.cropName">
+
+  <label for="containerType">ContainerType:</label>
+  <input type="text" name="containerType" [(ngModel)]="collection.containerType">
+
+  <label for="quantity">Quantity:</label>
+  <input type="text" name="quantity" [(ngModel)]="collection.quantity">
+
+  <label for="grade">Grade:</label>
+  <input type="text" name="grade" [(ngModel)]="collection.quantity">
+
+  <label for="totalWeight">TotalWeight:</label>
+  <input type="text" name="totalWeight" [(ngModel)]="collection.totalWeight">
+
+  <label for="tareWeight">tareWeight:</label>
+  <input type="text" name="tareWeight" [(ngModel)]="collection.tareWeight">
+
+  <label for="netWeight">NetWeight:</label>
+  <input type="text" name="netWeight" [(ngModel)]="collection.netWeight">
+
+  <label for="ratePerKg">RatePerKg:</label>
+  <input type="text" name="ratePerKg" [(ngModel)]="collection.ratePerKg">
+
+  <label for="date">date:</label>
+  <input type="text" name="date" [(ngModel)]="collection.date">
+
+  <label for="amount">Amount:</label>
+  <input type="text" name="amount" [(ngModel)]="collection.amount">
+
+
+  <!-- <button (click)="showBill(collection.id)">receipt</button>
+      <hr>
+      <a routerLink="edit">edit</a>
+      <hr>
+      <a href="#">cancel</a> -->
+  <router-outlet></router-outlet>

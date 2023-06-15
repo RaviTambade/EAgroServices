@@ -17,6 +17,7 @@
             <td>{{collection.collection.containerType}}</td><hr>
             <td>{{collection.collection.date |date}}</td><hr>
             <td ><button (click)="OnClickCollection(collection.collection.id)" >details</button></td><hr>
+            <td ><button (click)="OnClickQualityControl(collection.collection.id)" >Quality</button></td><hr>
             <td ><button (click)="transport(collection.collection.id)" >transport</button></td><hr>
         </tbody>
     </table>

@@ -15,6 +15,7 @@ import { FarmercollectiondetailsComponent } from './farmercollectiondetails/farm
 import { FarmerdetailsComponent } from './farmerdetails/farmerdetails.component';
 import { FarmerbillingComponent } from './farmerbilling/farmerbilling.component';
 import { CollectiontransportationComponent } from './collectiontransportation/collectiontransportation.component';
+import { QualitycontrolComponent } from './qualitycontrol/qualitycontrol.component';
 
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
@@ -33,7 +34,7 @@ const routes: Routes =
   { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
   { path: 'farmerbilling/:id', component: FarmerbillingComponent },
   { path: 'collections/:id/transport',component:CollectiontransportationComponent},
-
+  { path: 'collections/:id/qualitycontrol',component:QualitycontrolComponent}
 
   ]
 
@@ -52,6 +53,7 @@ const routes: Routes =
     FarmerdetailsComponent,
     FarmerbillingComponent,
     CollectiontransportationComponent,
+    QualitycontrolComponent,
   ],
   imports: [
     CommonModule,
