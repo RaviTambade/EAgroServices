@@ -27,11 +27,13 @@ public class FarmersContext : DbContext
         base.OnModelCreating(modelBuilder);    
         modelBuilder.Entity<Farmer>(entity =>     
         {
-            entity.HasKey(e => e.Id);      
-            entity.Property(e => e.FirstName);   
+             entity.HasKey(e => e.Id);   
+             entity.Property(e => e.FirstName);
             entity.Property(e => e.LastName);
-            entity.Property(e => e.Location);
             entity.Property(e => e.ContactNumber);
+            entity.Property(e => e.Password);
+            entity.Property(e => e.ImageUrl);
+            entity.Property(e => e.AadharId);
             modelBuilder.Entity<Farmer>().ToTable("users"); 
         });
            modelBuilder.Entity<Role>(entity =>
