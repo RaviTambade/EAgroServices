@@ -64,5 +64,10 @@ namespace FarmersAPI.Controllers
         {
             return await _srv.GetFarmerCollectionByCrop(id, id1);
         }
+
+        [HttpPost("byaddress")]
+          public async Task<List<string>> GetFilteredFarmers(Address address){
+            return await _srv.GetFilteredFarmers(address);
+          }
     }
 }
