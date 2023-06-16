@@ -1,3 +1,4 @@
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -7,9 +8,19 @@ CREATE TABLE
         contactnumber VARCHAR(15) NOT NULL UNIQUE,
         firstname VARCHAR(30) NOT NULL,
         lastname VARCHAR(30) NOT NULL,
-        location VARCHAR(20) NOT NULL,
+        imageurl VARCHAR(35),
+        aadharid VARCHAR(20),
         password varchar(15) NOT NULL
     );
+
+CREATE TABLE addresses(id INT AUTO_INCREMENT PRIMARY KEY,
+                       state VARCHAR(15) NOT NULL ,
+                       district VARCHAR(15) NOT NULL,
+                       taluka VARCHAR(15) NOT NULL,
+                       village VARCHAR(15) NOT NULL,
+                       userid INT NOT NULL,
+        CONSTRAINT fk_userid1 FOREIGN KEY(userid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+        );
 CREATE TABLE
     roles(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -199,23 +210,52 @@ END;
 INSERT INTO labourrates(containertype,rate)VALUES('crates',5);
 INSERT INTO labourrates(containertype,rate)VALUES('bags',6);
 INSERT INTO labourrates(containertype,rate)VALUES('lenobags',4);
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9078678767', 'password','Sahil','Mankar','Pargaon');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9898909090', 'password','Anuja','Waghule','Chakan');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9000909807', 'password','Shubham','Teli','Bhavadi');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('7448022740', 'password','Urmila','Toke','Chas');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9090890890', 'password','Dipali','Toke','Chas');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9000989899', 'password','Akshay','Tanpure','Wada');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('8788664324', 'password','Rohit','Gore','Satara');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('7898090989', 'password','Vedant','Yadav','Ratnagiri');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('8887654567', 'password','Akash','Ajab','Walati');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('8989098909', 'password','Pragati','Bangar','Pimpalgaon');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('8789889098', 'password','Pratik','Karale','Karegaon');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9643235646', 'password','Akash','More','Bhavadi');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('8975321245', 'password','Jayesh','Erande','Thugaon');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9765321245', 'password','Prajwal','Erande','Thugaon');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('8987765456', 'password','Rushi','Chikane','Pargaon');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9908999878', 'password','Sunny','Teli','BHavadi');
-INSERT INTO users(contactnumber, password,firstname,lastname,location)VALUES('9788788777', 'password','Bhushan','Erande','Thugaon');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9078678767', 'password','Sahil','Mankar','/assets/images/sahilmankar.jpeg','565645455676');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9898909090', 'password','Anuja','Waghule','/assets/images/sahilmankar.jpeg','565645325676');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9000909807', 'password','Shubham','Teli','/assets/images/sahilmankar.jpeg','565612345676');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('7448022740', 'password','Urmila','Toke','/assets/images/sahilmankar.jpeg','565909085676');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9090890890', 'password','Dipali','Toke','/assets/images/sahilmankar.jpeg','565645409086');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9000989899', 'password','Akshay','Tanpure','/assets/images/sahilmankar.jpeg','565645412126');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9000945459', 'password','Sunil','Erande','/assets/images/sahilmankar.jpeg','565645412326');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9023239899', 'password','Anil','Kale','/assets/images/sahilmankar.jpeg','565645344446');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9012349899', 'password','Sagar','Kale','/assets/images/sahilmankar.jpeg','565641234376');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9456989899', 'password','Sachin','Navale','/assets/images/sahilmankar.jpeg','561234555676');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9006789899', 'password','Vaibhav','Chakkar','/assets/images/sahilmankar.jpeg','565645457112');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9009090899', 'password','Vaibhav','Bajare','/assets/images/sahilmankar.jpeg','565645423232');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9000909009', 'password','Sham','Erande','/assets/images/sahilmankar.jpeg','565645412321');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9000912349', 'password','Nikhil','Erande','/assets/images/sahilmankar.jpeg','565645009090');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('7800989899', 'password','Sagar','Kudale','/assets/images/sahilmankar.jpeg','565645656656');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9123459899', 'password','Vitthal','Kale','/assets/images/sahilmankar.jpeg','565641112376');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('8788664324', 'password','Rohit','Gore','/assets/images/sahilmankar.jpeg','565645654376');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('7898090989', 'password','Vedant','Yadav','/assets/images/sahilmankar.jpeg','565641234376');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('8887654567', 'password','Akash','Ajab','/assets/images/sahilmankar.jpeg','565611232446');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('8989098909', 'password','Pragati','Bangar','/assets/images/sahilmankar.jpeg','565645678876');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('8789889098', 'password','Pratik','Karale','/assets/images/sahilmankar.jpeg','565645451234');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9643235646', 'password','Akash','More','/assets/images/sahilmankar.jpeg','565645453456');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('8975321245', 'password','Jayesh','Erande','/assets/images/sahilmankar.jpeg','565645490906');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9765321245', 'password','Prajwal','Erande','/assets/images/sahilmankar.jpeg','534545455676');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('8987765456', 'password','Rushi','Chikane','/assets/images/sahilmankar.jpeg','565234555676');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9908999878', 'password','Sunny','Teli','/assets/images/sahilmankar.jpeg','565656765676');
+INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9788788777', 'password','Bhushan','Erande','/assets/images/sahilmankar.jpeg','123445455676');
+SELECT * FROM users;
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',1);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',2);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',3);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',4);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Karegaon',5);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Karegaon',6);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',7);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',8);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',9);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',10);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',11);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',12);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',13);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',14);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',15);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',16);
+INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',17);
+
 INSERT INTO roles(name)VALUES('admin');
 INSERT INTO roles(name)VALUES('farmer');
 INSERT INTO roles(name)VALUES('employee');
@@ -227,16 +267,29 @@ INSERT INTO userroles(userid,roleid)VALUES(3,2);
 INSERT INTO userroles(userid,roleid)VALUES(4,2);
 INSERT INTO userroles(userid,roleid)VALUES(5,2);
 INSERT INTO userroles(userid,roleid)VALUES(6,2);
-INSERT INTO userroles(userid,roleid)VALUES(7,3);
-INSERT INTO userroles(userid,roleid)VALUES(8,3);
-INSERT INTO userroles(userid,roleid)VALUES(9,3);
-INSERT INTO userroles(userid,roleid)VALUES(10,4);
-INSERT INTO userroles(userid,roleid)VALUES(11,4);
-INSERT INTO userroles(userid,roleid)VALUES(12,4);
-INSERT INTO userroles(userid,roleid)VALUES(13,4);
-INSERT INTO userroles(userid,roleid)VALUES(14,5);
-INSERT INTO userroles(userid,roleid)VALUES(15,5);
-INSERT INTO userroles(userid,roleid)VALUES(16,5);
+INSERT INTO userroles(userid,roleid)VALUES(7,2);
+INSERT INTO userroles(userid,roleid)VALUES(8,2);
+INSERT INTO userroles(userid,roleid)VALUES(9,2);
+INSERT INTO userroles(userid,roleid)VALUES(10,2);
+INSERT INTO userroles(userid,roleid)VALUES(11,2);
+INSERT INTO userroles(userid,roleid)VALUES(12,2);
+INSERT INTO userroles(userid,roleid)VALUES(13,2);
+INSERT INTO userroles(userid,roleid)VALUES(14,2);
+INSERT INTO userroles(userid,roleid)VALUES(15,2);
+INSERT INTO userroles(userid,roleid)VALUES(16,2);
+INSERT INTO userroles(userid,roleid)VALUES(17,3);
+INSERT INTO userroles(userid,roleid)VALUES(18,3);
+INSERT INTO userroles(userid,roleid)VALUES(19,3);
+INSERT INTO userroles(userid,roleid)VALUES(20,4);
+INSERT INTO userroles(userid,roleid)VALUES(21,4);
+INSERT INTO userroles(userid,roleid)VALUES(22,4);
+INSERT INTO userroles(userid,roleid)VALUES(23,4);
+INSERT INTO userroles(userid,roleid)VALUES(24,5);
+INSERT INTO userroles(userid,roleid)VALUES(25,5);
+INSERT INTO userroles(userid,roleid)VALUES(26,5);
+INSERT INTO userroles(userid,roleid)VALUES(27,5);
+
+
 
 --  INSERT INTO admins(first_name,last_name,location,userid)VALUES('Ashok','Bajare','Bhavadi',1);
 --  INSERT INTO admins(first_name,last_name,location,userid)VALUES('Ashok','Chakkar','Bhavadi',2);
