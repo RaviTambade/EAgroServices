@@ -3,6 +3,8 @@ import { CollectionService } from '../collection.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sellview } from 'src/app/vendors/sellview';
 import { SellBilling } from 'src/app/vendors/sell-billing';
+import { Merchant } from 'src/app/vendors/merchant';
+import { Vehicle } from 'src/app/vendors/vehicle';
 
 @Component({
   selector: 'app-collectiontransportation',
@@ -28,14 +30,21 @@ export class CollectiontransportationComponent implements OnInit {
       ratePerKm: 0
     }
   };
- 
+  merchants:Merchant |any;
+ vehicles:Vehicle |any;
   constructor(private svc: CollectionService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.collectionId = this.route.snapshot.paramMap.get('id')
     this.svc.collectiontransportation(this.collectionId).subscribe((response) => {
       this.sellview = response;
       console.log(response);
-    });
+    })
+    this.svc.getMerchants().subscribe((response)=>{
+      this.merchants=response
+    })
+    this.svc.getVehicles().subscribe((response)=>{
+this.vehicles=response
+    })
   }
 
   insert(){

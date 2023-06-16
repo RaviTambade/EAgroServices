@@ -73,6 +73,15 @@ export class CollectionService {
     let url=" http://localhost:5224/api/crops"
     return this.http.get<any>(url)
   }
+  getMerchants():Observable<any>{
+    let url="http://localhost:5188/api/merchants"
+    return this.http.get<any>(url)
+  }
+
+  getVehicles():Observable<any>{
+    let url=" http://localhost:5240/api/vehicles"
+    return this.http.get<any>(url)
+  }
 
 
 

@@ -27,9 +27,9 @@ export class QualitycontrolComponent implements OnInit {
       console.log(response);
     });
   }
-  recieveCollection(event:any){
+  receiveCollection(event:any){
     this.collection=event.collection;
-    console.log("🚀 ~ recieveCollection ~ this.collection:", this.collection);
+    console.log("🚀 ~ receiveCollection ~ this.collection:", this.collection);
   }
  
 

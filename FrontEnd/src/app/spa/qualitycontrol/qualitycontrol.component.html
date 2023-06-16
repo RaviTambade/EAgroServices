@@ -1,5 +1,5 @@
 <h2>Edit Collection</h2>
-<app-collectiondetails (sendCollection)="recieveCollection($event)" hidden></app-collectiondetails>
+<app-collectiondetails (sendCollection)="receiveCollection($event)" hidden></app-collectiondetails>
 <form *ngIf="collection" (submit)="updateCollection()">
   <label>
     Container Type:
@@ -8,17 +8,17 @@
   <br>
   <label>
     Quantity:
-    <input type="number" name="quantity" [(ngModel)]="collection.quantity" required>
+    <input type="number" name="quantity" [(ngModel)]="collection.quantity" required readonly>
   </label>
   <br>
   <label>
     Total Weight:
-    <input type="number" name="totalWeight" [(ngModel)]="collection.totalWeight" required>
+    <input type="number" name="totalWeight" [(ngModel)]="collection.totalWeight" required readonly>
   </label>
   <br>
   <label>
     Tare Weight:
-    <input type="number" name="tareWeight" [(ngModel)]="collection.tareWeight" required>
+    <input type="number" name="tareWeight" [(ngModel)]="collection.tareWeight" required readonly>
   </label>
   <br>
   <label>

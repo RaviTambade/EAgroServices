@@ -66,6 +66,14 @@ var CollectionService = /** @class */ (function () {
         var url = " http://localhost:5224/api/crops";
         return this.http.get(url);
     };
+    CollectionService.prototype.getMerchants = function () {
+        var url = "http://localhost:5188/api/merchants";
+        return this.http.get(url);
+    };
+    CollectionService.prototype.getVehicles = function () {
+        var url = " http://localhost:5240/api/vehicles";
+        return this.http.get(url);
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

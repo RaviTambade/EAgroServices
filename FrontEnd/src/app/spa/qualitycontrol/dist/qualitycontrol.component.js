@@ -12,22 +12,19 @@ var QualitycontrolComponent = /** @class */ (function () {
     function QualitycontrolComponent(svc, route) {
         this.svc = svc;
         this.route = route;
-        this.collection = {
-            containerType: '',
-            quantity: 0,
-            grade: '',
-            totalWeight: 0,
-            tareWeight: 0,
-            ratePerKg: 0
-        };
     }
     QualitycontrolComponent.prototype.ngOnInit = function () {
         this.collectionId = this.route.snapshot.paramMap.get('id');
     };
     QualitycontrolComponent.prototype.updateCollection = function () {
+        console.log("🚀 ", this.collection);
         this.svc.editCollection(this.collectionId, this.collection).subscribe(function (response) {
             console.log(response);
         });
+    };
+    QualitycontrolComponent.prototype.receiveCollection = function (event) {
+        this.collection = event.collection;
+        console.log("🚀 ~ receiveCollection ~ this.collection:", this.collection);
     };
     QualitycontrolComponent = __decorate([
         core_1.Component({

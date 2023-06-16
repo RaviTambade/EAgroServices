@@ -10,10 +10,14 @@
     <input type="number" name="collectionId" [(ngModel)]="collectionId">
     <br>
     <label for="merchantName">Merchant Name:</label>
-    <input type="number" name="merchantName" [(ngModel)]="sellBill.sell.merchantId">
+    <select name="merchantId" [(ngModel)]="sellBill.sell.merchantId" required>
+      <option *ngFor="let merchant of merchants" [value]="merchant.id">{{ merchant.firstName }} {{ merchant.lastName }}</option>
+    </select>
     <br>
     <label for="vehicle Name">vehicle Number:</label>
-    <input type="text" name="vehicle Name" [(ngModel)]="sellBill.sell.vehicleId">
+    <select name="vehicleId" [(ngModel)]="sellBill.sell.vehicleId" required>
+      <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.vehicleNumber }} </option>
+    </select>
     <br>
     <label for="quantity">Quantity:</label>
     <input type="text" name="quantity" [(ngModel)]="sellBill.sell.quantity">
