@@ -41,9 +41,6 @@ var AddnewcollectionComponent = /** @class */ (function () {
         var _this = this;
         this.addSvc.getDistricts(this.address.state).subscribe(function (response) {
             _this.districts = response;
-            _this.address.district = '';
-            _this.tahsils = [];
-            _this.villages = [];
         });
     };
     AddnewcollectionComponent.prototype.onDistrictSelected = function () {

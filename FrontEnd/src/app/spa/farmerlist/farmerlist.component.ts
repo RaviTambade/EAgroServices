@@ -20,4 +20,5 @@ export class FarmerlistComponent {
   onClick(id: number) {
     this.router.navigate(['./', id], { relativeTo: this.route });
   }
+ 
 }

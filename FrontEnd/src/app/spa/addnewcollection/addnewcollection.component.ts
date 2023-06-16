@@ -52,9 +52,6 @@ export class AddnewcollectionComponent implements OnInit {
   onStateSelected(): void {
     this.addSvc.getDistricts(this.address.state).subscribe((response) => {
       this.districts = response;
-      this.address.district = '';
-      this.tahsils = []; 
-      this.villages = []; 
 
     });
   }
