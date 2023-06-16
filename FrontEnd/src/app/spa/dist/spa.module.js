@@ -24,21 +24,23 @@ var farmercollectiondetails_component_1 = require("./farmercollectiondetails/far
 var farmerdetails_component_1 = require("./farmerdetails/farmerdetails.component");
 var farmerbilling_component_1 = require("./farmerbilling/farmerbilling.component");
 var collectiontransportation_component_1 = require("./collectiontransportation/collectiontransportation.component");
+var qualitycontrol_component_1 = require("./qualitycontrol/qualitycontrol.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
-    { path: 'addcollection', component: addcollection_component_1.AddcollectionComponent },
 ];
 var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
     { path: 'vendors', component: vendorlist_component_1.VendorlistComponent },
     { path: 'collections', component: collectionlist_component_1.CollectionlistComponent, children: childRoutes },
+    { path: 'collections/addcollection', component: addcollection_component_1.AddcollectionComponent },
     { path: 'collections/:id', component: collectiondetails_component_1.CollectiondetailsComponent },
     { path: 'collections/:id/edit', component: editcollection_component_1.EditcollectionComponent },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
     { path: 'farmers/:id', component: farmercollectiondetails_component_1.FarmercollectiondetailsComponent },
     { path: 'farmerbilling/:id', component: farmerbilling_component_1.FarmerbillingComponent },
     { path: 'collections/:id/transport', component: collectiontransportation_component_1.CollectiontransportationComponent },
+    { path: 'collections/:id/qualitycontrol', component: qualitycontrol_component_1.QualitycontrolComponent }
 ];
 var SpaModule = /** @class */ (function () {
     function SpaModule() {
@@ -59,11 +61,13 @@ var SpaModule = /** @class */ (function () {
                 farmerdetails_component_1.FarmerdetailsComponent,
                 farmerbilling_component_1.FarmerbillingComponent,
                 collectiontransportation_component_1.CollectiontransportationComponent,
+                qualitycontrol_component_1.QualitycontrolComponent,
             ],
             imports: [
                 common_1.CommonModule,
                 router_1.RouterModule.forRoot(routes),
-                forms_1.FormsModule
+                forms_1.FormsModule,
+                forms_1.ReactiveFormsModule
             ],
             exports: [
                 home_component_1.HomeComponent,

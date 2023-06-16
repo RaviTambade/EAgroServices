@@ -9,17 +9,26 @@ exports.__esModule = true;
 exports.QualitycontrolComponent = void 0;
 var core_1 = require("@angular/core");
 var QualitycontrolComponent = /** @class */ (function () {
-    function QualitycontrolComponent(svc, route) {
+    function QualitycontrolComponent(svc, route, router) {
         this.svc = svc;
         this.route = route;
+        this.router = router;
     }
     QualitycontrolComponent.prototype.ngOnInit = function () {
         this.collectionId = this.route.snapshot.paramMap.get('id');
     };
     QualitycontrolComponent.prototype.updateCollection = function () {
+        var _this = this;
         console.log("🚀 ", this.collection);
         this.svc.editCollection(this.collectionId, this.collection).subscribe(function (response) {
             console.log(response);
+            if (response) {
+                alert("Quality assured successfully");
+                _this.router.navigate(['/collections']);
+            }
+            else {
+                alert("Check the form again ....");
+            }
         });
     };
     QualitycontrolComponent.prototype.receiveCollection = function (event) {

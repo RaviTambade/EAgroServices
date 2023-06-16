@@ -9,8 +9,9 @@ exports.__esModule = true;
 exports.AddcollectionComponent = void 0;
 var core_1 = require("@angular/core");
 var AddcollectionComponent = /** @class */ (function () {
-    function AddcollectionComponent(svc) {
+    function AddcollectionComponent(svc, router) {
         this.svc = svc;
+        this.router = router;
         this.collection = {
             farmerId: 0,
             cropId: 0,
@@ -36,6 +37,13 @@ var AddcollectionComponent = /** @class */ (function () {
         this.svc.addCollection(this.collection).subscribe(function (response) {
             _this.status = response;
             console.log(response);
+            if (response) {
+                alert("Collection added successfully");
+                _this.router.navigate(['/collections']);
+            }
+            else {
+                alert("Check the form again ....");
+            }
         });
     };
     AddcollectionComponent = __decorate([

@@ -19,7 +19,6 @@ import { QualitycontrolComponent } from './qualitycontrol/qualitycontrol.compone
 
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
-  { path: 'addcollection', component: AddcollectionComponent },
 
 ]
 const routes: Routes =
@@ -28,6 +27,7 @@ const routes: Routes =
   { path: 'farmers', component: FarmerlistComponent },
   { path: 'vendors', component: VendorlistComponent },
   { path: 'collections', component: CollectionlistComponent, children: childRoutes },
+  { path: 'collections/addcollection', component: AddcollectionComponent },
   { path: 'collections/:id', component: CollectiondetailsComponent },
   { path: 'collections/:id/edit', component: EditcollectionComponent },
   { path: 'farmers', component: FarmerlistComponent },
