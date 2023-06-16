@@ -18,4 +18,9 @@ public class AddressService:IAddressService{
     public async Task<bool>Update(int adressid,Address address)=>await _repo.Update(adressid,address);
     public async Task<bool>Delete(int id)=>await _repo.Delete(id);
 
+    public async Task<List<string>> GetDistricts(string state)=>await _repo.GetDistricts(state);
+    
+    public async Task<List<string>> GetTahsils(string district)=>await _repo.GetTahsils(district);
+    public async Task<List<string>> GetVillages(string tahsil)=>await _repo.GetVillages(tahsil);
+
 }

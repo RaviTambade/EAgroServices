@@ -51,4 +51,23 @@ namespace AddressAPI.Controllers;
         {
             return await _srv.Delete(id);
         }
+        
+        [HttpGet("getdistricts/{state}")]
+        public async Task<List<string>> GetDistrict(string state){
+            return await _srv.GetDistricts(state);
+        }
+
+        [HttpGet("gettahsils/{district}")]
+
+    public async Task<List<string>> GetTahsils(string district){
+        return await _srv.GetTahsils(district);
+    }
+
+
+  [HttpGet("getvillages/{tahsil}")]
+
+    public async Task<List<string>> GetVillages(string tahsil){
+        return await _srv.GetVillages(tahsil);
+    }
+
     }

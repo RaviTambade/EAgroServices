@@ -9,8 +9,8 @@ public class Address{
     public string State{get;set;}
     [Column("district")]
     public string District{get;set;}
-    [Column("taluka")]
-    public string Taluka{get; set;}
+    [Column("tahsil")]
+    public string Tahsil{get; set;}
     [Column("village")]
     public string Village{get;set;}
 

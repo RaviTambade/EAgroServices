@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -613,3 +613,15 @@ SELECT * FROM collections;
 SELECT CONCAT(users.firstname,' ',users.lastname) FROM users INNER JOIN addresses
 ON users.id=addresses.userid WHERE addresses.state='Maharashtra' AND addresses.district='Sangli'
 AND addresses.tahsil='Jat' AND addresses.village='Bhavadi';
+
+SELECT district FROM addresses WHERE state="Maharashtra";
+SELECT tahsil FROM addresses WHERE district="Pune";
+SELECT village FROm addresses WHERE tahsil="Junnar";
+
+ SELECT `a`.`district`
+      FROM `addresses` AS `a`
+      WHERE `a`.`state` = "Maharashtra";
+
+       SELECT  `a`.`tahsil`
+      FROM `addresses` AS `a'
+      WHERE `a`.`district` = "Pune";

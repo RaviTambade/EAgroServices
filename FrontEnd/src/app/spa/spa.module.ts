@@ -16,6 +16,7 @@ import { FarmerdetailsComponent } from './farmerdetails/farmerdetails.component'
 import { FarmerbillingComponent } from './farmerbilling/farmerbilling.component';
 import { CollectiontransportationComponent } from './collectiontransportation/collectiontransportation.component';
 import { QualitycontrolComponent } from './qualitycontrol/qualitycontrol.component';
+import { AddnewcollectionComponent } from './addnewcollection/addnewcollection.component';
 
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
@@ -54,6 +55,7 @@ const routes: Routes =
     FarmerbillingComponent,
     CollectiontransportationComponent,
     QualitycontrolComponent,
+    AddnewcollectionComponent,
   ],
   imports: [
     CommonModule,

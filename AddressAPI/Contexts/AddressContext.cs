@@ -24,7 +24,7 @@ public class AddressContext : DbContext
              entity.HasKey(e => e.Id);   
              entity.Property(e => e.State);
             entity.Property(e => e.District);
-            entity.Property(e => e.Taluka);
+            entity.Property(e => e.Tahsil);
             entity.Property(e => e.Village);
             entity.Property(e => e.UserId);
             modelBuilder.Entity<Address>().ToTable("addresses"); 
