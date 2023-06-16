@@ -67,7 +67,6 @@ public class CollectionContext : DbContext
             entity.HasKey(e => e.Id);   
              entity.Property(e => e.FirstName);
             entity.Property(e => e.LastName);
-            entity.Property(e => e.Location);
             entity.Property(e => e.ContactNumber);
             entity.Property(e => e.Password);
             entity.Property(e => e.ImageUrl);

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CollectionAPI.Models;
 public class Farmer
 {
-    [Column("user_id")]
+    [Column("id")]
     public int Id { get; set; }
     [Column("firstname")]
     public string? FirstName { get; set; }

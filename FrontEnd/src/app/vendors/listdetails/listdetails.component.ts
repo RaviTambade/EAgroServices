@@ -20,8 +20,9 @@ constructor(private svc:VendorService){
     id:0,
     firstName:'',
     lastName:'',
-    location:'',
-    contactNumber:''
+    contactNumber:'',
+    aadharId:'',
+    imageUrl:''
   }
 }
   ngOnInit(): void {

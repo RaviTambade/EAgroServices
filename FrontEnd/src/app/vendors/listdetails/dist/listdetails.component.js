@@ -16,8 +16,9 @@ var ListdetailsComponent = /** @class */ (function () {
             id: 0,
             firstName: '',
             lastName: '',
-            location: '',
-            contactNumber: ''
+            contactNumber: '',
+            aadharId: '',
+            imageUrl: ''
         };
     }
     ListdetailsComponent.prototype.ngOnInit = function () {

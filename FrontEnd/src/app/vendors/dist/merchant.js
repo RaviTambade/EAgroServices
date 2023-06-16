@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
-exports.Farmer = void 0;
-var Farmer = /** @class */ (function () {
-    function Farmer(id, firstName, lastName, contactNumber, aadharId, imageUrl) {
+exports.Merchant = void 0;
+var Merchant = /** @class */ (function () {
+    function Merchant(id, firstName, lastName, contactNumber, aadharId, imageUrl) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -10,6 +10,6 @@ var Farmer = /** @class */ (function () {
         this.aadharId = aadharId;
         this.imageUrl = imageUrl;
     }
-    return Farmer;
+    return Merchant;
 }());
-exports.Farmer = Farmer;
+exports.Merchant = Merchant;

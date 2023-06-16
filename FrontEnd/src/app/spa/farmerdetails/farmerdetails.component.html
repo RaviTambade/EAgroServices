@@ -1,17 +1,18 @@
-
 <div>
     <table>
         <thead>
+            <th>image</th>
             <th>firstname</th><hr>
             <th>lastname</th><hr>
-            <th>location</th><hr>
             <th>contact number</th>
+            <th>aadhar id</th>
         </thead>
         <tbody *ngIf="farmer">
+            <img [src]="farmer.imageUrl" width="100" />
             <td>{{farmer.firstName}}</td><hr>
             <td>{{farmer.lastName}}</td><hr>
-            <td>{{farmer.location}}</td><hr>
             <td>{{farmer.contactNumber}}</td> 
+            <td>{{farmer.aadharId}}</td> 
         </tbody>
     </table>
 </div>
