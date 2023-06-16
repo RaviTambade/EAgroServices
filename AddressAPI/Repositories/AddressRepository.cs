@@ -188,4 +188,16 @@ public class AddressRepository : IAddressRepository
             throw e;
         }
     }
+
+      public async Task<List<string>> GetStates(){
+          try{
+            using(var context=new AddressContext(_configuration)){
+                var states=await (context.Addresses.Select(a=>a.State).Distinct().ToListAsync());
+                return states;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
 }

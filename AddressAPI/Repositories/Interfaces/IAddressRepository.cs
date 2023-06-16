@@ -11,6 +11,7 @@ public interface IAddressRepository{
     // Task<bool> Insert(Address addresses);
     Task<bool> Update(int addressId,Address addresses);
     Task<bool> Delete(int id);
+    Task<List<string>> GetStates();
     Task<List<string>> GetDistricts(string state);
     Task<List<string>> GetTahsils(string district);
     Task<List<string>> GetVillages(string tahsil);

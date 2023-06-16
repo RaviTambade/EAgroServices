@@ -7,11 +7,31 @@ import { Address } from '../vendors/address';
   providedIn: 'root'
 })
 export class AddressService {
-
-  constructor(private httpClient:HttpClient) { }
+districts:any[];
+  constructor(private httpClient:HttpClient) {
+    this.districts=[]
+   }
 
   getSelectedFarmers(address:Address):Observable<any>{
     let url="http://localhost:5141/api/farmers/byaddress"
     return this.httpClient.post<any>(url,address)
+  }
+
+  getStates():Observable<any>{
+    let url=" http://localhost:5176/api/addresses/states"
+    return this.httpClient.get<any>(url)
+  }
+
+  getDistricts(state:string):Observable<any>{
+    let url=" http://localhost:5176/api/addresses/getdistricts/" +state
+    return this.httpClient.get<any>(url)
+  }
+  getTahsils(district:string):Observable<any>{
+    let url=" http://localhost:5176/api/addresses/gettahsils/" +district
+    return this.httpClient.get<any>(url)
+  }
+  getVillages(tahsil:string):Observable<any>{
+    let url=" http://localhost:5176/api/addresses/getvillages/" +tahsil
+    return this.httpClient.get<any>(url)
   }
 }

@@ -25,6 +25,7 @@ var farmerdetails_component_1 = require("./farmerdetails/farmerdetails.component
 var farmerbilling_component_1 = require("./farmerbilling/farmerbilling.component");
 var collectiontransportation_component_1 = require("./collectiontransportation/collectiontransportation.component");
 var qualitycontrol_component_1 = require("./qualitycontrol/qualitycontrol.component");
+var addnewcollection_component_1 = require("./addnewcollection/addnewcollection.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -33,7 +34,8 @@ var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
     { path: 'vendors', component: vendorlist_component_1.VendorlistComponent },
     { path: 'collections', component: collectionlist_component_1.CollectionlistComponent, children: childRoutes },
-    { path: 'collections/addcollection', component: addcollection_component_1.AddcollectionComponent },
+    // { path: 'collections/addcollection', component: AddcollectionComponent },
+    { path: 'collections/addcollection', component: addnewcollection_component_1.AddnewcollectionComponent },
     { path: 'collections/:id', component: collectiondetails_component_1.CollectiondetailsComponent },
     { path: 'collections/:id/edit', component: editcollection_component_1.EditcollectionComponent },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
@@ -62,6 +64,7 @@ var SpaModule = /** @class */ (function () {
                 farmerbilling_component_1.FarmerbillingComponent,
                 collectiontransportation_component_1.CollectiontransportationComponent,
                 qualitycontrol_component_1.QualitycontrolComponent,
+                addnewcollection_component_1.AddnewcollectionComponent,
             ],
             imports: [
                 common_1.CommonModule,

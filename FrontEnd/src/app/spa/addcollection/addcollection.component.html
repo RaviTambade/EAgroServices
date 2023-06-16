@@ -3,7 +3,7 @@
   <label>
     Farmer:
     <select name="farmerId" [(ngModel)]="collection.farmerId" required>
-      <option *ngFor="let farmer of farmers" [value]="farmer.id">{{ farmer.firstName }}{{ farmer.lastName }}</option>
+      <option *ngFor="let farmer of farmers" [value]="farmer.id">{{farmer.firstName}} {{farmer.lastName}}</option>
     </select>
   </label>
   <br>

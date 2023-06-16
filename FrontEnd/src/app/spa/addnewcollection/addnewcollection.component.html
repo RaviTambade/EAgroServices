@@ -1,1 +1,80 @@
-<p>addnewcollection works!</p>
+<h2>Add Collection</h2>
+<form (submit)="addCollection()">
+  <label>
+    State:
+    <select name="state" [(ngModel)]="address.state" (change)="onStateSelected()" required>
+      <option value=""></option>
+      <option *ngFor="let state of states" [value]="state">{{state}}</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    District:
+    <select name="district" [(ngModel)]="address.district" (change)="onDistrictSelected()" required>
+      <option value=""></option>
+      <option *ngFor="let district of districts" [value]="district">{{ district }}</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    Tahsil:
+    <select name="tahsil" [(ngModel)]="address.tahsil" (change)="onTahsilSelected()" required>
+      <option value=""></option>
+      <option *ngFor="let tahsil of tahsils" [value]="tahsil">{{ tahsil }}</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    Village:
+    <select name="village" [(ngModel)]="address.village"  (change)="loadFarmers()" required>
+      <option value=""></option>
+      <option *ngFor="let village of villages" [value]="village">{{ village }}</option>
+    </select>
+  </label>
+  <br>
+  <br>
+  <label>
+    <label>
+    Farmer:
+    <select name="farmerId" [(ngModel)]="collection.farmerId" required>
+        <option *ngFor="let farmer of farmers" [value]="farmer.id">{{ farmer.firstName }} {{ farmer.lastName }}</option>
+      </select>
+  </label>
+  </label>
+  <br>
+  <label>
+    Crop:
+    <select name="cropId" [(ngModel)]="collection.cropId" required>
+      <option value="">Select Crop</option>
+      <option *ngFor="let crop of crops" [value]="crop.id">{{ crop.title }}</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    Container Type:
+    <select name="containerType" [(ngModel)]="collection.containerType" required>
+      <option value="">Select Container Type</option>
+      <option value="bags">bags</option>
+      <option value="lenobags">lenobags</option>
+      <option value="crates">crates</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    Quantity:
+    <input type="number" name="quantity" [(ngModel)]="collection.quantity" required>
+  </label>
+  <br>
+  <label>
+    TotalWeight:
+    <input type="number" name="totalWeight" [(ngModel)]="collection.totalWeight" required>
+  </label>
+  <br>
+  <label>
+    TareWeight:
+    <input type="number" name="tareWeight" [(ngModel)]="collection.tareWeight" required>
+  </label>
+  <br>
+  <br>
+  <button type="submit">Submit</button>
+</form>

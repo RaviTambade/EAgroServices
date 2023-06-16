@@ -11,10 +11,27 @@ var core_1 = require("@angular/core");
 var AddressService = /** @class */ (function () {
     function AddressService(httpClient) {
         this.httpClient = httpClient;
+        this.districts = [];
     }
     AddressService.prototype.getSelectedFarmers = function (address) {
         var url = "http://localhost:5141/api/farmers/byaddress";
         return this.httpClient.post(url, address);
+    };
+    AddressService.prototype.getStates = function () {
+        var url = " http://localhost:5176/api/addresses/states";
+        return this.httpClient.get(url);
+    };
+    AddressService.prototype.getDistricts = function (state) {
+        var url = " http://localhost:5176/api/addresses/getdistricts/" + state;
+        return this.httpClient.get(url);
+    };
+    AddressService.prototype.getTahsils = function (district) {
+        var url = " http://localhost:5176/api/addresses/gettahsils/" + district;
+        return this.httpClient.get(url);
+    };
+    AddressService.prototype.getVillages = function (tahsil) {
+        var url = " http://localhost:5176/api/addresses/getvillages/" + tahsil;
+        return this.httpClient.get(url);
     };
     AddressService = __decorate([
         core_1.Injectable({

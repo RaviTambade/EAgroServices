@@ -69,5 +69,12 @@ namespace AddressAPI.Controllers;
     public async Task<List<string>> GetVillages(string tahsil){
         return await _srv.GetVillages(tahsil);
     }
+  
+
+    [HttpGet("states")]
+     public async Task<List<string>> GetStates(){
+       return await _srv.GetStates();
+     }
+
 
     }

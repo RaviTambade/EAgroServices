@@ -23,4 +23,6 @@ public class AddressService:IAddressService{
     public async Task<List<string>> GetTahsils(string district)=>await _repo.GetTahsils(district);
     public async Task<List<string>> GetVillages(string tahsil)=>await _repo.GetVillages(tahsil);
 
+     public async Task<List<string>> GetStates()=>await _repo.GetStates();
+
 }
