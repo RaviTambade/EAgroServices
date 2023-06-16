@@ -16,6 +16,7 @@ public class FarmersContext : DbContext
     public DbSet<Collection> Collections { get; set; }
     public DbSet<Billing> Billings { get; set; }
     public DbSet<Crop> Crops { get; set; }
+    public DbSet<Address> Addresses{get;set;}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)  
     {
         optionsBuilder.UseMySQL(_conString);    
@@ -81,5 +82,15 @@ public class FarmersContext : DbContext
           entity.Property(e => e.Rate);
           modelBuilder.Entity<Crop>().ToTable("crops");
       });
+       modelBuilder.Entity<Address>(entity =>     
+        {
+            entity.HasKey(e => e.Id);      
+            entity.Property(e => e.State);   
+            entity.Property(e => e.District);
+            entity.Property(e => e.Tahsil);
+            entity.Property(e => e.Village);
+            entity.Property(e => e.UserId);
+            modelBuilder.Entity<Address>().ToTable("addresses"); 
+        });
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.Linq.Expressions;
 using FarmersAPI.Contexts;
@@ -229,6 +230,26 @@ public class FarmerRepository : IFarmerRepository
                 .Select(f => f.Id)
                 .FirstOrDefaultAsync();
                 return farmerId;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+      }
+
+      public async Task<List<string>> GetFilteredFarmers(Address address){
+        try{
+            using(var context=new FarmersContext(_configuration)){
+                var farmers=await (context.Farmers
+                                   .Where(u => context.Addresses.Any(a => 
+                                   a.UserId == u.Id && 
+                                   a.State == address.State && 
+                                   a.District == address.District &&
+                                   a.Tahsil == address.Tahsil && 
+                                   a.Village == address.Village))
+                                   .Select(u => u.FirstName + " " + u.LastName)
+                                   .ToListAsync());
+               return farmers;
             }
         }
         catch(Exception e){

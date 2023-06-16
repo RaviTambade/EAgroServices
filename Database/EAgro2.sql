@@ -16,7 +16,7 @@ CREATE TABLE
 CREATE TABLE addresses(id INT AUTO_INCREMENT PRIMARY KEY,
                        state VARCHAR(15) NOT NULL ,
                        district VARCHAR(15) NOT NULL,
-                       taluka VARCHAR(15) NOT NULL,
+                       tahsil VARCHAR(15) NOT NULL,
                        village VARCHAR(15) NOT NULL,
                        userid INT NOT NULL,
         CONSTRAINT fk_userid1 FOREIGN KEY(userid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -238,23 +238,23 @@ INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)V
 INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9908999878', 'password','Sunny','Teli','/assets/images/sahilmankar.jpeg','565656765676');
 INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9788788777', 'password','Bhushan','Erande','/assets/images/sahilmankar.jpeg','123445455676');
 SELECT * FROM users;
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',1);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',2);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',3);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',4);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Karegaon',5);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Karegaon',6);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',7);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',8);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',9);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',10);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',11);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',12);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',13);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',14);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',15);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',16);
-INSERT INTO addresses(state,district,taluka,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',17);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',1);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',2);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',3);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',4);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Khed','Karegaon',5);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Khed','Karegaon',6);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Junnar','Bhavadi',7);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Karad','Bhavadi',8);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Wai','Bhavadi',9);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Man','Bhavadi',10);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Shahuwadi','Bhavadi',11);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Panhala','Bhavadi',12);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Shirol','Bhavadi',13);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Miraj','Bhavadi',14);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Bhavadi',15);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Bhavadi',16);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',17);
 
 INSERT INTO roles(name)VALUES('admin');
 INSERT INTO roles(name)VALUES('farmer');
@@ -610,3 +610,6 @@ SELECT * FROM users;
 SELECT * FROM vendors;
 SELECT * FROM collections;
 
+SELECT CONCAT(users.firstname,' ',users.lastname) FROM users INNER JOIN addresses
+ON users.id=addresses.userid WHERE addresses.state='Maharashtra' AND addresses.district='Sangli'
+AND addresses.tahsil='Jat' AND addresses.village='Bhavadi';
