@@ -4,8 +4,8 @@ public class UserRole
 {
     [Column("id")]
     public int Id { get; set; }
-    [Column("user_id")]
+    [Column("userid")]
     public int UserId { get; set; }
-    [Column("role_id")]
+    [Column("roleid")]
     public int RoleId { get; set; }
 }
