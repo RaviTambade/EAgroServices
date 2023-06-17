@@ -24,5 +24,11 @@
             </tr>
         </tbody>
     </table>
+   
 </div>
+        <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
+        <button *ngIf="hasNextPage()" (click)="next()">next</button>
+  
+
+
 <router-outlet></router-outlet>

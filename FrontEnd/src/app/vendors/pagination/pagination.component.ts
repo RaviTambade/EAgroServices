@@ -16,7 +16,7 @@ export class PaginationComponent {
   get getItems(): any[] {
     const startindex = this.currentPage * 5;
     const endindex = startindex + 5;
-    return this.items.slice(startindex, endindex);
+    return this.items.slice(startindex, endindex);  
   }
   next() {
     this.currentPage++;
