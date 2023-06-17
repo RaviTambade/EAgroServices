@@ -156,7 +156,7 @@ public class AddressRepository : IAddressRepository
     public async Task<List<string>> GetDistricts(string state){
         try{
             using(var context=new AddressContext(_configuration)){
-                var districts=await (context.Addresses.Where(a=>a.State==state).Select(a=>a.District).Distinct().ToListAsync());
+                var districts=await context.Addresses.Where(a=>a.State==state).Select(a=>a.District).Distinct().ToListAsync();
                 return districts;
             }
         }
@@ -168,7 +168,7 @@ public class AddressRepository : IAddressRepository
     public async Task<List<string>> GetTahsils(string district){
           try{
             using(var context=new AddressContext(_configuration)){
-                var tahsils=await (context.Addresses.Where(a=>a.District==district).Select(a=>a.Tahsil).Distinct().ToListAsync());
+                var tahsils=await context.Addresses.Where(a=>a.District==district).Select(a=>a.Tahsil).Distinct().ToListAsync();
                 return tahsils;
             }
         }
@@ -180,7 +180,7 @@ public class AddressRepository : IAddressRepository
       public async Task<List<string>> GetVillages(string tahsil){
           try{
             using(var context=new AddressContext(_configuration)){
-                var villages=await (context.Addresses.Where(a=>a.Tahsil==tahsil).Select(a=>a.Village).Distinct().ToListAsync());
+                var villages=await context.Addresses.Where(a=>a.Tahsil==tahsil).Select(a=>a.Village).Distinct().ToListAsync();
                 return villages;
             }
         }
@@ -192,7 +192,7 @@ public class AddressRepository : IAddressRepository
       public async Task<List<string>> GetStates(){
           try{
             using(var context=new AddressContext(_configuration)){
-                var states=await (context.Addresses.Select(a=>a.State).Distinct().ToListAsync());
+                var states=await context.Addresses.Select(a=>a.State).Distinct().ToListAsync();
                 return states;
             }
         }

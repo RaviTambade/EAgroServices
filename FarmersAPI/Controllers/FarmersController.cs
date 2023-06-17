@@ -66,7 +66,7 @@ namespace FarmersAPI.Controllers
         }
 
         [HttpPost("byaddress")]
-          public async Task<List<string>> GetFilteredFarmers(Address address){
+          public async Task<List<Farmer>> GetFilteredFarmers(Address address){
             return await _srv.GetFilteredFarmers(address);
           }
     }

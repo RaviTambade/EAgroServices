@@ -29,7 +29,7 @@ public class FarmerRepository : IFarmerRepository
                     join role in context.Roles on userRole.RoleId equals role.Id
                     where role.Name == "farmer"
                     select farmer
-                    ).ToListAsync();
+                ).ToListAsync();
                 if (farmers == null)
                 {
                     return null;
@@ -83,11 +83,7 @@ public class FarmerRepository : IFarmerRepository
                     join crop in context.Crops on collection.CropId equals crop.Id
                     where collection.FarmerId == farmerId
                     orderby collection.Date descending
-                    select new FarmerCollection()
-                    {
-                        Collection = collection,
-                        CropName = crop.Title
-                    }
+                    select new FarmerCollection() { Collection = collection, CropName = crop.Title }
                 ).ToListAsync();
                 // collections=collections.Skip((page-1)*pagesize).Take(pagesize).ToList();
                 Console.WriteLine(collections.Count);
@@ -121,11 +117,7 @@ public class FarmerRepository : IFarmerRepository
                         )
                         && (dateFilter.EndDate == default || collection.Date <= dateFilter.EndDate)
                     orderby collection.Date ascending
-                    select new FarmerCollection()
-                    {
-                        Collection = collection,
-                        CropName = crop.Title
-                    }
+                    select new FarmerCollection() { Collection = collection, CropName = crop.Title }
                 ).ToListAsync();
                 return collections;
             }
@@ -146,13 +138,9 @@ public class FarmerRepository : IFarmerRepository
                     from collection in context.Collections
                     join farmer in context.Farmers on collection.FarmerId equals farmer.Id
                     join crop in context.Crops on collection.CropId equals crop.Id
-                    where collection.FarmerId == farmerId && crop.Id==cropId
+                    where collection.FarmerId == farmerId && crop.Id == cropId
                     orderby collection.Date ascending
-                    select new FarmerCollection()
-                    {
-                        Collection = collection,
-                        CropName = crop.Title
-                    }
+                    select new FarmerCollection() { Collection = collection, CropName = crop.Title }
                 ).ToListAsync();
                 return collections;
             }
@@ -222,38 +210,57 @@ public class FarmerRepository : IFarmerRepository
         }
     }
 
-      public async Task<int> GetFarmerId(string farmerName){
-        try{
-            using(var context=new FarmersContext(_configuration)){
-                int farmerId= await context.Farmers
-                .Where(f => (f.FirstName + " " + f.LastName) == farmerName)
-                .Select(f => f.Id)
-                .FirstOrDefaultAsync();
+    public async Task<int> GetFarmerId(string farmerName)
+    {
+        try
+        {
+            using (var context = new FarmersContext(_configuration))
+            {
+                int farmerId = await context.Farmers
+                    .Where(f => (f.FirstName + " " + f.LastName) == farmerName)
+                    .Select(f => f.Id)
+                    .FirstOrDefaultAsync();
                 return farmerId;
             }
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             throw e;
         }
-      }
+    }
 
-      public async Task<List<string>> GetFilteredFarmers(Address address){
-        try{
-            using(var context=new FarmersContext(_configuration)){
-                var farmers=await (context.Farmers
-                                   .Where(u => context.Addresses.Any(a => 
-                                   a.UserId == u.Id && 
-                                   a.State == address.State && 
-                                   a.District == address.District &&
-                                   a.Tahsil == address.Tahsil && 
-                                   a.Village == address.Village))
-                                   .Select(u => u.FirstName + " " + u.LastName)
-                                   .ToListAsync());
-               return farmers;
+    public async Task<List<Farmer>> GetFilteredFarmers(Address address)
+    {
+        try
+        {
+            using (var context = new FarmersContext(_configuration))
+            {
+                var farmers = await (
+                    from farmer in context.Farmers
+                    join userRole in context.UserRoles on farmer.Id equals userRole.UserId
+                    join role in context.Roles on userRole.RoleId equals role.Id
+                    where role.Name == "farmer"
+                        &&  context.Addresses.Any(
+                            a =>
+                                a.UserId == farmer.Id
+                                && a.State == address.State
+                                && a.District == address.District
+                                && a.Tahsil == address.Tahsil
+                                && a.Village == address.Village
+                        )
+                    select new Farmer
+                    {
+                        Id = farmer.Id,
+                        FirstName = farmer.FirstName,
+                        LastName = farmer.LastName
+                    }
+                ).ToListAsync();
+                return farmers;
             }
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             throw e;
         }
-      }
+    }
 }

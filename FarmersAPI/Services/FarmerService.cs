@@ -53,7 +53,7 @@ public class FarmerService : IFarmerService
     {
        return await _repo.GetFarmerId(farmerName);
     }
-      public async Task<List<string>> GetFilteredFarmers(Address address){
+      public async Task<List<Farmer>> GetFilteredFarmers(Address address){
         return await  _repo.GetFilteredFarmers(address);
       }
 }

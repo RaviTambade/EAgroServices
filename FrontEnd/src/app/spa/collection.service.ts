@@ -59,12 +59,12 @@ export class CollectionService {
   }
 
   insertBillDetails(sellbill: any): Observable<any> {
-    console.log("fuc called")
     console.log(sellbill)
     let url = "http://localhost:5182/api/sells";
     return this.http.post<any>(url, sellbill)
   }
   addCollection(collection:Collection):Observable<any>{
+    console.log(collection);
     let url="http://localhost:5031/api/collections"
     return this.http.post<any>(url,collection)
   }
