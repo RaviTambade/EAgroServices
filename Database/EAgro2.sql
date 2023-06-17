@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -51,6 +51,7 @@ CREATE TABLE vehicles(
 CREATE TABLE
     labourrates(
         containertype ENUM('crates', 'bags', 'lenobags') PRIMARY KEY,
+        imageUrl VARCHAR(35),
         rate double NOT NULL
     );
     CREATE TABLE crops(
@@ -207,9 +208,9 @@ CREATE PROCEDURE ApplyTotalAmount(billId INT)
 	WHERE id = billId;
 END; 
 
-INSERT INTO labourrates(containertype,rate)VALUES('crates',5);
-INSERT INTO labourrates(containertype,rate)VALUES('bags',6);
-INSERT INTO labourrates(containertype,rate)VALUES('lenobags',4);
+INSERT INTO labourrates(containertype,imageurl,rate)VALUES('crates','/assets/images/crates.jpeg',5);
+INSERT INTO labourrates(containertype,imageurl,rate)VALUES('bags','/assets/images/bags.jpeg',6);
+INSERT INTO labourrates(containertype,imageurl,rate)VALUES('lenobags','/assets/images/lenobags.jpeg',4);
 INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9078678767', 'password','Sahil','Mankar','/assets/images/sahilmankar.jpeg','565645455676');
 INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9898909090', 'password','Anuja','Waghule','/assets/images/sahilmankar.jpeg','565645325676');
 INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9000909807', 'password','Shubham','Teli','/assets/images/sahilmankar.jpeg','565612345676');
@@ -239,22 +240,22 @@ INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)V
 INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)VALUES('9788788777', 'password','Bhushan','Erande','/assets/images/sahilmankar.jpeg','123445455676');
 SELECT * FROM users;
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',1);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',2);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',3);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',4);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Khed','Karegaon',5);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Khed','Karegaon',6);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Junnar','Bhavadi',7);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Karad','Bhavadi',8);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Wai','Bhavadi',9);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Man','Bhavadi',10);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Shahuwadi','Bhavadi',11);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Panhala','Bhavadi',12);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Shirol','Bhavadi',13);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Miraj','Bhavadi',14);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Bhavadi',15);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Bhavadi',16);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',17);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Awasari',2);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Pimpalgaon',3);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Peth',4);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Khed','Wada',5);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Khed','Kalus',6);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Junnar','Ozar',7);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Karad','Sainagar',8);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Wai','Shaniwarpeth',9);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Satara','Man','Shastrinagar',10);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Shahuwadi','Rajarampuri',11);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Panhala','Fulewadi',12);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Shirol','Kalamba',13);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Miraj','Tasgaon',14);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',15);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',16);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Karegaon',17);
 
 INSERT INTO roles(name)VALUES('admin');
 INSERT INTO roles(name)VALUES('farmer');
