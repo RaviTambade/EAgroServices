@@ -295,7 +295,8 @@ public class CollectionRepository : ICollectionRepository
                     {
                         Collection = collection,
                         FarmerName = farmer.FirstName + " " + farmer.LastName,
-                        CropName = crop.Title
+                        CropName = crop.Title,
+                        CropImage=crop.ImageUrl
                     }
                 ).ToListAsync();
                 return collections;

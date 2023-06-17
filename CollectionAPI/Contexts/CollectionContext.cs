@@ -92,6 +92,8 @@ public class CollectionContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Title);
+            entity.Property(e => e.ImageUrl);
+            entity.Property(e => e.Rate);
             modelBuilder.Entity<Crop>().ToTable("crops");
         });
          modelBuilder.Entity<Vehicle>(entity =>
