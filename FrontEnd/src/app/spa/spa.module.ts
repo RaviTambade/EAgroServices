@@ -33,6 +33,7 @@ const routes: Routes =
   { path: 'collections/:id', component: CollectiondetailsComponent },
   { path: 'collections/:id/edit', component: EditcollectionComponent },
   { path: 'farmers', component: FarmerlistComponent },
+  { path: 'farmers/:id/profile', component: FarmerdetailsComponent },
   { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
   { path: 'farmerbilling/:id', component: FarmerbillingComponent },
   { path: 'collections/:id/transport',component:CollectiontransportationComponent},

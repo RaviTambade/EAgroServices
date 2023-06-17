@@ -24,6 +24,9 @@ var FarmerlistComponent = /** @class */ (function () {
     FarmerlistComponent.prototype.onClick = function (id) {
         this.router.navigate(['./', id], { relativeTo: this.route });
     };
+    FarmerlistComponent.prototype.onClickProfile = function (id) {
+        this.router.navigate(['farmers/', id, 'profile']);
+    };
     FarmerlistComponent = __decorate([
         core_1.Component({
             selector: 'app-farmerlist',

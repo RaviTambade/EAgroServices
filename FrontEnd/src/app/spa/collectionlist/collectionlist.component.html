@@ -5,15 +5,13 @@
     <table>
         <thead>
             <th></th>
-            <th>crop</th><hr>
             <th>quantity</th><hr>
             <th>container</th><hr>
             <th>date</th><hr>
            <th>actions</th><hr>
         </thead>
         <tbody *ngFor="let collection of collections">
-            <img [src]="collection.cropImage" width="100" />
-            <td>{{collection.cropName}}</td><hr>
+           <td class="circle-image"><img [src]="collection.cropImage" width="100px" height="100px"/></td>
             <td>{{collection.collection.quantity}}</td><hr>
             <td>{{collection.collection.containerType}}</td><hr>
             <td>{{collection.collection.date |date}}</td><hr>
