@@ -34,4 +34,9 @@ districts:any[];
     let url=" http://localhost:5176/api/addresses/getvillages/" +tahsil
     return this.httpClient.get<any>(url)
   }
+  getUserAddress(userId:number):Observable<any>{
+    console.log("Services");
+    let url=" http://localhost:5176/api/addresses/user/" +userId
+    return this.httpClient.get<any>(url)
+  }
 }

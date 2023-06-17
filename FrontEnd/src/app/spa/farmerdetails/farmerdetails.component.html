@@ -18,5 +18,21 @@
         </tbody>
     </table>
 </div>
-
+<div>
+    <button (click)="UserAddress()">address</button>
+    <table *ngIf="address">
+        <thead>
+            <th>State</th><hr>
+            <th>District</th><hr>
+            <th>Tahsil</th><hr>
+            <th>Village</th>
+        </thead>
+        <tbody>
+            <td>{{address.state}}</td><hr>
+            <td>{{address.district}}</td><hr>
+            <td>{{address.tahsil}}</td><hr>
+            <td>{{address.village}}</td> 
+        </tbody>
+    </table>
+</div>
 <router-outlet></router-outlet>
