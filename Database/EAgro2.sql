@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -241,8 +241,8 @@ INSERT INTO users(contactnumber, password,firstname,lastname,imageurl,aadharid)V
 SELECT * FROM users;
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',1);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Awasari',2);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Pimpalgaon',3);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Peth',4);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',3);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Bhavadi',4);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Khed','Wada',5);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Khed','Kalus',6);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Junnar','Ozar',7);

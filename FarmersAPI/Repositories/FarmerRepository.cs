@@ -252,7 +252,8 @@ public class FarmerRepository : IFarmerRepository
                     {
                         Id = farmer.Id,
                         FirstName = farmer.FirstName,
-                        LastName = farmer.LastName
+                        LastName = farmer.LastName,
+                        ImageUrl=farmer.ImageUrl
                     }
                 ).ToListAsync();
                 return farmers;

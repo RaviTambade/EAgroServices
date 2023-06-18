@@ -17,7 +17,7 @@ import { FarmerbillingComponent } from './farmerbilling/farmerbilling.component'
 import { CollectiontransportationComponent } from './collectiontransportation/collectiontransportation.component';
 import { QualitycontrolComponent } from './qualitycontrol/qualitycontrol.component';
 import { AddnewcollectionComponent } from './addnewcollection/addnewcollection.component';
-
+import { MatSelectModule } from '@angular/material/select';
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
 
@@ -63,7 +63,9 @@ const routes: Routes =
     CommonModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
+
   ],
   exports: [
     HomeComponent,

@@ -46,6 +46,7 @@ export class AddnewcollectionComponent implements OnInit {
 
     this.collSvc.getCrops().subscribe((response) => {
       this.crops = response;
+      console.log("🚀 ~ this.collSvc.getCrops ~ this.crops:", this.crops);
     });
   }
 

@@ -33,20 +33,21 @@
   </label>
   <br>
   <label>
-    <label>
     Farmer:
-    <select name="farmerId" [(ngModel)]="collection.farmerId" required>
-        <option *ngFor="let farmer of farmers" [value]="farmer.id">{{farmer.firstName}} {{farmer.lastName}}</option>
-    </select>
-  </label>
+    <mat-select class="sel" name="farmerId" [(ngModel)]="collection.farmerId" >
+        <mat-option *ngFor="let farmer of farmers" [value]="farmer.id" style=" height: 50px;"> 
+          <img [src]="farmer.imageUrl" height="40" width="40" >
+           {{farmer.firstName}} {{farmer.lastName}}</mat-option>
+    </mat-select>
   </label>
   <br>
   <label>
     Crop:
-    <select name="cropId" [(ngModel)]="collection.cropId" required>
-      <option value="">Select Crop</option>
-      <option *ngFor="let crop of crops" [value]="crop.id">{{ crop.title }}</option>
-    </select>
+    <mat-select class="sel" name="cropId" [(ngModel)]="collection.cropId" required>
+      <mat-option *ngFor="let crop of crops" [value]="crop.id">
+        <img [src]="crop.imageUrl" height="40" width="40" >
+        {{ crop.title }}</mat-option>
+    </mat-select>
   </label>
   <br>
   <label>
