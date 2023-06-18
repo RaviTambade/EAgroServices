@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/vendors/address';
 import { Collection } from 'src/app/vendors/collection';
+import { Container } from 'src/app/vendors/container';
 import { Crop } from 'src/app/vendors/crop';
 import { Farmer } from 'src/app/vendors/farmer';
 import { AddressService } from '../address.service';
@@ -13,7 +14,7 @@ import { CollectionService } from '../collection.service';
   styleUrls: ['./addnewcollection.component.css']
 })
 export class AddnewcollectionComponent implements OnInit {
-  farmers: Farmer[] |any;
+  farmers: Farmer[] | any;
   states: string[] | any;
   districts: string[] | any;
   tahsils: string[] | any;
@@ -22,8 +23,8 @@ export class AddnewcollectionComponent implements OnInit {
   crops: Crop[] | any;
   status: boolean | any;
   collection: Collection | any;
-
-  constructor( private addSvc: AddressService,private collSvc: CollectionService,private router: Router) {
+containers:Container[] |any;
+  constructor(private addSvc: AddressService, private collSvc: CollectionService, private router: Router) {
     this.address = {
       state: '',
       district: '',
@@ -48,6 +49,9 @@ export class AddnewcollectionComponent implements OnInit {
       this.crops = response;
       console.log("🚀 ~ this.collSvc.getCrops ~ this.crops:", this.crops);
     });
+    this.collSvc.getContainers().subscribe((response)=>{
+      this.containers=response
+    })
   }
 
   onStateSelected(): void {

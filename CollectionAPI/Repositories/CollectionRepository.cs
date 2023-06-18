@@ -335,6 +335,18 @@ public class CollectionRepository : ICollectionRepository
         }
     }
 
+    public async Task<List<LabourRate>> GetContainers(){
+        try{
+            using(var context =new CollectionContext(_configuration)){
+                var LabourRates=await context.LabourRates.ToListAsync();
+                return LabourRates;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+
     // public async Task<List<Collection>> GetCollections(){
     //     try{
     //         using(var context=new CollectionContext(_configuration)){

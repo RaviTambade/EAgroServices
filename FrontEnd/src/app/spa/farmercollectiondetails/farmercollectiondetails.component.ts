@@ -23,7 +23,7 @@ ngOnInit(): void {
   const endindex = startindex + 5;
   console.log(response)
   this.collectionViewModels=response;
-  return this.collectionViewModels.slice(startindex, endindex)
+   this.collectionViewModels.slice(startindex, endindex)
   
  })
 }

@@ -19,5 +19,7 @@ public interface ICollectionRepository
     Task<bool> Update(int collectionId, Collection collection);
     Task<bool> Delete(int collectionId);
 
+    Task<List<LabourRate>> GetContainers();
+
     // Task<List<Collection>> GetCollections();
 }

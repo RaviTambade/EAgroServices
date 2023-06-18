@@ -66,4 +66,10 @@ public class CollectionsController : ControllerBase
     {
         return await _service.Delete(id);
     }
+    
+    [HttpGet("getcontainers")]
+    public async Task<List<LabourRate>> GetContainers(){
+      return  await _service.GetContainers();
+    }
+
 }

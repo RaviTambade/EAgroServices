@@ -13,17 +13,42 @@ var FarmercollectiondetailsComponent = /** @class */ (function () {
         this.svc = svc;
         this.route = route;
         this.router = router;
+        this.currentPage = 0;
+        this.arrLenght = 0;
     }
     FarmercollectiondetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.farmerId = this.route.snapshot.paramMap.get('id');
         this.svc.getCollectionByFarmer(this.farmerId).subscribe(function (response) {
-            _this.collectionViewModels = response;
+            var startindex = _this.currentPage * 5;
+            var endindex = startindex + 5;
             console.log(response);
+            _this.collectionViewModels = response;
+            _this.collectionViewModels.slice(startindex, endindex);
         });
     };
     FarmercollectiondetailsComponent.prototype.showDetails = function (id) {
-        this.router.navigate(['/collections', id]);
+        this.router.navigate(['/collections', id], { relativeTo: this.route });
+    };
+    FarmercollectiondetailsComponent.prototype.next = function () {
+        this.currentPage++;
+    };
+    FarmercollectiondetailsComponent.prototype.hasNextPage = function () {
+        var totalpages = Math.trunc(this.arrLenght / 5);
+        console.log("🚀 ~ hasnextPage ~ totalpages:", totalpages);
+        if (this.arrLenght % 5 == 0) {
+            return this.currentPage < totalpages - 1;
+        }
+        if (this.currentPage < totalpages) {
+            return true;
+        }
+        return false;
+    };
+    FarmercollectiondetailsComponent.prototype.hasPreviousPage = function () {
+        return this.currentPage != 0;
+    };
+    FarmercollectiondetailsComponent.prototype.previous = function () {
+        this.currentPage--;
     };
     FarmercollectiondetailsComponent = __decorate([
         core_1.Component({

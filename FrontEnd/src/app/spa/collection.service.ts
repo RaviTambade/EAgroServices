@@ -82,6 +82,10 @@ export class CollectionService {
     let url=" http://localhost:5240/api/vehicles"
     return this.http.get<any>(url)
   }
+  getContainers():Observable<any>{
+    let url=" http://localhost:5031/api/collections/getcontainers"
+    return this.http.get<any>(url)
+  }
 
 
 

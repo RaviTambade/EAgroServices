@@ -53,12 +53,12 @@ var CollectionService = /** @class */ (function () {
         return this.http.get(url);
     };
     CollectionService.prototype.insertBillDetails = function (sellbill) {
-        console.log("fuc called");
         console.log(sellbill);
         var url = "http://localhost:5182/api/sells";
         return this.http.post(url, sellbill);
     };
     CollectionService.prototype.addCollection = function (collection) {
+        console.log(collection);
         var url = "http://localhost:5031/api/collections";
         return this.http.post(url, collection);
     };
@@ -72,6 +72,10 @@ var CollectionService = /** @class */ (function () {
     };
     CollectionService.prototype.getVehicles = function () {
         var url = " http://localhost:5240/api/vehicles";
+        return this.http.get(url);
+    };
+    CollectionService.prototype.getContainers = function () {
+        var url = " http://localhost:5031/api/collections/getcontainers";
         return this.http.get(url);
     };
     CollectionService = __decorate([

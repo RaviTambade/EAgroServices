@@ -52,12 +52,15 @@
   <br>
   <label>
     Container Type:
-    <select name="containerType" [(ngModel)]="collection.containerType" required>
-      <option value="">Select Container Type</option>
-      <option value="bags">bags</option>
+    <mat-select class="sel"  name="containerType" [(ngModel)]="collection.containerType" required>
+      <mat-option *ngFor="let container of containers" [value]="container.containerType">
+        <img [src]="container.imageUrl" height="40" width="40">
+        {{container.containerType}}
+      </mat-option>
+      <!-- <option value="bags">bags</option>
       <option value="lenobags">lenobags</option>
-      <option value="crates">crates</option>
-    </select>
+      <option value="crates">crates</option> -->
+    </mat-select>
   </label>
   <br>
   <label>
@@ -75,6 +78,9 @@
     <input type="number" name="tareWeight" [(ngModel)]="collection.tareWeight" required>
   </label>
   <br>
+  NetWeight:
+    <input type="number" name="netWeight" [(ngModel)]="collection.totalWeight-collection.tareWeight" required readonly>
+    <label></label>
   <br>
   <button type="submit">Submit</button>
 </form>

@@ -26,6 +26,8 @@ public class CollectionContext : DbContext
     public DbSet<Merchant> Merchants { get; set; }
 
     public DbSet<Sell> Sells{get;set;}
+    public DbSet<LabourRate> LabourRates{get;set;}
+    
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -116,6 +118,13 @@ public class CollectionContext : DbContext
             entity.Property(e => e.Date);
 
             modelBuilder.Entity<Sell>().ToTable("sells");
+        });
+          modelBuilder.Entity<LabourRate>(entity =>
+        {
+            entity.HasKey(e => e.ContainerType);
+            entity.Property(e => e.ImageUrl);
+            entity.Property(e => e.Rate);
+            modelBuilder.Entity<LabourRate>().ToTable("labourrates");
         });
     }
 }

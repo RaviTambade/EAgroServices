@@ -35,6 +35,10 @@ var AddnewcollectionComponent = /** @class */ (function () {
         });
         this.collSvc.getCrops().subscribe(function (response) {
             _this.crops = response;
+            console.log("🚀 ~ this.collSvc.getCrops ~ this.crops:", _this.crops);
+        });
+        this.collSvc.getContainers().subscribe(function (response) {
+            _this.containers = response;
         });
     };
     AddnewcollectionComponent.prototype.onStateSelected = function () {

@@ -51,4 +51,5 @@ public class CollectionService : ICollectionService
 
     public async Task<SellViewModel> GetCollectionSell(int collectionId)=>await _repo.GetCollectionSell(collectionId);
 
+    public async Task<List<LabourRate>> GetContainers()=>await _repo.GetContainers();
 }
