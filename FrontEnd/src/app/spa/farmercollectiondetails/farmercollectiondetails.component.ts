@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+this.collectionViewModels.slice(startindeximport { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Collection } from 'src/app/vendors/collection';
 import { Collectionviewmodel } from 'src/app/vendors/collectionviewmodel';
