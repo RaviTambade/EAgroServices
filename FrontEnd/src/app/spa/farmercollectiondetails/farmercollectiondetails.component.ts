@@ -26,6 +26,7 @@ ngOnInit(): void {
   this.collectionViewModels.slice(startindex, endindex)
   
  })
+  get getcollection() { 
 }
 showDetails(id: any) {
   this.router.navigate(['/collections', id],{relativeTo:this.route});
