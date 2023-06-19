@@ -18,6 +18,7 @@ import { CollectiontransportationComponent } from './collectiontransportation/co
 import { QualitycontrolComponent } from './qualitycontrol/qualitycontrol.component';
 import { AddnewcollectionComponent } from './addnewcollection/addnewcollection.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MerchantlistComponent } from './merchantlist/merchantlist.component';
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
 
@@ -33,6 +34,7 @@ const routes: Routes =
   { path: 'collections/:id', component: CollectiondetailsComponent },
   { path: 'collections/:id/edit', component: EditcollectionComponent },
   { path: 'farmers', component: FarmerlistComponent },
+  { path: 'merchant', component: MerchantlistComponent},
   { path: 'farmers/:id/profile', component: FarmerdetailsComponent },
   { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
   { path: 'farmerbilling/:id', component: FarmerbillingComponent },
@@ -58,6 +60,7 @@ const routes: Routes =
     CollectiontransportationComponent,
     QualitycontrolComponent,
     AddnewcollectionComponent,
+    MerchantlistComponent,
   ],
   imports: [
     CommonModule,
