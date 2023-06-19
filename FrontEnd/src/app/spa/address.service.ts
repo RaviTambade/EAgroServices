@@ -36,7 +36,9 @@ districts:any[];
   }
   getUserAddress(userId:number):Observable<any>{
     console.log("Services");
+    console.log(userId);
     let url=" http://localhost:5176/api/addresses/user/" +userId
+    console.log(url);
     return this.httpClient.get<any>(url)
   }
 }

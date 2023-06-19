@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MerchantlistComponent {
 
   merchants: Merchant[] | any;
+  merchantId: number | any;
   constructor(private svc: MerchantService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.svc.getMerchants().subscribe((response) => {
@@ -22,9 +23,10 @@ export class MerchantlistComponent {
 // onClick(id: number) {
 //   this.router.navigate(['./', id], { relativeTo: this.route });
 // }
-// onClickProfile(id:number){
-//   this.router.navigate(['farmers/',id,'profile'])
-// }
+ onClickProfile(id:any){
+  this.router.navigate(['./',id],{relativeTo:this.route});
+
+ }
 
 
 }
