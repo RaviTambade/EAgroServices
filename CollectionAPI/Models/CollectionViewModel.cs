@@ -6,5 +6,6 @@ public class CollectionViewModel
     public string? FarmerName { get; set; }
     public string? CropName { get; set; }
     public string? CropImage{get;set;}
+    public string? ContainerImage{get;set;}
 
 }

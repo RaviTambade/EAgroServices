@@ -287,6 +287,7 @@ public class CollectionRepository : ICollectionRepository
                     from farmer in context.Farmers
                     join collection in context.Collections on farmer.Id equals collection.FarmerId
                     join crop in context.Crops on collection.CropId equals crop.Id
+                    join labourrate in context.LabourRates on collection.ContainerType equals labourrate.ContainerType
                     where
                         collection.Date.Year == startDate.Date.Year
                         && collection.Date.Month == startDate.Date.Month
@@ -296,7 +297,8 @@ public class CollectionRepository : ICollectionRepository
                         Collection = collection,
                         FarmerName = farmer.FirstName + " " + farmer.LastName,
                         CropName = crop.Title,
-                        CropImage=crop.ImageUrl
+                        CropImage=crop.ImageUrl,
+                        ContainerImage=labourrate.ImageUrl
                     }
                 ).ToListAsync();
                 return collections;

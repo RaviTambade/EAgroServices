@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -75,7 +75,8 @@ CREATE TABLE
         rateperkg DOUBLE,
         date DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_farmerid FOREIGN KEY (farmerid)  REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_cropid FOREIGN KEY (cropid)  REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_cropid FOREIGN KEY (cropid)  REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_containertype FOREIGN KEY(containertype) REFERENCES labourrates(containertype) ON UPDATE CASCADE ON DELETE CASCADE
     );
  CREATE TABLE
     billing(
@@ -394,9 +395,9 @@ INSERT INTO collections (farmerid, cropid, containertype, quantity, grade, total
 (4, 4, 'bags', 120, 'B', 600, 34, 34, '2023-06-15 11:15:00'),
 (6, 4, 'bags', 120, 'B', 500, 12, 34, '2023-06-15 11:15:00'),
 (5, 4, 'bags', 120, 'B', 300, 67, 45, '2023-06-15 11:15:00'),
-(4, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-15 11:15:00'),
-(6, 4, 'bags', 120, 'B', 700, 34, 23, '2023-06-15 11:15:00'),
-(5, 4, 'bags', 120, 'B', 800, 23, 22, '2023-06-15 11:15:00');
+(4, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-19 11:15:00'),
+(6, 4, 'bags', 120, 'B', 700, 34, 23, '2023-06-19 11:15:00'),
+(5, 4, 'bags', 120, 'B', 800, 23, 22, '2023-06-19 11:15:00');
 
 
 INSERT INTO billing (collectionid,date)

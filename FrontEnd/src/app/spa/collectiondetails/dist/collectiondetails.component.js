@@ -14,16 +14,13 @@ var CollectiondetailsComponent = /** @class */ (function () {
         this.svc = svc;
         this.router = router;
         this.sendCollection = new core_1.EventEmitter();
-        this.sendCollect = new core_1.EventEmitter();
     }
     CollectiondetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.collectionId = this.route.snapshot.paramMap.get('id');
         this.svc.getCollection(this.collectionId).subscribe(function (response) {
             _this.collectionViewModel = response;
-            _this.collectionViewModel.collection = response;
-            _this.sendCollection.emit({ collectionViewModel: _this.collectionViewModel });
-            _this.sendCollection.emit({ collectionViewModel: _this.collectionViewModel });
+            _this.sendCollection.emit({ collection: _this.collectionViewModel.collection });
             console.log(response);
         });
     };
@@ -36,9 +33,6 @@ var CollectiondetailsComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], CollectiondetailsComponent.prototype, "sendCollection");
-    __decorate([
-        core_1.Output()
-    ], CollectiondetailsComponent.prototype, "sendCollect");
     __decorate([
         core_1.Input()
     ], CollectiondetailsComponent.prototype, "collectionId");

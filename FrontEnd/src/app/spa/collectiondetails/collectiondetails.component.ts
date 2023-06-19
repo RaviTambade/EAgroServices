@@ -28,10 +28,6 @@ export class CollectiondetailsComponent implements OnInit{
     this.router.navigate(['/farmerbilling',id],{relativeTo:this.route});
   }
   onClick(id: number) {
-    this.router.navigate(['/farmers', id]);
-  }
- 
-  }
-
-
-
+    this.router.navigate(['/farmers',id]);
+}
+}

@@ -13,7 +13,7 @@
         <tbody *ngFor="let collection of collections">
            <td class="circle-image"><img [src]="collection.cropImage" width="100px" height="100px"/></td>
             <td>{{collection.collection.quantity}}</td><hr>
-            <td>{{collection.collection.containerType}}</td><hr>
+            <td class="circle-image"><img [src]="collection.containerImage" width="100px" height="100px"/></td>
             <td>{{collection.collection.date |date}}</td><hr>
             <td ><button (click)="OnClickQualityControl(collection.collection.id)" >Assure Quality</button></td><hr>
             <td ><button (click)="OnClickCollection(collection.collection.id)" >details</button></td><hr>

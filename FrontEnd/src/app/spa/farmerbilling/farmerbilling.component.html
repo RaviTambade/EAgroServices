@@ -1,7 +1,12 @@
 <br>
 <br>
+
 <table *ngIf="billing">
-  <tr>
+    <tr>
+      <th> Collection Date</th>
+      <td>{{billing.collectionDate |date}}</td>
+    </tr>
+    <tr>
     <th>Farmer Name</th>
     <td>{{billing.farmerName }}</td>
   </tr>
@@ -13,14 +18,9 @@
     <th>Labour Charges</th>
     <td>{{billing.labourCharges}}</td>
   </tr>
-
   <tr>
     <th>Amount</th>
     <td>{{billing.amount}}</td>
-  </tr>
-  <tr>
-    <th> Collection Date</th>
-    <td>{{billing.collectionDate |date}}</td>
   </tr>
 </table>
 <button (click)="goBack()">Go Back</button>

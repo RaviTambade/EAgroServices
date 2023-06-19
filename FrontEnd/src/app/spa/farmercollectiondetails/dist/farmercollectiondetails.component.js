@@ -20,13 +20,19 @@ var FarmercollectiondetailsComponent = /** @class */ (function () {
         var _this = this;
         this.farmerId = this.route.snapshot.paramMap.get('id');
         this.svc.getCollectionByFarmer(this.farmerId).subscribe(function (response) {
-            var startindex = _this.currentPage * 5;
-            var endindex = startindex + 5;
-            console.log(response);
             _this.collectionViewModels = response;
-            _this.collectionViewModels.slice(startindex, endindex);
+            console.log(response);
         });
     };
+    Object.defineProperty(FarmercollectiondetailsComponent.prototype, "getdetails", {
+        get: function () {
+            var startindex = this.currentPage * 5;
+            var endindex = startindex + 5;
+            return this.collectionViewModels.slice(startindex, endindex);
+        },
+        enumerable: false,
+        configurable: true
+    });
     FarmercollectiondetailsComponent.prototype.showDetails = function (id) {
         this.router.navigate(['/collections', id], { relativeTo: this.route });
     };
