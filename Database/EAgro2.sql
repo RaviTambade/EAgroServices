@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -255,8 +255,12 @@ INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra',
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Shirol','Kalamba',13);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Miraj','Tasgaon',14);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',15);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',16);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Karegaon',17);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',22);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',23);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',24);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',25);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',26);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Pune','Ambegaon','Karegaon',27);
 
 INSERT INTO roles(name)VALUES('admin');
 INSERT INTO roles(name)VALUES('farmer');
@@ -612,6 +616,7 @@ SELECT * FROM users;
 SELECT * FROM vendors;
 SELECT * FROM collections;
 
+
 SELECT CONCAT(users.firstname,' ',users.lastname) FROM users INNER JOIN addresses
 ON users.id=addresses.userid WHERE addresses.state='Maharashtra' AND addresses.district='Sangli'
 AND addresses.tahsil='Jat' AND addresses.village='Bhavadi';
@@ -627,3 +632,4 @@ SELECT village FROm addresses WHERE tahsil="Junnar";
        SELECT  `a`.`tahsil`
       FROM `addresses` AS `a`
       WHERE `a`.`district` = "Pune";
+SELECT * FROM addresses WHERE userid=1;

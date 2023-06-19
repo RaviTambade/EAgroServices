@@ -1,0 +1,22 @@
+<br><br>
+<div>
+    <div>
+        <table>
+            <thead>
+                <th>MerchantName</th>
+                <hr>
+                <th>actions</th>
+
+            </thead>
+            <tbody *ngFor="let merchant of merchants">
+                <td>{{merchant.firstName}}{{merchant.lastName}}</td>
+                <hr>
+                <hr>
+                <!-- <td><button (click)="onClick(merchant.id)">collections</button></td> -->
+                <td><button (click)="onClickProfile(merchant.id)">profile</button></td> 
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,38 @@
+<br>
+<br>
+<div>
+    <table>
+        <thead>
+            <th>image</th>
+            <th>firstname</th><hr>
+            <th>lastname</th><hr>
+            <th>contact number</th>
+            <th>aadhar id</th>
+        </thead>
+        <tbody *ngIf="merchant">
+            <img [src]="merchant.imageUrl" width="100" />
+            <td>{{merchant.firstName}}</td><hr>
+            <td>{{merchant.lastName}}</td><hr>
+            <td>{{merchant.contactNumber}}</td> 
+            <td>{{merchant.aadharId}}</td> 
+        </tbody>
+    </table>
+</div>
+<div>
+    <div>
+        <button (click)="UserAddress()">address</button>
+        <table *ngIf="address">
+            <thead>
+                <th>State</th><hr>
+                <th>District</th><hr>
+                <th>Tahsil</th><hr>
+                <th>Village</th>
+            </thead>
+            <tbody>
+                <td>{{address.state}}</td><hr>
+                <td>{{address.district}}</td><hr>
+                <td>{{address.tahsil}}</td><hr>
+                <td>{{address.village}}</td> 
+            </tbody>
+        </table>
+    </div>
