@@ -78,6 +78,10 @@ var CollectionService = /** @class */ (function () {
         var url = " http://localhost:5031/api/collections/getcontainers";
         return this.http.get(url);
     };
+    CollectionService.prototype.getMerchantPurchases = function (merchantId) {
+        var url = "http://localhost:5188/api/merchants/" + merchantId + "/sellsrecord";
+        return this.http.get(url);
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

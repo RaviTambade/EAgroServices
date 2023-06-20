@@ -87,6 +87,11 @@ export class CollectionService {
     return this.http.get<any>(url)
   }
 
+  getMerchantPurchases(merchantId:number):Observable<any>{
+    let url="http://localhost:5188/api/merchants/" + merchantId +"/sellsrecord"  
+    return this.http.get<any>(url)
+  }
+
 
 
 }

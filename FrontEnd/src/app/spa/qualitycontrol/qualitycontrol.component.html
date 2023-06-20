@@ -1,6 +1,27 @@
 <h2>Assure Quality of Collection</h2>
 <app-collectiondetails (sendCollection)="receiveCollection($event)" hidden></app-collectiondetails>
 <form *ngIf="collection" (submit)="updateCollection()">
+  <br>
+  <label>
+    Container Type:
+    <span>{{ collection.containerType }}</span>
+  </label>
+  <br>
+  <label>
+    Quantity:
+    <span>{{ collection.quantity }}</span>
+  </label>
+  <br>
+  <label>
+    Total Weight:
+    <span>{{ collection.totalWeight }}</span>
+  </label>
+  <br>
+  <label>
+    Tare Weight:
+    <span>{{ collection.tareWeight }}</span>
+  </label>  
+  <br>
   <label>
     Grade:
     <select name="grade" [(ngModel)]="collection.grade" required>
@@ -15,26 +36,6 @@
     Rate Per Kg:
     <input type="number" name="ratePerKg" [(ngModel)]="collection.ratePerKg" required>
   </label>
-  <br>
-  <label>
-    Container Type:
-    <input type="text" name="containerType" [(ngModel)]="collection.containerType" required readonly>
-  </label>
-  <br>
-  <label>
-    Quantity:
-    <input type="number" name="quantity" [(ngModel)]="collection.quantity" required readonly>
-  </label>
-  <br>
-  <label>
-    Total Weight:
-    <input type="number" name="totalWeight" [(ngModel)]="collection.totalWeight" required readonly>
-  </label>
-  <br>
-  <label>
-    Tare Weight:
-    <input type="number" name="tareWeight" [(ngModel)]="collection.tareWeight" required readonly>
-  </label>
-  <br>
+  <br>  
   <button type="submit">Submit</button>
 </form>

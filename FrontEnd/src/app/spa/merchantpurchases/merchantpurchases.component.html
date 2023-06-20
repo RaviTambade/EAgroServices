@@ -1,0 +1,27 @@
+<table>
+    <thead>
+      <tr>
+        <th>Rate Per Kg</th>
+        <th>Net Weight</th>
+        <th>Container Type</th>
+        <th>Grade</th>
+        <th>Quantity</th>
+        <th>Vehicle Number</th>
+        <th>Date</th>
+        <th>Crop Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let purchase of merchantPurchases">
+        <td>{{ purchase.ratePerKg }}</td>
+        <td>{{ purchase.netWeight }}</td>
+        <td>{{ purchase.containerType }}</td>
+        <td>{{ purchase.grade }}</td>
+        <td>{{ purchase.quantity }}</td>
+        <td>{{ purchase.vehicleNumber }}</td>
+        <td>{{ purchase.date }}</td>
+        <td>{{ purchase.cropName }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

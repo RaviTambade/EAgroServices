@@ -13,20 +13,25 @@ export class FarmercollectiondetailsComponent implements OnInit {
   collections: Collection[] | any;
   farmerId: any;
   currentPage = 0;
-  arrLenght = 0;
+  arrLength = 0;
   constructor(private svc: CollectionService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
     this.farmerId = this.route.snapshot.paramMap.get('id');
     this.svc.getCollectionByFarmer(this.farmerId).subscribe((response) => {
       this.collectionViewModels = response;
+      this.arrLength = this.collectionViewModels.length;
       console.log(response)
     })
   }
   get getdetails(): any {
-    const startindex = this.currentPage * 5;
-    const endindex = startindex + 5;
-    return this.collectionViewModels.slice(startindex, endindex)
+    if (this.collectionViewModels) {
+      const startindex = this.currentPage * 5;
+      const endindex = startindex + 5;
+      return this.collectionViewModels.slice(startindex, endindex);
+    }
+    return [];
   }
+  
   showDetails(id: any) {
     this.router.navigate(['/collections', id], { relativeTo: this.route });
   }
@@ -34,9 +39,9 @@ export class FarmercollectiondetailsComponent implements OnInit {
     this.currentPage++;
   }
   hasNextPage(): boolean {
-    const totalpages = Math.trunc(this.arrLenght / 5);
+    const totalpages = Math.trunc(this.arrLength / 5);
     console.log("🚀 ~ hasnextPage ~ totalpages:", totalpages);
-    if (this.arrLenght % 5 == 0) {
+    if (this.arrLength % 5 == 0) {
       return this.currentPage < totalpages - 1;
     }
     if (this.currentPage < totalpages) {

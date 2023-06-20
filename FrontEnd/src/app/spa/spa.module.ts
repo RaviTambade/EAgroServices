@@ -20,6 +20,7 @@ import { AddnewcollectionComponent } from './addnewcollection/addnewcollection.c
 import { MatSelectModule } from '@angular/material/select';
 import { MerchantlistComponent } from './merchantlist/merchantlist.component';
 import { MerchantdetailsComponent } from './merchantdetails/merchantdetails.component';
+import { MerchantpurchasesComponent } from './merchantpurchases/merchantpurchases.component';
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
 
@@ -42,6 +43,8 @@ const routes: Routes =
   { path: 'collections/:id/transport',component:CollectiontransportationComponent},
   { path: 'collections/:id/qualitycontrol',component:QualitycontrolComponent},
   { path: 'merchant/:id', component: MerchantdetailsComponent },
+  { path: 'merchant/:id/merchantpurchases', component: MerchantpurchasesComponent },
+
 
 
 
@@ -66,6 +69,7 @@ const routes: Routes =
     AddnewcollectionComponent,
     MerchantlistComponent,
     MerchantdetailsComponent,
+    MerchantpurchasesComponent,
   ],
   imports: [
     CommonModule,

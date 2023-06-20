@@ -26,6 +26,10 @@ var farmerbilling_component_1 = require("./farmerbilling/farmerbilling.component
 var collectiontransportation_component_1 = require("./collectiontransportation/collectiontransportation.component");
 var qualitycontrol_component_1 = require("./qualitycontrol/qualitycontrol.component");
 var addnewcollection_component_1 = require("./addnewcollection/addnewcollection.component");
+var select_1 = require("@angular/material/select");
+var merchantlist_component_1 = require("./merchantlist/merchantlist.component");
+var merchantdetails_component_1 = require("./merchantdetails/merchantdetails.component");
+var merchantpurchases_component_1 = require("./merchantpurchases/merchantpurchases.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -39,11 +43,14 @@ var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'collections/:id', component: collectiondetails_component_1.CollectiondetailsComponent },
     { path: 'collections/:id/edit', component: editcollection_component_1.EditcollectionComponent },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
+    { path: 'merchant', component: merchantlist_component_1.MerchantlistComponent },
     { path: 'farmers/:id/profile', component: farmerdetails_component_1.FarmerdetailsComponent },
     { path: 'farmers/:id', component: farmercollectiondetails_component_1.FarmercollectiondetailsComponent },
     { path: 'farmerbilling/:id', component: farmerbilling_component_1.FarmerbillingComponent },
     { path: 'collections/:id/transport', component: collectiontransportation_component_1.CollectiontransportationComponent },
-    { path: 'collections/:id/qualitycontrol', component: qualitycontrol_component_1.QualitycontrolComponent }
+    { path: 'collections/:id/qualitycontrol', component: qualitycontrol_component_1.QualitycontrolComponent },
+    { path: 'merchant/:id', component: merchantdetails_component_1.MerchantdetailsComponent },
+    { path: 'merchant/:id/merchantpurchases', component: merchantpurchases_component_1.MerchantpurchasesComponent },
 ];
 var SpaModule = /** @class */ (function () {
     function SpaModule() {
@@ -66,12 +73,16 @@ var SpaModule = /** @class */ (function () {
                 collectiontransportation_component_1.CollectiontransportationComponent,
                 qualitycontrol_component_1.QualitycontrolComponent,
                 addnewcollection_component_1.AddnewcollectionComponent,
+                merchantlist_component_1.MerchantlistComponent,
+                merchantdetails_component_1.MerchantdetailsComponent,
+                merchantpurchases_component_1.MerchantpurchasesComponent,
             ],
             imports: [
                 common_1.CommonModule,
                 router_1.RouterModule.forRoot(routes),
                 forms_1.FormsModule,
-                forms_1.ReactiveFormsModule
+                forms_1.ReactiveFormsModule,
+                select_1.MatSelectModule
             ],
             exports: [
                 home_component_1.HomeComponent,

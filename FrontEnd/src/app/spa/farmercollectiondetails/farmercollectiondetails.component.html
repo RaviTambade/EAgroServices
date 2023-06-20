@@ -8,27 +8,25 @@
 <tr>
     <th>date</th>
     <th>crop</th>
-    <th>quantity</th>
     <th>Total Weight</th>
+    <th>Amount</th>
     <th>Actions</th>
 </tr>
         </thead>
-        <tbody *ngFor="let collectionViewModel of collectionViewModels ">
+        <tbody *ngFor="let collectionViewModel of getdetails ">
             <tr>
-                <td>{{collectionViewModel.collection?.date |date}}</td>
-            <td>{{collectionViewModel.cropName}}</td>
-          <td>{{collectionViewModel.collection?.quantity}}</td>
+        <td>{{collectionViewModel.collection?.date |date}}</td>
+        <td>{{collectionViewModel.cropName}}</td>
           <td>{{collectionViewModel.collection?.totalWeight}}</td>
+          <td>{{collectionViewModel.collection?.amount}}</td>
           <td><button (click)="showDetails(collectionViewModel.collection?.id)">details</button></td>
 
             </tr>
         </tbody>
     </table>
-   
+    <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
+    <button *ngIf="hasNextPage()" (click)="next()">next</button>    
 </div>
-        <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
-        <button *ngIf="hasNextPage()" (click)="next()">next</button>
-  
-
+    
 
 <router-outlet></router-outlet>

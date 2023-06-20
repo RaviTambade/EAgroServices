@@ -31,6 +31,8 @@ export class FarmerbillingComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  
 }
 
 
