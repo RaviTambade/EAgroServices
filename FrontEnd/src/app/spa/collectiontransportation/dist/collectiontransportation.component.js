@@ -9,9 +9,10 @@ exports.__esModule = true;
 exports.CollectiontransportationComponent = void 0;
 var core_1 = require("@angular/core");
 var CollectiontransportationComponent = /** @class */ (function () {
-    function CollectiontransportationComponent(svc, route) {
+    function CollectiontransportationComponent(svc, route, router) {
         this.svc = svc;
         this.route = route;
+        this.router = router;
         this.sellBill = {
             sell: {
                 collectionId: 0,
@@ -52,6 +53,9 @@ var CollectiontransportationComponent = /** @class */ (function () {
     };
     CollectiontransportationComponent.prototype.receiveCollection = function ($event) {
         this.collectionViewModel = $event.collectionViewModel;
+    };
+    CollectiontransportationComponent.prototype.onClick = function (id) {
+        this.router.navigate(['/farmers', id]);
     };
     CollectiontransportationComponent = __decorate([
         core_1.Component({

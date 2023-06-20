@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MerchantlistComponent } from './merchantlist/merchantlist.component';
 import { MerchantdetailsComponent } from './merchantdetails/merchantdetails.component';
 import { MerchantpurchasesComponent } from './merchantpurchases/merchantpurchases.component';
+import { PaymentprocessingModule } from '../paymentprocessing/paymentprocessing.module';
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
 
@@ -76,7 +77,8 @@ const routes: Routes =
     RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    PaymentprocessingModule
 
   ],
   exports: [

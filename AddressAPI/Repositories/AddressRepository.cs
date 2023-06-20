@@ -60,18 +60,21 @@ public class AddressRepository : IAddressRepository
         }
     }
 
-    public async Task<Address> UserAddress(int userid)
+    public async Task<Address> GetUserAddress(int userid)
     {
         try
         {
             using (var context = new AddressContext(_configuration))
             {
-                var address = await context.Addresses.FindAsync(userid);
-                if (address == null)
+                var data = await (from user in context.Users 
+                                     join address in context.Addresses on user.Id equals address.UserId
+                                     where address.UserId==userid
+                                     select address).FirstOrDefaultAsync();
+                if (data == null)
                 {
                     return null;
                 }
-                return address;
+                return data;
             }
         }
         catch (Exception e)

@@ -30,6 +30,7 @@ var select_1 = require("@angular/material/select");
 var merchantlist_component_1 = require("./merchantlist/merchantlist.component");
 var merchantdetails_component_1 = require("./merchantdetails/merchantdetails.component");
 var merchantpurchases_component_1 = require("./merchantpurchases/merchantpurchases.component");
+var paymentprocessing_module_1 = require("../paymentprocessing/paymentprocessing.module");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -82,7 +83,8 @@ var SpaModule = /** @class */ (function () {
                 router_1.RouterModule.forRoot(routes),
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
-                select_1.MatSelectModule
+                select_1.MatSelectModule,
+                paymentprocessing_module_1.PaymentprocessingModule
             ],
             exports: [
                 home_component_1.HomeComponent,

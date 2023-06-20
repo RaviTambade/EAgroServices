@@ -13,7 +13,7 @@ public class AddressService:IAddressService{
     }
     public async Task<List<Address>>GetAddresses()=>await _repo.GetAddresses();
     public async Task<Address>GetAddress(int id)=>await _repo.GetAddress(id);
-    public async Task<Address>UserAddress(int userid)=>await _repo.UserAddress(userid);
+    public async Task<Address> GetUserAddress(int userid)=>await _repo.GetUserAddress(userid);
    // public async Task<Address>Insert(Address address)=>await _repo.Insert(address);
     public async Task<bool>Update(int adressid,Address address)=>await _repo.Update(adressid,address);
     public async Task<bool>Delete(int id)=>await _repo.Delete(id);

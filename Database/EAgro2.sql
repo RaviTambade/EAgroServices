@@ -147,6 +147,7 @@ CREATE TABLE
         CONSTRAINT fk_bill1id FOREIGN KEY (billid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
+
 /* for calculating labour_charges */
 CREATE PROCEDURE ApplyLabourCharges(IN billId INT) BEGIN 
 	DECLARE labourRate DOUBLE DEFAULT 0;
@@ -161,7 +162,7 @@ END;
 CREATE PROCEDURE DeductLabourChargesFromRevenue(billId INT)
  BEGIN 
 	DECLARE revenue DOUBLE DEFAULT 0 ;
-    	DECLARE labour_Charges DOUBLE DEFAULT 0;
+    DECLARE labour_Charges DOUBLE DEFAULT 0;
 	DECLARE collection_Id INT;
 	SELECT collectionid INTO collection_Id FROM billing WHERE id = billId;
     SELECT labourcharges INTO labour_Charges FROM billing WHERE id = billId;
@@ -170,7 +171,7 @@ CREATE PROCEDURE DeductLabourChargesFromRevenue(billId INT)
 	UPDATE billing
 	SET totalamount = revenue - labour_Charges
 	WHERE id = billId;
-END; 
+   END; 
 -- drop PROCEDURE calculate_purchase_total_amount;
   /* --for calculating freight_charges  */
 CREATE PROCEDURE ApplyFreightCharges(IN billId INT)

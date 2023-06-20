@@ -12,8 +12,7 @@ import { AddressService } from '../address.service';
 })
 export class MerchantdetailsComponent implements OnInit{
   merchantId: any;
-  merchant: Merchant|undefined;
-  userId:any;
+  merchant: Merchant|any;
   address: Address | undefined;
   constructor(private svc:MerchantService,private route:ActivatedRoute,private serv:AddressService){}
   ngOnInit(): void {
@@ -24,12 +23,10 @@ export class MerchantdetailsComponent implements OnInit{
 
   })
   }
-  UserAddress() {
-    this.userId = this.route.snapshot.paramMap.get('id')
-    this.serv.getUserAddress(this.userId).subscribe((response) => {
+  UserAddress(id:number) {
+    this.serv.getUserAddress(id).subscribe((response) => {
       this.address = response;
-      console.log(this.address);
-      console.log(this.userId);
+      console.log(this.address);  
     })
 
 }

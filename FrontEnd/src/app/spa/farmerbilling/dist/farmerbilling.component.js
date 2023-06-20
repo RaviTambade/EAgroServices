@@ -14,6 +14,7 @@ var FarmerbillingComponent = /** @class */ (function () {
         this.route = route;
         this.location = location;
         this.router = router;
+        this.paymentStatus = false;
         this.farmerName = '',
             this.cropName = '',
             this.totalWeight = 0;
@@ -40,6 +41,9 @@ var FarmerbillingComponent = /** @class */ (function () {
                 }
             });
         }
+    };
+    FarmerbillingComponent.prototype.createPayment = function () {
+        this.paymentStatus = true;
     };
     __decorate([
         core_1.Input()

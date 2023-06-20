@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../collection.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Sellview } from 'src/app/vendors/sellview';
 import { SellBilling } from 'src/app/vendors/sell-billing';
 import { Merchant } from 'src/app/vendors/merchant';
@@ -34,7 +34,7 @@ export class CollectiontransportationComponent implements OnInit {
   };
   merchants:Merchant |any;
  vehicles:Vehicle |any;
-  constructor(private svc: CollectionService, private route: ActivatedRoute) { }
+  constructor(private svc: CollectionService, private route: ActivatedRoute,private router:Router) { }
   ngOnInit(): void {
     this.collectionId = this.route.snapshot.paramMap.get('id')
     this.svc.collectiontransportation(this.collectionId).subscribe((response) => {
@@ -59,5 +59,7 @@ this.vehicles=response
 receiveCollection($event:any){
   this.collectionViewModel=$event.collectionViewModel;
 }
-
+onClick(id: number) {
+  this.router.navigate(['/farmers',id]);
+}
 }

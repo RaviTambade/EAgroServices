@@ -33,3 +33,7 @@
   </tr>
 </table>
 <button (click)="goBack()">Go Back</button>
+<div>
+  <button *ngIf="!paymentStatus" (click)="createPayment()">Do Payment</button>
+  <app-creditcardpayment *ngIf="paymentStatus"></app-creditcardpayment>
+</div>

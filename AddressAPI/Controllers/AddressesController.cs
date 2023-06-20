@@ -28,9 +28,9 @@ public class AddressesController : ControllerBase
     }
 
     [HttpGet("user/{id}")]
-    public async Task<Address> UserAddress(int id)
+    public async Task<Address> GetUserAddress(int id)
     {
-        return await _srv.UserAddress(id);
+        return await _srv.GetUserAddress(id);
     }
 
     // [HttpPost("{id}")]

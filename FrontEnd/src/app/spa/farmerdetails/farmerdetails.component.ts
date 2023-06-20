@@ -24,8 +24,7 @@ export class FarmerdetailsComponent implements OnInit {
     })
   }
   UserAddress() {
-    this.userId = this.route.snapshot.paramMap.get('id')
-    this.ser.getUserAddress(this.userId).subscribe((response) => {
+    this.ser.getUserAddress(this.farmerId).subscribe((response) => {
       this.address = response;
       console.log(response);
     })

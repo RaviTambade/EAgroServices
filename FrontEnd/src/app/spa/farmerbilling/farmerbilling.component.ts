@@ -16,6 +16,7 @@ export class FarmerbillingComponent implements OnInit {
   billing: Collectionbill | undefined;
   farmerId:number |any;
   collectionId: any;
+  paymentStatus:boolean=false;
   constructor(private svc: CollectionService, private route: ActivatedRoute, private location: Location,private router:Router) {
     this.farmerName = '',
       this.cropName = '',
@@ -44,7 +45,9 @@ export class FarmerbillingComponent implements OnInit {
       });
     }
   }
-  
+  createPayment(){
+    this.paymentStatus=true
+  }
 
   
 }

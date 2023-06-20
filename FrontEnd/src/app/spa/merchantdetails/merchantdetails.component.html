@@ -20,7 +20,7 @@
 </div>
 <div>
     <div>
-        <button (click)="UserAddress()">address</button>
+        <button (click)="UserAddress(merchant?.id)">address</button>
         <table *ngIf="address">
             <thead>
                 <th>State</th><hr>

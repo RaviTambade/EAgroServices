@@ -2,7 +2,51 @@
 <br />
 <br />
 <br />
-<app-collectiondetails [collectionId]="collectionId" (sendCollection)="receiveCollection($event)"></app-collectiondetails>
+<app-collectiondetails [collectionId]="collectionId" (sendCollection)="receiveCollection($event)" hidden></app-collectiondetails>
+<div *ngIf="collectionViewModel">
+  <div style="display: flex;">
+    <div style="text-align: center;padding-top: 23px;margin: 20px;">Crop
+    </div>
+    <div class="circle-image" style="margin-left: 30px;"> 
+      <img [src]="collectionViewModel.cropImage" width="100px" height="100px" />
+    </div>
+  </div>
+  <div style="display: flex;">
+    <div style="text-align: center;padding-top: 23px;margin: 20px;">Container
+    </div>  
+    <div class="circle-image" style="margin-left: 30px;"> 
+      <img [src]="collectionViewModel.containerImage" width="100px" height="100px" />
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+      <th>collection id</th>
+      <th>farmer name</th>
+      <th>quantity</th>
+      <th>Total Weight</th>
+      <th>Tare Weight</th>
+      <th>Net Weight</th>
+      <th>Collection date</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{collectionViewModel.collection.id}}</td>
+        <td (click)="onClick(collectionViewModel.collection.farmerId)" style="color: blue;"> {{collectionViewModel.farmerName}}</td>
+        <td>{{collectionViewModel.collection.quantity}}</td>
+        <td>{{collectionViewModel.collection.totalWeight}}</td>
+        <td>{{collectionViewModel.collection.tareWeight}}</td>
+        <td>{{collectionViewModel.collection.netWeight}}</td>
+        <td>{{collectionViewModel.collection.date |date}}</td>
+   </tr>
+    </tbody>
+  </table>
+</div>
+
+<br>
+<br>
+
 <div>
 
   <form >
@@ -27,6 +71,11 @@
     <br>
     <label for="rateperkg">Rateperkg:</label>
     <input type="text" name="rateperkg" [(ngModel)]="sellBill.sell.ratePerKg">
+    <br>
+    <br>
+    <br>
+    <div>Enter the information for transports freight charges:</div>
+    <br>
     <br>
     <label for="fromDestination">From Destination:</label>
     <input type="text" name="fromDestination" [(ngModel)]="sellBill.freightRate.fromDestination">
