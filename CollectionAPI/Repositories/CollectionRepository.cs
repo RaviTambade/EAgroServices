@@ -352,6 +352,29 @@ public class CollectionRepository : ICollectionRepository
         }
     }
 
+     public async Task<int> GetFarmer(int collectionId){
+        try
+    {
+       using (var context = new CollectionContext(_configuration))
+        {
+            var farmerId = await (
+                from billing in context.Billings
+                join collection in context.Collections on billing.CollectionId equals collection.Id
+                where billing.Id == collectionId
+                select collection.FarmerId
+            ).FirstOrDefaultAsync();
+            if (farmerId != 0)
+            {
+                return farmerId;
+            }
+     }
+    } catch(Exception e){
+        throw e;
+     }
+     return -1;
+     }
+     
+
     // public async Task<List<Collection>> GetCollections(){
     //     try{
     //         using(var context=new CollectionContext(_configuration)){

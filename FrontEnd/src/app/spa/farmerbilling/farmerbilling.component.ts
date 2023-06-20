@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CollectionService } from '../collection.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Collectionbill } from 'src/app/vendors/collectionbill';
 import { Location } from '@angular/common';
 
@@ -14,8 +14,9 @@ export class FarmerbillingComponent implements OnInit {
   @Input() cropName: string;
   @Input() totalWeight: number;
   billing: Collectionbill | undefined;
+  farmerId:number |any;
   collectionId: any;
-  constructor(private svc: CollectionService, private route: ActivatedRoute, private location: Location) {
+  constructor(private svc: CollectionService, private route: ActivatedRoute, private location: Location,private router:Router) {
     this.farmerName = '',
       this.cropName = '',
       this.totalWeight = 0
@@ -31,6 +32,19 @@ export class FarmerbillingComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  onClick(): void {
+    if (this.billing) {
+      this.svc.getFarmerId(this.collectionId).subscribe((response) => {
+        this.farmerId = response;
+        console.log(this.farmerId)
+        if (this.farmerId) {
+          this.router.navigate(['/farmers', this.farmerId]);
+        }
+      });
+    }
+  }
+  
 
   
 }

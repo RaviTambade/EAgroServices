@@ -72,4 +72,11 @@ public class CollectionsController : ControllerBase
       return  await _service.GetContainers();
     }
 
+
+     [HttpGet("{collectionId}/farmer")]
+    public async Task<int> GetFarmer(int collectionId){
+       return await _service.GetFarmer(collectionId);
+    }
+
+
 }

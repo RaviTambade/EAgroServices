@@ -5,6 +5,7 @@ import { Sellview } from 'src/app/vendors/sellview';
 import { SellBilling } from 'src/app/vendors/sell-billing';
 import { Merchant } from 'src/app/vendors/merchant';
 import { Vehicle } from 'src/app/vendors/vehicle';
+import { Collectionviewmodel } from 'src/app/vendors/collectionviewmodel';
 
 @Component({
   selector: 'app-collectiontransportation',
@@ -12,6 +13,7 @@ import { Vehicle } from 'src/app/vendors/vehicle';
   styleUrls: ['./collectiontransportation.component.css']
 })
 export class CollectiontransportationComponent implements OnInit {
+  collectionViewModel:Collectionviewmodel |any;
   collectionId: any;
   sellview: Sellview | any;
   sellBill:SellBilling={
@@ -53,6 +55,9 @@ this.vehicles=response
     this.svc.insertBillDetails(this.sellBill).subscribe((response)=>{
       console.log(response)
     });
+}
+receiveCollection($event:any){
+  this.collectionViewModel=$event.collectionViewModel;
 }
 
 }

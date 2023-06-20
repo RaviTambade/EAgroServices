@@ -21,5 +21,7 @@ public interface ICollectionRepository
 
     Task<List<LabourRate>> GetContainers();
 
+    Task<int> GetFarmer(int collectionId);
+
     // Task<List<Collection>> GetCollections();
 }

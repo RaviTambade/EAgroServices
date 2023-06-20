@@ -15,6 +15,22 @@
       <img [src]="collectionViewModel.containerImage" width="100px" height="100px" />
     </div>
   </div>
+  <br>
+  <label>
+    Quantity:
+    {{collectionViewModel.collection.quantity}}
+  </label>
+  <br>
+  <label>
+    Total Weight:
+  {{collectionViewModel.collection.totalWeight}}
+  </label>
+  <br>
+  <label>
+    Tare Weight:
+   {{collectionViewModel.collection.tareWeight}} 
+  </label>
+  <br>
   <label>
     Grade:
     <select name="grade" [(ngModel)]="collectionViewModel.collection.grade" required>
@@ -29,27 +45,5 @@
     Rate Per Kg:
     <input type="number" name="ratePerKg" [(ngModel)]="collectionViewModel.collection.ratePerKg" required>
   </label>
-  <br>
-  <label>
-    Container Type:
-    <input type="text" name="containerType" [(ngModel)]="collectionViewModel.collection.containerType" required
-      readonly>
-  </label>
-  <br>
-  <label>
-    Quantity:
-    <input type="number" name="quantity" [(ngModel)]="collectionViewModel.collection.quantity" required readonly>
-  </label>
-  <br>
-  <label>
-    Total Weight:
-    <input type="number" name="totalWeight" [(ngModel)]="collectionViewModel.collection.totalWeight" required readonly>
-  </label>
-  <br>
-  <label>
-    Tare Weight:
-    <input type="number" name="tareWeight" [(ngModel)]="collectionViewModel.collection.tareWeight" required readonly>
-  </label>
-  <br>
   <button type="submit">Submit</button>
 </form>

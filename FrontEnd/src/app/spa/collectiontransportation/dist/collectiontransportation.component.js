@@ -50,6 +50,9 @@ var CollectiontransportationComponent = /** @class */ (function () {
             console.log(response);
         });
     };
+    CollectiontransportationComponent.prototype.receiveCollection = function ($event) {
+        this.collectionViewModel = $event.collectionViewModel;
+    };
     CollectiontransportationComponent = __decorate([
         core_1.Component({
             selector: 'app-collectiontransportation',

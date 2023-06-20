@@ -5,6 +5,10 @@
 <div *ngIf="collectionViewModel">
   <table>
     <tr>
+      <th>collection id</th>
+      <td>{{collectionViewModel.collection.id}}</td>
+    </tr>
+    <tr>
       <th>farmer name</th>
       <td (click)="onClick(collectionViewModel.collection.farmerId)" style="color: blue;"> {{collectionViewModel.farmerName}}</td>
     </tr>

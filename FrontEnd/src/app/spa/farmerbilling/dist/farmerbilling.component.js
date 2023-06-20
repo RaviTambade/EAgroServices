@@ -9,10 +9,11 @@ exports.__esModule = true;
 exports.FarmerbillingComponent = void 0;
 var core_1 = require("@angular/core");
 var FarmerbillingComponent = /** @class */ (function () {
-    function FarmerbillingComponent(svc, route, location) {
+    function FarmerbillingComponent(svc, route, location, router) {
         this.svc = svc;
         this.route = route;
         this.location = location;
+        this.router = router;
         this.farmerName = '',
             this.cropName = '',
             this.totalWeight = 0;
@@ -27,6 +28,18 @@ var FarmerbillingComponent = /** @class */ (function () {
     };
     FarmerbillingComponent.prototype.goBack = function () {
         this.location.back();
+    };
+    FarmerbillingComponent.prototype.onClick = function () {
+        var _this = this;
+        if (this.billing) {
+            this.svc.getFarmerId(this.collectionId).subscribe(function (response) {
+                _this.farmerId = response;
+                console.log(_this.farmerId);
+                if (_this.farmerId) {
+                    _this.router.navigate(['/farmers', _this.farmerId]);
+                }
+            });
+        }
     };
     __decorate([
         core_1.Input()

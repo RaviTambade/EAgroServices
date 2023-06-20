@@ -91,7 +91,11 @@ export class CollectionService {
     let url="http://localhost:5188/api/merchants/" + merchantId +"/sellsrecord"  
     return this.http.get<any>(url)
   }
-
+  getFarmerId(collectionId: number): Observable<number> {
+    let url= "http://localhost:5031/api/collections/" + collectionId +"/farmer"
+    return this.http.get<number>(url)
+  }
+  
 
 
 }
