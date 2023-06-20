@@ -137,14 +137,10 @@ SELECT * FROM freightrates;
 CREATE TABLE
     payments(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        date DATETIME,
-        paymentmode ENUM(
-            'by cash',
-            'by bank transaction'
-        ),
+        date DATETIME DEFAULT CURRENT_TIMESTAMP,
         transactionid INT NOT NULL,
         billid INT NOT NULL,
-        CONSTRAINT fk_bill1id FOREIGN KEY (billid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_bill1id FOREIGN KEY (billid) REFERENCES billing(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 
