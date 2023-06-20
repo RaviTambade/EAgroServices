@@ -19,7 +19,7 @@ export class CollectiondetailsComponent implements OnInit{
     this.collectionId=this.route.snapshot.paramMap.get('id');
     this.svc.getCollection(this.collectionId).subscribe((response)=>{
       this.collectionViewModel=response;
-      this.sendCollection.emit({collection:this.collectionViewModel.collection})
+      this.sendCollection.emit({collectionViewModel:this.collectionViewModel})
       console.log(response);
     }
     )
