@@ -1,3 +1,4 @@
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -354,7 +355,7 @@ INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg'
 
 
 INSERT INTO collections (farmerid, cropid, containertype, quantity, grade, totalweight, tareweight, rateperkg, date) VALUES 
-(3, 2, 'bags', 40, 'B', 200, 8, 20, '2022-01-05 13:30:00'),
+(3, 2, 'bags', 40, 'B', 200, 8, 20, '2022-01-20 13:30:00'),
 (3, 1, 'crates', 50, 'A', 250, 10, 18.5, '2022-01-03 10:00:00'),
 (3, 3, 'lenobags', 120, 'C', 600, 24, 19.5, '2022-02-02 09:45:00'),
 (3, 4, 'crates', 75, 'D', 375, 15, 16.5, '2022-02-07 14:00:00'),
@@ -399,9 +400,9 @@ INSERT INTO collections (farmerid, cropid, containertype, quantity, grade, total
 (4, 4, 'bags', 120, 'B', 600, 34, 34, '2023-06-15 11:15:00'),
 (6, 4, 'bags', 120, 'B', 500, 12, 34, '2023-06-15 11:15:00'),
 (5, 4, 'bags', 120, 'B', 300, 67, 45, '2023-06-15 11:15:00'),
-(4, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-19 11:15:00'),
-(6, 4, 'bags', 120, 'B', 700, 34, 23, '2023-06-19 11:15:00'),
-(5, 4, 'bags', 120, 'B', 800, 23, 22, '2023-06-19 11:15:00');
+(4, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-20 11:15:00'),
+(6, 4, 'bags', 120, 'B', 700, 34, 23, '2023-06-20 11:15:00'),
+(5, 4, 'bags', 120, 'B', 800, 23, 22, '2023-06-20 11:15:00');
 
 
 INSERT INTO billing (collectionid,date)

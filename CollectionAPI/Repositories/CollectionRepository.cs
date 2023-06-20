@@ -320,12 +320,15 @@ public class CollectionRepository : ICollectionRepository
                     from farmer in context.Farmers
                     join collection in context.Collections on farmer.Id equals collection.FarmerId
                     join crop in context.Crops on collection.CropId equals crop.Id
+                    join labourrate in context.LabourRates on collection.ContainerType equals labourrate.ContainerType
                     where collection.Id == collectionId
                     select new CollectionViewModel()
                     {
                         Collection = collection,
                         FarmerName = farmer.FirstName + " " + farmer.LastName,
-                        CropName = crop.Title
+                        CropName = crop.Title,
+                        CropImage=crop.ImageUrl,
+                        ContainerImage=labourrate.ImageUrl
                     }
                 ).FirstOrDefaultAsync();
                 return data;

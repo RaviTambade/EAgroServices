@@ -16,6 +16,7 @@ export class QualitycontrolComponent implements OnInit {
   collection: Collection |any;
   farmers:Farmer |any;
   crops :Crop |any;
+  collectionViewModel:Collectionviewmodel |any;
     constructor(private svc: CollectionService, private route: ActivatedRoute,private router:Router) {}
   ngOnInit(): void {
     this.collectionId=this.route.snapshot.paramMap.get('id')
@@ -23,7 +24,7 @@ export class QualitycontrolComponent implements OnInit {
   }
   updateCollection(): void {
     console.log("🚀 ", this.collection);
-    this.svc.editCollection(this.collectionId, this.collection).subscribe((response) => {
+    this.svc.editCollection(this.collectionId, this.collectionViewModel.collection).subscribe((response) => {
       console.log(response);
       if(response){
         alert("Quality assured successfully")
@@ -35,7 +36,7 @@ export class QualitycontrolComponent implements OnInit {
       })
     }
   receiveCollection(event:any){
-    this.collection=event.collection;
+    this.collectionViewModel=event.collectionViewModel;
     console.log("🚀 ~ receiveCollection ~ this.collection:", this.collection);
   }
  
