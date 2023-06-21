@@ -27,7 +27,7 @@ public class PaymentsController : ControllerBase
             CardNumber = "123456",
             Amount = 1200
         };
-        string jsonCard = System.Text.Json.JsonSerializer.Serialize(card);
+        string jsonCard = JsonConvert.SerializeObject(card);
         var requestContent = new StringContent(jsonCard, Encoding.UTF8, "application/json");
         using (var httpClient = new HttpClient())
         {
