@@ -12,10 +12,10 @@ var PaymentService = /** @class */ (function () {
     function PaymentService(httpClient) {
         this.httpClient = httpClient;
     }
-    PaymentService.prototype.payWithCard = function (cardPayment) {
+    PaymentService.prototype.payWithCard = function (creditCardPayment) {
         console.log("service called");
-        var url = " http://localhost:5181/api/creditcards/cardpayment";
-        return this.httpClient.post(url, cardPayment);
+        var url = " http://localhost:5004/api/payments";
+        return this.httpClient.post(url, creditCardPayment);
     };
     PaymentService = __decorate([
         core_1.Injectable({

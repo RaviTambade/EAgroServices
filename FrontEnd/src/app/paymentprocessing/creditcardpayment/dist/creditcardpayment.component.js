@@ -11,16 +11,24 @@ var core_1 = require("@angular/core");
 var CreditcardpaymentComponent = /** @class */ (function () {
     function CreditcardpaymentComponent(svc) {
         this.svc = svc;
-        this.cardPayment = {
-            cardNumber: '',
-            accountId: 2,
-            amount: 1000
-        };
+        this.creditCardPayment =
+            {
+                cardPayment: {
+                    accountId: 2,
+                    cardNumber: "8778565645457878",
+                    amount: 2000
+                },
+                payment: {
+                    billId: 45
+                }
+            };
     }
-    CreditcardpaymentComponent.prototype.ngOnInit = function () { };
+    CreditcardpaymentComponent.prototype.ngOnInit = function () {
+    };
     CreditcardpaymentComponent.prototype.Pay = function () {
         var _this = this;
-        this.svc.payWithCard(this.cardPayment).subscribe(function (response) {
+        this.svc.payWithCard(this.creditCardPayment).subscribe(function (response) {
+            console.log(_this.creditCardPayment);
             console.log("---");
             console.log(response);
             return _this.status = response;
