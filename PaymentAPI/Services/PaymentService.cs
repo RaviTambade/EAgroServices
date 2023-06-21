@@ -12,4 +12,6 @@ public class PaymentService:IPaymentService{
     }
 
     public async Task<bool> Insert(Payment payment)=>await _repo.Insert(payment);
+    
+    public async Task<bool> CheckBill(int billId)=>await _repo.CheckBill(billId);
 }

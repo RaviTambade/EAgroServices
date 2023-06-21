@@ -22,6 +22,7 @@ import { MerchantlistComponent } from './merchantlist/merchantlist.component';
 import { MerchantdetailsComponent } from './merchantdetails/merchantdetails.component';
 import { MerchantpurchasesComponent } from './merchantpurchases/merchantpurchases.component';
 import { PaymentprocessingModule } from '../paymentprocessing/paymentprocessing.module';
+import { PaymentService } from '../paymentprocessing/payment.service';
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
 
@@ -84,6 +85,10 @@ const routes: Routes =
   exports: [
     HomeComponent,
     SparouterComponent
+  ],
+  providers:[
+    PaymentService
   ]
+  
 })
 export class SpaModule { }

@@ -1,39 +1,41 @@
-<br>
-<br>
+  <br>
+  <br>
 
-<table *ngIf="billing">
-  <tr>
-    <th> CollectionId</th>
-    <td>{{billing.billId}}</td>
-  </tr>
-  <tr>
-    <th> Billing Date</th>
-    <td>{{billing.billingDate |date}}</td>
-  </tr>
+  <table *ngIf="billing">
     <tr>
-      <th> Collection Date</th>
-      <td>{{billing.collectionDate |date}}</td>
+      <th> CollectionId</th>
+      <td>{{billing.billId}}</td>
     </tr>
     <tr>
-      <th>Farmer Name</th>
-      <td (click)="onClick()" style="color: blue;">{{ billing.farmerName }}</td>
+      <th> Billing Date</th>
+      <td>{{billing.billingDate |date}}</td>
     </tr>
-    
-  <tr>
-    <th>Amount</th>
-    <td>{{ billing.amount + billing.labourCharges }}</td>
-  </tr>
-  <tr>
-    <th>Labour Charges</th>
-    <td>{{billing.labourCharges}}</td>
-  </tr>
-  <tr>
-    <th>Amount to pay</th>
-    <td>{{billing.amount}}</td>
-  </tr>
-</table>
-<button (click)="goBack()">Go Back</button>
-<div>
-  <button *ngIf="!paymentStatus" (click)="createPayment()">Do Payment</button>
-  <app-creditcardpayment *ngIf="paymentStatus"></app-creditcardpayment>
-</div>
+      <tr>
+        <th> Collection Date</th>
+        <td>{{billing.collectionDate |date}}</td>
+      </tr>
+      <tr>
+        <th>Farmer Name</th>
+        <td (click)="onClick()" style="color: blue;">{{ billing.farmerName }}</td>
+      </tr>
+      
+    <tr>
+      <th>Amount</th>
+      <td>{{ billing.amount + billing.labourCharges }}</td>
+    </tr>
+    <tr>
+      <th>Labour Charges</th>
+      <td>{{billing.labourCharges}}</td>
+    </tr>
+    <tr>
+      <th>Amount to pay</th>
+      <td>{{billing.amount}}</td>
+    </tr>
+    <br>
+    <br>
+    <button (click)="goBack()">Go Back</button>
+    <button *ngIf="!paymentStatus" (click)="createPayment()">Do Payment</button>
+  </table>
+ 
+    <app-creditcardpayment *ngIf="paymentStatus"></app-creditcardpayment>
+

@@ -47,6 +47,7 @@ export class FarmerbillingComponent implements OnInit {
   }
   createPayment(){
     this.paymentStatus=true
+    
   }
 
   

@@ -31,6 +31,7 @@ var merchantlist_component_1 = require("./merchantlist/merchantlist.component");
 var merchantdetails_component_1 = require("./merchantdetails/merchantdetails.component");
 var merchantpurchases_component_1 = require("./merchantpurchases/merchantpurchases.component");
 var paymentprocessing_module_1 = require("../paymentprocessing/paymentprocessing.module");
+var payment_service_1 = require("../paymentprocessing/payment.service");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -89,6 +90,9 @@ var SpaModule = /** @class */ (function () {
             exports: [
                 home_component_1.HomeComponent,
                 sparouter_component_1.SparouterComponent
+            ],
+            providers: [
+                payment_service_1.PaymentService
             ]
         })
     ], SpaModule);

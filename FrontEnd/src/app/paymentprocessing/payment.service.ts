@@ -15,4 +15,8 @@ export class PaymentService {
     let url =" http://localhost:5004/api/payments";
     return this.httpClient.post<boolean>(url,creditCardPayment);
     }
+  checkBill(billId:number):Observable<boolean>{
+    let url=" http://localhost:5004/api/payments/" + billId + "/checkbill"
+    return this.httpClient.get<boolean>(url)
+  }
   }

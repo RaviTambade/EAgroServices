@@ -56,4 +56,11 @@ public class PaymentsController : ControllerBase
             return await _service.Insert(creditCardPayment.Payment);
         }
     }
+
+    [HttpGet("{billId}/checkbill")]
+    public async Task<bool> CheckBill(int billId){
+        Console.WriteLine(billId);
+       return await _service.CheckBill(billId);
+    }
+
 }

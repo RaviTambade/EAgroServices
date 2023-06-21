@@ -20,29 +20,40 @@ export class CreditcardpaymentComponent {
 
   status:boolean | undefined;
   constructor(private svc:PaymentService){
+    this.payment={
+      billId:64
+    },
+    this.cardPayment={
+      accountId:2,
+      cardNumber:"8778565645457878",
+      amount:2000
+    }
     this.creditCardPayment=
     {
-      cardPayment:
-      {
-          accountId:2,
-          cardNumber:"8778565645457878",
-          amount:2000
-      },
-      payment:
-      {
-          billId:45
-      }
+      payment:this.payment,
+      cardPayment:this.cardPayment  
   } 
   }
 ngOnInit(){
 }
 
 Pay(){
-  this.svc.payWithCard(this.creditCardPayment).subscribe((response)=>{
-    console.log(this.creditCardPayment)
-    console.log("---")
-    console.log(response)
-    return this.status=response;
-  }
-)}
+  this.svc.checkBill(this.payment.billId).subscribe((response)=>{
+    console.log(this.payment.billId)
+    console.log("checked")
+    if(response){
+      alert("payment already done...")
+    }
+    else{
+      this.svc.payWithCard(this.creditCardPayment).subscribe((response)=>{
+        console.log(this.creditCardPayment)
+        console.log("---")
+        console.log(response)
+        return this.status=response;
+      })
+    }
+  })
 }
+}
+
+

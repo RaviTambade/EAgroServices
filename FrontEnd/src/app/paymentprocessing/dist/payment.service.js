@@ -17,6 +17,10 @@ var PaymentService = /** @class */ (function () {
         var url = " http://localhost:5004/api/payments";
         return this.httpClient.post(url, creditCardPayment);
     };
+    PaymentService.prototype.checkBill = function (billId) {
+        var url = " http://localhost:5004/api/payments/" + billId + "/checkbill";
+        return this.httpClient.get(url);
+    };
     PaymentService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

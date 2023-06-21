@@ -634,3 +634,4 @@ SELECT * FROM addresses WHERE userid=1;
 
 SELECT * FROM payments;
 SELECT * FROM billing;
+SELECT * FROM payments;
