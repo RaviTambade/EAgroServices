@@ -19,34 +19,41 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<bool> Insert(Payment payment)
+    public async Task<bool> Insert(CreditCardPayment creditCardPayment)
     {
-        CardPayment card = new CardPayment()
+        // CardPayment card = new CardPayment()
+        // {
+        //     AccountId = 2,
+        //     CardNumber = "8778565645457878",
+        //     Amount = 12000
+        // };
+        if (creditCardPayment.Payment == null || creditCardPayment.CardPayment == null)
         {
-            AccountId = 2,
-            CardNumber = "8778565645457878",
-            Amount = 12000
-        };
+            return false;
+        }
+        var card = creditCardPayment.CardPayment;
         string jsonCard = JsonConvert.SerializeObject(card);
         var requestContent = new StringContent(jsonCard, Encoding.UTF8, "application/json");
         using (var httpClient = new HttpClient())
         {
-            string apiUrl = "http://localhost:5181/api/CreditCards/cardpayment" ;
+            string apiUrl = "http://localhost:5181/api/CreditCards/cardpayment";
             using (var response = await httpClient.PostAsync(apiUrl, requestContent))
             {
                 response.EnsureSuccessStatusCode();
                 string content = await response.Content.ReadAsStringAsync();
                 System.Console.WriteLine(response);
                 string? res = JsonConvert.DeserializeObject<string>(content);
-                if (res != null){
-                 payment.TransactionId=int.Parse(res);  
-                 Console.WriteLine(  payment.TransactionId); 
+                if (res != null)
+                {
+                    creditCardPayment.Payment.TransactionId = int.Parse(res);
+                    Console.WriteLine(creditCardPayment.Payment.TransactionId);
                 }
             }
-            if(payment.TransactionId == 0){
+            if (creditCardPayment.Payment.TransactionId == 0)
+            {
                 return false;
             }
-            return await _service.Insert(payment);
+            return await _service.Insert(creditCardPayment.Payment);
         }
     }
 }
