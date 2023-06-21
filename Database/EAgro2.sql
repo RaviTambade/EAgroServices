@@ -252,7 +252,12 @@ INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra',
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Panhala','Fulewadi',12);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Kolhapur','Shirol','Kalamba',13);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Miraj','Tasgaon',14);
-INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',15);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',16);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',17);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',18);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',19);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',20);
+INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Walwa','Visapur',21);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',22);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',23);
 INSERT INTO addresses(state,district,tahsil,village,userid)VALUES('Maharashtra','Sangli','Jat','Palus',24);
@@ -593,6 +598,8 @@ SELECT * FROM vehicles;
 SELECT * FROM freightrates;
 SELECT * FROM sellsbilling;
 SELECT * FROM sells;
+SELECT * FROM vehicles;
+SELECT * FROM vendors;
 SELECT sellsbilling.freightcharges,freightrates.fromdestination,freightrates.todestination,
 freightrates.kilometers,sells.quantity,
 freightrates.rateperkm from vehicles 
@@ -629,7 +636,7 @@ SELECT village FROm addresses WHERE tahsil="Junnar";
        SELECT  `a`.`tahsil`
       FROM `addresses` AS `a`
       WHERE `a`.`district` = "Pune";
-SELECT * FROM addresses WHERE userid=1;
+SELECT * FROM addresses WHERE userid=10;
 SELECT vendors.companyname,users.firstname,users.lastname,users.imageurl,users.contactnumber,users.aadharid
 FROM  vendors INNER JOIN users on vendors.transportid=users.id
 WHERE vendors.transportid=11;

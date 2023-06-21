@@ -23,6 +23,7 @@ import { MerchantpurchasesComponent } from './merchantpurchases/merchantpurchase
 import { PaymentprocessingModule } from '../paymentprocessing/paymentprocessing.module';
 import { VendorslistComponent } from './vendorslist/vendorslist.component';
 import { VendorsdetailsComponent } from './vendorsdetails/vendorsdetails.component';
+import { VendorvehiclesComponent } from './vendorvehicles/vendorvehicles.component';
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
 
@@ -40,6 +41,7 @@ const routes: Routes =
   { path: 'vendors', component: VendorslistComponent },
   { path: 'merchant', component: MerchantlistComponent},
   { path: 'farmers/:id/profile', component: FarmerdetailsComponent },
+  { path: 'vendors/:id/vehicles', component: VendorvehiclesComponent },
   { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
   { path: 'vendors/:id', component: VendorsdetailsComponent },
   { path: 'farmerbilling/:id', component: FarmerbillingComponent },
@@ -74,6 +76,7 @@ const routes: Routes =
     MerchantpurchasesComponent,
     VendorslistComponent,
     VendorsdetailsComponent,
+    VendorvehiclesComponent,
   ],
   imports: [
     CommonModule,

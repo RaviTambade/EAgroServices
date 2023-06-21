@@ -17,4 +17,9 @@ export class VendorService {
     console.log(url);
     return this.httpClient.get<any>(url);
    }
+   getVendorVehicles(id:any):Observable<any>{
+    let url="http://localhost:5240/api/vendors/"+ id +"/vehicles";
+    console.log(url);
+    return this.httpClient.get<any>(url,id)
+  }
 }

@@ -22,7 +22,9 @@ this.svc.getVendors().subscribe((responce)=>{
 onClickProfile(id:number){
  this.router.navigate(['./',id], { relativeTo: this.route });
 }
-  
+onClick(id:number){
+  this.router.navigate([id,'vehicles'], { relativeTo: this.route });
+ }
 
 }
 
