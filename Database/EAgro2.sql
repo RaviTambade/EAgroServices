@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -322,10 +322,10 @@ INSERT INTO userroles(userid,roleid)VALUES(27,5);
 -- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Navale Transport','Abhay','Navale','Bahirwadi',21);
 -- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Karale Transport','Abhay','Karale','Karegaon',22);
 -- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Sakore Transport','Shubham','Teli','Chas',23);
-INSERT INTO vendors(companyname,transportid) VALUES ("OM Transports",10);
-INSERT INTO vendors(companyname,transportid) VALUES ("Navale Transport",11);
-INSERT INTO vendors(companyname,transportid) VALUES ("Karale Transport",12);
-INSERT INTO vendors(companyname,transportid) VALUES ("Sakore Transport",13);
+INSERT INTO vendors(companyname,transportid) VALUES ("OM Transports",20);
+INSERT INTO vendors(companyname,transportid) VALUES ("Navale Transport",21);
+INSERT INTO vendors(companyname,transportid) VALUES ("Karale Transport",22);
+INSERT INTO vendors(companyname,transportid) VALUES ("Sakore Transport",23);
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3456');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3455');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3465');
@@ -611,7 +611,6 @@ ON crops.id=collections.cropid WHERE collections.date >= CURRENT_DATE;
 
 
 SELECT * FROM users;
-SELECT * FROM vendors;
 SELECT * FROM collections;
 
 
@@ -631,3 +630,13 @@ SELECT village FROm addresses WHERE tahsil="Junnar";
       FROM `addresses` AS `a`
       WHERE `a`.`district` = "Pune";
 SELECT * FROM addresses WHERE userid=1;
+SELECT vendors.companyname,users.firstname,users.lastname,users.imageurl,users.contactnumber,users.aadharid
+FROM  vendors INNER JOIN users on vendors.transportid=users.id
+WHERE vendors.transportid=11;
+SELECT * FROM users;
+SELECT * FROM userroles;
+SELECT * FROM roles;
+SELECT * FROM vendors;
+
+SELECT users.firstname,users.lastname,users.contactnumber,users.imageurl,users.contactnumber, vendors.companyname FROM users
+INNER JOIN vendors on vendors.transportid=users.id WHERE users.id=21;

@@ -22,7 +22,7 @@ public class VendorsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<Vendor> GetById(int id)
+    public async Task<Transport> GetById(int id)
     {
         return await _service.GetById(id);
     }
