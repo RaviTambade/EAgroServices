@@ -6,7 +6,7 @@ public interface IVendorRepository
 {
     Task<List<Vendor>> GetAll();
 
-    Task<Vendor> GetById(int VendorId);
+    Task<Transport> GetById(int transportId);
     Task<List<Vehicle>> GetVendorsVehicles(int VendorId);
     Task<List<VendorsFareDetails>> VendorHistory(int VendorId);
 

@@ -12,7 +12,6 @@ var common_1 = require("@angular/common");
 var login_component_1 = require("./login/login.component");
 var farmerlist_component_1 = require("./farmerlist/farmerlist.component");
 var collectionlist_component_1 = require("./collectionlist/collectionlist.component");
-var vendorlist_component_1 = require("./vendorlist/vendorlist.component");
 var home_component_1 = require("./home/home.component");
 var router_1 = require("@angular/router");
 var sparouter_component_1 = require("./sparouter/sparouter.component");
@@ -32,22 +31,27 @@ var merchantdetails_component_1 = require("./merchantdetails/merchantdetails.com
 var merchantpurchases_component_1 = require("./merchantpurchases/merchantpurchases.component");
 var paymentprocessing_module_1 = require("../paymentprocessing/paymentprocessing.module");
 var payment_service_1 = require("../paymentprocessing/payment.service");
+var vendorslist_component_1 = require("./vendorslist/vendorslist.component");
+var vendorsdetails_component_1 = require("./vendorsdetails/vendorsdetails.component");
+var vendorvehicles_component_1 = require("./vendorvehicles/vendorvehicles.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
 var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
-    { path: 'vendors', component: vendorlist_component_1.VendorlistComponent },
     { path: 'collections', component: collectionlist_component_1.CollectionlistComponent, children: childRoutes },
     // { path: 'collections/addcollection', component: AddcollectionComponent },
     { path: 'collections/addcollection', component: addnewcollection_component_1.AddnewcollectionComponent },
     { path: 'collections/:id', component: collectiondetails_component_1.CollectiondetailsComponent },
     { path: 'collections/:id/edit', component: editcollection_component_1.EditcollectionComponent },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
+    { path: 'vendors', component: vendorslist_component_1.VendorslistComponent },
     { path: 'merchant', component: merchantlist_component_1.MerchantlistComponent },
     { path: 'farmers/:id/profile', component: farmerdetails_component_1.FarmerdetailsComponent },
+    { path: 'vendors/:id/vehicles', component: vendorvehicles_component_1.VendorvehiclesComponent },
     { path: 'farmers/:id', component: farmercollectiondetails_component_1.FarmercollectiondetailsComponent },
+    { path: 'vendors/:id', component: vendorsdetails_component_1.VendorsdetailsComponent },
     { path: 'farmerbilling/:id', component: farmerbilling_component_1.FarmerbillingComponent },
     { path: 'collections/:id/transport', component: collectiontransportation_component_1.CollectiontransportationComponent },
     { path: 'collections/:id/qualitycontrol', component: qualitycontrol_component_1.QualitycontrolComponent },
@@ -63,7 +67,6 @@ var SpaModule = /** @class */ (function () {
                 login_component_1.LoginComponent,
                 farmerlist_component_1.FarmerlistComponent,
                 collectionlist_component_1.CollectionlistComponent,
-                vendorlist_component_1.VendorlistComponent,
                 home_component_1.HomeComponent,
                 sparouter_component_1.SparouterComponent,
                 addcollection_component_1.AddcollectionComponent,
@@ -78,6 +81,9 @@ var SpaModule = /** @class */ (function () {
                 merchantlist_component_1.MerchantlistComponent,
                 merchantdetails_component_1.MerchantdetailsComponent,
                 merchantpurchases_component_1.MerchantpurchasesComponent,
+                vendorslist_component_1.VendorslistComponent,
+                vendorsdetails_component_1.VendorsdetailsComponent,
+                vendorvehicles_component_1.VendorvehiclesComponent,
             ],
             imports: [
                 common_1.CommonModule,

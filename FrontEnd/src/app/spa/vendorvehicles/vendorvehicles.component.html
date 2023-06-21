@@ -1,0 +1,18 @@
+
+    <br><br>
+<div>
+    <div>
+        <!-- <app-vendorslist *ngIf="vendor.id == vendorId"></app-vendorslist> -->
+        </div>
+        <table>
+            <thead>
+                <th>VehicleNumber</th>
+                <hr>
+            </thead>
+            <tbody *ngFor="let vehicle of vehicles">
+                <td>{{vehicle.vehicleNumber}}</td>
+                <hr>
+                <hr>
+            </tbody>
+        </table>
+    </div>

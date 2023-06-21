@@ -15,9 +15,9 @@ public class VendorsService : IVendorService
     {
         return await _repository.GetAll();
     }
-    public async Task<Vendor> GetById(int VendorsId)
+    public async Task<Transport> GetById(int transportId)
     {
-        return await _repository.GetById(VendorsId);
+        return await _repository.GetById(transportId);
     }
     public async Task<List<Vehicle>> GetVendorssVehicles(int VendorsId)
     {

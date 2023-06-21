@@ -1,0 +1,23 @@
+<br><br>
+<div>
+    <div>
+        <table>
+            <thead>
+                <th>vensdorName</th>
+                <hr>
+                <th>actions</th>
+
+            </thead>
+            <tbody *ngFor="let vendor of vendors">
+                <td>{{vendor.companyName}}</td>
+                <hr>
+                <hr>
+                <!-- <td><button (click)="onClick(merchant.id)">collections</button></td> -->
+                <td><button (click)="onClickProfile(vendor.transportId)">profile</button></td> 
+                <td><button (click)="onClick(vendor.id)">Vehicles</button></td>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

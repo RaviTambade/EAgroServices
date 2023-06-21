@@ -36,18 +36,29 @@ public class VendorRepository : IVendorRepository
         }
     }
 
-    public async Task<Vendor> GetById(int VendorId)
+    public async Task<Transport> GetById(int transportId)
     {
         try
         {
             using (var context = new VendorsContext(_configuration))
             {
-                Vendor? Vendor = await context.Vendors.FindAsync(VendorId);
-                if (Vendor == null)
+                Transport? transport = await (from vendor in context.Vendors
+                                         join user in context.Transports
+                                         on vendor.TransportId equals user.Id
+                                         where user.Id == transportId
+                                         select new Transport(){
+                                            FirstName=user.FirstName,
+                                            LastName=user.LastName,
+                                            ImageUrl=user.ImageUrl,
+                                            ContactNumber=user.ContactNumber,
+                                            AadharId=user.AadharId
+                                         }
+                                         ).FirstOrDefaultAsync();
+                if (transport == null)
                 {
                     return null;
                 }
-                return Vendor;
+                return transport;
             }
         }
         catch (Exception e)
