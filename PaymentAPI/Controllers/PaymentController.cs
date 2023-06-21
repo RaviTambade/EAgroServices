@@ -23,9 +23,9 @@ public class PaymentsController : ControllerBase
     {
         CardPayment card = new CardPayment()
         {
-            AccountId = 1,
-            CardNumber = "123456",
-            Amount = 1200
+            AccountId = 2,
+            CardNumber = "8778565645457878",
+            Amount = 12000
         };
         string jsonCard = JsonConvert.SerializeObject(card);
         var requestContent = new StringContent(jsonCard, Encoding.UTF8, "application/json");
@@ -36,9 +36,10 @@ public class PaymentsController : ControllerBase
             {
                 response.EnsureSuccessStatusCode();
                 string content = await response.Content.ReadAsStringAsync();
+                System.Console.WriteLine(response);
                 string? res = JsonConvert.DeserializeObject<string>(content);
                 if (res != null){
-                 payment.TransactionId=Convert.ToInt32(res);  
+                 payment.TransactionId=int.Parse(res);  
                  Console.WriteLine(  payment.TransactionId); 
                 }
             }

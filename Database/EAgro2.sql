@@ -631,3 +631,6 @@ SELECT village FROm addresses WHERE tahsil="Junnar";
       FROM `addresses` AS `a`
       WHERE `a`.`district` = "Pune";
 SELECT * FROM addresses WHERE userid=1;
+
+SELECT * FROM payments;
+SELECT * FROM billing;
