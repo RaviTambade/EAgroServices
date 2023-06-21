@@ -7,7 +7,7 @@ public class PaymentContext : DbContext
     private readonly IConfiguration _configuration;
     private readonly string _conString;
 
-    public MerchantContext(IConfiguration configuration)
+    public PaymentContext(IConfiguration configuration)
     {
         _configuration = configuration;
         _conString = _configuration.GetConnectionString("DefaultConnection");
