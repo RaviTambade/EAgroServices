@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using VendorsAPI.Models;
 
 namespace VendorsAPI.Repositories.Interfaces;
@@ -17,4 +18,5 @@ public interface IVendorRepository
     Task<List<VendorOrderCount>> VendorVehicleOrdersPerMonth(int VendorId);
     Task<bool> Update(int vendorId,Vendor vendor);
     Task<bool> Delete(int vendorId);
+    Task<List<SellTransport>> GetSellTransports(int vehicleId);
 }

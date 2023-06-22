@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VendorsAPI.Models;
 using VendorsAPI.Services.Interfaces;
@@ -58,15 +60,22 @@ public class VendorsController : ControllerBase
     }
 
     [HttpPut("{vendorId}")]
-     public async Task<bool> Update(int vendorId,Vendor vendor){
+    public async Task<bool> Update(int vendorId, Vendor vendor)
+    {
         System.Console.WriteLine(vendorId);
         System.Console.WriteLine(vendor.CompanyName);
         System.Console.WriteLine(vendor.TransportId);
-       return  await  _service.Update(vendorId,vendor);
-     } 
+        return await _service.Update(vendorId, vendor);
+    }
 
-      [HttpDelete("{vendorId}")]
-     public async Task<bool> Delete(int vendorId){
-       return  await  _service.Delete(vendorId);
-}
+    [HttpDelete("{vendorId}")]
+    public async Task<bool> Delete(int vendorId)
+    {
+        return await _service.Delete(vendorId);
+    }
+    [HttpGet("{id}/sell")]
+    public async Task<List<SellTransport>> GetSellTransport(int id)
+    {
+        return await _service.GetSellTransports(id);
+    }
 }

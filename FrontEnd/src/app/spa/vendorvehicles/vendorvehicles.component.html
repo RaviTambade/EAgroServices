@@ -11,8 +11,7 @@
             </thead>
             <tbody *ngFor="let vehicle of vehicles">
                 <td>{{vehicle.vehicleNumber}}</td>
-                <hr>
-                <hr>
+                <button (click)="onClick(vehicles.id)">Details</button>
             </tbody>
         </table>
     </div>

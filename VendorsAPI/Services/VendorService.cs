@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using VendorsAPI.Models;
 using VendorsAPI.Repositories.Interfaces;
 using VendorsAPI.Services.Interfaces;
@@ -53,6 +55,8 @@ public class VendorsService : IVendorService
     }
     public async Task<bool> Update(int vendorId,Vendor vendor)=>await _repository.Update(vendorId,vendor);
     public async Task<bool> Delete(int vendorId )=>await _repository.Delete(vendorId);
+    public async Task<List<SellTransport>> GetSellTransports(int vehicleId)=>await _repository.GetSellTransports(vehicleId);
+    
 
 
 }
