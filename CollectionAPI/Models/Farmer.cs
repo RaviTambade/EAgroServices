@@ -10,9 +10,7 @@ public class Farmer
     [Column("lastname")]
     public string? LastName { get; set; }
 
-    [Column("location")]
-    public string? Location { get; set; }
-    [Column("contact_number")]
+    [Column("contactnumber")]
     public string? ContactNumber { get; set; }
     [Column("password")]
     public string? Password { get; set; }

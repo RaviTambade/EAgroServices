@@ -662,3 +662,4 @@ INNER JOIN vendors on vendors.transportid=users.id WHERE users.id=21;
 SELECT sells.netweight,sells.quantity,sells.rateperkg,sells.`date`,vehicles.vehiclenumber,users.firstname,users.lastname FROM sells 
 INNER JOIN vehicles ON sells.vehicleid=vehicles.id
 INNER JOIN users on sells.merchantid=users.id WHERE vehicles.id=3;
+SELECT * FROM users;

@@ -33,15 +33,16 @@ var vendorslist_component_1 = require("./vendorslist/vendorslist.component");
 var vendorsdetails_component_1 = require("./vendorsdetails/vendorsdetails.component");
 var vendorvehicles_component_1 = require("./vendorvehicles/vendorvehicles.component");
 var default_module_1 = require("../default/default.module");
-var auth_module_1 = require("../auth/auth.module");
 var home_component_1 = require("../default/home/home.component");
 var truckdetails_component_1 = require("./truckdetails/truckdetails.component");
+var login_component_1 = require("../auth/login/login.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
 var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'farmers', component: farmerlist_component_1.FarmerlistComponent },
+    { path: 'login', component: login_component_1.LoginComponent },
     { path: 'collections', component: collectionlist_component_1.CollectionlistComponent, children: childRoutes },
     // { path: 'collections/addcollection', component: AddcollectionComponent },
     { path: 'collections/addcollection', component: addnewcollection_component_1.AddnewcollectionComponent },
@@ -95,7 +96,6 @@ var SpaModule = /** @class */ (function () {
                 select_1.MatSelectModule,
                 paymentprocessing_module_1.PaymentprocessingModule,
                 default_module_1.DefaultModule,
-                auth_module_1.AuthModule
             ],
             exports: [
                 sparouter_component_1.SparouterComponent

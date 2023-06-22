@@ -1,41 +1,33 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { Observable } from 'rxjs';
+import { User } from '../vendors/user';
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
-user:any=[
-  {
-  'username':'shubham',
-  'password':'password'
-},
-{
-  'username':'shubham',
-  'password':'password'
-},
-{
-  'username':'shubham',
-  'password':'password'
-}
-]
-login(username:string,password:string):boolean{
-  console.log()
-  if (this.user.username === username && this.user.password === password) {
-    localStorage.setItem('username', username);
-    return true;
-  }
-  return false;
-}
+  constructor(private httpClient:HttpClient, private jwtHelper: JwtHelperService) { }
+  logIn(user:User):Observable<any>{
+    console.log("inside request")
+    let url ="http://localhost:5148/api/auth";
+      return this.httpClient.post<User>(url,user);
+      }
 
-logout(): any { localStorage.removeItem('username'); }
+      getRoleFromToken(): string {
+        const token = localStorage.getItem('jwtToken');
+        if (token) {
+          const decodedToken: any = this.jwtHelper.decodeToken(token)
+          return decodedToken.role;
+        }
+        return '';
+      }
 
-getUser(): any { 
-  return localStorage.getItem('username'); 
+      getUserIdFromToken(): number {
+        const token:any = localStorage.getItem('jwtToken');
+        const decodedToken: any = this.jwtHelper.decodeToken(token)
+        return decodedToken.userId;
+      }
 }
-isLoggedIn(): boolean { return this.getUser() !== null;}
-}
-
-  
 

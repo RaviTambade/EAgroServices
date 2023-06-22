@@ -9,35 +9,28 @@ exports.__esModule = true;
 exports.AuthService = void 0;
 var core_1 = require("@angular/core");
 var AuthService = /** @class */ (function () {
-    function AuthService() {
-        this.user = [
-            {
-                'username': 'shubham',
-                'password': 'password'
-            },
-            {
-                'username': 'shubham',
-                'password': 'password'
-            },
-            {
-                'username': 'shubham',
-                'password': 'password'
-            }
-        ];
+    function AuthService(httpClient, jwtHelper) {
+        this.httpClient = httpClient;
+        this.jwtHelper = jwtHelper;
     }
-    AuthService.prototype.login = function (username, password) {
-        console.log();
-        if (this.user.username === username && this.user.password === password) {
-            localStorage.setItem('username', username);
-            return true;
+    AuthService.prototype.logIn = function (user) {
+        console.log("inside request");
+        var url = "http://localhost:5148/api/auth";
+        return this.httpClient.post(url, user);
+    };
+    AuthService.prototype.getRoleFromToken = function () {
+        var token = localStorage.getItem('jwtToken');
+        if (token) {
+            var decodedToken = this.jwtHelper.decodeToken(token);
+            return decodedToken.role;
         }
-        return false;
+        return '';
     };
-    AuthService.prototype.logout = function () { localStorage.removeItem('username'); };
-    AuthService.prototype.getUser = function () {
-        return localStorage.getItem('username');
+    AuthService.prototype.getUserIdFromToken = function () {
+        var token = localStorage.getItem('jwtToken');
+        var decodedToken = this.jwtHelper.decodeToken(token);
+        return decodedToken.userId;
     };
-    AuthService.prototype.isLoggedIn = function () { return this.getUser() !== null; };
     AuthService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

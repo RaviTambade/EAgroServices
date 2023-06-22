@@ -9,8 +9,58 @@ exports.__esModule = true;
 exports.LoginComponent = void 0;
 var core_1 = require("@angular/core");
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent() {
+    function LoginComponent(svc, router) {
+        this.svc = svc;
+        this.router = router;
+        this.user = {
+            contactNumber: '',
+            password: ''
+        };
     }
+    LoginComponent.prototype.logIn = function () {
+        var _this = this;
+        console.log("login clicked");
+        console.log(this.user);
+        this.svc.logIn(this.user).subscribe(function (response) {
+            // // console.log(response);
+            // if(response.status==400){
+            //   console.log("invalid login")
+            // }
+            localStorage.setItem('jwtToken', response.token);
+            var role = _this.svc.getRoleFromToken();
+            console.log(role);
+            if (role == "farmer") {
+                var userId = _this.svc.getUserIdFromToken();
+                console.log(userId);
+                // this.router.navigate(['home', userId]);
+                window.location.reload();
+            }
+            if (role == "employee") {
+                var userId = _this.svc.getUserIdFromToken();
+                console.log(userId);
+                // this.router.navigate(['home', userId]);
+                window.location.reload();
+            }
+            if (role == "merchant") {
+                var userId = _this.svc.getUserIdFromToken();
+                console.log(userId);
+                // this.router.navigate(['home', userId]);
+                window.location.reload();
+            }
+            if (role == "transport") {
+                var userId = _this.svc.getUserIdFromToken();
+                console.log(userId);
+                // this.router.navigate(['home', userId]);
+                window.location.reload();
+            }
+            if (role == "admin") {
+                var userId = _this.svc.getUserIdFromToken();
+                console.log(userId);
+                // this.router.navigate(['home', userId]);
+                window.location.reload();
+            }
+        });
+    };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'app-login',

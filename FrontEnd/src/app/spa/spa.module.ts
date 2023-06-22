@@ -27,6 +27,7 @@ import { DefaultModule } from '../default/default.module';
 import { AuthModule } from '../auth/auth.module';
 import { HomeComponent } from '../default/home/home.component';
 import { TruckdetailsComponent } from './truckdetails/truckdetails.component';
+import { LoginComponent } from '../auth/login/login.component';
 
 
 const childRoutes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes =
   [{ path: '', redirectTo: 'home', pathMatch: "full" },
   { path: 'home', component: HomeComponent },
   { path: 'farmers', component: FarmerlistComponent },
+  {path:'login',component:LoginComponent},
   { path: 'collections', component: CollectionlistComponent, children: childRoutes },
   // { path: 'collections/addcollection', component: AddcollectionComponent },
   { path: 'collections/addcollection', component: AddnewcollectionComponent },
@@ -91,8 +93,6 @@ const routes: Routes =
     MatSelectModule,
     PaymentprocessingModule,
     DefaultModule,
-    AuthModule
-
   ],
   exports: [
     SparouterComponent

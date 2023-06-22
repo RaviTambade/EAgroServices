@@ -28,10 +28,6 @@ export default class LoginComponent {
     console.log("login clicked")
     console.log(this.user)
     this.svc.logIn(this.user).subscribe((response) => {
-      // // console.log(response);
-      // if(response.status==400){
-      //   console.log("invalid login")
-      // }
       localStorage.setItem('jwtToken', response.token);
       const role = this.svc.getRoleFromToken();
       console.log(role)

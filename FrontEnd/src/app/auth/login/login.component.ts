@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/spa/auth.service';
+import { User } from 'src/app/vendors/user';
 
 @Component({
   selector: 'app-login',
@@ -6,50 +9,55 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  // user: User = {
-  //   contactNumber: '',
-  //   password: ''
-  // };
+  user: User |any;
+  constructor(private svc: AuthService, private router: Router) { 
+    this.user={
+      contactNumber: '',
+      password: ''
+    }
+  }
 
-  // constructor(private svc: AuthService, private router: Router) { }
-
-  // logIn() {
-  //   console.log("login clicked")
-  //   console.log(this.user)
-  //   this.svc.logIn(this.user).subscribe((response) => {
-  //     // // console.log(response);
-  //     // if(response.status==400){
-  //     //   console.log("invalid login")
-  //     // }
-  //     localStorage.setItem('jwtToken', response.token);
-  //     const role = this.svc.getRoleFromToken();
-  //     console.log(role)
-  //     if (role == "farmer") {
-  //       const farmerId = this.svc.getFarmerIdFromToken();
-  //       console.log(farmerId);
-  //       this.router.navigate(['farmers', farmerId,'dashboard']);
-  //     } 
-  //     if (role == "employee") {
-  //       const employeeId = this.svc.getEmployeeIdFromToken();
-  //       console.log(employeeId);
-  //       this.router.navigate(['employees/dashboard', employeeId]);
-  //     }
-  //     if (role == "merchant") {
-  //       const merchantId = this.svc.getMerchantIdFromToken();
-  //       console.log(merchantId);
-  //       this.router.navigate(['merchants/dashboard', merchantId]);
-  //     }
-  //     if (role == "transport") {
-  //       const transportId = this.svc.getTransportIdFromToken();
-  //       console.log(transportId);
-  //       this.router.navigate(['transports/dashboard', transportId]);
-  //     }
-  //     if (role == "admin") {
-  //       const adminId = this.svc.getAdminIdFromToken();
-  //       console.log(adminId);
-  //       this.router.navigate(['admin/dashboard', adminId]);
-  //     }
-     
-  //   });
-  // }
+  logIn() {
+    console.log("login clicked")
+    console.log(this.user)
+    this.svc.logIn(this.user).subscribe((response) => {
+      // // console.log(response);
+      // if(response.status==400){
+      //   console.log("invalid login")
+      // }
+      localStorage.setItem('jwtToken', response.token);
+      const role = this.svc.getRoleFromToken();
+      console.log(role)
+      if (role == "farmer") {
+        const userId = this.svc.getUserIdFromToken();
+        console.log(userId);
+        // this.router.navigate(['home', userId]);
+        window.location.reload();
+      } 
+      if (role == "employee") {
+        const userId = this.svc.getUserIdFromToken();
+        console.log(userId);
+        // this.router.navigate(['home', userId]);
+        window.location.reload();
+      }
+      if (role == "merchant") {
+        const userId = this.svc.getUserIdFromToken();
+        console.log(userId);
+        // this.router.navigate(['home', userId]);
+        window.location.reload();
+      }
+      if (role == "transport") {
+        const userId = this.svc.getUserIdFromToken();
+        console.log(userId);
+        // this.router.navigate(['home', userId]);
+        window.location.reload();
+      }
+      if (role == "admin") {
+        const userId = this.svc.getUserIdFromToken();
+        console.log(userId);
+        // this.router.navigate(['home', userId]);
+        window.location.reload();
+      }    
+    });
+  }
 }
