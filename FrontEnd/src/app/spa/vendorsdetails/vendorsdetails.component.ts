@@ -13,7 +13,7 @@ import { Address } from 'src/app/vendors/address';
 export class VendorsdetailsComponent implements OnInit{
   vendor: Vendor|any;
   transportId:any;
-  address:Address|undefined;
+  address:Address|any;
   vendorId: any;
   constructor(private svc:VendorService,private route:ActivatedRoute,private ser:AddressService){}
 
@@ -26,6 +26,7 @@ this.transportId=this.route.snapshot.paramMap.get('id')
 
 }
 UserAddress() {
+this.vendorId=this.route.snapshot.paramMap.get('id')
   this.ser.getUserAddress(this.vendorId).subscribe((response) => {
     this.address = response;
     console.log(response);

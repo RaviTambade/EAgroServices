@@ -26,6 +26,8 @@ import { VendorvehiclesComponent } from './vendorvehicles/vendorvehicles.compone
 import { DefaultModule } from '../default/default.module';
 import { AuthModule } from '../auth/auth.module';
 import { HomeComponent } from '../default/home/home.component';
+import { TruckdetailsComponent } from './truckdetails/truckdetails.component';
+
 
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
@@ -45,6 +47,7 @@ const routes: Routes =
   { path: 'merchant', component: MerchantlistComponent},
   { path: 'farmers/:id/profile', component: FarmerdetailsComponent },
   { path: 'vendors/:id/vehicles', component: VendorvehiclesComponent },
+  { path: 'vendors/:id/details', component: TruckdetailsComponent },
   { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
   { path: 'vendors/:id', component: VendorsdetailsComponent },
   { path: 'farmerbilling/:id', component: FarmerbillingComponent },
@@ -78,6 +81,7 @@ const routes: Routes =
     VendorslistComponent,
     VendorsdetailsComponent,
     VendorvehiclesComponent,
+    TruckdetailsComponent,
   ],
   imports: [
     CommonModule,

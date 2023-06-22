@@ -644,8 +644,8 @@ SELECT * FROM users;
 SELECT * FROM userroles;
 SELECT * FROM roles;
 SELECT * FROM vendors;
-SELECT * FROM payments;
-SELECT * FROM billing;
+SELECT * FROM vehicles;
+SELECT * FROM sells;
 SELECT * FROM payments;
 
 SELECT users.firstname,users.lastname,users.contactnumber,users.imageurl,users.contactnumber, vendors.companyname FROM users
@@ -658,3 +658,7 @@ INNER JOIN vendors on vendors.transportid=users.id WHERE users.id=21;
       INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
       WHERE `s`.`merchantid` = 24
       ORDER BY `s`.`date` DESC;
+
+SELECT sells.netweight,sells.quantity,sells.rateperkg,sells.`date`,vehicles.vehiclenumber,users.firstname,users.lastname FROM sells 
+INNER JOIN vehicles ON sells.vehicleid=vehicles.id
+INNER JOIN users on sells.merchantid=users.id WHERE vehicles.id=3;

@@ -1,0 +1,26 @@
+<br>
+<br>
+<div>
+    <table>
+        <thead>
+            <th>vehicleNumber</th>
+            <th>firstname</th><hr>
+            <th>lastname</th><hr>
+            <th>quantity </th>
+            <th>netWeight </th>
+            <th>ratePerKg </th>
+            <th>date </th>
+        </thead>
+        <tbody *ngFor="let SellTransport of SellTransports">
+            
+            <td>{{SellTransport.vehicleNumber}}</td><hr>
+            <td>{{SellTransport.firstName}}</td><hr>
+            <td>{{SellTransport.lastName}}</td> 
+            <td>{{SellTransport.quantity}}</td><hr>
+            <td>{{SellTransport.netWeight}}</td><hr>
+            <td>{{SellTransport.ratePerKg}}</td> 
+            <td>{{SellTransport.ratePerKg}}</td> 
+            <td>{{SellTransport.date}}</td> 
+        </tbody>
+    </table>
+</div>     

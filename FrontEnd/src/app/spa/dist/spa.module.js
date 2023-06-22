@@ -35,6 +35,7 @@ var vendorvehicles_component_1 = require("./vendorvehicles/vendorvehicles.compon
 var default_module_1 = require("../default/default.module");
 var auth_module_1 = require("../auth/auth.module");
 var home_component_1 = require("../default/home/home.component");
+var truckdetails_component_1 = require("./truckdetails/truckdetails.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -51,6 +52,7 @@ var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'merchant', component: merchantlist_component_1.MerchantlistComponent },
     { path: 'farmers/:id/profile', component: farmerdetails_component_1.FarmerdetailsComponent },
     { path: 'vendors/:id/vehicles', component: vendorvehicles_component_1.VendorvehiclesComponent },
+    { path: 'vendors/:id/details', component: truckdetails_component_1.TruckdetailsComponent },
     { path: 'farmers/:id', component: farmercollectiondetails_component_1.FarmercollectiondetailsComponent },
     { path: 'vendors/:id', component: vendorsdetails_component_1.VendorsdetailsComponent },
     { path: 'farmerbilling/:id', component: farmerbilling_component_1.FarmerbillingComponent },
@@ -83,6 +85,7 @@ var SpaModule = /** @class */ (function () {
                 vendorslist_component_1.VendorslistComponent,
                 vendorsdetails_component_1.VendorsdetailsComponent,
                 vendorvehicles_component_1.VendorvehiclesComponent,
+                truckdetails_component_1.TruckdetailsComponent,
             ],
             imports: [
                 common_1.CommonModule,
