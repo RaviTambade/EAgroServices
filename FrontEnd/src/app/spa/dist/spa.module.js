@@ -9,10 +9,8 @@ exports.__esModule = true;
 exports.SpaModule = void 0;
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var login_component_1 = require("./login/login.component");
 var farmerlist_component_1 = require("./farmerlist/farmerlist.component");
 var collectionlist_component_1 = require("./collectionlist/collectionlist.component");
-var home_component_1 = require("./home/home.component");
 var router_1 = require("@angular/router");
 var sparouter_component_1 = require("./sparouter/sparouter.component");
 var addcollection_component_1 = require("./addcollection/addcollection.component");
@@ -34,6 +32,9 @@ var payment_service_1 = require("../paymentprocessing/payment.service");
 var vendorslist_component_1 = require("./vendorslist/vendorslist.component");
 var vendorsdetails_component_1 = require("./vendorsdetails/vendorsdetails.component");
 var vendorvehicles_component_1 = require("./vendorvehicles/vendorvehicles.component");
+var default_module_1 = require("../default/default.module");
+var auth_module_1 = require("../auth/auth.module");
+var home_component_1 = require("../default/home/home.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -64,10 +65,8 @@ var SpaModule = /** @class */ (function () {
     SpaModule = __decorate([
         core_1.NgModule({
             declarations: [
-                login_component_1.LoginComponent,
                 farmerlist_component_1.FarmerlistComponent,
                 collectionlist_component_1.CollectionlistComponent,
-                home_component_1.HomeComponent,
                 sparouter_component_1.SparouterComponent,
                 addcollection_component_1.AddcollectionComponent,
                 collectiondetails_component_1.CollectiondetailsComponent,
@@ -91,10 +90,11 @@ var SpaModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
                 select_1.MatSelectModule,
-                paymentprocessing_module_1.PaymentprocessingModule
+                paymentprocessing_module_1.PaymentprocessingModule,
+                default_module_1.DefaultModule,
+                auth_module_1.AuthModule
             ],
             exports: [
-                home_component_1.HomeComponent,
                 sparouter_component_1.SparouterComponent
             ],
             providers: [

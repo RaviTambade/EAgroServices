@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
 import { FarmerlistComponent } from './farmerlist/farmerlist.component';
 import { CollectionlistComponent } from './collectionlist/collectionlist.component';
-import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SparouterComponent } from './sparouter/sparouter.component';
 import { AddcollectionComponent } from './addcollection/addcollection.component';
@@ -25,6 +23,9 @@ import { PaymentService } from '../paymentprocessing/payment.service';
 import { VendorslistComponent } from './vendorslist/vendorslist.component';
 import { VendorsdetailsComponent } from './vendorsdetails/vendorsdetails.component';
 import { VendorvehiclesComponent } from './vendorvehicles/vendorvehicles.component';
+import { DefaultModule } from '../default/default.module';
+import { AuthModule } from '../auth/auth.module';
+import { HomeComponent } from '../default/home/home.component';
 
 const childRoutes: Routes = [
   { path: '', redirectTo: 'collections', pathMatch: "full" },
@@ -59,10 +60,8 @@ const routes: Routes =
 
 @NgModule({
   declarations: [
-    LoginComponent,
     FarmerlistComponent,
     CollectionlistComponent,
-    HomeComponent,
     SparouterComponent,
     AddcollectionComponent,
     CollectiondetailsComponent,
@@ -86,11 +85,12 @@ const routes: Routes =
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    PaymentprocessingModule
+    PaymentprocessingModule,
+    DefaultModule,
+    AuthModule
 
   ],
   exports: [
-    HomeComponent,
     SparouterComponent
   ],
   providers:[

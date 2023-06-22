@@ -9,20 +9,8 @@ exports.__esModule = true;
 exports.LoginComponent = void 0;
 var core_1 = require("@angular/core");
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(svc) {
-        this.svc = svc;
+    function LoginComponent() {
     }
-    LoginComponent.prototype.login = function (username, password) {
-        this.message = '';
-        if (this.svc.login(username, password)) {
-            this.message = 'correct credential';
-        }
-        return false;
-    };
-    LoginComponent.prototype.logout = function () {
-        this.svc.logout();
-        return false;
-    };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'app-login',

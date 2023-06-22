@@ -13,6 +13,9 @@ var app_component_1 = require("./app.component");
 var spa_module_1 = require("./spa/spa.module");
 var vendors_module_1 = require("./vendors/vendors.module");
 var http_1 = require("@angular/common/http");
+var animations_1 = require("@angular/platform-browser/animations");
+var auth_module_1 = require("./auth/auth.module");
+var default_module_1 = require("./default/default.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -25,7 +28,10 @@ var AppModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule,
                 vendors_module_1.VendorsModule,
                 spa_module_1.SpaModule,
-                http_1.HttpClientModule
+                http_1.HttpClientModule,
+                animations_1.BrowserAnimationsModule,
+                auth_module_1.AuthModule,
+                default_module_1.DefaultModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

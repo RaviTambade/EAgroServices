@@ -6,6 +6,8 @@ import { SpaModule } from './spa/spa.module';
 import { VendorsModule } from './vendors/vendors.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule } from './auth/auth.module';
+import { DefaultModule } from './default/default.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     VendorsModule,
     SpaModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AuthModule,
+  DefaultModule
 
   ],
   providers: [],
