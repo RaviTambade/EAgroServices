@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -15,7 +15,7 @@ CREATE TABLE
     );
 
 CREATE TABLE addresses(id INT AUTO_INCREMENT PRIMARY KEY,
-                       state VARCHAR(15) NOT NULL ,
+                       state VARCHAR(15) NOT NULL,
                        district VARCHAR(15) NOT NULL,
                        tahsil VARCHAR(15) NOT NULL,
                        village VARCHAR(15) NOT NULL,
@@ -39,12 +39,14 @@ CREATE TABLE vendors(
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
       companyname VARCHAR(20),
       transportid INT NOT NULL,
+      imageurl VARCHAR(50),
       CONSTRAINT fk_userid3 FOREIGN KEY(transportid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE vehicles(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         vendorid INT NOT NULL,
         vehiclenumber VARCHAR(15) NOT NULL UNIQUE,
+        imageurl VARCHAR(50),
         CONSTRAINT fk_transportid FOREIGN KEY (vendorid) REFERENCES vendors(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 -- ALTER TABLE trucks ADD  CONSTRAINT userid_check CHECK (transportId IN (SELECT userid FROM userRoles WHERE roleId = 2));
@@ -327,10 +329,10 @@ INSERT INTO userroles(userid,roleid)VALUES(27,5);
 -- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Navale Transport','Abhay','Navale','Bahirwadi',21);
 -- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Karale Transport','Abhay','Karale','Karegaon',22);
 -- INSERT INTO transports(office_name,first_name,last_name,location,userid)VALUES('Sakore Transport','Shubham','Teli','Chas',23);
-INSERT INTO vendors(companyname,transportid) VALUES ("OM Transports",20);
-INSERT INTO vendors(companyname,transportid) VALUES ("Navale Transport",21);
-INSERT INTO vendors(companyname,transportid) VALUES ("Karale Transport",22);
-INSERT INTO vendors(companyname,transportid) VALUES ("Sakore Transport",23);
+INSERT INTO vendors(companyname,imageurl,transportid) VALUES ("OM Transports",'/assets/images/goodstransport.jpeg',20);
+INSERT INTO vendors(companyname,imageurl,transportid) VALUES ("Navale Transport",'/assets/images/goodstransport1.jpeg',21);
+INSERT INTO vendors(companyname,imageurl,transportid) VALUES ("Karale Transport",'/assets/images/goodstransport2.jpeg',22);
+INSERT INTO vendors(companyname,imageurl,transportid) VALUES ("Sakore Transport",'/assets/images/sakoretransport.jpeg',23);
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3456');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3455');
 INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3465');
