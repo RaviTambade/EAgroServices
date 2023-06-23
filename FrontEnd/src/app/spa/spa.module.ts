@@ -49,7 +49,7 @@ const routes: Routes =
   { path: 'merchant', component: MerchantlistComponent},
   { path: 'farmers/:id/profile', component: FarmerdetailsComponent },
   { path: 'vendors/:id/vehicles', component: VendorvehiclesComponent },
-  { path: 'vendors/:id/details', component: TruckdetailsComponent },
+  { path: 'vendors/:id/vehicles/:id/details', component: TruckdetailsComponent },
   { path: 'farmers/:id', component: FarmercollectiondetailsComponent },
   { path: 'vendors/:id', component: VendorsdetailsComponent },
   { path: 'farmerbilling/:id', component: FarmerbillingComponent },

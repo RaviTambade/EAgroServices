@@ -24,7 +24,7 @@ constructor(private svc:VendorService,private route:ActivatedRoute,private route
     })
   }
   onClick(id:number){
-    this.router.navigate([id,'./details'],{ relativeTo: this.route });
+    this.router.navigate([id,'details'],{ relativeTo: this.route });
     console.log(id);
   }
 
