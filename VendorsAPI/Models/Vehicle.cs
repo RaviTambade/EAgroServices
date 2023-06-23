@@ -7,5 +7,7 @@ public class Vehicle{
     public int VendorId{get;set;}
     [Column("vehiclenumber")]
     public string? VehicleNumber{get;set;}
+    [Column("imageurl")]
+    public string ImageUrl{get;set;}
 }
 

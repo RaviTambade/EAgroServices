@@ -1,3 +1,3 @@
 export class Vendor {
-    constructor(public id:number,public companyName:string,public transportId:number){}
+    constructor(public id:number,public companyName:string,public imageUrl:string,public transportId:number){}
 }

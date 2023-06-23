@@ -1,3 +1,3 @@
 export class Vehicle {
-    constructor(public id:number,public vendorId:number,public vehicleNumber:string){}
+    constructor(public id:number,public vendorId:number,public vehicleNumber:string,public imageUrl:string){}
 }

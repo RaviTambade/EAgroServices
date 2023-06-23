@@ -6,11 +6,14 @@
         </div>
         <table>
             <thead>
+                <th>Image</th>
                 <th>VehicleNumber</th>
                 <hr>
             </thead>
             <tbody *ngFor="let vehicle of vehicles">
+                <img [src]="vehicle.imageUrl" width="100" />
                 <td>{{vehicle.vehicleNumber}}</td>
+            
                 <button (click)="onClick(vehicle.id)">Details</button>
             </tbody>
         </table>

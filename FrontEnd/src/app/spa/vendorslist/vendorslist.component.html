@@ -4,12 +4,14 @@
         <table>
             <thead>
                 <th>vensdorName</th>
+                <th>Logo</th>
                 <hr>
                 <th>actions</th>
 
             </thead>
             <tbody *ngFor="let vendor of vendors">
                 <td>{{vendor.companyName}}</td>
+            <img [src]="vendor.imageUrl" width="100" />
                 <hr>
                 <hr>
                 <!-- <td><button (click)="onClick(merchant.id)">collections</button></td> -->

@@ -31,6 +31,7 @@ public class VendorsContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.CompanyName);
+            entity.Property(e => e.ImageUrl);
             entity.Property(e => e.TransportId);
             modelBuilder.Entity<Vendor>().ToTable("vendors");
         });
@@ -57,6 +58,8 @@ public class VendorsContext : DbContext
            entity.HasKey(e => e.Id);
            entity.Property(e => e.VendorId);
            entity.Property(e => e.VehicleNumber);
+           entity.Property(e => e.ImageUrl);
+
            modelBuilder.Entity<Vehicle>().ToTable("vehicles");
        });
         modelBuilder.Entity<Sell>(entity =>
