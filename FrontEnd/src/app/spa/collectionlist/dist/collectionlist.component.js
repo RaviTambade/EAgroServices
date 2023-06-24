@@ -28,6 +28,55 @@ var CollectionlistComponent = /** @class */ (function () {
     CollectionlistComponent.prototype.transport = function (id) {
         this.router.navigate(['./', id, 'transport'], { relativeTo: this.route });
     };
+    CollectionlistComponent.prototype.OnClickQualityControl = function (id) {
+        this.router.navigate(['./', id, 'qualitycontrol'], { relativeTo: this.route });
+    };
+    CollectionlistComponent.prototype.getQuantity = function () {
+        var quantity = 0;
+        for (var _i = 0, _a = this.collections; _i < _a.length; _i++) {
+            var row = _a[_i];
+            quantity += row.collection.quantity;
+        }
+        return quantity;
+    };
+    CollectionlistComponent.prototype.getQuantityofBags = function () {
+        var quantity1 = 0;
+        for (var _i = 0, _a = this.collections; _i < _a.length; _i++) {
+            var row = _a[_i];
+            if (row.collection.containerType == 'bags') {
+                quantity1 += row.collection.quantity;
+            }
+        }
+        return quantity1;
+    };
+    CollectionlistComponent.prototype.getQuantityofCrates = function () {
+        var quantity2 = 0;
+        for (var _i = 0, _a = this.collections; _i < _a.length; _i++) {
+            var row = _a[_i];
+            if (row.collection.containerType == 'crates') {
+                quantity2 += row.collection.quantity;
+            }
+        }
+        return quantity2;
+    };
+    CollectionlistComponent.prototype.getQuantityofLenoBags = function () {
+        var quantity3 = 0;
+        for (var _i = 0, _a = this.collections; _i < _a.length; _i++) {
+            var row = _a[_i];
+            if (row.collection.containerType == 'lenobags') {
+                quantity3 += row.collection.quantity;
+            }
+        }
+        return quantity3;
+    };
+    CollectionlistComponent.prototype.getTotalWeight = function () {
+        var totalWeight = 0;
+        for (var _i = 0, _a = this.collections; _i < _a.length; _i++) {
+            var row = _a[_i];
+            totalWeight += row.collection.totalWeight;
+        }
+        return totalWeight;
+    };
     CollectionlistComponent = __decorate([
         core_1.Component({
             selector: 'app-collectionlist',
