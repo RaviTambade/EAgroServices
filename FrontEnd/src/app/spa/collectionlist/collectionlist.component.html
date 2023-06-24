@@ -31,71 +31,91 @@
 <router-outlet></router-outlet> -->
 <br /><br />
 <div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Today's Total Sales</h5>
-          <p class="card-text">{{getQuantity()}}</p>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card mb-10">
+                <div class="card-body">
+                    <a routerLink="addcollection">addcollection</a><br>
+                    <h5 class="card-title">Today's Collection</h5>                  
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"> Total Sales</h5>
+                                        <p class="card-text">{{getQuantity()}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"> Bags Quantity</h5>
+                                        <p class="card-text">{{getQuantityofBags()}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">crates Quantity</h5>
+                                        <p class="card-text">{{getQuantityofCrates()}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"> LenoBags Quantity</h5>
+                                        <p class="card-text">{{getQuantityofLenoBags()}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"> Total weight</h5>
+                                        <p class="card-text">{{getTotalWeight()}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div *ngIf="collections" class="mt-3">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th></th>
+                                  <th>Quantity</th>
+                                  <th>Container</th>
+                                  <th>Date</th>
+                                  <th>Actions</th>
+                                </tr>
+                              </thead>
+                              <hr>
+                              <tbody *ngFor="let collection of collections">
+                                <tr>
+                                  <td class="circle-image"><img [src]="collection.cropImage" width="100px" height="100px" /></td>
+                                  <td>{{ collection.collection.quantity }}</td>
+                                  <td class="circle-image"><img [src]="collection.containerImage" width="100px" height="100px" /></td>
+                                  <td>{{ collection.collection.date | date }}</td>
+                                  <td>
+                                    <button class="btn btn-primary" (click)="OnClickQualityControl(collection.collection.id)">Assure Quality</button>
+                                  </td>
+                                  <td>
+                                    <button class="btn btn-primary" (click)="OnClickCollection(collection.collection.id)">Details</button>
+                                  </td>
+                                  <td>
+                                    <button class="btn btn-primary" (click)="transport(collection.collection.id)">Transport</button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>           
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="col-md-4">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Today's Bags Quantity</h5>
-          <p class="card-text">{{getQuantityofBags()}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Today's crates Quantity</h5>
-          <p class="card-text">{{getQuantityofCrates()}} </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Today's LenoBags Quantity</h5>
-          <p class="card-text">{{getQuantityofLenoBags()}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Today's Total weight</h5>
-          <p class="card-text">{{getTotalWeight()}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="collections" class="mt-3">
-    <table class="table">
-        <thead>
-            <th></th>
-            <th>quantity</th><hr>
-            <th>container</th><hr>
-            <th>date</th><hr>
-           <th>actions</th><hr>
-        </thead>
-        <tbody *ngFor="let collection of collections">
-           <td class="circle-image"><img [src]="collection.cropImage" width="100px" height="100px"/></td>
-            <td>{{collection.collection.quantity}}</td><hr>
-            <td class="circle-image"><img [src]="collection.containerImage" width="100px" height="100px"/></td>
-            <td>{{collection.collection.date |date}}</td><hr>
-            <td ><button (click)="OnClickQualityControl(collection.collection.id)" >Assure Quality</button></td><hr>
-            <td ><button (click)="OnClickCollection(collection.collection.id)" >details</button></td><hr>
-            <td ><button (click)="transport(collection.collection.id)" >transport</button></td><hr>
-        </tbody>
-    </table>
-  </div>
 </div>
-
 <router-outlet></router-outlet>
-
-
