@@ -69,6 +69,14 @@ var CollectionlistComponent = /** @class */ (function () {
         }
         return quantity3;
     };
+    CollectionlistComponent.prototype.getTotalWeight = function () {
+        var totalWeight = 0;
+        for (var _i = 0, _a = this.collections; _i < _a.length; _i++) {
+            var row = _a[_i];
+            totalWeight += row.collection.totalWeight;
+        }
+        return totalWeight;
+    };
     CollectionlistComponent = __decorate([
         core_1.Component({
             selector: 'app-collectionlist',
