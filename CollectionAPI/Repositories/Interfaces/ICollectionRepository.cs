@@ -12,6 +12,8 @@ public interface ICollectionRepository
     Task<CollectionBill> GetCollectionBill(int collectionId);
 
     Task<SellViewModel> GetCollectionSell(int CollectionId);
+    Task<List<CollectionViewModel>> GetCollectionByDate(int farmerId,DateFilter dateFilter);
+
     Task<List<CollectionViewModel>> GetCollections(StartDateFilter startDate);
     Task<List<CollectionViewModel>> GetCollectionsByContainer(int farmerId,string container);
     Task<CollectionViewModel> GetCollection(int collectionId);
