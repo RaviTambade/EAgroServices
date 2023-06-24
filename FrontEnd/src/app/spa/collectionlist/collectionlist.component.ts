@@ -31,4 +31,40 @@ transport(id:number){
 OnClickQualityControl(id:number){
   this.router.navigate(['./',id,'qualitycontrol'],{relativeTo:this.route})
 }
+
+getQuantity():number{
+let quantity=0;
+  for(let row of this.collections){
+    quantity +=row.collection.quantity
+    }
+    return quantity;
+  }
+  getQuantityofBags():number{
+    let quantity1=0;
+      for(let row of this.collections){
+        if(row.collection.containerType=='bags'){
+        quantity1 +=row.collection.quantity
+        }
+        }
+        return quantity1;
+      }
+      getQuantityofCrates():number{
+        let quantity2=0;
+          for(let row of this.collections){
+            if(row.collection.containerType=='crates'){
+            quantity2 +=row.collection.quantity
+            }
+            }
+            return quantity2;
+          }
+          getQuantityofLenoBags():number{
+            let quantity3=0;
+              for(let row of this.collections){
+                if(row.collection.containerType=='lenobags'){
+                quantity3 +=row.collection.quantity
+                }
+                }
+                return quantity3;
+              }
+
 }

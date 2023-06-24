@@ -1,6 +1,13 @@
 <br><br>
 <div>
 <a routerLink="addcollection">addcollection</a><br>
+<div>The total quantity of todays collection: {{getQuantity()}} </div>
+<div>The total quantity of bags todays collection: {{getQuantityofBags()}} bags</div>
+<div>The total quantity of crates todays collection: {{getQuantityofCrates()}} crates</div>
+<div>The total quantity of crates todays collection: {{getQuantityofLenoBags()}} lenobags</div>
+
+
+
 <div *ngIf="collections">
     <table>
         <thead>
