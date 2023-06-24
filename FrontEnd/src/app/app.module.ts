@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { DefaultModule } from './default/default.module';
+import { ListfilterModule } from './listfilter/listfilter.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DefaultModule } from './default/default.module';
     HttpClientModule,
     BrowserAnimationsModule,
     AuthModule,
-  DefaultModule
+  DefaultModule,
+  ListfilterModule
 
   ],
   providers: [],

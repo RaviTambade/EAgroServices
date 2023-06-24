@@ -54,4 +54,6 @@ public class CollectionService : ICollectionService
     public async Task<List<LabourRate>> GetContainers()=>await _repo.GetContainers();
 
     public async Task<int> GetFarmer(int collectionId)=>await _repo.GetFarmer(collectionId);
+    public async Task<List<CollectionViewModel>> GetCollectionsByContainer(int farmerId,string container)=>await _repo.GetCollectionsByContainer(farmerId,container);
+
 }

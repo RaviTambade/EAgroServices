@@ -1,0 +1,38 @@
+<div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div>
+        <label for="containerType">Container Type:</label>
+        <div>
+          <input id="crates" type="radio" value="crates" name="containerType" formControlName="containerType"
+            (change)="changeContainer($event)">
+          <label for="crates">Crates</label>
+  
+          <input id="bags" type="radio" value="bags" name="containerType" formControlName="containerType"
+            (change)="changeContainer($event)">
+          <label for="bags">Bags</label>
+  
+          <input id="lenobags" type="radio" value="lenobags" name="containerType" formControlName="containerType"
+            (change)="changeContainer($event)">
+          <label for="lenobags">Leno Bags</label>
+        </div>
+  
+        <div *ngIf="f.containerType.touched && f.containerType.invalid" class="alert alert-danger">
+        </div>
+      </div>
+      <button type="submit" [disabled]="!form.valid">Submit</button>
+      <div>
+      </div>
+    </form>
+  </div>
+  
+<div *ngIf="collectionViewModels && collectionViewModels.length > 0">
+    <h3>Collection View Models:</h3>
+    <ul>
+      <li *ngFor="let viewModel of collectionViewModels">
+        {{ viewModel | json }}
+      </li>
+    </ul>
+  </div>
+ 
+  
+  

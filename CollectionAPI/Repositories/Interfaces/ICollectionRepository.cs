@@ -13,6 +13,7 @@ public interface ICollectionRepository
 
     Task<SellViewModel> GetCollectionSell(int CollectionId);
     Task<List<CollectionViewModel>> GetCollections(StartDateFilter startDate);
+    Task<List<CollectionViewModel>> GetCollectionsByContainer(int farmerId,string container);
     Task<CollectionViewModel> GetCollection(int collectionId);
     Task<CollectionBillingRecord> GetCollectionBillingRecord(int collectionId);
     Task<bool> Insert(Collection collection);

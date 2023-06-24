@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -665,3 +665,9 @@ SELECT sells.netweight,sells.quantity,sells.rateperkg,sells.`date`,vehicles.vehi
 INNER JOIN vehicles ON sells.vehicleid=vehicles.id
 INNER JOIN users on sells.merchantid=users.id WHERE vehicles.id=3;
 SELECT * FROM users;
+
+
+ SELECT `v0`.`id`, `v0`.`imageurl`, `v0`.`vehiclenumber`, `v0`.`vendorid`
+      FROM `vendors` AS `v`
+      INNER JOIN `vehicles` AS `v0` ON `v`.`id` = `v0`.`vendorid`
+      WHERE `v`.`id` = 1;

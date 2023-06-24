@@ -5,6 +5,7 @@ import { Collectionviewmodel } from '../vendors/collectionviewmodel';
 import { DatePipe } from '@angular/common';
 import { Collection } from '../vendors/collection';
 import { SellBilling } from '../vendors/sell-billing';
+import { NumberInput } from '@angular/cdk/coercion';
 
 @Injectable({
   providedIn: 'root'
@@ -95,7 +96,11 @@ export class CollectionService {
     let url= "http://localhost:5031/api/collections/" + collectionId +"/farmer"
     return this.http.get<number>(url)
   }
-  
+
+  getCollectionByContainer(farmerId:number,container:string):Observable<any>{
+    let url="  http://localhost:5031/api/collections/" + farmerId + "/containertype/" +container
+    return this.http.get<any>(url)
+  }
 
 
 }

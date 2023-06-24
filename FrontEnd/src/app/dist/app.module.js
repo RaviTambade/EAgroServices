@@ -16,6 +16,7 @@ var http_1 = require("@angular/common/http");
 var animations_1 = require("@angular/platform-browser/animations");
 var auth_module_1 = require("./auth/auth.module");
 var default_module_1 = require("./default/default.module");
+var listfilter_module_1 = require("./listfilter/listfilter.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -31,7 +32,8 @@ var AppModule = /** @class */ (function () {
                 http_1.HttpClientModule,
                 animations_1.BrowserAnimationsModule,
                 auth_module_1.AuthModule,
-                default_module_1.DefaultModule
+                default_module_1.DefaultModule,
+                listfilter_module_1.ListfilterModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]
