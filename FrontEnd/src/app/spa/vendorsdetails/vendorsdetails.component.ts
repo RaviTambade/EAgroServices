@@ -23,9 +23,6 @@ this.transportId=this.route.snapshot.paramMap.get('id')
       this.vendor=response;
       console.log(response);
   })
-
-}
-UserAddress() {
 this.vendorId=this.route.snapshot.paramMap.get('id')
   this.ser.getUserAddress(this.vendorId).subscribe((response) => {
     this.address = response;

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { VendorService } from '../vendor.service';
 import { ActivatedRoute } from '@angular/router';
 import { Selltransport } from 'src/app/vendors/selltransport';
+import { Vendor } from 'src/app/vendors/vendor';
+import { User } from 'src/app/vendors/user';
 
 @Component({
   selector: 'app-truckdetails',
@@ -10,16 +12,22 @@ import { Selltransport } from 'src/app/vendors/selltransport';
 })
 export class TruckdetailsComponent implements OnInit {
   vehicleId: any;
-  SellTransports:Selltransport |any;
-  constructor(private svc:VendorService,private route:ActivatedRoute){}
+  SellTransports: Selltransport | any;
+  user: User | any;
+  
+  constructor(private svc: VendorService, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    this.vehicleId= this.route.snapshot.paramMap.get('id')
+    this.vehicleId = this.route.snapshot.paramMap.get('id')
     console.log(this.vehicleId);
-    this.svc.getSellTransport(this.vehicleId).subscribe((response)=>{
-      this.SellTransports=response;
+    this.svc.getSellTransport(this.vehicleId).subscribe((response) => {
+      this.SellTransports = response;
       console.log(response);
 
     })
+  }
+  onClick(id:number) {
+    console.log("onClick");
+
   }
 
 }
