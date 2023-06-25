@@ -2,7 +2,7 @@
     <app-farmerdetails></app-farmerdetails>
     <app-filterbycontainer (newCollection)="receiveCollection($event)"></app-filterbycontainer>
   
-    <div>
+     <div>
       <table>
         <thead>
           <tr>
@@ -13,26 +13,15 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody *ngIf="filteredCollection && filteredCollection.length > 0; else originalData">
-          <tr *ngFor="let viewModel of filteredCollection">
-            <td>{{ viewModel.collection?.date | date }}</td>
-            <td>{{ viewModel.cropName }}</td>
-            <td>{{ viewModel.collection?.totalWeight }}</td>
-            <td>{{ viewModel.collection?.amount }}</td>
-            <td><button (click)="showDetails(viewModel.collection?.id)">details</button></td>
-          </tr>
-        </tbody>
-        <ng-template #originalData>
           <tbody *ngIf="collectionViewModels && collectionViewModels.length > 0">
-            <tr *ngFor="let viewModel of collectionViewModels">
-              <td>{{ viewModel.collection?.date | date }}</td>
+            <tr *ngFor="let viewModel of getcollections">
+              <td>{{ viewModel.collection.date | date }}</td>
               <td>{{ viewModel.cropName }}</td>
-              <td>{{ viewModel.collection?.totalWeight }}</td>
-              <td>{{ viewModel.collection?.amount }}</td>
-              <td><button (click)="showDetails(viewModel.collection?.id)">details</button></td>
+              <td>{{ viewModel.collection.totalWeight }}</td>
+              <td>{{ viewModel.collection.amount }}</td>
+              <td><button (click)="showDetails(viewModel.collection.id)">details</button></td>
             </tr>
           </tbody>
-        </ng-template>
       </table>
       <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
       <button *ngIf="hasNextPage()" (click)="next()">next</button>

@@ -25,26 +25,18 @@ export class FarmercollectiondetailsComponent implements OnInit {
     })
   }
   receiveCollection($event:any){
-    if ($event.filteredCollection.length > 0) {
-      this.filteredCollection = $event.filteredCollection;
-    } else {
-      this.filteredCollection = null; 
-    }
+
+      this.collectionViewModels = $event.collectionViewModels;
+      this.arrLength = this.collectionViewModels.length;
+      this.currentPage=0;
   }
  
-  get getdetails(): Collectionviewmodel[] {
-    if (this.filteredCollection && this.filteredCollection.length > 0) {
-      const startindex = this.currentPage * 5;
-      const endindex = startindex + 5;
-      return this.filteredCollection.slice(startindex, endindex);
-    } else if (this.collectionViewModels) {
+  get getcollections(): Collectionviewmodel[] {
       const startindex = this.currentPage * 5;
       const endindex = startindex + 5;
       return this.collectionViewModels.slice(startindex, endindex);
-    }
-    return [];
-  }
-  
+    } 
+
   showDetails(id: any) {
     this.router.navigate(['/collections', id], { relativeTo: this.route });
   }
