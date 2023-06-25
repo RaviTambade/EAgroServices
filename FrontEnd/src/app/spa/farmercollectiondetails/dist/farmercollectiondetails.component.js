@@ -25,9 +25,22 @@ var FarmercollectiondetailsComponent = /** @class */ (function () {
             console.log(response);
         });
     };
+    FarmercollectiondetailsComponent.prototype.receiveCollection = function ($event) {
+        if ($event.filteredCollection.length > 0) {
+            this.filteredCollection = $event.filteredCollection;
+        }
+        else {
+            this.filteredCollection = null;
+        }
+    };
     Object.defineProperty(FarmercollectiondetailsComponent.prototype, "getdetails", {
         get: function () {
-            if (this.collectionViewModels) {
+            if (this.filteredCollection && this.filteredCollection.length > 0) {
+                var startindex = this.currentPage * 5;
+                var endindex = startindex + 5;
+                return this.filteredCollection.slice(startindex, endindex);
+            }
+            else if (this.collectionViewModels) {
                 var startindex = this.currentPage * 5;
                 var endindex = startindex + 5;
                 return this.collectionViewModels.slice(startindex, endindex);

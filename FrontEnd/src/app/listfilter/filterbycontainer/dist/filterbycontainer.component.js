@@ -12,6 +12,7 @@ var forms_1 = require("@angular/forms");
 var FilterbycontainerComponent = /** @class */ (function () {
     function FilterbycontainerComponent(svc) {
         this.svc = svc;
+        this.newCollection = new core_1.EventEmitter();
         this.form = new forms_1.FormGroup({
             containerType: new forms_1.FormControl('', forms_1.Validators.required)
         });
@@ -36,9 +37,13 @@ var FilterbycontainerComponent = /** @class */ (function () {
         this.svc.getCollectionByContainer(this.farmerId, container.target.value).subscribe(function (response) {
             console.log(response);
             _this.collectionViewModels = response;
+            _this.newCollection.emit({ collectionViewModels: _this.collectionViewModels });
             console.log(_this.farmerId);
         });
     };
+    __decorate([
+        core_1.Output()
+    ], FilterbycontainerComponent.prototype, "newCollection");
     FilterbycontainerComponent = __decorate([
         core_1.Component({
             selector: 'app-filterbycontainer',

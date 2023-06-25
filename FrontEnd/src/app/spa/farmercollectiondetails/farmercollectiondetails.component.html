@@ -1,32 +1,43 @@
-
-<div></div>
-<br />
-<app-farmerdetails></app-farmerdetails>
-<div >
-    <table>
+<div>
+    <app-farmerdetails></app-farmerdetails>
+    <app-filterbycontainer (newCollection)="receiveCollection($event)"></app-filterbycontainer>
+  
+    <div>
+      <table>
         <thead>
-<tr>
-    <th>date</th>
-    <th>crop</th>
-    <th>Total Weight</th>
-    <th>Amount</th>
-    <th>Actions</th>
-</tr>
+          <tr>
+            <th>date</th>
+            <th>crop</th>
+            <th>Total Weight</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
         </thead>
-        <tbody *ngFor="let collectionViewModel of getdetails ">
-            <tr>
-        <td>{{collectionViewModel.collection?.date |date}}</td>
-        <td>{{collectionViewModel.cropName}}</td>
-          <td>{{collectionViewModel.collection?.totalWeight}}</td>
-          <td>{{collectionViewModel.collection?.amount}}</td>
-          <td><button (click)="showDetails(collectionViewModel.collection?.id)">details</button></td>
-
-            </tr>
+        <tbody *ngIf="filteredCollection && filteredCollection.length > 0; else originalData">
+          <tr *ngFor="let viewModel of filteredCollection">
+            <td>{{ viewModel.collection?.date | date }}</td>
+            <td>{{ viewModel.cropName }}</td>
+            <td>{{ viewModel.collection?.totalWeight }}</td>
+            <td>{{ viewModel.collection?.amount }}</td>
+            <td><button (click)="showDetails(viewModel.collection?.id)">details</button></td>
+          </tr>
         </tbody>
-    </table>
-    <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
-    <button *ngIf="hasNextPage()" (click)="next()">next</button>    
-</div>
-    
-
-<router-outlet></router-outlet>
+        <ng-template #originalData>
+          <tbody *ngIf="collectionViewModels && collectionViewModels.length > 0">
+            <tr *ngFor="let viewModel of collectionViewModels">
+              <td>{{ viewModel.collection?.date | date }}</td>
+              <td>{{ viewModel.cropName }}</td>
+              <td>{{ viewModel.collection?.totalWeight }}</td>
+              <td>{{ viewModel.collection?.amount }}</td>
+              <td><button (click)="showDetails(viewModel.collection?.id)">details</button></td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
+      <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
+      <button *ngIf="hasNextPage()" (click)="next()">next</button>
+    </div>
+  </div>
+  
+  <router-outlet></router-outlet>
+  

@@ -10,6 +10,7 @@ import { CollectionService } from '../collection.service';
 })
 export class FarmercollectiondetailsComponent implements OnInit {
   collectionViewModels: Collectionviewmodel[] | any;
+  filteredCollection:Collectionviewmodel[]|any;
   collections: Collection[] | any;
   farmerId: any;
   currentPage = 0;
@@ -23,8 +24,20 @@ export class FarmercollectiondetailsComponent implements OnInit {
       console.log(response)
     })
   }
-  get getdetails(): any {
-    if (this.collectionViewModels) {
+  receiveCollection($event:any){
+    if ($event.filteredCollection.length > 0) {
+      this.filteredCollection = $event.filteredCollection;
+    } else {
+      this.filteredCollection = null; 
+    }
+  }
+ 
+  get getdetails(): Collectionviewmodel[] {
+    if (this.filteredCollection && this.filteredCollection.length > 0) {
+      const startindex = this.currentPage * 5;
+      const endindex = startindex + 5;
+      return this.filteredCollection.slice(startindex, endindex);
+    } else if (this.collectionViewModels) {
       const startindex = this.currentPage * 5;
       const endindex = startindex + 5;
       return this.collectionViewModels.slice(startindex, endindex);

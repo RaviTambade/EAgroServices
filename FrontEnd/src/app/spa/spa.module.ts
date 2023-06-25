@@ -28,6 +28,7 @@ import { AuthModule } from '../auth/auth.module';
 import { HomeComponent } from '../default/home/home.component';
 import { TruckdetailsComponent } from './truckdetails/truckdetails.component';
 import { LoginComponent } from '../auth/login/login.component';
+import { ListfilterModule } from '../listfilter/listfilter.module';
 
 
 const childRoutes: Routes = [
@@ -93,6 +94,7 @@ const routes: Routes =
     MatSelectModule,
     PaymentprocessingModule,
     DefaultModule,
+    ListfilterModule
   ],
   exports: [
     SparouterComponent

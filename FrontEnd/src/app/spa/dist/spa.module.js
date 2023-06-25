@@ -36,6 +36,7 @@ var default_module_1 = require("../default/default.module");
 var home_component_1 = require("../default/home/home.component");
 var truckdetails_component_1 = require("./truckdetails/truckdetails.component");
 var login_component_1 = require("../auth/login/login.component");
+var listfilter_module_1 = require("../listfilter/listfilter.module");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -96,6 +97,7 @@ var SpaModule = /** @class */ (function () {
                 select_1.MatSelectModule,
                 paymentprocessing_module_1.PaymentprocessingModule,
                 default_module_1.DefaultModule,
+                listfilter_module_1.ListfilterModule
             ],
             exports: [
                 sparouter_component_1.SparouterComponent

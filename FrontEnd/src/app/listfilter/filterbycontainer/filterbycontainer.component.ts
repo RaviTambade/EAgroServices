@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CollectionService } from 'src/app/spa/collection.service';
 import { Collectionviewmodel } from 'src/app/vendors/collectionviewmodel';
@@ -9,7 +10,8 @@ import { Collectionviewmodel } from 'src/app/vendors/collectionviewmodel';
   styleUrls: ['./filterbycontainer.component.css']
 })
 export class FilterbycontainerComponent {
-  collectionViewModels: Collectionviewmodel[] | any;
+ collectionViewModels: Collectionviewmodel[] | any;
+ @Output() newCollection=new EventEmitter<any>();
   farmerId: number;
   container: string;
   constructor(private svc: CollectionService) {
@@ -37,8 +39,9 @@ export class FilterbycontainerComponent {
     // if(e.target.value ==this.container){
     this.svc.getCollectionByContainer(this.farmerId, container.target.value).subscribe((response) => {
       console.log(response)
-      this.collectionViewModels = response
-      console.log(this.farmerId)
+      this.collectionViewModels =response
+      this.newCollection.emit({collectionViewModels:this.collectionViewModels})
+            console.log(this.farmerId)
     })
   }
 }
