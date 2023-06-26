@@ -28,13 +28,13 @@
       <td>{{billing.labourCharges}}</td>
     </tr>
     <tr>
-      <th>Amount to pay</th>
+      <th>Amount to Pay</th>
       <td>{{billing.amount}}</td>
     </tr>
     <br>
     <br>
-    <button (click)="goBack()">Go Back</button>
-    <button *ngIf="!paymentStatus" (click)="createPayment()">Do Payment</button>
+    <button (click)="goBack()"> Back</button>
+    <button *ngIf="!paymentStatus" (click)="createPayment()">Payment</button>
   </table>
  
     <app-creditcardpayment *ngIf="paymentStatus"></app-creditcardpayment>
