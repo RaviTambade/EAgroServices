@@ -15,5 +15,4 @@ public interface IFarmerRepository
     Task<List<FarmerCollection>> GetFarmerCollectionByCrop(int farmerId, int cropId);
     Task<int> GetFarmerId(string farmerName);
     Task<List<Farmer>> GetFilteredFarmers(Address address);
-
 }
