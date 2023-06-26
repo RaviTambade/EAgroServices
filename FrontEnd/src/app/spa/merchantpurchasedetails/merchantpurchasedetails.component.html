@@ -2,19 +2,25 @@
     <thead>
       <tr>
         <th>Date</th>
+        <th>Vehicle Number</th>
         <th>Crop Name</th>   
         <th>Container Type</th>
         <th>Quantity</th>
-        
+        <th>Grade</th>
+        <th>Net Weight</th>
+        <th>Rate Per Kg</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let purchase of merchantPurchases">
         <td>{{ purchase.date |date}}</td>
+        <td>{{purchase.vehicleNumber}}</td>
         <td>{{ purchase.cropName }}</td>
         <td>{{ purchase.containerType }}</td>
         <td>{{ purchase.quantity }}</td>
-        <button (click)="onClick()">Details</button>
+        <td>{{purchase.grade}}</td>
+        <td>{{purchase.netWeight}}</td>
+        <td>{{purchase.ratePerKg}}</td>
       </tr>
     </tbody>
   </table>

@@ -21,7 +21,7 @@ export class CreditcardpaymentComponent {
   status:boolean | undefined;
   constructor(private svc:PaymentService){
     this.payment={
-      billId:64
+      billId:41
     },
     this.cardPayment={
       accountId:2,

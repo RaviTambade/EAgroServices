@@ -6,15 +6,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.MerchantpurchasesComponent = void 0;
+exports.MerchantpurchasedetailsComponent = void 0;
 var core_1 = require("@angular/core");
-var MerchantpurchasesComponent = /** @class */ (function () {
-    function MerchantpurchasesComponent(svc, route, router) {
+var MerchantpurchasedetailsComponent = /** @class */ (function () {
+    function MerchantpurchasedetailsComponent(svc, route) {
         this.svc = svc;
         this.route = route;
-        this.router = router;
     }
-    MerchantpurchasesComponent.prototype.ngOnInit = function () {
+    MerchantpurchasedetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.merchantId = this.route.snapshot.paramMap.get('id');
         this.svc.getMerchantPurchases(this.merchantId).subscribe(function (response) {
@@ -22,16 +21,13 @@ var MerchantpurchasesComponent = /** @class */ (function () {
             console.log(response);
         });
     };
-    MerchantpurchasesComponent.prototype.onClick = function () {
-        this.router.navigate(['/merchant', this.merchantId, 'details']);
-    };
-    MerchantpurchasesComponent = __decorate([
+    MerchantpurchasedetailsComponent = __decorate([
         core_1.Component({
-            selector: 'app-merchantpurchases',
-            templateUrl: './merchantpurchases.component.html',
-            styleUrls: ['./merchantpurchases.component.css']
+            selector: 'app-merchantpurchasedetails',
+            templateUrl: './merchantpurchasedetails.component.html',
+            styleUrls: ['./merchantpurchasedetails.component.css']
         })
-    ], MerchantpurchasesComponent);
-    return MerchantpurchasesComponent;
+    ], MerchantpurchasedetailsComponent);
+    return MerchantpurchasedetailsComponent;
 }());
-exports.MerchantpurchasesComponent = MerchantpurchasesComponent;
+exports.MerchantpurchasedetailsComponent = MerchantpurchasedetailsComponent;

@@ -12,7 +12,7 @@ var CreditcardpaymentComponent = /** @class */ (function () {
     function CreditcardpaymentComponent(svc) {
         this.svc = svc;
         this.payment = {
-            billId: 64
+            billId: 41
         },
             this.cardPayment = {
                 accountId: 2,

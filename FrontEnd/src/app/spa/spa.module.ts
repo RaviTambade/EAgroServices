@@ -29,6 +29,7 @@ import { HomeComponent } from '../default/home/home.component';
 import { TruckdetailsComponent } from './truckdetails/truckdetails.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { ListfilterModule } from '../listfilter/listfilter.module';
+import { MerchantpurchasedetailsComponent } from './merchantpurchasedetails/merchantpurchasedetails.component';
 
 
 const childRoutes: Routes = [
@@ -58,6 +59,8 @@ const routes: Routes =
   { path: 'collections/:id/qualitycontrol',component:QualitycontrolComponent},
   { path: 'merchant/:id', component: MerchantdetailsComponent },
   { path: 'merchant/:id/merchantpurchases', component: MerchantpurchasesComponent },
+  { path: 'merchant/:id/details', component: MerchantpurchasedetailsComponent },
+
 
 
 
@@ -85,6 +88,7 @@ const routes: Routes =
     VendorsdetailsComponent,
     VendorvehiclesComponent,
     TruckdetailsComponent,
+    MerchantpurchasedetailsComponent,
   ],
   imports: [
     CommonModule,

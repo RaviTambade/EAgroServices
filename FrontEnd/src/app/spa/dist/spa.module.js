@@ -37,6 +37,7 @@ var home_component_1 = require("../default/home/home.component");
 var truckdetails_component_1 = require("./truckdetails/truckdetails.component");
 var login_component_1 = require("../auth/login/login.component");
 var listfilter_module_1 = require("../listfilter/listfilter.module");
+var merchantpurchasedetails_component_1 = require("./merchantpurchasedetails/merchantpurchasedetails.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -62,6 +63,7 @@ var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'collections/:id/qualitycontrol', component: qualitycontrol_component_1.QualitycontrolComponent },
     { path: 'merchant/:id', component: merchantdetails_component_1.MerchantdetailsComponent },
     { path: 'merchant/:id/merchantpurchases', component: merchantpurchases_component_1.MerchantpurchasesComponent },
+    { path: 'merchant/:id/details', component: merchantpurchasedetails_component_1.MerchantpurchasedetailsComponent },
 ];
 var SpaModule = /** @class */ (function () {
     function SpaModule() {
@@ -88,6 +90,7 @@ var SpaModule = /** @class */ (function () {
                 vendorsdetails_component_1.VendorsdetailsComponent,
                 vendorvehicles_component_1.VendorvehiclesComponent,
                 truckdetails_component_1.TruckdetailsComponent,
+                merchantpurchasedetails_component_1.MerchantpurchasedetailsComponent,
             ],
             imports: [
                 common_1.CommonModule,
