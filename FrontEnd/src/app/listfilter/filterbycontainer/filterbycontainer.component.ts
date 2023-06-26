@@ -35,15 +35,17 @@ collectionViewModel: Collectionviewmodel | any;
   }
  
 
-  changeContainer(container: any) {
-    console.log(container.target.value);
-    this.svc.getCollectionByContainer(this.farmerId, container.target.value).subscribe((response) => {
-      console.log(response)
-      this.collectionViewModels =response
-      this.newCollection.emit({collectionViewModels:this.collectionViewModels})
-            console.log(this.farmerId)
-    })
+    changeContainer(container: any) {
+      console.log(container.target.value);
+      this.svc.getCollectionByContainer(this.farmerId, container.target.value).subscribe((response) => {
+        console.log(response)
+        this.collectionViewModels =response
+        this.newCollection.emit({collectionViewModels:this.collectionViewModels})
+              console.log(this.farmerId)
+      })
+    
   }
+  
  
   
 }

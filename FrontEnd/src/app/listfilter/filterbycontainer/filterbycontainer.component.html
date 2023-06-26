@@ -1,31 +1,27 @@
 <div>
-    <form [formGroup]="form">
+  <form [formGroup]="form">
+    <div>
+      <p>Filters:</p>
+      <label for="containerType">Container Types:</label>
       <div>
-        <p>Filters =></p>
-        <label for="containerType">Container Type:</label>
-        <div>
-          <input id="crates" type="radio" value="crates" name="containerType" formControlName="containerType"
-            (change)="changeContainer($event)">
-          <label for="crates">Crates</label>
-           <br>
-          <input id="bags" type="radio" value="bags" name="containerType" formControlName="containerType"
-            (change)="changeContainer($event)">
-          <label for="bags">Bags</label>
-  <br>
-          <input id="lenobags" type="radio" value="lenobags" name="containerType" formControlName="containerType"
-            (change)="changeContainer($event)">
-          <label for="lenobags">Leno Bags</label>
-        </div>
-<br>
-        <div *ngIf="f.containerType.touched && f.containerType.invalid" class="alert alert-danger">
-        </div>
+        <input id="crates" type="radio" value="crates" name="containerType" formControlName="containerType"
+          (change)="changeContainer($event)">
+        <label for="crates">Crates</label>
+        <br>
+        <input id="bags" type="radio" value="bags" name="containerType" formControlName="containerType"
+          (change)="changeContainer($event)">
+        <label for="bags">Bags</label>
+        <br>
+        <input id="lenobags" type="radio" value="lenobags" name="containerType" formControlName="containerType"
+          (change)="changeContainer($event)">
+        <label for="lenobags">Leno Bags</label>
       </div>
-      <button type="submit" [disabled]="!form.valid" hidden>Submit</button>
-      <div>
+      <br>
+      <div *ngIf="f.containerType.touched && f.containerType.invalid" class="alert alert-danger">
       </div>
-    </form>
-  </div>
-  
-
-  
-  
+    </div>
+    <button type="submit" [disabled]="!form.valid" hidden>Submit</button>
+    <div>
+    </div>
+  </form>
+</div>

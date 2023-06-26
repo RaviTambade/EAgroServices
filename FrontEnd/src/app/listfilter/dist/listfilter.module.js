@@ -12,20 +12,24 @@ var common_1 = require("@angular/common");
 var filterbycontainer_component_1 = require("./filterbycontainer/filterbycontainer.component");
 var forms_1 = require("@angular/forms");
 var collection_service_1 = require("../spa/collection.service");
+var filterbydate_component_1 = require("./filterbydate/filterbydate.component");
 var ListfilterModule = /** @class */ (function () {
     function ListfilterModule() {
     }
     ListfilterModule = __decorate([
         core_1.NgModule({
             declarations: [
-                filterbycontainer_component_1.FilterbycontainerComponent
+                filterbycontainer_component_1.FilterbycontainerComponent,
+                filterbydate_component_1.FilterbydateComponent
             ],
             imports: [
                 common_1.CommonModule,
-                forms_1.ReactiveFormsModule
+                forms_1.ReactiveFormsModule,
+                forms_1.FormsModule
             ],
             exports: [
-                filterbycontainer_component_1.FilterbycontainerComponent
+                filterbycontainer_component_1.FilterbycontainerComponent,
+                filterbydate_component_1.FilterbydateComponent
             ],
             providers: [
                 collection_service_1.CollectionService

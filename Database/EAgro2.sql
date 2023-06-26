@@ -333,15 +333,14 @@ INSERT INTO vendors(companyname,imageurl,transportid) VALUES ("OM Transports",'/
 INSERT INTO vendors(companyname,imageurl,transportid) VALUES ("Navale Transport",'/assets/images/goodstransport1.jpeg',21);
 INSERT INTO vendors(companyname,imageurl,transportid) VALUES ("Karale Transport",'/assets/images/goodstransport2.jpeg',22);
 INSERT INTO vendors(companyname,imageurl,transportid) VALUES ("Sakore Transport",'/assets/images/sakoretransport.jpeg',23);
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3456');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3455');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(2, 'MH14RE3465');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3476');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE3856');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(1, 'MH14RE4656');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3,'MH14RE1234');
-INSERT INTO vehicles(vendorid,vehiclenumber)VALUES(3,'MH14RE2345');
-
+INSERT INTO vehicles(vendorid,vehiclenumber,imageurl)VALUES(1, 'MH14RE3456','/assets/images/truck.jpg');
+INSERT INTO vehicles(vendorid,vehiclenumber,imageurl)VALUES(2, 'MH14RE3455','/assets/images/truck1.jpeg');
+INSERT INTO vehicles(vendorid,vehiclenumber,imageurl)VALUES(2, 'MH14RE3465','/assets/images/truck2.webp');
+INSERT INTO vehicles(vendorid,vehiclenumber,imageurl)VALUES(1, 'MH14RE3476','/assets/images/truck3.jpeg');
+INSERT INTO vehicles(vendorid,vehiclenumber,imageurl)VALUES(1, 'MH14RE3856','/assets/images/transport.jpeg');
+INSERT INTO vehicles(vendorid,vehiclenumber,imageurl)VALUES(1, 'MH14RE4656','/assets/images/transport1.jpeg');
+INSERT INTO vehicles(vendorid,vehiclenumber,imageurl)VALUES(3,'MH14RE1234','/assets/images/transport2.jpeg');
+INSERT INTO vehicles(vendorid,vehiclenumber,imageurl)VALUES(3,'MH14RE2345','/assets/images/transport3.jpeg');
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Zatka Company','Ramesh','Gawade','Manchar',24);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('HemantKumar Company','Hemant','Pokharkar','Manchar',25);
 -- INSERT INTO merchants(company_name,first_name,last_name,location,userid)VALUES ('Nighot Company','Anuj','Nighot','Manchar',26);
@@ -397,16 +396,16 @@ INSERT INTO collections (farmerid, cropid, containertype, quantity, grade, total
 (4, 4, 'bags', 120, 'B', 600, 34, 34, '2023-06-12 11:15:00'),
 (3, 4, 'bags', 120, 'B', 500, 12, 34, '2023-06-12 11:15:00'),
 (3, 4, 'bags', 120, 'B', 300, 67, 45, '2023-06-12 11:15:00'),
-(5, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-15 11:15:00'),
-(5, 4, 'bags', 120, 'B', 700, 34, 23, '2023-06-15 11:15:00'),
-(6, 4, 'bags', 120, 'B', 800, 23, 22, '2023-06-15 11:15:00'),
-(4, 4, 'bags', 120, 'B', 600, 24, 19, '2023-06-15 11:15:00'),
-(4, 4, 'bags', 120, 'B', 600, 34, 34, '2023-06-15 11:15:00'),
-(6, 4, 'bags', 120, 'B', 500, 12, 34, '2023-06-15 11:15:00'),
-(5, 4, 'bags', 120, 'B', 300, 67, 45, '2023-06-15 11:15:00'),
-(4, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-20 11:15:00'),
-(6, 4, 'bags', 120, 'B', 700, 34, 23, '2023-06-20 11:15:00'),
-(5, 4, 'bags', 120, 'B', 800, 23, 22, '2023-06-20 11:15:00');
+(5, 1, 'bags', 120, 'B', 400, 45, 23, '2023-06-26 11:15:00'),
+(5, 2, 'bags', 120, 'B', 700, 34, 23, '2023-06-26 11:15:00'),
+(6, 3, 'crates', 120, 'B', 800, 23, 22, '2023-06-26 11:15:00'),
+(4, 4, 'crates', 120, 'B', 600, 24, 19, '2023-06-26 11:15:00'),
+(4, 5, 'bags', 120, 'B', 600, 34, 34, '2023-06-26 11:15:00'),
+(6, 6, 'bags', 120, 'B', 500, 12, 34, '2023-06-26 11:15:00'),
+(5, 5, 'lenobags', 120, 'B', 300, 67, 45, '2023-06-26 11:15:00'),
+(4, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-26 11:15:00'),
+(6, 7, 'bags', 120, 'B', 700, 34, 23, '2023-06-26 11:15:00'),
+(5, 8, 'bags', 120, 'B', 800, 23, 22, '2023-06-26 11:15:00');
 
 
 INSERT INTO billing (collectionid,date)
@@ -432,19 +431,19 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 (17, 26, 5, 8, 40, 5.4, '2023-05-27'),
 (18, 26, 6, 11, 55, 6.7, '2023-06-13'),
 (19, 24, 1, 7, 35, 4.9, '2023-06-30'),
-(20, 25, 2, 15, 75, 5.8, '2023-07-17'),
-(21, 26, 3, 10, 50, 4.4, '2023-08-03'),
-(22, 27, 4, 12, 60, 6.1, '2023-08-20'),
-(23, 24, 5, 9, 45, 5.5, '2023-09-06'),
-(24, 25, 6, 6, 30, 4.7, '2023-09-23'),
-(25, 26, 1, 16, 80, 6.4, '2023-10-10'),
-(26, 27, 2, 5, 25, 4.3, '2023-10-27'),
-(27, 24, 3, 18, 90, 6.6, '2023-11-13'),
-(28, 25, 4, 10, 50, 5.0, '2023-11-30'),
-(29, 26, 5, 13, 65, 5.6, '2023-12-14'),
-(30, 27, 6, 8, 40, 6.9, '2023-12-14'),
-(31, 27, 1, 11, 55, 5.2, '2023-01-14'),
-(32, 25, 2, 14, 70, 6.0, '2023-02-14');
+(20, 25, 2, 15, 75, 5.8, '2023-04-17'),
+(21, 26, 3, 10, 50, 4.4, '2023-03-03'),
+(22, 27, 4, 12, 60, 6.1, '2023-02-20'),
+(23, 24, 5, 9, 45, 5.5, '2023-01-06'),
+(24, 25, 6, 6, 30, 4.7, '2023-06-23'),
+(25, 26, 1, 16, 80, 6.4, '2023-03-10'),
+(26, 27, 2, 5, 25, 4.3, '2023-03-27'),
+(27, 24, 3, 18, 90, 6.6, '2023-02-13'),
+(28, 25, 4, 10, 50, 5.0, '2023-01-30'),
+(29, 26, 5, 13, 65, 5.6, '2023-02-14'),
+(30, 27, 6, 8, 40, 6.9, '2023-05-14'),
+(31, 27, 1, 11, 55, 5.2, '2023-06-14'),
+(32, 25, 2, 14, 70, 6.0, '2023-06-14');
 
 INSERT INTO sellsbilling(sellid,date)
 SELECT id,date FROM sells LIMIT 42;

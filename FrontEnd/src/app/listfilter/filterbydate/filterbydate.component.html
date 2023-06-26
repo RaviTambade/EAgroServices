@@ -1,1 +1,6 @@
-<p>filterbydate works!</p>
+<label>Dates:</label><br>
+<label>FromDate</label>
+<input type="date" id="fromDate" name="fromDate" [(ngModel)]="dateFilter.fromDate">&nbsp;&nbsp;
+<label>ToDate</label>
+<input type="date" id="toDate" name="toDate" [(ngModel)]="dateFilter.toDate">&nbsp;&nbsp;
+<button type="submit" (click)="onClick()">filter</button> 

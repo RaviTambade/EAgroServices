@@ -54,6 +54,11 @@ this.vehicles=response
     console.log(this.sellBill)
     this.svc.insertBillDetails(this.sellBill).subscribe((response)=>{
       console.log(response)
+      if(response){
+        alert("collection transportation successfully")
+       window.location.reload();
+
+      }
     });
 }
 receiveCollection($event:any){

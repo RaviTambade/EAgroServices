@@ -1,7 +1,8 @@
 <div>
     <app-farmerdetails></app-farmerdetails>
+    <br>
     <app-filterbycontainer (newCollection)="receiveCollection($event)"></app-filterbycontainer>
-  
+    <app-filterbydate (newCollection)="receiveCollection($event)"></app-filterbydate>
      <div>
       <table>
         <thead>

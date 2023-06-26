@@ -49,6 +49,10 @@ var CollectiontransportationComponent = /** @class */ (function () {
         console.log(this.sellBill);
         this.svc.insertBillDetails(this.sellBill).subscribe(function (response) {
             console.log(response);
+            if (response) {
+                alert("collection transportation successfully");
+                window.location.reload();
+            }
         });
     };
     CollectiontransportationComponent.prototype.receiveCollection = function ($event) {
