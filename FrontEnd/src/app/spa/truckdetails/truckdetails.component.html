@@ -9,8 +9,7 @@
             <th>ratePerKg </th><hr>
             <th>date </th>
         </thead>
-        <tbody *ngFor="let SellTransport of SellTransports">
-            
+        <tbody *ngFor="let SellTransport of SellTransports">            
             <td>{{SellTransport.vehicleNumber}}</td><hr>
                 <td (click)="onClick(SellTransport.user.id)" style="color: blue;">{{SellTransport.firstName}}{{SellTransport.lastName}}</td>
             <td>{{SellTransport.quantity}}</td><hr>
