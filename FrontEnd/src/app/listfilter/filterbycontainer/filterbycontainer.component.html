@@ -14,7 +14,8 @@
         <br>
         <input id="lenobags" type="radio" value="lenobags" name="containerType" formControlName="containerType"
           (change)="changeContainer($event)">
-        <label for="lenobags">Leno Bags</label>
+        <label for="lenobags">Leno Bags</label>&nbsp;&nbsp;
+        <button type="button" (click)="resetSelection()">Cancel</button>
       </div>
       <br>
       <div *ngIf="f.containerType.touched && f.containerType.invalid" class="alert alert-danger">

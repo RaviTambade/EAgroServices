@@ -31,5 +31,8 @@ onClick(){
  })
 }
 
-
+resetSelection() {
+  window.location.reload();
+  } 
+ 
 }

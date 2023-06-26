@@ -6,55 +6,59 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.FilterbycontainerComponent = void 0;
+exports.FilterbycropComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var FilterbycontainerComponent = /** @class */ (function () {
-    function FilterbycontainerComponent(svc, route) {
+var FilterbycropComponent = /** @class */ (function () {
+    function FilterbycropComponent(svc, route) {
         this.svc = svc;
         this.route = route;
         this.newCollection = new core_1.EventEmitter();
         this.form = new forms_1.FormGroup({
-            containerType: new forms_1.FormControl('', forms_1.Validators.required)
+            crop: new forms_1.FormControl('', forms_1.Validators.required)
         });
     }
-    FilterbycontainerComponent.prototype.ngOnInit = function () {
+    FilterbycropComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.farmerId = this.route.snapshot.paramMap.get("id");
+        this.svc.getCrops().subscribe(function (response) {
+            _this.crops = response;
+            console.log(response);
+        });
     };
-    Object.defineProperty(FilterbycontainerComponent.prototype, "f", {
+    Object.defineProperty(FilterbycropComponent.prototype, "f", {
         get: function () {
             return this.form.controls;
         },
         enumerable: false,
         configurable: true
     });
-    FilterbycontainerComponent.prototype.submit = function () {
+    FilterbycropComponent.prototype.submit = function () {
         console.log(this.form.value);
     };
-    FilterbycontainerComponent.prototype.changeContainer = function (container) {
+    FilterbycropComponent.prototype.changeCrop = function (crop) {
         var _this = this;
-        console.log(container.target.value);
-        this.svc.getCollectionByContainer(this.farmerId, container.target.value).subscribe(function (response) {
+        console.log(crop.target.value);
+        this.svc.getFarmerCollectionByCrop(this.farmerId, crop.target.value).subscribe(function (response) {
             console.log(response);
             _this.collectionViewModels = response;
             _this.newCollection.emit({ collectionViewModels: _this.collectionViewModels });
             console.log(_this.farmerId);
         });
     };
-    FilterbycontainerComponent.prototype.resetSelection = function () {
+    FilterbycropComponent.prototype.resetSelection = function () {
         window.location.reload();
     };
     __decorate([
         core_1.Output()
-    ], FilterbycontainerComponent.prototype, "newCollection");
-    FilterbycontainerComponent = __decorate([
+    ], FilterbycropComponent.prototype, "newCollection");
+    FilterbycropComponent = __decorate([
         core_1.Component({
-            selector: 'app-filterbycontainer',
-            templateUrl: './filterbycontainer.component.html',
-            styleUrls: ['./filterbycontainer.component.css']
+            selector: 'app-filterbycrop',
+            templateUrl: './filterbycrop.component.html',
+            styleUrls: ['./filterbycrop.component.css']
         })
-    ], FilterbycontainerComponent);
-    return FilterbycontainerComponent;
+    ], FilterbycropComponent);
+    return FilterbycropComponent;
 }());
-exports.FilterbycontainerComponent = FilterbycontainerComponent;
-// }
+exports.FilterbycropComponent = FilterbycropComponent;

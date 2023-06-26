@@ -28,6 +28,9 @@ var FilterbydateComponent = /** @class */ (function () {
             _this.newCollection.emit({ collectionViewModels: _this.collectionViewModels });
         });
     };
+    FilterbydateComponent.prototype.resetSelection = function () {
+        window.location.reload();
+    };
     __decorate([
         core_1.Output()
     ], FilterbydateComponent.prototype, "newCollection");

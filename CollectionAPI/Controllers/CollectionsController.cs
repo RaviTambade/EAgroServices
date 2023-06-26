@@ -87,4 +87,10 @@ public class CollectionsController : ControllerBase
     public async Task<List<CollectionViewModel>> GetCollectionByDate(int farmerId,[FromBody] DateFilter dateFilter){
         return await _service.GetCollectionByDate(farmerId,dateFilter);
     }
+
+
+    [HttpGet("{farmerId}/crop/{cropname}")]
+    public async Task<List<CollectionViewModel>> GetCollectionByCrop(int farmerId, string cropName){
+       return await _service.GetCollectionByCrop(farmerId,cropName);
+    }
 }

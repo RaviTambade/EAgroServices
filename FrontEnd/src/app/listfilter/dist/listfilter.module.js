@@ -13,6 +13,7 @@ var filterbycontainer_component_1 = require("./filterbycontainer/filterbycontain
 var forms_1 = require("@angular/forms");
 var collection_service_1 = require("../spa/collection.service");
 var filterbydate_component_1 = require("./filterbydate/filterbydate.component");
+var filterbycrop_component_1 = require("./filterbycrop/filterbycrop.component");
 var ListfilterModule = /** @class */ (function () {
     function ListfilterModule() {
     }
@@ -20,7 +21,8 @@ var ListfilterModule = /** @class */ (function () {
         core_1.NgModule({
             declarations: [
                 filterbycontainer_component_1.FilterbycontainerComponent,
-                filterbydate_component_1.FilterbydateComponent
+                filterbydate_component_1.FilterbydateComponent,
+                filterbycrop_component_1.FilterbycropComponent
             ],
             imports: [
                 common_1.CommonModule,
@@ -29,7 +31,8 @@ var ListfilterModule = /** @class */ (function () {
             ],
             exports: [
                 filterbycontainer_component_1.FilterbycontainerComponent,
-                filterbydate_component_1.FilterbydateComponent
+                filterbydate_component_1.FilterbydateComponent,
+                filterbycrop_component_1.FilterbycropComponent
             ],
             providers: [
                 collection_service_1.CollectionService

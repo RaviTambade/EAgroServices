@@ -39,7 +39,5 @@ export class QualitycontrolComponent implements OnInit {
     this.collectionViewModel=event.collectionViewModel;
     console.log("🚀 ~ receiveCollection ~ this.collection:", this.collection);
   }
- 
-
 }
 

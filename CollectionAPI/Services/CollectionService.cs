@@ -57,4 +57,6 @@ public class CollectionService : ICollectionService
     public async Task<List<CollectionViewModel>> GetCollectionsByContainer(int farmerId,string container)=>await _repo.GetCollectionsByContainer(farmerId,container);
 
     public async Task<List<CollectionViewModel>> GetCollectionByDate(int farmerId, DateFilter dateFilter)=>await _repo.GetCollectionByDate(farmerId,dateFilter);
+
+    public async Task<List<CollectionViewModel>> GetCollectionByCrop(int farmerId, string cropName)=>await _repo.GetCollectionByCrop(farmerId,cropName);
 }

@@ -94,6 +94,10 @@ var CollectionService = /** @class */ (function () {
         var url = "http://localhost:5031/api/collections/" + farmerId + "/date";
         return this.http.post(url, dateFilter);
     };
+    CollectionService.prototype.getFarmerCollectionByCrop = function (farmerId, cropName) {
+        var url = "http://localhost:5031/api/collections/" + farmerId + "/crop/" + cropName;
+        return this.http.get(url);
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

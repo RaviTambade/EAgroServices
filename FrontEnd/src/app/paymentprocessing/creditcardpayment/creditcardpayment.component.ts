@@ -26,7 +26,7 @@ export class CreditcardpaymentComponent {
     this.cardPayment={
       accountId:2,
       cardNumber:"8778565645457878",
-      amount:2000
+      amount:40000
     }
     this.creditCardPayment=
     {

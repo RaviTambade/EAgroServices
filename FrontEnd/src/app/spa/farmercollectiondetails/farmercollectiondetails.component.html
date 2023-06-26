@@ -3,6 +3,7 @@
     <br>
     <app-filterbycontainer (newCollection)="receiveCollection($event)"></app-filterbycontainer>
     <app-filterbydate (newCollection)="receiveCollection($event)"></app-filterbydate>
+    <app-filterbycrop (newCollection)="receiveCollection($event)"></app-filterbycrop>
      <div>
       <table>
         <thead>
@@ -20,7 +21,7 @@
               <td>{{ viewModel.cropName }}</td>
               <td>{{ viewModel.collection.totalWeight }}</td>
               <td>{{ viewModel.collection.amount }}</td>
-              <td><button (click)="showDetails(viewModel.collection.id)">details</button></td>
+              <td><button (click)="showDetails(viewModel.collection.id)">collectiondetails</button></td>
             </tr>
           </tbody>
       </table>

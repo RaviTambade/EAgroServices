@@ -106,5 +106,9 @@ getFarmerCollectionByDate(farmerId:number,dateFilter:Datefilter):Observable<any>
   let url="http://localhost:5031/api/collections/" + farmerId + "/date"
   return this.http.post<any>(url,dateFilter)
 }
+getFarmerCollectionByCrop(farmerId:number,cropName:string):Observable<any>{
+  let url="http://localhost:5031/api/collections/" + farmerId + "/crop/" + cropName
+  return this.http.get<any>(url)
+}
 
 }

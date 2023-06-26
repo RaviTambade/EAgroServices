@@ -20,7 +20,7 @@ var QualitycontrolComponent = /** @class */ (function () {
     QualitycontrolComponent.prototype.updateCollection = function () {
         var _this = this;
         console.log("🚀 ", this.collection);
-        this.svc.editCollection(this.collectionId, this.collection).subscribe(function (response) {
+        this.svc.editCollection(this.collectionId, this.collectionViewModel.collection).subscribe(function (response) {
             console.log(response);
             if (response) {
                 alert("Quality assured successfully");
@@ -32,7 +32,7 @@ var QualitycontrolComponent = /** @class */ (function () {
         });
     };
     QualitycontrolComponent.prototype.receiveCollection = function (event) {
-        this.collection = event.collection;
+        this.collectionViewModel = event.collectionViewModel;
         console.log("🚀 ~ receiveCollection ~ this.collection:", this.collection);
     };
     QualitycontrolComponent = __decorate([

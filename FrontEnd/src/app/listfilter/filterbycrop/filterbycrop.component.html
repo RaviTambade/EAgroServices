@@ -1,0 +1,30 @@
+<!-- <div>
+<form [formGroup]="form">
+    <div>
+        <label for="crop">Crop:</label>
+        <div>
+        <label>
+            Crop:
+            <select name="cropName" formControlName="crop" [(ngModel)]="collectionViewModel.cropName" required>
+              <option *ngFor="let crop of crops" (change)="changeCrop($event)">{{ crop.title }}</option>
+            </select>
+        </div>
+    </div>
+</form>
+</div>
+  -->
+
+  <div>
+    <form [formGroup]="form">
+      <div>
+        <label for="crop">Crop:</label>
+        <div>
+          <select name="cropName" formControlName="crop" (change)="changeCrop($event)" required>
+            <option *ngFor="let c of crops" [value]="c.title" >{{ c.title }}</option>
+          </select>&nbsp;&nbsp;
+          <button type="button" (click)="resetSelection()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

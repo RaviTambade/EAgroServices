@@ -4,13 +4,15 @@ import { FilterbycontainerComponent } from './filterbycontainer/filterbycontaine
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollectionService } from '../spa/collection.service';
 import { FilterbydateComponent } from './filterbydate/filterbydate.component';
+import { FilterbycropComponent } from './filterbycrop/filterbycrop.component';
 
 
 
 @NgModule({
   declarations: [
     FilterbycontainerComponent,
-    FilterbydateComponent
+    FilterbydateComponent,
+    FilterbycropComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { FilterbydateComponent } from './filterbydate/filterbydate.component';
   ],
   exports:[
     FilterbycontainerComponent,
-    FilterbydateComponent
+    FilterbydateComponent,
+    FilterbycropComponent
   ],
   providers:[
     CollectionService

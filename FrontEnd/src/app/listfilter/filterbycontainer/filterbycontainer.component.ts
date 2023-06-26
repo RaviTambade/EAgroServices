@@ -45,7 +45,9 @@ collectionViewModel: Collectionviewmodel | any;
       })
     
   }
-  
+  resetSelection() {
+  window.location.reload();
+  } 
  
   
 }
