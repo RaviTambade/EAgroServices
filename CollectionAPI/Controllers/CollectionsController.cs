@@ -82,4 +82,9 @@ public class CollectionsController : ControllerBase
     public async Task<List<CollectionViewModel>> GetCollectionsByContainer(int farmerId,string container){
       return  await _service.GetCollectionsByContainer(farmerId,container);
     }
+
+[HttpPost("{farmerId}/date")]
+    public async Task<List<CollectionViewModel>> GetCollectionByDate(int farmerId,[FromBody] DateFilter dateFilter){
+        return await _service.GetCollectionByDate(farmerId,dateFilter);
+    }
 }

@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Collection } from '../vendors/collection';
 import { SellBilling } from '../vendors/sell-billing';
 import { NumberInput } from '@angular/cdk/coercion';
+import { Datefilter } from '../vendors/datefilter';
 
 @Injectable({
   providedIn: 'root'
@@ -101,6 +102,9 @@ export class CollectionService {
     let url="  http://localhost:5031/api/collections/" + farmerId + "/containertype/" +container
     return this.http.get<any>(url)
   }
-
+getFarmerCollectionByDate(farmerId:number,dateFilter:Datefilter):Observable<any>{
+  let url="http://localhost:5031/api/collections/" + farmerId + "/date"
+  return this.http.post<any>(url,dateFilter)
+}
 
 }

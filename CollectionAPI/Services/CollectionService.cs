@@ -56,8 +56,5 @@ public class CollectionService : ICollectionService
     public async Task<int> GetFarmer(int collectionId)=>await _repo.GetFarmer(collectionId);
     public async Task<List<CollectionViewModel>> GetCollectionsByContainer(int farmerId,string container)=>await _repo.GetCollectionsByContainer(farmerId,container);
 
-    public Task<List<CollectionViewModel>> GetCollectionByDate(int farmerId, DateFilter dateFilter)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<List<CollectionViewModel>> GetCollectionByDate(int farmerId, DateFilter dateFilter)=>await _repo.GetCollectionByDate(farmerId,dateFilter);
 }

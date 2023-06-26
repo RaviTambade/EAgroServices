@@ -32,8 +32,8 @@ export class FarmercollectiondetailsComponent implements OnInit {
   }
  
   get getcollections(): Collectionviewmodel[] {
-      const startindex = this.currentPage * 5;
-      const endindex = startindex + 5;
+      const startindex = this.currentPage * 10;
+      const endindex = startindex + 10;
       return this.collectionViewModels.slice(startindex, endindex);
     } 
 
@@ -44,9 +44,9 @@ export class FarmercollectiondetailsComponent implements OnInit {
     this.currentPage++;
   }
   hasNextPage(): boolean {
-    const totalpages = Math.trunc(this.arrLength / 5);
+    const totalpages = Math.trunc(this.arrLength / 10);
     console.log("🚀 ~ hasnextPage ~ totalpages:", totalpages);
-    if (this.arrLength % 5 == 0) {
+    if (this.arrLength % 10 == 0) {
       return this.currentPage < totalpages - 1;
     }
     if (this.currentPage < totalpages) {

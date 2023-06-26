@@ -26,26 +26,15 @@ var FarmercollectiondetailsComponent = /** @class */ (function () {
         });
     };
     FarmercollectiondetailsComponent.prototype.receiveCollection = function ($event) {
-        if ($event.filteredCollection.length > 0) {
-            this.filteredCollection = $event.filteredCollection;
-        }
-        else {
-            this.filteredCollection = null;
-        }
+        this.collectionViewModels = $event.collectionViewModels;
+        this.arrLength = this.collectionViewModels.length;
+        this.currentPage = 0;
     };
-    Object.defineProperty(FarmercollectiondetailsComponent.prototype, "getdetails", {
+    Object.defineProperty(FarmercollectiondetailsComponent.prototype, "getcollections", {
         get: function () {
-            if (this.filteredCollection && this.filteredCollection.length > 0) {
-                var startindex = this.currentPage * 5;
-                var endindex = startindex + 5;
-                return this.filteredCollection.slice(startindex, endindex);
-            }
-            else if (this.collectionViewModels) {
-                var startindex = this.currentPage * 5;
-                var endindex = startindex + 5;
-                return this.collectionViewModels.slice(startindex, endindex);
-            }
-            return [];
+            var startindex = this.currentPage * 10;
+            var endindex = startindex + 10;
+            return this.collectionViewModels.slice(startindex, endindex);
         },
         enumerable: false,
         configurable: true
@@ -57,9 +46,9 @@ var FarmercollectiondetailsComponent = /** @class */ (function () {
         this.currentPage++;
     };
     FarmercollectiondetailsComponent.prototype.hasNextPage = function () {
-        var totalpages = Math.trunc(this.arrLength / 5);
+        var totalpages = Math.trunc(this.arrLength / 10);
         console.log("🚀 ~ hasnextPage ~ totalpages:", totalpages);
-        if (this.arrLength % 5 == 0) {
+        if (this.arrLength % 10 == 0) {
             return this.currentPage < totalpages - 1;
         }
         if (this.currentPage < totalpages) {

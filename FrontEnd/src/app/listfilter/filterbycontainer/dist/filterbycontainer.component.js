@@ -10,16 +10,17 @@ exports.FilterbycontainerComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var FilterbycontainerComponent = /** @class */ (function () {
-    function FilterbycontainerComponent(svc) {
+    function FilterbycontainerComponent(svc, route) {
         this.svc = svc;
+        this.route = route;
         this.newCollection = new core_1.EventEmitter();
         this.form = new forms_1.FormGroup({
             containerType: new forms_1.FormControl('', forms_1.Validators.required)
         });
-        this.collectionViewModel = { collection: { farmerId: 3, containerType: '' } };
-        this.farmerId = this.collectionViewModel.collection.farmerId,
-            this.container = this.collectionViewModel.collection.containerType;
     }
+    FilterbycontainerComponent.prototype.ngOnInit = function () {
+        this.farmerId = this.route.snapshot.paramMap.get("id");
+    };
     Object.defineProperty(FilterbycontainerComponent.prototype, "f", {
         get: function () {
             return this.form.controls;
@@ -33,7 +34,6 @@ var FilterbycontainerComponent = /** @class */ (function () {
     FilterbycontainerComponent.prototype.changeContainer = function (container) {
         var _this = this;
         console.log(container.target.value);
-        // if(e.target.value ==this.container){
         this.svc.getCollectionByContainer(this.farmerId, container.target.value).subscribe(function (response) {
             console.log(response);
             _this.collectionViewModels = response;
