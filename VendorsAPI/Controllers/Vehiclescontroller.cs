@@ -50,4 +50,12 @@ public class VehiclesController : ControllerBase
     {
         return await _service.Delete(id);
     }
+
+
+    [HttpPost("{id}/date")]
+
+   public async Task<List<SellTransport>> GetTransportDetails(int id,[FromBody] StartDateFilter startDate){
+    System.Console.WriteLine(startDate.Date);
+   return await _service.GetTransportDetails(id,startDate);
+}
 }

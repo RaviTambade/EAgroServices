@@ -130,4 +130,29 @@ public class VehicleRepository:IVehicleRepository{
         }
         return status;
     }
+   public async Task<List<SellTransport>> GetTransportDetails(int id,StartDateFilter startDate){
+    try{
+        using(var context=new VendorsContext(_configuration)){
+            var sellTransports=await(from vehicle in context.Vehicles
+                                     join sell in context.Sells
+                                     on vehicle.Id equals sell.VehicleId
+                                     where sell.VehicleId==id &&
+                                     sell.Date.Year == startDate.Date.Year
+                                     && sell.Date.Month == startDate.Date.Month
+                                     && sell.Date.Day == startDate.Date.Day
+                                     select new SellTransport()
+                                     {
+                                        VehicleNumber=vehicle.VehicleNumber,
+                                        Date=sell.Date,
+                                        Quantity=sell.Quantity,
+                                        NetWeight=sell.NetWeight
+                                     }).ToListAsync();
+                                     return sellTransports;
+        }
+    }
+    catch(Exception e){
+        throw e;
+    }
+   }
+
 }

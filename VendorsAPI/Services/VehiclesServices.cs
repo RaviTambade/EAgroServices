@@ -34,5 +34,8 @@ public class VehicleServices : IVehicleServices
     {
         return await _repository.Delete(id);
     }
+   public async Task<List<SellTransport>> GetTransportDetails(int id,StartDateFilter startDate){
+    return await _repository.GetTransportDetails(id,startDate);
 
+   }
 }
