@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using UsersAPI.Models;
 using UsersAPI.Repositories.Interfaces;
 using UsersAPI.Services.Interfaces;
@@ -16,7 +15,5 @@ public class UserService:IUserService{
     public async Task<bool> Update(int userId,User user )=>await _repo.Update(userId,user);
     public async Task<bool> Delete(int userId)=>await _repo.Delete(userId);
 
-
-
-
+    public async Task<List<Role>> GetRoles() => await _repo.GetRoles();   
 }

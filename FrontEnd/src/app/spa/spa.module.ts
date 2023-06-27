@@ -30,6 +30,7 @@ import { TruckdetailsComponent } from './truckdetails/truckdetails.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { ListfilterModule } from '../listfilter/listfilter.module';
 import { MerchantpurchasedetailsComponent } from './merchantpurchasedetails/merchantpurchasedetails.component';
+import { RegisterComponent } from '../auth/register/register.component';
 
 
 const childRoutes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes =
   { path: 'home', component: HomeComponent },
   { path: 'farmers', component: FarmerlistComponent },
   {path:'login',component:LoginComponent},
+  {path:'register',component:RegisterComponent},
   { path: 'collections', component: CollectionlistComponent, children: childRoutes },
   // { path: 'collections/addcollection', component: AddcollectionComponent },
   { path: 'collections/addcollection', component: AddnewcollectionComponent },

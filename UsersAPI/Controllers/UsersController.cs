@@ -6,35 +6,53 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace UsersAPI.Controller;
+
 [ApiController]
 [Route("/api/[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _srv;
+
     public UsersController(IUserService srv)
     {
         _srv = srv;
     }
+
     [HttpGet]
-    public async Task<List<User>> GetAll(){
+    public async Task<List<User>> GetAll()
+    {
         return await _srv.GetAll();
     }
-     [HttpGet("{id}")]
-    public async Task<User> GetUser(int id){
+
+    [HttpGet("{id}")]
+    public async Task<User> GetUser(int id)
+    {
         return await _srv.GetUser(id);
     }
-      [HttpPost]
-    public async Task<bool> Insert(UserRoleInsert userRoleInsert){
-        User user=userRoleInsert.User;
-        UserRole userRole=userRoleInsert.UserRole;
-        return await _srv.Insert(user,userRole); 
+
+    [HttpPost]
+    public async Task<bool> Insert(UserRoleInsert userRoleInsert)
+    {
+        User user = userRoleInsert.User;
+        UserRole userRole = userRoleInsert.UserRole;
+        return await _srv.Insert(user, userRole);
     }
-        [HttpPut("{id}")]
-    public async Task<bool> Update(int id,[FromBody]User user){
-        return await _srv.Update(id,user); 
+
+    [HttpPut("{id}")]
+    public async Task<bool> Update(int id, [FromBody] User user)
+    {
+        return await _srv.Update(id, user);
     }
-        [HttpDelete("{id}")]
-    public async Task<bool> Delete(int id){
-        return await _srv.Delete(id); 
+
+    [HttpDelete("{id}")]
+    public async Task<bool> Delete(int id)
+    {
+        return await _srv.Delete(id);
+    }
+
+    [HttpGet("roles")]
+    public async Task<List<Role>> GetRoles()
+    {
+        return await _srv.GetRoles();
     }
 }

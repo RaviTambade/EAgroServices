@@ -11,4 +11,8 @@ export class HomeComponent {
 onClick(){
   this.router.navigate(['/login']);
 }
+onRegisterClick(){
+  this.router.navigate(['/register']);
+
+}
 }

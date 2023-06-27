@@ -1,0 +1,56 @@
+<h3> Registration Form</h3>
+<div class="auth-main">
+  <div class="auth-wrapper v3">
+    <div class="auth-form">
+      <div class="card mt-5">
+        <div class="card-body">
+           
+                <label for="roleSelect">Select Role:</label>
+                <select class="form-select" id="roleSelect" [(ngModel)]="userRole.roleId">
+                  <option *ngFor="let role of roles" [value]="role.id">{{ role.name |uppercase}}</option>
+                </select>
+              <div *ngIf="this.userRole.roleId!=0">
+          <h5 class="my-4 d-flex justify-content-center"> Sign Up with Contact Number </h5>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control"  #contactnumber="ngModel" [(ngModel)]="user.contactNumber" />
+                <label for="floatingInput">Contact Number</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control"  #password="ngModel" [(ngModel)]="user.password" />
+                <label for="floatingInput">Password</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control"  #firstname="ngModel" [(ngModel)]="user.firstName" />
+                <label for="floatingInput">First Name</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control"  #lastname="ngModel" [(ngModel)]="user.lastName" />
+                <label for="floatingInput">Last Name</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-grid mt-4">
+            <button type="button" class="btn btn-secondary p-2" (click)="onSubmit()">Sign Up</button>
+          </div>
+        </div>
+        <hr />
+        <h5 class="d-flex justify-content-center">
+            <a [routerLink]="['/login']"> Already have an account? </a>
+          </h5>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+

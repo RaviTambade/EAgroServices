@@ -1,77 +1,84 @@
-using System.Collections.Generic;
-using System.Numerics;
-using System.Security;
-using System.Threading.Tasks;
 using UsersAPI.Context;
 using UsersAPI.Models;
 using UsersAPI.Repositories.Interfaces;
-using UsersAPI.Context;
 using Microsoft.EntityFrameworkCore;
+
 namespace UsersAPI.Repositories;
+
 public class UserRepository : IUserRepository
 {
     private readonly IConfiguration _configuration;
+
     public UserRepository(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-    public async Task<List<User>> GetAll(){
-        try{
-            using(var context=new UserContext(_configuration))
+
+    public async Task<List<User>> GetAll()
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
             {
-                List<User> users=await context.Users.ToListAsync();
-                if(users == null)
+                List<User> users = await context.Users.ToListAsync();
+                if (users == null)
                 {
-                        return null;
+                    return null;
                 }
                 return users;
             }
         }
-         catch (Exception e)
+        catch (Exception e)
         {
             throw e;
         }
     }
-      public async Task<User> GetUser(int userId){
-        try{
-            using(var context=new UserContext(_configuration))
+
+    public async Task<User> GetUser(int userId)
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
             {
-                User user=await context.Users.FindAsync(userId);
-                if(user == null)
+                User user = await context.Users.FindAsync(userId);
+                if (user == null)
                 {
-                        return null;
+                    return null;
                 }
                 return user;
             }
         }
-         catch (Exception e)
+        catch (Exception e)
         {
             throw e;
         }
     }
-    public async Task<bool> Insert(User user,UserRole userRole) {
-        bool status=false;
-        int userId=0;
-        try{
-            using(var context=new UserContext(_configuration))
+
+    public async Task<bool> Insert(User user, UserRole userRole)
+    {
+        bool status = false;
+        int userId = 0;
+        try
+        {
+            using (var context = new UserContext(_configuration))
             {
-                 await context.Users.AddAsync(user);
-                 await context.SaveChangesAsync();
-                 userId=user.Id;
-                 userRole.UserId=userId;
-                 await context.UserRoles.AddAsync(userRole);
-                 await context.SaveChangesAsync();
-                 status=true;
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+                userId = user.Id;
+                userRole.UserId = userId;
+                await context.UserRoles.AddAsync(userRole);
+                await context.SaveChangesAsync();
+                status = true;
             }
         }
-         catch (Exception e)
+        catch (Exception e)
         {
             throw e;
         }
         return status;
     }
 
-     public async Task<bool> Update(int userId,User user)
+    public async Task<bool> Update(int userId, User user)
     {
         bool status = false;
         try
@@ -85,9 +92,10 @@ public class UserRepository : IUserRepository
                     oldUser.Password = user.Password;
                     oldUser.FirstName = user.FirstName;
                     oldUser.LastName = user.LastName;
-                    oldUser.Location = user.Location;
+                    oldUser.ImageUrl = user.ImageUrl;
+                    oldUser.AadharId = user.AadharId;
                     await context.SaveChangesAsync();
-                    status= true;
+                    status = true;
                 }
             }
         }
@@ -97,7 +105,8 @@ public class UserRepository : IUserRepository
         }
         return status;
     }
-         public async Task<bool> Delete(int userId)
+
+    public async Task<bool> Delete(int userId)
     {
         bool status = false;
         try
@@ -109,7 +118,7 @@ public class UserRepository : IUserRepository
                 {
                     context.Users.Remove(user);
                     await context.SaveChangesAsync();
-                    status= true;
+                    status = true;
                 }
             }
         }
@@ -118,5 +127,21 @@ public class UserRepository : IUserRepository
             throw e;
         }
         return status;
+    }
+
+    public async Task<List<Role>> GetRoles()
+    {
+        try
+        {
+            using (var context = new UserContext(_configuration))
+            {
+                var roles = await context.Roles.ToListAsync();
+                return roles;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
     }
 }

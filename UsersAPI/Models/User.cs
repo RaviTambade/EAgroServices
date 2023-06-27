@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace UsersAPI.Models;
+
 public class User
 {
     [Column("id")]
@@ -14,8 +16,11 @@ public class User
     [Column("lastname")]
     public string? LastName { get; set; }
 
-    [Column("location")]
-    public string? Location { get; set; }
+    [Column("imageurl")]
+    public string? ImageUrl { get; set; }
+
+    [Column("aadharid")]
+    public string? AadharId { get; set; }
 
     [Column("password")]
     public string? Password { get; set; }
