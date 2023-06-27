@@ -6,16 +6,12 @@
             <th>vehicleNumber</th><hr>          
             <th>quantity </th><hr>
             <th>netWeight </th><hr>
-            <th>ratePerKg </th><hr>
             <th>date </th>
         </thead>
         <tbody *ngFor="let SellTransport of SellTransports">            
             <td>{{SellTransport.vehicleNumber}}</td><hr>
-                <td (click)="onClick(SellTransport.user.id)" style="color: blue;">{{SellTransport.firstName}}{{SellTransport.lastName}}</td>
-            <td>{{SellTransport.quantity}}</td><hr>
+                        <td>{{SellTransport.quantity}}</td><hr>
             <td>{{SellTransport.netWeight}}</td><hr>
-            <td>{{SellTransport.ratePerKg}}</td> 
-            <td>{{SellTransport.ratePerKg}}</td> 
             <td>{{SellTransport.date}}</td> 
         </tbody>
     </table>

@@ -1,26 +1,26 @@
 <table>
     <thead>
       <tr>
-        <th>Date</th>
-        <th>Vehicle Number</th>
-        <th>Crop</th>   
-        <th>Quantity</th>
-        <th>Container</th>
-        <th>Grade</th>
-        <th>Net Weight</th>
-        <th>Rate Per Kg</th>
+        <th>Date</th>&nbsp;&nbsp;
+        <th>Vehicle Number</th>&nbsp;&nbsp;
+        <th>Crop</th>&nbsp;&nbsp;
+        <th>Quantity</th>&nbsp;&nbsp;
+        <th>Container</th>&nbsp;&nbsp;
+        <th>Grade</th>&nbsp;&nbsp;
+        <th>Net Weight</th>&nbsp;&nbsp;
+        <th>Rate Per Kg</th>&nbsp;&nbsp;
       </tr>
     </thead>
     <tbody>
       <tr *ngIf="merchantPurchase">
-        <td>{{ merchantPurchase.date |date}}</td>
-        <td>{{merchantPurchase.vehicleNumber}}</td>
-        <td class="circle-image"><img [src]="merchantPurchase.cropImage" width="100px" height="100px" /></td>
-        <td>{{ merchantPurchase.quantity }}</td>
-        <td class="circle-image"><img [src]="merchantPurchase.containerImage" width="100px" height="100px" /></td>
-        <td>{{merchantPurchase.grade}}</td>
-        <td>{{merchantPurchase.netWeight}}</td>
-        <td>{{merchantPurchase.ratePerKg}}</td>
+        <td>{{ merchantPurchase.date | date}}</td>&nbsp;&nbsp;
+        <td>{{merchantPurchase.vehicleNumber}}</td>&nbsp;&nbsp;
+        <td class="circle-image"><img [src]="merchantPurchase.cropImage" width="80px" height="80px" /></td>&nbsp;&nbsp;
+        <td>{{ merchantPurchase.quantity }}</td>&nbsp;&nbsp;
+        <td class="circle-image"><img [src]="merchantPurchase.containerImage" width="80px" height="140px" /></td>&nbsp;&nbsp;
+        <td>{{merchantPurchase.grade}}</td>&nbsp;&nbsp;
+        <td>{{merchantPurchase.netWeight}}</td>&nbsp;&nbsp;
+        <td>{{merchantPurchase.ratePerKg}}</td>&nbsp;&nbsp;
       </tr>
     </tbody>
   </table>
