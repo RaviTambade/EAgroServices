@@ -61,4 +61,9 @@ public class MerchantsController : ControllerBase
     public async Task<List<MerchantRecord>> GetTodaysMerchantSellRecords(int merchantId,StartDateFilter startDate){
      return await _service.GetTodaysMerchantSellRecords(merchantId,startDate);
     }
+
+    [HttpGet("sellsrecord/{sellId}")]
+     public async Task<MerchantRecord> GetMerchantSellBySellId(int sellId){
+      return  await _service.GetMerchantSellBySellId(sellId);
+     }
 }

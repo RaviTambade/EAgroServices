@@ -13,4 +13,6 @@ public class MerchantRecord
     public string? VehicleNumber{get;set;}
     public DateTime Date{get;set;}
     public string? CropImage{get;set;}
+    public int CollectionId{get;set;}
+    public int SellId{get;set;}
 }

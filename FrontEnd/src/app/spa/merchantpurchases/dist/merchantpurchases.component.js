@@ -13,6 +13,9 @@ var MerchantpurchasesComponent = /** @class */ (function () {
         this.svc = svc;
         this.route = route;
         this.router = router;
+        this.merchantPurchase = {
+            'sellId': 0
+        };
     }
     MerchantpurchasesComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -22,7 +25,8 @@ var MerchantpurchasesComponent = /** @class */ (function () {
             console.log(response);
         });
     };
-    MerchantpurchasesComponent.prototype.onClick = function () {
+    MerchantpurchasesComponent.prototype.onClick = function (sellId) {
+        localStorage.setItem('sellId', sellId);
         this.router.navigate(['/merchant', this.merchantId, 'details']);
     };
     MerchantpurchasesComponent = __decorate([

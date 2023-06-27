@@ -108,6 +108,10 @@ var CollectionService = /** @class */ (function () {
         var url = "http://localhost:5188/api/merchants/" + merchantId + "/date";
         return this.http.post(url, date);
     };
+    CollectionService.prototype.getMerchantSellBySellId = function (sellId) {
+        var url = "http://localhost:5188/api/merchants/sellsrecord/" + sellId;
+        return this.http.get(url);
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

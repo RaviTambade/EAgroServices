@@ -14,7 +14,7 @@
         <td class="circle-image"><img [src]="purchase.cropImage" width="100px" height="100px" /></td>
         <td class="circle-image"><img [src]="purchase.containerImage" width="100px" height="100px" /></td>
         <td>{{ purchase.quantity }}</td>
-        <button (click)="onClick()">Details</button>
+        <button (click)="onClick(purchase.sellId)">Details</button>
       </tr>
     </tbody>
   </table>

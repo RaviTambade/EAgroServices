@@ -119,6 +119,8 @@ public class MerchantRepository : IMerchantRepository
                         CropImage = crop.ImageUrl,
                         ContainerImage = labourrate.ImageUrl,
                         Quantity = collectionsell.Quantity,
+                        CollectionId=collection.Id,
+                        SellId=collectionsell.Id,
                         Grade = collection.Grade,
                         NetWeight = collectionsell.NetWeight,
                         RatePerKg = collectionsell.RatePerKg,
@@ -228,6 +230,8 @@ public class MerchantRepository : IMerchantRepository
                         ContainerImage = labourrate.ImageUrl,
                         Quantity = collectionsell.Quantity,
                         Grade = collection.Grade,
+                        CollectionId=collection.Id,
+                        SellId=collectionsell.Id,
                         NetWeight = collectionsell.NetWeight,
                         RatePerKg = collectionsell.RatePerKg,
                         VehicleNumber = vehicle.VehicleNumber,
@@ -235,6 +239,45 @@ public class MerchantRepository : IMerchantRepository
                     }
                 ).ToListAsync();
                 return merchantRecords;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+     public async Task<MerchantRecord> GetMerchantSellBySellId(int sellId)
+    {
+        try
+        {
+            using (var context = new MerchantContext(_configuration))
+            {
+                var merchantRecord = await (
+                    from merchant in context.Merchants
+                    join collectionsell in context.CollectionSells
+                        on merchant.Id equals collectionsell.MerchantId
+                    join collection in context.Collections
+                        on collectionsell.CollectionId equals collection.Id
+                        join labourrate in context.LabourRates on collection.ContainerType equals labourrate.ContainerType
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    join vehicle in context.Vehicles on collectionsell.VehicleId equals vehicle.Id
+                    where collectionsell.Id == sellId
+                    select new MerchantRecord()
+                    {
+                        CropImage = crop.ImageUrl,
+                        ContainerImage = labourrate.ImageUrl,
+                        Quantity = collectionsell.Quantity,
+                        CollectionId=collection.Id,
+                        SellId=collectionsell.Id,
+                        Grade = collection.Grade,
+                        NetWeight = collectionsell.NetWeight,
+                        RatePerKg = collectionsell.RatePerKg,
+                        VehicleNumber = vehicle.VehicleNumber,
+                        Date = collectionsell.Date
+                    }
+                ).FirstOrDefaultAsync();
+                return merchantRecord;
             }
         }
         catch (Exception e)

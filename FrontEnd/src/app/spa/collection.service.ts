@@ -121,4 +121,9 @@ getTodaysMerchantPurchases(merchantId:number):Observable<any>{
   let url="http://localhost:5188/api/merchants/" + merchantId+ "/date"
   return this.http.post<any>(url,date)
 }
+
+getMerchantSellBySellId(sellId:number):Observable<any>{
+  let url="http://localhost:5188/api/merchants/sellsrecord/" +sellId
+  return this.http.get<any>(url)
+}
 }

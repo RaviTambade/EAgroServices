@@ -16,8 +16,9 @@ var MerchantpurchasedetailsComponent = /** @class */ (function () {
     MerchantpurchasedetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.merchantId = this.route.snapshot.paramMap.get('id');
-        this.svc.getMerchantPurchases(this.merchantId).subscribe(function (response) {
-            _this.merchantPurchases = response;
+        this.sellId = localStorage.getItem('sellId');
+        this.svc.getMerchantSellBySellId(this.sellId).subscribe(function (response) {
+            _this.merchantPurchase = response;
             console.log(response);
         });
     };

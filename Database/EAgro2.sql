@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -708,5 +708,14 @@ GROUP BY crops.title;
       INNER JOIN `labourrates` AS `l` ON `c`.`containertype` = `l`.`containertype`
       INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
       INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
-      WHERE `s`.`merchantid` = 21;
+      WHERE s.id=16;
       
+
+        SELECT `c0`.`imageurl` AS `CropImage`, `l`.`imageUrl` AS `ContainerImage`, `s`.`quantity` AS `Quantity`, `c`.`id` AS `CollectionId`, `s`.`id` AS `SellId`, `c`.`grade` AS `Grade`, `s`.`netweight` AS `NetWeight`, `s`.`rateperkg` AS `RatePerKg`, `v`.`vehiclenumber` AS `VehicleNumber`, `s`.`date` AS `Date`
+      FROM `users` AS `u`
+      INNER JOIN `sells` AS `s` ON `u`.`id` = `s`.`merchantid`
+      INNER JOIN `collections` AS `c` ON `s`.`collectionid` = `c`.`id`
+      INNER JOIN `labourrates` AS `l` ON `c`.`containertype` = `l`.`containertype`
+      INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
+      INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
+      WHERE `s`.`merchantid` = 1;

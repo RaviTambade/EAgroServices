@@ -10,8 +10,13 @@ import { CollectionService } from '../collection.service';
 })
 export class MerchantpurchasesComponent implements OnInit {
 merchantPurchases:MerchantPurchase[] |any;
+merchantPurchase:MerchantPurchase |any;
 merchantId:number |any;
-constructor(private svc:CollectionService,private route:ActivatedRoute,private router:Router){}
+constructor(private svc:CollectionService,private route:ActivatedRoute,private router:Router){
+  this.merchantPurchase={
+    'sellId':0
+  }
+}
 ngOnInit(): void {
   this.merchantId=this.route.snapshot.paramMap.get('id')
 this.svc.getMerchantPurchases(this.merchantId).subscribe((response)=>{
@@ -19,7 +24,8 @@ this.svc.getMerchantPurchases(this.merchantId).subscribe((response)=>{
   console.log(response)
 })
 }
-onClick(){
+onClick(sellId:string){
+localStorage.setItem('sellId',sellId);
 this.router.navigate(['/merchant',this.merchantId,'details'])
 }
 }
