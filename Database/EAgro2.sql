@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -442,8 +442,21 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 (28, 25, 4, 10, 50, 50, '2023-01-30'),  
 (29, 26, 5, 13, 65, 56, '2023-02-14'),
 (30, 27, 6, 8, 40, 69, '2023-05-14'),
+(18, 26, 6, 11, 55, 34, '2023-06-13'),
+(19, 24, 1, 7, 35, 89, '2023-06-30'),
+(20, 25, 2, 15, 75, 23, '2023-04-17'),
+(21, 26, 3, 10, 50, 67, '2023-03-03'),
+(22, 27, 4, 12, 60, 63, '2023-02-20'),
+(23, 24, 1, 9, 45, 52, '2023-06-14'),
+(24, 25, 1, 6, 30, 43, '2023-06-14'),
+(25, 26, 1, 16, 80, 64, '2023-06-14'),
+(26, 27, 1, 5, 25, 43, '2023-06-14'),
+(27, 24, 1, 18, 90, 66, '2023-06-14'),
+(28, 25, 1, 10, 50, 50, '2023-06-14'),
+(29, 26, 1, 13, 65, 56, '2023-06-14'),
+(30, 27, 1, 8, 40, 69, '2023-06-14'),
 (31, 27, 1, 11, 55, 52, '2023-06-14'),
-(32, 25, 2, 14, 70, 60, '2023-06-14');
+(32, 25, 1, 14, 70, 60, '2023-06-14');
 
 INSERT INTO sellsbilling(sellid,date)
 SELECT id,date FROM sells LIMIT 42;
@@ -679,3 +692,21 @@ SELECT * FROM users;
       FROM `vehicles` AS `v`
       INNER JOIN `sells` AS `s` ON `v`.`id` = `s`.`vehicleid`
       WHERE (((`s`.`vehicleid` = 1) AND (EXTRACT(year FROM `s`.`date`) = '2023')) AND (EXTRACT(month FROM `s`.`date`) = '06')) AND (EXTRACT(day FROM `s`.`date`) = '27');
+-- collections.grade
+SELECT collections.containertype, sum(sells.netweight),sum(sells.quantity),sells.`date`,vehicles.vehiclenumber, crops.title, crops.imageurl FROM sells 
+INNER JOIN collections on sells.collectionid=collections.id
+INNER JOIN crops on crops.id=collections.cropid
+INNER JOIN vehicles ON sells.vehicleid=vehicles.id
+WHERE vehicles.vehiclenumber='MH14RE3456'and sells.`date`='2023-06-14'
+GROUP BY crops.title;
+
+
+  SELECT `c0`.`imageurl` AS `CropImage`, `l`.`imageUrl` AS `ContainerImage`, `s`.`quantity` AS `Quantity`, `c`.`grade` AS `Grade`, `s`.`netweight` AS `NetWeight`, `s`.`rateperkg` AS `RatePerKg`, `v`.`vehiclenumber` AS `VehicleNumber`, `s`.`date` AS `Date`
+      FROM `users` AS `u`
+      INNER JOIN `sells` AS `s` ON `u`.`id` = `s`.`merchantid`
+      INNER JOIN `collections` AS `c` ON `s`.`collectionid` = `c`.`id`
+      INNER JOIN `labourrates` AS `l` ON `c`.`containertype` = `l`.`containertype`
+      INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
+      INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
+      WHERE `s`.`merchantid` = 21;
+      
