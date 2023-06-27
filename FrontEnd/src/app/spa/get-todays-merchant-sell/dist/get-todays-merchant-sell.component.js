@@ -6,36 +6,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.MerchantpurchasesComponent = void 0;
+exports.GetTodaysMerchantSellComponent = void 0;
 var core_1 = require("@angular/core");
-var MerchantpurchasesComponent = /** @class */ (function () {
-    function MerchantpurchasesComponent(svc, route, router) {
+var GetTodaysMerchantSellComponent = /** @class */ (function () {
+    function GetTodaysMerchantSellComponent(svc, route, router) {
         this.svc = svc;
         this.route = route;
         this.router = router;
-        this.merchantPurchase = {
-            'sellId': 0
-        };
     }
-    MerchantpurchasesComponent.prototype.ngOnInit = function () {
+    GetTodaysMerchantSellComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.merchantId = this.route.snapshot.paramMap.get('id');
-        this.svc.getMerchantPurchases(this.merchantId).subscribe(function (response) {
+        this.svc.getTodaysMerchantPurchases(this.merchantId).subscribe(function (response) {
             _this.merchantPurchases = response;
             console.log(response);
         });
     };
-    MerchantpurchasesComponent.prototype.onClick = function (sellId) {
-        localStorage.setItem('sellId', sellId);
+    GetTodaysMerchantSellComponent.prototype.onClick = function () {
         this.router.navigate(['/merchant', this.merchantId, 'details']);
     };
-    MerchantpurchasesComponent = __decorate([
+    GetTodaysMerchantSellComponent.prototype.purchaseHistory = function () {
+        this.router.navigate(['/merchant', this.merchantId, 'merchantpurchases']);
+    };
+    GetTodaysMerchantSellComponent = __decorate([
         core_1.Component({
-            selector: 'app-merchantpurchases',
-            templateUrl: './merchantpurchases.component.html',
-            styleUrls: ['./merchantpurchases.component.css']
+            selector: 'app-get-todays-merchant-sell',
+            templateUrl: './get-todays-merchant-sell.component.html',
+            styleUrls: ['./get-todays-merchant-sell.component.css']
         })
-    ], MerchantpurchasesComponent);
-    return MerchantpurchasesComponent;
+    ], GetTodaysMerchantSellComponent);
+    return GetTodaysMerchantSellComponent;
 }());
-exports.MerchantpurchasesComponent = MerchantpurchasesComponent;
+exports.GetTodaysMerchantSellComponent = GetTodaysMerchantSellComponent;

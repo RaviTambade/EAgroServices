@@ -3,24 +3,24 @@
       <tr>
         <th>Date</th>
         <th>Vehicle Number</th>
-        <th>Crop Name</th>   
-        <th>Container Type</th>
+        <th>Crop</th>   
         <th>Quantity</th>
+        <th>Container</th>
         <th>Grade</th>
         <th>Net Weight</th>
         <th>Rate Per Kg</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let purchase of merchantPurchases">
-        <td>{{ purchase.date |date}}</td>
-        <td>{{purchase.vehicleNumber}}</td>
-        <td>{{ purchase.cropName }}</td>
-        <td>{{ purchase.containerType }}</td>
-        <td>{{ purchase.quantity }}</td>
-        <td>{{purchase.grade}}</td>
-        <td>{{purchase.netWeight}}</td>
-        <td>{{purchase.ratePerKg}}</td>
+      <tr *ngIf="merchantPurchase">
+        <td>{{ merchantPurchase.date |date}}</td>
+        <td>{{merchantPurchase.vehicleNumber}}</td>
+        <td class="circle-image"><img [src]="merchantPurchase.cropImage" width="100px" height="100px" /></td>
+        <td>{{ merchantPurchase.quantity }}</td>
+        <td class="circle-image"><img [src]="merchantPurchase.containerImage" width="100px" height="100px" /></td>
+        <td>{{merchantPurchase.grade}}</td>
+        <td>{{merchantPurchase.netWeight}}</td>
+        <td>{{merchantPurchase.ratePerKg}}</td>
       </tr>
     </tbody>
   </table>

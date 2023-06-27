@@ -9,13 +9,15 @@ import { CollectionService } from '../collection.service';
   styleUrls: ['./merchantpurchasedetails.component.css']
 })
 export class MerchantpurchasedetailsComponent implements OnInit {
-  merchantPurchases:MerchantPurchase[] |any;
+  merchantPurchase:MerchantPurchase|any;
   merchantId:number |any;
+  sellId:any;
   constructor(private svc:CollectionService,private route:ActivatedRoute){}
   ngOnInit(): void {
     this.merchantId=this.route.snapshot.paramMap.get('id')
-  this.svc.getMerchantPurchases(this.merchantId).subscribe((response)=>{
-    this.merchantPurchases=response
+this.sellId=localStorage.getItem('sellId');
+  this.svc.getMerchantSellBySellId(this.sellId).subscribe((response)=>{
+    this.merchantPurchase=response
     console.log(response)
   })
   }

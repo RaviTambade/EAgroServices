@@ -28,7 +28,7 @@ export class MerchantlistComponent {
 
  }
 onClick(id:any){
-  this.router.navigate(['./',id,'merchantpurchases'],{relativeTo:this.route})
+  this.router.navigate(['./',id,'todayspurchase'],{relativeTo:this.route})
 }
 
 }

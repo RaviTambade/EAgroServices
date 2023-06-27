@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 using VendorsAPI.Models;
 namespace VendorsAPI.Context;
 public class VehicleContext : DbContext

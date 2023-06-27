@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -396,16 +396,16 @@ INSERT INTO collections (farmerid, cropid, containertype, quantity, grade, total
 (4, 4, 'bags', 120, 'B', 600, 34, 34, '2023-06-12 11:15:00'),
 (3, 4, 'bags', 120, 'B', 500, 12, 34, '2023-06-12 11:15:00'),
 (3, 4, 'bags', 120, 'B', 300, 67, 45, '2023-06-12 11:15:00'),
-(5, 1, 'bags', 120, 'B', 400, 45, 23, '2023-06-26 11:15:00'),
-(5, 2, 'bags', 120, 'B', 700, 34, 23, '2023-06-26 11:15:00'),
-(6, 3, 'crates', 120, 'B', 800, 23, 22, '2023-06-26 11:15:00'),
-(4, 4, 'crates', 120, 'B', 600, 24, 19, '2023-06-26 11:15:00'),
-(4, 5, 'bags', 120, 'B', 600, 34, 34, '2023-06-26 11:15:00'),
-(6, 6, 'bags', 120, 'B', 500, 12, 34, '2023-06-26 11:15:00'),
-(5, 5, 'lenobags', 120, 'B', 300, 67, 45, '2023-06-26 11:15:00'),
-(4, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-26 11:15:00'),
-(6, 7, 'bags', 120, 'B', 700, 34, 23, '2023-06-26 11:15:00'),
-(5, 8, 'bags', 120, 'B', 800, 23, 22, '2023-06-26 11:15:00');
+(5, 1, 'bags', 120, 'B', 400, 45, 23, '2023-06-27 11:15:00'),
+(5, 2, 'bags', 120, 'B', 700, 34, 23, '2023-06-27 11:15:00'),
+(6, 3, 'crates', 120, 'B', 800, 23, 22, '2023-06-27 11:15:00'),
+(4, 4, 'crates', 120, 'B', 600, 24, 19, '2023-06-27 11:15:00'),
+(4, 5, 'bags', 120, 'B', 600, 34, 34, '2023-06-27 11:15:00'),
+(6, 6, 'bags', 120, 'B', 500, 12, 34, '2023-06-27 11:15:00'),
+(5, 5, 'lenobags', 120, 'B', 300, 67, 45, '2023-06-27 11:15:00'),
+(4, 4, 'bags', 120, 'B', 400, 45, 23, '2023-06-27 11:15:00'),
+(6, 7, 'bags', 120, 'B', 700, 34, 23, '2023-06-27 11:15:00'),
+(5, 8, 'bags', 120, 'B', 800, 23, 22, '2023-06-27 11:15:00');
 
 
 INSERT INTO billing (collectionid,date)
@@ -426,9 +426,22 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 (12, 27, 6, 6, 30, 39, '2023-03-02'),
 (13, 27, 1, 13, 65, 46, '2023-03-19'),
 (14, 26, 2, 16, 80, 12, '2023-04-06'),
-(15, 26, 3, 4, 20, 24, '2023-04-23'),
+(15, 26, 3, 4,       20, 24, '2023-04-23'),
 (16, 26, 4, 19, 95, 19, '2023-05-10'),
 (17, 26, 5, 8, 40, 56, '2023-05-27'),
+(18, 26, 6, 11, 55, 34, '2023-06-27'),
+(19, 24, 1, 7, 35, 89, '2023-06-27'),
+(20, 25, 2, 15, 75, 23, '2023-06-27'),
+(21, 26, 3, 10, 50, 67, '2023-06-27'),
+(22, 27, 4, 12, 60, 63, '2023-06-27'),
+(23, 24, 5, 9, 45, 52, '2023-01-06'),
+(24, 25, 6, 6, 30, 43, '2023-06-23'),
+(25, 26, 1, 16, 80, 64, '2023-03-10'),
+(26, 27, 2, 5, 25, 43, '2023-03-27'),
+(27, 24, 3, 18, 90, 66, '2023-02-13'),
+(28, 25, 4, 10, 50, 50, '2023-01-30'),  
+(29, 26, 5, 13, 65, 56, '2023-02-14'),
+(30, 27, 6, 8, 40, 69, '2023-05-14'),
 (18, 26, 6, 11, 55, 34, '2023-06-13'),
 (19, 24, 1, 7, 35, 89, '2023-06-30'),
 (20, 25, 2, 15, 75, 23, '2023-04-17'),
@@ -670,6 +683,15 @@ SELECT * FROM users;
       FROM `vendors` AS `v`
       INNER JOIN `vehicles` AS `v0` ON `v`.`id` = `v0`.`vendorid`
       WHERE `v`.`id` = 1;
+
+      SELECT * FROM vehicles;
+      SELECT * FROM sells;
+
+
+       SELECT `v`.`vehiclenumber` AS `VehicleNumber`, `s`.`date` AS `Date`, `s`.`quantity` AS `Quantity`, `s`.`netweight` AS `NetWeight`
+      FROM `vehicles` AS `v`
+      INNER JOIN `sells` AS `s` ON `v`.`id` = `s`.`vehicleid`
+      WHERE (((`s`.`vehicleid` = 1) AND (EXTRACT(year FROM `s`.`date`) = '2023')) AND (EXTRACT(month FROM `s`.`date`) = '06')) AND (EXTRACT(day FROM `s`.`date`) = '27');
 -- collections.grade
 SELECT collections.containertype, sum(sells.netweight),sum(sells.quantity),sells.`date`,vehicles.vehiclenumber, crops.title, crops.imageurl FROM sells 
 INNER JOIN collections on sells.collectionid=collections.id
@@ -677,3 +699,23 @@ INNER JOIN crops on crops.id=collections.cropid
 INNER JOIN vehicles ON sells.vehicleid=vehicles.id
 WHERE vehicles.vehiclenumber='MH14RE3456'and sells.`date`='2023-06-14'
 GROUP BY crops.title;
+
+
+  SELECT `c0`.`imageurl` AS `CropImage`, `l`.`imageUrl` AS `ContainerImage`, `s`.`quantity` AS `Quantity`, `c`.`grade` AS `Grade`, `s`.`netweight` AS `NetWeight`, `s`.`rateperkg` AS `RatePerKg`, `v`.`vehiclenumber` AS `VehicleNumber`, `s`.`date` AS `Date`
+      FROM `users` AS `u`
+      INNER JOIN `sells` AS `s` ON `u`.`id` = `s`.`merchantid`
+      INNER JOIN `collections` AS `c` ON `s`.`collectionid` = `c`.`id`
+      INNER JOIN `labourrates` AS `l` ON `c`.`containertype` = `l`.`containertype`
+      INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
+      INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
+      WHERE s.id=16;
+      
+
+        SELECT `c0`.`imageurl` AS `CropImage`, `l`.`imageUrl` AS `ContainerImage`, `s`.`quantity` AS `Quantity`, `c`.`id` AS `CollectionId`, `s`.`id` AS `SellId`, `c`.`grade` AS `Grade`, `s`.`netweight` AS `NetWeight`, `s`.`rateperkg` AS `RatePerKg`, `v`.`vehiclenumber` AS `VehicleNumber`, `s`.`date` AS `Date`
+      FROM `users` AS `u`
+      INNER JOIN `sells` AS `s` ON `u`.`id` = `s`.`merchantid`
+      INNER JOIN `collections` AS `c` ON `s`.`collectionid` = `c`.`id`
+      INNER JOIN `labourrates` AS `l` ON `c`.`containertype` = `l`.`containertype`
+      INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
+      INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
+      WHERE `s`.`merchantid` = 1;

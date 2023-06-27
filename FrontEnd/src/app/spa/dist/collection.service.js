@@ -98,6 +98,20 @@ var CollectionService = /** @class */ (function () {
         var url = "http://localhost:5031/api/collections/" + farmerId + "/crop/" + cropName;
         return this.http.get(url);
     };
+    CollectionService.prototype.getTodaysMerchantPurchases = function (merchantId) {
+        var datePipe = new common_1.DatePipe('en-US');
+        var currentDate = datePipe.transform(new Date(), 'yyyy-MM-dd');
+        console.log(currentDate);
+        var date = {
+            "date": currentDate
+        };
+        var url = "http://localhost:5188/api/merchants/" + merchantId + "/date";
+        return this.http.post(url, date);
+    };
+    CollectionService.prototype.getMerchantSellBySellId = function (sellId) {
+        var url = "http://localhost:5188/api/merchants/sellsrecord/" + sellId;
+        return this.http.get(url);
+    };
     CollectionService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
