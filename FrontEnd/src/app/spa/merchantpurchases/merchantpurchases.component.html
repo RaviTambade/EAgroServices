@@ -2,8 +2,8 @@
     <thead>
       <tr>
         <th>Date</th>
-        <th>Crop Name</th>   
-        <th>Container Type</th>
+        <th>Crop </th>   
+        <th>Container</th>
         <th>Quantity</th>
         
       </tr>
@@ -11,8 +11,8 @@
     <tbody>
       <tr *ngFor="let purchase of merchantPurchases">
         <td>{{ purchase.date |date}}</td>
-        <td>{{ purchase.cropName }}</td>
-        <td>{{ purchase.containerType }}</td>
+        <td class="circle-image"><img [src]="purchase.cropImage" width="100px" height="100px" /></td>
+        <td class="circle-image"><img [src]="purchase.containerImage" width="100px" height="100px" /></td>
         <td>{{ purchase.quantity }}</td>
         <button (click)="onClick()">Details</button>
       </tr>

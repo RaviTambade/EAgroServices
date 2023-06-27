@@ -108,14 +108,16 @@ public class MerchantRepository : IMerchantRepository
                         on merchant.Id equals collectionsell.MerchantId
                     join collection in context.Collections
                         on collectionsell.CollectionId equals collection.Id
+                        join labourrate in context.LabourRates on collection.ContainerType equals labourrate.ContainerType
                     join crop in context.Crops on collection.CropId equals crop.Id
                     join vehicle in context.Vehicles on collectionsell.VehicleId equals vehicle.Id
+                 
                     where collectionsell.MerchantId == merchantId
                     orderby collectionsell.Date descending
                     select new MerchantRecord()
                     {
-                        CropName = crop.CropName,
-                        ContainerType = collection.ContainerType,
+                        CropImage = crop.ImageUrl,
+                        ContainerImage = labourrate.ImageUrl,
                         Quantity = collectionsell.Quantity,
                         Grade = collection.Grade,
                         NetWeight = collectionsell.NetWeight,
@@ -148,6 +150,7 @@ public class MerchantRepository : IMerchantRepository
                         on merchant.Id equals collectionsell.MerchantId
                     join collection in context.Collections
                         on collectionsell.CollectionId equals collection.Id
+                        join labourrate in context.LabourRates on collection.ContainerType equals labourrate.ContainerType
                     join crop in context.Crops on collection.CropId equals crop.Id
                     join vehicle in context.Vehicles on collectionsell.VehicleId equals vehicle.Id
                     where
@@ -163,8 +166,8 @@ public class MerchantRepository : IMerchantRepository
                     orderby collectionsell.Date ascending
                     select new MerchantRecord()
                     {
-                        CropName = crop.CropName,
-                        ContainerType = collection.ContainerType,
+                        CropImage = crop.ImageUrl,
+                        ContainerImage = labourrate.ImageUrl,
                         Quantity = collectionsell.Quantity,
                         Grade = collection.Grade,
                         NetWeight = collectionsell.NetWeight,
@@ -196,6 +199,46 @@ public class MerchantRepository : IMerchantRepository
             }
         }
         catch(Exception e){ 
+            throw e;
+        }
+    }
+
+       public async Task<List<MerchantRecord>> GetTodaysMerchantSellRecords(int merchantId,StartDateFilter startDate)
+    {
+        try
+        {
+            using (var context = new MerchantContext(_configuration))
+            {
+                List<MerchantRecord> merchantRecords = await (
+                    from merchant in context.Merchants
+                    join collectionsell in context.CollectionSells
+                        on merchant.Id equals collectionsell.MerchantId
+                    join collection in context.Collections
+                        on collectionsell.CollectionId equals collection.Id
+                        join labourrate in context.LabourRates on collection.ContainerType equals labourrate.ContainerType
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    join vehicle in context.Vehicles on collectionsell.VehicleId equals vehicle.Id
+                    where collectionsell.MerchantId == merchantId &&
+                     collectionsell.Date.Year == startDate.Date.Year
+                        && collectionsell.Date.Month == startDate.Date.Month
+                        && collectionsell.Date.Day == startDate.Date.Day
+                    select new MerchantRecord()
+                    {
+                        CropImage = crop.ImageUrl,
+                        ContainerImage = labourrate.ImageUrl,
+                        Quantity = collectionsell.Quantity,
+                        Grade = collection.Grade,
+                        NetWeight = collectionsell.NetWeight,
+                        RatePerKg = collectionsell.RatePerKg,
+                        VehicleNumber = vehicle.VehicleNumber,
+                        Date = collectionsell.Date
+                    }
+                ).ToListAsync();
+                return merchantRecords;
+            }
+        }
+        catch (Exception e)
+        {
             throw e;
         }
     }

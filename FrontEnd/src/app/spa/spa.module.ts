@@ -30,6 +30,8 @@ import { TruckdetailsComponent } from './truckdetails/truckdetails.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { ListfilterModule } from '../listfilter/listfilter.module';
 import { MerchantpurchasedetailsComponent } from './merchantpurchasedetails/merchantpurchasedetails.component';
+import { RecenttruckloadeddetailsComponent } from './recenttruckloadeddetails/recenttruckloadeddetails.component';
+import { GetTodaysMerchantSellComponent } from './get-todays-merchant-sell/get-todays-merchant-sell.component';
 
 
 const childRoutes: Routes = [
@@ -60,6 +62,8 @@ const routes: Routes =
   { path: 'merchant/:id', component: MerchantdetailsComponent },
   { path: 'merchant/:id/merchantpurchases', component: MerchantpurchasesComponent },
   { path: 'merchant/:id/details', component: MerchantpurchasedetailsComponent },
+  { path: 'merchant/:id/todayspurchase', component: GetTodaysMerchantSellComponent },
+
 
 
 
@@ -89,6 +93,8 @@ const routes: Routes =
     VendorvehiclesComponent,
     TruckdetailsComponent,
     MerchantpurchasedetailsComponent,
+    RecenttruckloadeddetailsComponent,
+    GetTodaysMerchantSellComponent,
   ],
   imports: [
     CommonModule,

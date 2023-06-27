@@ -23,6 +23,9 @@ public class MerchantService : IMerchantService
     public async Task<List<Merchant>> SearchByName(string name)=> await _repo.SearchByName(name);
 
     public async Task<List<string>> GetMerchantsNames()=> await _repo.GetMerchantsNames();
+
+    public async Task<List<MerchantRecord>> GetTodaysMerchantSellRecords(int merchantId,StartDateFilter startDate)=>await _repo.GetTodaysMerchantSellRecords(merchantId,startDate);
+
 }
 
     // private readonly IMerchantRepository _repo;

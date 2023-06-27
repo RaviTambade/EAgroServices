@@ -22,7 +22,7 @@ public class MerchantContext : DbContext
     public DbSet<Collection> Collections{get;set;}
     public DbSet<Crop> Crops{get;set;}
     public DbSet<Vehicle> Vehicles{get;set;}
-
+public DbSet<LabourRate> LabourRates{get;set;}
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -109,7 +109,9 @@ public class MerchantContext : DbContext
         modelBuilder.Entity<Crop>(entity =>
       {
           entity.HasKey(e => e.Id);
-          entity.Property(e => e.CropName);
+          entity.Property(e => e.Title);
+          entity.Property(e => e.ImageUrl);
+          entity.Property(e => e.Rate);
           modelBuilder.Entity<Crop>().ToTable("crops");
       });
        modelBuilder.Entity<Vehicle>(entity =>
@@ -119,6 +121,13 @@ public class MerchantContext : DbContext
           entity.Property(e => e.VehicleNumber);
           modelBuilder.Entity<Vehicle>().ToTable("vehicles");
       });
+        modelBuilder.Entity<LabourRate>(entity =>
+        {
+            entity.HasKey(e => e.ContainerType);
+            entity.Property(e => e.ImageUrl);
+            entity.Property(e => e.Rate);
+            modelBuilder.Entity<LabourRate>().ToTable("labourrates");
+        });
     }
 }
 

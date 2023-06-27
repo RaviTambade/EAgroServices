@@ -1,26 +1,23 @@
+<div>
+    <button (click)="purchaseHistory()">purchase history</button>
+</div>
 <table>
     <thead>
       <tr>
         <th>Date</th>
-        <th>Vehicle Number</th>
-        <th>Crop</th>   
-        <th>Quantity</th>
+        <th>Crop </th>   
         <th>Container</th>
-        <th>Grade</th>
-        <th>Net Weight</th>
-        <th>Rate Per Kg</th>
+        <th>Quantity</th>
+        
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let purchase of merchantPurchases">
         <td>{{ purchase.date |date}}</td>
-        <td>{{purchase.vehicleNumber}}</td>
         <td class="circle-image"><img [src]="purchase.cropImage" width="100px" height="100px" /></td>
-        <td>{{ purchase.quantity }}</td>
         <td class="circle-image"><img [src]="purchase.containerImage" width="100px" height="100px" /></td>
-        <td>{{purchase.grade}}</td>
-        <td>{{purchase.netWeight}}</td>
-        <td>{{purchase.ratePerKg}}</td>
+        <td>{{ purchase.quantity }}</td>
+        <button (click)="onClick()">Details</button>
       </tr>
     </tbody>
   </table>

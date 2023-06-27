@@ -56,4 +56,9 @@ public class MerchantsController : ControllerBase
         System.Console.WriteLine(name);
         return await _service.SearchByName(name);
     }
+
+    [HttpPost("{merchantId}/date")]
+    public async Task<List<MerchantRecord>> GetTodaysMerchantSellRecords(int merchantId,StartDateFilter startDate){
+     return await _service.GetTodaysMerchantSellRecords(merchantId,startDate);
+    }
 }

@@ -110,5 +110,15 @@ getFarmerCollectionByCrop(farmerId:number,cropName:string):Observable<any>{
   let url="http://localhost:5031/api/collections/" + farmerId + "/crop/" + cropName
   return this.http.get<any>(url)
 }
+getTodaysMerchantPurchases(merchantId:number):Observable<any>{
+  const datePipe = new DatePipe('en-US');
+  const currentDate = datePipe.transform(new Date(), 'yyyy-MM-dd');
+  console.log(currentDate);
 
+  const date = {
+    "date": currentDate
+  }
+  let url="http://localhost:5188/api/merchants/" + merchantId+ "/date"
+  return this.http.post<any>(url,date)
+}
 }

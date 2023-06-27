@@ -28,7 +28,7 @@ var MerchantlistComponent = /** @class */ (function () {
         this.router.navigate(['./', id], { relativeTo: this.route });
     };
     MerchantlistComponent.prototype.onClick = function (id) {
-        this.router.navigate(['./', id, 'merchantpurchases'], { relativeTo: this.route });
+        this.router.navigate(['./', id, 'todayspurchase'], { relativeTo: this.route });
     };
     MerchantlistComponent = __decorate([
         core_1.Component({

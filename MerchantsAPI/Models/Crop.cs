@@ -2,9 +2,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MerchantsAPI.Models;
 public class Crop
 {
-    [Column("id")]
+     [Column("id")]
     public int Id { get; set; }
 
     [Column("title")]
-    public string? CropName { get; set; }
+    public string? Title { get; set; }
+    [Column("imageurl")]
+    public string? ImageUrl{get;set;}
+    [Column("rate")]
+    public double Rate{get;set;}
 }

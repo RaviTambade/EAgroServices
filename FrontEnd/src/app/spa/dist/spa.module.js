@@ -38,6 +38,8 @@ var truckdetails_component_1 = require("./truckdetails/truckdetails.component");
 var login_component_1 = require("../auth/login/login.component");
 var listfilter_module_1 = require("../listfilter/listfilter.module");
 var merchantpurchasedetails_component_1 = require("./merchantpurchasedetails/merchantpurchasedetails.component");
+var recenttruckloadeddetails_component_1 = require("./recenttruckloadeddetails/recenttruckloadeddetails.component");
+var get_todays_merchant_sell_component_1 = require("./get-todays-merchant-sell/get-todays-merchant-sell.component");
 var childRoutes = [
     { path: '', redirectTo: 'collections', pathMatch: "full" },
 ];
@@ -64,6 +66,7 @@ var routes = [{ path: '', redirectTo: 'home', pathMatch: "full" },
     { path: 'merchant/:id', component: merchantdetails_component_1.MerchantdetailsComponent },
     { path: 'merchant/:id/merchantpurchases', component: merchantpurchases_component_1.MerchantpurchasesComponent },
     { path: 'merchant/:id/details', component: merchantpurchasedetails_component_1.MerchantpurchasedetailsComponent },
+    { path: 'merchant/:id/todayspurchase', component: get_todays_merchant_sell_component_1.GetTodaysMerchantSellComponent },
 ];
 var SpaModule = /** @class */ (function () {
     function SpaModule() {
@@ -91,6 +94,8 @@ var SpaModule = /** @class */ (function () {
                 vendorvehicles_component_1.VendorvehiclesComponent,
                 truckdetails_component_1.TruckdetailsComponent,
                 merchantpurchasedetails_component_1.MerchantpurchasedetailsComponent,
+                recenttruckloadeddetails_component_1.RecenttruckloadeddetailsComponent,
+                get_todays_merchant_sell_component_1.GetTodaysMerchantSellComponent,
             ],
             imports: [
                 common_1.CommonModule,
