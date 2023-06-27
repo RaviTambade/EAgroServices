@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -434,16 +434,16 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 (20, 25, 2, 15, 75, 23, '2023-04-17'),
 (21, 26, 3, 10, 50, 67, '2023-03-03'),
 (22, 27, 4, 12, 60, 63, '2023-02-20'),
-(23, 24, 5, 9, 45, 52, '2023-01-06'),
-(24, 25, 6, 6, 30, 43, '2023-06-23'),
-(25, 26, 1, 16, 80, 64, '2023-03-10'),
-(26, 27, 2, 5, 25, 43, '2023-03-27'),
-(27, 24, 3, 18, 90, 66, '2023-02-13'),
-(28, 25, 4, 10, 50, 50, '2023-01-30'),
-(29, 26, 5, 13, 65, 56, '2023-02-14'),
-(30, 27, 6, 8, 40, 69, '2023-05-14'),
+(23, 24, 1, 9, 45, 52, '2023-06-14'),
+(24, 25, 1, 6, 30, 43, '2023-06-14'),
+(25, 26, 1, 16, 80, 64, '2023-06-14'),
+(26, 27, 1, 5, 25, 43, '2023-06-14'),
+(27, 24, 1, 18, 90, 66, '2023-06-14'),
+(28, 25, 1, 10, 50, 50, '2023-06-14'),
+(29, 26, 1, 13, 65, 56, '2023-06-14'),
+(30, 27, 1, 8, 40, 69, '2023-06-14'),
 (31, 27, 1, 11, 55, 52, '2023-06-14'),
-(32, 25, 2, 14, 70, 60, '2023-06-14');
+(32, 25, 1, 14, 70, 60, '2023-06-14');
 
 INSERT INTO sellsbilling(sellid,date)
 SELECT id,date FROM sells LIMIT 42;
@@ -670,3 +670,10 @@ SELECT * FROM users;
       FROM `vendors` AS `v`
       INNER JOIN `vehicles` AS `v0` ON `v`.`id` = `v0`.`vendorid`
       WHERE `v`.`id` = 1;
+-- collections.grade
+SELECT collections.containertype, sum(sells.netweight),sum(sells.quantity),sells.`date`,vehicles.vehiclenumber, crops.title, crops.imageurl FROM sells 
+INNER JOIN collections on sells.collectionid=collections.id
+INNER JOIN crops on crops.id=collections.cropid
+INNER JOIN vehicles ON sells.vehicleid=vehicles.id
+WHERE vehicles.vehiclenumber='MH14RE3456'and sells.`date`='2023-06-14'
+GROUP BY crops.title;
