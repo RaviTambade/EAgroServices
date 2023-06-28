@@ -7,7 +7,7 @@ public class Sell
     public int Id { get; set; }
 
     [Column("collectionid")]
-    public int PurchaseId { get; set; }
+    public int CollectionId { get; set; }
 
     [Column("merchantid")]
     public int MerchantId { get; set; }

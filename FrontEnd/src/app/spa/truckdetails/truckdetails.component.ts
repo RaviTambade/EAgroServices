@@ -14,11 +14,13 @@ export class TruckdetailsComponent implements OnInit {
   vehicleId: any;
   SellTransports: Selltransport | any;
   user: User | any;
+  vehicleNumber:any;
   
   constructor(private svc: VendorService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.vehicleId = this.route.snapshot.paramMap.get('id')
     console.log(this.vehicleId);
+    this.vehicleNumber=localStorage.getItem('vehicleNumber');
     this.svc.getSellTransport(this.vehicleId).subscribe((response) => {
       this.SellTransports = response;
       console.log(response);
