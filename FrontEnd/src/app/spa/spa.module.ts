@@ -33,6 +33,7 @@ import { MerchantpurchasedetailsComponent } from './merchantpurchasedetails/merc
 import { RegisterComponent } from '../auth/register/register.component';
 import { RecenttruckloadeddetailsComponent } from './recenttruckloadeddetails/recenttruckloadeddetails.component';
 import { GetTodaysMerchantSellComponent } from './get-todays-merchant-sell/get-todays-merchant-sell.component';
+import { SelldetailsComponent } from './selldetails/selldetails.component';
 
 
 const childRoutes: Routes = [
@@ -97,6 +98,7 @@ const routes: Routes =
     MerchantpurchasedetailsComponent,
     RecenttruckloadeddetailsComponent,
     GetTodaysMerchantSellComponent,
+    SelldetailsComponent,
   ],
   imports: [
     CommonModule,

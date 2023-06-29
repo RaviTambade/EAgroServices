@@ -6,18 +6,23 @@
 
     <table>
         <thead>
+            
             <th>date </th>
+            <hr>
             <th>quantity </th>
             <hr>
             <th>netWeight </th>
             <hr>
         </thead>
         <tbody *ngFor="let SellTransport of SellTransports">
-            <td>{{SellTransport.date}}</td>
+            <hr>
+            <td>{{SellTransport.date|date}}</td>
+            <hr>
             <td>{{SellTransport.quantity}}</td>
             <hr>
             <td>{{SellTransport.netWeight}}</td>
-            <hr>
+           
+            <button (click)="onClick(sells.id)">sellDetails</button>
         </tbody>
     </table>
 </div>

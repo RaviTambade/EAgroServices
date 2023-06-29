@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Selltransport } from 'src/app/vendors/selltransport';
 import { Vendor } from 'src/app/vendors/vendor';
 import { User } from 'src/app/vendors/user';
+import { Sell } from 'src/app/vendors/sell';
 
 @Component({
   selector: 'app-truckdetails',
@@ -15,6 +16,7 @@ export class TruckdetailsComponent implements OnInit {
   SellTransports: Selltransport | any;
   user: User | any;
   vehicleNumber:any;
+  sells:Sell|any;
   
   constructor(private svc: VendorService, private route: ActivatedRoute) { }
   ngOnInit(): void {
@@ -28,6 +30,7 @@ export class TruckdetailsComponent implements OnInit {
     })
   }
   onClick(id:number) {
+    console.log(id);
     console.log("onClick");
 
   }

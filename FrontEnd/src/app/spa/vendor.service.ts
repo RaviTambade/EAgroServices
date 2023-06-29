@@ -27,4 +27,9 @@ export class VendorService {
     console.log(url);
     return this.httpClient.get<any>(url,id)
   }
+  getSellDetails(id:any):Observable<any>{
+    let url="http://localhost:5240/api/vendors/"+ id +"/selldetails";
+    console.log(url);
+    return this.httpClient.get<any>(url,id)
+  }
 }
