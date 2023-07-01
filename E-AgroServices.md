@@ -644,7 +644,7 @@ Body
     {
         "sell": {
             
-            "purchaseId": 4,
+            " collectionId": 4,
             "merchantId": 2,
             "truckId": 1,
             "netWeight": 1000,
@@ -679,7 +679,7 @@ Body
   {
         "sell": {
             
-            "purchaseId": 4,
+            "collectionId": 4,
             "merchantId": 2,
             "truckId": 1,
             "ratePerKg": 20,
