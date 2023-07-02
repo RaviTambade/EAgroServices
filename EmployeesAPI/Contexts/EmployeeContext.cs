@@ -12,7 +12,7 @@ public class EmployeeContext : DbContext
     }
     public DbSet<User> Employees { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
-    public DbSet<Role>Roles{get;set;}
+    public DbSet<Role> Roles { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
@@ -22,8 +22,8 @@ public class EmployeeContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id);   
-             entity.Property(e => e.FirstName);
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.FirstName);
             entity.Property(e => e.LastName);
             entity.Property(e => e.ContactNumber);
             entity.Property(e => e.Password);
@@ -34,17 +34,17 @@ public class EmployeeContext : DbContext
         });
         modelBuilder.Entity<UserRole>(entity =>
        {
-           entity.HasKey(e=> e.Id);
+           entity.HasKey(e => e.Id);
            entity.Property(e => e.UserId);
            entity.Property(e => e.RoleId);
            modelBuilder.Entity<UserRole>().ToTable("userroles");
        });
-         modelBuilder.Entity<Role>(entity =>
-       {
-           entity.HasKey(e=> e.Id);
-           entity.Property(e => e.Name);
-           modelBuilder.Entity<Role>().ToTable("roles");
-       });
+        modelBuilder.Entity<Role>(entity =>
+      {
+          entity.HasKey(e => e.Id);
+          entity.Property(e => e.Name);
+          modelBuilder.Entity<Role>().ToTable("roles");
+      });
     }
 }
 
