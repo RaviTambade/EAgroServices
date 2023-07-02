@@ -438,11 +438,11 @@ Description = Delete an existing Transport Data
 
 <hr>
 
-<h3 align="center">VarietiesAPI </h3>
+<h3 align="center">CropAPI </h3>
 
 URL
 ```console
-http://localhost:5224/api/variety/variety
+http://localhost:5224/api/crop
 ```
 Method = GET
 
@@ -454,7 +454,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5224/api/variety/variety/{id}
+http://localhost:5224/api/crop{id}
 ```
 Id = varietyId
 
@@ -467,7 +467,7 @@ Body = None
 
 URL
 ```console
-http://localhost:5224/api/variety/variety
+http://localhost:5224/api/crop
 ```
 Method = POST
 Description = Insert new Variety
@@ -479,9 +479,9 @@ Body
 ```
 URL
 ```console
-http://localhost:5224/api/variety/variety/{id}
+http://localhost:5224/api/crop/{id}
 ```
-Id = varietyId
+Id = cropId
 
 Method = PUT
 
@@ -644,7 +644,7 @@ Body
     {
         "sell": {
             
-            "purchaseId": 4,
+            " collectionId": 4,
             "merchantId": 2,
             "truckId": 1,
             "netWeight": 1000,
@@ -679,7 +679,7 @@ Body
   {
         "sell": {
             
-            "purchaseId": 4,
+            "collectionId": 4,
             "merchantId": 2,
             "truckId": 1,
             "ratePerKg": 20,
