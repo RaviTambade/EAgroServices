@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -719,3 +719,4 @@ GROUP BY crops.title;
       INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
       INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
       WHERE `s`.`merchantid` = 1;
+      SELECT * FROM sells;

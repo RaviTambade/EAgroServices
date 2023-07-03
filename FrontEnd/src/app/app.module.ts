@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { DefaultModule } from './default/default.module';
 import { ListfilterModule } from './listfilter/listfilter.module';
+import { PaymentGatewayModule } from './payment-gateway/payment-gateway.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ListfilterModule } from './listfilter/listfilter.module';
     BrowserAnimationsModule,
     AuthModule,
   DefaultModule,
-  ListfilterModule
+  ListfilterModule,
+  PaymentGatewayModule
 
   ],
   providers: [],
