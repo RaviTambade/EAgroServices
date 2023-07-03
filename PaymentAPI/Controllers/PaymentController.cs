@@ -3,7 +3,12 @@ using PaymentAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BankingService.Models;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using Newtonsoft.Json;
+using System.Runtime.ExceptionServices;
 
 namespace PaymentAPI.Controller;
 
@@ -61,6 +66,11 @@ public class PaymentsController : ControllerBase
     public async Task<bool> CheckBill(int billId){
         Console.WriteLine(billId);
        return await _service.CheckBill(billId);
+    }
+
+    [HttpGet("makepayment/{billid}")]
+    public async Task<MakePayment> MakePayment(int billId){
+       return await _service.MakePayment(billId);
     }
 
 }

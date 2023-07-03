@@ -209,6 +209,25 @@ CREATE PROCEDURE ApplyTotalAmount(billId INT)
 	WHERE id = billId;
 END; 
 
+CREATE PROCEDURE makepayment(IN billid INT,OUT owner_id INT ,
+                          OUT vendor_id INT  ,OUT owner_amount DOUBLE,OUT vendor_amount DOUBLE)
+BEGIN
+SELECT userid INTO  owner_id from userroles WHERE roleid=1;
+SELECT freightcharges,totalAmount INTO vendor_amount,owner_amount
+FROM sellsbilling WHERE id=billid;
+SELECT  vendorid INTO vendor_id FROM vehicles
+INNER JOIN sells ON  vehicles.id= sells.vehicleid
+INNER JOIN sellsbilling ON sells.id =sellsbilling.sellid
+WHERE sellsbilling.id=2;
+END;
+
+
+
+
+
+
+
+
 INSERT INTO labourrates(containertype,imageurl,rate)VALUES('crates','/assets/images/crates.jpeg',5);
 INSERT INTO labourrates(containertype,imageurl,rate)VALUES('bags','/assets/images/bags.jpeg',6);
 INSERT INTO labourrates(containertype,imageurl,rate)VALUES('lenobags','/assets/images/lenobags.jpeg',4);
@@ -719,3 +738,6 @@ GROUP BY crops.title;
       INNER JOIN `crops` AS `c0` ON `c`.`cropid` = `c0`.`id`
       INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
       WHERE `s`.`merchantid` = 1;
+
+SELECT * FROM roles;
+      SELECT * FROM  userroles WHERE roleid=4;

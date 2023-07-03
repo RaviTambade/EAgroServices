@@ -231,7 +231,7 @@ public class CollectionRepository : ICollectionRepository
                         context.Database.ExecuteSqlRaw(
                             "CALL DeductLabourChargesFromRevenue(@p0)",
                             billId
-                        );
+                        );  
                     }
                 }
             }
