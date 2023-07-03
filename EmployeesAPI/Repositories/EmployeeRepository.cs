@@ -15,13 +15,13 @@ public class EmployeeRepository : IEmployeeRepository
         {
             using (var context = new EmployeeContext(_configuration))
             {
-               var employees = await (
-                    from employee in context.Employees
-                    join userRole in context.UserRoles on employee.Id equals userRole.UserId
-                    join role in context.Roles on userRole.RoleId equals role.Id
-                    where role.Name == "employee"
-                    select employee
-                    ).ToListAsync();
+                var employees = await (
+                     from employee in context.Employees
+                     join userRole in context.UserRoles on employee.Id equals userRole.UserId
+                     join role in context.Roles on userRole.RoleId equals role.Id
+                     where role.Name == "employee"
+                     select employee
+                     ).ToListAsync();
                 if (employees == null)
                 {
                     return null;
@@ -54,4 +54,4 @@ public class EmployeeRepository : IEmployeeRepository
         }
     }
 
- }
+}

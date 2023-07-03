@@ -14,7 +14,7 @@
                 <img [src]="vehicle.imageUrl" width="100" />
                 <td>{{vehicle.vehicleNumber}}</td>
             
-                <button (click)="onClick(vehicle.id)">SellDetails</button>
+                <button (click)="onClick(vehicle.id,vehicle.vehicleNumber)">SellDetails</button>
             </tbody>
         </table>
     </div>

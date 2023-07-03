@@ -19,4 +19,6 @@ public interface IVendorRepository
     Task<bool> Update(int vendorId,Vendor vendor);
     Task<bool> Delete(int vendorId);
     Task<List<SellTransport>> GetSellTransports(int vehicleId);
+    Task<List<SellTransport>> GetSellDetails(int sellId);
+
 }

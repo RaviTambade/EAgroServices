@@ -1,18 +1,28 @@
 <br>
 <br>
 <div>
+    <td>{{vehicleNumber}}</td>
+    <hr>
+
     <table>
         <thead>
-            <th>vehicleNumber</th><hr>          
-            <th>quantity </th><hr>
-            <th>netWeight </th><hr>
+            
             <th>date </th>
+            <hr>
+            <th>quantity </th>
+            <hr>
+            <th>netWeight </th>
+            <hr>
         </thead>
-        <tbody *ngFor="let SellTransport of SellTransports">            
-            <td>{{SellTransport.vehicleNumber}}</td><hr>
-                        <td>{{SellTransport.quantity}}</td><hr>
-            <td>{{SellTransport.netWeight}}</td><hr>
-            <td>{{SellTransport.date}}</td> 
+        <tbody *ngFor="let SellTransport of SellTransports">
+            <hr>
+            <td>{{SellTransport.date|date}}</td>
+            <hr>
+            <td>{{SellTransport.quantity}}</td>
+            <hr>
+            <td>{{SellTransport.netWeight}}</td>
+           
+            <button (click)="onClick(sells.id)">sellDetails</button>
         </tbody>
     </table>
-</div>     
+</div>

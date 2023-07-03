@@ -33,6 +33,9 @@ import { MerchantpurchasedetailsComponent } from './merchantpurchasedetails/merc
 import { RegisterComponent } from '../auth/register/register.component';
 import { RecenttruckloadeddetailsComponent } from './recenttruckloadeddetails/recenttruckloadeddetails.component';
 import { GetTodaysMerchantSellComponent } from './get-todays-merchant-sell/get-todays-merchant-sell.component';
+import { SelldetailsComponent } from './selldetails/selldetails.component';
+import { AccountComponent } from '../payment-gateway/account/account.component';
+import { PaymentGatewayModule } from '../payment-gateway/payment-gateway.module';
 
 
 const childRoutes: Routes = [
@@ -65,6 +68,8 @@ const routes: Routes =
   { path: 'merchant/:id/merchantpurchases', component: MerchantpurchasesComponent },
   { path: 'merchant/:id/details', component: MerchantpurchasedetailsComponent },
   { path: 'merchant/:id/todayspurchase', component: GetTodaysMerchantSellComponent },
+  { path: 'payment', component: AccountComponent },
+
 
 
 
@@ -97,6 +102,7 @@ const routes: Routes =
     MerchantpurchasedetailsComponent,
     RecenttruckloadeddetailsComponent,
     GetTodaysMerchantSellComponent,
+    SelldetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -106,7 +112,8 @@ const routes: Routes =
     MatSelectModule,
     PaymentprocessingModule,
     DefaultModule,
-    ListfilterModule
+    ListfilterModule,
+    PaymentGatewayModule
   ],
   exports: [
     SparouterComponent

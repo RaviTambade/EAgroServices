@@ -23,7 +23,9 @@ constructor(private svc:VendorService,private route:ActivatedRoute,private route
       console.log(this.vehicles)
     })
   }
-  onClick(id:number){
+  onClick(id:number,vehicleNumber:string){
+    console.log(vehicleNumber);
+    localStorage.setItem('vehicleNumber',vehicleNumber);
     this.router.navigate([id,'details'],{ relativeTo: this.route });
     console.log(id);
   }

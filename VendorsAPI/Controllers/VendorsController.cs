@@ -78,4 +78,9 @@ public class VendorsController : ControllerBase
     {
         return await _service.GetSellTransports(id);
     }
+      [HttpGet("{id}/selldetails")]
+    public async Task<List<SellTransport>> GetSellDetails(int id)
+    {
+        return await _service.GetSellDetails(id);
+    }
 }

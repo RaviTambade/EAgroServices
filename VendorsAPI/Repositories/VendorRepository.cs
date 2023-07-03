@@ -83,12 +83,50 @@ public class VendorRepository : IVendorRepository
                                                      where sell.VehicleId == vehicleId
                                                      select new SellTransport()
                                                      {
-                                                         FirstName = transport.FirstName,
-                                                         LastName = transport.LastName,
+                                                        
                                                          VehicleNumber = vehicle.VehicleNumber,
                                                          Quantity = sell.Quantity,
                                                          NetWeight = sell.NetWeight,
-                                                         RatePerKg = sell.RatePerKg,
+                                                         Date = sell.Date
+                                                     }
+                ).ToListAsync();
+                if (sellTransport == null)
+                {
+                    return null;
+                }
+                return sellTransport;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw e;
+        }
+    }
+         public async Task<List<SellTransport>> GetSellDetails(int sellId)
+    {
+        try
+        {
+            using (var context = new VendorsContext(_configuration))
+            {
+                var sellTransport = await (from sell in context.Sells
+                                                     join collection in context.Collections
+                                                     on sell.CollectionId equals collection.Id
+                                                     join vehicle in context.Vehicles
+                                                     on sell.VehicleId equals vehicle.Id
+                                                     join crop in context.Crops
+                                                     on collection.CropId equals crop.Id
+                                                     join transport in context.Transports
+                                                     on sell.MerchantId equals transport.Id
+                                                     where sell.Id == sellId
+                                                     select new SellTransport()
+                                                     {
+                                                         ContainerType=collection.ContainerType,
+                                                         CropTitle=crop.CropTitle,
+                                                         ImageUrl=crop.ImageUrl,
+                                                         VehicleNumber = vehicle.VehicleNumber,
+                                                         Quantity = sell.Quantity,
+                                                         NetWeight = sell.NetWeight,
                                                          Date = sell.Date
                                                      }
                 ).ToListAsync();

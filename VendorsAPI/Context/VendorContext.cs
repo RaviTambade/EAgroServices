@@ -19,6 +19,8 @@ public class VendorsContext : DbContext
     public DbSet<Transport> Transports { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
 
+    public DbSet<Collection> Collections { get; set; }
+    public DbSet<Crop> Crops { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL(_conString);
@@ -65,7 +67,7 @@ public class VendorsContext : DbContext
         modelBuilder.Entity<Sell>(entity =>
       {
           entity.HasKey(e => e.Id);
-          entity.Property(e => e.PurchaseId);
+          entity.Property(e => e.CollectionId);
           entity.Property(e => e.MerchantId);
           entity.Property(e => e.VehicleId);
           entity.Property(e => e.NetWeight);
@@ -96,5 +98,28 @@ public class VendorsContext : DbContext
     modelBuilder.Entity<SellsBilling>().ToTable("sellsbilling");
 
 });
+   modelBuilder.Entity<Collection>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.FarmerId);
+            entity.Property(e => e.CropId);
+            entity.Property(e => e.ContainerType);
+            entity.Property(e => e.Quantity);
+            entity.Property(e => e.Grade);
+            entity.Property(e => e.TotalWeight);
+            entity.Property(e => e.TareWeight);
+            entity.Property(e => e.NetWeight);
+            entity.Property(e => e.RatePerKg);
+            entity.Property(e => e.Date);
+            modelBuilder.Entity<Collection>().ToTable("collections");
+        });
+          modelBuilder.Entity<Crop>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.CropTitle);
+            entity.Property(e => e.ImageUrl);
+            entity.Property(e => e.Rate);
+            modelBuilder.Entity<Crop>().ToTable("crops");
+        });
     }
 }
