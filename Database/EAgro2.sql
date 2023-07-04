@@ -107,13 +107,13 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    shipingitems(
+    shippingitems(
         id INT AUTO_INCREMENT PRIMARY KEY,
-        shitpmentid INT,
+        shipmentid INT,
         collectionid INT,
         frieghtcharges DOUBLE,
         labourcharges DOUBLE,
-        CONSTRAINT fk_shitpmentid FOREIGN KEY (shitpmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_shipmentid FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_collectionid2 FOREIGN KEY (collectionid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 

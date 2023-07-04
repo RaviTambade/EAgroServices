@@ -107,13 +107,13 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    shipingitems(
+    shippingitems(
         id INT AUTO_INCREMENT PRIMARY KEY,
-        shitpmentid INT,
+        shipmentid INT,
         collectionid INT,
         frieghtcharges DOUBLE,
         labourcharges DOUBLE,
-        CONSTRAINT fk_shitpmentid FOREIGN KEY (shitpmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_shipmentid FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_collectionid2 FOREIGN KEY (collectionid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
@@ -122,10 +122,10 @@ CREATE TABLE
     billing (
         id INT AUTO_INCREMENT PRIMARY KEY,
         merchantid INT,
-        shipingitemsid INT,
+        shippingitemsid INT,
         rate DOUBLE,
         totalamount DOUBLE,
         billdate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_merchantid2 FOREIGN KEY (merchantid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_shipingItemsid FOREIGN KEY (shipingitemsid) REFERENCES shipingitems(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_shippingItemsid FOREIGN KEY (shippingitemsid) REFERENCES shippingitems(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
