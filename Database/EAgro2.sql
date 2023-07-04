@@ -6,22 +6,9 @@ USE eagroservicesdb;
 CREATE TABLE
     users(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        contactnumber VARCHAR(15) NOT NULL UNIQUE,
-        firstname VARCHAR(30) NOT NULL,
-        lastname VARCHAR(30) NOT NULL,
-        imageurl VARCHAR(35),
-        aadharid VARCHAR(20),
-        password varchar(15) NOT NULL
+        peopleid INT NOT NULL UNIQUE    
     );
 
-CREATE TABLE addresses(id INT AUTO_INCREMENT PRIMARY KEY,
-                       state VARCHAR(15) NOT NULL,
-                       district VARCHAR(15) NOT NULL,
-                       tahsil VARCHAR(15) NOT NULL,
-                       village VARCHAR(15) NOT NULL,
-                       userid INT NOT NULL,
-        CONSTRAINT fk_userid1 FOREIGN KEY(userid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
-        );
 CREATE TABLE
     roles(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -210,7 +197,7 @@ CREATE PROCEDURE ApplyTotalAmount(billId INT)
 	WHERE id = billId;
 END; 
 
--- DROP PROCEDURE makepayment;
+--   DROP PROCEDURE makepayment;
 
 CREATE PROCEDURE makepayment(IN billid INT,OUT owner_id INT ,OUT farmer_id INT ,OUT vendor_id INT,
                 OUT owner_amount DOUBLE, OUT farmer_amount DOUBLE,OUT vendor_amount DOUBLE)
@@ -240,9 +227,9 @@ SET owner_amount =(SELECT totalAmount  from sellsbilling WHERE sellsbilling.id =
 SET vendor_amount = (SELECT freightcharges FROM sellsbilling WHERE id = billid);
 END;
 
--- call makepayment (2,@owner_id,@farmer_id,@vendor_id,@owner_amount,@farmer_amount,@vendor_amount);
+ call makepayment (1,@owner_id,@farmer_id,@vendor_id,@owner_amount,@farmer_amount,@vendor_amount);
 
--- SELECT @owner_id,@farmer_id,@vendor_id,@owner_amount,@farmer_amount,@vendor_amount;
+ SELECT @owner_id,@farmer_id,@vendor_id,@owner_amount,@farmer_amount,@vendor_amount;
 
 SELECT userroles.userid
 FROM userroles
@@ -456,18 +443,18 @@ INSERT INTO billing (collectionid,date)
 SELECT id,date FROM collections  order by id ;
 
 INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rateperkg, date) VALUES
-(1, 24, 1, 10, 50, 34, '2022-03-15'),
-(2, 24, 2, 15, 75, 20, '2022-05-21'),
-(3, 24, 3, 8, 40, 23, '2022-07-07'),
-(4, 25, 4, 12, 60, 22, '2022-08-12'),
-(5, 25, 5, 5, 25, 25, '2022-09-29'),
-(6, 25, 6, 20, 100, 26, '2022-10-16'),
-(7, 25, 1, 18, 90, 27, '2022-11-25'),
-(8, 25, 2, 7, 35, 28, '2022-12-03'),
-(9, 26, 3, 14, 70, 30, '2022-12-21'),
-(10, 27, 4, 9, 45, 36, '2023-01-08'),
+(1, 24, 1, 40, 4120, 22, '2022-03-15'),
+(2, 24, 2, 50, 200, 20, '2022-05-21'),
+(3, 24, 3, 80, 40, 23, '2022-07-07'),
+(4, 25, 4, 120, 60, 22, '2022-08-12'),
+(5, 25, 5, 55, 25, 25, '2022-09-29'),
+(6, 25, 6, 200, 100, 26, '2022-10-16'),
+(7, 25, 1, 181, 90, 27, '2022-11-25'),
+(8, 25, 2, 75, 35, 28, '2022-12-03'),
+(9, 26, 3, 142, 70, 30, '2022-12-21'),
+(10, 27, 4, 92, 45, 36, '2023-01-08'),
 (11, 27, 5, 11, 55, 38, '2023-02-14'),
-(12, 27, 6, 6, 30, 39, '2023-03-02'),
+(12, 27, 6, 61, 30, 39, '2023-03-02'),
 (13, 27, 1, 13, 65, 46, '2023-03-19'),
 (14, 26, 2, 16, 80, 12, '2023-04-06'),
 (15, 26, 3, 4, 20, 24, '2023-04-23'),
