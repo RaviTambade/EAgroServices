@@ -69,7 +69,7 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpGet("makepayment/{billid}")]
-    public async Task<MakePayment> MakePayment(int billId){
+    public async Task<bool> MakePayment(int billId){
        return await _service.MakePayment(billId);
     }
 

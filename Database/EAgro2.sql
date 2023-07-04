@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -208,17 +208,22 @@ CREATE PROCEDURE ApplyTotalAmount(billId INT)
 	SET totalamount = totalAmount + total_charges
 	WHERE id = billId;
 END; 
-
+drop PROCEDURE makepayment;
 CREATE PROCEDURE makepayment(IN billid INT,OUT owner_id INT ,
                           OUT vendor_id INT  ,OUT owner_amount DOUBLE,OUT vendor_amount DOUBLE)
 BEGIN
-SELECT userid INTO  owner_id from userroles WHERE roleid=1;
-SELECT freightcharges,totalAmount INTO vendor_amount,owner_amount
-FROM sellsbilling WHERE id=billid;
-SELECT  vendorid INTO vendor_id FROM vehicles
-INNER JOIN sells ON  vehicles.id= sells.vehicleid
-INNER JOIN sellsbilling ON sells.id =sellsbilling.sellid
-WHERE sellsbilling.id=2;
+SET owner_id= (SELECT userid  from userroles WHERE roleid=1);
+SET vendor_amount = (SELECT freightcharges FROM sellsbilling WHERE id = billid);
+SET owner_amount = (SELECT totalAmount FROM sellsbilling WHERE id = billid);
+
+SET vendor_id = (
+    SELECT vehicles.vendorid
+    FROM vehicles
+    INNER JOIN sells ON vehicles.id = sells.vehicleid
+    INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid
+    WHERE sellsbilling.id = billid
+);
+
 END;
 
 

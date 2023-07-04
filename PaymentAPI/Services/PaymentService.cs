@@ -14,6 +14,6 @@ public class PaymentService:IPaymentService{
     public async Task<bool> Insert(Payment payment)=>await _repo.Insert(payment);
     
     public async Task<bool> CheckBill(int billId)=>await _repo.CheckBill(billId);
- public async Task<MakePayment> MakePayment(int billId)=>await _repo.MakePayment(billId);
+ public async Task<bool> MakePayment(int billId)=>await _repo.MakePayment(billId);
 
 }

@@ -5,5 +5,5 @@ public interface IPaymentRepository{
     Task<bool> Insert(Payment payment);
     Task<bool> CheckBill(int billId);
 
-    Task<MakePayment> MakePayment(int billId);
+    Task<bool> MakePayment(int billId);
 }
