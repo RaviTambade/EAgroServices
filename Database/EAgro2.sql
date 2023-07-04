@@ -156,7 +156,8 @@ CREATE PROCEDURE ApplyLabourCharges(IN billId INT) BEGIN
     SELECT collections.quantity INTO Quantity  FROM collections WHERE collections.id = collection_Id;
     UPDATE billing SET labourcharges = labourRate * Quantity WHERE id = billId;
 END;
-/* for calculating total_amount  */ 
+/* for calculating
+ total_amount  */ 
 CREATE PROCEDURE DeductLabourChargesFromRevenue(billId INT)
  BEGIN 
 	DECLARE revenue DOUBLE DEFAULT 0 ;
@@ -205,32 +206,47 @@ CREATE PROCEDURE ApplyTotalAmount(billId INT)
 	SELECT sells.netweight * sells.rateperkg INTO totalAmount
 	FROM sells WHERE id = sell_id;
 	UPDATE sellsbilling
-	SET totalamount = totalAmount + total_charges
+	SET totalamount = totalAmount - total_charges
 	WHERE id = billId;
 END; 
-drop PROCEDURE makepayment;
-CREATE PROCEDURE makepayment(IN billid INT,OUT owner_id INT ,
-                          OUT vendor_id INT  ,OUT owner_amount DOUBLE,OUT vendor_amount DOUBLE)
+
+-- DROP PROCEDURE makepayment;
+
+CREATE PROCEDURE makepayment(IN billid INT,OUT owner_id INT ,OUT farmer_id INT ,OUT vendor_id INT,
+                OUT owner_amount DOUBLE, OUT farmer_amount DOUBLE,OUT vendor_amount DOUBLE)
+
 BEGIN
 SET owner_id= (SELECT userid  from userroles WHERE roleid=1);
-SET vendor_amount = (SELECT freightcharges FROM sellsbilling WHERE id = billid);
-SET owner_amount = (SELECT totalAmount FROM sellsbilling WHERE id = billid);
-
+SET farmer_id= (SELECT farmerid from collections INNER JOIN sells on collections.id=sells.collectionid
+INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid
+WHERE sellsbilling.id = billid );
 SET vendor_id = (
-    SELECT vehicles.vendorid
-    FROM vehicles
-    INNER JOIN sells ON vehicles.id = sells.vehicleid
-    INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid
-    WHERE sellsbilling.id = billid
-);
-
+   SELECT userroles.userid
+FROM userroles
+INNER JOIN vendors ON vendors.transportid=userroles.userid 
+INNER JOIN vehicles ON vehicles.vendorid=vendors.id
+INNER JOIN sells ON vehicles.id = sells.vehicleid
+INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid
+WHERE sellsbilling.id = billid);
+SET farmer_amount = (SELECT billing.totalamount FROM billing
+INNER JOIN  sells on billing.collectionid=sells.collectionid
+INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid WHERE sellsbilling.id =billid);
+SET owner_amount =(SELECT totalAmount  from sellsbilling WHERE sellsbilling.id =billid)+
+(SELECT labourcharges FROM sellsbilling WHERE id =billid)-farmer_amount;
+SET vendor_amount = (SELECT freightcharges FROM sellsbilling WHERE id = billid);
 END;
 
+-- call makepayment (2,@owner_id,@farmer_id,@vendor_id,@owner_amount,@farmer_amount,@vendor_amount);
 
+-- SELECT @owner_id,@farmer_id,@vendor_id,@owner_amount,@farmer_amount,@vendor_amount;
 
-
-
-
+SELECT userroles.userid
+FROM userroles
+INNER JOIN vendors ON vendors.transportid=userroles.userid 
+INNER JOIN vehicles ON vehicles.vendorid=vendors.id
+INNER JOIN sells ON vehicles.id = sells.vehicleid
+INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid
+WHERE sellsbilling.id = 1 ;
 
 
 INSERT INTO labourrates(containertype,imageurl,rate)VALUES('crates','/assets/images/crates.jpeg',5);
@@ -297,7 +313,7 @@ INSERT INTO roles(name)VALUES('employee');
 INSERT INTO roles(name)VALUES('transport');
 INSERT INTO roles(name)VALUES('merchant');
 INSERT INTO userRoles(userid,roleId)VALUES(1,1);
-INSERT INTO userRoles(userid,roleId)VALUES(2,1);
+INSERT INTO userRoles(userid,roleId)VALUES(2,2);
 INSERT INTO userroles(userid,roleid)VALUES(3,2);
 INSERT INTO userroles(userid,roleid)VALUES(4,2);
 INSERT INTO userroles(userid,roleid)VALUES(5,2);
@@ -627,17 +643,7 @@ GROUP BY  year(sells_billing.date),transport_trucks.truck_number ORDER BY year(s
 */
 
 SELECT users.firstname,users.lastname,userroles.roleid,roles.name FROM users INNER JOIN userroles ON users.id=userroles.userid INNER JOIN roles ON userroles.roleid=roles.id WHERE roles.name="merchant";
-SELECT * FROM roles;
 
-SELECT * FROM collections;
-SELECT * FROM billing;
-SELECT * FROM sells;
-SELECT * FROM vehicles;
-SELECT * FROM freightrates;
-SELECT * FROM sellsbilling;
-SELECT * FROM sells;
-SELECT * FROM vehicles;
-SELECT * FROM vendors;
 SELECT sellsbilling.freightcharges,freightrates.fromdestination,freightrates.todestination,
 freightrates.kilometers,sells.quantity,
 freightrates.rateperkm from vehicles 
