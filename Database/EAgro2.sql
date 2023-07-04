@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -217,22 +217,26 @@ CREATE PROCEDURE makepayment(IN billid INT,OUT owner_id INT ,OUT farmer_id INT ,
 
 BEGIN
 SET owner_id= (SELECT userid  from userroles WHERE roleid=1);
+
 SET farmer_id= (SELECT farmerid from collections INNER JOIN sells on collections.id=sells.collectionid
 INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid
 WHERE sellsbilling.id = billid );
+
 SET vendor_id = (
-   SELECT userroles.userid
-FROM userroles
-INNER JOIN vendors ON vendors.transportid=userroles.userid 
-INNER JOIN vehicles ON vehicles.vendorid=vendors.id
-INNER JOIN sells ON vehicles.id = sells.vehicleid
-INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid
-WHERE sellsbilling.id = billid);
+    SELECT userroles.userid FROM userroles
+    INNER JOIN vendors ON vendors.transportid=userroles.userid 
+    INNER JOIN vehicles ON vehicles.vendorid=vendors.id
+    INNER JOIN sells ON vehicles.id = sells.vehicleid
+    INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid 
+    WHERE sellsbilling.id = billid);
+    
 SET farmer_amount = (SELECT billing.totalamount FROM billing
 INNER JOIN  sells on billing.collectionid=sells.collectionid
 INNER JOIN sellsbilling ON sells.id = sellsbilling.sellid WHERE sellsbilling.id =billid);
+
 SET owner_amount =(SELECT totalAmount  from sellsbilling WHERE sellsbilling.id =billid)+
 (SELECT labourcharges FROM sellsbilling WHERE id =billid)-farmer_amount;
+
 SET vendor_amount = (SELECT freightcharges FROM sellsbilling WHERE id = billid);
 END;
 
@@ -466,7 +470,7 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 (12, 27, 6, 6, 30, 39, '2023-03-02'),
 (13, 27, 1, 13, 65, 46, '2023-03-19'),
 (14, 26, 2, 16, 80, 12, '2023-04-06'),
-(15, 26, 3, 4,       20, 24, '2023-04-23'),
+(15, 26, 3, 4, 20, 24, '2023-04-23'),
 (16, 26, 4, 19, 95, 19, '2023-05-10'),
 (17, 26, 5, 8, 40, 56, '2023-05-27'),
 (18, 26, 6, 11, 55, 34, '2023-06-27'),
@@ -500,6 +504,7 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 
 INSERT INTO sellsbilling(sellid,date)
 SELECT id,date FROM sells LIMIT 42;
+
 
 
 INSERT INTO freightrates(fromdestination, todestination, kilometers, rateperkm, billid) VALUES
@@ -662,6 +667,8 @@ ON crops.id=collections.cropid WHERE collections.date >= CURRENT_DATE;
 
 
 SELECT * FROM users;
+SELECT * FROM userroles;
+SELECT * FROM roles;
 SELECT * FROM collections;
 
 
