@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -209,11 +209,13 @@ CREATE PROCEDURE ApplyTotalAmount(billId INT)
 	WHERE id = billId;
 END; 
 drop PROCEDURE makepayment;
-CREATE PROCEDURE makepayment(IN billid INT,OUT owner_id INT ,
+CREATE PROCEDURE makepayment(IN billid INT,OUT owner_id INT ,farmer_id int ,OUT farmer_amount DOUBLE,
                           OUT vendor_id INT  ,OUT owner_amount DOUBLE,OUT vendor_amount DOUBLE)
 BEGIN
 SET owner_id= (SELECT userid  from userroles WHERE roleid=1);
+SET farmer_id= (SELECT userid  from userroles WHERE roleid=2);
 SET vendor_amount = (SELECT freightcharges FROM sellsbilling WHERE id = billid);
+SET owner_amount = (SELECT labourcharges FROM sellsbilling WHERE id = billid);
 SET owner_amount = (SELECT totalAmount FROM sellsbilling WHERE id = billid);
 
 SET vendor_id = (
@@ -450,7 +452,7 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 (12, 27, 6, 6, 30, 39, '2023-03-02'),
 (13, 27, 1, 13, 65, 46, '2023-03-19'),
 (14, 26, 2, 16, 80, 12, '2023-04-06'),
-(15, 26, 3, 4,       20, 24, '2023-04-23'),
+(15, 26, 3, 4, 20, 24, '2023-04-23'),
 (16, 26, 4, 19, 95, 19, '2023-05-10'),
 (17, 26, 5, 8, 40, 56, '2023-05-27'),
 (18, 26, 6, 11, 55, 34, '2023-06-27'),
@@ -484,6 +486,7 @@ INSERT INTO sells(collectionid, merchantid, vehicleid, quantity, netweight, rate
 
 INSERT INTO sellsbilling(sellid,date)
 SELECT id,date FROM sells LIMIT 42;
+
 
 
 INSERT INTO freightrates(fromdestination, todestination, kilometers, rateperkm, billid) VALUES
@@ -656,6 +659,8 @@ ON crops.id=collections.cropid WHERE collections.date >= CURRENT_DATE;
 
 
 SELECT * FROM users;
+SELECT * FROM userroles;
+SELECT * FROM roles;
 SELECT * FROM collections;
 
 
