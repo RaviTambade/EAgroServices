@@ -35,12 +35,13 @@ CREATE TABLE
         imageurl VARCHAR(50),
         CONSTRAINT fk_userid3 FOREIGN KEY(transportid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-    CREATE TABLE
+
+CREATE TABLE
     vehiclestype(
         id INT AUTO_INCREMENT PRIMARY KEY,
         type VARCHAR (30),
         rateperkm DOUBLE
-    ); 
+    );
 
 CREATE TABLE
     vehicles(
@@ -52,7 +53,6 @@ CREATE TABLE
         CONSTRAINT fk_transportid FOREIGN KEY (vendorid) REFERENCES vendors(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_vehicletype FOREIGN KEY (vehicletype) REFERENCES vehiclestype(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-
 
 CREATE TABLE
     labourcharges(
@@ -116,7 +116,6 @@ CREATE TABLE
         CONSTRAINT fk_shipmentid FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_collectionid2 FOREIGN KEY (collectionid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-
 
 CREATE TABLE
     billing (

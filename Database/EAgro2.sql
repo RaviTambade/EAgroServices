@@ -98,7 +98,7 @@ CREATE TABLE
 CREATE TABLE
     shipments(
         id INT PRIMARY KEY AUTO_INCREMENT,
-        vechicleId INT,
+        vechicleid INT,
         merchantid INT,
         kilometer INT,
         shipmentdate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
