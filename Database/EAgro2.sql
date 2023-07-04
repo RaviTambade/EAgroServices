@@ -131,8 +131,6 @@ CREATE TABLE
     Pickup per km per kg
     unloadinglabourcharge
 
-
-
     billing
         bilid
         bildate
