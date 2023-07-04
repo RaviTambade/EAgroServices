@@ -77,6 +77,9 @@ CREATE TABLE
         CONSTRAINT fk_collectionid FOREIGN KEY (collectionid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE,
         date DATETIME NOT NULL DEFAULT NOW() 
     );
+
+
+
 CREATE TABLE
     sells(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -92,6 +95,47 @@ CREATE TABLE
         CONSTRAINT fk_vehicleid FOREIGN KEY (vehicleid) REFERENCES vehicles(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
     SELECT * FROM sells;
+
+    /*
+
+    shipments
+    shipmentid
+    shipmentdate
+    vechicleId
+    merchantid
+    kilometer
+
+    goodsItems
+    goodsItemid--autoincremented
+    shitpmentid--fk
+    collectionid-fk
+    frieghtcharges
+
+    Ratecard
+    per 10 kg 
+    loadinglabourcharge
+    LLP per km per kg
+    Pickup per km per kg
+    unloadinglabourcharge
+
+    billing
+        bilid
+        bildate
+        merchantid
+        gooditemsid---fk
+        rate
+        totalamount
+
+    ShoppPayments
+    
+
+    Farmerpayments
+    Farmerpaymentid
+    FarmerpaymentDate
+    collectionid
+    Amount
+    */
+
    CREATE TABLE
     sellsbilling(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
