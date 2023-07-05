@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -59,7 +59,7 @@ CREATE TABLE collectioncenters(
         accountnumber VARCHAR(20),
         ifsccode VARCHAR(20),
         contactnumber VARCHAR(20),
-        emailaddress VARCHAR(20),
+        emailaddress VARCHAR(40),
         managerid INT NOT NULL,
         inspectorid INT NOT NULL, 
         CONSTRAINT fk_manager_user FOREIGN KEY(managerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
