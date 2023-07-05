@@ -105,7 +105,6 @@ CREATE TABLE
         collectiondate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_farmerid FOREIGN KEY (farmerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_cropid FOREIGN KEY (cropid) REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_containertype FOREIGN KEY(containertype) REFERENCES labourcharges(containertype) ON UPDATE CASCADE ON DELETE CASCADE
         CONSTRAINT fk_collectioncenterid FOREIGN KEY(collectioncenterid) REFERENCES labourcharges(containertype) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
@@ -138,6 +137,13 @@ CREATE TABLE
         collectionid INT,
         CONSTRAINT fk_shipmentid FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_collectionid2 FOREIGN KEY (collectionid) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+    CREATE TABLE ratecard(
+        id INT  AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(50),
+        description VARCHAR(50),
+         amount  DOUBLE
     );
 CREATE TABLE goodscosting(
     id INT PRIMARY KEY AUTO_INCREMENT,
