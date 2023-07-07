@@ -1,9 +1,16 @@
+using Transporters.Services.Interfaces;
+using Transporters.Repositories.Interfaces;
+using Transporters.Services;
+using Transporters.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<ITransporterRepository,TransporterRepository>();
+builder.Services.AddScoped<ITransporterService,TransporterService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -17,6 +24,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(x => x.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
 
 app.UseAuthorization();
 
