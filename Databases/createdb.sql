@@ -1,6 +1,9 @@
 -- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+
 Drop DATABASE IF EXISTS eagroservicesdb;
+
 CREATE DATABASE eagroservicesdb;
+
 USE eagroservicesdb;
 
 CREATE TABLE
@@ -25,13 +28,9 @@ CREATE TABLE
     );
 
 CREATE TABLE
-   transporters(
+    transporters(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        companyname VARCHAR(20),
-        accountnumber VARCHAR(20),
-        ifsccode VARCHAR(20),
-        contactnumber VARCHAR(20),
-        emailaddress VARCHAR(20),
+        corporateid INT NOT NULL UNIQUE,
         managerid INT NOT NULL,
         CONSTRAINT fk_manageruser FOREIGN KEY(managerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
@@ -53,36 +52,29 @@ CREATE TABLE
         rate DOUBLE NOT NULL DEFAULT 0
     );
 
-CREATE TABLE collectioncenters(
+CREATE TABLE
+    collectioncenters(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        companyname VARCHAR(20),
-        accountnumber VARCHAR(20),
-        ifsccode VARCHAR(20),
-        contactnumber VARCHAR(20),
-        emailaddress VARCHAR(40),
-        managerid INT NOT NULL,
-        inspectorid INT NOT NULL, 
-        CONSTRAINT fk_manager_user FOREIGN KEY(managerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        corporateid INT NOT NULL UNIQUE,
+        inspectorid INT NOT NULL,
         CONSTRAINT fk_inspector_user FOREIGN KEY(inspectorid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
-);
+    );
 
-CREATE TABLE merchants(
-     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        companyname VARCHAR(20),
-        accountnumber VARCHAR(20),
-        ifsccode VARCHAR(20),
-        contactnumber VARCHAR(20),
-        emailaddress VARCHAR(20),
+CREATE TABLE
+    merchants(
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        corporateid INT NOT NULL UNIQUE,
         managerid INT NOT NULL,
         CONSTRAINT fk_manager_users FOREIGN KEY(managerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
-);
+    );
+
 CREATE TABLE
     goodscollections(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         collectioncenterid INT,
         farmerid INT NOT NULL,
         cropid INT NOT NULL,
-        containertype ENUM('crates', 'bags', 'polythene bags'),
+        containertype ENUM('crates','bags','polythene bags'),
         quantity INT NOT NULL,
         weight DOUBLE NOT NULL,
         collectiondate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
@@ -113,6 +105,7 @@ CREATE TABLE
         CONSTRAINT fk_shipment_vehicle FOREIGN KEY (vehicleid) REFERENCES vehicles(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_shipment_users FOREIGN KEY (merchantid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
+
 CREATE TABLE
     shippingitems(
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -122,21 +115,23 @@ CREATE TABLE
         CONSTRAINT fk_shippingitems_goodscollection FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-    CREATE TABLE ratecard(
-        id INT  AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE
+    ratecard(
+        id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(50) UNIQUE,
         description VARCHAR(50),
-        amount  DOUBLE
+        amount DOUBLE
     );
-CREATE TABLE goodscosting(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    shippingitemid INT NOT NULL UNIQUE,
-    freightcharges DOUBLE,
-    labourcharges DOUBLE,
-    servicecharges DOUBLE,
-    CONSTRAINT fk_goodscosting_shippingitems FOREIGN KEY (shippingitemid) REFERENCES shippingitems(id) ON UPDATE CASCADE ON DELETE CASCADE
 
-);
+CREATE TABLE
+    goodscosting(
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        shippingitemid INT NOT NULL UNIQUE,
+        freightcharges DOUBLE,
+        labourcharges DOUBLE,
+        servicecharges DOUBLE,
+        CONSTRAINT fk_goodscosting_shippingitems FOREIGN KEY (shippingitemid) REFERENCES shippingitems(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
 
 CREATE TABLE
     invoices (
@@ -148,31 +143,37 @@ CREATE TABLE
         CONSTRAINT fk_shippingItemsid FOREIGN KEY (shippingitemid) REFERENCES shippingitems(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-      CREATE TABLE payments(
+CREATE TABLE
+    payments(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         date DATETIME DEFAULT CURRENT_TIMESTAMP,
         transactionid INT NOT NULL UNIQUE,
         amount DOUBLE NOT NULL
     );
+
 CREATE TABLE
-goodscollectionpayments(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    collectionid INT,
-    paymentid INT,
-    CONSTRAINT fk_goodscollectionpayments FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_goodscollectionpayments_payments FOREIGN KEY (paymentid) REFERENCES payments(id) ON UPDATE  CASCADE ON DELETE CASCADE
-);
-CREATE TABLE goodsservicespayments(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    collectionid INT,
-    paymentid INT,
-    CONSTRAINT fk_goodsservicespayments_goodscollections FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_goodsservicespayments_payments FOREIGN KEY (paymentid) REFERENCES payments(id) ON UPDATE CASCADE ON DELETE CASCADE
-);
- CREATE TABLE transporterpayments(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    shipmentid INT,
-    paymentid INT,
-    CONSTRAINT fk_transporterpayments_shipment FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_transporterpayments_payment FOREIGN KEY (paymentid) REFERENCES payments(id) ON UPDATE CASCADE ON DELETE CASCADE
-);
+    goodscollectionpayments(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        collectionid INT,
+        paymentid INT,
+        CONSTRAINT fk_goodscollectionpayments FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_goodscollectionpayments_payments FOREIGN KEY (paymentid) REFERENCES payments(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+CREATE TABLE
+    goodsservicespayments(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        collectionid INT,
+        paymentid INT,
+        CONSTRAINT fk_goodsservicespayments_goodscollections FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_goodsservicespayments_payments FOREIGN KEY (paymentid) REFERENCES payments(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+CREATE TABLE
+    transporterpayments(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        shipmentid INT,
+        paymentid INT,
+        CONSTRAINT fk_transporterpayments_shipment FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_transporterpayments_payment FOREIGN KEY (paymentid) REFERENCES payments(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
