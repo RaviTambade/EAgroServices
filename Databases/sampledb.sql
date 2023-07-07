@@ -7,7 +7,6 @@ INSERT INTO users(peopleid)VALUES(5);
 INSERT INTO roles(name)VALUES('owner');
 INSERT INTO roles(name)VALUES('farmer');
 INSERT INTO roles(name)VALUES('inspector');
-INSERT INTO roles(name)VALUES('manager');
 INSERT INTO roles(name)VALUES('transporter');
 INSERT INTO roles(name)VALUES('merchant');
 INSERT INTO userroles(userid,roleid)VALUES(1,1);
@@ -16,14 +15,11 @@ INSERT INTO userroles(userid,roleid)VALUES(3,3);
 INSERT INTO userroles(userid,roleid)VALUES(4,4);
 INSERT INTO userroles(userid,roleid)VALUES(5,5);
 
-INSERT INTO transporters (companyname,accountnumber,ifsccode,contactnumber,emailaddress,managerid) 
-                    VALUES("OM transport","6788997867","GH567675HI56","9078787678","OM@gmail.com",4);
-INSERT INTO transporters (companyname,accountnumber,ifsccode,contactnumber,emailaddress,managerid) 
-                    VALUES("Shubham transport","1230989098","UJ7898988TY5","8789009090","Shubham@gmail.com",4);
+INSERT INTO transporters (corporateid,managerid) VALUES(1,4);
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"jito","MH142022");
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"pickup","MH142222");
-INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(2,"tata1109","MH142322");
-INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(2,"LP","MH142422");
+INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"tata1109","MH142322");
+INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"LP","MH142422");
 INSERT INTO ratecard (title,description,amount) VALUES ('bags','labour Charges per bag',10);
 INSERT INTO ratecard (title,description,amount) VALUES ('crates','labour Charges per crate',5);
 INSERT INTO ratecard (title,description,amount) VALUES ('polythene bags','labour Charges per bag',3);
@@ -41,12 +37,9 @@ INSERT INTO crops(title,imageurl,rate)VALUES('Beans','/assets/images/beans.jpeg'
 INSERT INTO crops(title,imageurl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
 INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
 
-INSERT INTO collectioncenters (companyname,accountnumber,ifsccode,contactnumber,emailaddress,managerid,inspectorid)
-            VALUES("OM Agro","7878909090","GH567675HI56","9032123212","OMAgro@gmail.com",3,4);
-INSERT INTO collectioncenters (companyname,accountnumber,ifsccode,contactnumber,emailaddress,managerid,inspectorid)
-            VALUES("Sahyadri Agro","9011112323","GH567675HI56","9876567656","SahydriAgro@gmail.com",3,4);
-INSERT INTO collectioncenters (companyname,accountnumber,ifsccode,contactnumber,emailaddress,managerid,inspectorid)
-            VALUES("Zataka Agro","53333434345","GH567675HI56","9087878990","Zatakaagro@gmail.com",3,4);
+INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(3,3);
+INSERT INTO merchants (corporateid,managerid) VALUES(5,5);
+
 
 INSERT INTO goodscollections (collectioncenterid,farmerid, cropid, containertype, quantity, weight, collectiondate) VALUES
 (1,2, 2, 'bags', 40,  200, '2022-01-20 13:30:00'),
