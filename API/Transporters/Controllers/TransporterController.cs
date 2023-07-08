@@ -15,12 +15,10 @@ namespace Transporters.Controllers
         {
             _srv = srv;
         }
-
         [HttpGet("")]
         public async Task<List<Transporter>> GetAll() 
         {
             return await _srv.GetAll(); 
         }
-
     }
 }
