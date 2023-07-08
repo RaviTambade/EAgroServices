@@ -30,8 +30,8 @@ CREATE TABLE
 CREATE TABLE
     transporters(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        corporateid INT NOT NULL UNIQUE,
-        managerid INT NOT NULL,
+        corporateid INT NOT NULL ,
+        managerid INT NOT NULL UNIQUE,
         CONSTRAINT fk_manageruser FOREIGN KEY(managerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
@@ -55,16 +55,16 @@ CREATE TABLE
 CREATE TABLE
     collectioncenters(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        corporateid INT NOT NULL UNIQUE,
-        inspectorid INT NOT NULL,
+        corporateid INT NOT NULL ,
+        inspectorid INT NOT NULL UNIQUE,
         CONSTRAINT fk_inspector_user FOREIGN KEY(inspectorid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
     merchants(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        corporateid INT NOT NULL UNIQUE,
-        managerid INT NOT NULL,
+        corporateid INT NOT NULL ,
+        managerid INT NOT NULL UNIQUE,
         CONSTRAINT fk_manager_users FOREIGN KEY(managerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
