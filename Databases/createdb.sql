@@ -4,12 +4,6 @@ CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
 
 CREATE TABLE
-    users(
-        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        peopleid INT NOT NULL UNIQUE
-    );
-
-CREATE TABLE
     roles(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         name varchar(20)
@@ -18,9 +12,9 @@ CREATE TABLE
 CREATE TABLE
     userroles(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        userid INT NOT NULL,
+        userid INT NOT NULL ,
         roleid INT NOT NULL,
-        CONSTRAINT fk_userrole FOREIGN KEY(userid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT uc_userroles UNIQUE (userid, roleid),
         CONSTRAINT fk_userroles FOREIGN KEY(roleid) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
@@ -29,7 +23,7 @@ CREATE TABLE
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         corporateid INT NOT NULL ,
         managerid INT NOT NULL UNIQUE,
-        CONSTRAINT fk_manageruser FOREIGN KEY(managerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_manageruser FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -54,7 +48,7 @@ CREATE TABLE
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         corporateid INT NOT NULL ,
         inspectorid INT NOT NULL UNIQUE,
-        CONSTRAINT fk_inspector_user FOREIGN KEY(inspectorid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_inspector_user FOREIGN KEY(inspectorid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -62,7 +56,7 @@ CREATE TABLE
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         corporateid INT NOT NULL ,
         managerid INT NOT NULL UNIQUE,
-        CONSTRAINT fk_manager_users FOREIGN KEY(managerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_manager_users FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -75,7 +69,7 @@ CREATE TABLE
         quantity INT NOT NULL,
         weight DOUBLE NOT NULL,
         collectiondate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
-        CONSTRAINT fk_farmer_users FOREIGN KEY (farmerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_farmer_users FOREIGN KEY (farmerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_goodscollection_crops FOREIGN KEY (cropid) REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_goodscollection_collectioncenter FOREIGN KEY(collectioncenterid) REFERENCES collectioncenters(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
@@ -88,7 +82,7 @@ CREATE TABLE
         weight DOUBLE,
         inspectorid INT,
         CONSTRAINT fk_verified_goodscollections FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_inspector_users FOREIGN KEY (inspectorid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_inspector_users FOREIGN KEY (inspectorid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE,
         inspectiondate DATETIME NOT NULL DEFAULT NOW()
     );
 
@@ -100,7 +94,7 @@ CREATE TABLE
         kilometers INT,
         shipmentdate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_shipment_vehicle FOREIGN KEY (vehicleid) REFERENCES vehicles(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_shipment_users FOREIGN KEY (merchantid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_shipment_users FOREIGN KEY (merchantid) REFERENCES merchants(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE

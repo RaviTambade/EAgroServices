@@ -1,9 +1,4 @@
-
-INSERT INTO users(peopleid)VALUES(1);   
-INSERT INTO users(peopleid)VALUES(2);   
-INSERT INTO users(peopleid)VALUES(3);   
-INSERT INTO users(peopleid)VALUES(4);   
-INSERT INTO users(peopleid)VALUES(5);   
+  
 INSERT INTO roles(name)VALUES('owner');
 INSERT INTO roles(name)VALUES('farmer');
 INSERT INTO roles(name)VALUES('inspector');
@@ -15,7 +10,7 @@ INSERT INTO userroles(userid,roleid)VALUES(3,3);
 INSERT INTO userroles(userid,roleid)VALUES(4,4);
 INSERT INTO userroles(userid,roleid)VALUES(5,5);
 
-INSERT INTO transporters (corporateid,managerid) VALUES(1,4);
+INSERT INTO transporters (corporateid,managerid) VALUES(10,4);
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"jito","MH142022");
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"pickup","MH142222");
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"tata1109","MH142322");
@@ -37,8 +32,8 @@ INSERT INTO crops(title,imageurl,rate)VALUES('Beans','/assets/images/beans.jpeg'
 INSERT INTO crops(title,imageurl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
 INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
 
-INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(3,3);
-INSERT INTO merchants (corporateid,managerid) VALUES(5,5);
+INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(24,3);
+INSERT INTO merchants (corporateid,managerid) VALUES(22,5);
 
 
 INSERT INTO goodscollections (collectioncenterid,farmerid, cropid, containertype, quantity, weight, collectiondate) VALUES
@@ -54,8 +49,8 @@ INSERT INTO verifiedgoodscollection(collectionid,grade,weight,inspectorid,inspec
 (4,'D',330,3,'2022-01-20 13:30:00');
 
 INSERT INTO shipments(vehicleid,merchantid,kilometers,shipmentdate) VALUES
-(1,5,55,'2022-01-20 13:30:00'),
-(2,5,105,'2022-01-20 13:30:00');
+(1,1,55,'2022-01-20 13:30:00'),
+(2,1,105,'2022-01-20 13:30:00');
 
 INSERT INTO shippingitems(shipmentid,collectionid) VALUES (1,1);
 INSERT INTO shippingitems(shipmentid,collectionid) VALUES (1,2);
