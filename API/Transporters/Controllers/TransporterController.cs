@@ -24,25 +24,25 @@ namespace Transporters.Controllers
         [HttpGet("{transporterId}")]
         public async Task<Transporter> GetById(int transporterId)
         {
-            return _repo.GetById(transporterId);
+            return await _srv.GetById(transporterId);
         }
 
         [HttpPost]
         public async Task<bool> Insert(Transporter transporter)
         {
-            return _repo.Insert(transporter);
+            return await _srv.Insert(transporter);
         }
 
         [HttpPut]
         public async Task<bool> Update(Transporter transporter)
         {
-            return _repo.Update(transporter);
+            return await _srv.Update(transporter);
         }
 
         [HttpDelete("{transporterId}")]
         public async Task<bool> Delete(int transporterId)
         {
-            return _repo.Delete(transporterId);
+            return await _srv.Delete(transporterId);
         }
     }
 }
