@@ -1,0 +1,5 @@
+using VerifiedGoodsCollections.Repositories.Interfaces;
+namespace VerifiedGoodsCollections.Services.Interfaces;
+public interface IVerifiedCollectionService:IVerifiedCollectionRepository{
+
+}
