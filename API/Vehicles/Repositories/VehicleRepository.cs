@@ -107,10 +107,53 @@ public class VehicleRepository : IVehicleRepository
     }
     public async Task<bool> Update(int vehicleId, Vehicle vehicle)
     {
-        throw new NotImplementedException();
+       bool status=false;
+       MySqlConnection con=new MySqlConnection(_conString);
+       try{
+        MySqlCommand com=new MySqlCommand();
+        com.CommandText="UPDATE vehicles SET transporterid=@transporterId,vehicletype=@vehicleType,rtonumber=@rtoNumber WHERE id=@id";
+        com.Connection=con;
+        com.Parameters.AddWithValue("@id",vehicleId);
+        com.Parameters.AddWithValue("@transporterId",vehicle.TransporterId);
+        com.Parameters.AddWithValue("@vehicleType",vehicle.VehicleType);
+        com.Parameters.AddWithValue("@rtoNumber",vehicle.RtoNumber);
+        await con.OpenAsync();
+        int rowsAffected = com.ExecuteNonQuery();
+        if (rowsAffected > 0)
+            {
+                status = true;
+            }
+       }
+       catch(Exception e){
+        throw e;
+       }
+       finally{
+        await con.CloseAsync();
+       }
+       return status;
     }
-     public Task<bool> Delete(int vehicleId)
+     public async Task<bool> Delete(int vehicleId)
     {
-        throw new NotImplementedException();
+       bool status=false;
+       MySqlConnection con=new MySqlConnection(_conString);
+       try{
+        MySqlCommand com=new MySqlCommand();
+        com.CommandText="DELETE FROM vehicles WHERE id=@id";
+        com.Connection=con;
+        com.Parameters.AddWithValue("@id",vehicleId);
+        await con.OpenAsync();
+        int rowsAffected = com.ExecuteNonQuery();
+        if (rowsAffected > 0)
+            {
+                status = true;
+            }
+       }
+       catch(Exception e){
+        throw e;
+       }
+       finally{
+        await con.CloseAsync();
+       }
+       return status;
     }
 }

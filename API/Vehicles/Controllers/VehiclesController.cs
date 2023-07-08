@@ -18,5 +18,34 @@ public class VehiclesController:ControllerBase{
         return vehicles;
     }
 
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<Vehicle> GetVehicle(int id){
+        Vehicle vehicle=await _svc.GetVehicle(id);
+        return vehicle;
+    }
+
+    [HttpPost]
+    [Route("")]
+    public async Task<bool> Insert(Vehicle vehicle){
+        bool status=await _svc.Insert(vehicle);
+        return status;
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    public async Task<bool> Update(int id,Vehicle vehicle){
+        bool status=await _svc.Update(id,vehicle);
+        return status;
+    }
+
+     [HttpDelete]
+    [Route("{id}")]
+    public async Task<bool> Delete(int id){
+        bool status=await _svc.Delete(id);
+        return status;
+    }
+
+
 
 }
