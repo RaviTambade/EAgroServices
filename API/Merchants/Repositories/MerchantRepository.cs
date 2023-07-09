@@ -21,7 +21,7 @@ namespace Merchants.Repositories
                 using (var context = new MerchantContext(_configuration))
                 {
                     var merchants = await context.Merchants.ToListAsync();
-                    if (merchants == null)
+                    if (merchants is null)
                     {
                         return null;
                     }
@@ -42,7 +42,7 @@ namespace Merchants.Repositories
                 {
                     var merchant = await context.Merchants.FindAsync(merchanId);
 
-                    if (merchant == null)
+                    if (merchant is null)
                     {
                         return null;
                     }

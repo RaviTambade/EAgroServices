@@ -99,12 +99,12 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    shippingitems(
+    shipmentItems(
         id INT AUTO_INCREMENT PRIMARY KEY,
         shipmentid INT,
         collectionid INT UNIQUE,
-        CONSTRAINT fk_shippingitems_shipment FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_shippingitems_goodscollection FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_shipmentItems_shipment FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_shipmentItems_goodscollection FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -122,7 +122,7 @@ CREATE TABLE
         freightcharges DOUBLE,
         labourcharges DOUBLE,
         servicecharges DOUBLE,
-        CONSTRAINT fk_goodscosting_shippingitems FOREIGN KEY (shippingitemid) REFERENCES shippingitems(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_goodscosting_shipmentItems FOREIGN KEY (shippingitemid) REFERENCES shipmentItems(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -132,7 +132,7 @@ CREATE TABLE
         rate DOUBLE,
         totalamount DOUBLE DEFAULT 0,
         invoicedate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
-        CONSTRAINT fk_shippingItemsid FOREIGN KEY (shippingitemid) REFERENCES shippingitems(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_shippingItemsid FOREIGN KEY (shippingitemid) REFERENCES shipmentItems(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE

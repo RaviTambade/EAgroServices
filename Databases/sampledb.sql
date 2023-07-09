@@ -52,10 +52,10 @@ INSERT INTO shipments(vehicleid,merchantid,kilometers,shipmentdate) VALUES
 (1,1,55,'2022-01-20 13:30:00'),
 (2,1,105,'2022-01-20 13:30:00');
 
-INSERT INTO shippingitems(shipmentid,collectionid) VALUES (1,1);
-INSERT INTO shippingitems(shipmentid,collectionid) VALUES (1,2);
-INSERT INTO shippingitems(shipmentid,collectionid) VALUES (2,3);
-INSERT INTO shippingitems(shipmentid,collectionid) VALUES (2,4);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,1);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,3);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
 
 INSERT INTO invoices(shippingitemid,rate) VALUES (1,20);
 INSERT INTO invoices(shippingitemid,rate) VALUES (2,22);
