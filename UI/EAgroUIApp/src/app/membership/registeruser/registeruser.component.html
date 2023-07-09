@@ -1,0 +1,22 @@
+<h1> your personal information</h1>
+<div *ngIf="person">
+    <br>
+    <h4> {{person.firstName}} {{person.lastName}}</h4>
+    <br>
+    <h4> {{person.contactNumber}}</h4>
+    <br>
+    <h4> {{person.email}}</h4>
+    <br>
+    <h4> {{person.aadharId}}</h4>
+    <br>
+    <h4> {{person.birthDate}}</h4>
+    <br>
+    <h4> {{person.gender}}</h4>
+    <br>
+</div>
+<br>
+
+<button (click)="onClickUserRoleFarmer()">Register As Farmer</button><br>
+<button (click)="onClickUserRoleCollectionCenter()">Register As Collection Center Owner</button><br>
+<button (click)="onClickUserRoleTransporter()">Register As Transporter</button><br>
+<button (click)="onClickUserRoleMerchant()">Register As Merchant</button><br>

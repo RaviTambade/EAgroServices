@@ -59,7 +59,7 @@ namespace UserRolesManagement.Repositories
         }
 
         public async Task<bool> Insert(UserRole userRole)
-        {
+        { 
             try
             {
                 bool status = false;
