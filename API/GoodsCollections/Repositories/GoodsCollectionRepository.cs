@@ -20,7 +20,9 @@ namespace GoodsCollections.Repositories
             {
                 using (var context = new GoodsCollectionContext(_configuration))
                 {
-                    var collections = await context.GoodsCollections.Where(c => c.CollectionCenterId == collectionCenterId).ToListAsync();
+                    var collections = await context.GoodsCollections
+                        .Where(c => c.CollectionCenterId == collectionCenterId)
+                        .ToListAsync();
                     if (collections == null)
                     {
                         return null;
@@ -34,7 +36,7 @@ namespace GoodsCollections.Repositories
             }
         }
 
-          public async Task<GoodsCollection> GetById(int collectionId)
+        public async Task<GoodsCollection> GetById(int collectionId)
         {
             try
             {
@@ -64,11 +66,7 @@ namespace GoodsCollections.Repositories
                 using (var context = new GoodsCollectionContext(_configuration))
                 {
                     await context.GoodsCollections.AddAsync(collection);
-                    int rowaAffected = context.SaveChanges();
-                    if (rowaAffected == 1)
-                    {
-                        status = true;
-                    }
+                    status = await SaveChanges(context);
                     return status;
                 }
             }
@@ -94,13 +92,8 @@ namespace GoodsCollections.Repositories
                         oldcollection.Quantity = collection.Quantity;
                         oldcollection.Weight = collection.Weight;
                         oldcollection.CollectionDate = collection.CollectionDate;
-                        int rowsAffected = context.SaveChanges();
-                        if (rowsAffected > 0)
-                        {
-                            status = true;
-                        }
+                        status = await SaveChanges(context);
                     }
-
                     return status;
                 }
             }
@@ -121,11 +114,7 @@ namespace GoodsCollections.Repositories
                     if (collection is not null)
                     {
                         context.GoodsCollections.Remove(collection);
-                        int rowsAffected = context.SaveChanges();
-                        if (rowsAffected > 0)
-                        {
-                            status = true;
-                        }
+                        status = await SaveChanges(context);
                     }
                     return status;
                 }
@@ -134,6 +123,16 @@ namespace GoodsCollections.Repositories
             {
                 throw e;
             }
+        }
+
+        private async Task<bool> SaveChanges(GoodsCollectionContext context)
+        {
+            int rowsAffected = await context.SaveChangesAsync();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

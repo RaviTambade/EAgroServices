@@ -85,13 +85,9 @@ namespace Transporters.Repositories
                 using (var context = new TransporterContext(_configuration))
                 {
                     await context.Transporters.AddAsync(transporter);
-                    int rowsAffected = context.SaveChanges();
-                    if (rowsAffected > 0)
-                    {
-                        status = true;
-                    }
-                    return status;
+                    status = await SaveChanges(context);
                 }
+                return status;
             }
             catch (Exception e)
             {
@@ -111,13 +107,8 @@ namespace Transporters.Repositories
                     {
                         oldTransporter.CorporateId = transporter.CorporateId;
                         oldTransporter.ManagerId = transporter.ManagerId;
-                        int rowsAffected = context.SaveChanges();
-                        if (rowsAffected > 0)
-                        {
-                            status = true;
-                        }
+                        status = await SaveChanges(context);
                     }
-
                     return status;
                 }
             }
@@ -138,11 +129,7 @@ namespace Transporters.Repositories
                     if (transporter is not null)
                     {
                         context.Transporters.Remove(transporter);
-                        int rowsAffected = context.SaveChanges();
-                        if (rowsAffected > 0)
-                        {
-                            status = true;
-                        }
+                        status = await SaveChanges(context);
                     }
                     return status;
                 }
@@ -151,6 +138,16 @@ namespace Transporters.Repositories
             {
                 throw e;
             }
+        }
+
+        private async Task<bool> SaveChanges(TransporterContext context)
+        {
+            int rowsAffected = await context.SaveChangesAsync();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

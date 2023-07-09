@@ -1,14 +1,12 @@
-
 using Merchants.Models;
 using Merchants.Repositories.Interfaces;
 using Merchants.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Merchants.Repositories
 {
     public class MerchantRepository : IMerchantRepository
-    { 
+    {
         private readonly IConfiguration _configuration;
 
         public MerchantRepository(IConfiguration configuration)
@@ -16,7 +14,7 @@ namespace Merchants.Repositories
             _configuration = configuration;
         }
 
-          public async Task<List<Merchant>> GetAll()
+        public async Task<List<Merchant>> GetAll()
         {
             try
             {
@@ -36,14 +34,13 @@ namespace Merchants.Repositories
             }
         }
 
-      
-        public async Task<Merchant> GetById(int merchantid)
+        public async Task<Merchant> GetById(int merchanId)
         {
             try
             {
                 using (var context = new MerchantContext(_configuration))
                 {
-                    var merchant = await context.Merchants.FindAsync(merchantid);
+                    var merchant = await context.Merchants.FindAsync(merchanId);
 
                     if (merchant == null)
                     {
@@ -67,11 +64,7 @@ namespace Merchants.Repositories
                 using (var context = new MerchantContext(_configuration))
                 {
                     await context.Merchants.AddAsync(merchant);
-                    int rowsAffected = context.SaveChanges();
-                    if (rowsAffected > 0)
-                    {
-                        status = true;
-                    }
+                    status = await SaveChanges(context);
                     return status;
                 }
             }
@@ -93,13 +86,8 @@ namespace Merchants.Repositories
                     {
                         oldMerchant.CorporateId = merchant.CorporateId;
                         oldMerchant.ManagerId = merchant.ManagerId;
-                        int rowsAffected = context.SaveChanges();
-                        if (rowsAffected > 0)
-                        {
-                            status = true;
-                        }
+                        status = await SaveChanges(context);
                     }
-
                     return status;
                 }
             }
@@ -109,22 +97,18 @@ namespace Merchants.Repositories
             }
         }
 
-        public async Task<bool> Delete(int merchantid)
+        public async Task<bool> Delete(int merchanId)
         {
             try
             {
                 bool status = false;
                 using (var context = new MerchantContext(_configuration))
                 {
-                    var merchant = await context.Merchants.FindAsync(merchantid);
+                    var merchant = await context.Merchants.FindAsync(merchanId);
                     if (merchant is not null)
                     {
                         context.Merchants.Remove(merchant);
-                        int rowsAffected = context.SaveChanges();
-                        if (rowsAffected > 0)
-                        {
-                            status = true;
-                        }
+                        status = await SaveChanges(context);
                     }
                     return status;
                 }
@@ -133,6 +117,16 @@ namespace Merchants.Repositories
             {
                 throw e;
             }
+        }
+
+        private async Task<bool> SaveChanges(MerchantContext context)
+        {
+            int rowsAffected = await context.SaveChangesAsync();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
