@@ -63,17 +63,11 @@ INSERT INTO invoices(shippingitemid,rate) VALUES (3,25);
 INSERT INTO invoices(shippingitemid,rate) VALUES (4,12);
 
 
-CALL apply_labour_charges(1); -- shippingitemid
-CALL apply_service_charges(1);-- shippingitemid
+CALL apply_labour_charges(1); -- shipmentid
+CALL apply_service_charges(1);-- shipmentid
 
-CALL apply_labour_charges(2); -- shippingitemid
-CALL apply_service_charges(2);-- shippingitemid
-
-CALL apply_labour_charges(3); -- shippingitemid
-CALL apply_service_charges(3);-- shippingitemid
-
-CALL apply_labour_charges(4); -- shippingitemid
-CALL apply_service_charges(4);-- shippingitemid
+CALL apply_labour_charges(2); -- shipmentid
+CALL apply_service_charges(2);-- shipmentid
 
 
 -- CALL apply_total_freight_charges(2,@total_freight_charges);
@@ -89,5 +83,5 @@ CALL calculate_total_amount(3);
 CALL calculate_total_amount(4);
 
 SELECT * FROM invoices;
--- SELECT * FROM goodscosting;
+SELECT * FROM goodscosting;
 

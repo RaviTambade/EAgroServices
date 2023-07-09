@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -92,6 +92,7 @@ CREATE TABLE
         vehicleid INT,
         merchantid INT,
         kilometers INT,
+        status ENUM ('inprogress', 'delivered') DEFAULT 'inprogress' ,
         shipmentdate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_shipment_vehicle FOREIGN KEY (vehicleid) REFERENCES vehicles(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_shipment_users FOREIGN KEY (merchantid) REFERENCES merchants(id) ON UPDATE CASCADE ON DELETE CASCADE
