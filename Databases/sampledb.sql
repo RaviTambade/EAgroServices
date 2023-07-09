@@ -57,10 +57,10 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,3);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
 
-INSERT INTO invoices(shippingitemid,rate) VALUES (1,20);
-INSERT INTO invoices(shippingitemid,rate) VALUES (2,22);
-INSERT INTO invoices(shippingitemid,rate) VALUES (3,25);
-INSERT INTO invoices(shippingitemid,rate) VALUES (4,12);
+INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (1,20);
+INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (2,22);
+INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (3,25);
+INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (4,12);
 
 
 CALL apply_labour_charges(1); -- shipmentid

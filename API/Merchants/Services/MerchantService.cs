@@ -1,4 +1,3 @@
-
 using Merchants.Services.Interfaces;
 using Merchants.Repositories.Interfaces;
 using Merchants.Models;
@@ -13,7 +12,8 @@ namespace Merchants.Services
         {
             _repo = repo;
         }
-          public async Task<List<Merchant>> GetAll()
+
+        public async Task<List<Merchant>> GetAll()
         {
             return await _repo.GetAll();
         }
