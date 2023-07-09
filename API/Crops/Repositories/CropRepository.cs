@@ -30,7 +30,7 @@ public class CropRepository : ICropRepository
         }
     }
 
-    public async Task<Crop> GetById(int varietyId)
+public async Task<Crop> GetById(int varietyId)
     {
         try
         {
@@ -43,7 +43,7 @@ public class CropRepository : ICropRepository
                 }
                 return variety;
             }
-        }
+        }    
         catch (Exception e)
         {
             throw e;
