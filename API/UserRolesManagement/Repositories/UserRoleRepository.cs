@@ -1,31 +1,33 @@
-using Merchants.Models;
-using Merchants.Repositories.Interfaces;
-using Merchants.Repositories.Contexts;
+
+using UserRolesManagement.Models;
+using UserRolesManagement.Repositories.Interfaces;
+using UserRolesManagement.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Merchants.Repositories
+
+namespace UserRolesManagement.Repositories
 {
-    public class MerchantRepository : IMerchantRepository
-    {
+    public class UserRoleRepository : IUserRoleRepository
+    { 
         private readonly IConfiguration _configuration;
 
-        public MerchantRepository(IConfiguration configuration)
+        public UserRoleRepository(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<List<Merchant>> GetAll()
+         public async Task<List<UserRole>> GetAll()
         {
             try
             {
-                using (var context = new MerchantContext(_configuration))
+                using (var context = new UserRoleContext(_configuration))
                 {
-                    var merchants = await context.Merchants.ToListAsync();
-                    if (merchants is null)
+                    var userRoles = await context.UserRoles.ToListAsync();
+                    if (userRoles is null)
                     {
                         return null;
                     }
-                    return merchants;
+                    return userRoles;
                 }
             }
             catch (Exception e)
@@ -34,20 +36,20 @@ namespace Merchants.Repositories
             }
         }
 
-        public async Task<Merchant> GetById(int merchantId)
+        public async Task<UserRole> GetById(int userRoleId)
         {
             try
             {
-                using (var context = new MerchantContext(_configuration))
+                using (var context = new UserRoleContext(_configuration))
                 {
-                    var merchant = await context.Merchants.FindAsync(merchantId);
+                    var userRole = await context.UserRoles.FindAsync(userRoleId);
 
-                    if (merchant is null)
+                    if (userRole is null)
                     {
                         return null;
                     }
 
-                    return merchant;
+                    return userRole;
                 }
             }
             catch (Exception e)
@@ -56,14 +58,14 @@ namespace Merchants.Repositories
             }
         }
 
-        public async Task<bool> Insert(Merchant merchant)
+        public async Task<bool> Insert(UserRole userRole)
         {
             try
             {
                 bool status = false;
-                using (var context = new MerchantContext(_configuration))
+                using (var context = new UserRoleContext(_configuration))
                 {
-                    await context.Merchants.AddAsync(merchant);
+                    await context.UserRoles.AddAsync(userRole);
                     status = await SaveChanges(context);
                     return status;
                 }
@@ -74,18 +76,18 @@ namespace Merchants.Repositories
             }
         }
 
-        public async Task<bool> Update(Merchant merchant)
+        public async Task<bool> Update(UserRole userRole)
         {
             try
             {
                 bool status = false;
-                using (var context = new MerchantContext(_configuration))
+                using (var context = new UserRoleContext(_configuration))
                 {
-                    var oldMerchant = await context.Merchants.FindAsync(merchant.Id);
+                    var oldMerchant = await context.UserRoles.FindAsync(userRole.Id);
                     if (oldMerchant is not null)
                     {
-                        oldMerchant.CorporateId = merchant.CorporateId;
-                        oldMerchant.ManagerId = merchant.ManagerId;
+                        oldMerchant.UserId = userRole.UserId;
+                        oldMerchant.RoleId = userRole.RoleId;
                         status = await SaveChanges(context);
                     }
                     return status;
@@ -97,17 +99,17 @@ namespace Merchants.Repositories
             }
         }
 
-        public async Task<bool> Delete(int merchantId)
+        public async Task<bool> Delete(int userRoleId)
         {
             try
             {
                 bool status = false;
-                using (var context = new MerchantContext(_configuration))
+                using (var context = new UserRoleContext(_configuration))
                 {
-                    var merchant = await context.Merchants.FindAsync(merchantId);
-                    if (merchant is not null)
+                    var userRole = await context.UserRoles.FindAsync(userRoleId);
+                    if (userRole is not null)
                     {
-                        context.Merchants.Remove(merchant);
+                        context.UserRoles.Remove(userRole);
                         status = await SaveChanges(context);
                     }
                     return status;
@@ -119,7 +121,7 @@ namespace Merchants.Repositories
             }
         }
 
-        private async Task<bool> SaveChanges(MerchantContext context)
+        private async Task<bool> SaveChanges(UserRoleContext context)
         {
             int rowsAffected = await context.SaveChangesAsync();
             if (rowsAffected > 0)
