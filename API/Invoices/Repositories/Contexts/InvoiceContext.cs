@@ -1,15 +1,16 @@
-using Merchants.Models;
+
+using Invoices.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace Merchants.Repositories.Contexts
+namespace Invoices.Repositories.Contexts
 {
-    public class MerchantContext : DbContext
+    public class InvoiceContext : DbContext
     {
         private readonly IConfiguration _configuration;
         private readonly string? _conString;
 
-        public MerchantContext(IConfiguration configuration)
+        public InvoiceContext(IConfiguration configuration)
         {
             _configuration = configuration;
             _conString =
@@ -17,8 +18,7 @@ namespace Merchants.Repositories.Contexts
                 ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public DbSet<Merchant> Merchants { get; set; }
-
+        public DbSet<Invoice> Invoices { get;set;}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL(
@@ -30,12 +30,14 @@ namespace Merchants.Repositories.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Merchant>(entity =>
+              modelBuilder.Entity<Invoice>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.CorporateId);
-                entity.Property(e => e.ManagerId);
-                modelBuilder.Entity<Merchant>().ToTable("merchants");
+                entity.Property(e => e.ShipmentItemId);
+                entity.Property(e => e.RatePerKg);
+                entity.Property(e => e.TotalAmount);
+                entity.Property(e => e.InvoiceDate);
+                modelBuilder.Entity<Invoice>().ToTable("invoices");
             });
         }
     }

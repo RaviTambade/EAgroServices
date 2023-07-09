@@ -1,7 +1,7 @@
 
 CREATE PROCEDURE apply_labour_charges(IN shipment_id INT)
 BEGIN
-    INSERT INTO goodscosting (shippingitemid, labourcharges)
+    INSERT INTO goodscosting (shipmentitemid, labourcharges)
     SELECT shipmentItems.id, (goodscollections.quantity * ratecard.amount)
     FROM shipmentItems
     JOIN goodscollections ON goodscollections.id = shipmentItems.collectionid
@@ -12,7 +12,7 @@ END;
 CREATE PROCEDURE apply_service_charges(IN shipment_id INT)
 BEGIN
     UPDATE goodscosting
-    JOIN shipmentItems ON goodscosting.shippingitemid = shipmentItems.id
+    JOIN shipmentItems ON goodscosting.shipmentitemid = shipmentItems.id
     JOIN verifiedgoodscollection ON shipmentItems.collectionid = verifiedgoodscollection.collectionid
     JOIN ratecard ON ratecard.title = "servicecharges"
     SET goodscosting.servicecharges = verifiedgoodscollection.weight * ratecard.amount
@@ -46,7 +46,7 @@ BEGIN
     SET freight_rate_per_kg = totalfreightcharges / total_collections_weight;
     
     UPDATE goodscosting
-    INNER JOIN shipmentItems ON goodscosting.shippingitemid = shipmentItems.id
+    INNER JOIN shipmentItems ON goodscosting.shipmentitemid = shipmentItems.id
     INNER JOIN verifiedgoodscollection ON shipmentItems.collectionid = verifiedgoodscollection.collectionid
     SET goodscosting.freightcharges = freight_rate_per_kg * verifiedgoodscollection.weight
     WHERE shipmentItems.shipmentid = shipment_id;
@@ -57,7 +57,7 @@ END;
 CREATE PROCEDURE calculate_total_amount(IN shipment_Item_id INT)
 BEGIN
 	DECLARE collection_weight DOUBLE DEFAULT 0;
-	DECLARE rateperkg DOUBLE DEFAULT 0;
+	DECLARE rate_per_kg DOUBLE DEFAULT 0;
 	DECLARE amount DOUBLE DEFAULT 0;
 	DECLARE total_charges DOUBLE DEFAULT 0;
 
@@ -65,11 +65,11 @@ BEGIN
     INNER JOIN shipmentItems ON verifiedgoodscollection.collectionid = shipmentItems.collectionid
     WHERE shipmentItems.id = shipment_Item_id;
 
-	SELECT (labourcharges+servicecharges+freightcharges) INTO total_charges FROM goodscosting WHERE shippingitemid=shipment_Item_id; 
+	SELECT (labourcharges+servicecharges+freightcharges) INTO total_charges FROM goodscosting WHERE shipmentitemid=shipment_Item_id; 
 
-	SELECT rate INTO rateperkg FROM invoices WHERE shippingitemid=shipment_Item_id;
-    SET amount=(collection_weight*rateperkg) - total_charges ;
+	SELECT rateperkg INTO rate_per_kg FROM invoices WHERE shipmentitemid=shipment_Item_id;
+    SET amount=(collection_weight*rate_per_kg) - total_charges ;
 
-	UPDATE invoices SET totalamount=amount WHERE shippingitemid=shipment_Item_id;
+	UPDATE invoices SET totalamount=amount WHERE shipmentitemid=shipment_Item_id;
 END;
 

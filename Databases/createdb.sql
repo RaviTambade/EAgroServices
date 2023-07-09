@@ -99,7 +99,7 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    shipmentItems(
+    shipmentitems(
         id INT AUTO_INCREMENT PRIMARY KEY,
         shipmentid INT,
         collectionid INT UNIQUE,
@@ -118,21 +118,21 @@ CREATE TABLE
 CREATE TABLE
     goodscosting(
         id INT PRIMARY KEY AUTO_INCREMENT,
-        shippingitemid INT NOT NULL UNIQUE,
+        shipmentitemid INT NOT NULL UNIQUE,
         freightcharges DOUBLE,
         labourcharges DOUBLE,
         servicecharges DOUBLE,
-        CONSTRAINT fk_goodscosting_shipmentItems FOREIGN KEY (shippingitemid) REFERENCES shipmentItems(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_goodscosting_shipmentItems FOREIGN KEY (shipmentitemid) REFERENCES shipmentitems(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
     invoices (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        shippingitemid INT UNIQUE,
-        rate DOUBLE,
+        shipmentitemid INT UNIQUE,
+        rateperkg DOUBLE,
         totalamount DOUBLE DEFAULT 0,
         invoicedate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
-        CONSTRAINT fk_shippingItemsid FOREIGN KEY (shippingitemid) REFERENCES shipmentItems(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_shippingItemsid FOREIGN KEY (shipmentitemid) REFERENCES shipmentitems(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
