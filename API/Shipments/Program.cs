@@ -1,17 +1,18 @@
-using GoodsCollections.Services.Interfaces;
-using GoodsCollections.Repositories.Interfaces;
-using GoodsCollections.Services;
-using GoodsCollections.Repositories;
+using Shipments.Services.Interfaces;
+using Shipments.Repositories.Interfaces;
+using Shipments.Services;
+using Shipments.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddCors();
 builder.Services.AddControllers();
-builder.Services.AddScoped<IGoodsCollectionRepository, GoodsCollectionRepository>();
-builder.Services.AddScoped<IGoodsCollectionService, GoodsCollectionService>();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IShipmentService, ShipmentService>();
+builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
+builder.Services.AddScoped<IShipmentItemService, ShipmentItemService>();
+builder.Services.AddScoped<IShipmentItemRepository, ShipmentItemRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
