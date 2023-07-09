@@ -7,8 +7,8 @@ namespace RateCards.Repositories.Interfaces
     {
     Task<List<RateCard>> GetAll();
     Task<RateCard> GetById(int ratecardId);
-    // Task<bool> Insert(Crop variety);
-    // Task<bool> Update(int varietyId,Crop variety);
-    // Task<bool> Delete(int varietyId);
+     Task<bool> Insert(RateCard ratecard);
+     Task<bool> Update(int ratecardId,RateCard ratecard);
+     Task<bool> Delete(int ratecardId);
 }
     }

@@ -53,5 +53,74 @@ public async Task<RateCard> GetById(int ratecardId)
             throw e;
         }
     }
+
+    public async Task<bool> Insert(RateCard ratecard)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new RateCardContext(_configuration))
+            {
+                
+                await context.RateCards.AddAsync(ratecard);
+                await context.SaveChangesAsync();
+                status = true;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
+
+    public async Task<bool> Update(int ratecardId, RateCard ratecard)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new RateCardContext(_configuration))
+            {
+                RateCard? oldratecard = await context.RateCards.FindAsync(ratecardId);
+                if (oldratecard != null)
+                {
+                    oldratecard.Title = ratecard.Title;
+                    oldratecard.Description = ratecard.Description;
+                    oldratecard.Amount=ratecard.Amount;
+                    await context.SaveChangesAsync();
+                    status= true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
+    public async Task<bool> Delete(int ratecardId)
+    {
+        bool status = false;
+        try
+        {
+            using (var context = new RateCardContext(_configuration))
+            {
+                RateCard? ratecard = await context.RateCards.FindAsync(ratecardId);
+                if (ratecard != null)
+                {
+                    context.RateCards.Remove(ratecard);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
     }
 }
+
+
+    }
