@@ -5,6 +5,7 @@
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card border-0 shadow rounded-3 my-5">
           <div class="card-body p-4 p-sm-5">
+            <div *ngIf="newAccountStatus()">
             <h5 class="card-title  text-center mb-5  fs-5">Sign In</h5>
             <form  #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)">
               <div class="form-floating mb-3">
@@ -19,22 +20,21 @@
               <div class="d-grid">
                 <button class="btn btn-success  fw-bold" style="color: inherit; text-decoration:none;display: block;" type="submit" >Sign in</button>
               </div>
-            </form>
+              </form>
               <hr class="my-4">
                <div class="d-grid">
-                <button class="btn btn-success fw-bold" *ngIf="newAccountStatus()" >
+                <button class="btn btn-success fw-bold"  >
                   <a [routerLink]="['/authentication/register']" style="color: inherit; text-decoration:none;display: block;">  Create a New Account </a>
                </button>
               </div >
               <br>
+            </div>
               <div class="d-grid" *ngFor="let role of roles">
                 <button class="btn btn-success fw-bold" >
                   <a  style="color: inherit; text-decoration:none;display: block;" (click)="navigateByRole(role)">  Login As {{role}} </a>
                </button>
                <br>
               </div>
-
-            
             </div>
         </div>
       </div>
