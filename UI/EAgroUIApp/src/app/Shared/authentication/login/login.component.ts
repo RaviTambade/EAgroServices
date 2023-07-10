@@ -38,28 +38,50 @@ export class LoginComponent {
             console.log("func")
             this.roles = responseRoles;
             console.log("🚀 ~ this.svc.getRolesOfUser ~ roles:", this.roles);
-            if (this.roles?.length < 1){
+
+
+
+            if (this.roles?.length == 1) {
+              const role = this.roles[0];
+              this.navigateByRole(role);
+            }
+            
+            if (this.roles?.length < 1) {
               this.router.navigate(['/membership/user/register/', this.credential.contactNumber])
             }
-            this.navigateByRole("role")
-
           });
-
-
         });
-
-
       }
     });
   }
 
-  navigateByRole(role:string){
+  navigateByRole(role: string) {
+    switch (role) {
+      case "farmer":
+        this.router.navigate(['/farmer/home/', this.userId])
+        break;
 
+      case "merchant":
+        this.router.navigate(['/merchant/home/', this.userId])
+        break;
+
+      case "transporter":
+        this.router.navigate(['/transporter/home/', this.userId])
+        break;
+
+      case "owner":
+        this.router.navigate(['/collectioncenter/home/', this.userId])
+        break;
+
+      case "inspector":
+        this.router.navigate(['/inspector/home/', this.userId])
+        break;
+    }
   }
 
-  newAccountStatus(){
-    return this.roles.length<1;
+  newAccountStatus() {
+    return this.roles.length < 1;
   }
 
-  
+
 }

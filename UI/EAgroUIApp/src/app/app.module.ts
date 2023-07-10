@@ -5,12 +5,19 @@ import { AppComponent } from './app.component';
 import { DefaultModule } from './default/default.module';
 import { AuthenticationModule, authRoutes } from './Shared/authentication/authentication.module';
 import { MembershipModule, membershipRoutes } from './membership/membership.module';
-import { FarmerModule } from './farmer/farmer.module';
+import { CollectioncenterModule, collectionRoutes } from './collectioncenter/collectioncenter.module';
+import { MerchantModule, merchantRoutes } from './merchant/merchant.module';
+import { FarmerModule, farmerRoutes } from './farmer/farmer.module';
+import { TransporterModule, transporterRoutes } from './transporter/transporter.module';
 
 
 const routes: Routes = [
   { path: 'membership', children: membershipRoutes },
   { path: 'auth', children: authRoutes },
+  { path: 'farmer', children: farmerRoutes },
+  { path: 'merchant', children: merchantRoutes },
+  { path: 'transporter', children: transporterRoutes },
+  { path: 'collectioncenter', children: collectionRoutes },
 ]
 @NgModule({
   declarations: [
@@ -22,7 +29,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     AuthenticationModule,
     MembershipModule,
-    FarmerModule
+    CollectioncenterModule,
+    MerchantModule,
+    FarmerModule,
+    TransporterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
