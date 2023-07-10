@@ -27,6 +27,13 @@ namespace UserRolesManagement.Controllers
             return await _srv.GetById(userRoleId);
         }
 
+        
+        [HttpGet("roles/{userId}")]
+        public async Task<List<string>> GetRolesByUserId(int userId)
+        {
+            return await _srv.GetRolesByUserId(userId);
+        }
+
         [HttpPost]
         public async Task<bool> Insert(UserRole userRole)
         {

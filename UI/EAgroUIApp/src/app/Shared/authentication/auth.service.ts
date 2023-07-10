@@ -34,4 +34,14 @@ export class AuthService {
     let url = "http://localhost:5077/api/authentication/update/contactnumber";
     return this.svc.put<any>(url, credential);
   }
+
+  getUserIdByContact(contactNumber: string): Observable<any> {
+    let url = "http://localhost:5102/api/users/userid/" + contactNumber;
+    return this.svc.get<any>(url);
+  }
+
+  getRolesOfUser(userId:number): Observable<any> {
+    let url = "http://localhost:5031/api/userroles/roles/ "+userId;
+    return this.svc.get<any>(url);
+  }
 }
