@@ -1,14 +1,12 @@
-
 using UserRolesManagement.Models;
 using UserRolesManagement.Repositories.Interfaces;
 using UserRolesManagement.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace UserRolesManagement.Repositories
 {
     public class UserRoleRepository : IUserRoleRepository
-    { 
+    {
         private readonly IConfiguration _configuration;
 
         public UserRoleRepository(IConfiguration configuration)
@@ -16,7 +14,7 @@ namespace UserRolesManagement.Repositories
             _configuration = configuration;
         }
 
-         public async Task<List<UserRole>> GetAll()
+        public async Task<List<UserRole>> GetAll()
         {
             try
             {
@@ -58,8 +56,35 @@ namespace UserRolesManagement.Repositories
             }
         }
 
+        public async Task<List<string>> GetRolesByUserId(int userId)
+        {
+            try
+            {
+                using (var context = new UserRoleContext(_configuration))
+                {
+                    var roles = await (
+                        from role in context.Roles
+                        join userRples in context.UserRoles on role.Id equals userRples.RoleId
+                        where userRples.UserId == userId
+                        select role.Name
+                    ).ToListAsync();
+
+                    if (roles is null)
+                    {
+                        return null;
+                    }
+
+                    return roles;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<bool> Insert(UserRole userRole)
-        { 
+        {
             try
             {
                 bool status = false;

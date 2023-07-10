@@ -19,18 +19,27 @@
               <div class="d-grid">
                 <button class="btn btn-success  fw-bold" style="color: inherit; text-decoration:none;display: block;" type="submit" >Sign in</button>
               </div>
-              
+            </form>
               <hr class="my-4">
                <div class="d-grid">
-                <button class="btn btn-success fw-bold" >
+                <button class="btn btn-success fw-bold" *ngIf="newAccountStatus()" >
                   <a [routerLink]="['/authentication/register']" style="color: inherit; text-decoration:none;display: block;">  Create a New Account </a>
                </button>
+              </div >
+              <br>
+              <div class="d-grid" *ngFor="let role of roles">
+                <button class="btn btn-success fw-bold" >
+                  <a  style="color: inherit; text-decoration:none;display: block;" (click)="navigateByRole(role)">  Login As {{role}} </a>
+               </button>
+               <br>
               </div>
-            </form>
+
+            
             </div>
         </div>
       </div>
     </div>
   </div>
+
 
 <router-outlet></router-outlet>

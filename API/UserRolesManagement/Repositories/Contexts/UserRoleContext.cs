@@ -19,6 +19,7 @@ namespace UserRolesManagement.Repositories.Contexts
         }
 
         public DbSet<UserRole> UserRoles {get;set;}
+        public DbSet<Role> Roles {get;set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,6 +38,12 @@ namespace UserRolesManagement.Repositories.Contexts
                 entity.Property(e => e.UserId);
                 entity.Property(e => e.RoleId);
                 modelBuilder.Entity<UserRole>().ToTable("userroles");
+            });
+             modelBuilder.Entity<Role>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name);
+                modelBuilder.Entity<Role>().ToTable("roles");
             });
         }
     }

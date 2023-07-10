@@ -23,6 +23,11 @@ namespace UserRolesManagement.Services
             return await _repo.GetById(userRoleId);
         }
 
+        public async Task<List<string>> GetRolesByUserId(int userId)
+        {
+            return await _repo.GetRolesByUserId(userId);
+        }
+
         public async Task<bool> Insert(UserRole userRole)
         {
             return await _repo.Insert(userRole);
