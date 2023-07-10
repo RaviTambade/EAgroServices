@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EAgroServicesViews.Models;
 using EAgroServicesViews.Models.PurchaseModels;
+using EAgroServicesViews.Models.SellsModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 namespace EAgroServicesViews.Controllers;

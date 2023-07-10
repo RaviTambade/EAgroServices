@@ -26,8 +26,8 @@ export class AuthService {
   updatePassword(credential: UpdatePassword): Observable<boolean> {
     let url = "http://localhost:5077/api/authentication/update/password";
     const token = localStorage.getItem("jwt")
-      const header = { "Authorization": "Bearer " + token }
-    return this.svc.put<any>(url, credential,{headers:header});
+    const header = { "Authorization": "Bearer " + token }
+    return this.svc.put<any>(url, credential, { headers: header });
   }
 
   updateContact(credential: UpdateContact): Observable<boolean> {
@@ -40,8 +40,8 @@ export class AuthService {
     return this.svc.get<any>(url);
   }
 
-  getRolesOfUser(userId:number): Observable<any> {
-    let url = "http://localhost:5031/api/userroles/roles/ "+userId;
+  getRolesOfUser(userId: number): Observable<any> {
+    let url = "http://localhost:5031/api/userroles/roles/ " + userId;
     return this.svc.get<any>(url);
   }
 }
