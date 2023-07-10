@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { DefaultModule } from './default/default.module';
 import { AuthenticationModule, authRoutes } from './Shared/authentication/authentication.module';
 import { MembershipModule, membershipRoutes } from './membership/membership.module';
-import { ProfileComponent } from './profile/profile.component';
+import { FarmerModule } from './farmer/farmer.module';
 
 
 const routes: Routes = [
@@ -15,14 +15,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     DefaultModule,
     RouterModule.forRoot(routes),
     AuthenticationModule,
-    MembershipModule
+    MembershipModule,
+    FarmerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
