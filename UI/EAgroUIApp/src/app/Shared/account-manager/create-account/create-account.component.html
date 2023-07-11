@@ -1,0 +1,26 @@
+
+<form #accountForm="ngForm" (ngSubmit)="addAccount(accountForm.value)">
+
+  <div class="mb-3">
+    <label><b>Account Number:</b></label>
+    <input type="text" name="acctNumber" [(ngModel)]="account.acctNumber"/>
+    <br>
+    <label><b>Account Type:</b></label>
+    <input type="text" name="acctType" [(ngModel)]="account.acctType"/>
+    <br>
+    <label><b>Balance:</b></label>
+    <input type="number" name="balance" [(ngModel)]="account.balance"/>
+    <br>
+    <label><b>ifsc:</b></label>
+    <input type="text" name="ifscCode" [(ngModel)]="account.ifscCode"/>
+    <br>
+    <label hidden><b>Registered Date:</b></label>
+    <input type="text" name="registeredDate" [(ngModel)]="account.registeredDate" type="hidden" />
+    <br>
+    <label><b>People Id:</b></label>
+    <input type="number" name="peopleId" [(ngModel)]="account.peopleId"/>
+    <br>
+    <button class="btn btn-success " type="submit">Create</button>
+  </div>
+</form>
+

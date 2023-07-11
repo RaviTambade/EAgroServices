@@ -2,8 +2,9 @@ export class ShipmentItemDetails {
     constructor(
         public id: number,
         public collectionCenterId: number,
-        public collectionCenterName: string,
         public farmerId: number,
+        public collectionCenterName: string,
+        public farmerName: string,
         public cropName: string,
         public grade: string,
         public containerType: string,
