@@ -37,5 +37,10 @@ namespace GoodsCollections.Services
         {
             return await _repo.Delete(collectionId);
         }
+
+        public async Task<List<FarmerCollection>> FarmerCollection(int farmerId)
+        {
+            return await _repo.FarmerCollection(farmerId);
+        }
     }
 }

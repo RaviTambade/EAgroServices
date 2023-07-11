@@ -19,6 +19,7 @@ namespace GoodsCollections.Repositories.Contexts
         }
 
         public DbSet<GoodsCollection> GoodsCollections { get; set; }
+        public DbSet<Crop> Crops { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL(
@@ -42,6 +43,14 @@ namespace GoodsCollections.Repositories.Contexts
                 entity.Property(e => e.CollectionDate);
                 modelBuilder.Entity<GoodsCollection>().ToTable("goodscollections");
             });
+             modelBuilder.Entity<Crop>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Title);
+            entity.Property(e => e.ImageUrl);
+            entity.Property(e => e.Rate);
+            modelBuilder.Entity<Crop>().ToTable("crops");
+        });
         }
     }
 }

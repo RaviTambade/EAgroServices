@@ -44,5 +44,10 @@ namespace GoodsCollections.Controllers
         {
             return await _srv.Delete(collectionId);
         }
+          [HttpGet("farmercollection/{farmerId}")]
+        public async Task<List<FarmerCollection>> FarmerCollections(int farmerId)
+        {
+            return await _srv.FarmerCollection(farmerId);
+        }
     }
 }
