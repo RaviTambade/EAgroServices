@@ -21,11 +21,84 @@ namespace Shipments.Repositories
                 using (var context = new ShipmentContext(_configuration))
                 {
                     var shipments = await context.Shipments.ToListAsync();
-                    if (shipments is  null)
+                    if (shipments is null)
                     {
                         return null;
                     }
                     return shipments;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId)
+        {
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipments = await (
+                        from shipment in context.Shipments
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        where shipment.MerchantId == merchantId
+                        select new MerchantShipment()
+                        {
+                            Id = shipment.Id,
+                            VehicleNumber = vehicle.RtoNumber,
+                            Kilometers = shipment.Kilometers,
+                            Status = shipment.Status,
+                            ShipmentDate = shipment.ShipmentDate,
+                        }
+                    ).ToListAsync();
+                    if (shipments is null)
+                    {
+                        return null;
+                    }
+                    return shipments;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
+        {
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipmentItems = await (
+                        from shipmentItem in context.ShipmentItems
+                        join collection in context.GoodsCollections
+                            on shipmentItem.CollectionId equals collection.Id
+                        join verifiedCollection in context.VerifiedCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        where shipmentItem.ShipmentId == shipmentId
+                        select new ShipmentItemDetails()
+                        {
+                            Id = collection.Id,
+                            CollectionCenterId = collection.CollectionCenterId,
+                            FarmerId = collection.FarmerId,
+                            CropName = crop.Title,
+                            Grade = verifiedCollection.Grade,
+                            ContainerType = collection.ContainerType,
+                            Quantity = collection.Quantity,
+                            TotalWeight = collection.Weight,
+                            NetWeight = verifiedCollection.Weight,
+                            CollectionDate = collection.CollectionDate
+                        }
+                    ).ToListAsync();
+                    if (shipmentItems is null)
+                    {
+                        return null;
+                    }
+                    return shipmentItems;
                 }
             }
             catch (Exception e)
@@ -42,7 +115,7 @@ namespace Shipments.Repositories
                 {
                     var shipment = await context.Shipments.FindAsync(shipmentId);
 
-                    if (shipment is  null)
+                    if (shipment is null)
                     {
                         return null;
                     }

@@ -1,0 +1,30 @@
+
+<table>
+    <thead>
+      <tr>
+        <th>Date </th>
+        <th>Collection Center  </th>
+        <th>FarmerName</th>
+        <th>CropName</th>
+        <th>Grade</th>
+        <th>Container Type</th>
+        <th>Quantity</th>
+        <th>Total Weight</th>
+        <th>Net Weight</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let shipmentItem of shipmentItemsDetails">
+        <td>{{ shipmentItem.collectionDate | date }}</td>
+        <td>{{ shipmentItem.collectionCenterName  }}</td>
+        <td>{{ shipmentItem.farmerName  }}</td>
+        <td>{{ shipmentItem.cropName}}</td>
+        <td>{{ shipmentItem.grade}}</td>
+        <td>{{ shipmentItem.containerType}}</td>
+        <td>{{ shipmentItem.quantity}}</td>
+        <td>{{ shipmentItem.totalWeight}}</td>
+        <td>{{ shipmentItem.netWeight}}</td>
+        <!-- <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td> -->
+      </tr>
+    </tbody>
+  </table>

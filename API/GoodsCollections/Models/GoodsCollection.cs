@@ -20,7 +20,7 @@ namespace GoodsCollections.Models
         public string ContainerType { get; set; }
 
         [Column("quantity")]
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
 
         [Column("weight")]
         public int Weight { get; set; }

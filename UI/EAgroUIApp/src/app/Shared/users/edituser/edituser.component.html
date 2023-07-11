@@ -1,0 +1,41 @@
+
+<app-getuser [userId]="userId" (sendUser)="receiveUser($event)" hidden></app-getuser>
+<div *ngIf="user">
+    <div class="container">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th>first Name</th>
+              <td><input type="text" [(ngModel)]="user.firstName" class="form-control"></td>
+            </tr>
+            <tr>
+              <th>last Name</th>
+              <td><input type="text" [(ngModel)]="user.lastName" class="form-control"></td>
+            </tr>
+            <tr>
+              <th>Aadhar Id</th>
+              <td><input type="text" [(ngModel)]="user.aadharId" class="form-control"></td>
+            </tr>
+            <tr>
+              <th>BirthDate</th>
+              <td><input type="text" [(ngModel)]="user.birthDate" class="form-control"></td>
+            </tr>
+            <tr>
+              <th>Gender</th>
+              <td><input type="text" [(ngModel)]="user.gender" class="form-control"></td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td><input type="text" [(ngModel)]="user.email" class="form-control"></td>
+            </tr>
+            <tr>
+              <th>Contact Number</th>
+              <td><input type="text" [(ngModel)]="user.contactNumber" class="form-control"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-grid gap-2">
+          <button class="btn btn-success" (click)="updateUser()">Update</button>
+        </div>
+      </div>  
+    </div>

@@ -1,0 +1,20 @@
+<!-- <p>merchant-shipment-list works!</p>  -->
+<table>
+    <thead>
+      <tr>
+        <th>Date </th>
+        <th>Vehicle Number  </th>
+        <th>Kilometers</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let shipment of merchantShipments">
+        <td>{{ shipment.shipmentDate | date }}</td>
+        <td>{{ shipment.vehicleNumber  }}</td>
+        <td>{{ shipment.kilometers  }}</td>
+        <td>{{ shipment.status}}</td>
+        <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
+      </tr>
+    </tbody>
+  </table>

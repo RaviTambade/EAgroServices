@@ -1,4 +1,3 @@
-
 using Shipments.Services.Interfaces;
 using Shipments.Repositories.Interfaces;
 using Shipments.Models;
@@ -13,7 +12,8 @@ namespace Shipments.Services
         {
             _repo = repo;
         }
-         public async Task<List<Shipment>> GetAll()
+
+        public async Task<List<Shipment>> GetAll()
         {
             return await _repo.GetAll();
         }
@@ -21,6 +21,16 @@ namespace Shipments.Services
         public async Task<Shipment> GetById(int shipmentId)
         {
             return await _repo.GetById(shipmentId);
+        }
+
+        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId)
+        {
+            return await _repo.GetShipmentsByMerchant(merchantId);
+        }
+
+        public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
+        {
+            return await _repo.GetShipmentItemsById(shipmentId);
         }
 
         public async Task<bool> Insert(Shipment shipment)

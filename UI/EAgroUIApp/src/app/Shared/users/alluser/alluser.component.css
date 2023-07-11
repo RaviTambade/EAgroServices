@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  thead th {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  tbody td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+  

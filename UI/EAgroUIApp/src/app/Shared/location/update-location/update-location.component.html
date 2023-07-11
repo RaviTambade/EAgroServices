@@ -1,0 +1,27 @@
+
+<div class="card mt-50 mb-50">
+    <div class="card-title mx-auto">
+        Update Location
+    </div>
+    <form  #insertForm="ngForm" (ngSubmit)="onUpdate(insertForm)">
+        <span id="card-header"></span>
+        <div class="row-1">
+            <div class="row row-2">
+                <span id="card-inner">Pin Code</span>
+            </div>
+            <div class="row row-2">
+                <input type="text" name="pincode" ngModel placeholder="Pin Code">
+            </div>
+        </div>
+        <div class="row-1">
+          <div class="row row-2">
+              <span id="card-inner">Land Mark</span>
+          </div>
+          <div class="row row-2">
+              <input type="text"  name="landmark"  ngModel placeholder="Land Mark">
+          </div>
+      </div>
+
+        <button class="btn d-flex mx-auto"><b>Proceed</b></button>
+    </form>
+</div>

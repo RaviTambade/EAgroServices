@@ -1,6 +1,6 @@
   
 INSERT INTO roles(name)VALUES('owner');
-INSERT INTO roles(name)VALUES('farmer');
+INSERT INTO roles(name)VALUE    S('farmer');
 INSERT INTO roles(name)VALUES('inspector');
 INSERT INTO roles(name)VALUES('transporter');
 INSERT INTO roles(name)VALUES('merchant');
