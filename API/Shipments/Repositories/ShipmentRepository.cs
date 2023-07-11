@@ -66,15 +66,34 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<List<ShipmentItem>> GetShipmentItemsById(int shipmentId)
+        public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
         {
             try
             {
                 using (var context = new ShipmentContext(_configuration))
                 {
-                    var shipmentItems = await context.ShipmentItems
-                        .Where(si => si.ShipmentId == shipmentId)
-                        .ToListAsync();
+                    var shipmentItems = await (
+                        from shipmentItem in context.ShipmentItems
+                        join collection in context.GoodsCollections
+                            on shipmentItem.CollectionId equals collection.Id
+                        join verifiedCollection in context.VerifiedCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        where shipmentItem.ShipmentId == shipmentId
+                        select new ShipmentItemDetails()
+                        {
+                            Id = collection.Id,
+                            CollectionCenterId = collection.CollectionCenterId,
+                            FarmerId = collection.FarmerId,
+                            CropName = crop.Title,
+                            Grade = verifiedCollection.Grade,
+                            ContainerType = collection.ContainerType,
+                            Quantity = collection.Quantity,
+                            TotalWeight = collection.Weight,
+                            NetWeight = verifiedCollection.Weight,
+                            CollectionDate = collection.CollectionDate
+                        }
+                    ).ToListAsync();
                     if (shipmentItems is null)
                     {
                         return null;

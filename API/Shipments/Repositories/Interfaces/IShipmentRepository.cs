@@ -7,7 +7,7 @@ namespace Shipments.Repositories.Interfaces
         Task<List<Shipment>> GetAll();
         Task<Shipment> GetById(int shipmentId);
         Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId);
-        Task<List<ShipmentItem>> GetShipmentItemsById(int shipmentId);
+        Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId);
 
         Task<bool> Insert(Shipment shipment);
         Task<bool> Update(Shipment shipment);

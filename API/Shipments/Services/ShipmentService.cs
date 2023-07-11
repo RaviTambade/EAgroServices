@@ -28,7 +28,7 @@ namespace Shipments.Services
             return await _repo.GetShipmentsByMerchant(merchantId);
         }
 
-        public async Task<List<ShipmentItem>> GetShipmentItemsById(int shipmentId)
+        public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
         {
             return await _repo.GetShipmentItemsById(shipmentId);
         }

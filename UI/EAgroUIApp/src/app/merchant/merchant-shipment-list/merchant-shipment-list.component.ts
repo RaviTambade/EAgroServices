@@ -17,6 +17,7 @@ merchantShipments:MerchantShipment[]|undefined;
    this.svc.getShipments().subscribe((res) => {
      console.log("🚀 ~ this.svc.getShipments ~ res:", res);
      this.merchantShipments=res;
+ 
    	});
   }
 

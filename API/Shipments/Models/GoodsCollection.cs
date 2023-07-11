@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GoodsCollections.Models
+namespace Shipments.Models
 {
     public class GoodsCollection
     {
@@ -20,7 +20,7 @@ namespace GoodsCollections.Models
         public string ContainerType { get; set; }
 
         [Column("quantity")]
-        public double Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [Column("weight")]
         public int Weight { get; set; }
@@ -28,9 +28,5 @@ namespace GoodsCollections.Models
         [Column("collectiondate")]
         public DateTime CollectionDate { get; set; }
 
-        public GoodsCollection()
-        {
-            CollectionDate = DateTime.Now;
-        }
     }
 }
