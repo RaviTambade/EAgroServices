@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
-import { CollectionComponent } from './collection/collection.component';
+// import { CollectionComponent } from './collection/collection.component';
 import { GoodscollectionComponent } from './goodscollection/goodscollection.component';
 
  export const farmerRoutes: Routes = [
@@ -14,7 +14,7 @@ import { GoodscollectionComponent } from './goodscollection/goodscollection.comp
   declarations: [
     ProfileComponent,
     HomeComponent,
-    CollectionComponent,
+    // CollectionComponent,
     GoodscollectionComponent
   ],
   imports: [

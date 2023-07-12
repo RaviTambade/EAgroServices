@@ -1,0 +1,26 @@
+
+
+<h2>Vehicles of Transporter</h2>
+
+<div *ngIf="vehicles.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Vehicle Type</th>
+        <th>RTO Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehicle of vehicles">
+        <td>{{ vehicle.id }}</td>
+        <td>{{ vehicle.vehicleType }}</td>
+        <td>{{ vehicle.rtoNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="vehicles.length === 0">
+  No vehicles found for the transporter.
+</div>
