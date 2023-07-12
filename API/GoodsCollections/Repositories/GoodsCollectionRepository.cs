@@ -134,5 +134,32 @@ namespace GoodsCollections.Repositories
             }
             return false;
         }
+    
+       public async Task<List<FarmerCollection>> FarmerCollection(int farmerId)
+        {
+          try{
+             using (var context = new GoodsCollectionContext(_configuration))
+                {
+                    List<FarmerCollection> farmercollections = await (from collection in context.GoodsCollections
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    where collection.FarmerId==farmerId
+                    select new FarmerCollection(){
+                        Id=collection.Id,
+                        CropName=crop.Title,
+                        ImageUrl=crop.ImageUrl,
+                        CollectionCenterId=collection.CollectionCenterId,
+                        Quantity=collection.Quantity,
+                        ContainerType=collection.ContainerType,
+                        Weight=collection.Weight,
+                        CollectionDate=collection.CollectionDate
+                    }).ToListAsync();
+                    return farmercollections;
+                }         
+          } 
+          catch (Exception e)
+          {
+throw e;
+          } 
+        }
     }
 }

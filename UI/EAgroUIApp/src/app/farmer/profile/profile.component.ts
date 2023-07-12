@@ -23,7 +23,4 @@ this.svc.getFarmerDetails(this.farmerId).subscribe((response)=>{
 })
 
 }
-
- 
-
 }
