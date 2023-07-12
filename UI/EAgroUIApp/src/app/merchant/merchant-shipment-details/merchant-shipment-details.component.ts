@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MerchantService } from '../merchant.service';
+import { ShipmentService } from '../shipment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipmentItemDetails } from '../shipment-item-details';
 import { CorporateService } from 'src/app/corporate.service';
@@ -12,11 +12,13 @@ import { UserService } from 'src/app/Shared/users/user.service';
 })
 export class MerchantShipmentDetailsComponent implements OnInit {
   shipmentId: any;
+  shipmentStatus:boolean|undefined;
   shipmentItemsDetails: ShipmentItemDetails[] = [];
   corporationNames: any[] = []
   farmerNames: any[] = []
-  constructor(private svc: MerchantService, private corpsvc: CorporateService,private usrsvc:UserService, 
-              private route: ActivatedRoute, private router: Router) { }
+  updateStatus:boolean=false;
+  constructor(private shipmentsvc: ShipmentService, private corpsvc: CorporateService, private usrsvc: UserService,
+    private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
 
     this.route.paramMap.subscribe((params) => {
@@ -24,20 +26,20 @@ export class MerchantShipmentDetailsComponent implements OnInit {
       console.log("🚀 ~ this.route.paramMap.subscribe ~ shipmentId:", this.shipmentId);
     });
 
-    this.svc.getShipmentItems(this.shipmentId).subscribe((res) => {
-      console.log("🚀 ~ this.svc.getShipmentItems ~ res:", res);
+    this.shipmentsvc.getShipmentItems(this.shipmentId).subscribe((res) => {
+      console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ res:", res);
       this.shipmentItemsDetails = res;
 
       const distinctcollectionIds = this.shipmentItemsDetails.map(item => item.collectionCenterId)
         .filter((number, index, array) => array.indexOf(number) === index);
 
-        const distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
+      const distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
         .filter((number, index, array) => array.indexOf(number) === index);
 
       const collectionIdString = distinctcollectionIds.join(',');
-      console.log("🚀 ~ this.svc.getShipmentItems ~ collectionIdString:", collectionIdString);
+      console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ collectionIdString:", collectionIdString);
       const farmerIdString = distinctfarmerIds.join(',');
-      console.log("🚀 ~ this.svc.getShipmentItems ~ farmerIdString:", farmerIdString);
+      console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ farmerIdString:", farmerIdString);
 
       this.corpsvc.getCorporates(collectionIdString).subscribe((names) => {
         console.log("🚀 ~ this.corpsvc.getCorporates ~ names:", names);
@@ -59,5 +61,30 @@ export class MerchantShipmentDetailsComponent implements OnInit {
       });
 
     });
+
+    this.shipmentsvc.getShipmentStatus(this.shipmentId).subscribe((res)=>{
+      this.shipmentStatus=res;
+      // this.shipmentStatus=true;
+    })
+  }
+
+  removeItem(shipmentId: number) {
+    this.shipmentsvc.removeShipmentItem(shipmentId).subscribe((response) => {
+      if (response) {
+        alert("record deleted");
+        window.location.reload();
+      }
+    });
+  }
+
+  updateShipmentStatusDelivered(shipmentId:number){
+    this.shipmentsvc.updateShipmentStatus(shipmentId).subscribe((res)=>{
+      console.log(res);
+      this.shipmentStatus=true;
+    })
+  }
+
+  onCancelClick(){
+    this.updateStatus=false;
   }
 }

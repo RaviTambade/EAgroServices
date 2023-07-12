@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MerchantService } from '../merchant.service';
+import { ShipmentService } from '../shipment.service';
 import { ActivatedRoute,  Router } from '@angular/router';
 import { MerchantShipment } from '../merchant-shipment';
 
@@ -12,7 +12,7 @@ export class MerchantShipmentListComponent implements OnInit {
 
 merchantShipments:MerchantShipment[]|undefined;
 
-  constructor(private svc :MerchantService,private route:ActivatedRoute, private router:Router){}
+  constructor(private svc :ShipmentService,private route:ActivatedRoute, private router:Router){}
   ngOnInit(): void {
    this.svc.getShipments().subscribe((res) => {
      console.log("🚀 ~ this.svc.getShipments ~ res:", res);
