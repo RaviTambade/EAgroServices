@@ -1,12 +1,13 @@
   
 INSERT INTO roles(name)VALUES('owner');
-INSERT INTO roles(name)VALUE    S('farmer');
+INSERT INTO roles(name)VALUES ('farmer');
 INSERT INTO roles(name)VALUES('inspector');
 INSERT INTO roles(name)VALUES('transporter');
 INSERT INTO roles(name)VALUES('merchant');
 INSERT INTO userroles(userid,roleid)VALUES(1,1);
 INSERT INTO userroles(userid,roleid)VALUES(2,2);
 INSERT INTO userroles(userid,roleid)VALUES(3,3);
+INSERT INTO userroles(userid,roleid)VALUES(3,5);
 INSERT INTO userroles(userid,roleid)VALUES(4,4);
 INSERT INTO userroles(userid,roleid)VALUES(5,5);
 
@@ -57,30 +58,27 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,3);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
 
-INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (1,20);
-INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (2,22);
-INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (3,25);
-INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (4,12);
+-- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (1,20);
+-- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (2,22);
+-- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (3,25);
+-- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (4,12);
 
 
-CALL apply_labour_charges(1); -- shipmentid
-CALL apply_service_charges(1);-- shipmentid
 
-CALL apply_labour_charges(2); -- shipmentid
-CALL apply_service_charges(2);-- shipmentid
+
+-- CALL call_procedures_after_shipment_status_delivered(1); -- shipmentid
+-- CALL call_procedures_after_shipment_status_delivered(2); -- shipmentid
 
 
 -- CALL apply_total_freight_charges(2,@total_freight_charges);
 
 -- SELECT @total_freight_charges;
 
-CALL apply_freight_charges_for_collection(1);-- shipmentid
-CALL apply_freight_charges_for_collection(2);-- shipmentid
 
-CALL calculate_total_amount(1); 
-CALL calculate_total_amount(2); 
-CALL calculate_total_amount(3); 
-CALL calculate_total_amount(4);
+-- CALL calculate_total_amount(1); 
+-- CALL calculate_total_amount(2); 
+-- CALL calculate_total_amount(3); 
+-- CALL calculate_total_amount(4);
 
 SELECT * FROM invoices;
 SELECT * FROM goodscosting;

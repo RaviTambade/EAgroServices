@@ -2,21 +2,21 @@
 CREATE PROCEDURE apply_labour_charges(IN shipment_id INT)
 BEGIN
     INSERT INTO goodscosting (shipmentitemid, labourcharges)
-    SELECT shipmentItems.id, (goodscollections.quantity * ratecard.amount)
-    FROM shipmentItems
-    JOIN goodscollections ON goodscollections.id = shipmentItems.collectionid
+    SELECT shipmentitems.id, (goodscollections.quantity * ratecard.amount)
+    FROM shipmentitems
+    JOIN goodscollections ON goodscollections.id = shipmentitems.collectionid
     JOIN ratecard ON goodscollections.containertype = ratecard.title
-    WHERE shipmentItems.shipmentid = shipment_id;
+    WHERE shipmentitems.shipmentid = shipment_id;
 END;
 
 CREATE PROCEDURE apply_service_charges(IN shipment_id INT)
 BEGIN
     UPDATE goodscosting
-    JOIN shipmentItems ON goodscosting.shipmentitemid = shipmentItems.id
-    JOIN verifiedgoodscollection ON shipmentItems.collectionid = verifiedgoodscollection.collectionid
+    JOIN shipmentitems ON goodscosting.shipmentitemid = shipmentitems.id
+    JOIN verifiedgoodscollection ON shipmentitems.collectionid = verifiedgoodscollection.collectionid
     JOIN ratecard ON ratecard.title = "servicecharges"
     SET goodscosting.servicecharges = verifiedgoodscollection.weight * ratecard.amount
-    WHERE shipmentItems.shipmentid= shipment_id;
+    WHERE shipmentitems.shipmentid= shipment_id;
 END;
 
 CREATE PROCEDURE apply_total_freight_charges(IN shipment_id INT, OUT total_freight_charges DOUBLE)
@@ -40,16 +40,16 @@ BEGIN
     
     SELECT SUM(weight) INTO total_collections_weight
     FROM verifiedgoodscollection
-    INNER JOIN shipmentItems ON verifiedgoodscollection.collectionid = shipmentItems.collectionid
-    WHERE shipmentItems.shipmentid = shipment_id;
+    INNER JOIN shipmentitems ON verifiedgoodscollection.collectionid = shipmentitems.collectionid
+    WHERE shipmentitems.shipmentid = shipment_id;
     
     SET freight_rate_per_kg = totalfreightcharges / total_collections_weight;
     
     UPDATE goodscosting
-    INNER JOIN shipmentItems ON goodscosting.shipmentitemid = shipmentItems.id
-    INNER JOIN verifiedgoodscollection ON shipmentItems.collectionid = verifiedgoodscollection.collectionid
+    INNER JOIN shipmentitems ON goodscosting.shipmentitemid = shipmentitems.id
+    INNER JOIN verifiedgoodscollection ON shipmentitems.collectionid = verifiedgoodscollection.collectionid
     SET goodscosting.freightcharges = freight_rate_per_kg * verifiedgoodscollection.weight
-    WHERE shipmentItems.shipmentid = shipment_id;
+    WHERE shipmentitems.shipmentid = shipment_id;
 END;
 
 
@@ -62,8 +62,8 @@ BEGIN
 	DECLARE total_charges DOUBLE DEFAULT 0;
 
     SELECT weight INTO collection_weight FROM verifiedgoodscollection
-    INNER JOIN shipmentItems ON verifiedgoodscollection.collectionid = shipmentItems.collectionid
-    WHERE shipmentItems.id = shipment_Item_id;
+    INNER JOIN shipmentitems ON verifiedgoodscollection.collectionid = shipmentitems.collectionid
+    WHERE shipmentitems.id = shipment_Item_id;
 
 	SELECT (labourcharges+servicecharges+freightcharges) INTO total_charges FROM goodscosting WHERE shipmentitemid=shipment_Item_id; 
 
@@ -73,3 +73,17 @@ BEGIN
 	UPDATE invoices SET totalamount=amount WHERE shipmentitemid=shipment_Item_id;
 END;
 
+
+CREATE PROCEDURE add_shipment_for_billing(IN shipment_id INT)
+BEGIN
+INSERT INTO invoices (shipmentitemid) SELECT  shipmentitems.id FROM shipmentitems 
+WHERE shipmentitems.shipmentid=shipment_id;
+END;
+
+CREATE PROCEDURE call_procedures_after_shipment_status_delivered (IN shipment_id INT)
+BEGIN
+CALL apply_labour_charges(shipment_id);
+CALL apply_service_charges(shipment_id);
+CALL apply_freight_charges_for_collection(shipment_id);
+CALL add_shipment_for_billing(shipment_id);
+END;

@@ -39,6 +39,18 @@ namespace Shipments.Controllers
             return await _srv.GetById(shipmentId);
         }
 
+        [HttpGet("status/{shipmentId}")]
+        public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
+        {
+            return await _srv.IsShipmentStatusDelivered(shipmentId);
+        }
+
+        [HttpPatch("status/{shipmentId}")]
+        public async Task<bool> UpdateStatus(int shipmentId, [FromBody] UpdateStatus statusObject)
+        {
+            return await _srv.UpdateStatus(shipmentId, statusObject);
+        }
+
         [HttpPost]
         public async Task<bool> Insert(Shipment shipment)
         {

@@ -33,6 +33,16 @@ namespace Shipments.Services
             return await _repo.GetShipmentItemsById(shipmentId);
         }
 
+        public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
+        {
+            return await _repo.IsShipmentStatusDelivered(shipmentId);
+        }
+
+        public async Task<bool> UpdateStatus(int shipmentId,UpdateStatus statusObject)
+        {
+            return await _repo.UpdateStatus(shipmentId, statusObject);
+        }
+
         public async Task<bool> Insert(Shipment shipment)
         {
             return await _repo.Insert(shipment);

@@ -82,7 +82,7 @@ namespace Shipments.Repositories
                         where shipmentItem.ShipmentId == shipmentId
                         select new ShipmentItemDetails()
                         {
-                            Id = collection.Id,
+                            Id = shipmentItem.Id,
                             CollectionCenterId = collection.CollectionCenterId,
                             FarmerId = collection.FarmerId,
                             CropName = crop.Title,
@@ -138,6 +138,60 @@ namespace Shipments.Repositories
                 {
                     await context.Shipments.AddAsync(shipment);
                     status = await SaveChanges(context);
+                    return status;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
+        {
+            try
+            {
+                bool status = false;
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipmentStatus = await context.Shipments
+                        .Where(shipment => shipment.Id == shipmentId)
+                        .Select(shipment => shipment.Status)
+                        .FirstOrDefaultAsync();
+
+                    if (shipmentStatus is "delivered")
+                    {
+                        status = true;
+                    }
+                    return status;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<bool> UpdateStatus(int shipmentId, UpdateStatus statusObject)
+        {
+            try
+            {
+                bool status = false;
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipment = await context.Shipments.FindAsync(shipmentId);
+
+                    if (shipment == null)
+                    {
+                        return false;
+                    }
+                    shipment.Status = statusObject.Status;
+                    status = await SaveChanges(context);
+
+                    if (status && statusObject.Status=="delivered")
+                    {
+                     context.Database.ExecuteSqlRaw("CALL call_procedures_after_shipment_status_delivered(@p0)", shipmentId);
+                    }
                     return status;
                 }
             }
