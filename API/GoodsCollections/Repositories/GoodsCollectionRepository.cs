@@ -148,7 +148,7 @@ namespace GoodsCollections.Repositories
                         CropName=crop.Title,
                         ImageUrl=crop.ImageUrl,
                         CollectionCenterId=collection.CollectionCenterId,
-                        Quantity=collection.Quantity,
+                        Quantity= (int)collection.Quantity,
                         ContainerType=collection.ContainerType,
                         Weight=collection.Weight,
                         CollectionDate=collection.CollectionDate

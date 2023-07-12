@@ -37,5 +37,10 @@ namespace Transporters.Services
         {
             return await _repo.Delete(transporterId);
         }
+         public async Task<List<Vehicle>> GetTransportersVehicles(int transporterId)
+        {
+            return await _repo.GetTransportersVehicles(transporterId);
+        }
+
     }
 }

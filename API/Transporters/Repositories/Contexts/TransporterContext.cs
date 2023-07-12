@@ -18,6 +18,7 @@ namespace Transporters.Repositories.Contexts
         }
 
         public DbSet<Transporter> Transporters { get; set; }
+        public DbSet<Vehicle> Vehicles{get;set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,6 +37,14 @@ namespace Transporters.Repositories.Contexts
                 entity.Property(e => e.CorporateId);
                 entity.Property(e => e.ManagerId);
                 modelBuilder.Entity<Transporter>().ToTable("transporters");
+            });
+             modelBuilder.Entity<Vehicle>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.TransporterId);
+                entity.Property(e => e.VehicleType);
+                entity.Property(e => e.RtoNumber);
+                modelBuilder.Entity<Vehicle>().ToTable("vehicles");
             });
         }
     }

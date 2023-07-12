@@ -149,5 +149,21 @@ namespace Transporters.Repositories
             }
             return false;
         }
+         public async Task<List<Vehicle>> GetTransportersVehicles(int transporterId){
+        try{
+            using(var context=new TransporterContext(_configuration)){
+                var vehicles=await (from transporter in context.Transporters 
+                                    join vehicle in context.Vehicles 
+                                    on transporter.Id equals vehicle.TransporterId 
+                                    where transporter.Id==transporterId
+                                    select vehicle)
+                                    .ToListAsync(); 
+                                    return vehicles;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+       }
     }
 }
