@@ -40,6 +40,7 @@ namespace Invoices.Repositories
                             Quantity = collection.Quantity,
                             Weight = verifiedCollection.Weight,
                             RatePerKg = invoice.RatePerKg,
+                            PaymentStatus=invoice.PaymentStatus,
                             TotalAmount = invoice.TotalAmount,
                             InvoiceDate = invoice.InvoiceDate
                         }
@@ -87,18 +88,19 @@ namespace Invoices.Repositories
                         {
                             Id = invoice.Id,
                             FarmerId = collection.FarmerId,
-                            collectionCenterId=collectionCenter.CorporateId,
-                            TransporterId=transporter.CorporateId,
-                            VehicleNumber=vehicle.RtoNumber,
+                            collectionCenterId = collectionCenter.CorporateId,
+                            TransporterId = transporter.CorporateId,
+                            VehicleNumber = vehicle.RtoNumber,
                             CropName = crop.Title,
-                            Grade=verifiedCollection.Grade,
-                            ContainerType=collection.ContainerType,
+                            Grade = verifiedCollection.Grade,
+                            ContainerType = collection.ContainerType,
                             Quantity = collection.Quantity,
-                            TotalWeight=collection.Weight,
-                            NetWeight=verifiedCollection.Weight,
-                            FreightCharges=charges.FreightCharges,
-                            LabourCharges=charges.LabourCharges,
-                            ServiceCharges=charges.ServiceCharges,
+                            TotalWeight = collection.Weight,
+                            NetWeight = verifiedCollection.Weight,
+                            FreightCharges = charges.FreightCharges,
+                            LabourCharges = charges.LabourCharges,
+                            PaymentStatus=invoice.PaymentStatus,
+                            ServiceCharges = charges.ServiceCharges,
                             RatePerKg = invoice.RatePerKg,
                             TotalAmount = invoice.TotalAmount,
                             InvoiceDate = invoice.InvoiceDate
@@ -137,22 +139,21 @@ namespace Invoices.Repositories
             }
         }
 
-        public async Task<bool> Update(Invoice invoice)
+        public async Task<bool> Update(int invoiceId, UpdateRate rate)
         {
             try
             {
                 bool status = false;
                 using (var context = new InvoiceContext(_configuration))
                 {
-                    var oldInvoice = await context.Invoices.FindAsync(invoice.Id);
+                    var oldInvoice = await context.Invoices.FindAsync(invoiceId);
                     if (oldInvoice is not null)
                     {
-                        oldInvoice.ShipmentItemId = invoice.ShipmentItemId;
-                        oldInvoice.RatePerKg = invoice.RatePerKg;
-                        oldInvoice.TotalAmount = invoice.TotalAmount;
-                        oldInvoice.InvoiceDate = invoice.InvoiceDate;
+                        oldInvoice.RatePerKg = rate.RatePerKg;
                         status = await SaveChanges(context);
                     }
+                    if (status)
+                        context.Database.ExecuteSqlRaw("CALL calculate_total_amount(@p0)", invoiceId );
                     return status;
                 }
             }

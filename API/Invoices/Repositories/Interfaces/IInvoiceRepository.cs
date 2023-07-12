@@ -7,7 +7,7 @@ namespace Invoices.Repositories.Interfaces
         Task<List<InvoiceDetails>> GetAll(int merchantId);
         Task<InvoiceChargesDetails> GetById(int invoiceId);
         Task<bool> Insert(Invoice invoice);
-        Task<bool> Update(Invoice invoice);
+        Task<bool> Update(int invoiceId,UpdateRate rate);
         Task<bool> Delete(int invoiceId);
     }
 }

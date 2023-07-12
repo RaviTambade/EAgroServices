@@ -49,6 +49,7 @@ namespace Invoices.Repositories.Contexts
                 entity.Property(e => e.ShipmentItemId);
                 entity.Property(e => e.RatePerKg);
                 entity.Property(e => e.TotalAmount);
+                entity.Property(e => e.PaymentStatus);
                 entity.Property(e => e.InvoiceDate);
                 modelBuilder.Entity<Invoice>().ToTable("invoices");
             });

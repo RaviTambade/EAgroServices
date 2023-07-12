@@ -19,15 +19,17 @@ BEGIN
     WHERE shipmentitems.shipmentid= shipment_id;
 END;
 
-CREATE PROCEDURE apply_total_freight_charges(IN shipment_id INT, OUT total_freight_charges DOUBLE)
+CREATE FUNCTION apply_total_freight_charges(shipment_id INT) RETURNS DOUBLE
+READS SQL DATA
 BEGIN
+    DECLARE total_freight_charges DOUBLE;
     SELECT (shipments.kilometers * ratecard.amount) INTO total_freight_charges
-    FROM shipments
-    INNER JOIN vehicles ON shipments.vehicleid = vehicles.id
-    INNER JOIN ratecard ON vehicles.vehicletype = ratecard.title
+    FROM shipments 
+    INNER JOIN vehicles  ON shipments.vehicleid = vehicles.id
+    INNER JOIN ratecard  ON vehicles.vehicletype = ratecard.title
     WHERE shipments.id = shipment_id;
+    RETURN total_freight_charges;
 END;
-
 
 CREATE PROCEDURE apply_freight_charges_for_collection(IN shipment_id INT)
 BEGIN
@@ -35,9 +37,8 @@ BEGIN
     DECLARE total_collections_weight DOUBLE DEFAULT 0;
     DECLARE freight_rate_per_kg DOUBLE DEFAULT 0;
     
-    CALL apply_total_freight_charges(shipment_id, @total_freight_charges);
-    SELECT @total_freight_charges INTO totalfreightcharges;
-    
+    SELECT apply_total_freight_charges(shipment_id) INTO totalfreightcharges;
+
     SELECT SUM(weight) INTO total_collections_weight
     FROM verifiedgoodscollection
     INNER JOIN shipmentitems ON verifiedgoodscollection.collectionid = shipmentitems.collectionid
@@ -53,13 +54,15 @@ BEGIN
 END;
 
 
-
-CREATE PROCEDURE calculate_total_amount(IN shipment_Item_id INT)
+CREATE PROCEDURE calculate_total_amount(IN invoice_id INT)
 BEGIN
 	DECLARE collection_weight DOUBLE DEFAULT 0;
+	DECLARE shipment_Item_id INT DEFAULT 0;
 	DECLARE rate_per_kg DOUBLE DEFAULT 0;
 	DECLARE amount DOUBLE DEFAULT 0;
 	DECLARE total_charges DOUBLE DEFAULT 0;
+
+    SELECT shipmentitemid INTO shipment_Item_id FROM invoices WHERE id=invoice_id;
 
     SELECT weight INTO collection_weight FROM verifiedgoodscollection
     INNER JOIN shipmentitems ON verifiedgoodscollection.collectionid = shipmentitems.collectionid
@@ -70,7 +73,7 @@ BEGIN
 	SELECT rateperkg INTO rate_per_kg FROM invoices WHERE shipmentitemid=shipment_Item_id;
     SET amount=(collection_weight*rate_per_kg) - total_charges ;
 
-	UPDATE invoices SET totalamount=amount WHERE shipmentitemid=shipment_Item_id;
+	UPDATE invoices SET totalamount=amount WHERE id=invoice_id;
 END;
 
 
@@ -87,3 +90,5 @@ CALL apply_service_charges(shipment_id);
 CALL apply_freight_charges_for_collection(shipment_id);
 CALL add_shipment_for_billing(shipment_id);
 END;
+
+

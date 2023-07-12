@@ -28,9 +28,9 @@ namespace Invoices.Services
             return await _repo.Insert(invoice);
         }
 
-        public async Task<bool> Update(Invoice invoice)
+        public async Task<bool> Update(int invoiceId,UpdateRate rate)
         {
-            return await _repo.Update(invoice);
+            return await _repo.Update(invoiceId,rate);
         }
 
         public async Task<bool> Delete(int invoiceId)

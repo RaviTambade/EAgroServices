@@ -51,8 +51,10 @@ namespace Shipments.Repositories
                             Kilometers = shipment.Kilometers,
                             Status = shipment.Status,
                             ShipmentDate = shipment.ShipmentDate,
+                            FreightCharges=context.TotalFreightCharges(shipment.Id)
                         }
                     ).ToListAsync();
+
                     if (shipments is null)
                     {
                         return null;

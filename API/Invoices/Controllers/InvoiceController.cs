@@ -1,4 +1,3 @@
-
 using Invoices.Models;
 using Invoices.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,8 @@ namespace Invoices.Controllers
         {
             _srv = srv;
         }
-         [HttpGet("merchant/{merchantId}")]
+
+        [HttpGet("merchant/{merchantId}")]
         public async Task<List<InvoiceDetails>> GetAll(int merchantId)
         {
             return await _srv.GetAll(merchantId);
@@ -33,10 +33,12 @@ namespace Invoices.Controllers
             return await _srv.Insert(invoice);
         }
 
-        [HttpPut]
-        public async Task<bool> Update(Invoice invoice)
+        [HttpPatch("rate/{invoiceId}")]
+        public async Task<bool> Update(int invoiceId, UpdateRate rate)
         {
-            return await _srv.Update(invoice);
+            if (rate.RatePerKg < 0)
+                return false;
+            return await _srv.Update(invoiceId, rate);
         }
 
         [HttpDelete("{invoiceId}")]
@@ -44,6 +46,5 @@ namespace Invoices.Controllers
         {
             return await _srv.Delete(invoiceId);
         }
-
     }
 }

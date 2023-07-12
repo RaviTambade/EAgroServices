@@ -9,6 +9,7 @@ namespace Invoices.Models
         public double Weight { get; set; }
         public double RatePerKg { get; set; }
         public double TotalAmount { get; set; }
+        public string PaymentStatus { get; set; }
         public DateTime InvoiceDate { get; set; }
     }
 }

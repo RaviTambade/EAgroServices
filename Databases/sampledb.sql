@@ -6,7 +6,7 @@ INSERT INTO roles(name)VALUES('transporter');
 INSERT INTO roles(name)VALUES('merchant');
 INSERT INTO userroles(userid,roleid)VALUES(1,1);
 INSERT INTO userroles(userid,roleid)VALUES(2,2);
-INSERT INTO userroles(userid,roleid)VALUES(3,3);
+INSERT INTO userroles(userid,roleid)VALUES(3,4);
 INSERT INTO userroles(userid,roleid)VALUES(3,5);
 INSERT INTO userroles(userid,roleid)VALUES(4,4);
 INSERT INTO userroles(userid,roleid)VALUES(5,5);
@@ -66,7 +66,7 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
 
 
 
--- CALL call_procedures_after_shipment_status_delivered(1); -- shipmentid
+CALL call_procedures_after_shipment_status_delivered(1); -- shipmentid
 -- CALL call_procedures_after_shipment_status_delivered(2); -- shipmentid
 
 
@@ -75,8 +75,8 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
 -- SELECT @total_freight_charges;
 
 
--- CALL calculate_total_amount(1); 
--- CALL calculate_total_amount(2); 
+CALL calculate_total_amount(1); 
+CALL calculate_total_amount(2); 
 -- CALL calculate_total_amount(3); 
 -- CALL calculate_total_amount(4);
 
