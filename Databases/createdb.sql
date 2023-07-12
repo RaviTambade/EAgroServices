@@ -129,8 +129,9 @@ CREATE TABLE
     invoices (
         id INT AUTO_INCREMENT PRIMARY KEY,
         shipmentitemid INT UNIQUE,
-        rateperkg DOUBLE,
+        rateperkg DOUBLE  DEFAULT 0,
         totalamount DOUBLE DEFAULT 0,
+        paymentstatus ENUM ('unpaid','paid') DEFAULT 'unpaid',
         invoicedate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_shippingItemsid FOREIGN KEY (shipmentitemid) REFERENCES shipmentitems(id) ON UPDATE CASCADE ON DELETE CASCADE
     );

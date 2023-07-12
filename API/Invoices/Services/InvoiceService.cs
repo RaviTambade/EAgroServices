@@ -13,12 +13,12 @@ namespace Invoices.Services
         {
             _repo = repo;
         }
-         public async Task<List<Invoice>> GetAll()
+         public async Task<List<InvoiceDetails>> GetAll(int merchantId)
         {
-            return await _repo.GetAll();
+            return await _repo.GetAll(merchantId);
         }
 
-        public async Task<Invoice> GetById(int invoiceId)
+        public async Task<InvoiceChargesDetails> GetById(int invoiceId)
         {
             return await _repo.GetById(invoiceId);
         }

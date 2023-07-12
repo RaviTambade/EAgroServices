@@ -24,6 +24,8 @@ namespace Shipments.Repositories.Contexts
         public DbSet<GoodsCollection> GoodsCollections { get;set;}
         public DbSet<VerifiedCollection> VerifiedCollections { get;set;}
         public DbSet<Crop> Crops { get;set;}
+        public DbSet<CollectionCenter> CollectionCenters {get; set;}
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -98,6 +100,15 @@ namespace Shipments.Repositories.Contexts
                 entity.Property(e => e.Rate);
                 modelBuilder.Entity<Crop>().ToTable("crops");
             });
+               modelBuilder.Entity<CollectionCenter>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CorporateId);
+                entity.Property(e => e.InspectorId);
+                modelBuilder.Entity<CollectionCenter>().ToTable("collectioncenters");
+            });
+
+            
         }
     }
 }

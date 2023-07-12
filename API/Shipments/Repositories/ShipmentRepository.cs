@@ -76,6 +76,8 @@ namespace Shipments.Repositories
                         from shipmentItem in context.ShipmentItems
                         join collection in context.GoodsCollections
                             on shipmentItem.CollectionId equals collection.Id
+                        join collectionCenter in context.CollectionCenters
+                            on collection.CollectionCenterId equals collectionCenter.Id
                         join verifiedCollection in context.VerifiedCollections
                             on collection.Id equals verifiedCollection.CollectionId
                         join crop in context.Crops on collection.CropId equals crop.Id
@@ -83,7 +85,7 @@ namespace Shipments.Repositories
                         select new ShipmentItemDetails()
                         {
                             Id = shipmentItem.Id,
-                            CollectionCenterId = collection.CollectionCenterId,
+                            CollectionCenterId = collectionCenter.CorporateId,
                             FarmerId = collection.FarmerId,
                             CropName = crop.Title,
                             Grade = verifiedCollection.Grade,
@@ -188,9 +190,12 @@ namespace Shipments.Repositories
                     shipment.Status = statusObject.Status;
                     status = await SaveChanges(context);
 
-                    if (status && statusObject.Status=="delivered")
+                    if (status && statusObject.Status == "delivered")
                     {
-                     context.Database.ExecuteSqlRaw("CALL call_procedures_after_shipment_status_delivered(@p0)", shipmentId);
+                        context.Database.ExecuteSqlRaw(
+                            "CALL call_procedures_after_shipment_status_delivered(@p0)",
+                            shipmentId
+                        );
                     }
                     return status;
                 }
