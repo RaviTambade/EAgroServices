@@ -6,6 +6,7 @@ import { MerchantShipmentListComponent } from './merchant-shipment-list/merchant
 import { MerchantShipmentDetailsComponent } from './merchant-shipment-details/merchant-shipment-details.component';
 import { MerchantInvoicesComponent } from './merchant-invoices/merchant-invoices.component';
 import { MerchantInvoiceDetailsComponent } from './merchant-invoice-details/merchant-invoice-details.component';
+import { FormsModule } from '@angular/forms';
 
 
 export const merchantRoutes: Routes = [
@@ -26,7 +27,8 @@ export const merchantRoutes: Routes = [
     MerchantInvoiceDetailsComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class MerchantModule { }

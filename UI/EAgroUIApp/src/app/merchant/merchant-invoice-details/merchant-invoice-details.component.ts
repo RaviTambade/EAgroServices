@@ -13,6 +13,7 @@ import { InvoiceDetails } from '../invoice-details';
 export class MerchantInvoiceDetailsComponent implements OnInit {
   invoiceId: string | any;
   invoiceDetails!: InvoiceDetails;
+  rateInput: any;
 
   constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService,
     private route: ActivatedRoute, private router: Router) { }
@@ -36,12 +37,23 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
 
       });
 
-    const farmerId: string = this.invoiceDetails.farmerId.toString();
-    this.usrsvc.getUserNamesWithId(farmerId).subscribe((response: any[]) => {
-      this.invoiceDetails.farmerName = response[0].name
+      const farmerId: string = this.invoiceDetails.farmerId.toString();
+      this.usrsvc.getUserNamesWithId(farmerId).subscribe((response: any[]) => {
+        this.invoiceDetails.farmerName = response[0].name
+      });
+
     });
+  }
 
-  });
-}
+  updateRate(invoiceId: number) {
+    if (this.rateInput < 0) {
+      console.log("amount cannot be negative")
+    }
 
+    const body = { "ratePerKg": this.invoiceDetails.ratePerKg }
+    this.invoicesvc.updateRate(invoiceId, body).subscribe((res) => {
+      console.log("🚀 ~ this.invoicesvc.updateRate ~ res:", res);
+      window.location.reload();
+    });
+  }
 }

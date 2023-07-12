@@ -18,7 +18,7 @@
         <td>{{ invoice.quantity}}</td>
         <td>{{ invoice.weight}}</td>
         <td>{{ invoice.ratePerKg}}</td>
-        <td>{{ invoice.totalAmount}}</td>
+        <td>{{ invoice.totalAmount |number}}</td>
         <td><button (click)="onClickInvoiceDetails(invoice.id)"> Details </button></td>
       </tr>
     </tbody>

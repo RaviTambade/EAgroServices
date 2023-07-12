@@ -15,9 +15,14 @@ export class InvoicesService {
     return this.http.get<any>(url);
   }
 
-  getInvoiceDetails(invoiceId:number):Observable<any> {
-    let url = "http://localhost:5197/api/invoices/details/"+invoiceId; 
+  getInvoiceDetails(invoiceId: number): Observable<any> {
+    let url = "http://localhost:5197/api/invoices/details/" + invoiceId;
     return this.http.get<any>(url);
+  }
+
+  updateRate(invoiceId: number, body: any): Observable<any> {
+    let url = "http://localhost:5197/api/invoices/rate/" + invoiceId;
+    return this.http.patch<any>(url, body);
   }
 
 }

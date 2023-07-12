@@ -17,6 +17,7 @@ export class InvoiceDetails {
         public freightCharges: number,
         public labourCharges: number,
         public serviceCharges: number,
+        public paymentStatus: string,
         public ratePerKg: number,
         public totalAmount: number,
         public invoiceDate: string
