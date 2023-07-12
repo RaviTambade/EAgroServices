@@ -44,5 +44,12 @@ namespace Transporters.Controllers
         {
             return await _srv.Delete(transporterId);
         }
+
+        [HttpGet("{transporterId}/vehicles")]
+        public async Task<List<Vehicle>> GetTransportersVehicles(int transporterId)
+        {
+            return await _srv.GetTransportersVehicles(transporterId);
+        }
+
     }
 }

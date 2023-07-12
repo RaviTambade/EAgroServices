@@ -79,7 +79,3 @@ CALL calculate_total_amount(1);
 CALL calculate_total_amount(2); 
 -- CALL calculate_total_amount(3); 
 -- CALL calculate_total_amount(4);
-
-SELECT * FROM invoices;
-SELECT * FROM goodscosting;
-

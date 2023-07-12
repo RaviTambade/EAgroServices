@@ -32,7 +32,7 @@ const routes: Routes = [
     CollectioncenterModule,
     MerchantModule,
     FarmerModule,
-    TransporterModule
+    TransporterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

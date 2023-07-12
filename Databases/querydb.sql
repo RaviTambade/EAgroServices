@@ -11,4 +11,8 @@ FROM shipments
     INNER JOIN vehicles ON shipments.vehicleid = vehicles.id
     WHERE shipments.merchantid=1;
 
-
+SELECT * FROM vehicles INNER JOIN transporters ON vehicles.transporterid=transporters.id WHERE transporters.id=2;
+SELECT 1
+FROM `transporters` AS `t`
+INNER JOIN `vehicles` AS `v` ON `t`.`id` = `v`.`transporterid`
+WHERE `t`.`id` = 1;
