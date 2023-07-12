@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class CorporateService {
 
-  constructor(private svc: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getCorporates(id:string): Observable<any> {
     let url = "http://localhost:5041/api/corporates/names/"+id;
-    return this.svc.get<any>(url);
+    return this.http.get<any>(url);
   }
 }

@@ -25,7 +25,6 @@ export class MerchantShipmentDetailsComponent implements OnInit {
       this.shipmentId = params.get('shipmentid');
       console.log("🚀 ~ this.route.paramMap.subscribe ~ shipmentId:", this.shipmentId);
     });
-
     this.shipmentsvc.getShipmentItems(this.shipmentId).subscribe((res) => {
       console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ res:", res);
       this.shipmentItemsDetails = res;

@@ -1,0 +1,69 @@
+<div *ngIf="invoiceDetails">
+<table>
+    <tr>
+        <td>Invoice Date:</td>
+        <td>{{ invoiceDetails.invoiceDate | date}}</td>
+    </tr>
+    <tr>
+        <td>Farmer Name:</td>
+        <td>{{ invoiceDetails.farmerName }}</td>
+    </tr>
+    <tr>
+        <td>Collection Center Name:</td>
+        <td>{{ invoiceDetails.collectionCenterName }}</td>
+    </tr>
+    <tr>
+        <td>Transporter Name:</td>
+        <td>{{ invoiceDetails.transporterName }}</td>
+    </tr>
+    <tr>
+        <td>Vehicle Number:</td>
+        <td>{{ invoiceDetails.vehicleNumber }}</td>
+    </tr>
+    <tr>
+        <td>Crop Name:</td>
+        <td>{{ invoiceDetails.cropName }}</td>
+    </tr>
+    <tr>
+        <td>Grade:</td>
+        <td>{{ invoiceDetails.grade }}</td>
+    </tr>
+    <tr>
+        <td>Container Type:</td>
+        <td>{{ invoiceDetails.containerType }}</td>
+    </tr>
+    <tr>
+        <td>Quantity:</td>
+        <td>{{ invoiceDetails.quantity }}</td>
+    </tr>
+    <tr>
+        <td>Total Weight:</td>
+        <td>{{ invoiceDetails.totalWeight }}</td>
+    </tr>
+    <tr>
+        <td>Net Weight:</td>
+        <td>{{ invoiceDetails.netWeight }}</td>
+    </tr>
+    <tr>
+        <td>Freight Charges:</td>
+        <td>{{ invoiceDetails.freightCharges }}</td>
+    </tr>
+    <tr>
+        <td>Labour Charges:</td>
+        <td>{{ invoiceDetails.labourCharges }}</td>
+    </tr>
+    <tr>
+        <td>Service Charges:</td>
+        <td>{{ invoiceDetails.serviceCharges }}</td>
+    </tr>
+    <tr>
+        <td>Rate Per Kg:</td>
+        <td>{{ invoiceDetails.ratePerKg }}</td>
+    </tr>
+    <tr>
+        <td>Total Amount:</td>
+        <td>{{ invoiceDetails.totalAmount }}</td>
+    </tr>
+
+</table>
+</div>
