@@ -72,4 +72,30 @@
         </tr>
 
     </table>
+
+
+    <div *ngIf="invoiceDetails.totalAmount > 0">
+        <button (click)="onClickPaymentDetails()">Payment Details</button>
+        <div *ngIf="showPayment">
+            <table>
+                <tr>
+                    <td>FarmerName</td>
+                    <td>{{ invoiceDetails.farmerName }}</td>
+                    <td>Amount</td>
+                    <td>{{ invoiceDetails.totalAmount |number }}</td>
+                </tr>
+
+                <tr>
+                    <td>Collection Center</td>
+                    <td>{{ invoiceDetails.collectionCenterName }}</td>
+
+                    <td>Amount</td>
+                    <td>{{ invoiceDetails.labourCharges + invoiceDetails.serviceCharges |number }}
+                    </td>
+                </tr>
+            </table>
+            <h6>Total Amount          {{ invoiceDetails.totalAmount + invoiceDetails.labourCharges + invoiceDetails.serviceCharges |number }} </h6>
+            <br><button *ngIf="invoiceDetails.paymentStatus == 'unpaid' "> Pay </button>
+        </div>
+    </div>
 </div>

@@ -13,8 +13,8 @@ import { InvoiceDetails } from '../invoice-details';
 export class MerchantInvoiceDetailsComponent implements OnInit {
   invoiceId: string | any;
   invoiceDetails!: InvoiceDetails;
+  showPayment:boolean=false;
   rateInput: any;
-
   constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService,
     private route: ActivatedRoute, private router: Router) { }
 
@@ -29,6 +29,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
 
       const ids: number[] = [this.invoiceDetails.collectionCenterId, this.invoiceDetails.transporterId];
       const idString = ids.join(',');
+
 
       this.corpsvc.getCorporates(idString).subscribe((names: any[]) => {
         console.log("🚀 ~ this.corpsvc.getCorporates ~ names:", names);
@@ -55,5 +56,9 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
       console.log("🚀 ~ this.invoicesvc.updateRate ~ res:", res);
       window.location.reload();
     });
+  }
+
+  onClickPaymentDetails(){
+    this.showPayment=true;
   }
 }
