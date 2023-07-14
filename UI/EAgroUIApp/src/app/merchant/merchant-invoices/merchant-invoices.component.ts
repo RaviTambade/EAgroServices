@@ -23,14 +23,14 @@ export class MerchantInvoicesComponent implements OnInit {
       this.invoices = response;
 
 
-      const distinctfarmerIds = this.invoices.map(item => item.farmerId)
+      let distinctfarmerIds = this.invoices.map(item => item.farmerId)
         .filter((number, index, array) => array.indexOf(number) === index);
 
-      const farmerIdString = distinctfarmerIds.join(',');
+      let farmerIdString = distinctfarmerIds.join(',');
       this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
-        const farmerNames: any[] = names
+        let farmerNames: any[] = names
         this.invoices.forEach(item => {
-          const matchingItem = farmerNames.find(element => element.id === item.farmerId);
+          let matchingItem = farmerNames.find(element => element.id === item.farmerId);
           item.farmerName = matchingItem.name;
         });
       });

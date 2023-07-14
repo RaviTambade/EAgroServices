@@ -30,7 +30,7 @@ export class ShipmentService {
   }
 
   updateShipmentStatus(shipmentId:number){
-    const obj={
+    let obj={
       "status":"delivered"
     }
     let url = "http://localhost:5067/api/shipments/status/" + shipmentId;

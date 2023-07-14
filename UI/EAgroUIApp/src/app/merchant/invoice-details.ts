@@ -6,6 +6,7 @@ export class InvoiceDetails {
         public collectionCenterId: number,
         public collectionCenterName: string,
         public transporterId: number,
+        public collectionId :number,
         public transporterName: string,
         public vehicleNumber: string,
         public cropName: string,

@@ -29,22 +29,22 @@ export class MerchantShipmentDetailsComponent implements OnInit {
       console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ res:", res);
       this.shipmentItemsDetails = res;
 
-      const distinctcollectionIds = this.shipmentItemsDetails.map(item => item.collectionCenterId)
+      let distinctcollectionIds = this.shipmentItemsDetails.map(item => item.collectionCenterId)
         .filter((number, index, array) => array.indexOf(number) === index);
 
-      const distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
+      let distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
         .filter((number, index, array) => array.indexOf(number) === index);
 
-      const collectionIdString = distinctcollectionIds.join(',');
+      let collectionIdString = distinctcollectionIds.join(',');
       console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ collectionIdString:", collectionIdString);
-      const farmerIdString = distinctfarmerIds.join(',');
+      let farmerIdString = distinctfarmerIds.join(',');
       console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ farmerIdString:", farmerIdString);
 
       this.corpsvc.getCorporates(collectionIdString).subscribe((names) => {
         console.log("🚀 ~ this.corpsvc.getCorporates ~ names:", names);
         this.corporationNames = names
         this.shipmentItemsDetails.forEach(item => {
-          const matchingItem = this.corporationNames.find(element => element.id === item.collectionCenterId);
+          let matchingItem = this.corporationNames.find(element => element.id === item.collectionCenterId);
           item.collectionCenterName = matchingItem.name;
         });
         console.log("🚀 ~ this.corpsvc.getCorporates ~ shipmentItemsDetails:", this.shipmentItemsDetails);
@@ -53,7 +53,7 @@ export class MerchantShipmentDetailsComponent implements OnInit {
       this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
         this.farmerNames = names
         this.shipmentItemsDetails.forEach(item => {
-          const matchingItem = this.farmerNames.find(element => element.id === item.farmerId);
+          let matchingItem = this.farmerNames.find(element => element.id === item.farmerId);
           item.farmerName = matchingItem.name;
         });
         console.log("🚀 ~ this.usrsvc.getUserNamesWithId ~ shipmentItemsDetails:", this.shipmentItemsDetails);

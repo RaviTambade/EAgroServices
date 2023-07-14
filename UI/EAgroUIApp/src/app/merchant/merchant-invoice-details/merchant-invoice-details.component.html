@@ -80,22 +80,38 @@
             <table>
                 <tr>
                     <td>FarmerName</td>
-                    <td>{{ invoiceDetails.farmerName }}</td>
+                    <td>Account Number</td>
+                    <td>IFSC </td>
                     <td>Amount</td>
-                    <td>{{ invoiceDetails.totalAmount |number }}</td>
                 </tr>
-
                 <tr>
-                    <td>Collection Center</td>
-                    <td>{{ invoiceDetails.collectionCenterName }}</td>
+                    <td>{{ invoiceDetails.farmerName }}</td>
+                        <td>{{farmerAccountInfo.accountNumber}}</td>
+                        <td>{{farmerAccountInfo.ifscCode}}</td>
+                    <td>{{ invoiceDetails.totalAmount |number }}</td>
 
-                    <td>Amount</td>
-                    <td>{{ invoiceDetails.labourCharges + invoiceDetails.serviceCharges |number }}
-                    </td>
                 </tr>
             </table>
-            <h6>Total Amount          {{ invoiceDetails.totalAmount + invoiceDetails.labourCharges + invoiceDetails.serviceCharges |number }} </h6>
-            <br><button *ngIf="invoiceDetails.paymentStatus == 'unpaid' "> Pay </button>
+            <br>
+            <table>
+                <tr>
+                    <td>Collection Center</td>
+                    <td>Account Number</td>
+                    <td>IFSC </td>
+                    <td>Amount</td>
+                </tr>
+                <tr>
+                    <td>{{ invoiceDetails.collectionCenterName }}</td>
+                        <td>{{collectionCenterAccountInfo.accountNumber}}</td>
+                    <td>{{collectionCenterAccountInfo.ifscCode}}</td>
+                    <td>{{ invoiceDetails.labourCharges + invoiceDetails.serviceCharges |number }} </td>
+                </tr>
+            </table>
+            <h6>Total Amount {{ invoiceDetails.totalAmount + invoiceDetails.labourCharges +
+                invoiceDetails.serviceCharges |number }} </h6>
+                <h6>Your Account Number is {{merchantAccountInfo.accountNumber}}</h6>
+                <h6>IFSC {{merchantAccountInfo.ifscCode}}</h6>
+            <br><button *ngIf="invoiceDetails.paymentStatus == 'unpaid' " (click)="onClickPay()"> Pay </button>
         </div>
     </div>
 </div>
