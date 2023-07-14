@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'auth', children: authRoutes },
   { path: 'farmer', children: farmerRoutes },
   { path: 'merchant', children: merchantRoutes },
-  { path: 'transporter', children: transporterRoutes },
+  { path: 'transporter/:id', children: transporterRoutes },
   { path: 'collectioncenter', children: collectionRoutes },
 ]
 @NgModule({

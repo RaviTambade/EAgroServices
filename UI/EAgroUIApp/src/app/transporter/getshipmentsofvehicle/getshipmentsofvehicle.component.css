@@ -1,0 +1,35 @@
+.shipment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .shipment-table th,
+  .shipment-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .shipment-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .shipment-table td {
+    text-align: center;
+  }
+  
+  .shipment-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .shipment-table tbody tr:hover {
+    background-color: #e2e2e2;
+  }
+  
+  .no-shipments {
+    font-style: italic;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  

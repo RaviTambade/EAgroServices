@@ -3,9 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
 import { VehiclesoftransporterComponent } from './vehiclesoftransporter/vehiclesoftransporter.component';
+import { GetshipmentsofvehicleComponent } from './getshipmentsofvehicle/getshipmentsofvehicle.component';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
+  { path: '', component: VehiclesoftransporterComponent },
+  {path:'shipments/:id',component:GetshipmentsofvehicleComponent}
 ]
 
 
@@ -13,13 +16,15 @@ export const transporterRoutes: Routes = [
 @NgModule({
   declarations: [
     HomeComponent,
-    VehiclesoftransporterComponent
+    VehiclesoftransporterComponent,
+    GetshipmentsofvehicleComponent,
   ],
   imports: [
     CommonModule
   ],
   exports:[
-    VehiclesoftransporterComponent
+    VehiclesoftransporterComponent,
+    GetshipmentsofvehicleComponent
   ]
 })
 export class TransporterModule { }

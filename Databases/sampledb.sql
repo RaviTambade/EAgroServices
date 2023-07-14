@@ -41,6 +41,10 @@ INSERT INTO goodscollections (collectioncenterid,farmerid, cropid, containertype
 (1,2, 2, 'bags', 40,  200, '2022-01-20 13:30:00'),
 (1,2, 1, 'crates', 50,  250, '2022-01-20 13:30:00'),
 (1,2, 3, 'polythene bags', 120,  600, '2022-01-20 13:30:00'),
+(1,2, 4, 'crates', 75,  375,  '2022-01-20 13:30:00'),
+(1,2, 2, 'bags', 40,  200, '2022-01-20 13:30:00'),
+(1,2, 1, 'crates', 50,  250, '2022-01-20 13:30:00'),
+(1,2, 3, 'polythene bags', 120,  600, '2022-01-20 13:30:00'),
 (1,2, 4, 'crates', 75,  375,  '2022-01-20 13:30:00');
 
 INSERT INTO verifiedgoodscollection(collectionid,grade,weight,inspectorid,inspectiondate) VALUES
@@ -51,7 +55,12 @@ INSERT INTO verifiedgoodscollection(collectionid,grade,weight,inspectorid,inspec
 
 INSERT INTO shipments(vehicleid,merchantid,kilometers,shipmentdate) VALUES
 (1,1,55,'2022-01-20 13:30:00'),
-(2,1,105,'2022-01-20 13:30:00');
+(1,1,100,'2023-01-20 13:30:00'),
+(1,1,40,'2022-01-20 13:30:00'),
+(2,1,70,'2022-01-20 13:30:00'),
+(2,1,60,'2021-01-20 13:30:00'),
+(2,1,40,'2022-01-20 13:30:00'),
+(2,1,105,'2023-01-20 13:30:00');
 
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,1);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);

@@ -57,5 +57,10 @@ namespace Shipments.Services
         {
             return await _repo.Delete(shipmentId);
         }
+
+        public async Task<List<Shipment>> GetShipmentByVehicleId(int vehicleId)
+        {
+            return await _repo.GetShipmentByVehicleId(vehicleId);
+        }
     }
 }
