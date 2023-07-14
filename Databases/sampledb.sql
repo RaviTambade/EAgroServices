@@ -1,3 +1,4 @@
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
   
 INSERT INTO roles(name)VALUES('owner');
 INSERT INTO roles(name)VALUES ('farmer');
@@ -66,7 +67,7 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
 
 
 
---CALL call_procedures_after_shipment_status_delivered(1); -- shipmentid
+-- CALL call_procedures_after_shipment_status_delivered(1); -- shipmentid
 -- CALL call_procedures_after_shipment_status_delivered(2); -- shipmentid
 
 
@@ -75,7 +76,7 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
 -- SELECT @total_freight_charges;
 
 
---CALL calculate_total_amount(1); 
---CALL calculate_total_amount(2); 
+-- CALL calculate_total_amount(1); 
+-- CALL calculate_total_amount(2); 
 -- CALL calculate_total_amount(3); 
 -- CALL calculate_total_amount(4);

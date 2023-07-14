@@ -1,3 +1,4 @@
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 SELECT *
 FROM shippingitems
     JOIN goodscosting ON goodscosting.shippingitemid = shippingitems.id
@@ -16,3 +17,10 @@ SELECT 1
 FROM `transporters` AS `t`
 INNER JOIN `vehicles` AS `v` ON `t`.`id` = `v`.`transporterid`
 WHERE `t`.`id` = 1;
+
+
+--  call farmer_service_payment(3,101,2000,"farmer");
+
+ SELECT * FROM payments;
+ SELECT * FROM goodscollectionpayments;
+ SELECT * FROM invoices;

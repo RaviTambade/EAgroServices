@@ -90,5 +90,27 @@ CALL apply_service_charges(shipment_id);
 CALL apply_freight_charges_for_collection(shipment_id);
 CALL add_shipment_for_billing(shipment_id);
 END;
+CREATE PROCEDURE  farmer_service_payment(IN collection_id INT,IN transaction_id INT,
+                                    IN amount DOUBLE,IN payment_for varchar(20) )
+BEGIN 
+DECLARE last_payment_id INT; 
+DECLARE invoice_id INT;
 
+SELECT invoices.id INTO invoice_id FROM invoices
+ INNER JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+ WHERE shipmentitems.collectionid=collection_id;
 
+    INSERT INTO payments (transactionid, amount)VALUES ( transaction_id, amount);
+    SET last_payment_id = LAST_INSERT_ID();
+
+    IF payment_for = 'farmer' THEN
+        INSERT INTO goodscollectionpayments (collectionid, paymentid)
+        VALUES (collection_id, last_payment_id);
+        UPDATE invoices SET paymentstatus='paid' WHERE id=invoice_id;
+    END IF;
+
+    IF  payment_for = 'serviceowner' THEN
+        INSERT INTO goodsservicespayments (collectionid, paymentid)
+        VALUES (collection_id, last_payment_id);
+    END IF;
+END;
