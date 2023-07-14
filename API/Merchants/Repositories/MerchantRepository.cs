@@ -128,5 +128,21 @@ namespace Merchants.Repositories
             }
             return false;
         }
+
+        public async Task<int> GetCorporateId(int merchantId){
+            try{
+                using(var context=new MerchantContext(_configuration)){
+                    int corporateId=await(from merchant in context.Merchants
+                                          join shipment in context.Shipments
+                                          on merchant.Id equals shipment.MerchantId
+                                          where merchant.Id==merchantId
+                                          select merchant.CorporateId).FirstOrDefaultAsync();
+                                          return corporateId;
+                }
+            }
+            catch(Exception e){
+                throw e;
+            }
+        }
     }
 }

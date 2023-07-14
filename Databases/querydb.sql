@@ -48,3 +48,4 @@ WHERE `t`.`id` = 1;
  SELECT * FROM payments;
  SELECT * FROM goodscollectionpayments;
  SELECT * FROM invoices;
+SELECT merchants.corporateid FROM merchants INNER JOIN shipments ON merchants.id=shipments.merchantid WHERE merchants.id=1;

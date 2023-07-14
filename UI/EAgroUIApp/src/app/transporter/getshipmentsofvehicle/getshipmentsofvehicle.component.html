@@ -4,9 +4,7 @@
   <table class="shipment-table">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Vehicle ID</th>
-        <th>Merchant ID</th>
+        <th>Merchant</th>
         <th>Kilometers</th>
         <th>Status</th>
         <th>Shipment Date</th>
@@ -14,8 +12,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let shipment of shipments">
-        <td>{{ shipment.id }}</td>
-        <td>{{ shipment.vehicleId }}</td>
         <td>{{ shipment.merchantId }}</td>
         <td>{{ shipment.kilometers }}</td>
         <td>{{ shipment.status }}</td>

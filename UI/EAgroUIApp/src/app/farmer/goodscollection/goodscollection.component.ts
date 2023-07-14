@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-goodscollection',
@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./goodscollection.component.css']
 })
 export class GoodscollectionComponent implements OnInit {
+ngOnInit(): void {
+  throw new Error('Method not implemented.');
+}
 constructer() {}
 }

@@ -34,4 +34,9 @@ export class TransporterService {
   );
   return this.shipmentSubject.asObservable();
  }
+
+ getCorporateId(merchantId:number):Observable<any>{
+  let url="http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
+  return this.httpClient.get<any>(url)
+ }
 }

@@ -44,5 +44,11 @@ namespace Merchants.Controllers
         {
             return await _srv.Delete(merchantId);
         }
+
+        [HttpGet("{merchantId}/getcorporate")]
+         public async Task<int> GetCorporateId(int merchantId)
+        {
+            return await _srv.GetCorporateId(merchantId);
+        }
     }
 }
