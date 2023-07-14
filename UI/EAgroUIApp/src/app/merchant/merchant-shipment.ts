@@ -5,6 +5,7 @@ export class MerchantShipment {
         public vehicleNumber: string,
         public kilometers: number,
         public status: string,
-        public shipmentDate: string
+        public shipmentDate: string,
+        public freightCharges: string
     ) { }
 }

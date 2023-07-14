@@ -16,6 +16,9 @@ namespace Invoices.Models
         [Column("totalamount")]
         public double TotalAmount { get; set; }
 
+        [Column("paymentstatus")]
+        public string PaymentStatus { get; set; }
+
         [Column("invoicedate")]
         public DateTime InvoiceDate { get; set; }
 

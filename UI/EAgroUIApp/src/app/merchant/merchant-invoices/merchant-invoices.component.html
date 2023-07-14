@@ -1,0 +1,26 @@
+<table>
+    <thead>
+      <tr>
+        <th>Date </th>
+        <th>FarmerName</th>
+        <th>CropName</th>
+        <th>Quantity</th>
+        <th>Weight</th>
+        <th>Rate Per Kg</th>
+        <th>Total Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices">
+        <td>{{ invoice.invoiceDate | date }}</td>
+        <td>{{ invoice.farmerName }}</td>
+        <td>{{ invoice.cropName}}</td>
+        <td>{{ invoice.quantity}}</td>
+        <td>{{ invoice.weight}}</td>
+        <td>{{ invoice.ratePerKg}}</td>
+        <td>{{ invoice.totalAmount |number}}</td>
+        <td><button (click)="onClickInvoiceDetails(invoice.id)"> Details </button></td>
+      </tr>
+    </tbody>
+  </table>
+  

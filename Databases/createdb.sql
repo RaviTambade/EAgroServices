@@ -1,4 +1,5 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
@@ -129,8 +130,9 @@ CREATE TABLE
     invoices (
         id INT AUTO_INCREMENT PRIMARY KEY,
         shipmentitemid INT UNIQUE,
-        rateperkg DOUBLE,
+        rateperkg DOUBLE  DEFAULT 0,
         totalamount DOUBLE DEFAULT 0,
+        paymentstatus ENUM ('unpaid','paid') DEFAULT 'unpaid',
         invoicedate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
         CONSTRAINT fk_shippingItemsid FOREIGN KEY (shipmentitemid) REFERENCES shipmentitems(id) ON UPDATE CASCADE ON DELETE CASCADE
     );

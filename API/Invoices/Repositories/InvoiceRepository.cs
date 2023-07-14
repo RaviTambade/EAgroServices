@@ -1,27 +1,51 @@
-
 using Invoices.Models;
 using Invoices.Repositories.Interfaces;
 using Invoices.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Invoices.Repositories
 {
     public class InvoiceRepository : IInvoiceRepository
-    { 
+    {
         private readonly IConfiguration _configuration;
 
         public InvoiceRepository(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-         public async Task<List<Invoice>> GetAll()
+
+        public async Task<List<InvoiceDetails>> GetAll(int merchantId)
         {
             try
             {
                 using (var context = new InvoiceContext(_configuration))
                 {
-                    var invoices = await context.Invoices.ToListAsync();
+                    var invoices = await (
+                        from invoice in context.Invoices
+                        join shipmentItem in context.ShipmentItems
+                            on invoice.ShipmentItemId equals shipmentItem.Id
+                        join shipment in context.Shipments
+                            on shipmentItem.ShipmentId equals shipment.Id
+                        join collection in context.GoodsCollections
+                            on shipmentItem.CollectionId equals collection.Id
+                        join verifiedCollection in context.VerifiedCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        where shipment.MerchantId == merchantId
+                        select new InvoiceDetails()
+                        {
+                            Id = invoice.Id,
+                            FarmerId = collection.FarmerId,
+                            CropName = crop.Title,
+                            Quantity = collection.Quantity,
+                            Weight = verifiedCollection.Weight,
+                            RatePerKg = invoice.RatePerKg,
+                            PaymentStatus = invoice.PaymentStatus,
+                            TotalAmount = invoice.TotalAmount,
+                            InvoiceDate = invoice.InvoiceDate
+                        }
+                    ).ToListAsync();
+
                     if (invoices is null)
                     {
                         return null;
@@ -35,20 +59,61 @@ namespace Invoices.Repositories
             }
         }
 
-        public async Task<Invoice> GetById(int invoiceId)
+        public async Task<InvoiceChargesDetails> GetById(int invoiceId)
         {
             try
             {
                 using (var context = new InvoiceContext(_configuration))
                 {
-                    var invoice = await context.Invoices.FindAsync(invoiceId);
+                    var invoiceDetails = await (
+                        from invoice in context.Invoices
+                        join shipmentItem in context.ShipmentItems
+                            on invoice.ShipmentItemId equals shipmentItem.Id
+                        join charges in context.Costing
+                            on shipmentItem.Id equals charges.ShipmentItemId
+                        join shipment in context.Shipments
+                            on shipmentItem.ShipmentId equals shipment.Id
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        join transporter in context.Transporters
+                            on vehicle.TransporterId equals transporter.Id
+                        join collection in context.GoodsCollections
+                            on shipmentItem.CollectionId equals collection.Id
+                        join collectionCenter in context.CollectionCenters
+                            on collection.CollectionCenterId equals collectionCenter.Id
+                        join verifiedCollection in context.VerifiedCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        where invoice.Id == invoiceId
+                        select new InvoiceChargesDetails()
+                        {
+                            Id = invoice.Id,
+                            FarmerId = collection.FarmerId,
+                            CollectionId=collection.Id,
+                            CollectionCenterId = collectionCenter.CorporateId,
+                            TransporterId = transporter.CorporateId,
+                            VehicleNumber = vehicle.RtoNumber,
+                            CropName = crop.Title,
+                            Grade = verifiedCollection.Grade,
+                            ContainerType = collection.ContainerType,
+                            Quantity = collection.Quantity,
+                            TotalWeight = collection.Weight,
+                            NetWeight = verifiedCollection.Weight,
+                            FreightCharges = charges.FreightCharges,
+                            LabourCharges = charges.LabourCharges,
+                            PaymentStatus = invoice.PaymentStatus,
+                            ServiceCharges = charges.ServiceCharges,
+                            RatePerKg = invoice.RatePerKg,
+                            TotalAmount = invoice.TotalAmount,
+                            InvoiceDate = invoice.InvoiceDate
+                        }
+                    ).FirstOrDefaultAsync();
 
-                    if (invoice is null)
+                    if (invoiceDetails is null)
                     {
                         return null;
                     }
 
-                    return invoice;
+                    return invoiceDetails;
                 }
             }
             catch (Exception e)
@@ -56,7 +121,6 @@ namespace Invoices.Repositories
                 throw e;
             }
         }
-
         public async Task<bool> Insert(Invoice invoice)
         {
             try
@@ -75,22 +139,24 @@ namespace Invoices.Repositories
             }
         }
 
-        public async Task<bool> Update(Invoice invoice)
+        public async Task<bool> Update(int invoiceId, UpdateRate rate)
         {
             try
             {
                 bool status = false;
                 using (var context = new InvoiceContext(_configuration))
                 {
-                    var oldInvoice = await context.Invoices.FindAsync(invoice.Id);
+                    var oldInvoice = await context.Invoices.FindAsync(invoiceId);
                     if (oldInvoice is not null)
                     {
-                        oldInvoice.ShipmentItemId = invoice.ShipmentItemId;
-                        oldInvoice.RatePerKg = invoice.RatePerKg;
-                        oldInvoice.TotalAmount = invoice.TotalAmount;
-                        oldInvoice.InvoiceDate = invoice.InvoiceDate;
+                        oldInvoice.RatePerKg = rate.RatePerKg;
                         status = await SaveChanges(context);
                     }
+                    if (status)
+                        context.Database.ExecuteSqlRaw(
+                            "CALL calculate_total_amount(@p0)",
+                            invoiceId
+                        );
                     return status;
                 }
             }

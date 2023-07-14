@@ -8,5 +8,6 @@ namespace Shipments.Models
         public int Kilometers { get; set; }
         public string? Status { get; set; }
         public DateTime ShipmentDate { get; set ;}
+        public double FreightCharges { get; set; }
     }
 }

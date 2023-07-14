@@ -6,6 +6,7 @@
         <th>Vehicle Number  </th>
         <th>Kilometers</th>
         <th>Status</th>
+        <th>Charges</th>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +15,7 @@
         <td>{{ shipment.vehicleNumber  }}</td>
         <td>{{ shipment.kilometers  }}</td>
         <td>{{ shipment.status}}</td>
+        <td>{{ shipment.freightCharges}}</td>
         <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
       </tr>
     </tbody>

@@ -1,3 +1,4 @@
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
   
 INSERT INTO roles(name)VALUES('owner');
 INSERT INTO roles(name)VALUES ('farmer');
@@ -6,12 +7,12 @@ INSERT INTO roles(name)VALUES('transporter');
 INSERT INTO roles(name)VALUES('merchant');
 INSERT INTO userroles(userid,roleid)VALUES(1,1);
 INSERT INTO userroles(userid,roleid)VALUES(2,2);
-INSERT INTO userroles(userid,roleid)VALUES(3,3);
+INSERT INTO userroles(userid,roleid)VALUES(3,4);
 INSERT INTO userroles(userid,roleid)VALUES(3,5);
 INSERT INTO userroles(userid,roleid)VALUES(4,4);
 INSERT INTO userroles(userid,roleid)VALUES(5,5);
 
-INSERT INTO transporters (corporateid,managerid) VALUES(10,4);
+INSERT INTO transporters (corporateid,managerid) VALUES(6,4);
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"jito","MH142022");
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"pickup","MH142222");
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"tata1109","MH142322");
@@ -33,8 +34,8 @@ INSERT INTO crops(title,imageurl,rate)VALUES('Beans','/assets/images/beans.jpeg'
 INSERT INTO crops(title,imageurl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
 INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
 
-INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(24,3);
-INSERT INTO merchants (corporateid,managerid) VALUES(22,5);
+INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,3);
+INSERT INTO merchants (corporateid,managerid) VALUES(7,5);
 
 
 INSERT INTO goodscollections (collectioncenterid,farmerid, cropid, containertype, quantity, weight, collectiondate) VALUES

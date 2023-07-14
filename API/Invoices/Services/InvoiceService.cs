@@ -13,12 +13,12 @@ namespace Invoices.Services
         {
             _repo = repo;
         }
-         public async Task<List<Invoice>> GetAll()
+         public async Task<List<InvoiceDetails>> GetAll(int merchantId)
         {
-            return await _repo.GetAll();
+            return await _repo.GetAll(merchantId);
         }
 
-        public async Task<Invoice> GetById(int invoiceId)
+        public async Task<InvoiceChargesDetails> GetById(int invoiceId)
         {
             return await _repo.GetById(invoiceId);
         }
@@ -28,9 +28,9 @@ namespace Invoices.Services
             return await _repo.Insert(invoice);
         }
 
-        public async Task<bool> Update(Invoice invoice)
+        public async Task<bool> Update(int invoiceId,UpdateRate rate)
         {
-            return await _repo.Update(invoice);
+            return await _repo.Update(invoiceId,rate);
         }
 
         public async Task<bool> Delete(int invoiceId)
