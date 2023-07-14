@@ -40,7 +40,7 @@ namespace Invoices.Repositories
                             Quantity = collection.Quantity,
                             Weight = verifiedCollection.Weight,
                             RatePerKg = invoice.RatePerKg,
-                            PaymentStatus=invoice.PaymentStatus,
+                            PaymentStatus = invoice.PaymentStatus,
                             TotalAmount = invoice.TotalAmount,
                             InvoiceDate = invoice.InvoiceDate
                         }
@@ -88,7 +88,8 @@ namespace Invoices.Repositories
                         {
                             Id = invoice.Id,
                             FarmerId = collection.FarmerId,
-                            collectionCenterId = collectionCenter.CorporateId,
+                            CollectionId=collection.Id,
+                            CollectionCenterId = collectionCenter.CorporateId,
                             TransporterId = transporter.CorporateId,
                             VehicleNumber = vehicle.RtoNumber,
                             CropName = crop.Title,
@@ -99,7 +100,7 @@ namespace Invoices.Repositories
                             NetWeight = verifiedCollection.Weight,
                             FreightCharges = charges.FreightCharges,
                             LabourCharges = charges.LabourCharges,
-                            PaymentStatus=invoice.PaymentStatus,
+                            PaymentStatus = invoice.PaymentStatus,
                             ServiceCharges = charges.ServiceCharges,
                             RatePerKg = invoice.RatePerKg,
                             TotalAmount = invoice.TotalAmount,
@@ -120,7 +121,6 @@ namespace Invoices.Repositories
                 throw e;
             }
         }
-
         public async Task<bool> Insert(Invoice invoice)
         {
             try
@@ -153,7 +153,10 @@ namespace Invoices.Repositories
                         status = await SaveChanges(context);
                     }
                     if (status)
-                        context.Database.ExecuteSqlRaw("CALL calculate_total_amount(@p0)", invoiceId );
+                        context.Database.ExecuteSqlRaw(
+                            "CALL calculate_total_amount(@p0)",
+                            invoiceId
+                        );
                     return status;
                 }
             }

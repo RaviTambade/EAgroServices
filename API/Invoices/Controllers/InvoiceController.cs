@@ -27,6 +27,7 @@ namespace Invoices.Controllers
             return await _srv.GetById(invoiceId);
         }
 
+
         [HttpPost]
         public async Task<bool> Insert(Invoice invoice)
         {

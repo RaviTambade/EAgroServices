@@ -4,8 +4,9 @@ namespace Invoices.Models
     {
         public int Id { get; set; }
         public int FarmerId { get; set; }
-        public int collectionCenterId { get; set; }
+        public int CollectionCenterId { get; set; }
         public int TransporterId { get; set; }
+        public int CollectionId { get; set; }
         public string VehicleNumber { get; set; }
         public string CropName { get; set; }
         public string Grade { get; set; }
@@ -19,7 +20,7 @@ namespace Invoices.Models
         public string PaymentStatus { get; set; }
 
         public double RatePerKg { get; set; }
-        public double TotalAmount { get; set; }
+        public double TotalAmount { get; set; } //{ get => farmerAmount=Math.Round(farmerAmount,2); set=> farmerAmount=value; }
         public DateTime InvoiceDate { get; set; }
     }
 }
