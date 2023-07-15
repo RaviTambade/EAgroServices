@@ -1,0 +1,26 @@
+<h2>Shipment Details</h2>
+
+<div *ngIf="shipments.length > 0">
+  <table class="shipment-table">
+    <thead>
+      <tr>
+        <th>Merchant</th>
+        <th>Kilometers</th>
+        <th>Status</th>
+        <th>Shipment Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let shipment of shipments">
+        <td>{{ shipment.merchantId }}</td>
+        <td>{{ shipment.kilometers }}</td>
+        <td>{{ shipment.status }}</td>
+        <td>{{ shipment.shipmentDate |date }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="shipments.length === 0">
+  No shipments found for the selected vehicle.
+</div>

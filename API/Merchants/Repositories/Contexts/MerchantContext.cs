@@ -18,6 +18,7 @@ namespace Merchants.Repositories.Contexts
         }
 
         public DbSet<Merchant> Merchants { get; set; }
+        public DbSet<Shipment> Shipments{get;set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,6 +37,16 @@ namespace Merchants.Repositories.Contexts
                 entity.Property(e => e.CorporateId);
                 entity.Property(e => e.ManagerId);
                 modelBuilder.Entity<Merchant>().ToTable("merchants");
+            });
+             modelBuilder.Entity<Shipment>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.VehicleId);
+                entity.Property(e => e.MerchantId);
+                entity.Property(e => e.Kilometers);
+                entity.Property(e => e.Status);
+                entity.Property(e => e.ShipmentDate);
+                modelBuilder.Entity<Shipment>().ToTable("shipments");
             });
         }
     }

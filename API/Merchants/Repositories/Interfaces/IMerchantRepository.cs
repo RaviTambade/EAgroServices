@@ -6,6 +6,7 @@ namespace Merchants.Repositories.Interfaces
     {
         Task<List<Merchant>> GetAll();
         Task<Merchant> GetById(int merchantId);
+        Task<int> GetCorporateId(int merchantId);
         Task<bool> Insert(Merchant merchant);
         Task<bool> Update(Merchant merchant);
         Task<bool> Delete(int merchantId);

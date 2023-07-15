@@ -265,5 +265,17 @@ namespace Shipments.Repositories
             }
             return false;
         }
+
+        public async Task<List<Shipment>> GetShipmentByVehicleId(int vehicleId){
+            try{
+                using(var context=new ShipmentContext(_configuration)){
+                    var shipments=await context.Shipments.Where(v=>v.VehicleId==vehicleId).ToListAsync();
+                    return shipments;
+                }
+            }
+            catch(Exception e){
+                throw e;
+            }
+        }
     }
 }
