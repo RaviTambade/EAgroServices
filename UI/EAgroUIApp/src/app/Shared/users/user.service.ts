@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from './user';
 import { Observable, Subject } from 'rxjs';
+import { NameId } from 'src/app/name-id';
 
 
 
@@ -12,9 +13,9 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUserNamesWithId(userId: string): Observable<any> {
+  getUserNamesWithId(userId: string): Observable<NameId[]> {
     let url = "http://localhost:5102/api/users/name/" + userId;
-    return this.httpClient.get<any>(url)
+    return this.httpClient.get<NameId[]>(url)
   }
 
 

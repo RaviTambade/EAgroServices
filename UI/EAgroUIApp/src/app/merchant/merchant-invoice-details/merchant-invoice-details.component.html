@@ -86,8 +86,8 @@
                 </tr>
                 <tr>
                     <td>{{ invoiceDetails.farmerName }}</td>
-                        <td>{{farmerAccountInfo.accountNumber}}</td>
-                        <td>{{farmerAccountInfo.ifscCode}}</td>
+                    <td>{{farmerAccountInfo.accountNumber}}</td>
+                    <td>{{farmerAccountInfo.ifscCode}}</td>
                     <td>{{ invoiceDetails.totalAmount |number }}</td>
 
                 </tr>
@@ -102,16 +102,20 @@
                 </tr>
                 <tr>
                     <td>{{ invoiceDetails.collectionCenterName }}</td>
-                        <td>{{collectionCenterAccountInfo.accountNumber}}</td>
+                    <td>{{collectionCenterAccountInfo.accountNumber}}</td>
                     <td>{{collectionCenterAccountInfo.ifscCode}}</td>
                     <td>{{ invoiceDetails.labourCharges + invoiceDetails.serviceCharges |number }} </td>
                 </tr>
             </table>
             <h6>Total Amount {{ invoiceDetails.totalAmount + invoiceDetails.labourCharges +
                 invoiceDetails.serviceCharges |number }} </h6>
+
+            <h6>Payment : {{invoiceDetails.paymentStatus}}</h6>
+            <div *ngIf="invoiceDetails.paymentStatus == 'unpaid' ">
                 <h6>Your Account Number is {{merchantAccountInfo.accountNumber}}</h6>
                 <h6>IFSC {{merchantAccountInfo.ifscCode}}</h6>
-            <br><button *ngIf="invoiceDetails.paymentStatus == 'unpaid' " (click)="onClickPay()"> Pay </button>
+                <br><button (click)="onClickPay()" [disabled]="ispaymentButtonDisabled"> Pay </button>
+            </div>
         </div>
     </div>
 </div>

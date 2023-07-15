@@ -32,6 +32,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
     accountNumber: '',
     ifscCode: ''
   };
+  ispaymentButtonDisabled: boolean=false;
   constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService,
     private usrsvc: UserService, private banksvc: BankingService,private paymentsvc:PaymentService,
     private route: ActivatedRoute, private router: Router) { }
@@ -96,6 +97,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
   }
 
   onClickPay() {
+    this.ispaymentButtonDisabled=true;
     let farmerPaymentTransfer: PaymentTransferDetails = {
       fromAcct: this.merchantAccountInfo.accountNumber,
       toAcct: this.farmerAccountInfo.accountNumber,
@@ -146,7 +148,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
   
         this.paymentsvc.addpayment(serviceOwnerPayment).subscribe((response) => {
           console.log("🚀 ~ this.paymentsvc.addpayment ~ response: servicepayment", response);
-          window.location.reload;
+          window.location.reload();
         });
       }
       else

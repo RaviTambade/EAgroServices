@@ -28,9 +28,10 @@ export class MerchantInvoicesComponent implements OnInit {
 
       let farmerIdString = distinctfarmerIds.join(',');
       this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
-        let farmerNames: any[] = names
+        let farmerNames = names
         this.invoices.forEach(item => {
           let matchingItem = farmerNames.find(element => element.id === item.farmerId);
+          if(matchingItem!=undefined)
           item.farmerName = matchingItem.name;
         });
       });

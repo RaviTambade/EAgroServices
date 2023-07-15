@@ -12,11 +12,9 @@ import { UserService } from 'src/app/Shared/users/user.service';
 })
 export class MerchantShipmentDetailsComponent implements OnInit {
   shipmentId: any;
-  shipmentStatus:boolean|undefined;
+  shipmentStatus: boolean | undefined;
   shipmentItemsDetails: ShipmentItemDetails[] = [];
-  corporationNames: any[] = []
-  farmerNames: any[] = []
-  updateStatus:boolean=false;
+  updateStatus: boolean = false;
   constructor(private shipmentsvc: ShipmentService, private corpsvc: CorporateService, private usrsvc: UserService,
     private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
@@ -42,18 +40,20 @@ export class MerchantShipmentDetailsComponent implements OnInit {
 
       this.corpsvc.getCorporates(collectionIdString).subscribe((names) => {
         console.log("🚀 ~ this.corpsvc.getCorporates ~ names:", names);
-        this.corporationNames = names
+        let corporationNames = names
         this.shipmentItemsDetails.forEach(item => {
-          let matchingItem = this.corporationNames.find(element => element.id === item.collectionCenterId);
-          item.collectionCenterName = matchingItem.name;
+          let matchingItem = corporationNames.find(element => element.id === item.collectionCenterId);
+          if (matchingItem != undefined)
+            item.collectionCenterName = matchingItem.name;
         });
         console.log("🚀 ~ this.corpsvc.getCorporates ~ shipmentItemsDetails:", this.shipmentItemsDetails);
       });
 
       this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
-        this.farmerNames = names
+        let farmerNames = names
         this.shipmentItemsDetails.forEach(item => {
-          let matchingItem = this.farmerNames.find(element => element.id === item.farmerId);
+          let matchingItem = farmerNames.find(element => element.id === item.farmerId);
+          if (matchingItem != undefined)
           item.farmerName = matchingItem.name;
         });
         console.log("🚀 ~ this.usrsvc.getUserNamesWithId ~ shipmentItemsDetails:", this.shipmentItemsDetails);
@@ -61,8 +61,8 @@ export class MerchantShipmentDetailsComponent implements OnInit {
 
     });
 
-    this.shipmentsvc.getShipmentStatus(this.shipmentId).subscribe((res)=>{
-      this.shipmentStatus=res;
+    this.shipmentsvc.isShipmentStatusDelivered(this.shipmentId).subscribe((res) => {
+      this.shipmentStatus = res;
       // this.shipmentStatus=true;
     })
   }
@@ -76,14 +76,14 @@ export class MerchantShipmentDetailsComponent implements OnInit {
     });
   }
 
-  updateShipmentStatusDelivered(shipmentId:number){
-    this.shipmentsvc.updateShipmentStatus(shipmentId).subscribe((res)=>{
+  updateShipmentStatusDelivered(shipmentId: number) {
+    this.shipmentsvc.updateShipmentStatus(shipmentId).subscribe((res) => {
       console.log(res);
-      this.shipmentStatus=true;
+      this.shipmentStatus = true;
     })
   }
 
-  onCancelClick(){
-    this.updateStatus=false;
+  onCancelClick() {
+    this.updateStatus = false;
   }
 }
