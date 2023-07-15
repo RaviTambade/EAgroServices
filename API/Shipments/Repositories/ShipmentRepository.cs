@@ -34,7 +34,7 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId)
+        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId,string status)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Shipments.Repositories
                     var shipments = await (
                         from shipment in context.Shipments
                         join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        where shipment.MerchantId == merchantId
+                        where shipment.MerchantId == merchantId && shipment.Status==status
                         select new MerchantShipment()
                         {
                             Id = shipment.Id,

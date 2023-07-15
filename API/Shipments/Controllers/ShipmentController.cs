@@ -21,10 +21,10 @@ namespace Shipments.Controllers
             return await _srv.GetAll();
         }
 
-        [HttpGet("merchant/{merchantId}")]
-        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId)
+        [HttpGet("merchant/{merchantId}/status/{status}")]
+        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId,string status)
         {
-            return await _srv.GetShipmentsByMerchant(merchantId);
+            return await _srv.GetShipmentsByMerchant(merchantId,status);
         }
 
         [HttpGet("shipmentitems/{shipmentId}")]

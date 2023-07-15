@@ -6,7 +6,7 @@ namespace Shipments.Repositories.Interfaces
     {
         Task<List<Shipment>> GetAll();
         Task<Shipment> GetById(int shipmentId);
-        Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId);
+        Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId , string status);
         Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId);
         Task<List<Shipment>> GetShipmentByVehicleId(int vehicleId);
         Task<bool> IsShipmentStatusDelivered(int shipmentId);

@@ -11,9 +11,9 @@ export class InvoicesService {
 
   constructor(private http: HttpClient) { }
 
-  getInvoices(): Observable<Invoice[]> {
+  getInvoices(status:string): Observable<Invoice[]> {
     let merchantId = localStorage.getItem("merchantId");
-    let url = "http://localhost:5197/api/invoices/merchant/" + merchantId;
+    let url = "http://localhost:5197/api/invoices/merchant/" + merchantId +"/status/"+status;
     return this.http.get<Invoice[]>(url);
   }
 

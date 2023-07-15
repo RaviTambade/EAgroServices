@@ -19,7 +19,14 @@ export class MerchantInvoicesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.invoicesvc.getInvoices().subscribe((response) => {
+    this.onClickUnpaid();
+  }
+  onClickInvoiceDetails(invoiceId: number) {
+    this.router.navigate(['/merchant/invoicedetails', invoiceId]);
+  }
+ 
+  fetchData(status:string){
+    this.invoicesvc.getInvoices(status).subscribe((response) => {
       this.invoices = response;
 
       if (this.invoices.length != 0) {
@@ -39,10 +46,14 @@ export class MerchantInvoicesComponent implements OnInit {
         });
       }
     });
-
   }
-  onClickInvoiceDetails(invoiceId: number) {
-    this.router.navigate(['/merchant/invoicedetails', invoiceId]);
+
+  onClickPaid(){
+    this.fetchData("paid");
+  }
+
+  onClickUnpaid(){
+    this.fetchData("unpaid");
   }
 
 }
