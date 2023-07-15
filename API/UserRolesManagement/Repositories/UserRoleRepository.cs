@@ -64,8 +64,8 @@ namespace UserRolesManagement.Repositories
                 {
                     var roles = await (
                         from role in context.Roles
-                        join userRples in context.UserRoles on role.Id equals userRples.RoleId
-                        where userRples.UserId == userId
+                        join userRoles in context.UserRoles on role.Id equals userRoles.RoleId
+                        where userRoles.UserId == userId
                         select role.Name
                     ).ToListAsync();
 
@@ -82,6 +82,7 @@ namespace UserRolesManagement.Repositories
                 throw e;
             }
         }
+
 
         public async Task<bool> Insert(UserRole userRole)
         {

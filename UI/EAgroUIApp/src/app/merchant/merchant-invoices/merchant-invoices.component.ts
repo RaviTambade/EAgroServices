@@ -19,26 +19,41 @@ export class MerchantInvoicesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.invoicesvc.getInvoices().subscribe((response) => {
-      this.invoices = response;
-
-
-      let distinctfarmerIds = this.invoices.map(item => item.farmerId)
-        .filter((number, index, array) => array.indexOf(number) === index);
-
-      let farmerIdString = distinctfarmerIds.join(',');
-      this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
-        let farmerNames: any[] = names
-        this.invoices.forEach(item => {
-          let matchingItem = farmerNames.find(element => element.id === item.farmerId);
-          item.farmerName = matchingItem.name;
-        });
-      });
-    });
-
+    this.onClickUnpaid();
   }
   onClickInvoiceDetails(invoiceId: number) {
     this.router.navigate(['/merchant/invoicedetails', invoiceId]);
+  }
+ 
+  fetchData(status:string){
+    this.invoicesvc.getInvoices(status).subscribe((response) => {
+      this.invoices = response;
+
+      if (this.invoices.length != 0) {
+
+        let distinctfarmerIds = this.invoices.map(item => item.farmerId)
+          .filter((number, index, array) => array.indexOf(number) === index);
+
+        let farmerIdString = distinctfarmerIds.join(',');
+
+        this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
+          let farmerNames = names
+          this.invoices.forEach(item => {
+            let matchingItem = farmerNames.find(element => element.id === item.farmerId);
+            if (matchingItem != undefined)
+              item.farmerName = matchingItem.name;
+          });
+        });
+      }
+    });
+  }
+
+  onClickPaid(){
+    this.fetchData("paid");
+  }
+
+  onClickUnpaid(){
+    this.fetchData("unpaid");
   }
 
 }

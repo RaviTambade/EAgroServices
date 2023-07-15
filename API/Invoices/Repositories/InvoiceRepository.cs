@@ -14,7 +14,7 @@ namespace Invoices.Repositories
             _configuration = configuration;
         }
 
-        public async Task<List<InvoiceDetails>> GetAll(int merchantId)
+        public async Task<List<InvoiceDetails>> GetAll(int merchantId, string paymentStatus)
         {
             try
             {
@@ -31,7 +31,9 @@ namespace Invoices.Repositories
                         join verifiedCollection in context.VerifiedCollections
                             on collection.Id equals verifiedCollection.CollectionId
                         join crop in context.Crops on collection.CropId equals crop.Id
-                        where shipment.MerchantId == merchantId
+                        where
+                            shipment.MerchantId == merchantId
+                            && invoice.PaymentStatus == paymentStatus
                         select new InvoiceDetails()
                         {
                             Id = invoice.Id,
@@ -88,7 +90,7 @@ namespace Invoices.Repositories
                         {
                             Id = invoice.Id,
                             FarmerId = collection.FarmerId,
-                            CollectionId=collection.Id,
+                            CollectionId = collection.Id,
                             CollectionCenterId = collectionCenter.CorporateId,
                             TransporterId = transporter.CorporateId,
                             VehicleNumber = vehicle.RtoNumber,
@@ -121,6 +123,7 @@ namespace Invoices.Repositories
                 throw e;
             }
         }
+
         public async Task<bool> Insert(Invoice invoice)
         {
             try

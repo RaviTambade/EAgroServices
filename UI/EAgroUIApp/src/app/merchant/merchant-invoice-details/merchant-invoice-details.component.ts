@@ -9,6 +9,7 @@ import { AccountInfo } from '../account-info';
 import { PaymentTransferDetails } from '../payment-transfer-details';
 import { PaymentService } from 'src/app/payment.service';
 import { FarmerServicePayment } from 'src/app/farmer-service-payment';
+import { MerchantService } from '../merchant.service';
 
 @Component({
   selector: 'app-merchant-invoice-details',
@@ -32,9 +33,10 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
     accountNumber: '',
     ifscCode: ''
   };
+  ispaymentButtonDisabled: boolean = false;
   constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService,
-    private usrsvc: UserService, private banksvc: BankingService,private paymentsvc:PaymentService,
-    private route: ActivatedRoute, private router: Router) { }
+    private usrsvc: UserService, private banksvc: BankingService, private paymentsvc: PaymentService,
+    private merchantsvc: MerchantService, private route: ActivatedRoute, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -86,16 +88,19 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
       this.collectionCenterAccountInfo.ifscCode = res.ifscCode;
     });
 
-    this.banksvc.getCorporateAccountInfo(7).subscribe((res) => { // here 7 is corporate id of merchant
-      console.log("🚀 ~ onClickPay ~ res: merchant ", res);
-      this.merchantAccountInfo.accountNumber = res.accountNumber;
-      this.merchantAccountInfo.ifscCode = res.ifscCode;
+    this.merchantsvc.getMerchnatCorporateId().subscribe((corpId) => {
+      this.banksvc.getCorporateAccountInfo(corpId).subscribe((res) => {
+        console.log("🚀 ~ onClickPay ~ res: merchant ", res);
+        this.merchantAccountInfo.accountNumber = res.accountNumber;
+        this.merchantAccountInfo.ifscCode = res.ifscCode;
+      });
     });
 
     this.showPayment = true;
   }
 
   onClickPay() {
+    this.ispaymentButtonDisabled = true;
     let farmerPaymentTransfer: PaymentTransferDetails = {
       fromAcct: this.merchantAccountInfo.accountNumber,
       toAcct: this.farmerAccountInfo.accountNumber,
@@ -104,25 +109,26 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
       amount: this.invoiceDetails.totalAmount
     }
 
-    this.banksvc.fundTransfer(farmerPaymentTransfer).subscribe((res)=>{
-    if(res!=0)
-    {
+    this.banksvc.fundTransfer(farmerPaymentTransfer).subscribe((res) => {
+      if (res != 0) {
 
-      let farmerPayment:FarmerServicePayment={
-        collectionId: this.invoiceDetails.collectionId,
-        transactionId: res,
-        amount: farmerPaymentTransfer.amount,
-        paymentFor: "farmer"
-      };
+        let farmerPayment: FarmerServicePayment = {
+          collectionId: this.invoiceDetails.collectionId,
+          transactionId: res,
+          amount: farmerPaymentTransfer.amount,
+          paymentFor: "farmer"
+        };
 
 
-      this.paymentsvc.addpayment(farmerPayment).subscribe((response) => {
-        console.log("🚀 ~ this.paymentsvc.addpayment ~ response: farmerpayment", response);
-      });
-    }
-    else
-    console.log("error while transfering funds to farmer");
+        this.paymentsvc.addpayment(farmerPayment).subscribe((response) => {
+          console.log("🚀 ~ this.paymentsvc.addpayment ~ response: farmerpayment", response);
+        });
+      }
+      else
+        console.log("error while transfering funds to farmer");
     });
+
+
 
     let serviceOwnerPaymentTransfer: PaymentTransferDetails = {
       fromAcct: this.merchantAccountInfo.accountNumber,
@@ -132,26 +138,27 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
       amount: this.invoiceDetails.serviceCharges + this.invoiceDetails.labourCharges
     }
 
-    this.banksvc.fundTransfer(serviceOwnerPaymentTransfer).subscribe((res)=>{
-      if(res!=0)
-      {
-  
-        let serviceOwnerPayment:FarmerServicePayment={
+    setTimeout(() => { }, 100);
+
+    this.banksvc.fundTransfer(serviceOwnerPaymentTransfer).subscribe((res) => {
+      if (res != 0) {
+
+        let serviceOwnerPayment: FarmerServicePayment = {
           collectionId: this.invoiceDetails.collectionId,
           transactionId: res,
           amount: serviceOwnerPaymentTransfer.amount,
           paymentFor: "serviceowner"
         };
-  
-  
+
+
         this.paymentsvc.addpayment(serviceOwnerPayment).subscribe((response) => {
           console.log("🚀 ~ this.paymentsvc.addpayment ~ response: servicepayment", response);
-          window.location.reload;
+          window.location.reload();
         });
       }
       else
-      console.log("error while transfering funds to service owner");
-      });
+        console.log("error while transfering funds to service owner");
+    });
 
   }
 }

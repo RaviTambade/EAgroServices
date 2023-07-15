@@ -10,9 +10,9 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
-  addpayment(farmerServicePayment: FarmerServicePayment): Observable<any> {
+  addpayment(farmerServicePayment: FarmerServicePayment): Observable<boolean> {
     let url = "http://localhost:5030/api/payment";
-    return this.http.post<any>(url, farmerServicePayment);
+    return this.http.post<boolean>(url, farmerServicePayment);
   }
 
 }

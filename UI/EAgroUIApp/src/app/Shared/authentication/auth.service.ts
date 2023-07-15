@@ -35,13 +35,18 @@ export class AuthService {
     return this.svc.put<any>(url, credential);
   }
 
-  getUserIdByContact(contactNumber: string): Observable<any> {
+  getUserIdByContact(contactNumber: string): Observable<number> {
     let url = "http://localhost:5102/api/users/userid/" + contactNumber;
-    return this.svc.get<any>(url);
+    return this.svc.get<number>(url);
   }
 
-  getRolesOfUser(userId: number): Observable<any> {
+  getRolesOfUser(userId: number): Observable<string[]> {
     let url = "http://localhost:5031/api/userroles/roles/ " + userId;
-    return this.svc.get<any>(url);
+    return this.svc.get<string[]>(url);
+  }
+
+  getmerchantIdByUserId(userId: number):Observable<number>{
+    let url = "http://localhost:5276/api/merchants/manager/ "+userId;
+    return this.svc.get<number>(url);
   }
 }

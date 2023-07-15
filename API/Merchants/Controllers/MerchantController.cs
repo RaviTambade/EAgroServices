@@ -50,5 +50,11 @@ namespace Merchants.Controllers
         {
             return await _srv.GetCorporateId(merchantId);
         }
+
+         [HttpGet("manager/{managerId}")]
+         public async Task<int> GetMerchantId(int managerId)
+        {
+            return await _srv.GetMerchantId(managerId);
+        }
     }
 }

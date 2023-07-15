@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipmentService } from '../shipment.service';
-import { ActivatedRoute,  Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MerchantShipment } from '../merchant-shipment';
 
 @Component({
@@ -10,19 +10,35 @@ import { MerchantShipment } from '../merchant-shipment';
 })
 export class MerchantShipmentListComponent implements OnInit {
 
-merchantShipments:MerchantShipment[]|undefined;
+  merchantShipments: MerchantShipment[] | undefined;
 
-  constructor(private svc :ShipmentService,private route:ActivatedRoute, private router:Router){}
+  constructor(private svc: ShipmentService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
-   this.svc.getShipments().subscribe((res) => {
-     console.log("🚀 ~ this.svc.getShipments ~ res:", res);
-     this.merchantShipments=res;
- 
-   	});
+    this.svc.getShipments("inprogress").subscribe((res) => {
+      console.log("🚀 ~ this.svc.getShipments ~ res:", res);
+      this.merchantShipments = res;
+
+    });
   }
 
-  onClickShipmentDetails(shipmentId:number){
-    this.router.navigate(['/merchant/shipmentdetails',shipmentId]);
+  onClickShipmentDetails(shipmentId: number) {
+    this.router.navigate(['/merchant/shipmentdetails', shipmentId]);
+  }
+
+  onClickDelivered() {
+    this.svc.getShipments("delivered").subscribe((res) => {
+      console.log("🚀 ~ this.svc.getShipments ~ res:", res);
+      this.merchantShipments = res;
+
+    });
+  }
+
+  onClickInprogress() {
+    this.svc.getShipments("inprogress").subscribe((res) => {
+      console.log("🚀 ~ this.svc.getShipments ~ res:", res);
+      this.merchantShipments = res;
+
+    });
   }
 
 }

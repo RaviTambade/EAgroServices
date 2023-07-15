@@ -4,7 +4,7 @@ namespace Invoices.Repositories.Interfaces
 {
     public interface IInvoiceRepository
     {
-        Task<List<InvoiceDetails>> GetAll(int merchantId);
+        Task<List<InvoiceDetails>> GetAll(int merchantId,string paymentStatus);
         Task<InvoiceChargesDetails> GetById(int invoiceId);
 
         Task<bool> Insert(Invoice invoice);

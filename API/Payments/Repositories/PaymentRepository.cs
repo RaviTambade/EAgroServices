@@ -22,14 +22,14 @@ namespace Payments.Repositories
             MySqlConnection con = new MySqlConnection(_conString);
             try
             {
-                con.Open();
+             await   con.OpenAsync();
                 MySqlCommand cmd = new MySqlCommand("farmer_service_payment", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@collection_id", payment.CollectionId);
                 cmd.Parameters.AddWithValue("@transaction_id", payment.TransactionId);
                 cmd.Parameters.AddWithValue("@amount", payment.Amount);
                 cmd.Parameters.AddWithValue("@payment_for", payment.PaymentFor);
-                int rowsAffected = cmd.ExecuteNonQuery();
+                int rowsAffected = await cmd.ExecuteNonQueryAsync();
                 if (rowsAffected > 0)
                 {
                     status = true;
@@ -41,7 +41,7 @@ namespace Payments.Repositories
             }
             finally
             {
-                con.Close();
+              await  con.CloseAsync();
             }
             return status;
         }

@@ -13,9 +13,9 @@ namespace Invoices.Services
         {
             _repo = repo;
         }
-         public async Task<List<InvoiceDetails>> GetAll(int merchantId)
+         public async Task<List<InvoiceDetails>> GetAll(int merchantId, string paymentStatus)
         {
-            return await _repo.GetAll(merchantId);
+            return await _repo.GetAll(merchantId,paymentStatus);
         }
 
         public async Task<InvoiceChargesDetails> GetById(int invoiceId)

@@ -15,10 +15,10 @@ namespace Invoices.Controllers
             _srv = srv;
         }
 
-        [HttpGet("merchant/{merchantId}")]
-        public async Task<List<InvoiceDetails>> GetAll(int merchantId)
+        [HttpGet("merchant/{merchantId}/status/{status}")]
+        public async Task<List<InvoiceDetails>> GetAll(int merchantId,string paymentStatus)
         {
-            return await _srv.GetAll(merchantId);
+            return await _srv.GetAll(merchantId,paymentStatus);
         }
 
         [HttpGet("details/{invoiceId}")]

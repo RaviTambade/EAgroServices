@@ -21,7 +21,8 @@ import { GoodscollectionComponent } from './goodscollection/goodscollection.comp
     CommonModule
   ],
   exports: [
-    ProfileComponent
+    ProfileComponent,
+    GoodscollectionComponent
   ]
 })
 export class FarmerModule { }

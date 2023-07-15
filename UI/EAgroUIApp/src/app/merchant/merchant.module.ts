@@ -10,10 +10,10 @@ import { FormsModule } from '@angular/forms';
 
 
 export const merchantRoutes: Routes = [
-  { path: 'home/:id', component: HomeComponent },
-  { path: 'shipmentlist/:id', component:MerchantShipmentListComponent  },
+  { path: 'home', component: HomeComponent },
+  { path: 'shipmentlist', component:MerchantShipmentListComponent  },
   { path: 'shipmentdetails/:shipmentid', component:MerchantShipmentDetailsComponent  },
-  { path: 'invoices/:id', component:MerchantInvoicesComponent  },
+  { path: 'invoices', component:MerchantInvoicesComponent  },
   { path: 'invoicedetails/:invoiceid', component:MerchantInvoiceDetailsComponent  },
 
 ]

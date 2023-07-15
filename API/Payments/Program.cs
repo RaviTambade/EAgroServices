@@ -10,8 +10,8 @@ builder.Services.AddCors();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger /OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddTransient<IPaymentService, PaymentService>();
+builder.Services.AddTransient<IPaymentRepository, PaymentRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

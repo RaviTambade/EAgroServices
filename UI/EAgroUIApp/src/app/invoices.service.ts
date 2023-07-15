@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
+import { Invoice } from './merchant/invoice';
+import { InvoiceDetails } from './merchant/invoice-details';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +11,20 @@ export class InvoicesService {
 
   constructor(private http: HttpClient) { }
 
-  getInvoices(): Observable<any> {
-
-    let url = "http://localhost:5197/api/invoices/merchant/1"; //replace id by the merchant company id whose user requsting this
-    return this.http.get<any>(url);
+  getInvoices(status:string): Observable<Invoice[]> {
+    let merchantId = localStorage.getItem("merchantId");
+    let url = "http://localhost:5197/api/invoices/merchant/" + merchantId +"/status/"+status;
+    return this.http.get<Invoice[]>(url);
   }
 
-  getInvoiceDetails(invoiceId: number): Observable<any> {
+  getInvoiceDetails(invoiceId: number): Observable<InvoiceDetails> {
     let url = "http://localhost:5197/api/invoices/details/" + invoiceId;
-    return this.http.get<any>(url);
+    return this.http.get<InvoiceDetails>(url);
   }
 
-  updateRate(invoiceId: number, body: any): Observable<any> {
+  updateRate(invoiceId: number, body: any): Observable<boolean> {
     let url = "http://localhost:5197/api/invoices/rate/" + invoiceId;
-    return this.http.patch<any>(url, body);
+    return this.http.patch<boolean>(url, body);
   }
 
 }

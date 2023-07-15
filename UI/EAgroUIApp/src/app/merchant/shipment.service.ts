@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MerchantShipment } from './merchant-shipment';
+import { ShipmentItemDetails } from './shipment-item-details';
 
 @Injectable({
   providedIn: 'root'
@@ -9,31 +11,32 @@ export class ShipmentService {
 
   constructor(private http: HttpClient) { }
 
-  getShipments(): Observable<any> {
-    let url = "http://localhost:5067/api/shipments/merchant/1";
-    return this.http.get<any>(url);
+  getShipments(status:string): Observable<MerchantShipment[]> {
+    let merchantId=localStorage.getItem("merchantId");
+    let url = "http://localhost:5067/api/shipments/merchant/"+merchantId+"/status/"+status;
+    return this.http.get<MerchantShipment[]>(url);
   }
 
-  getShipmentItems(shipmentId: number): Observable<any> {
+  getShipmentItems(shipmentId: number): Observable<ShipmentItemDetails[]> {
     let url = "http://localhost:5067/api/shipments/shipmentitems/" + shipmentId;
-    return this.http.get<any>(url);
+    return this.http.get<ShipmentItemDetails[]>(url);
   }
 
-  removeShipmentItem(shipmentItemId: number): Observable<any> {
+  removeShipmentItem(shipmentItemId: number): Observable<boolean> {
     let url = "http://localhost:5067/api/shipmentItems/" + shipmentItemId;
-    return this.http.delete(url);
+    return this.http.delete<boolean>(url);
   }
 
-  getShipmentStatus(shipmentId: number): Observable<any> {
+  isShipmentStatusDelivered(shipmentId: number): Observable<boolean> {
     let url = "http://localhost:5067/api/shipments/status/" + shipmentId;
-    return this.http.get(url);
+    return this.http.get<boolean>(url);
   }
 
-  updateShipmentStatus(shipmentId:number){
-    let obj={
-      "status":"delivered"
+  updateShipmentStatus(shipmentId: number): Observable<boolean> {
+    let obj = {
+      "status": "delivered"
     }
     let url = "http://localhost:5067/api/shipments/status/" + shipmentId;
-    return this.http.patch(url,obj);
+    return this.http.patch<boolean>(url, obj);
   }
 }
