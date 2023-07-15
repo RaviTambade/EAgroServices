@@ -35,7 +35,7 @@ INSERT INTO crops(title,imageurl,rate)VALUES('Brinjal','/assets/images/Brinjal.j
 INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
 
 INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,3);
-INSERT INTO merchants (corporateid,managerid) VALUES(7,5);
+INSERT INTO merchants (corporateid,managerid) VALUES(7,3);
 
 
 INSERT INTO goodscollections (collectioncenterid,farmerid, cropid, containertype, quantity, weight, collectiondate) VALUES

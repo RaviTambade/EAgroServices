@@ -41,5 +41,9 @@ namespace Merchants.Services
         {
             return await _repo.GetCorporateId(merchantId);
         }
+         public async Task<int> GetMerchantId(int managerId)
+        {
+            return await _repo.GetMerchantId(managerId);
+        }
     }
 }

@@ -22,19 +22,22 @@ export class MerchantInvoicesComponent implements OnInit {
     this.invoicesvc.getInvoices().subscribe((response) => {
       this.invoices = response;
 
+      if (this.invoices.length != 0) {
 
-      let distinctfarmerIds = this.invoices.map(item => item.farmerId)
-        .filter((number, index, array) => array.indexOf(number) === index);
+        let distinctfarmerIds = this.invoices.map(item => item.farmerId)
+          .filter((number, index, array) => array.indexOf(number) === index);
 
-      let farmerIdString = distinctfarmerIds.join(',');
-      this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
-        let farmerNames = names
-        this.invoices.forEach(item => {
-          let matchingItem = farmerNames.find(element => element.id === item.farmerId);
-          if(matchingItem!=undefined)
-          item.farmerName = matchingItem.name;
+        let farmerIdString = distinctfarmerIds.join(',');
+
+        this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
+          let farmerNames = names
+          this.invoices.forEach(item => {
+            let matchingItem = farmerNames.find(element => element.id === item.farmerId);
+            if (matchingItem != undefined)
+              item.farmerName = matchingItem.name;
+          });
         });
-      });
+      }
     });
 
   }

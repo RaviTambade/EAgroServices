@@ -30,10 +30,8 @@ export class LoginComponent {
 
         this.svc.getUserIdByContact(this.credential.contactNumber).subscribe((responseId) => {
           this.userId = responseId;
-          const id = responseId;
           console.log("🚀 ~ this.svc.getUserIdByContact ~ userId:", this.userId);
 
-          // if (this.userId != undefined)
           this.svc.getRolesOfUser(responseId).subscribe((responseRoles) => {
             console.log("func")
             this.roles = responseRoles;
@@ -45,7 +43,7 @@ export class LoginComponent {
               const role = this.roles[0];
               this.navigateByRole(role);
             }
-            
+
             if (this.roles?.length < 1) {
               this.router.navigate(['/membership/user/register/', this.credential.contactNumber])
             }
@@ -62,7 +60,11 @@ export class LoginComponent {
         break;
 
       case "merchant":
-        this.router.navigate(['/merchant/home/', this.userId])
+        if (this.userId != undefined)
+          this.svc.getmerchantIdByUserId(this.userId).subscribe((merchantId) => {
+            localStorage.setItem("merchantId", merchantId.toString());
+            this.router.navigate(['/merchant/home'])
+          });
         break;
 
       case "transporter":

@@ -12,7 +12,8 @@ export class ShipmentService {
   constructor(private http: HttpClient) { }
 
   getShipments(): Observable<MerchantShipment[]> {
-    let url = "http://localhost:5067/api/shipments/merchant/1";
+    let merchantId=localStorage.getItem("merchantId");
+    let url = "http://localhost:5067/api/shipments/merchant/"+merchantId;
     return this.http.get<MerchantShipment[]>(url);
   }
 
