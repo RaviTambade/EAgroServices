@@ -37,7 +37,6 @@ constructor(private svc:TransporterService,private route: ActivatedRoute,private
       
     this.svc.getCorporateId(1).subscribe((corporateId:string)=>{
       this.crpSvc.getCorporates(corporateId).subscribe((response)=>{
-      this.merchant=response
       console.log(response)
       })
     })
@@ -45,5 +44,4 @@ constructor(private svc:TransporterService,private route: ActivatedRoute,private
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }
