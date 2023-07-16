@@ -12,9 +12,9 @@ export class GoodscollectionComponent implements OnInit {
   farmerCollection:any;
   constructor(private svc:FarmerService,private route:ActivatedRoute){}
 ngOnInit(): void {
-  // this.route.paramMap.subscribe((params)=>{
-  //   this.farmerId=params.get('id');
-  // })
+   this.route.paramMap.subscribe((params)=>{
+    this.farmerId=params.get('id');
+   })
   this.svc.getFarmerCollection(this.farmerId).subscribe((response)=>{
 this.farmerCollection=response;
 console.log(response);
