@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { Vehicle } from './vehicle';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,10 @@ export class TransporterService {
  getCorporateId(merchantId:number):Observable<any>{
   let url="http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
   return this.httpClient.get<any>(url)
+ }
+
+ addVehicle(vehicle:Vehicle):Observable<any>{
+  let url="http://localhost:5261/api/vehicles"
+  return this.httpClient.post<any>(url,vehicle)
  }
 }
