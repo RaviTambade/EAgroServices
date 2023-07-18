@@ -87,7 +87,7 @@ namespace Shipments.Repositories
                         select new ShipmentItemDetails()
                         {
                             Id = shipmentItem.Id,
-                            CollectionCenterId = collectionCenter.CorporateId,
+                            CollectionCenterCorporaterId = collectionCenter.CorporateId,
                             FarmerId = collection.FarmerId,
                             CropName = crop.Title,
                             Grade = verifiedCollection.Grade,

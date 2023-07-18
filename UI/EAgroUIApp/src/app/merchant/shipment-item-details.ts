@@ -1,7 +1,7 @@
 export class ShipmentItemDetails {
     constructor(
         public id: number,
-        public collectionCenterId: number,
+        public collectionCenterCorporaterId: number,
         public farmerId: number,
         public collectionCenterName: string,
         public farmerName: string,
