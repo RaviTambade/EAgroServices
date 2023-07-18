@@ -3,6 +3,7 @@ using Transporters.Repositories.Interfaces;
 using Transporters.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace Transporters.Repositories
 {
@@ -165,5 +166,19 @@ namespace Transporters.Repositories
             throw e;
         }
        }
+    
+     public async Task<int> GetTransporterId(int managerId){
+        try{
+            using(var context=new TransporterContext(_configuration)){
+                int userId=await (from transporter in context.Transporters
+                                     where transporter.ManagerId == managerId
+                                     select transporter.Id).FirstOrDefaultAsync();
+                                     return userId;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+     }
     }
 }

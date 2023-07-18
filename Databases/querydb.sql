@@ -50,3 +50,4 @@ WHERE `t`.`id` = 1;
  SELECT * FROM invoices;
 SELECT merchants.corporateid FROM merchants INNER JOIN shipments ON merchants.id=shipments.merchantid WHERE merchants.id=1;
 SELECT * FROM vehicles;
+SELECT * FROM transporters;

@@ -36,6 +36,8 @@ INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg'
 
 INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,3);
 INSERT INTO merchants (corporateid,managerid) VALUES(7,3);
+INSERT INTO merchants (corporateid,managerid) VALUES(8,5);
+
 
 
 INSERT INTO goodscollections (collectioncenterid,farmerid, cropid, containertype, quantity, weight, collectiondate) VALUES
@@ -61,7 +63,11 @@ INSERT INTO shipments(vehicleid,merchantid,kilometers,shipmentdate) VALUES
 (2,1,70,'2022-01-20 13:30:00'),
 (2,1,60,'2021-01-20 13:30:00'),
 (2,1,40,'2022-01-20 13:30:00'),
-(2,1,105,'2023-01-20 13:30:00');
+(2,1,105,'2023-01-20 13:30:00'),
+(1,2,17,'2023-01-21 13:30:00'),
+(1,2,145,'2023-01-21 13:30:00'),
+(3,2,112,'2023-01-21 13:30:00');
+
 
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,1);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);

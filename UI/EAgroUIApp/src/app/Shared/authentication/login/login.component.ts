@@ -68,7 +68,12 @@ export class LoginComponent {
         break;
 
       case "transporter":
-        this.router.navigate(['/transporter/home/', this.userId])
+        if (this.userId != undefined)
+        this.svc.gettransporterIdByUserId(this.userId).subscribe((transporterId) => {
+          localStorage.setItem("transporterId",transporterId.toString());
+          this.router.navigate(['/transporter', transporterId ,'vehicles'])
+        });
+        
         break;
 
       case "owner":

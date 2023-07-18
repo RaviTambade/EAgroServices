@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TransporterService } from '../transporter.service';
 import { Vehicle } from '../vehicle';
@@ -19,6 +19,7 @@ export class VehiclesoftransporterComponent implements OnInit {
     this.subscription=new Subscription();
   }
   ngOnInit(): void {
+    this.transporterId = Number(localStorage.getItem("transporterId"));
     this.subscription=this.svc.getVehiclesOfTransporter(this.transporterId).subscribe((response)=>{
       this.vehicles=response;
     })
@@ -30,7 +31,6 @@ export class VehiclesoftransporterComponent implements OnInit {
     this.router.navigate(['/transporter', this.transporterId, 'shipments', vehicleId]);
   }
   onAddNewVehicle(){
-    this.router.navigate(['transporter', 'addvehicle']);
+    this.router.navigate(['transporter', this.transporterId, 'addvehicle']);
   }
-  
 }

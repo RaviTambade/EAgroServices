@@ -29,19 +29,20 @@ constructor(private svc:TransporterService,private route: ActivatedRoute,private
 }
   ngOnInit(): void {
     console.log("in")
-     this.vehicleId=1
-      this.subscription=this.svc.getShipmentsOfVehicle(this.vehicleId).subscribe((response) => {
-        this.shipments = response;
-        console.log(response)
+      this.vehicleId=1
+        this.subscription=this.svc.getShipmentsOfVehicle(this.vehicleId).subscribe((response) => {
+          this.shipments = response;
+          console.log(response)
+          this.shipments.forEach((shipment) => {
+            this.svc.getCorporateId(shipment.merchantId).subscribe((corporateId: string) => {
+              this.crpSvc.getCorporates(corporateId).subscribe((response) => {
+                const firstItem = response[0];
+                this.name = firstItem ? firstItem.name : '';
+                console.log(response);
+              });
+            });
+          });
       });
-      
-    this.svc.getCorporateId(1).subscribe((corporateId:string)=>{
-      this.crpSvc.getCorporates(corporateId).subscribe((response)=>{
-        const firstItem = response[0];
-        this.name = firstItem ? firstItem.name : ''; 
-      console.log(response)
-      })
-    })
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
