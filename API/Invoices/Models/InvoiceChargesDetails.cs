@@ -4,8 +4,8 @@ namespace Invoices.Models
     {
         public int Id { get; set; }
         public int FarmerId { get; set; }
-        public int CollectionCenterId { get; set; }
-        public int TransporterId { get; set; }
+        public int CollectionCenterCorporateId { get; set; }
+        public int TransporterCorporatId { get; set; }
         public int CollectionId { get; set; }
         public string VehicleNumber { get; set; }
         public string CropName { get; set; }

@@ -3,7 +3,7 @@ namespace Shipments.Models
     public class ShipmentItemDetails
     {
         public int Id { get; set; }
-        public int CollectionCenterId { get; set; }
+        public int CollectionCenterCorporaterId { get; set; }
         public int FarmerId { get; set; }
         public string CropName { get; set; }
         public string Grade { get; set; }

@@ -10,6 +10,7 @@ import { PaymentTransferDetails } from '../payment-transfer-details';
 import { PaymentService } from 'src/app/payment.service';
 import { FarmerServicePayment } from 'src/app/farmer-service-payment';
 import { MerchantService } from '../merchant.service';
+import { NameId } from 'src/app/name-id';
 
 @Component({
   selector: 'app-merchant-invoice-details',
@@ -47,12 +48,11 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
     this.invoicesvc.getInvoiceDetails(this.invoiceId).subscribe((res) => {
       this.invoiceDetails = res;
 
-      let ids: number[] = [this.invoiceDetails.collectionCenterId, this.invoiceDetails.transporterId];
+      let ids: number[] = [this.invoiceDetails.collectionCenterCorporateId, this.invoiceDetails.transporterCorporatId];
       let idString = ids.join(',');
 
 
-      this.corpsvc.getCorporates(idString).subscribe((names: any[]) => {
-        console.log("🚀 ~ this.corpsvc.getCorporates ~ names:", names);
+      this.corpsvc.getCorporates(idString).subscribe((names:NameId[]) => {
         this.invoiceDetails.collectionCenterName = names[0].name
         this.invoiceDetails.transporterName = names[1].name
 
@@ -70,27 +70,23 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
 
     let body = { "ratePerKg": this.invoiceDetails.ratePerKg }
     this.invoicesvc.updateRate(invoiceId, body).subscribe((res) => {
-      console.log("🚀 ~ this.invoicesvc.updateRate ~ res:", res);
       window.location.reload();
     });
   }
 
   onClickPaymentDetails() {
     this.banksvc.getFarmerAccountInfo(this.invoiceDetails.farmerId).subscribe((res) => {
-      console.log("🚀 ~ onClickPay ~ res: FArmerACCount", res);
       this.farmerAccountInfo.accountNumber = res.accountNumber;
       this.farmerAccountInfo.ifscCode = res.ifscCode;
     });
 
-    this.banksvc.getCorporateAccountInfo(this.invoiceDetails.collectionCenterId).subscribe((res) => {
-      console.log("🚀 ~ onClickPay ~ res: COLLECTIONCENTER ", res);
+    this.banksvc.getCorporateAccountInfo(this.invoiceDetails.collectionCenterCorporateId).subscribe((res) => {
       this.collectionCenterAccountInfo.accountNumber = res.accountNumber;
       this.collectionCenterAccountInfo.ifscCode = res.ifscCode;
     });
 
     this.merchantsvc.getMerchnatCorporateId().subscribe((corpId) => {
       this.banksvc.getCorporateAccountInfo(corpId).subscribe((res) => {
-        console.log("🚀 ~ onClickPay ~ res: merchant ", res);
         this.merchantAccountInfo.accountNumber = res.accountNumber;
         this.merchantAccountInfo.ifscCode = res.ifscCode;
       });
@@ -121,7 +117,6 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
 
 
         this.paymentsvc.addpayment(farmerPayment).subscribe((response) => {
-          console.log("🚀 ~ this.paymentsvc.addpayment ~ response: farmerpayment", response);
         });
       }
       else
@@ -152,7 +147,6 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
 
 
         this.paymentsvc.addpayment(serviceOwnerPayment).subscribe((response) => {
-          console.log("🚀 ~ this.paymentsvc.addpayment ~ response: servicepayment", response);
           window.location.reload();
         });
       }

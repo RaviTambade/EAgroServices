@@ -1,5 +1,5 @@
 
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
 	JOIN shipments ON shipmentitems.shipmentid=shipments.id

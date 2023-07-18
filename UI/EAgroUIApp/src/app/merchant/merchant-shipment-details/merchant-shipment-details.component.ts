@@ -27,26 +27,22 @@ export class MerchantShipmentDetailsComponent implements OnInit {
       console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ res:", res);
       this.shipmentItemsDetails = res;
 
-      let distinctcollectionIds = this.shipmentItemsDetails.map(item => item.collectionCenterId)
+      let distinctcollectioncenterIds = this.shipmentItemsDetails.map(item => item.collectionCenterCorporaterId)
         .filter((number, index, array) => array.indexOf(number) === index);
 
       let distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
         .filter((number, index, array) => array.indexOf(number) === index);
 
-      let collectionIdString = distinctcollectionIds.join(',');
-      console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ collectionIdString:", collectionIdString);
+      let collectionIdString = distinctcollectioncenterIds.join(',');
       let farmerIdString = distinctfarmerIds.join(',');
-      console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ farmerIdString:", farmerIdString);
 
       this.corpsvc.getCorporates(collectionIdString).subscribe((names) => {
-        console.log("🚀 ~ this.corpsvc.getCorporates ~ names:", names);
         let corporationNames = names
         this.shipmentItemsDetails.forEach(item => {
-          let matchingItem = corporationNames.find(element => element.id === item.collectionCenterId);
+          let matchingItem = corporationNames.find(element => element.id === item.collectionCenterCorporaterId);
           if (matchingItem != undefined)
             item.collectionCenterName = matchingItem.name;
         });
-        console.log("🚀 ~ this.corpsvc.getCorporates ~ shipmentItemsDetails:", this.shipmentItemsDetails);
       });
 
       this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
@@ -56,7 +52,6 @@ export class MerchantShipmentDetailsComponent implements OnInit {
           if (matchingItem != undefined)
           item.farmerName = matchingItem.name;
         });
-        console.log("🚀 ~ this.usrsvc.getUserNamesWithId ~ shipmentItemsDetails:", this.shipmentItemsDetails);
       });
 
     });

@@ -31,7 +31,7 @@ namespace Invoices.Repositories
                         join verifiedCollection in context.VerifiedCollections
                             on collection.Id equals verifiedCollection.CollectionId
                         join crop in context.Crops on collection.CropId equals crop.Id
-                        where
+                        where   
                             shipment.MerchantId == merchantId
                             && invoice.PaymentStatus == paymentStatus
                         select new InvoiceDetails()
@@ -91,8 +91,8 @@ namespace Invoices.Repositories
                             Id = invoice.Id,
                             FarmerId = collection.FarmerId,
                             CollectionId = collection.Id,
-                            CollectionCenterId = collectionCenter.CorporateId,
-                            TransporterId = transporter.CorporateId,
+                            CollectionCenterCorporateId = collectionCenter.CorporateId,
+                            TransporterCorporatId = transporter.CorporateId,
                             VehicleNumber = vehicle.RtoNumber,
                             CropName = crop.Title,
                             Grade = verifiedCollection.Grade,

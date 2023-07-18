@@ -15,6 +15,8 @@ export class FarmerService {
   }
   getFarmerCollection(id:any):Observable<any>{
     let url="http://localhost:5154/api/goodscollections/farmercollection/"+id;
+    console.log(url);
     return this.http.get<any>(url);
+
 }
 }
