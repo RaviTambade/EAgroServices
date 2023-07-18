@@ -29,5 +29,8 @@ export class VehiclesoftransporterComponent implements OnInit {
   OnSelectGetShipment(vehicleId: number) {
     this.router.navigate(['/transporter', this.transporterId, 'shipments', vehicleId]);
   }
+  onAddNewVehicle(){
+    this.router.navigate(['transporter', 'addvehicle']);
+  }
   
 }

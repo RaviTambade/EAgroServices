@@ -92,10 +92,11 @@ public class VehicleRepository : IVehicleRepository
         com.Connection=con;
         await con.OpenAsync();
         int rowsAffected = com.ExecuteNonQuery();
-        if (rowsAffected > 0)
-            {
-                status = true;
-            }       
+          status = true;
+        // if (rowsAffected > 0)
+        //     {
+        //         status = true;
+        //     }       
        }
        catch(Exception e){
         throw e;
