@@ -141,6 +141,7 @@ namespace GoodsCollections.Repositories
              using (var context = new GoodsCollectionContext(_configuration))
                 {
                     List<FarmerCollection> farmercollections = await (from collection in context.GoodsCollections
+                    join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
                     join crop in context.Crops on collection.CropId equals crop.Id
                     where collection.FarmerId==farmerId
                     select new FarmerCollection(){
@@ -148,6 +149,8 @@ namespace GoodsCollections.Repositories
                         CropName=crop.Title,
                         ImageUrl=crop.ImageUrl,
                         CollectionCenterId=collection.CollectionCenterId,
+                        CorporateId=center.CorporateId,
+                        InspectorId=center.CorporateId ,
                         Quantity= (int)collection.Quantity,
                         ContainerType=collection.ContainerType,
                         Weight=collection.Weight,
