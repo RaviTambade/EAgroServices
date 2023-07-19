@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationRoutingComponent } from './authentication-routing/authentication-routing.component';
+import { UsersModule } from '../users/users.module';
 
 export const authRoutes: Routes = [
   {path:'login',component:LoginComponent},
@@ -28,7 +29,8 @@ export const authRoutes: Routes = [
     CommonModule,
     HttpClientModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    UsersModule
   ],
   exports:[AuthenticationRoutingComponent, LoginComponent]
 })

@@ -1,6 +1,6 @@
 <h2>Shipment Details</h2>
 
-<div *ngIf="shipments.length > 0">
+<div *ngIf="shipmentmerchants.length > 0">
   <table class="shipment-table">
     <thead>
       <tr>
@@ -11,8 +11,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let shipment of shipments">
-        <td>{{name}}</td>
+      <tr *ngFor="let shipment of shipmentmerchants">
+        <td>{{shipment.companyName}}</td>
         <td>{{ shipment.kilometers }}</td>
         <td>{{ shipment.status }}</td>
         <td>{{ shipment.shipmentDate |date }}</td>

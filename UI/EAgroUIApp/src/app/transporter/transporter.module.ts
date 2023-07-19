@@ -22,6 +22,7 @@ export const transporterRoutes: Routes = [
     VehiclesoftransporterComponent,
     GetshipmentsofvehicleComponent,
     AddnewvehicleComponent,
+
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Shared/authentication/auth.service';
 import { Person } from '../person';
 import { MembershipService } from '../membership.service';
@@ -19,7 +19,7 @@ export class RegisteruserComponent implements OnInit {
     roleId: 0
   }
 
-  constructor(private svc: MembershipService, private route: ActivatedRoute) { }
+  constructor(private svc: MembershipService, private route: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
 
@@ -75,6 +75,10 @@ export class RegisteruserComponent implements OnInit {
       else
         console.log("error while registering")
     });
+  }
+
+  onClickAddCorporate(){
+    this.router.navigate(['/membership/corporate/register/',this.person?.id])
   }
 }
 
