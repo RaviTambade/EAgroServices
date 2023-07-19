@@ -52,7 +52,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
       let idString = ids.join(',');
 
 
-      this.corpsvc.getCorporates(idString).subscribe((names:NameId[]) => {
+      this.corpsvc.getCorporates(idString).subscribe((names: NameId[]) => {
         this.invoiceDetails.collectionCenterName = names[0].name
         this.invoiceDetails.transporterName = names[1].name
 
@@ -85,7 +85,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
       this.collectionCenterAccountInfo.ifscCode = res.ifscCode;
     });
 
-    this.merchantsvc.getMerchnatCorporateId().subscribe((corpId) => {
+    this.merchantsvc. getMerchantCorporateId().subscribe((corpId) => {
       this.banksvc.getCorporateAccountInfo(corpId).subscribe((res) => {
         this.merchantAccountInfo.accountNumber = res.accountNumber;
         this.merchantAccountInfo.ifscCode = res.ifscCode;
@@ -118,41 +118,39 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
 
         this.paymentsvc.addpayment(farmerPayment).subscribe((response) => {
         });
+
+        let serviceOwnerPaymentTransfer: PaymentTransferDetails = {
+          fromAcct: this.merchantAccountInfo.accountNumber,
+          toAcct: this.collectionCenterAccountInfo.accountNumber,
+          fromIfsc: this.merchantAccountInfo.ifscCode,
+          toIfsc: this.collectionCenterAccountInfo.ifscCode,
+          amount: this.invoiceDetails.serviceCharges + this.invoiceDetails.labourCharges
+        }
+
+
+
+        this.banksvc.fundTransfer(serviceOwnerPaymentTransfer).subscribe((res) => {
+          if (res != 0) {
+
+            let serviceOwnerPayment: FarmerServicePayment = {
+              collectionId: this.invoiceDetails.collectionId,
+              transactionId: res,
+              amount: serviceOwnerPaymentTransfer.amount,
+              paymentFor: "serviceowner"
+            };
+
+
+            this.paymentsvc.addpayment(serviceOwnerPayment).subscribe((response) => {
+              window.location.reload();
+            });
+          }
+          else
+            console.log("error while transfering funds to service owner");
+        });
+
       }
       else
         console.log("error while transfering funds to farmer");
     });
-
-
-
-    let serviceOwnerPaymentTransfer: PaymentTransferDetails = {
-      fromAcct: this.merchantAccountInfo.accountNumber,
-      toAcct: this.collectionCenterAccountInfo.accountNumber,
-      fromIfsc: this.merchantAccountInfo.ifscCode,
-      toIfsc: this.collectionCenterAccountInfo.ifscCode,
-      amount: this.invoiceDetails.serviceCharges + this.invoiceDetails.labourCharges
-    }
-
-    setTimeout(() => { }, 100);
-
-    this.banksvc.fundTransfer(serviceOwnerPaymentTransfer).subscribe((res) => {
-      if (res != 0) {
-
-        let serviceOwnerPayment: FarmerServicePayment = {
-          collectionId: this.invoiceDetails.collectionId,
-          transactionId: res,
-          amount: serviceOwnerPaymentTransfer.amount,
-          paymentFor: "serviceowner"
-        };
-
-
-        this.paymentsvc.addpayment(serviceOwnerPayment).subscribe((response) => {
-          window.location.reload();
-        });
-      }
-      else
-        console.log("error while transfering funds to service owner");
-    });
-
   }
 }

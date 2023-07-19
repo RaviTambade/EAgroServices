@@ -1,0 +1,22 @@
+<div>
+    <label > Register Company</label>
+    <select name="select" id="select" [(ngModel)]="userRole.roleId">
+        <option *ngFor="let role of roles" [ngValue]="role.id"> {{role.name}}</option>
+    </select>
+</div>
+<div>
+    <label for="companyname">Company Name:</label>
+    <input type="text" id="companyname" name="companyname" [(ngModel)]="corporation.name" required>
+</div>
+<div>
+    <label for="contactNumber">Contact Number:</label>
+    <input type="text" id="contactNumber" name="contactNumber" [(ngModel)]="corporation.contactNumber" required>
+</div>
+<div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" [(ngModel)]="corporation.email" required>
+</div>
+
+<div>
+    <button type="submit" (click)="onClickAdd()" [disabled]="isDisabled">Add company </button>
+</div>

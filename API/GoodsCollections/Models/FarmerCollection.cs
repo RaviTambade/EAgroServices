@@ -5,6 +5,8 @@ public class FarmerCollection
 
     public int Id { get; set; }
     public int CollectionCenterId { get; set; }
+    public int CorporateId { get; set; }
+    public int InspectorId { get; set; }
     public string CropName { get; set; }
     public string ImageUrl { get; set; }
     public string ContainerType { get; set; }
