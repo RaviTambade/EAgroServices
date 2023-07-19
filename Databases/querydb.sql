@@ -45,7 +45,7 @@ WHERE `t`.`id` = 1;
 
 --  call farmer_service_payment(3,101,2000,"farmer");
 
- SELECT * FROM payments;
+ SELECT * FROM userroles;
  SELECT * FROM goodscollectionpayments;
  SELECT * FROM invoices;
 SELECT merchants.corporateid FROM merchants INNER JOIN shipments ON merchants.id=shipments.merchantid WHERE merchants.id=1;

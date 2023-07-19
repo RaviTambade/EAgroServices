@@ -20,7 +20,7 @@ export class UserService {
 
 
   addUser(user: User): Observable<any> {
-    let url = "http://localhost:5102/api/users/adduser"
+    let url = "http://localhost:5102/api/users"
     return this.httpClient.post<any>(url, user)
   }
 

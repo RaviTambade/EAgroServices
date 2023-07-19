@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Vehicle } from './vehicle';
+import { Transporter } from './transporter';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,10 @@ export class TransporterService {
  addVehicle(vehicle:Vehicle):Observable<any>{
   let url="http://localhost:5261/api/vehicles"
   return this.httpClient.post<any>(url,vehicle)
+ }
+
+ addTransporter(transport:Transporter):Observable<any>{
+  let url="http://localhost:5025/api/transporters"
+  return this.httpClient.post<any>(url,transport)
  }
 }
