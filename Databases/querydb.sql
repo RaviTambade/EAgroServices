@@ -59,3 +59,8 @@ INNER JOIN crops ON goodscollections.cropid=crops.id
 INNER JOIN collectioncenters ON goodsCollections.collectioncenterid=collectioncenters.id
 INNER JOIN shipments ON shipments.id=shipmentitems.shipmentid
 WHERE shipments.id=1;
+SELECT * FROM transporterpayments;
+
+select count(shipmentid)   from transporterpayments WHERE shipmentid=1;
+
+SELECT EXISTS (select shipmentid   from transporterpayments WHERE shipmentid=1);

@@ -49,7 +49,8 @@ namespace Shipments.Repositories
                             Id = shipment.Id,
                             VehicleNumber = vehicle.RtoNumber,
                             Kilometers = shipment.Kilometers,
-                            Status = shipment.Status,
+                            DeliveryStatus = shipment.Status,
+                            PaymentStatus=context.TransporterPayments.Any(tp => tp.ShipmentId == shipment.Id) ? "paid" : "unpaid",
                             ShipmentDate = shipment.ShipmentDate,
                             FreightCharges=context.TotalFreightCharges(shipment.Id)
                         }
