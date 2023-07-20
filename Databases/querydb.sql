@@ -1,5 +1,5 @@
 
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
 	JOIN shipments ON shipmentitems.shipmentid=shipments.id
@@ -51,3 +51,11 @@ WHERE `t`.`id` = 1;
 SELECT merchants.corporateid FROM merchants INNER JOIN shipments ON merchants.id=shipments.merchantid WHERE merchants.id=1;
 SELECT * FROM vehicles;
 SELECT * FROM transporters;
+
+SELECT shipmentitems.collectionid,goodscollections.quantity,crops.title,collectioncenters.corporateid
+FROM shipmentitems INNER JOIN goodscollections
+ON shipmentitems.collectionid=goodscollections.id
+INNER JOIN crops ON goodscollections.cropid=crops.id
+INNER JOIN collectioncenters ON goodsCollections.collectioncenterid=collectioncenters.id
+INNER JOIN shipments ON shipments.id=shipmentitems.shipmentid
+WHERE shipments.id=1;

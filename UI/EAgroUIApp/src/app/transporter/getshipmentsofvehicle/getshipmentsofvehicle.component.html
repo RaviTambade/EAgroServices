@@ -16,11 +16,12 @@
         <td>{{ shipment.kilometers }}</td>
         <td>{{ shipment.status }}</td>
         <td>{{ shipment.shipmentDate |date }}</td>
+        <td><button (click)="onClickShipmentDetails(shipment)"> Details </button></td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div *ngIf="shipments.length === 0">
+<!-- <div *ngIf="shipments.length === 0">
   No shipments found for the selected vehicle.
-</div>
+</div> -->

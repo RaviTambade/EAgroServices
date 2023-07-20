@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ObjectUnsubscribedError, Subscription } from 'rxjs';
 import { CorporateService } from 'src/app/corporate.service';
 import { Shipment } from '../shipment';
@@ -16,17 +16,17 @@ export class GetshipmentsofvehicleComponent implements OnInit {
 shipments:Shipment[];
 vehicleId:number |any;
 subscription:Subscription;
-shipment:Shipment={
-  id: 0,
-  vehicleId: 0,
-  merchantId: 0,
-  kilometers: 0,
-  status: '',
-  shipmentDate: ''
-}
+// shipment:Shipment={
+//   id: 0,
+//   vehicleId: 0,
+//   merchantId: 0,
+//   kilometers: 0,
+//   status: '',
+//   shipmentDate: ''
+// }
 shipmentmerchant:Shipmentsmerchant={
   corporateId: 0,
-  id: 0,
+  id: '',
   vehicleId: 0,
   merchantId: 0,
   kilometers: 0,
@@ -35,8 +35,9 @@ shipmentmerchant:Shipmentsmerchant={
   companyName: ''
 }
 shipmentmerchants:Shipmentsmerchant[];
+selectedShipment:any;
 // name:any ;
-constructor(private svc:TransporterService,private route: ActivatedRoute,private crpSvc:CorporateService){
+constructor(private svc:TransporterService,private router: Router,private crpSvc:CorporateService){
   this.shipments=[],
   this.subscription=new Subscription();
   this.shipmentmerchants=[]
@@ -68,6 +69,13 @@ constructor(private svc:TransporterService,private route: ActivatedRoute,private
           // });
       });
   }
+ 
+  onClickShipmentDetails(shipment: Shipmentsmerchant) {
+    localStorage.setItem('selectedShipment', JSON.stringify(shipment));
+    this.router.navigate(['transporter', this.vehicleId, 'shipmentdetails', shipment.id]);
+    console.log(shipment.id)
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
