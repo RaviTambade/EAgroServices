@@ -46,7 +46,7 @@ namespace Shipments.Controllers
         }
 
         [HttpGet("vehicles/{vehicleId}")]
-        public async Task<List<Shipment>> GetShipmentByVehicleId(int vehicleId)
+        public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId)
         {
             return await _srv.GetShipmentByVehicleId(vehicleId);
         }
