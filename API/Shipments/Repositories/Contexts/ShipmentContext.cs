@@ -24,6 +24,7 @@ namespace Shipments.Repositories.Contexts
         public DbSet<VerifiedCollection> VerifiedCollections { get; set; }
         public DbSet<Crop> Crops { get; set; }
         public DbSet<CollectionCenter> CollectionCenters { get; set; }
+        public DbSet<TransporterPayment> TransporterPayments { get; set; }
 
         public double TotalFreightCharges(int shipmentId) => throw new NotSupportedException();
 
@@ -41,7 +42,7 @@ namespace Shipments.Repositories.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder                            //Database function registration
+            modelBuilder //Database function registration
                 .HasDbFunction(
                     typeof(ShipmentContext).GetMethod(
                         nameof(TotalFreightCharges),
@@ -107,6 +108,14 @@ namespace Shipments.Repositories.Contexts
                 entity.Property(e => e.ImageUrl);
                 entity.Property(e => e.Rate);
                 modelBuilder.Entity<Crop>().ToTable("crops");
+            });
+
+            modelBuilder.Entity<TransporterPayment>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ShipmentId);
+                entity.Property(e => e.PaymentId);
+                modelBuilder.Entity<TransporterPayment>().ToTable("transporterpayments");
             });
             modelBuilder.Entity<CollectionCenter>(entity =>
             {
