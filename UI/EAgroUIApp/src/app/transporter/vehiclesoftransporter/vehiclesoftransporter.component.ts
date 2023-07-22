@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TransporterService } from '../transporter.service';
 import { Vehicle } from '../vehicle';
@@ -10,18 +10,18 @@ import { Vehicle } from '../vehicle';
   styleUrls: ['./vehiclesoftransporter.component.css']
 })
 export class VehiclesoftransporterComponent implements OnInit {
-  transporterId:number;
-  vehicles:Vehicle[];
-  subscription:Subscription;
-  constructor(private svc:TransporterService,private router:Router){
-    this.transporterId=1;
-    this.vehicles=[];
-    this.subscription=new Subscription();
+  transporterId: number;
+  vehicles: Vehicle[];
+  subscription: Subscription;
+  constructor(private svc: TransporterService, private router: Router) {
+    this.transporterId = 1;
+    this.vehicles = [];
+    this.subscription = new Subscription();
   }
   ngOnInit(): void {
     this.transporterId = Number(localStorage.getItem("transporterId"));
-    this.subscription=this.svc.getVehiclesOfTransporter(this.transporterId).subscribe((response)=>{
-      this.vehicles=response;
+    this.subscription = this.svc.getVehiclesOfTransporter(this.transporterId).subscribe((response) => {
+      this.vehicles = response;
     })
   }
   ngOnDestroy(): void {
@@ -30,7 +30,7 @@ export class VehiclesoftransporterComponent implements OnInit {
   OnSelectGetShipment(vehicleId: number) {
     this.router.navigate(['/transporter', this.transporterId, 'shipments', vehicleId]);
   }
-  onAddNewVehicle(){
+  onAddNewVehicle() {
     this.router.navigate(['transporter', this.transporterId, 'addvehicle']);
   }
 }
