@@ -134,6 +134,31 @@ namespace Shipments.Repositories
             }
         }
 
+         public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+        {
+             try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                     var transporterAmount = await (
+                        from shipment in context.Shipments
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        where shipment.Id == shipmentId
+                        select new TransporterAmount(){
+                            TransporterId=vehicle.TransporterId,
+                            PaymentStatus=context.TransporterPayments.Any(tp => tp.ShipmentId == shipment.Id) ? "paid" : "unpaid",
+                            Amount=context.TotalFreightCharges(shipment.Id)
+                        }
+                    ).FirstOrDefaultAsync();
+                    return transporterAmount;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<bool> Insert(Shipment shipment)
         {
             try

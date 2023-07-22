@@ -57,5 +57,11 @@ namespace Transporters.Controllers
             return await _srv.GetTransporterId(managerId);
         }
 
+         [HttpGet("corporateid/{transporterId}")]
+         public async Task<int> GetCorporateIdOfTransporter(int transporterId)
+        {
+            return await _srv.GetCorporateIdOfTransporter(transporterId);
+        }
+
     }
 }
