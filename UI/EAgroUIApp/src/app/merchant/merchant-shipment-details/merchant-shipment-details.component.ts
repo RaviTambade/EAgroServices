@@ -24,6 +24,7 @@ export class MerchantShipmentDetailsComponent implements OnInit {
     });
     this.shipmentsvc.getShipmentItems(this.shipmentId).subscribe((res) => {
       this.shipmentItemsDetails = res;
+      if(this.shipmentItemsDetails.length!=0){
 
       let distinctcollectioncenterIds = this.shipmentItemsDetails.map(item => item.collectionCenterCorporaterId)
         .filter((number, index, array) => array.indexOf(number) === index);
@@ -51,12 +52,11 @@ export class MerchantShipmentDetailsComponent implements OnInit {
           item.farmerName = matchingItem.name;
         });
       });
-
+    }
     });
 
     this.shipmentsvc.isShipmentStatusDelivered(this.shipmentId).subscribe((res) => {
       this.shipmentStatus = res;
-      // this.shipmentStatus=true;
     })
   }
 

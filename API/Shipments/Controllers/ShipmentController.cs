@@ -33,6 +33,12 @@ namespace Shipments.Controllers
             return await _srv.GetShipmentItemsById(shipmentId);
         }
 
+        [HttpGet("transporteramount/{shipmentId}")]
+        public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+        {
+            return await _srv.GetTransporterAmountByShipmentId(shipmentId);
+        }
+
         [HttpGet("{shipmentId}")]
         public async Task<Shipment> GetById(int shipmentId)
         {

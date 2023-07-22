@@ -23,9 +23,12 @@ namespace Shipments.Services
             return await _repo.GetById(shipmentId);
         }
 
-        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId,string status)
+        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(
+            int merchantId,
+            string status
+        )
         {
-            return await _repo.GetShipmentsByMerchant(merchantId,status);
+            return await _repo.GetShipmentsByMerchant(merchantId, status);
         }
 
         public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
@@ -33,12 +36,17 @@ namespace Shipments.Services
             return await _repo.GetShipmentItemsById(shipmentId);
         }
 
+        public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+        {
+            return await _repo.GetTransporterAmountByShipmentId(shipmentId);
+        }
+
         public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
         {
             return await _repo.IsShipmentStatusDelivered(shipmentId);
         }
 
-        public async Task<bool> UpdateStatus(int shipmentId,UpdateStatus statusObject)
+        public async Task<bool> UpdateStatus(int shipmentId, UpdateStatus statusObject)
         {
             return await _repo.UpdateStatus(shipmentId, statusObject);
         }

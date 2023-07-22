@@ -12,8 +12,7 @@ import { PaymentService } from 'src/app/payment.service';
 export class MerchantShipmentListComponent implements OnInit {
 
   merchantShipments: MerchantShipment[] | undefined;
-  // ShipmentPaidStatus:boolean|undefined;
-  constructor(private svc: ShipmentService,private paymentsvc:PaymentService,
+  constructor(private svc: ShipmentService,
      private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
     this.svc.getShipments("inprogress").subscribe((res) => {
@@ -28,13 +27,6 @@ export class MerchantShipmentListComponent implements OnInit {
   }
 
 
-  isShipmentPaid(shipmentId:number):boolean{
-    let ShipmentPaidStatus:boolean=false;
-    this.paymentsvc.isShipmentPaid(shipmentId).subscribe((res)=>{
-      ShipmentPaidStatus= res;
-    });
-    return ShipmentPaidStatus;
-  }
   onClickDelivered() {
     this.svc.getShipments("delivered").subscribe((res) => {
       console.log("🚀 ~ this.svc.getShipments ~ res:", res);
@@ -51,9 +43,7 @@ export class MerchantShipmentListComponent implements OnInit {
     });
   }
 
-  onClickpaymentDetails(id:number){
-
+  onClickpaymentDetails(shipmentId:number){
+    this.router.navigate(['/merchant/shipment/payment', shipmentId]);
   }
-
-
 }
