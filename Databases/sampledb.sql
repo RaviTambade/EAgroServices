@@ -11,8 +11,10 @@ INSERT INTO userroles(userid,roleid)VALUES(3,4);
 INSERT INTO userroles(userid,roleid)VALUES(3,5);
 INSERT INTO userroles(userid,roleid)VALUES(4,4);
 INSERT INTO userroles(userid,roleid)VALUES(5,5);
+INSERT INTO userroles(userid,roleid)VALUES(6,5);
 
-INSERT INTO transporters (corporateid,managerid) VALUES(6,4);
+
+INSERT INTO transporters (corporateid,managerid) VALUES(6,3);
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"jito","MH142022");
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"pickup","MH142222");
 INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"tata1109","MH142322");
@@ -35,7 +37,7 @@ INSERT INTO crops(title,imageurl,rate)VALUES('Brinjal','/assets/images/Brinjal.j
 INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
 
 INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,3);
-INSERT INTO merchants (corporateid,managerid) VALUES(7,3);
+INSERT INTO merchants (corporateid,managerid) VALUES(7,4);
 INSERT INTO merchants (corporateid,managerid) VALUES(8,5);
 
 
@@ -48,7 +50,9 @@ INSERT INTO goodscollections (collectioncenterid,farmerid, cropid, containertype
 (1,2, 2, 'bags', 40,  200, '2022-01-20 13:30:00'),
 (1,2, 1, 'crates', 50,  250, '2022-01-20 13:30:00'),
 (1,2, 3, 'polythene bags', 120,  600, '2022-01-20 13:30:00'),
-(1,2, 4, 'crates', 75,  375,  '2022-01-20 13:30:00');
+(1,2, 4, 'crates', 75,  375,  '2022-01-20 13:30:00'),
+(1,2, 4, 'crates', 75,  375,  '2023-05-20 13:30:00');
+
 
 INSERT INTO verifiedgoodscollection(collectionid,grade,weight,inspectorid,inspectiondate) VALUES
 (1,'A',180,3,'2022-01-20 13:30:00'),
@@ -73,6 +77,12 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,1);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,3);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (3,5);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (4,6);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (5,7);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (6,8);
+INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (7,9);
+
 
 -- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (1,20);
 -- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (2,22);

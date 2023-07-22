@@ -34,7 +34,7 @@ export class GetvehicleshipmentitemsComponent implements OnInit {
                   this.shipment = JSON.parse(selectedShipmentString);
                 } 
                 this.route.paramMap.subscribe((params) => {
-                  // this.shipment = JSON.parse(localStorage.getItem('selectedShipment'));
+                  // this.shipment = JSON.parse(localSto rage.getItem('selectedShipment'));
                   this.shipment.id=this.shipmentId
                   this.shipmentId = params.get('id');
                   console.log(this.shipmentId);
@@ -50,7 +50,7 @@ export class GetvehicleshipmentitemsComponent implements OnInit {
 
     let collectionIdString = distinctcollectioncenterIds.join(',');
     let farmerIdString = distinctfarmerIds.join(',');
-                    
+
     this.corpsvc.getCorporates(collectionIdString).subscribe((names) => {
       let corporationNames = names
       this.shipmentItemsDetails.forEach(item => {
