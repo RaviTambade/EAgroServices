@@ -28,6 +28,11 @@ namespace UserRolesManagement.Services
             return await _repo.GetRolesByUserId(userId);
         }
 
+        public async Task<List<string>> GetFarmersId()
+        {
+            return await _repo.GetFarmersId();
+        }
+
         public async Task<bool> Insert(UserRole userRole)
         {
             return await _repo.Insert(userRole);

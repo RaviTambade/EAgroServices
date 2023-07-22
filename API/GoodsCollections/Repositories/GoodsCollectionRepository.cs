@@ -14,15 +14,31 @@ namespace GoodsCollections.Repositories
             _configuration = configuration;
         }
 
-        public async Task<List<GoodsCollection>> GetAll(int collectionCenterId)
+        public async Task<List<CollectionDetails>> GetAll(int collectionCenterId)
         {
             try
             {
                 using (var context = new GoodsCollectionContext(_configuration))
                 {
-                    var collections = await context.GoodsCollections
-                        .Where(c => c.CollectionCenterId == collectionCenterId)
-                        .ToListAsync();
+                    var collections = await (
+                        from collection in context.GoodsCollections
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        join verifiedCollection in context.VerifiedGoodsCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                        select new CollectionDetails()
+                        {
+                            Id = collection.Id,
+                            FarmerId = collection.FarmerId,
+                            CropName = crop.Title,
+                            ContainerType = collection.ContainerType,
+                            Quantity = collection.Quantity,
+                            Grade = verifiedCollection.Grade,
+                            TotalWeight = collection.Weight,
+                            NetWeight = verifiedCollection.Weight,
+                            InspectorId = verifiedCollection.InspectorId,
+                            CollectionDate = collection.CollectionDate
+                        }
+                    ).ToListAsync();
                     if (collections == null)
                     {
                         return null;
@@ -134,35 +150,53 @@ namespace GoodsCollections.Repositories
             }
             return false;
         }
-    
-       public async Task<List<FarmerCollection>> FarmerCollection(int farmerId)
+
+        public async Task<List<string>> GetContainerTypes()
         {
-          try{
-             using (var context = new GoodsCollectionContext(_configuration))
+            using (var dbContext = new GoodsCollectionContext(_configuration))
+            {
+                List<string> containerTypes = await dbContext.GoodsCollections
+                    .Select(collection => collection.ContainerType)
+                    .Distinct()
+                    .ToListAsync();
+
+                return containerTypes;
+            }
+        }
+
+        public async Task<List<FarmerCollection>> FarmerCollection(int farmerId)
+        {
+            try
+            {
+                using (var context = new GoodsCollectionContext(_configuration))
                 {
-                    List<FarmerCollection> farmercollections = await (from collection in context.GoodsCollections
-                    join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
-                    join crop in context.Crops on collection.CropId equals crop.Id
-                    where collection.FarmerId==farmerId
-                    select new FarmerCollection(){
-                        Id=collection.Id,
-                        CropName=crop.Title,
-                        ImageUrl=crop.ImageUrl,
-                        CollectionCenterId=collection.CollectionCenterId,
-                        CorporateId=center.CorporateId,
-                        InspectorId=center.CorporateId ,
-                        Quantity= (int)collection.Quantity,
-                        ContainerType=collection.ContainerType,
-                        Weight=collection.Weight,
-                        CollectionDate=collection.CollectionDate
-                    }).ToListAsync();
+                    List<FarmerCollection> farmercollections = await (
+                        from collection in context.GoodsCollections
+                        join center in context.CollectionCenters
+                            on collection.CollectionCenterId equals center.Id
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        where collection.FarmerId == farmerId
+                        select new FarmerCollection()
+                        {
+                            Id = collection.Id,
+                            CropName = crop.Title,
+                            ImageUrl = crop.ImageUrl,
+                            CollectionCenterId = collection.CollectionCenterId,
+                            CorporateId = center.CorporateId,
+                            InspectorId = center.CorporateId,
+                            Quantity = (int)collection.Quantity,
+                            ContainerType = collection.ContainerType,
+                            Weight = collection.Weight,
+                            CollectionDate = collection.CollectionDate
+                        }
+                    ).ToListAsync();
                     return farmercollections;
-                }         
-          } 
-          catch (Exception e)
-          {
-throw e;
-          } 
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

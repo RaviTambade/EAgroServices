@@ -7,7 +7,7 @@ INSERT INTO roles(name)VALUES('transporter');
 INSERT INTO roles(name)VALUES('merchant');
 INSERT INTO userroles(userid,roleid)VALUES(1,1);
 INSERT INTO userroles(userid,roleid)VALUES(2,2);
-INSERT INTO userroles(userid,roleid)VALUES(3,4);
+INSERT INTO userroles(userid,roleid)VALUES(3,3);
 INSERT INTO userroles(userid,roleid)VALUES(3,5);
 INSERT INTO userroles(userid,roleid)VALUES(4,4);
 INSERT INTO userroles(userid,roleid)VALUES(5,5);

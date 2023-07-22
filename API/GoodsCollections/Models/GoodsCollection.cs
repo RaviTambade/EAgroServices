@@ -20,10 +20,10 @@ namespace GoodsCollections.Models
         public string ContainerType { get; set; }
 
         [Column("quantity")]
-        public double Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [Column("weight")]
-        public int Weight { get; set; }
+        public double Weight { get; set; }
 
         [Column("collectiondate")]
         public DateTime CollectionDate { get; set; }

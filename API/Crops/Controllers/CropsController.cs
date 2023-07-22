@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Crops.Models;
 using Crops.Services.Interfaces;
 using Crops.Services;
+
 namespace Crops.Controller;
 
 [ApiController]
@@ -9,6 +10,7 @@ namespace Crops.Controller;
 public class CropsController : ControllerBase
 {
     private readonly ICropService _service;
+
     public CropsController(ICropService service)
     {
         _service = service;
@@ -24,6 +26,12 @@ public class CropsController : ControllerBase
     public async Task<Crop> GeById(int id)
     {
         return await _service.GetById(id);
+    }
+
+    [HttpGet("names")]
+    public async Task<List<CropNameIdDetails>> GetCropNames()
+    {
+        return await _service.GetCropNames();
     }
 
     [HttpPost]
@@ -43,4 +51,4 @@ public class CropsController : ControllerBase
     {
         return await _service.Delete(id);
     }
-}   
+}

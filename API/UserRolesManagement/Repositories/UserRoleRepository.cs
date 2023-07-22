@@ -83,6 +83,28 @@ namespace UserRolesManagement.Repositories
             }
         }
 
+        public async Task<List<string>> GetFarmersId()
+        {
+            try
+            {
+                using (var context = new UserRoleContext(_configuration))
+                {
+                    var Ids = await (
+                        from role in context.Roles
+                        join userRoles in context.UserRoles on role.Id equals userRoles.RoleId
+                        where role.Name == "farmer"
+                        select userRoles.UserId
+                    ).ToListAsync();
+                    string farmerIdsString = string.Join(",", Ids);
+                    List<string> farmersIds = new List<string> { farmerIdsString };
+                    return farmersIds;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
         public async Task<bool> Insert(UserRole userRole)
         {

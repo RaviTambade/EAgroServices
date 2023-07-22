@@ -16,7 +16,7 @@ namespace GoodsCollections.Controllers
         }
 
         [HttpGet("{collectionCenterId}")]
-        public async Task<List<GoodsCollection>> GetAll(int collectionCenterId)
+        public async Task<List<CollectionDetails>> GetAll(int collectionCenterId)
         {
             return await _srv.GetAll(collectionCenterId);
         }
@@ -44,10 +44,17 @@ namespace GoodsCollections.Controllers
         {
             return await _srv.Delete(collectionId);
         }
-          [HttpGet("farmercollection/{farmerId}")]
+
+        [HttpGet("farmercollection/{farmerId}")]
         public async Task<List<FarmerCollection>> FarmerCollections(int farmerId)
         {
             return await _srv.FarmerCollection(farmerId);
+        }
+
+        [HttpGet("containertypes")]
+        public async Task<List<string>> GetContainerTypes()
+        {
+            return await _srv.GetContainerTypes();
         }
     }
 }

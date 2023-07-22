@@ -1,20 +1,24 @@
 using Crops.Models;
 using Crops.Repositories.Interfaces;
 using Crops.Contexts;
+
 namespace Crops.Repositories;
 using Microsoft.EntityFrameworkCore;
+
 public class CropRepository : ICropRepository
 {
     private readonly IConfiguration _configuration;
+
     public CropRepository(IConfiguration configuration)
     {
         _configuration = configuration;
     }
+
     public async Task<List<Crop>> GetAll()
     {
         try
         {
-               using (var context = new CropContext(_configuration))
+            using (var context = new CropContext(_configuration))
             {
                 List<Crop> varieties = await context.Crops.ToListAsync();
                 if (varieties == null)
@@ -30,7 +34,31 @@ public class CropRepository : ICropRepository
         }
     }
 
-public async Task<Crop> GetById(int varietyId)
+    public async Task<List<CropNameIdDetails>> GetCropNames()
+    {
+        try
+        {
+            using (var context = new CropContext(_configuration))
+            {
+                var names = await (from crop in context.Crops 
+                select new CropNameIdDetails(){
+                    Id=crop.Id,
+                    Name=crop.Title
+                }).ToListAsync();
+                if (names == null)
+                {
+                    return null;
+                }
+                return names;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    public async Task<Crop> GetById(int varietyId)
     {
         try
         {
@@ -43,12 +71,13 @@ public async Task<Crop> GetById(int varietyId)
                 }
                 return variety;
             }
-        }    
+        }
         catch (Exception e)
         {
             throw e;
         }
     }
+
     public async Task<bool> Insert(Crop variety)
     {
         bool status = false;
@@ -56,7 +85,6 @@ public async Task<Crop> GetById(int varietyId)
         {
             using (var context = new CropContext(_configuration))
             {
-                
                 await context.Crops.AddAsync(variety);
                 await context.SaveChangesAsync();
                 status = true;
@@ -81,9 +109,9 @@ public async Task<Crop> GetById(int varietyId)
                 {
                     oldVariety.Title = variety.Title;
                     oldVariety.ImageUrl = variety.ImageUrl;
-                    oldVariety.Rate=variety.Rate;
+                    oldVariety.Rate = variety.Rate;
                     await context.SaveChangesAsync();
-                    status= true;
+                    status = true;
                 }
             }
         }
@@ -93,6 +121,7 @@ public async Task<Crop> GetById(int varietyId)
         }
         return status;
     }
+
     public async Task<bool> Delete(int varietyId)
     {
         bool status = false;

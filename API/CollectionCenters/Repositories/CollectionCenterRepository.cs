@@ -125,6 +125,26 @@ namespace CollectionCenters.Repositories
             }
         }
 
+        public async Task<int> GetCollectionCenterIdByInspectorId(int inspectorId)
+        {
+            try
+            {
+                using (var context = new CollectionCenterContext(_configuration))
+                {
+                    var collectionCenterId = await (
+                        from CollectionCenter in context.CollectionCenters
+                        where CollectionCenter.InspectorId == inspectorId
+                        select CollectionCenter.Id
+                    ).FirstOrDefaultAsync();
+                    return collectionCenterId;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         private async Task<bool> SaveChanges(CollectionCenterContext context)
         {
             int rowsAffected = await context.SaveChangesAsync();

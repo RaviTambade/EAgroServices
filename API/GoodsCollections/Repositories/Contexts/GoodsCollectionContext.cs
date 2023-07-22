@@ -1,4 +1,3 @@
-
 using GoodsCollections.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +19,9 @@ namespace GoodsCollections.Repositories.Contexts
 
         public DbSet<GoodsCollection> GoodsCollections { get; set; }
         public DbSet<Crop> Crops { get; set; }
-        public DbSet<CollectionCenter> CollectionCenters{ get; set; }
+        public DbSet<CollectionCenter> CollectionCenters { get; set; }
+        public DbSet<VerifiedGoodsCollection> VerifiedGoodsCollections { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL(
@@ -32,7 +33,18 @@ namespace GoodsCollections.Repositories.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-             modelBuilder.Entity<GoodsCollection>(entity =>
+            modelBuilder.Entity<VerifiedGoodsCollection>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CollectionId);
+                entity.Property(e => e.Grade);
+                entity.Property(e => e.InspectorId);
+                entity.Property(e => e.Weight);
+                entity.Property(e => e.InspectionDate);
+                modelBuilder.Entity<VerifiedGoodsCollection>().ToTable("verifiedgoodscollection");
+            });
+
+            modelBuilder.Entity<GoodsCollection>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.CollectionCenterId);
@@ -44,15 +56,15 @@ namespace GoodsCollections.Repositories.Contexts
                 entity.Property(e => e.CollectionDate);
                 modelBuilder.Entity<GoodsCollection>().ToTable("goodscollections");
             });
-             modelBuilder.Entity<Crop>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.Title);
-            entity.Property(e => e.ImageUrl);
-            entity.Property(e => e.Rate);
-            modelBuilder.Entity<Crop>().ToTable("crops");
-        });
-              modelBuilder.Entity<CollectionCenter>(entity =>
+            modelBuilder.Entity<Crop>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Title);
+                entity.Property(e => e.ImageUrl);
+                entity.Property(e => e.Rate);
+                modelBuilder.Entity<Crop>().ToTable("crops");
+            });
+            modelBuilder.Entity<CollectionCenter>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.CorporateId);
