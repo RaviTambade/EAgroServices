@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Credential } from '../credential';
 import { Router } from '@angular/router';
+import { UserService } from '../../users/user.service';
+import { UserRoleService } from 'src/app/user-role.service';
+import { MerchantService } from 'src/app/merchant/merchant.service';
+import { TransporterService } from 'src/app/transporter/transporter.service';
+import { CollectioncenterService } from 'src/app/collectioncenter.service';
 
 @Component({
   selector: 'auth-login',
@@ -18,7 +23,9 @@ export class LoginComponent {
   userId: number | undefined;
   roles: string[] = [];
 
-  constructor(private svc: AuthService, private router: Router) { }
+  constructor(private svc: AuthService, private router: Router,private usersvc:UserService,
+    private userrolesvc:UserRoleService,private merchantsvc:MerchantService,
+    private tarnsportsvc:TransporterService, private collectioncentersvc:CollectioncenterService) { }
 
   onLogin(form: any) {
     console.log(form);
@@ -28,11 +35,11 @@ export class LoginComponent {
         localStorage.setItem("jwt", response.token)
         alert("Login sucessfull")
 
-        this.svc.getUserIdByContact(this.credential.contactNumber).subscribe((responseId) => {
+        this.usersvc.getUserIdByContact(this.credential.contactNumber).subscribe((responseId) => {
           this.userId = responseId;
           console.log("🚀 ~ this.svc.getUserIdByContact ~ userId:", this.userId);
 
-          this.svc.getRolesOfUser(responseId).subscribe((responseRoles) => {
+          this.userrolesvc.getRolesOfUser(responseId).subscribe((responseRoles) => {
             console.log("func")
             this.roles = responseRoles;
             console.log("🚀 ~ this.svc.getRolesOfUser ~ roles:", this.roles);
@@ -61,7 +68,7 @@ export class LoginComponent {
 
       case "merchant":
         if (this.userId != undefined)
-          this.svc.getmerchantIdByUserId(this.userId).subscribe((merchantId) => {
+          this.merchantsvc.getmerchantIdByUserId(this.userId).subscribe((merchantId) => {
             localStorage.setItem("merchantId", merchantId.toString());
             this.router.navigate(['/merchant/home'])
           });
@@ -69,7 +76,7 @@ export class LoginComponent {
 
       case "transporter":
         if (this.userId != undefined)
-        this.svc.gettransporterIdByUserId(this.userId).subscribe((transporterId) => {
+        this.tarnsportsvc.gettransporterIdByUserId(this.userId).subscribe((transporterId) => {
           localStorage.setItem("transporterId",transporterId.toString());
           this.router.navigate(['/transporter', transporterId ,'vehicles'])
         });
@@ -77,11 +84,19 @@ export class LoginComponent {
         break;
 
       case "owner":
-        this.router.navigate(['/collectioncenter/home/', this.userId])
+        if (this.userId != undefined)
+        this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((transporterId) => {
+          localStorage.setItem("collectionCenterId",transporterId.toString());
+          this.router.navigate(['/collectioncenter/home'])
+        });
         break;
 
       case "inspector":
-        this.router.navigate(['/inspector/home/', this.userId])
+        if (this.userId != undefined)
+        this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((transporterId) => {
+          localStorage.setItem("collectionCenterId",transporterId.toString());
+          this.router.navigate(['/collectioncenter/home'])
+        });
         break;
     }
   }

@@ -56,4 +56,9 @@ export class TransporterService {
   let url = "http://localhost:5025/api/transporters/corporateid/" + transporterId;
   return this.httpClient.get<number>(url);
 }
+
+gettransporterIdByUserId(userId:number):Observable<number>{
+  let url="http://localhost:5025/api/transporters/manager/"+userId;
+  return this.httpClient.get<number>(url); 
+}
 }

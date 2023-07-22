@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { DefaultModule } from './default/default.module';
 import { AuthenticationModule, authRoutes } from './Shared/authentication/authentication.module';
 import { MembershipModule, membershipRoutes } from './membership/membership.module';
-import { CollectioncenterModule, collectionRoutes } from './collectioncenter/collectioncenter.module';
+import { CollectioncenterModule, collectionCenterRoutes } from './collectioncenter/collectioncenter.module';
 import { MerchantModule, merchantRoutes } from './merchant/merchant.module';
 import { FarmerModule, farmerRoutes } from './farmer/farmer.module';
 import { TransporterModule, transporterRoutes } from './transporter/transporter.module';
@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'farmer', children: farmerRoutes },
   { path: 'merchant', children: merchantRoutes },
   { path: 'transporter/:id', children: transporterRoutes },
-  { path: 'collectioncenter', children: collectionRoutes },
+  { path: 'collectioncenter', children: collectionCenterRoutes },
 ]
 @NgModule({
   declarations: [

@@ -10,6 +10,11 @@ export class MerchantService {
 
   constructor(private http: HttpClient) { }
 
+  getmerchantIdByUserId(userId: number):Observable<number>{
+    let url = "http://localhost:5276/api/merchants/manager/ "+userId;
+    return this.http.get<number>(url);
+  } 
+
    getMerchantCorporateId(): Observable<any> {
     const merchantId = localStorage.getItem("merchantId");
     let url = "http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
