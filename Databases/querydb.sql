@@ -50,6 +50,7 @@ WHERE `t`.`id` = 1;
  SELECT * FROM invoices;
 SELECT merchants.corporateid FROM merchants INNER JOIN shipments ON merchants.id=shipments.merchantid WHERE merchants.id=1;
 SELECT * FROM vehicles;
+SELECT * FROM payments;
 SELECT * FROM transporterpayments;
 
 select count(shipmentid)   from transporterpayments WHERE shipmentid=1;
