@@ -150,35 +150,67 @@ namespace Transporters.Repositories
             }
             return false;
         }
-         public async Task<List<Vehicle>> GetTransportersVehicles(int transporterId){
-        try{
-            using(var context=new TransporterContext(_configuration)){
-                var vehicles=await (from transporter in context.Transporters 
-                                    join vehicle in context.Vehicles 
-                                    on transporter.Id equals vehicle.TransporterId 
-                                    where transporter.Id==transporterId
-                                    select vehicle)
-                                    .ToListAsync(); 
-                                    return vehicles;
+
+        public async Task<List<Vehicle>> GetTransportersVehicles(int transporterId)
+        {
+            try
+            {
+                using (var context = new TransporterContext(_configuration))
+                {
+                    var vehicles = await (
+                        from transporter in context.Transporters
+                        join vehicle in context.Vehicles
+                            on transporter.Id equals vehicle.TransporterId
+                        where transporter.Id == transporterId
+                        select vehicle
+                    ).ToListAsync();
+                    return vehicles;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
-        catch(Exception e){
-            throw e;
-        }
-       }
-    
-     public async Task<int> GetTransporterId(int managerId){
-        try{
-            using(var context=new TransporterContext(_configuration)){
-                int userId=await (from transporter in context.Transporters
-                                     where transporter.ManagerId == managerId
-                                     select transporter.Id).FirstOrDefaultAsync();
-                                     return userId;
+
+        public async Task<int> GetTransporterId(int managerId)
+        {
+            try
+            {
+                using (var context = new TransporterContext(_configuration))
+                {
+                    int userId = await (
+                        from transporter in context.Transporters
+                        where transporter.ManagerId == managerId
+                        select transporter.Id
+                    ).FirstOrDefaultAsync();
+                    return userId;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
-        catch(Exception e){
-            throw e;
+
+        public async Task<int> GetCorporateIdOfTransporter(int transporterId)
+        {
+            try
+            {
+                using (var context = new TransporterContext(_configuration))
+                {
+                    int corporateId = await (
+                        from transporter in context.Transporters
+                        where transporter.Id == transporterId
+                        select transporter.CorporateId
+                    ).FirstOrDefaultAsync();
+                    return corporateId;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
-     }
     }
 }

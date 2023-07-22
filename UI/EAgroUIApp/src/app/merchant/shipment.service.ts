@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MerchantShipment } from './merchant-shipment';
 import { ShipmentItemDetails } from './shipment-item-details';
+import { TransporterAmount } from './transporter-amount';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,9 @@ export class ShipmentService {
 
   constructor(private http: HttpClient) { }
 
-  getShipments(status:string): Observable<MerchantShipment[]> {
-    let merchantId=localStorage.getItem("merchantId");
-    let url = "http://localhost:5067/api/shipments/merchant/"+merchantId+"/status/"+status;
+  getShipments(status: string): Observable<MerchantShipment[]> {
+    let merchantId = localStorage.getItem("merchantId");
+    let url = "http://localhost:5067/api/shipments/merchant/" + merchantId + "/status/" + status;
     return this.http.get<MerchantShipment[]>(url);
   }
 
@@ -38,5 +39,10 @@ export class ShipmentService {
     }
     let url = "http://localhost:5067/api/shipments/status/" + shipmentId;
     return this.http.patch<boolean>(url, obj);
+  }
+
+  getShipmentTransporterAmount(shipmentId: number): Observable<TransporterAmount> {
+    let url = "http://localhost:5067/api/shipments/transporteramount/" + shipmentId;
+    return this.http.get<TransporterAmount>(url);
   }
 }

@@ -1,25 +1,30 @@
 <br><br>
-<a (click)="onClickDelivered()">Delivered</a> | 
-<a (click)="onClickInprogress()">Inprogress</a> | 
+<a (click)="onClickDelivered()">Delivered</a> |
+<a (click)="onClickInprogress()">Inprogress</a> |
 
 <table>
-    <thead>
-      <tr>
-        <th>Date </th>
-        <th>Vehicle Number  </th>
-        <th>Kilometers</th>
-        <th>Status</th>
-        <th>Charges</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let shipment of merchantShipments">
-        <td>{{ shipment.shipmentDate | date }}</td>
-        <td>{{ shipment.vehicleNumber  }}</td>
-        <td>{{ shipment.kilometers  }}</td>
-        <td>{{ shipment.status}}</td>
-        <td>{{ shipment.freightCharges}}</td>
-        <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>Date </th>
+      <th>Vehicle Number </th>
+      <th>Kilometers</th>
+      <!-- <th>Dekivery Status</th> -->
+      <th>Charges</th>
+      <!-- <th>Payment Status</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let shipment of merchantShipments">
+      <td>{{ shipment.shipmentDate | date }}</td>
+      <td>{{ shipment.vehicleNumber }}</td>
+      <td>{{ shipment.kilometers }}</td>
+      <!-- <td>{{ shipment.deliveryStatus}}</td> -->
+      <td>{{ shipment.freightCharges}}</td>
+      <!-- <td>{{ shipment.paymentStatus}}</td> -->
+
+      <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
+      <td *ngIf="shipment.deliveryStatus == 'delivered'"><button
+          (click)="onClickpaymentDetails(shipment.id)"> paymentDetails </button></td>
+    </tr>
+  </tbody>
+</table>

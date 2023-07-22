@@ -21,11 +21,10 @@ export class MerchantShipmentDetailsComponent implements OnInit {
 
     this.route.paramMap.subscribe((params) => {
       this.shipmentId = params.get('shipmentid');
-      console.log("🚀 ~ this.route.paramMap.subscribe ~ shipmentId:", this.shipmentId);
     });
     this.shipmentsvc.getShipmentItems(this.shipmentId).subscribe((res) => {
-      console.log("🚀 ~ this.shipmentsvc.getShipmentItems ~ res:", res);
       this.shipmentItemsDetails = res;
+      if(this.shipmentItemsDetails.length!=0){
 
       let distinctcollectioncenterIds = this.shipmentItemsDetails.map(item => item.collectionCenterCorporaterId)
         .filter((number, index, array) => array.indexOf(number) === index);
@@ -33,10 +32,10 @@ export class MerchantShipmentDetailsComponent implements OnInit {
       let distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
         .filter((number, index, array) => array.indexOf(number) === index);
 
-      let collectionIdString = distinctcollectioncenterIds.join(',');
+      let collectionCenterIdString = distinctcollectioncenterIds.join(',');
       let farmerIdString = distinctfarmerIds.join(',');
 
-      this.corpsvc.getCorporates(collectionIdString).subscribe((names) => {
+      this.corpsvc.getCorporates(collectionCenterIdString).subscribe((names) => {
         let corporationNames = names
         this.shipmentItemsDetails.forEach(item => {
           let matchingItem = corporationNames.find(element => element.id === item.collectionCenterCorporaterId);
@@ -53,12 +52,11 @@ export class MerchantShipmentDetailsComponent implements OnInit {
           item.farmerName = matchingItem.name;
         });
       });
-
+    }
     });
 
     this.shipmentsvc.isShipmentStatusDelivered(this.shipmentId).subscribe((res) => {
       this.shipmentStatus = res;
-      // this.shipmentStatus=true;
     })
   }
 

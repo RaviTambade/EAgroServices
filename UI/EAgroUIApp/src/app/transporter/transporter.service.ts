@@ -37,10 +37,10 @@ export class TransporterService {
   return this.shipmentSubject.asObservable();
  }
 
- getCorporateId(merchantId:number):Observable<any>{
-  let url="http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
-  return this.httpClient.get<any>(url)
- }
+//  getCorporateId(merchantId:number):Observable<any>{
+//   let url="http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
+//   return this.httpClient.get<any>(url)
+//  }
 
  addVehicle(vehicle:Vehicle):Observable<any>{
   let url="http://localhost:5261/api/vehicles"
@@ -51,4 +51,9 @@ export class TransporterService {
   let url="http://localhost:5025/api/transporters"
   return this.httpClient.post<any>(url,transport)
  }
+
+ getCorporateIdOfTransporter(transporterId:number): Observable<number> {
+  let url = "http://localhost:5025/api/transporters/corporateid/" + transporterId;
+  return this.httpClient.get<number>(url);
+}
 }

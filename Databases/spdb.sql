@@ -1,3 +1,4 @@
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 
 CREATE PROCEDURE apply_labour_charges(IN shipment_id INT)
@@ -114,4 +115,15 @@ SELECT invoices.id INTO invoice_id FROM invoices
         INSERT INTO goodsservicespayments (collectionid, paymentid)
         VALUES (collection_id, last_payment_id);
     END IF;
+END;
+
+CREATE PROCEDURE  transporter_payment(IN shipment_id INT,IN transaction_id INT,IN amount DOUBLE )
+BEGIN 
+DECLARE last_payment_id INT; 
+
+  INSERT INTO payments (transactionid, amount)VALUES ( transaction_id, amount);
+    SET last_payment_id = LAST_INSERT_ID();
+
+  INSERT INTO transporterpayments (shipmentid, paymentid)
+        VALUES (shipment_id, last_payment_id);
 END;

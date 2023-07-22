@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Shipment } from '../shipment';
 import { TransporterService } from '../transporter.service';
 import { Vehicle } from '../vehicle';
 
