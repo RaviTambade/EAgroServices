@@ -21,5 +21,11 @@ namespace Payments.Controllers
             return await _srv.isShipmentPaymentPaid(shipmentId);
         }
 
+        [HttpPost]
+         public async Task<bool> Add(TransporterPayment payment)
+        {
+            return await _srv.Add(payment);
+        }
+
     }
 }

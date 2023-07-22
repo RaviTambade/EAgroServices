@@ -17,5 +17,10 @@ namespace Payments.Services
         {
             return await _repo.isShipmentPaymentPaid(shipmentId);
         }
+
+          public async Task<bool> Add(TransporterPayment payment)
+        {
+            return await _repo.Add(payment);
+        }
     }
 }
