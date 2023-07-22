@@ -8,9 +8,9 @@
       <th>Date </th>
       <th>Vehicle Number </th>
       <th>Kilometers</th>
-      <th>Dekivery Status</th>
+      <!-- <th>Dekivery Status</th> -->
       <th>Charges</th>
-      <th>Payment Status</th>
+      <!-- <th>Payment Status</th> -->
     </tr>
   </thead>
   <tbody>
@@ -18,9 +18,9 @@
       <td>{{ shipment.shipmentDate | date }}</td>
       <td>{{ shipment.vehicleNumber }}</td>
       <td>{{ shipment.kilometers }}</td>
-      <td>{{ shipment.deliveryStatus}}</td>
+      <!-- <td>{{ shipment.deliveryStatus}}</td> -->
       <td>{{ shipment.freightCharges}}</td>
-      <td>{{ shipment.paymentStatus}}</td>
+      <!-- <td>{{ shipment.paymentStatus}}</td> -->
 
       <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
       <td *ngIf="shipment.deliveryStatus == 'delivered'"><button

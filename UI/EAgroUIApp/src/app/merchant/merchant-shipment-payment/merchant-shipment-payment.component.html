@@ -1,0 +1,20 @@
+<table>
+    <tr>
+        <td>Transporter Name</td>
+        <td>Account Number</td>
+        <td>IFSC </td>
+        <td>Amount</td>
+    </tr>
+    <tr>
+        <td>{{ transporterName }}</td>
+        <td>{{transporterAccountInfo.accountNumber}}</td>
+        <td>{{transporterAccountInfo.ifscCode}}</td>
+        <td>{{ amount |number }}</td>
+    </tr>
+</table>
+<h6>Payment : {{paymentStatus}}</h6>
+<div *ngIf="paymentStatus == 'unpaid' ">
+    <h6>Your Account Number is {{merchantAccountInfo.accountNumber}}</h6>
+    <h6>IFSC {{merchantAccountInfo.ifscCode}}</h6>
+    <br><button (click)="onClickPay()" [disabled]="ispaymentButtonDisabled"> Pay </button>
+</div>

@@ -116,8 +116,8 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
         };
 
 
-        this.paymentsvc.addpayment(farmerPayment).subscribe((response) => {
-        });
+        this.paymentsvc.addFarmerServicepayment(farmerPayment).subscribe((response) => {
+       
 
         let serviceOwnerPaymentTransfer: PaymentTransferDetails = {
           fromAcct: this.merchantAccountInfo.accountNumber,
@@ -140,14 +140,14 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
             };
 
 
-            this.paymentsvc.addpayment(serviceOwnerPayment).subscribe((response) => {
+            this.paymentsvc.addFarmerServicepayment(serviceOwnerPayment).subscribe((response) => {
               window.location.reload();
             });
           }
           else
             console.log("error while transfering funds to service owner");
         });
-
+      });
       }
       else
         console.log("error while transfering funds to farmer");
