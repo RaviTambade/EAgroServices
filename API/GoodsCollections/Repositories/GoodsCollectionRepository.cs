@@ -52,6 +52,47 @@ namespace GoodsCollections.Repositories
             }
         }
 
+        public async Task<List<UnverifiedCollection>> GetUnverifiedCollections(
+            int collectionCenterId
+        )
+        {
+            try
+            {
+                using (var context = new GoodsCollectionContext(_configuration))
+                {
+                    var collections = await (
+                        from collection in context.GoodsCollections
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        join verifiedGoodsCollection in context.VerifiedGoodsCollections
+                            on collection.Id equals verifiedGoodsCollection.CollectionId
+                            into gj
+                        from verifiedCollection in gj.DefaultIfEmpty()
+                        where verifiedCollection == null
+                        select new UnverifiedCollection()
+                        {
+                            CollectionId = collection.Id,
+                            FarmerId = collection.FarmerId,
+                            CropName = crop.Title,
+                            CropId=crop.Id,
+                            ContainerType = collection.ContainerType,
+                            Quantity = collection.Quantity,
+                            Weight = collection.Weight,
+                            CollectionDate = collection.CollectionDate
+                        }
+                    ).ToListAsync();
+                    if (collections == null)
+                    {
+                        return null;
+                    }
+                    return collections;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<GoodsCollection> GetById(int collectionId)
         {
             try

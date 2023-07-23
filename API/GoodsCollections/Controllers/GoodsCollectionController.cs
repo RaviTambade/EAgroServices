@@ -27,6 +27,14 @@ namespace GoodsCollections.Controllers
             return await _srv.GetById(collectionId);
         }
 
+        [HttpGet("unverified/{collectionCenterId}")]
+        public async Task<List<UnverifiedCollection>> GetUnverifiedCollections(
+            int collectionCenterId
+        )
+        {
+            return await _srv.GetUnverifiedCollections(collectionCenterId);
+        }
+
         [HttpPost]
         public async Task<bool> Insert(GoodsCollection collection)
         {
