@@ -65,6 +65,30 @@ SELECT * FROM transporterpayments;
 select count(shipmentid)   from transporterpayments WHERE shipmentid=1;
 
 SELECT EXISTS (select shipmentid   from transporterpayments WHERE shipmentid=1);
+ SELECT `s`.`id` AS `Id`, `c`.`corporateid` AS `CollectionCenterCorporaterId`, `g`.`farmerid` AS `FarmerId`, `c0`.`title` AS `CropName`, `v`.`grade` AS `Grade`, `g`.`containertype` AS `ContainerType`, `g`.`quantity` AS `Quantity`, `g`.`weight` AS `TotalWeight`, `v`.`weight` AS `NetWeight`, `g`.`collectiondate` AS `CollectionDate`
+      FROM `shipmentitems` AS `s`
+      INNER JOIN `shipments` AS `a` ON `s`.`shipmentid` = `a`.`id`
+      INNER JOIN `goodscollections` AS `g` ON `s`.`collectionid` = `g`.`id`
+      INNER JOIN `collectioncenters` AS `c` ON `g`.`collectioncenterid` = `c`.`id`
+      INNER JOIN `verifiedgoodscollection` AS `v` ON `g`.`id` = `v`.`collectionid`
+      INNER JOIN `crops` AS `c0` ON `g`.`cropid`  = `c0`.`id`
+      WHERE `a`.`id` =8;
+
+
+      SELECT * FROM shipments;
+
+       SELECT `t`.`id`
+      FROM `transporters` AS `t`
+      WHERE `t`.`managerid` =3;
+
+
+       SELECT `s`.`id` AS `Id`, `c`.`corporateid` AS `CollectionCenterCorporaterId`, `g`.`farmerid` AS `FarmerId`, `c0`.`title` AS `CropName`, `v`.`grade` AS `Grade`, `g`.`containertype` AS `ContainerType`, `g`.`quantity` AS `Quantity`, `g`.`weight` AS `TotalWeight`, `v`.`weight` AS `NetWeight`, `g`.`collectiondate` AS `CollectionDate`
+      FROM `shipmentitems` AS `s`
+      INNER JOIN `goodscollections` AS `g` ON `s`.`collectionid` = `g`.`id`
+      INNER JOIN `collectioncenters` AS `c` ON `g`.`collectioncenterid` = `c`.`id`
+      INNER JOIN `verifiedgoodscollection` AS `v` ON `g`.`id` = `v`.`collectionid`
+      INNER JOIN `crops` AS `c0` ON `g`.`cropid` = `c0`.`id`
+      WHERE `s`.`shipmentid` =3;
 
 
 DROP INDEX idx_containertype ON goodscollections;

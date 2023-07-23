@@ -6,6 +6,7 @@ import { EdituserComponent } from './edituser/edituser.component';
 import { GetuserComponent } from './getuser/getuser.component';
 import { RemoveuserComponent } from './removeuser/removeuser.component';
 import { FormsModule } from '@angular/forms';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 
 
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     AlluserComponent,
     EdituserComponent,
     GetuserComponent,
-    RemoveuserComponent
+    RemoveuserComponent,
+    UserprofileComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,9 @@ import { FormsModule } from '@angular/forms';
     AlluserComponent,
     EdituserComponent,
     GetuserComponent,
-    RemoveuserComponent
+    RemoveuserComponent,
+    UserprofileComponent
+
   ]
 })
 export class UsersModule { }

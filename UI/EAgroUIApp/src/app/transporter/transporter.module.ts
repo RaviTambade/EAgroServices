@@ -8,6 +8,7 @@ import { CorporateService } from '../corporate.service';
 import { AddnewvehicleComponent } from './addnewvehicle/addnewvehicle.component';
 import { FormsModule } from '@angular/forms';
 import { GetvehicleshipmentitemsComponent } from './getvehicleshipmentitems/getvehicleshipmentitems.component';
+import { GetallshipmentsComponent } from './getallshipments/getallshipments.component';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -25,6 +26,7 @@ export const transporterRoutes: Routes = [
     GetshipmentsofvehicleComponent,
     AddnewvehicleComponent,
     GetvehicleshipmentitemsComponent,
+    GetallshipmentsComponent,
 
   ],
   imports: [

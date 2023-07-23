@@ -64,6 +64,7 @@ constructor(private svc:TransporterService,private router: Router,private crpSvc
                   let matchingItem = corporationNames.find(element => element.id === item.corporateId);
                   if (matchingItem != undefined)
                     item.companyName = matchingItem.name;
+                    console.log(matchingItem)
                 });
               });
           // });

@@ -9,7 +9,11 @@ import { CollectioncenterModule, collectionCenterRoutes } from './collectioncent
 import { MerchantModule, merchantRoutes } from './merchant/merchant.module';
 import { FarmerModule, farmerRoutes } from './farmer/farmer.module';
 import { TransporterModule, transporterRoutes } from './transporter/transporter.module';
+<<<<<<< HEAD
 import { CollectionVerificationComponent } from './collectioncenter/collection-verification/collection-verification.component';
+=======
+import { UsersModule } from './Shared/users/users.module';
+>>>>>>> b1062a418f93f56a6aafa60380fd0b31b49530e3
 
 
 const routes: Routes = [
@@ -34,6 +38,7 @@ const routes: Routes = [
     MerchantModule,
     FarmerModule,
     TransporterModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
