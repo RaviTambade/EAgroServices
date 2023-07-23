@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CollectionDetails } from './collectioncenter/collection-details';
+import { GoodsCollection } from './collectioncenter/goods-collection';
+import { UnverifiedCollection } from './collectioncenter/unverified-collection';
+import { UpdateCollection } from './collectioncenter/update-collection';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +21,22 @@ export class CollectionService {
   getContainerTypes(): Observable<string[]> {
     let url = "http://localhost:5154/api/goodscollections/containertypes";
     return this.http.get<string[]>(url);
+  }
+
+  addCollection(collection: GoodsCollection): Observable<boolean> {
+    let url = "http://localhost:5154/api/goodscollections";
+    return this.http.post<boolean>(url, collection);
+  }
+
+  getCollectionsForVerification(): Observable<UnverifiedCollection[]> {
+    const collectionCenterId = localStorage.getItem("collectionCenterId");
+    let url = "http://localhost:5154/api/goodscollections/unverified/" + collectionCenterId;
+    return this.http.get<UnverifiedCollection[]>(url);
+  }
+
+  updateCollection(collection:UpdateCollection): Observable<boolean> {
+    let url = "http://localhost:5154/api/goodscollections";
+    return this.http.put<boolean>(url, collection);
   }
 
 }

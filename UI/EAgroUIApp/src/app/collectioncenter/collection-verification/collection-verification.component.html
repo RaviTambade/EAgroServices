@@ -1,0 +1,10 @@
+<th>Collection Date</th>
+<th>Farmer Name</th>
+<th>Crop Name</th>
+<th>Container Type</th>
+<th>Quantity</th>
+<th>Weight</th>
+
+<div *ngFor="let collection of collections">
+    <app-collectionverification-details [collection]="collection"></app-collectionverification-details>
+</div>

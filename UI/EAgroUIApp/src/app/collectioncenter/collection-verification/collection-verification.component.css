@@ -1,0 +1,23 @@
+/* table-header.component.css */
+
+table {
+    width: 30%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  th {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th:first-child {
+    border-top-left-radius: 5px;
+  }
+  
+  th:last-child {
+    border-top-right-radius: 5px;
+  }
+  

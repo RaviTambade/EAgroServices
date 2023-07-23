@@ -1,0 +1,28 @@
+<div *ngIf="UpdateStatus">
+    <form [formGroup]="collectionForm" (ngSubmit)="OnSubmit()">
+        <label for="containerType">Container Type:</label>
+        <label *ngFor="let type of containerTypes">
+            <input type="radio" [id]="type" [value]="type" formControlName="containerType">
+            <label [for]="type">{{ type }}</label>
+        </label>
+
+        <br>
+        <label for="farmerId">Farmer Name:</label>
+        <select id="farmerId" formControlName="farmerId">
+            <option *ngFor="let farmer of farmers" [value]="farmer.id">{{ farmer.name }}</option>
+        </select>
+
+        <label for="cropId">Crop Name:</label>
+        <select id="cropId" formControlName="cropId">
+            <option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</option>
+        </select>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" formControlName="quantity">
+
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" formControlName="weight">
+
+        <button type="submit" [disabled]="!collectionForm.valid">Submit</button>
+    </form>
+    <button (click)="onCancelClick()">Cancel</button>
+</div>

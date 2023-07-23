@@ -51,7 +51,7 @@ WHERE `t`.`id` = 1;
 SELECT merchants.corporateid FROM merchants INNER JOIN shipments ON merchants.id=shipments.merchantid WHERE merchants.id=1;
 SELECT * FROM vehicles;
 SELECT * FROM payments;
-SELECT * FROM collectioncenters;
+SELECT * FROM goodscollections;
 
 SELECT shipmentitems.collectionid,goodscollections.quantity,crops.title,collectioncenters.corporateid
 FROM shipmentitems INNER JOIN goodscollections
@@ -69,3 +69,8 @@ SELECT EXISTS (select shipmentid   from transporterpayments WHERE shipmentid=1);
 
 DROP INDEX idx_containertype ON goodscollections;
 SELECT * FROM goodscollections;
+
+SELECT goodscollections.*
+FROM goodscollections
+LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
+WHERE verifiedgoodscollection.collectionid IS NULL;

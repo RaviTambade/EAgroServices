@@ -1,0 +1,13 @@
+
+
+<td>{{ collection.collectionDate | date }}</td>
+<td>{{ collection.farmerName }}</td>
+<td>{{ collection.cropName}}</td>
+<td>{{ collection.containerType}}</td>
+<td>{{ collection.quantity}}</td>
+<td>{{ collection.weight}}</td>
+<td><button> Verify </button></td>
+<td><button (click)="onUpdateClick()"> Update  </button></td>
+<td><button> Remove </button></td>
+
+<div *ngIf="updateStatus"> <app-update-collection [collection]="collection"></app-update-collection></div>
