@@ -1,1 +1,15 @@
-<p>verify-collection works!</p>
+<div *ngIf="verifyStatus">
+    <form [formGroup]="collectionForm" (ngSubmit)="OnSubmit()">
+        <label for="containerType">Grade:</label>
+        <label *ngFor="let grade of grades">
+            <input type="radio" [id]="grade" [value]="grade" formControlName="grade">
+            <label [for]="grade">{{ grade }}</label>
+        </label>
+
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" formControlName="weight">
+
+        <button type="submit" [disabled]="!collectionForm.valid">Submit</button>
+    </form>
+    <button (click)="onCancelClick()">Cancel</button>
+</div>
