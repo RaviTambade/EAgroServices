@@ -9,6 +9,7 @@ import { CollectioncenterModule, collectionRoutes } from './collectioncenter/col
 import { MerchantModule, merchantRoutes } from './merchant/merchant.module';
 import { FarmerModule, farmerRoutes } from './farmer/farmer.module';
 import { TransporterModule, transporterRoutes } from './transporter/transporter.module';
+import { UsersModule } from './Shared/users/users.module';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
     MerchantModule,
     FarmerModule,
     TransporterModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]

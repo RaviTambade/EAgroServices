@@ -1,0 +1,15 @@
+<div class="profile-icon" (click)="openUserProfile()">
+    <i class="fas fa-user"></i>
+  </div>
+  
+  <div *ngIf="showUserProfile" class="user-details">
+    <h2>User Details</h2>
+    <p><b>First Name:</b> {{ user.firstName }}</p>
+    <p><b>Last Name:</b> {{ user.lastName }}</p>
+    <p><b>Aadhar ID:</b> {{ user.aadharId }}</p>
+    <p><b>Birth Date:</b> {{ user.birthDate }}</p>
+    <p><b>Gender:</b> {{ user.gender }}</p>
+    <p><b>Email:</b> {{ user.email }}</p>
+    <p><b>Contact Number:</b> {{ user.contactNumber }}</p>
+  </div>
+  

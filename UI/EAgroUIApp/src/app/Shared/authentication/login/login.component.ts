@@ -30,6 +30,7 @@ export class LoginComponent {
 
         this.svc.getUserIdByContact(this.credential.contactNumber).subscribe((responseId) => {
           this.userId = responseId;
+          localStorage.setItem("userId",this.userId.toString())
           console.log("🚀 ~ this.svc.getUserIdByContact ~ userId:", this.userId);
 
           this.svc.getRolesOfUser(responseId).subscribe((responseRoles) => {
