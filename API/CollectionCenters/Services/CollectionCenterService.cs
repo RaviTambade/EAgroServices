@@ -1,4 +1,3 @@
-
 using CollectionCenters.Services.Interfaces;
 using CollectionCenters.Repositories.Interfaces;
 using CollectionCenters.Models;
@@ -13,7 +12,8 @@ namespace CollectionCenters.Services
         {
             _repo = repo;
         }
-         public async Task<List<CollectionCenter>> GetAll()
+
+        public async Task<List<CollectionCenter>> GetAll()
         {
             return await _repo.GetAll();
         }
@@ -36,6 +36,11 @@ namespace CollectionCenters.Services
         public async Task<bool> Delete(int collectionCenterId)
         {
             return await _repo.Delete(collectionCenterId);
+        }
+
+        public async Task<int> GetCollectionCenterIdByInspectorId(int inspectorId)
+        {
+            return await _repo.GetCollectionCenterIdByInspectorId(inspectorId);
         }
     }
 }

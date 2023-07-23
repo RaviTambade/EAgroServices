@@ -38,6 +38,6 @@ export const merchantRoutes: Routes = [
   ],
   exports:[
     MerchantRoutingComponent
-  ]
+  ],
 })
 export class MerchantModule { }

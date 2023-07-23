@@ -32,9 +32,5 @@ export class BankingService {
   fundTransfer(payment: PaymentTransferDetails): Observable<number> {
     let url = "http://localhost:5001/api/fundstransfer";
     return this.http.post<any>(url, payment);
-
   }
-
-
-
 }

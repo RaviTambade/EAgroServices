@@ -13,9 +13,14 @@ namespace GoodsCollections.Services
             _repo = repo;
         }
 
-        public async Task<List<GoodsCollection>> GetAll(int collectionCenterId)
+        public async Task<List<CollectionDetails>> GetAll(int collectionCenterId)
         {
             return await _repo.GetAll(collectionCenterId);
+        }
+
+        public async Task<List<string>> GetContainerTypes()
+        {
+            return await _repo.GetContainerTypes();
         }
 
         public async Task<GoodsCollection> GetById(int collectionId)

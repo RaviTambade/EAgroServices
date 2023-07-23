@@ -1,5 +1,5 @@
 
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
 	JOIN shipments ON shipmentitems.shipmentid=shipments.id
@@ -29,7 +29,7 @@ FROM shippingitems
     JOIN shipments ON shippingitems.shipmentid = shipments.id
     JOIN verifiedgoodscollection ON shippingitems.collectionid = verifiedgoodscollection.collectionid
 WHERE shipments.id = 1;
-
+SELECT * FROM userroles;
 SELECT shipments.id,vehicles.rtonumber,kilometers,status,shipmentdate,
     apply_total_freight_charges(shipments.id) AS freightcharges
 FROM shipments
@@ -47,11 +47,11 @@ WHERE `t`.`id` = 1;
 
  SELECT * FROM userroles;
  SELECT * FROM goodscollectionpayments;
- SELECT * FROM invoices;
+ SELECT * FROM collectioncenters;
 SELECT merchants.corporateid FROM merchants INNER JOIN shipments ON merchants.id=shipments.merchantid WHERE merchants.id=1;
 SELECT * FROM vehicles;
 SELECT * FROM payments;
-SELECT * FROM transporters;
+SELECT * FROM collectioncenters;
 
 SELECT shipmentitems.collectionid,goodscollections.quantity,crops.title,collectioncenters.corporateid
 FROM shipmentitems INNER JOIN goodscollections
@@ -89,3 +89,7 @@ SELECT EXISTS (select shipmentid   from transporterpayments WHERE shipmentid=1);
       INNER JOIN `verifiedgoodscollection` AS `v` ON `g`.`id` = `v`.`collectionid`
       INNER JOIN `crops` AS `c0` ON `g`.`cropid` = `c0`.`id`
       WHERE `s`.`shipmentid` =3;
+
+
+DROP INDEX idx_containertype ON goodscollections;
+SELECT * FROM goodscollections;
