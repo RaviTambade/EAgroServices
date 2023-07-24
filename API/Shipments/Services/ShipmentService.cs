@@ -70,5 +70,10 @@ namespace Shipments.Services
         {
             return await _repo.GetShipmentByVehicleId(vehicleId);
         }
+       public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId)
+       {
+        return await _repo.GetShipmentofTransporter(transporterId);
+       }
+
     }
 }

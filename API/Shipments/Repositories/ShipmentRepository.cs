@@ -315,5 +315,34 @@ namespace Shipments.Repositories
                 throw e;
             }
         }
+
+       public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId){
+          try{
+                using(var context=new ShipmentContext(_configuration)){
+                    var shipments=await(from transporter in context.Transporters
+                                        join vehicle in context.Vehicles
+                                        on transporter.Id equals vehicle.TransporterId
+                                        join shipment in context.Shipments
+                                        on vehicle.Id equals shipment.VehicleId
+                                        join merchant in context.Merchants
+                                        on shipment.MerchantId equals merchant.Id
+                                        where transporter.Id==transporterId 
+                                        select new VehicleCorporateShipment()
+                                        {
+                                        CorporateId=merchant.CorporateId,
+                                        VehicleType=vehicle.VehicleType,
+                                        RtoNumber=vehicle.RtoNumber,
+                                        Kilometers=shipment.Kilometers,
+                                        Status=shipment.Status,
+                                        ShipmentDate=shipment.ShipmentDate
+                                        }).ToListAsync();
+                    return shipments;
+                }
+            }
+            catch(Exception e){
+                throw e;
+            }
+       }
+
     }
 }

@@ -1,5 +1,5 @@
 
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
 	JOIN shipments ON shipmentitems.shipmentid=shipments.id
@@ -93,3 +93,12 @@ SELECT EXISTS (select shipmentid   from transporterpayments WHERE shipmentid=1);
 
 DROP INDEX idx_containertype ON goodscollections;
 SELECT * FROM goodscollections;
+
+SELECT vehicles.vehicletype,vehicles.rtonumber,shipments.*,merchants.corporateid
+FROM transporters INNER JOIN vehicles
+ON transporters.id=vehicles.transporterid
+INNER JOIN shipments 
+ON vehicles.id= shipments.vehicleid
+ INNER JOIN merchants
+ ON merchants.id=shipments.merchantid
+WHERE transporters.id=1;
