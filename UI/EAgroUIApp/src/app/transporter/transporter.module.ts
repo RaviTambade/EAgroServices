@@ -37,7 +37,8 @@ export const transporterRoutes: Routes = [
   exports:[
     VehiclesoftransporterComponent,
     GetshipmentsofvehicleComponent,
-    AddnewvehicleComponent
+    AddnewvehicleComponent,
+    GetallshipmentsComponent
   ],
   providers:[
     CorporateService

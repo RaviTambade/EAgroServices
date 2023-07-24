@@ -1,0 +1,20 @@
+.shipment-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  }
+  
+  .shipment-table th,
+  .shipment-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .shipment-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .shipment-table tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+  

@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 -- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 SELECT *
 FROM shipmentitems
+=======
+
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+    SELECT * FROM shipmentitems    
+>>>>>>> ae901cf518965f59d6c7200e629e37948d78f6d9
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
     JOIN shipments ON shipmentitems.shipmentid = shipments.id
     JOIN verifiedgoodscollection ON shipmentitems.collectionid = verifiedgoodscollection.collectionid
@@ -180,8 +186,21 @@ DROP INDEX idx_containertype ON goodscollections;
 
 SELECT * FROM goodscollections;
 
+SELECT vehicles.vehicletype,vehicles.rtonumber,shipments.*,merchants.corporateid
+FROM transporters INNER JOIN vehicles
+ON transporters.id=vehicles.transporterid
+INNER JOIN shipments 
+ON vehicles.id= shipments.vehicleid
+ INNER JOIN merchants
+ ON merchants.id=shipments.merchantid
+WHERE transporters.id=1;
 SELECT goodscollections.*
 FROM goodscollections
+<<<<<<< HEAD
     LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
 WHERE
     verifiedgoodscollection.collectionid IS NULL;
+=======
+LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
+WHERE verifiedgoodscollection.collectionid IS NULL;
+>>>>>>> ae901cf518965f59d6c7200e629e37948d78f6d9

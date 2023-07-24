@@ -61,4 +61,8 @@ gettransporterIdByUserId(userId:number):Observable<number>{
   let url="http://localhost:5025/api/transporters/manager/"+userId;
   return this.httpClient.get<number>(url); 
 }
+getAllShipmentsOfTransporter(transporterId:number):Observable<any>{
+  let url="http://localhost:5067/api/shipments/transporter/" +transporterId
+  return this.httpClient.get<any>(url)
+}
 }

@@ -8,15 +8,14 @@ import { Observable } from 'rxjs';
 export class FarmerService {
   constructor(private http:HttpClient) { }
 
-  getFarmerDetails(id:any):Observable<any>{
-    let url="http://localhost:5102/api/user/"+id;
-    return this.http.get<any>(url);
-
-  }
   getFarmerCollection(id:any):Observable<any>{
     let url="http://localhost:5154/api/goodscollections/farmercollection/"+id;
     console.log(url);
     return this.http.get<any>(url);
-
+  }
+    getVerifiedCollection(collectionId:any):Observable<any>{
+      let url="http://localhost:5154/api/goodscollections/verified/"+collectionId;
+      console.log(url);
+      return this.http.get<any>(url);
 }
 }

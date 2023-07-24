@@ -1,1 +1,23 @@
-<p>getallshipments works!</p>
+<table class="shipment-table">
+    <thead>
+      <tr>
+        <th>Corporate ID</th>
+        <th>Vehicle Type</th>
+        <th>RTO Number</th>
+        <th>Kilometers</th>
+        <th>Status</th>
+        <th>Shipment Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let shipment of vehicleCorporateshipments">
+        <td>{{ shipment.corporateId }}</td>
+        <td>{{ shipment.vehicleType }}</td>
+        <td>{{ shipment.rtoNumber }}</td>
+        <td>{{ shipment.kilometers }}</td>
+        <td>{{ shipment.status }}</td>
+        <td>{{ shipment.shipmentDate |date }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

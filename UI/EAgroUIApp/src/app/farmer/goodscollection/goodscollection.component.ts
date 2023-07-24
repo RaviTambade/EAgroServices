@@ -12,7 +12,7 @@ import { CorporateService } from 'src/app/corporate.service';
 export class GoodscollectionComponent implements OnInit {
   farmerId = 2;
   corporateId: undefined;
-  farmerCollections: Goodscollection[] | undefined;
+  farmerCollections: Goodscollection[]=[];
   goodsCollections: Goodscollection = {
     collectionCenterId: 0,
     corporateId: 0,
@@ -22,9 +22,10 @@ export class GoodscollectionComponent implements OnInit {
     containerType: '',
     quantity: 0,
     weight: 0,
-    collectionDate: ''
+    collectionDate: '',
+    collectionCenterName: ''
   }
-  constructor(private svc: FarmerService, private route: ActivatedRoute, crpSvc: CorporateService) { }
+  constructor(private svc: FarmerService, private route: ActivatedRoute,private crpSvc: CorporateService) { }
   ngOnInit(): void {
 
     // let distinctc = this.farmerCollections.map(item => item.collectionCenterCorporaterId)
@@ -33,19 +34,24 @@ export class GoodscollectionComponent implements OnInit {
     //   this.farmerId=params.get('id');
     //  })
     this.svc.getFarmerCollection(this.farmerId).subscribe((response) => {
-      // console.log(this.farmerId);
       this.farmerCollections = response;
       this.corporateId = response.corporateId
-      console.log(this.corporateId);
       console.log(response);
 
+      let distinctcollectioncenterIds = this.farmerCollections.map(item => item.corporateId)
+      .filter((number, index, array) => array.indexOf(number) === index);
 
-      // this.farmerCollections.forEach((collection) => {
-      //    this.svc.getCorporateId(this.farmerCollections.corporateId).subscribe((corporateId: string) => {
-      // this.crpSvc.getCorporates(this.corporateId).subscribe((response) => {
-      //   const firstItem = response[0];
-      //   this.name = firstItem ? firstItem.name : '';
-      //   console.log(response);
+    let collectionCenterIdString = distinctcollectioncenterIds.join(',');
+
+    this.crpSvc.getCorporates(collectionCenterIdString).subscribe((names) => {
+      let corporationNames = names
+      this.farmerCollections.forEach(item => {
+        let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+        if (matchingItem != undefined)
+          item.collectionCenterName = matchingItem.name;
+      });
+    });
+     
 
 
     })
