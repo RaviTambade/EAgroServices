@@ -18,10 +18,7 @@ export class CollectionService {
     let url = "http://localhost:5154/api/goodscollections/" + collectionCenterId;
     return this.http.get<CollectionDetails[]>(url);
   }
-  getContainerTypes(): Observable<string[]> {
-    let url = "http://localhost:5154/api/goodscollections/containertypes";
-    return this.http.get<string[]>(url);
-  }
+  
 
   addCollection(collection: GoodsCollection): Observable<boolean> {
     let url = "http://localhost:5154/api/goodscollections";
@@ -37,6 +34,11 @@ export class CollectionService {
   updateCollection(collection:UpdateCollection): Observable<boolean> {
     let url = "http://localhost:5154/api/goodscollections";
     return this.http.put<boolean>(url, collection);
+  }
+
+  removeCollection(collectionId:number): Observable<boolean> {
+    let url = "http://localhost:5154/api/goodscollections/"+collectionId;
+    return this.http.delete<boolean>(url);
   }
 
 }
