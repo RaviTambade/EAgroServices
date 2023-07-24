@@ -18,6 +18,13 @@ namespace GoodsCollections.Services
             return await _repo.GetAll(collectionCenterId);
         }
 
+        public async Task<List<UnverifiedCollection>> GetUnverifiedCollections(
+            int collectionCenterId
+        )
+        {
+            return await _repo.GetUnverifiedCollections(collectionCenterId);
+        }
+
         public async Task<List<string>> GetContainerTypes()
         {
             return await _repo.GetContainerTypes();

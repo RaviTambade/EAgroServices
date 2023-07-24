@@ -1,0 +1,36 @@
+/* table-body.component.css */
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  td:first-child {
+    border-top-left-radius: 5px;
+  }
+  
+  td:last-child {
+    border-top-right-radius: 5px;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  

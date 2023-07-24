@@ -8,6 +8,9 @@ namespace GoodsCollections.Repositories.Interfaces
         Task<GoodsCollection> GetById(int collectionId);
         Task<bool> Insert(GoodsCollection collection);
         Task<List<string>> GetContainerTypes();
+
+        Task<List<UnverifiedCollection>> GetUnverifiedCollections(int collectionCenterId);
+
         Task<bool> Update(GoodsCollection collection);
         Task<bool> Delete(int collectionId);
         Task<List<FarmerCollection>> FarmerCollection(int farmerId);

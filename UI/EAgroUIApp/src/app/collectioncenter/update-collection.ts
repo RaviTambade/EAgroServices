@@ -1,12 +1,10 @@
-export class GoodsCollection {
+export class UpdateCollection {
     constructor(
+        public id: number,
         public farmerId: number,
-        public collectionCenterId: number,
         public cropId: number,
         public containerType: string,
         public quantity: number,
         public weight: number,
-        // public collectionDate: string,
     ){}
-    
 }

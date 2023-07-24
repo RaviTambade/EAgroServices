@@ -51,7 +51,7 @@ WHERE `t`.`id` = 1;
 SELECT merchants.corporateid FROM merchants INNER JOIN shipments ON merchants.id=shipments.merchantid WHERE merchants.id=1;
 SELECT * FROM vehicles;
 SELECT * FROM payments;
-SELECT * FROM collectioncenters;
+SELECT * FROM goodscollections;
 
 SELECT shipmentitems.collectionid,goodscollections.quantity,crops.title,collectioncenters.corporateid
 FROM shipmentitems INNER JOIN goodscollections
@@ -102,3 +102,7 @@ ON vehicles.id= shipments.vehicleid
  INNER JOIN merchants
  ON merchants.id=shipments.merchantid
 WHERE transporters.id=1;
+SELECT goodscollections.*
+FROM goodscollections
+LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
+WHERE verifiedgoodscollection.collectionid IS NULL;

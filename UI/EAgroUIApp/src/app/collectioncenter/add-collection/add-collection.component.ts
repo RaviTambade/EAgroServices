@@ -31,7 +31,8 @@ export class AddCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
+   console.log( );
     this.userrolesvc.getFarmersIds().subscribe((res) => {
       this.usrsvc.getUserNamesWithId(res).subscribe((farmers) => {
         this.farmers = farmers;
@@ -50,7 +51,20 @@ export class AddCollectionComponent implements OnInit {
   OnSubmit() {
 
     if (this.collectionForm.valid) {
-      console.log(this.collectionForm.value);
+      let collection:GoodsCollection={
+        farmerId: this.collectionForm.get('farmerId')?.value,
+        cropId: this.collectionForm.get('cropId')?.value,
+        containerType: this.collectionForm.get('containerType')?.value,
+        quantity: this.collectionForm.get('quantity')?.value,
+        weight: this.collectionForm.get('weight')?.value,
+        collectionCenterId: Number(localStorage.getItem("collectionCenterId")),
+        // collectionDate: new Date().toISOString().slice(0,19)
+      }
+      console.log("🚀 ~ OnSubmit ~ collection:", collection);
+
+      this.collectionsvc.addCollection(collection).subscribe((res)=>{
+      console.log('res');
+      })
     } 
     else {
       console.log('Form is invalid. Please check the input fields.');
