@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
 // import { CollectionComponent } from './collection/collection.component';
 import { GoodscollectionComponent } from './goodscollection/goodscollection.component';
+import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollection.component';
 
  export const farmerRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -13,7 +14,8 @@ import { GoodscollectionComponent } from './goodscollection/goodscollection.comp
   declarations: [
     HomeComponent,
     // CollectionComponent,
-    GoodscollectionComponent
+    GoodscollectionComponent,
+    VerifiedcollectionComponent
   ],
   imports: [
     CommonModule

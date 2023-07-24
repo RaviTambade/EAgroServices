@@ -239,5 +239,29 @@ namespace GoodsCollections.Repositories
                 throw e;
             }
         }
+    
+        public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId)
+        {
+            try
+            {
+                using (var context = new GoodsCollectionContext(_configuration))
+                {
+                    var verifiedcollection = await context.VerifiedGoodsCollections.FindAsync(collectionId);
+
+                    if (verifiedcollection == null)
+                    {
+                        return null;
+                    }
+
+                    return verifiedcollection;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        }
     }
-}
+
