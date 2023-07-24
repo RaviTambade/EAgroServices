@@ -8,6 +8,7 @@ import { UserService } from 'src/app/Shared/users/user.service';
 import { UserRoleService } from 'src/app/user-role.service';
 import { CollectionService } from 'src/app/collection-service.service';
 import { UpdateCollection } from '../update-collection';
+import { VerifiedCollectionService } from 'src/app/verified-collection.service';
 
 @Component({
   selector: 'app-update-collection',
@@ -25,7 +26,7 @@ export class UpdateCollectionComponent {
   UpdateStatus:boolean=true;
 
   constructor(private formBuilder: FormBuilder, private cropsvc: CropService, private usrsvc: UserService,
-    private collectionsvc: CollectionService, private userrolesvc: UserRoleService) {
+    private collectionsvc: CollectionService, private userrolesvc: UserRoleService, private verifiedcollectionsvc: VerifiedCollectionService) {
 
   }
 
@@ -46,7 +47,7 @@ export class UpdateCollectionComponent {
     this.cropsvc.getCrops().subscribe((res) => {
       this.crops = res;
     });
-    this.collectionsvc.getContainerTypes().subscribe((res) => {
+    this.verifiedcollectionsvc.getContainerTypes().subscribe((res) => {
       this.containerTypes = res;
     });
 

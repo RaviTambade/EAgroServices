@@ -10,7 +10,17 @@ export class VerifiedCollectionService {
 
   constructor(private http: HttpClient) { }
 
-  addVerifiedCollection(collection:VerifiedCollection): Observable<boolean> {
+  addVerifiedCollection(collection: VerifiedCollection): Observable<boolean> {
     let url = "http://localhost:5239/api/verifiedcollections/";
-    return this.http.post<boolean>(url,collection);
-  }}
+    return this.http.post<boolean>(url, collection);
+  }
+  getContainerTypes(): Observable<string[]> {
+    let url = "http://localhost:5239/api/verifiedcollections/containertypes";
+    return this.http.get<string[]>(url);
+  }
+  getGrades(): Observable<string[]> {
+    let url = "http://localhost:5239/api/verifiedcollections/grades";
+    return this.http.get<string[]>(url);
+  }
+
+}

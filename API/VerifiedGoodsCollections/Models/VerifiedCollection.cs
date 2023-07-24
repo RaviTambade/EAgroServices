@@ -6,4 +6,8 @@ public class VerifiedCollection{
     public double Weight{get;set;}
     public int InspectorId{get;set;}
     public DateTime InspectionDate{get;set;}
+
+    public VerifiedCollection(){
+        InspectionDate=DateTime.Now;
+    }
 }

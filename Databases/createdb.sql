@@ -104,8 +104,8 @@ CREATE TABLE
         id INT AUTO_INCREMENT PRIMARY KEY,
         shipmentid INT,
         collectionid INT UNIQUE,
-        CONSTRAINT fk_shipmentItems_shipment FOREIGN KEY (shipmentid) REFERENCES shipments(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_shipmentItems_goodscollection FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT fk_shipmentItems_shipment FOREIGN KEY (shipmentid) REFERENCES shipments(id) ,
+        CONSTRAINT fk_shipmentItems_goodscollection FOREIGN KEY (collectionid) REFERENCES goodscollections(id) 
     );
 
 CREATE TABLE
