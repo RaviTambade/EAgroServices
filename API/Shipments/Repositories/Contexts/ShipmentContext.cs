@@ -26,6 +26,8 @@ namespace Shipments.Repositories.Contexts
         public DbSet<Merchant> Merchants{get;set;}
         public DbSet<CollectionCenter> CollectionCenters { get; set; }
         public DbSet<TransporterPayment> TransporterPayments { get; set; }
+        public DbSet<Transporter> Transporters { get; set; }
+
 
         public double TotalFreightCharges(int shipmentId) => throw new NotSupportedException();
 
@@ -67,6 +69,13 @@ namespace Shipments.Repositories.Contexts
                 entity.Property(e => e.CorporateId);
                 entity.Property(e => e.ManagerId);
                 modelBuilder.Entity<Merchant>().ToTable("merchants");
+            });
+              modelBuilder.Entity<Transporter>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CorporateId);
+                entity.Property(e => e.ManagerId);
+                modelBuilder.Entity<Transporter>().ToTable("transporters");
             });
 
             modelBuilder.Entity<ShipmentItem>(entity =>
