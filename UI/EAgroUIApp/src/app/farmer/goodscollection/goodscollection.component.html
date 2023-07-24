@@ -4,20 +4,22 @@
 <div *ngIf="farmerCollections">
     <table>
         <thead>
+            <th>CollectionCenterName</th><hr>
+            <th>CollectionDate</th><hr>
             <th>CropName</th><hr>
             <th>Image</th><hr>
             <th>ContainerType</th><hr>
             <th>Quantity</th><hr>
             <th>Weight</th><hr>
-            <th>CollectionDate</th><hr>
         </thead>
         <tbody *ngFor="let farmerCollection of farmerCollections">
-            <td>{{farmerCollection.cropName}}</td><hr>
+            <td>{{farmerCollection.collectionCenterName}}</td><hr>
+            <td>{{farmerCollection.collectionDate}}</td><hr>
+            <td>{{farmerCollection.cropName}}</td><hr>            
             <img [src]="farmerCollection.imageUrl" style="border-radius: 50%; width: 150px; height: 150px;"/><hr>
             <td>{{farmerCollection.containerType}}</td><hr>
             <td>{{farmerCollection.quantity}}</td><hr>
             <td>{{farmerCollection.weight}}</td><hr>
-            <td>{{farmerCollection.collectionDate}}</td><hr>
         </tbody>
     </table>
 </div>

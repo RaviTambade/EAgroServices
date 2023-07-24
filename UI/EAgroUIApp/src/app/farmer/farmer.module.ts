@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
 // import { CollectionComponent } from './collection/collection.component';
@@ -12,7 +11,6 @@ import { GoodscollectionComponent } from './goodscollection/goodscollection.comp
 
 @NgModule({
   declarations: [
-    ProfileComponent,
     HomeComponent,
     // CollectionComponent,
     GoodscollectionComponent
@@ -21,7 +19,6 @@ import { GoodscollectionComponent } from './goodscollection/goodscollection.comp
     CommonModule
   ],
   exports: [
-    ProfileComponent,
     GoodscollectionComponent
   ]
 })
