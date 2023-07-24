@@ -3,6 +3,8 @@ using System.Security;
 
 namespace Shipments.Models;
 public class VehicleCorporateShipment{
+    public int ShipmentId{get;set;}
+    public int VehicleId{get;set;}
     public int CorporateId{get;set;}
     public string VehicleType{get;set;}
     public string RtoNumber{get;set;}

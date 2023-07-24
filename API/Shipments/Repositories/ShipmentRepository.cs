@@ -329,6 +329,8 @@ namespace Shipments.Repositories
                                         where transporter.Id==transporterId 
                                         select new VehicleCorporateShipment()
                                         {
+                                        ShipmentId=shipment.Id,
+                                        VehicleId=shipment.VehicleId,
                                         CorporateId=merchant.CorporateId,
                                         VehicleType=vehicle.VehicleType,
                                         RtoNumber=vehicle.RtoNumber,

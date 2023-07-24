@@ -25,7 +25,7 @@ export class TransporterService {
     return this.vehicleSubject.asObservable();
   }
  getShipmentsOfVehicle(vehicleId:number):Observable<any>{
-  let url = "http://localhost:5067/api/shipments/vehicles/" +vehicleId
+  let url = "http://localhost:5067/api/shipments/vehicles/" + vehicleId
   this.httpClient.get<any[]>(url).subscribe(
     (response) => {
       this.shipmentSubject.next(response);
