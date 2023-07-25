@@ -178,5 +178,29 @@ namespace UserRolesManagement.Repositories
             }
             return false;
         }
+
+           public async Task<List<string>> GetMerchantId()
+        {
+            try
+            {
+                using (var context = new UserRoleContext(_configuration))
+                {
+                    var Ids = await (
+                        from role in context.Roles
+                        join userRoles in context.UserRoles on role.Id equals userRoles.RoleId
+                        where role.Name == "merchant"
+                        select userRoles.UserId
+                    ).ToListAsync();
+                    string merchantIdsString = string.Join(",", Ids);
+                    List<string> merchantIds = new List<string> { merchantIdsString };
+                    return merchantIds;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }

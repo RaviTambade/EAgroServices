@@ -18,7 +18,6 @@ export class CollectionService {
     let url = "http://localhost:5154/api/goodscollections/" + collectionCenterId;
     return this.http.get<CollectionDetails[]>(url);
   }
-  
 
   addCollection(collection: GoodsCollection): Observable<boolean> {
     let url = "http://localhost:5154/api/goodscollections";

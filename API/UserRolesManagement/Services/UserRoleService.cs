@@ -47,5 +47,10 @@ namespace UserRolesManagement.Services
         {
             return await _repo.Delete(userRoleId);
         }
+        
+           public async Task<List<string>> GetMerchantId()
+           {
+            return await _repo.GetMerchantId();
+           }
     }
 }

@@ -11,5 +11,6 @@ namespace UserRolesManagement.Repositories.Interfaces
         Task<bool> Insert(UserRole userRole);
         Task<bool> Update(UserRole userRole);
         Task<bool> Delete(int userRoleId);
+        Task<List<string>> GetMerchantId();
     }
 }
