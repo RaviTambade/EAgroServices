@@ -1,10 +1,17 @@
 using GoodsCollections.Models;
+using GoodsCollections.Extensions;
+
 
 namespace GoodsCollections.Repositories.Interfaces
 {
     public interface IGoodsCollectionRepository
     {
-        Task<List<CollectionDetails>> GetAll(int collectionCenterId);
+        // Task<List<CollectionDetails>> GetAll(int collectionCenterId);
+        PagedList<CollectionDetails> GetAll(
+        int collectionCenterId,
+        FilterRequest request,
+        int pageNumber
+    );
         Task<GoodsCollection> GetById(int collectionId);
         Task<bool> Insert(GoodsCollection collection);
         Task<List<string>> GetContainerTypes();
