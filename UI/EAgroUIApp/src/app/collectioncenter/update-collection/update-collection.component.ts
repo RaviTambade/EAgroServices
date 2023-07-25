@@ -39,7 +39,7 @@ export class UpdateCollectionComponent {
       weight: [this.collection.weight, [Validators.required, Validators.pattern('[0-9]+')]]
     });
     console.log();
-    this.userrolesvc.getFarmersIds().subscribe((res) => {
+    this.userrolesvc.getusersId("farmer").subscribe((res) => {
       this.usrsvc.getUserNamesWithId(res).subscribe((farmers) => {
         this.farmers = farmers;
       });

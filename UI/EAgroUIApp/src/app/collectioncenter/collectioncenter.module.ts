@@ -28,7 +28,10 @@ export const collectionCenterRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  ],
+  exports:[
+    CollectionListComponent
   ]
 })
 export class CollectioncenterModule { }
