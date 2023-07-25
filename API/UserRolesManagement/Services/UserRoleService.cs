@@ -28,9 +28,9 @@ namespace UserRolesManagement.Services
             return await _repo.GetRolesByUserId(userId);
         }
 
-        public async Task<List<string>> GetFarmersId()
+        public async Task<List<string>> GetUsersId(string role)
         {
-            return await _repo.GetFarmersId();
+            return await _repo.GetUsersId(role);
         }
 
         public async Task<bool> Insert(UserRole userRole)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FarmerService } from '../farmer.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Goodscollection } from '../goodscollection';
 import { CorporateService } from 'src/app/corporate.service';
 
@@ -23,9 +23,10 @@ export class GoodscollectionComponent implements OnInit {
     quantity: 0,
     weight: 0,
     collectionDate: '',
-    collectionCenterName: ''
+    collectionCenterName: '',
+    id: 0
   }
-  constructor(private svc: FarmerService, private route: ActivatedRoute,private crpSvc: CorporateService) { }
+  constructor(private svc: FarmerService, private route: ActivatedRoute,private crpSvc: CorporateService,private router:Router) { }
   ngOnInit(): void {
 
     // let distinctc = this.farmerCollections.map(item => item.collectionCenterCorporaterId)
@@ -51,11 +52,12 @@ export class GoodscollectionComponent implements OnInit {
           item.collectionCenterName = matchingItem.name;
       });
     });
-     
-
-
     })
   }
+   onClick(collectionId:number){
+    console.log(collectionId);
+   this.router.navigate(['/farmer/verifiedcollection/',collectionId]);
+   }
 }
 
 

@@ -1,6 +1,8 @@
 using GoodsCollections.Services.Interfaces;
 using GoodsCollections.Repositories.Interfaces;
 using GoodsCollections.Models;
+using GoodsCollections.Extensions;
+
 
 namespace GoodsCollections.Services
 {
@@ -13,9 +15,9 @@ namespace GoodsCollections.Services
             _repo = repo;
         }
 
-        public async Task<List<CollectionDetails>> GetAll(int collectionCenterId)
+        public  PagedList<CollectionDetails> GetAll(int collectionCenterId,FilterRequest request,int pageNumber)
         {
-            return await _repo.GetAll(collectionCenterId);
+            return  _repo.GetAll(collectionCenterId,request, pageNumber);
         }
 
         public async Task<List<UnverifiedCollection>> GetUnverifiedCollections(
@@ -58,6 +60,11 @@ namespace GoodsCollections.Services
         public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId)
         {
             return await _repo.GetVerifiedCollection(collectionId);
+        }
+
+        public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
+        {
+            return await _repo.GetUnverifiedCollectionsOfFarmer(farmerId);
         }
     }
 }

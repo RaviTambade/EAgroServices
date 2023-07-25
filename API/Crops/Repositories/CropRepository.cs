@@ -34,7 +34,7 @@ public class CropRepository : ICropRepository
         }
     }
 
-    public async Task<List<CropNameIdDetails>> GetCropNames()
+    public async Task<List<CropNameIdDetails>> GetCropNamesWithId()
     {
         try
         {
@@ -45,6 +45,26 @@ public class CropRepository : ICropRepository
                     Id=crop.Id,
                     Name=crop.Title
                 }).ToListAsync();
+                if (names == null)
+                {
+                    return null;
+                }
+                return names;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+      public async Task<List<string>> GetCropNames()
+    {
+         try
+        {
+            using (var context = new CropContext(_configuration))
+            {
+                var names = await (from crop in context.Crops 
+                select crop.Title).ToListAsync();
                 if (names == null)
                 {
                     return null;

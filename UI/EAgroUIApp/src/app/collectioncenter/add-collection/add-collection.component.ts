@@ -34,7 +34,7 @@ export class AddCollectionComponent implements OnInit {
   ngOnInit() {
     
    console.log( );
-    this.userrolesvc.getFarmersIds().subscribe((res) => {
+    this.userrolesvc.getusersId("farmer").subscribe((res) => {
       this.usrsvc.getUserNamesWithId(res).subscribe((farmers) => {
         this.farmers = farmers;
       });

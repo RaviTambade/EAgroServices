@@ -1,6 +1,9 @@
 using GoodsCollections.Models;
+using GoodsCollections.Extensions;
 using GoodsCollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+
 
 namespace GoodsCollections.Controllers
 {
@@ -15,10 +18,28 @@ namespace GoodsCollections.Controllers
             _srv = srv;
         }
 
-        [HttpGet("{collectionCenterId}")]
-        public async Task<List<CollectionDetails>> GetAll(int collectionCenterId)
+        [HttpPost("{collectionCenterId}")]
+        public  List<CollectionDetails> GetAll(
+            int collectionCenterId,
+            [FromBody] FilterRequest request,
+            [FromQuery] int pageNumber
+        )
         {
-            return await _srv.GetAll(collectionCenterId);
+            var collectionDetails =_srv.GetAll(collectionCenterId,request, pageNumber);
+            if (collectionDetails != null)
+            {
+                var metadata = new
+                {
+                    collectionDetails.TotalCount,
+                    collectionDetails.CurrentPage,
+                    collectionDetails.TotalPages,
+                    collectionDetails.HasNext,
+                    collectionDetails.HasPrevious
+                };
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            }
+
+            return collectionDetails;
         }
 
         [HttpGet("collection/{collectionId}")]
@@ -35,8 +56,8 @@ namespace GoodsCollections.Controllers
             return await _srv.GetUnverifiedCollections(collectionCenterId);
         }
 
-         [HttpGet("verified/{collectionId}")]
-        public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId )
+        [HttpGet("verified/{collectionId}")]
+        public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId)
         {
             return await _srv.GetVerifiedCollection(collectionId);
         }
@@ -69,6 +90,11 @@ namespace GoodsCollections.Controllers
         public async Task<List<string>> GetContainerTypes()
         {
             return await _srv.GetContainerTypes();
+        }
+         [HttpGet("farmerunverifiedcollection/{farmerId}")]
+        public async Task<List<FarmerCollection>> GetVerifiedFarmerCollections(int farmerId)
+        {
+            return await _srv.GetUnverifiedCollectionsOfFarmer(farmerId);
         }
     }
 }
