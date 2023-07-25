@@ -83,7 +83,7 @@ namespace UserRolesManagement.Repositories
             }
         }
 
-        public async Task<List<string>> GetFarmersId()
+        public async Task<List<string>> GetUsersId(string roleName)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace UserRolesManagement.Repositories
                     var Ids = await (
                         from role in context.Roles
                         join userRoles in context.UserRoles on role.Id equals userRoles.RoleId
-                        where role.Name == "farmer"
+                        where role.Name == roleName
                         select userRoles.UserId
                     ).ToListAsync();
                     string farmerIdsString = string.Join(",", Ids);
@@ -105,6 +105,8 @@ namespace UserRolesManagement.Repositories
                 throw e;
             }
         }
+
+        
 
         public async Task<bool> Insert(UserRole userRole)
         {

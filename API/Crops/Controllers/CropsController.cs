@@ -22,16 +22,22 @@ public class CropsController : ControllerBase
         return await _service.GetAll();
     }
 
+    [HttpGet("names")]
+    public async Task<List<string>> GetCropNames()
+    {
+        return await _service.GetCropNames();
+    }
+
     [HttpGet("{id}")]
     public async Task<Crop> GeById(int id)
     {
         return await _service.GetById(id);
     }
 
-    [HttpGet("names")]
-    public async Task<List<CropNameIdDetails>> GetCropNames()
+    [HttpGet("nameswithid")]
+    public async Task<List<CropNameIdDetails>> GetCropNamesWithId()
     {
-        return await _service.GetCropNames();
+        return await _service.GetCropNamesWithId();
     }
 
     [HttpPost]

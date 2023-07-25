@@ -5,7 +5,9 @@ namespace Crops.Repositories.Interfaces;
 public interface ICropRepository
 {
     Task<List<Crop>> GetAll();
-    Task<List<CropNameIdDetails>> GetCropNames();
+    Task<List<string>> GetCropNames();
+   
+    Task<List<CropNameIdDetails>> GetCropNamesWithId();
     Task<Crop> GetById(int varietyId);
     Task<bool> Insert(Crop variety);
     Task<bool> Update(int varietyId, Crop variety);
