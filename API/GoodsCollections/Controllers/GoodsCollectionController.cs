@@ -91,5 +91,10 @@ namespace GoodsCollections.Controllers
         {
             return await _srv.GetContainerTypes();
         }
+         [HttpGet("farmerunverifiedcollection/{farmerId}")]
+        public async Task<List<FarmerCollection>> GetVerifiedFarmerCollections(int farmerId)
+        {
+            return await _srv.GetUnverifiedCollectionsOfFarmer(farmerId);
+        }
     }
 }

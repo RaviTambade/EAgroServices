@@ -61,5 +61,10 @@ namespace GoodsCollections.Services
         {
             return await _repo.GetVerifiedCollection(collectionId);
         }
+
+        public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
+        {
+            return await _repo.GetUnverifiedCollectionsOfFarmer(farmerId);
+        }
     }
 }
