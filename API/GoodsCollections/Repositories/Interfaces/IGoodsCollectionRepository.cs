@@ -15,5 +15,6 @@ namespace GoodsCollections.Repositories.Interfaces
         Task<bool> Update(GoodsCollection collection);
         Task<bool> Delete(int collectionId);
         Task<List<FarmerCollection>> FarmerCollection(int farmerId);
+        Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId);
     }
 }

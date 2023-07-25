@@ -67,7 +67,7 @@ namespace GoodsCollections.Repositories
                             on collection.Id equals verifiedGoodsCollection.CollectionId
                             into gj
                         from verifiedCollection in gj.DefaultIfEmpty()
-                        where verifiedCollection == null
+                        where verifiedCollection == null && collection.CollectionCenterId==collectionCenterId
                         select new UnverifiedCollection()
                         {
                             CollectionId = collection.Id,
@@ -262,6 +262,47 @@ namespace GoodsCollections.Repositories
             }
         }
 
+                public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
+        {
+            try
+            {
+                using (var context = new GoodsCollectionContext(_configuration))
+                {
+                    var collections = await (
+                        from collection in context.GoodsCollections
+                         join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
+                         join crop in context.Crops on collection.CropId equals crop.Id
+                         join verifiedGoodsCollection in context.VerifiedGoodsCollections
+                            on collection.Id equals verifiedGoodsCollection.CollectionId
+                            into gj
+                        from verifiedCollection in gj.DefaultIfEmpty()
+                        where verifiedCollection == null && collection.FarmerId==farmerId
+                        select new FarmerCollection()
+                        {
+                           Id = collection.Id,
+                            CropName = crop.Title,
+                            ImageUrl = crop.ImageUrl,
+                            CollectionCenterId = collection.CollectionCenterId,
+                            CorporateId = center.CorporateId,
+                            InspectorId = center.CorporateId,
+                            Quantity = (int)collection.Quantity,
+                            ContainerType = collection.ContainerType,
+                            Weight = collection.Weight,
+                            CollectionDate = collection.CollectionDate
+                        }
+                    ).ToListAsync();
+                    if (collections == null)
+                    {
+                        return null;
+                    }
+                    return collections;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 
+}

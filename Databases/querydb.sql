@@ -1,5 +1,5 @@
 
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
 	JOIN shipments ON shipmentitems.shipmentid=shipments.id
@@ -106,3 +106,6 @@ SELECT goodscollections.*
 FROM goodscollections
 LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
 WHERE verifiedgoodscollection.collectionid IS NULL;
+
+SELECT * FROM verifiedgoodscollection;
+SELECT * FROM goodscollections;

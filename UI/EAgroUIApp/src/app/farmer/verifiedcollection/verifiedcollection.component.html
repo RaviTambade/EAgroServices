@@ -1,1 +1,17 @@
-<p>verifiedcollection works!</p>
+
+<br>
+<br>
+<div *ngIf="veryfiedCollection">
+    <table>
+        <thead>
+            <th>Grade</th><hr>
+            <th>InspectionDate</th><hr>
+            <th>Weight</th><hr>
+        </thead>
+        <tbody>
+            <td>{{veryfiedCollection.grade}}</td><hr>
+            <td>{{veryfiedCollection.inspectionDate|date}}</td><hr>
+            <td>{{veryfiedCollection.weight}}</td><hr>
+        </tbody>
+    </table>
+</div>

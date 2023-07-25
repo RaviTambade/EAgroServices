@@ -8,6 +8,7 @@ import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollec
 
  export const farmerRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
+  { path: 'verifiedcollection/:id', component:VerifiedcollectionComponent },
 ]
 
 @NgModule({
@@ -21,7 +22,8 @@ import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollec
     CommonModule
   ],
   exports: [
-    GoodscollectionComponent
+    GoodscollectionComponent,
+    VerifiedcollectionComponent
   ]
 })
 export class FarmerModule { }
