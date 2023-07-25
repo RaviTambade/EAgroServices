@@ -6,7 +6,7 @@ using VerifiedGoodsCollections.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IVerifiedCollectionRepository,VerifiedCollectionRepository>();
 builder.Services.AddScoped<IVerifiedCollectionService,VerifiedCollectionService>();
@@ -24,6 +24,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseAuthorization();
 

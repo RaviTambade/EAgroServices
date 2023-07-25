@@ -6,6 +6,7 @@ import { CropService } from 'src/app/crop.service';
 import { CollectionService } from 'src/app/collection-service.service';
 import { UserRoleService } from 'src/app/user-role.service';
 import { UserService } from 'src/app/Shared/users/user.service';
+import { VerifiedCollectionService } from 'src/app/verified-collection.service';
 
 @Component({
   selector: 'app-add-collection',
@@ -20,7 +21,7 @@ export class AddCollectionComponent implements OnInit {
   containerTypes: string[] = [];
 
   constructor(private formBuilder: FormBuilder, private cropsvc: CropService, private usrsvc: UserService,
-    private collectionsvc: CollectionService, private userrolesvc: UserRoleService) {
+    private collectionsvc: CollectionService, private userrolesvc: UserRoleService,private verifiedcollectionsvc:VerifiedCollectionService) {
     this.collectionForm = this.formBuilder.group({
       farmerId: ['', Validators.required],
       cropId: ['', Validators.required],
@@ -41,7 +42,7 @@ export class AddCollectionComponent implements OnInit {
     this.cropsvc.getCrops().subscribe((res) => {
       this.crops = res;
     });
-    this.collectionsvc.getContainerTypes().subscribe((res) => {
+    this.verifiedcollectionsvc.getContainerTypes().subscribe((res) => {
       this.containerTypes = res;
     });
 

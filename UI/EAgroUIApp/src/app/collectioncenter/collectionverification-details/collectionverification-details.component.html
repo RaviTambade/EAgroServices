@@ -6,7 +6,18 @@
 <td>{{ collection.weight}}</td>
 <td><button (click)="onVerifyClick()"> Verify </button></td>
 <td><button (click)="onUpdateClick()"> Update </button></td>
-<td><button> Remove </button></td>
+<td><button (click)="onRemoveClick()"> Remove </button></td>
 
 <div *ngIf="updateStatus"> <app-update-collection [collection]="collection"></app-update-collection></div>
-<div *ngIf="verifyStatus"> <app-verify-collection></app-verify-collection></div>
+<div *ngIf="verifyStatus"> <app-verify-collection [collectionId]="collection.collectionId"></app-verify-collection></div>
+
+<div *ngIf="removeStatus">
+    <div class="delete-confirmation">
+      <h2>Delete Confirmation</h2>
+      <p>Are you sure You want to Delete ?</p>
+      <div class="buttons">
+        <button type="button" class="delete-button" (click)="onConfirmRemove(collection.collectionId)">Delete</button>
+        <button type="button" class="cancel-button" (click)="onCancelClick()">Cancel</button>
+      </div>
+    </div>
+  </div>
