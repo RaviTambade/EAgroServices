@@ -8,27 +8,27 @@ import { RangeFilterComponent } from './range-filter/range-filter.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CollectioncenterModule } from 'src/app/collectioncenter/collectioncenter.module';
+import { CollectionListComponent } from "../../collectioncenter/collection-list/collection-list.component";
 
 
 
 @NgModule({
-  declarations: [
-    FilterTestComponent,
-    SortByComponent,
-    EqualFilterComponent,
-    DateFilterComponent,
-    RangeFilterComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    CommonModule,
-    CollectioncenterModule
-  ],
-  exports:[
-    FilterTestComponent
-  ]
+    declarations: [
+        FilterTestComponent,
+        SortByComponent,
+        EqualFilterComponent,
+        DateFilterComponent,
+        RangeFilterComponent,
+    ],
+    exports: [
+        FilterTestComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        CommonModule,
+        CollectionListComponent
+    ]
 })
 export class FilterModule { }

@@ -11,6 +11,8 @@ import { CollectionverificationDetailsComponent } from './collectionverification
 import { VerifyCollectionComponent } from './verify-collection/verify-collection.component';
 import { AddtoshipmentComponent } from './addtoshipment/addtoshipment.component';
 import { CorporateService } from '../corporate.service';
+import { CollectionListFilterComponent } from './collection-list-filter/collection-list-filter.component';
+import { FilterModule } from '../Shared/filter/filter.module';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -21,23 +23,23 @@ export const collectionCenterRoutes: Routes = [
   declarations: [
     HomeComponent,
     AddCollectionComponent,
-    CollectionListComponent,
     CollectionVerificationComponent,
     UpdateCollectionComponent,
     CollectionverificationDetailsComponent,
     VerifyCollectionComponent,
-    AddtoshipmentComponent
+    AddtoshipmentComponent,
+    CollectionListFilterComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    FilterModule
   ],
   exports:[
     AddCollectionComponent,
     VerifyCollectionComponent,
     CollectionVerificationComponent,
-    CollectionListComponent,
     AddtoshipmentComponent
   ],
   providers:[

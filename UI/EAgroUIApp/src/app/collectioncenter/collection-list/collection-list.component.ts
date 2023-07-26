@@ -3,10 +3,13 @@ import { CollectioncenterService } from 'src/app/collectioncenter.service';
 import { CollectionDetails } from '../collection-details';
 import { UserService } from 'src/app/Shared/users/user.service';
 import { CollectionService } from 'src/app/collection-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'collection-center-collection-list',
   templateUrl: './collection-list.component.html',
+  standalone:true,
+  imports:[CommonModule],
   styleUrls: ['./collection-list.component.css']
 })
 export class CollectionListComponent implements OnInit {

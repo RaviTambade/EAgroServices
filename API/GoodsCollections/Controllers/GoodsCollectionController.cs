@@ -56,13 +56,8 @@ namespace GoodsCollections.Controllers
             return await _srv.GetUnverifiedCollections(collectionCenterId);
         }
 
-<<<<<<< HEAD
          [HttpGet("verified/{farmerId}")]
         public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId )
-=======
-        [HttpGet("verified/{collectionId}")]
-        public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId)
->>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20
         {
             return await _srv.GetVerifiedCollection(farmerId);
         }
