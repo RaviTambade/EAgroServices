@@ -11,6 +11,7 @@ import { FarmerModule, farmerRoutes } from './farmer/farmer.module';
 import { TransporterModule, transporterRoutes } from './transporter/transporter.module';
 import { UsersModule } from './Shared/users/users.module';
 import { FilterModule } from './Shared/filter/filter.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
