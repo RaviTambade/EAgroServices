@@ -35,10 +35,10 @@ namespace GoodsCollections.Controllers
             return await _srv.GetUnverifiedCollections(collectionCenterId);
         }
 
-         [HttpGet("verified/{collectionId}")]
-        public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId )
+         [HttpGet("verified/{farmerId}")]
+        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId )
         {
-            return await _srv.GetVerifiedCollection(collectionId);
+            return await _srv.GetVerifiedCollection(farmerId);
         }
 
         [HttpPost]

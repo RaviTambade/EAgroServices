@@ -10,7 +10,7 @@ namespace GoodsCollections.Repositories.Interfaces
         Task<List<string>> GetContainerTypes();
 
         Task<List<UnverifiedCollection>> GetUnverifiedCollections(int collectionCenterId);
-        Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId);
+        Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId);
 
         Task<bool> Update(GoodsCollection collection);
         Task<bool> Delete(int collectionId);

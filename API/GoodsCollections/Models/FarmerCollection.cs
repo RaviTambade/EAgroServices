@@ -13,4 +13,9 @@ public class FarmerCollection
     public int Quantity { get; set; }
     public double Weight { get; set; }
     public DateTime CollectionDate { get; set; }
+    public string Grade { get; set; }
+
+    public double VerifiedWeight { get; set; }
+
+    public DateTime InspectionDate { get; set; }
 }

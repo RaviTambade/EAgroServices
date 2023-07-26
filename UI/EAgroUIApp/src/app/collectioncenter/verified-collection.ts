@@ -1,4 +1,6 @@
 export class VerifiedCollection {
+    corporateId: number;
+  collectionCenterName: string;
     constructor(
         public collectionId:number,
         public grade:string,
