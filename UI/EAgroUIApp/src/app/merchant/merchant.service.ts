@@ -25,4 +25,8 @@ export class MerchantService {
     let url = "http://localhost:5276/api/merchants";
     return this.http.post<any>(url,merchant)
   }
+  getIdOfMerchant(corporateId:number):Observable<(number)>{
+    let url=" http://localhost:5276/api/merchants/id/" +corporateId
+    return this.http.get<number>(url)
+  }
 }

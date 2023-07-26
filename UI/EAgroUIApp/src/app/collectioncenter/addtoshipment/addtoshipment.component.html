@@ -1,22 +1,23 @@
 <form [formGroup]="shipmentForm" (ngSubmit)="OnSubmit()">
+
     <label for="merchantId">Merchant Name:</label>
     <select id="merchantId" formControlName="merchantId">
-      <option *ngFor="let merchant of merchants" [value]="merchant.id">{{ merchant.name }}</option>
+      <option *ngFor="let selectedMerchant of merchants" value="{{id}}">{{ selectedMerchant.name }}</option>
     </select>
     <br>
   
-    <!-- <label for="vehicleId">Vehicle Name:</label>
+    <label for="vehicleId">Vehicle Name:</label>
     <select id="vehicleId" formControlName="vehicleId">
-      <option *ngFor="let vehicle of vehicles" [value]="crop.id">{{ crop.name }}</option>
+      <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.rtoNumber }}</option>
     </select>
-    <br> -->
+    <br>
   
-    <label for="kilometers">Container Type:</label>
+    <label for="kilometers">Kilometers:</label>
       <input type="text" formControlName="kilometers">
     <br>
   
     <label for="status">Status:</label>
-    <input type="text" id="quantity" [readonly]="true" formControlName="status">
+    <input type="text" id="quantity"  formControlName="status">
     <br>
   
     <label for="shipmentDate">ShipmentDate:</label>

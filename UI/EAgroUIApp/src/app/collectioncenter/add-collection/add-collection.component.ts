@@ -45,8 +45,6 @@ export class AddCollectionComponent implements OnInit {
     this.verifiedcollectionsvc.getContainerTypes().subscribe((res) => {
       this.containerTypes = res;
     });
-
-
   }
 
   OnSubmit() {

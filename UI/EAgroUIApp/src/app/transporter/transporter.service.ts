@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Vehicle } from './vehicle';
 import { Transporter } from './transporter';
+import { Vehiclenumberid } from './vehiclenumberid';
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,9 @@ gettransporterIdByUserId(userId:number):Observable<number>{
 getAllShipmentsOfTransporter(transporterId:number):Observable<any>{
   let url="http://localhost:5067/api/shipments/transporter/" +transporterId
   return this.httpClient.get<any>(url)
+}
+getVehicleNumbers():Observable<Vehiclenumberid[]>{
+  let url="http://localhost:5261/api/vehicles/numbers"
+  return this.httpClient.get<Vehiclenumberid[]>(url)
 }
 }

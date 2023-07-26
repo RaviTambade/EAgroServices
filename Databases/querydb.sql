@@ -1,13 +1,6 @@
-<<<<<<< HEAD
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
-SELECT *
-FROM shipmentitems
-=======
-
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
     SELECT * FROM shipmentitems    
->>>>>>> ae901cf518965f59d6c7200e629e37948d78f6d9
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
     JOIN shipments ON shipmentitems.shipmentid = shipments.id
     JOIN verifiedgoodscollection ON shipmentitems.collectionid = verifiedgoodscollection.collectionid
@@ -203,10 +196,9 @@ WHERE
 =======
 LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
 WHERE verifiedgoodscollection.collectionid IS NULL;
-<<<<<<< HEAD
+
 
 SELECT * FROM verifiedgoodscollection;
 SELECT * FROM goodscollections;
-=======
->>>>>>> ae901cf518965f59d6c7200e629e37948d78f6d9
->>>>>>> e8cf2ef9d8951f093c21a102e9de60ef5a9c0966
+
+SELECT * FROM shipments;

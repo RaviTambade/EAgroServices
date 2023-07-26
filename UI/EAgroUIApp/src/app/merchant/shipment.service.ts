@@ -47,8 +47,8 @@ export class ShipmentService {
     return this.http.get<TransporterAmount>(url);
   }
 
-  addShipment(shipment:Shipment):Observable<any>{
+  addShipment(shipment:Shipment):Observable<boolean>{
     let url="http://localhost:5067/api/shipments"
-    return this.http.post<any>(url,shipment)
+    return this.http.post<boolean>(url,shipment)
   }
 }

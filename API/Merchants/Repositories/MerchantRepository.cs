@@ -169,5 +169,17 @@ namespace Merchants.Repositories
                 throw e;
             }
         }
+      public async Task<int> GetId(int corporateId){
+        try{
+            using(var context=new MerchantContext(_configuration)){
+                int id=await context.Merchants.Where(m=>m.CorporateId==corporateId).Select(m=>m.Id).FirstOrDefaultAsync();
+                return id;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+      }
+
     }
 }

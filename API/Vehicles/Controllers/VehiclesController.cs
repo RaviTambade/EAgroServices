@@ -45,6 +45,11 @@ public class VehiclesController:ControllerBase{
         bool status=await _svc.Delete(id);
         return status;
     }
+    [HttpGet("numbers")]
+     public async Task<List<VehicleNumber>> GetVehicleNumbers()
+    {
+        return await _svc.GetVehicleNumbers();
+    }
 
 
 
