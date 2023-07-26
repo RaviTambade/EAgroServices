@@ -9,12 +9,12 @@ export class FarmerService {
   constructor(private http:HttpClient) { }
 
   getFarmerCollection(id:any):Observable<any>{
-    let url="http://localhost:5154/api/goodscollections/farmercollection/"+id;
+    let url="http://localhost:5154/api/goodscollections/farmerunverifiedcollection/"+id;
     console.log(url);
     return this.http.get<any>(url);
   }
-    getVerifiedCollection(collectionId:any):Observable<any>{
-      let url="http://localhost:5154/api/goodscollections/verified/"+collectionId;
+    getVerifiedCollection(farmerId:any):Observable<any>{
+      let url="http://localhost:5154/api/goodscollections/verified/"+farmerId;
       console.log(url);
       return this.http.get<any>(url);
 }

@@ -57,7 +57,7 @@ namespace GoodsCollections.Services
             return await _repo.FarmerCollection(farmerId);
         }
 
-        public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId)
+        public async Task<List<FarmerCollection>> GetVerifiedCollection(int collectionId)
         {
             return await _repo.GetVerifiedCollection(collectionId);
         }

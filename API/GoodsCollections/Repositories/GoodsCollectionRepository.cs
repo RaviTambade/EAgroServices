@@ -242,22 +242,53 @@ namespace GoodsCollections.Repositories
                 throw e;
             }
         }
+<<<<<<< HEAD
+    
+        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId)
+=======
 
         public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId)
+>>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20
         {
             try
             {
+                Console.WriteLine(farmerId);
                 using (var context = new GoodsCollectionContext(_configuration))
                 {
+<<<<<<< HEAD
+                    var verifiedcollection = await( from collection in context.GoodsCollections
+                         join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
+                         join crop in context.Crops on collection.CropId equals crop.Id
+                         join verifiedGoodsCollection in context.VerifiedGoodsCollections
+                            on collection.Id equals verifiedGoodsCollection.CollectionId
+                    where  collection.FarmerId==farmerId
+                        select new FarmerCollection()
+                        {
+                           Id = collection.Id,
+                            CropName = crop.Title,
+                            ImageUrl = crop.ImageUrl,
+                            CollectionCenterId = collection.CollectionCenterId,
+                            CorporateId = center.CorporateId,
+                            InspectorId = center.CorporateId,
+                            Quantity = (int)collection.Quantity,
+                            ContainerType = collection.ContainerType,
+                            Weight = collection.Weight,
+                            CollectionDate = collection.CollectionDate,
+                            Grade=verifiedGoodsCollection.Grade,
+                            VerifiedWeight=verifiedGoodsCollection.Weight,
+                            InspectionDate=verifiedGoodsCollection.InspectionDate
+                        }
+                    ).ToListAsync();
+=======
                     var verifiedcollection = await context.VerifiedGoodsCollections.FindAsync(
                         collectionId
                     );
 
+>>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20
                     if (verifiedcollection == null)
                     {
                         return null;
                     }
-
                     return verifiedcollection;
                 }
             }
@@ -275,10 +306,17 @@ namespace GoodsCollections.Repositories
                 {
                     var collections = await (
                         from collection in context.GoodsCollections
+<<<<<<< HEAD
+                         join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
+                         join crop in context.Crops on collection.CropId equals crop.Id
+        
+                         join verifiedGoodsCollection in context.VerifiedGoodsCollections
+=======
                         join center in context.CollectionCenters
                             on collection.CollectionCenterId equals center.Id
                         join crop in context.Crops on collection.CropId equals crop.Id
                         join verifiedGoodsCollection in context.VerifiedGoodsCollections
+>>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20
                             on collection.Id equals verifiedGoodsCollection.CollectionId
                             into gj
                         from verifiedCollection in gj.DefaultIfEmpty()
@@ -309,5 +347,55 @@ namespace GoodsCollections.Repositories
                 throw e;
             }
         }
+
+       
+
+
+        // public async Task<List<FarmerCollection>> GetverifiedCollectionsOfFarmer(int farmerId)
+        // {
+        //      try
+        //     {
+        //         using (var context = new GoodsCollectionContext(_configuration))
+        //         {
+        //             var collections = await (
+        //                 from collection in context.GoodsCollections
+        //                  join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
+        //                  join crop in context.Crops on collection.CropId equals crop.Id
+        //                  join verifiedGoodsCollection in context.VerifiedGoodsCollections
+        //                     on collection.Id equals verifiedGoodsCollection.CollectionId
+        //                     into gj
+        //                 from verifiedCollection in gj.DefaultIfEmpty()
+        //                 where verifiedCollection == null && collection.FarmerId==farmerId
+        //                 select new FarmerCollection()
+        //                 {
+        //                    Id = collection.Id,
+        //                     CropName = crop.Title,
+        //                     ImageUrl = crop.ImageUrl,
+        //                     CollectionCenterId = collection.CollectionCenterId,
+        //                     CorporateId = center.CorporateId,
+        //                     InspectorId = center.CorporateId,
+        //                     Quantity = (int)collection.Quantity,
+        //                     ContainerType = collection.ContainerType,
+        //                     Weight = collection.Weight,
+        //                     CollectionDate = collection.CollectionDate
+        //                 }
+        //             ).ToListAsync();
+        //             if (collections == null)
+        //             {
+        //                 return null;
+        //             }
+        //             return collections;
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         throw e;
+        //     }
+        // }
     }
+    }
+<<<<<<< HEAD
+
+=======
 }
+>>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20
