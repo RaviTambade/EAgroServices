@@ -11,7 +11,7 @@ export class CropService {
   constructor(private http: HttpClient) { }
 
   getCrops(): Observable<NameId[]> {
-    let url = "http://localhost:5250/api/crops/names";
+    let url = "http://localhost:5250/api/crops/nameswithid";
     return this.http.get<NameId[]>(url);
   }
 }

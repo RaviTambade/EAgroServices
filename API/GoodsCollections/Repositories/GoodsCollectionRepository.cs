@@ -1,4 +1,5 @@
 using GoodsCollections.Models;
+using GoodsCollections.Extensions;
 using GoodsCollections.Repositories.Interfaces;
 using GoodsCollections.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +15,17 @@ namespace GoodsCollections.Repositories
             _configuration = configuration;
         }
 
-        public async Task<List<CollectionDetails>> GetAll(int collectionCenterId)
+        public PagedList<CollectionDetails> GetAll(
+            int collectionCenterId,
+            FilterRequest request,
+            int pageNumber
+        )
         {
             try
             {
                 using (var context = new GoodsCollectionContext(_configuration))
                 {
-                    var collections = await (
+                    var query =
                         from collection in context.GoodsCollections
                         join crop in context.Crops on collection.CropId equals crop.Id
                         join verifiedCollection in context.VerifiedGoodsCollections
@@ -37,13 +42,9 @@ namespace GoodsCollections.Repositories
                             NetWeight = verifiedCollection.Weight,
                             InspectorId = verifiedCollection.InspectorId,
                             CollectionDate = collection.CollectionDate
-                        }
-                    ).ToListAsync();
-                    if (collections == null)
-                    {
-                        return null;
-                    }
-                    return collections;
+                        };
+                    query = query.ApplyFilters(request);
+                    return PagedList<CollectionDetails>.ToPagedList(query, pageNumber);
                 }
             }
             catch (Exception e)
@@ -67,13 +68,15 @@ namespace GoodsCollections.Repositories
                             on collection.Id equals verifiedGoodsCollection.CollectionId
                             into gj
                         from verifiedCollection in gj.DefaultIfEmpty()
-                        where verifiedCollection == null && collection.CollectionCenterId==collectionCenterId
+                        where
+                            verifiedCollection == null
+                            && collection.CollectionCenterId == collectionCenterId
                         select new UnverifiedCollection()
                         {
                             CollectionId = collection.Id,
                             FarmerId = collection.FarmerId,
                             CropName = crop.Title,
-                            CropId=crop.Id,
+                            CropId = crop.Id,
                             ContainerType = collection.ContainerType,
                             Quantity = collection.Quantity,
                             Weight = collection.Weight,
@@ -239,14 +242,20 @@ namespace GoodsCollections.Repositories
                 throw e;
             }
         }
+<<<<<<< HEAD
     
         public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId)
+=======
+
+        public async Task<VerifiedGoodsCollection> GetVerifiedCollection(int collectionId)
+>>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20
         {
             try
             {
                 Console.WriteLine(farmerId);
                 using (var context = new GoodsCollectionContext(_configuration))
                 {
+<<<<<<< HEAD
                     var verifiedcollection = await( from collection in context.GoodsCollections
                          join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
                          join crop in context.Crops on collection.CropId equals crop.Id
@@ -270,6 +279,12 @@ namespace GoodsCollections.Repositories
                             InspectionDate=verifiedGoodsCollection.InspectionDate
                         }
                     ).ToListAsync();
+=======
+                    var verifiedcollection = await context.VerifiedGoodsCollections.FindAsync(
+                        collectionId
+                    );
+
+>>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20
                     if (verifiedcollection == null)
                     {
                         return null;
@@ -283,7 +298,7 @@ namespace GoodsCollections.Repositories
             }
         }
 
-                public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
+        public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
         {
             try
             {
@@ -291,17 +306,24 @@ namespace GoodsCollections.Repositories
                 {
                     var collections = await (
                         from collection in context.GoodsCollections
+<<<<<<< HEAD
                          join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
                          join crop in context.Crops on collection.CropId equals crop.Id
         
                          join verifiedGoodsCollection in context.VerifiedGoodsCollections
+=======
+                        join center in context.CollectionCenters
+                            on collection.CollectionCenterId equals center.Id
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        join verifiedGoodsCollection in context.VerifiedGoodsCollections
+>>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20
                             on collection.Id equals verifiedGoodsCollection.CollectionId
                             into gj
                         from verifiedCollection in gj.DefaultIfEmpty()
-                        where verifiedCollection == null && collection.FarmerId==farmerId
+                        where verifiedCollection == null && collection.FarmerId == farmerId
                         select new FarmerCollection()
                         {
-                           Id = collection.Id,
+                            Id = collection.Id,
                             CropName = crop.Title,
                             ImageUrl = crop.ImageUrl,
                             CollectionCenterId = collection.CollectionCenterId,
@@ -372,4 +394,8 @@ namespace GoodsCollections.Repositories
         // }
     }
     }
+<<<<<<< HEAD
 
+=======
+}
+>>>>>>> 7a47d58284760423ef4415a5cb0891b29fadab20

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Shipment } from '../transporter/shipment';
 import { MerchantShipment } from './merchant-shipment';
 import { ShipmentItemDetails } from './shipment-item-details';
 import { TransporterAmount } from './transporter-amount';
@@ -44,5 +45,10 @@ export class ShipmentService {
   getShipmentTransporterAmount(shipmentId: number): Observable<TransporterAmount> {
     let url = "http://localhost:5067/api/shipments/transporteramount/" + shipmentId;
     return this.http.get<TransporterAmount>(url);
+  }
+
+  addShipment(shipment:Shipment):Observable<any>{
+    let url="http://localhost:5067/api/shipments"
+    return this.http.post<any>(url,shipment)
   }
 }

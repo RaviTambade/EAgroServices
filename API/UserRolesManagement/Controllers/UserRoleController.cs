@@ -39,10 +39,10 @@ namespace UserRolesManagement.Controllers
             return await _srv.Insert(userRole);
         }
 
-        [HttpGet("farmersid")]
-        public async Task<List<string>> GetFarmersId()
+        [HttpGet("usersid/{role}")]
+        public async Task<List<string>> GetUsersId(string role)
         {
-            return await _srv.GetFarmersId();
+            return await _srv.GetUsersId(role);
         }
 
         [HttpPut]
@@ -55,6 +55,12 @@ namespace UserRolesManagement.Controllers
         public async Task<bool> Delete(int userRoleId)
         {
             return await _srv.Delete(userRoleId);
+        }
+
+        [HttpGet("merchantsId")]
+        public async Task<List<string>> GetMerchantId()
+        {
+            return await _srv.GetMerchantId();
         }
     }
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
 import { AddCollectionComponent } from './add-collection/add-collection.component';
@@ -9,6 +9,8 @@ import { CollectionVerificationComponent } from './collection-verification/colle
 import { UpdateCollectionComponent } from './update-collection/update-collection.component';
 import { CollectionverificationDetailsComponent } from './collectionverification-details/collectionverification-details.component';
 import { VerifyCollectionComponent } from './verify-collection/verify-collection.component';
+import { AddtoshipmentComponent } from './addtoshipment/addtoshipment.component';
+import { CorporateService } from '../corporate.service';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,12 +25,24 @@ export const collectionCenterRoutes: Routes = [
     CollectionVerificationComponent,
     UpdateCollectionComponent,
     CollectionverificationDetailsComponent,
-    VerifyCollectionComponent
+    VerifyCollectionComponent,
+    AddtoshipmentComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  ],
+  exports:[
+    AddCollectionComponent,
+    VerifyCollectionComponent,
+    CollectionVerificationComponent,
+    CollectionListComponent,
+    AddtoshipmentComponent
+  ],
+  providers:[
+    CorporateService,
+    DatePipe
   ]
 })
 export class CollectioncenterModule { }

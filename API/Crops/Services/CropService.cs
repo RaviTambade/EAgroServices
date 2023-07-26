@@ -16,7 +16,10 @@ public class CropService : ICropService
 
     public async Task<List<Crop>> GetAll() => await _repo.GetAll();
 
-    public async Task<List<CropNameIdDetails>> GetCropNames() => await _repo.GetCropNames();
+      public async Task<List<string>> GetCropNames() => await _repo.GetCropNames();
+
+
+    public async Task<List<CropNameIdDetails>> GetCropNamesWithId() => await _repo.GetCropNamesWithId();
 
     public async Task<Crop> GetById(int varietyId) => await _repo.GetById(varietyId);
 

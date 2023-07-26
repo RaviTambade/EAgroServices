@@ -1,0 +1,44 @@
+<div class="property-container">
+  <div class="properties-card">
+    <div *ngFor="let property of rangeProperties; let i = index" (click)="toggleProperty(i)"
+      [ngClass]="{'active': isPropertyExpanded(i)}">
+      {{ property | titlecase }}
+    </div>
+  </div>
+
+  <div class="expansion-card">
+    <div *ngFor="let property of rangeProperties; let i = index">
+      <div *ngIf="isPropertyExpanded(i)" style="margin: 20px;">
+
+        <ng-container *ngIf="property == 'FarmerId'">
+          <div *ngFor="let farmer of farmers">
+            <label>
+              <input type="radio" [value]="farmer.id" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
+                (ngModelChange)="setMaxValue(i)" />
+              {{ farmer.name}}
+            </label>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="property == 'InspectorId' ">
+          <div *ngFor="let inspector of inspectors">
+            <label>
+              <input type="radio" [value]="inspector.id" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
+                (ngModelChange)="setMaxValue(i)" />
+              {{ inspector.name}}
+            </label>
+          </div>
+        </ng-container>
+
+
+        <div *ngIf="property !== 'FarmerId' && property !== 'InspectorId'">
+          <label> Minvalue </label>
+          <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].minValue" (ngModelChange)="setMaxValue(i)" />
+          <label> maxValue </label>
+          <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].maxValue" />
+        </div>
+        <button (click)="onSubmit()" [class.clicked]="isButtonClicked">Go</button>
+
+      </div>
+    </div>
+  </div>
