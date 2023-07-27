@@ -1,4 +1,4 @@
-    -- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
     
     INSERT INTO roles(name)VALUES('owner');
     INSERT INTO roles(name)VALUES ('farmer');
@@ -16,7 +16,7 @@
 
 
 
-    INSERT INTO transporters (corporateid,managerid) VALUES(6,3);
+    INSERT INTO transporters (corporateid,managerid) VALUES(6,4);
     INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"jito","MH142022");
     INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"pickup","MH142222");
     INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"tata1109","MH142322");

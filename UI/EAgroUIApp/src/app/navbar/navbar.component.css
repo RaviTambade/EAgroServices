@@ -25,4 +25,7 @@
   .nav-links a.router-link-active {
     background-color: #555;
   }
-  
+  .user-profile {
+    display: flex;
+    align-items: center;
+  }

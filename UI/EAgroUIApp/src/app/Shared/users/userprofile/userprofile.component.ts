@@ -9,38 +9,37 @@ import { UserService } from '../user.service';
   styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent {
-  user: User;
-    userId: any;
-    showUserProfile: boolean = false;
-  
-    constructor(private svc: UserService) {
-      this.user = {
-        id: 0,
-        aadharId: '',
-        firstName: '',
-        lastName: '',
-        birthDate: '',
-        gender: '',
-        email: '',
-        contactNumber: ''
-      };
-    }
-    ngOnInit(): void {}
+    user: User;
+      userId: any;
 
-    openUserProfile() {
-      this.showUserProfile = true;
-      this.userId = localStorage.getItem('userId');
-      this.svc.getUser(this.userId).subscribe(
-        (response) => {
-          this.user = response;
-          console.log(response);
-        },
-        (error) => {
-          console.error(error);
-          this.showUserProfile = false; 
-        }
-      );
+    
+      constructor(private svc: UserService) {
+        this.user = {
+          id: 0,
+          aadharId: '',
+          firstName: '',
+          lastName: '',
+          birthDate: '',
+          gender: '',
+          email: '',
+          contactNumber: ''
+        };
+      }
+      ngOnInit(): void {
+        this.userId = localStorage.getItem('userId');
+        this.svc.getUser(this.userId).subscribe(
+          (response) => {
+            this.user = response;
+            console.log(response);
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      }
+    
+      
+      
     }
-  }
 
-  
+    
