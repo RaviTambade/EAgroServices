@@ -59,7 +59,7 @@ CREATE TABLE
         managerid INT NOT NULL UNIQUE,
         CONSTRAINT fk_manager_users FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
     );
-
+0
 CREATE TABLE
     goodscollections(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
