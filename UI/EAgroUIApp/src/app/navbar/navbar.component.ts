@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  isroleInspector():boolean{
+  const role=  localStorage.getItem("role")
+    return role == 'inspector';
+  }
+
+  isroleTransporter():boolean{
+    const role=  localStorage.getItem("role")
+      return role == 'transporter';
+    }
+  
+
 }

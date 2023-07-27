@@ -16,6 +16,9 @@ import { FilterModule } from '../Shared/filter/filter.module';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'addcollection', component: AddCollectionComponent },
+  { path: 'verifycollections', component: CollectionVerificationComponent },
+  { path: 'verifiedcollections', component: CollectionListFilterComponent },
 ]
 
 
