@@ -1,9 +1,13 @@
 <nav class="navbar">
     <ul class="nav-links">
       <li><a routerLink="home" routerLinkActive="router-link-active">Home</a></li>
+      <li><a routerLink="auth/login" routerLinkActive="router-link-active">Login</a></li>
       <li><a routerLink="about" routerLinkActive="router-link-active">About</a></li>
       <li><a routerLink="contact" routerLinkActive="router-link-active">Contact</a></li>
-      <li><a routerLink="vehicles" routerLinkActive="router-link-active">Vehicles</a></li>
-      <li><a routerLink="allshipments" routerLinkActive="router-link-active">Allshipments</a></li>
+      <li *ngIf="isroleTransporter()"><a routerLink="vehicles" routerLinkActive="router-link-active">Vehicles</a></li>
+      
+      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/addcollection" routerLinkActive="router-link-active">add collection</a></li>
+      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/verifycollections" routerLinkActive="router-link-active">verify collections</a></li>
+      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/verifiedcollections" routerLinkActive="router-link-active">verified collections</a></li>
     </ul>
   </nav>
