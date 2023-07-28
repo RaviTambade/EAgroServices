@@ -21,6 +21,8 @@ namespace GoodsCollections.Repositories.Contexts
         public DbSet<Crop> Crops { get; set; }
         public DbSet<CollectionCenter> CollectionCenters { get; set; }
         public DbSet<VerifiedGoodsCollection> VerifiedGoodsCollections { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<ShipmentItem> ShipmentItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -71,6 +73,25 @@ namespace GoodsCollections.Repositories.Contexts
                 entity.Property(e => e.InspectorId);
                 modelBuilder.Entity<CollectionCenter>().ToTable("collectioncenters");
             });
+                 base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Invoice>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ShipmentItemId);
+                entity.Property(e => e.RatePerKg);
+                entity.Property(e => e.TotalAmount);
+                entity.Property(e => e.PaymentStatus);
+                entity.Property(e => e.InvoiceDate);
+                modelBuilder.Entity<Invoice>().ToTable("invoices");
+            });
+             modelBuilder.Entity<ShipmentItem>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ShipmentId);
+                entity.Property(e => e.CollectionId);
+                modelBuilder.Entity<ShipmentItem>().ToTable("shipmentitems");
+            });
+
         }
     }
 }
