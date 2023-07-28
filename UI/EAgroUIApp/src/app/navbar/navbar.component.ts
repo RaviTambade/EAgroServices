@@ -7,25 +7,33 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(private router:Router){}
 
-  isroleInspector():boolean{
-  const role=  localStorage.getItem("role")
+  constructor(private router: Router) { }
+
+  isroleInspector(): boolean {
+    const role = localStorage.getItem("role")
     return role == 'inspector';
   }
 
-  isroleTransporter():boolean{
-    const role=  localStorage.getItem("role")
-      return role == 'transporter';
-    }
+  isroleTransporter(): boolean {
+    const role = localStorage.getItem("role")
+    return role == 'transporter';
+  }
 
-    isroleMerchant():boolean{
-      const role=  localStorage.getItem("role")
-        return role == 'merchant';
-      }
+  isroleMerchant(): boolean {
+    const role = localStorage.getItem("role")
+    return role == 'merchant';
+  }
 
-      openUserProfile(){
-this.router.navigate(['userinfo']);
-      }
+  openUserProfile() {
+    this.router.navigate(['userinfo']);
+}
 
+isUser():boolean{
+  const userId = localStorage.getItem("userId")
+  if (userId != null) {
+    return true;
+  }
+  return false;
+}
 }

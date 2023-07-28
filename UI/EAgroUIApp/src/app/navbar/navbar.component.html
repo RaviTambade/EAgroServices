@@ -10,7 +10,7 @@
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/verifycollections" routerLinkActive="router-link-active">verify collections</a></li>
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/verifiedcollections" routerLinkActive="router-link-active">verified collections</a></li>
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/home" routerLinkActive="router-link-active">Shipments</a></li>
-      <li class="user-profile-icon" (click)="openUserProfile()">
+      <li *ngIf="isUser()" class="user-profile-icon" (click)="openUserProfile()">
         <i class="fa fa-user-circle"></i>
       </li>
 
