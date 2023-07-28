@@ -15,7 +15,8 @@ export const transporterRoutes: Routes = [
   { path: 'vehicles', component: VehiclesoftransporterComponent },
   {path:'shipments/:id',component: GetshipmentsofvehicleComponent},
     {path:'addvehicle',component:AddnewvehicleComponent},
-    {path:'shipmentdetails/:id',component:GetvehicleshipmentitemsComponent}
+    {path:'shipmentdetails/:id',component:GetvehicleshipmentitemsComponent},
+    {path:'allshipments',component:GetallshipmentsComponent}
 ]
 
 

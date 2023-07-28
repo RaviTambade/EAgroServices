@@ -62,6 +62,7 @@ export class LoginComponent {
   }
 
   navigateByRole(role: string) {
+    localStorage.setItem("role",role);
     switch (role) {
       case "farmer":
         this.router.navigate(['/farmer/home/', this.userId])

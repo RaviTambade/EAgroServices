@@ -7,9 +7,12 @@ import { GetuserComponent } from './getuser/getuser.component';
 import { RemoveuserComponent } from './removeuser/removeuser.component';
 import { FormsModule } from '@angular/forms';
 import { UserprofileComponent } from './userprofile/userprofile.component';
+import { Route, RouterModule, Routes } from '@angular/router';
 
 
-
+const userRoute:Routes=[
+  {path:'userinfo',component:UserprofileComponent}
+]
 @NgModule({
   declarations: [
     AdduserComponent,
@@ -22,6 +25,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule.forChild(userRoute)
     
   ],
   exports:[
