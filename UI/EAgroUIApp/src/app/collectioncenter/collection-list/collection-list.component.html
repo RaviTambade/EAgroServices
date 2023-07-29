@@ -1,16 +1,4 @@
-<!-- <table> -->
-    <tr>
-        <th>Collection Date</th>
-        <th>Farmer Name</th>
-        <th>Crop Name</th>
-        <th>Grade</th>
-        <th>Container Type</th>
-        <th>Quantity</th>
-        <th>Total Weight</th>
-        <th>Net Weight</th>
-        <th>Inspector Name</th>
-    </tr>
-    <tr *ngFor="let collection of collections">
+
         <td>{{ collection.collectionDate | date }}</td>
         <td>{{ collection.farmerName }}</td>
         <td>{{ collection.cropName}}</td>
@@ -20,6 +8,6 @@
         <td>{{ collection.totalWeight}}</td>
         <td>{{ collection.netWeight}}</td>
         <td>{{ collection.inspectorName }}</td>
-        <td><button (click)="addToShipmentStatus=true">Add To Shipment</button></td>
-        </tr>
-<!-- </table> -->
+        <td><button (click)="onAddToShipment()">Add To Shipment</button></td>
+      
+  <div *ngIf="addToShipmentStatus"> <app-addtoshipment [CollectionId]="collection.id"></app-addtoshipment></div>      

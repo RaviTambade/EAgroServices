@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Shipment } from '../transporter/shipment';
 import { MerchantShipment } from './merchant-shipment';
 import { ShipmentItemDetails } from './shipment-item-details';
 import { TransporterAmount } from './transporter-amount';
+import { InprogressVehicle } from '../collectioncenter/inprogress-vehicle';
+import { ShipmentItem } from '../collectioncenter/shipment-item';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +48,18 @@ export class ShipmentService {
     return this.http.get<TransporterAmount>(url);
   }
 
-  addShipment(shipment:Shipment):Observable<boolean>{
-    let url="http://localhost:5067/api/shipments"
-    return this.http.post<boolean>(url,shipment)
+  addShipment(shipment: any): Observable<boolean> {
+    let url = "http://localhost:5067/api/shipments"
+    return this.http.post<boolean>(url, shipment)
+  }
+
+  getInprogressShipments(): Observable<InprogressVehicle[]> {
+    let url = "http://localhost:5067/api/shipments/inprogress"
+    return this.http.get<any>(url)
+  }
+
+  addShipmentItem(shipmentItem: ShipmentItem): Observable<boolean> {
+    let url = "http://localhost:5067/api/shipmentitems";
+    return this.http.post<boolean>(url, shipmentItem);
   }
 }

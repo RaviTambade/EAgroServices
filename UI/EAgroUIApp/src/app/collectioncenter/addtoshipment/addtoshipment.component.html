@@ -1,29 +1,18 @@
-<form [formGroup]="shipmentForm" (ngSubmit)="OnSubmit()">
-
-    <label for="merchantId">Merchant Name:</label>
-    <select id="merchantId" formControlName="merchantId">
-      <option *ngFor="let merchant of merchants"  [value]="id">{{ merchant.name }}</option>
+<div *ngIf="!newShipmentStatus && componentViewStatus">
+  <form [formGroup]="shipmentItemForm" (ngSubmit)="OnSubmit()">
+    <label for="shipmentId">Vehicle Number:</label>
+    <select id="shipmentId" formControlName="shipmentId">
+      <option *ngFor="let shipmentVehicle of shipmentVehicleList" [value]="shipmentVehicle.id">{{
+        shipmentVehicle.vehicleNumber }}</option>
     </select>
     <br>
-  
-    <label for="vehicleId">Vehicle Number:</label>
-    <select id="vehicleId" formControlName="vehicleId">
-      <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.rtoNumber }}</option>
-    </select>
-    <br>
-  
-    <label for="kilometers">Kilometers:</label>
-      <input type="text" formControlName="kilometers">
-    <br>
-  
-    <!-- <label for="status">Status:</label>
-    <input type="text" id="quantity"  formControlName="status">
-    <br> -->
-  
-    <!-- <label for="shipmentDate">ShipmentDate:</label>
-    <input type="date" formControlName="shipmentDate">
-    <br> -->
-  
-    <button type="submit" [disabled]="!shipmentForm.valid" >Submit</button>
+    <button type="submit" [disabled]="!shipmentItemForm.valid">Submit</button>
   </form>
-  
+  <button (click)="componentViewStatus=false">Cancel</button>
+  <button (click)="onClicknewShipment()">Create New Shipment</button>
+</div>
+<div *ngIf="newShipmentStatus">
+  <app-create-shipment></app-create-shipment>
+  <button (click)="onClicknewShipment()">Cancel</button>
+
+</div>
