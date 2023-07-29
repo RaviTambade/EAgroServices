@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CollectionListComponent implements OnInit {
   @Input()collections: CollectionDetails[] = [];
+  addToShipmentStatus:boolean=false;
 
   constructor(private collectionsvc: CollectionService, private usrsvc: UserService) { }
 

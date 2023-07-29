@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
 
 
 CREATE PROCEDURE apply_labour_charges(IN shipment_id INT)
@@ -126,4 +126,25 @@ DECLARE last_payment_id INT;
 
   INSERT INTO transporterpayments (shipmentid, paymentid)
         VALUES (shipment_id, last_payment_id);
+END;
+
+
+
+CREATE PROCEDURE call_all_procedures_for_charges(IN records INT)
+BEGIN
+  DECLARE i INT DEFAULT 1;
+    UPDATE shipments SET status='delivered' WHERE 1=1;
+  WHILE i <= records DO
+    CALL call_procedures_after_shipment_status_delivered(i);
+    SET i = i + 1;
+  END WHILE;
+END;
+CREATE PROCEDURE call_all_procedures_for_totalamount(IN records INT)
+BEGIN
+  DECLARE i INT DEFAULT 1;
+    UPDATE invoices SET rateperkg=20 WHERE 1=1;
+    WHILE i <= records DO
+    CALL calculate_total_amount(i);
+    SET i = i + 1;
+  END WHILE;
 END;

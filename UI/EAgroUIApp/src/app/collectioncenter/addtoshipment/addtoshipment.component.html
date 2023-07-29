@@ -6,7 +6,7 @@
     </select>
     <br>
   
-    <label for="vehicleId">Vehicle Name:</label>
+    <label for="vehicleId">Vehicle Number:</label>
     <select id="vehicleId" formControlName="vehicleId">
       <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.rtoNumber }}</option>
     </select>
@@ -16,13 +16,13 @@
       <input type="text" formControlName="kilometers">
     <br>
   
-    <label for="status">Status:</label>
+    <!-- <label for="status">Status:</label>
     <input type="text" id="quantity"  formControlName="status">
-    <br>
+    <br> -->
   
-    <label for="shipmentDate">ShipmentDate:</label>
+    <!-- <label for="shipmentDate">ShipmentDate:</label>
     <input type="date" formControlName="shipmentDate">
-    <br>
+    <br> -->
   
     <button type="submit" [disabled]="!shipmentForm.valid" >Submit</button>
   </form>
