@@ -12,6 +12,7 @@ import { TransporterModule, transporterRoutes } from './transporter/transporter.
 import { UsersModule } from './Shared/users/users.module';
 import { FilterModule } from './Shared/filter/filter.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import { CropModule } from './crop/crop.module';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
     CollectioncenterModule,
     MerchantModule,
     FarmerModule,
+    CropModule,
     TransporterModule,
     UsersModule,
     FilterModule

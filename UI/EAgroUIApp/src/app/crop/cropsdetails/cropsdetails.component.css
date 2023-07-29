@@ -1,0 +1,26 @@
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  text-transform: uppercase;
+  color: #14e258;
+}
+
+.card-text {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  color: #34b4ef;
+}
+
+
+.card-img-zoom {
+  transition: transform 0.2s; /* add a smooth transition effect */
+}
+
+  .card-img-zoom:hover {
+    transform: scale(1.02);
+    /* zoom in the image on hover */
+  }
