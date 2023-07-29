@@ -21,10 +21,6 @@ namespace Shipments.Repositories
                 using (var context = new ShipmentContext(_configuration))
                 {
                     var shipments = await context.Shipments.ToListAsync();
-                    if (shipments is null)
-                    {
-                        return null;
-                    }
                     return shipments;
                 }
             }
@@ -34,7 +30,10 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId,string status)
+        public async Task<List<MerchantShipment>?> GetShipmentsByMerchant(
+            int merchantId,
+            string status
+        )
         {
             try
             {
@@ -43,23 +42,47 @@ namespace Shipments.Repositories
                     var shipments = await (
                         from shipment in context.Shipments
                         join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        where shipment.MerchantId == merchantId && shipment.Status==status
+                        where shipment.MerchantId == merchantId && shipment.Status == status
                         select new MerchantShipment()
                         {
                             Id = shipment.Id,
                             VehicleNumber = vehicle.RtoNumber,
                             Kilometers = shipment.Kilometers,
                             DeliveryStatus = shipment.Status,
-                            PaymentStatus=context.TransporterPayments.Any(tp => tp.ShipmentId == shipment.Id) ? "paid" : "unpaid",
+                            PaymentStatus = context.TransporterPayments.Any(
+                                tp => tp.ShipmentId == shipment.Id
+                            )
+                                ? "paid"
+                                : "unpaid",
                             ShipmentDate = shipment.ShipmentDate,
-                            FreightCharges=context.TotalFreightCharges(shipment.Id)
+                            FreightCharges = context.TotalFreightCharges(shipment.Id)
                         }
                     ).ToListAsync();
+                    return shipments;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-                    if (shipments is null)
-                    {
-                        return null;
-                    }
+        public async Task<List<InprogressShipment>> GetInprogressShipments()
+        {
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipments = await (
+                        from shipment in context.Shipments
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        where shipment.Status == "inprogress"
+                        select new InprogressShipment()
+                        {
+                            Id = shipment.Id,
+                            VehicleNumber = vehicle.RtoNumber
+                        }
+                    ).ToListAsync();
                     return shipments;
                 }
             }
@@ -99,10 +122,6 @@ namespace Shipments.Repositories
                             CollectionDate = collection.CollectionDate
                         }
                     ).ToListAsync();
-                    if (shipmentItems is null)
-                    {
-                        return null;
-                    }
                     return shipmentItems;
                 }
             }
@@ -134,20 +153,25 @@ namespace Shipments.Repositories
             }
         }
 
-         public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+        public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
         {
-             try
+            try
             {
                 using (var context = new ShipmentContext(_configuration))
                 {
-                     var transporterAmount = await (
+                    var transporterAmount = await (
                         from shipment in context.Shipments
                         join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
                         where shipment.Id == shipmentId
-                        select new TransporterAmount(){
-                            TransporterId=vehicle.TransporterId,
-                            PaymentStatus=context.TransporterPayments.Any(tp => tp.ShipmentId == shipment.Id) ? "paid" : "unpaid",
-                            Amount=context.TotalFreightCharges(shipment.Id)
+                        select new TransporterAmount()
+                        {
+                            TransporterId = vehicle.TransporterId,
+                            PaymentStatus = context.TransporterPayments.Any(
+                                tp => tp.ShipmentId == shipment.Id
+                            )
+                                ? "paid"
+                                : "unpaid",
+                            Amount = context.TotalFreightCharges(shipment.Id)
                         }
                     ).FirstOrDefaultAsync();
                     return transporterAmount;
@@ -164,10 +188,33 @@ namespace Shipments.Repositories
             try
             {
                 bool status = false;
+                if (await IsShipmentAlredyInprogress(shipment))
+                {
+                    return status;
+                }
                 using (var context = new ShipmentContext(_configuration))
                 {
                     await context.Shipments.AddAsync(shipment);
                     status = await SaveChanges(context);
+                    return status;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private async Task<bool> IsShipmentAlredyInprogress(Shipment shipment)
+        {
+            try
+            {
+                bool status = false;
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    status = await context.Shipments.AnyAsync(
+                        s => s.VehicleId == shipment.VehicleId && s.Status == "inprogress"
+                    );
                     return status;
                 }
             }
@@ -292,59 +339,70 @@ namespace Shipments.Repositories
             return false;
         }
 
-        public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId){
-            try{
-                using(var context=new ShipmentContext(_configuration)){
-                    var shipments=await(from merchant in context.Merchants 
-                                        join shipment in context.Shipments
-                                        on merchant.Id equals shipment.MerchantId
-                                        where shipment.VehicleId==vehicleId 
-                                        select new CorporateShipment(){
-                                        CorporateId=merchant.CorporateId,
-                                        Id=shipment.Id,
-                                        VehicleId=shipment.VehicleId,
-                                        MerchantId=shipment.MerchantId,
-                                        Kilometers=shipment.Kilometers,
-                                        Status=shipment.Status,
-                                        ShipmentDate=shipment.ShipmentDate
-                                        }).ToListAsync();
+        public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId)
+        {
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipments = await (
+                        from merchant in context.Merchants
+                        join shipment in context.Shipments on merchant.Id equals shipment.MerchantId
+                        where shipment.VehicleId == vehicleId
+                        select new CorporateShipment()
+                        {
+                            CorporateId = merchant.CorporateId,
+                            Id = shipment.Id,
+                            VehicleId = shipment.VehicleId,
+                            MerchantId = shipment.MerchantId,
+                            Kilometers = shipment.Kilometers,
+                            Status = shipment.Status,
+                            ShipmentDate = shipment.ShipmentDate
+                        }
+                    ).ToListAsync();
                     return shipments;
                 }
             }
-            catch(Exception e){
+            catch (Exception e)
+            {
                 throw e;
             }
         }
 
-       public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId){
-          try{
-                using(var context=new ShipmentContext(_configuration)){
-                    var shipments=await(from transporter in context.Transporters
-                                        join vehicle in context.Vehicles
-                                        on transporter.Id equals vehicle.TransporterId
-                                        join shipment in context.Shipments
-                                        on vehicle.Id equals shipment.VehicleId
-                                        join merchant in context.Merchants
-                                        on shipment.MerchantId equals merchant.Id
-                                        where transporter.Id==transporterId 
-                                        select new VehicleCorporateShipment()
-                                        {
-                                        ShipmentId=shipment.Id,
-                                        VehicleId=shipment.VehicleId,
-                                        CorporateId=merchant.CorporateId,
-                                        VehicleType=vehicle.VehicleType,
-                                        RtoNumber=vehicle.RtoNumber,
-                                        Kilometers=shipment.Kilometers,
-                                        Status=shipment.Status,
-                                        ShipmentDate=shipment.ShipmentDate
-                                        }).ToListAsync();
+        public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(
+            int transporterId
+        )
+        {
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipments = await (
+                        from transporter in context.Transporters
+                        join vehicle in context.Vehicles
+                            on transporter.Id equals vehicle.TransporterId
+                        join shipment in context.Shipments on vehicle.Id equals shipment.VehicleId
+                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
+                        where transporter.Id == transporterId
+                        select new VehicleCorporateShipment()
+                        {
+                            ShipmentId = shipment.Id,
+                            VehicleId = shipment.VehicleId,
+                            CorporateId = merchant.CorporateId,
+                            VehicleType = vehicle.VehicleType,
+                            RtoNumber = vehicle.RtoNumber,
+                            Kilometers = shipment.Kilometers,
+                            Status = shipment.Status,
+                            ShipmentDate = shipment.ShipmentDate
+                        }
+                    ).ToListAsync();
                     return shipments;
                 }
             }
-            catch(Exception e){
+            catch (Exception e)
+            {
                 throw e;
             }
-       }
-
+        }
     }
 }

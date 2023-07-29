@@ -30,6 +30,13 @@ namespace GoodsCollections.Repositories
                         join crop in context.Crops on collection.CropId equals crop.Id
                         join verifiedCollection in context.VerifiedGoodsCollections
                             on collection.Id equals verifiedCollection.CollectionId
+                        join shipmentItem in context.ShipmentItems
+                            on collection.Id equals shipmentItem.CollectionId
+                            into shipmentItemsCollection
+                        from shipmentItem in shipmentItemsCollection.DefaultIfEmpty()
+                        where shipmentItem == null
+
+                        // select records which are verified but not added for shiping
                         select new CollectionDetails()
                         {
                             Id = collection.Id,
@@ -242,7 +249,7 @@ namespace GoodsCollections.Repositories
                 throw e;
             }
         }
-    
+
         public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId)
         {
             try
@@ -250,15 +257,17 @@ namespace GoodsCollections.Repositories
                 Console.WriteLine(farmerId);
                 using (var context = new GoodsCollectionContext(_configuration))
                 {
-                    var verifiedcollection = await( from collection in context.GoodsCollections
-                         join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
-                         join crop in context.Crops on collection.CropId equals crop.Id
-                         join verifiedGoodsCollection in context.VerifiedGoodsCollections
+                    var verifiedcollection = await (
+                        from collection in context.GoodsCollections
+                        join center in context.CollectionCenters
+                            on collection.CollectionCenterId equals center.Id
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        join verifiedGoodsCollection in context.VerifiedGoodsCollections
                             on collection.Id equals verifiedGoodsCollection.CollectionId
-                    where  collection.FarmerId==farmerId
+                        where collection.FarmerId == farmerId
                         select new FarmerCollection()
                         {
-                           Id = collection.Id,
+                            Id = collection.Id,
                             CropName = crop.Title,
                             ImageUrl = crop.ImageUrl,
                             CollectionCenterId = collection.CollectionCenterId,
@@ -268,9 +277,9 @@ namespace GoodsCollections.Repositories
                             ContainerType = collection.ContainerType,
                             Weight = collection.Weight,
                             CollectionDate = collection.CollectionDate,
-                            Grade=verifiedGoodsCollection.Grade,
-                            VerifiedWeight=verifiedGoodsCollection.Weight,
-                            InspectionDate=verifiedGoodsCollection.InspectionDate
+                            Grade = verifiedGoodsCollection.Grade,
+                            VerifiedWeight = verifiedGoodsCollection.Weight,
+                            InspectionDate = verifiedGoodsCollection.InspectionDate
                         }
                     ).ToListAsync();
                     if (verifiedcollection == null)
@@ -294,10 +303,11 @@ namespace GoodsCollections.Repositories
                 {
                     var collections = await (
                         from collection in context.GoodsCollections
-                         join center in context.CollectionCenters on collection.CollectionCenterId equals center.Id
-                         join crop in context.Crops on collection.CropId equals crop.Id
-        
-                         join verifiedGoodsCollection in context.VerifiedGoodsCollections
+                        join center in context.CollectionCenters
+                            on collection.CollectionCenterId equals center.Id
+                        join crop in context.Crops on collection.CropId equals crop.Id
+
+                        join verifiedGoodsCollection in context.VerifiedGoodsCollections
                             on collection.Id equals verifiedGoodsCollection.CollectionId
                             into gj
                         from verifiedCollection in gj.DefaultIfEmpty()
@@ -328,9 +338,6 @@ namespace GoodsCollections.Repositories
                 throw e;
             }
         }
-
-       
-
 
         // public async Task<List<FarmerCollection>> GetverifiedCollectionsOfFarmer(int farmerId)
         // {
@@ -374,4 +381,4 @@ namespace GoodsCollections.Repositories
         //     }
         // }
     }
-    }
+}

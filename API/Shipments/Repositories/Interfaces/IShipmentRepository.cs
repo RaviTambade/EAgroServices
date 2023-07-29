@@ -6,8 +6,10 @@ namespace Shipments.Repositories.Interfaces
     {
         Task<List<Shipment>> GetAll();
         Task<Shipment> GetById(int shipmentId);
-        Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId, string status);
+        Task<List<MerchantShipment>?> GetShipmentsByMerchant(int merchantId, string status);
         Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId);
+        Task<List<InprogressShipment>> GetInprogressShipments();
+
         Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId);
         Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId);
         Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId);

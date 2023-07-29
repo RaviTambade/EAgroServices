@@ -22,9 +22,12 @@ namespace Shipments.Controllers
         }
 
         [HttpGet("merchant/{merchantId}/status/{status}")]
-        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId,string status)
+        public async Task<List<MerchantShipment>?> GetShipmentsByMerchant(
+            int merchantId,
+            string status
+        )
         {
-            return await _srv.GetShipmentsByMerchant(merchantId,status);
+            return await _srv.GetShipmentsByMerchant(merchantId, status);
         }
 
         [HttpGet("shipmentitems/{shipmentId}")]
@@ -55,6 +58,12 @@ namespace Shipments.Controllers
         public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId)
         {
             return await _srv.GetShipmentByVehicleId(vehicleId);
+        }
+
+        [HttpGet("inprogress")]
+        public async Task<List<InprogressShipment>> GetInprogressShipments()
+        {
+            return await _srv.GetInprogressShipments();
         }
 
         [HttpPatch("status/{shipmentId}")]
@@ -88,11 +97,11 @@ namespace Shipments.Controllers
         }
 
         [HttpGet("transporter/{transporterId}")]
-        public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId)
+        public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(
+            int transporterId
+        )
         {
             return await _srv.GetShipmentofTransporter(transporterId);
         }
-
     }
-
 }
