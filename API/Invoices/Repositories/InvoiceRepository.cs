@@ -124,6 +124,70 @@ namespace Invoices.Repositories
             }
         }
 
+
+        public async Task<InvoiceChargesDetails> GetInvoice(int collectionId)
+        {
+            try
+            {
+                using (var context = new InvoiceContext(_configuration))
+                {
+                    var invoiceDetails = await (
+                        from invoice in context.Invoices
+                        join shipmentItem in context.ShipmentItems
+                            on invoice.ShipmentItemId equals shipmentItem.Id
+                        join charges in context.Costing
+                            on shipmentItem.Id equals charges.ShipmentItemId
+                        join shipment in context.Shipments
+                            on shipmentItem.ShipmentId equals shipment.Id
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        join transporter in context.Transporters
+                            on vehicle.TransporterId equals transporter.Id
+                        join collection in context.GoodsCollections
+                            on shipmentItem.CollectionId equals collection.Id
+                        join collectionCenter in context.CollectionCenters
+                            on collection.CollectionCenterId equals collectionCenter.Id
+                        join verifiedCollection in context.VerifiedCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        where shipmentItem.CollectionId == collectionId
+                        select new InvoiceChargesDetails()
+                        {
+                            Id = invoice.Id,
+                            FarmerId = collection.FarmerId,
+                            CollectionId = collection.Id,
+                            CollectionCenterCorporateId = collectionCenter.CorporateId,
+                            TransporterCorporatId = transporter.CorporateId,
+                            VehicleNumber = vehicle.RtoNumber,
+                            CropName = crop.Title,
+                            Grade = verifiedCollection.Grade,
+                            ContainerType = collection.ContainerType,
+                            Quantity = collection.Quantity,
+                            TotalWeight = collection.Weight,
+                            NetWeight = verifiedCollection.Weight,
+                            FreightCharges = charges.FreightCharges,
+                            LabourCharges = charges.LabourCharges,
+                            PaymentStatus = invoice.PaymentStatus,
+                            ServiceCharges = charges.ServiceCharges,
+                            RatePerKg = invoice.RatePerKg,
+                            TotalAmount = invoice.TotalAmount,
+                            InvoiceDate = invoice.InvoiceDate
+                        }
+                    ).FirstOrDefaultAsync();
+
+                    if (invoiceDetails is null)
+                    {
+                        return null;
+                    }
+
+                    return invoiceDetails;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<bool> Insert(Invoice invoice)
         {
             try

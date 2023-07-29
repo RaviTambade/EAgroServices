@@ -18,6 +18,10 @@ namespace Invoices.Services
             return await _repo.GetAll(merchantId,paymentStatus);
         }
 
+        public async Task<InvoiceChargesDetails> GetInvoice(int collectionId)
+        {
+            return await _repo.GetInvoice(collectionId);
+        }
         public async Task<InvoiceChargesDetails> GetById(int invoiceId)
         {
             return await _repo.GetById(invoiceId);

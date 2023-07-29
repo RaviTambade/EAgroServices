@@ -21,6 +21,11 @@ namespace Invoices.Controllers
             return await _srv.GetAll(merchantId,paymentStatus);
         }
 
+        [HttpGet("collectioninvoice/{collectionId}")]
+        public async Task<InvoiceChargesDetails> GetInvoice(int collectionId)
+        {
+            return await _srv.GetInvoice(collectionId);
+        }
         [HttpGet("details/{invoiceId}")]
         public async Task<InvoiceChargesDetails> GetById(int invoiceId)
         {
