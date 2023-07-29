@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
     
     INSERT INTO roles(name)VALUES('owner');
     INSERT INTO roles(name)VALUES ('farmer');
@@ -8,6 +8,7 @@
     INSERT INTO userroles(userid,roleid)VALUES(1,1);
     INSERT INTO userroles(userid,roleid)VALUES(2,2);
     INSERT INTO userroles(userid,roleid)VALUES(3,3);
+    INSERT INTO userroles(userid,roleid)VALUES(3,5);
     INSERT INTO userroles(userid,roleid)VALUES(5,5);
     INSERT INTO userroles(userid,roleid)VALUES(4,4);
     INSERT INTO userroles(userid,roleid)VALUES(7,5);
@@ -109,7 +110,8 @@
 
 
 
-    INSERT INTO verifiedgoodscollection(collectionid,grade,weight,inspectorid,inspectiondate) VALUES
+    INSERT INTO verifiedgoodscollection(collectionid,grade,
+    weight,inspectorid,inspectiondate) VALUES
     (1,'A',180,3,'2022-01-20 13:30:00'),
     (2,'B',225,3,'2022-01-20 13:30:00'),
     (3,'C',540,3,'2022-01-20 13:30:00'),
@@ -197,7 +199,6 @@
     (3,2,112,'2021-08-21 13:30:00');
 
 
-
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,1);
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,3);
@@ -264,14 +265,17 @@
 
     -- CALL call_procedures_after_shipment_status_delivered(1); -- shipmentid
     -- CALL call_procedures_after_shipment_status_delivered(2); -- shipmentid
+   
 
 
     -- CALL apply_total_freight_charges(2,@total_freight_charges);
 
     -- SELECT @total_freight_charges;
-
+SELECT * FROM invoices;
 
     -- CALL calculate_total_amount(1); 
     -- CALL calculate_total_amount(2); 
     -- CALL calculate_total_amount(3); 
     -- CALL calculate_total_amount(4);
+ CALL call_all_procedures_for_charges(20);
+ CALL call_all_procedures_for_totalamount(70);

@@ -24,8 +24,6 @@ constructor(private formBuilder:FormBuilder,private userRoleSvc:UserRoleService,
     vehicleId:['', Validators.required],
     merchantId:['', Validators.required],
     kilometers:['',Validators.required],
-    status:['',Validators.required],
-    shipmentDate:['',Validators.required]
   })
 }
   ngOnInit(): void {
