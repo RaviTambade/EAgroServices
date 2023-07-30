@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
     
     INSERT INTO roles(name)VALUES('owner');
     INSERT INTO roles(name)VALUES ('farmer');
@@ -41,7 +41,7 @@
 
     INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,3);
     INSERT INTO merchants (corporateid,managerid) VALUES(5,9);
-    INSERT INTO merchants (corporateid,managerid) VALUES(7,4);
+    INSERT INTO merchants (corporateid,managerid) VALUES(7,3);
     INSERT INTO merchants (corporateid,managerid) VALUES(8,5);
 
 
