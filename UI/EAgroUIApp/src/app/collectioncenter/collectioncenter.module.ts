@@ -14,6 +14,7 @@ import { CorporateService } from '../corporate.service';
 import { CollectionListFilterComponent } from './collection-list-filter/collection-list-filter.component';
 import { FilterModule } from '../Shared/filter/filter.module';
 import { CreateShipmentComponent } from './create-shipment/create-shipment.component';
+import { CollectionShipmentListComponent } from './collection-shipment-list/collection-shipment-list.component';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -35,6 +36,7 @@ export const collectionCenterRoutes: Routes = [
     CollectionListFilterComponent,
     CreateShipmentComponent,
     CollectionListComponent,
+    CollectionShipmentListComponent,
   ],
   imports: [
     CommonModule,

@@ -7,6 +7,7 @@ import { TransporterAmount } from './transporter-amount';
 import { InprogressVehicle } from '../collectioncenter/inprogress-vehicle';
 import { ShipmentItem } from '../collectioncenter/shipment-item';
 import { ShipmentStatus } from './shipment-status';
+import { ShippedCollection } from '../collectioncenter/shipped-collection';
 
 @Injectable({
   providedIn: 'root'
@@ -63,4 +64,12 @@ export class ShipmentService {
     let url = "http://localhost:5067/api/shipmentitems";
     return this.http.post<boolean>(url, shipmentItem);
   }
+
+  getShippedCollections(staus:string):Observable<ShippedCollection[]>{
+    const collectionCenterId = localStorage.getItem("collectionCenterId");
+    let url = "http://localhost:5067/api/shipments/collections/"+collectionCenterId+"/status/"+staus;
+    return this.http.get<ShippedCollection[]>(url);
+  }
+
+
 }
