@@ -76,7 +76,7 @@ namespace Shipments.Repositories
                     var shipments = await (
                         from shipment in context.Shipments
                         join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        where shipment.Status == "inprogress"
+                        where shipment.Status == ShipmentStatus.Inprogress
                         select new InprogressShipment()
                         {
                             Id = shipment.Id,
@@ -213,7 +213,9 @@ namespace Shipments.Repositories
                 using (var context = new ShipmentContext(_configuration))
                 {
                     status = await context.Shipments.AnyAsync(
-                        s => s.VehicleId == shipment.VehicleId && s.Status == "inprogress"
+                        s =>
+                            s.VehicleId == shipment.VehicleId
+                            && s.Status == ShipmentStatus.Inprogress
                     );
                     return status;
                 }
@@ -236,7 +238,7 @@ namespace Shipments.Repositories
                         .Select(shipment => shipment.Status)
                         .FirstOrDefaultAsync();
 
-                    if (shipmentStatus is "delivered")
+                    if (shipmentStatus is ShipmentStatus.Delivered)
                     {
                         status = true;
                     }
@@ -265,7 +267,7 @@ namespace Shipments.Repositories
                     shipment.Status = statusObject.Status;
                     status = await SaveChanges(context);
 
-                    if (status && statusObject.Status == "delivered")
+                    if (status && statusObject.Status == ShipmentStatus.Delivered)
                     {
                         context.Database.ExecuteSqlRaw(
                             "CALL call_procedures_after_shipment_status_delivered(@p0)",
@@ -393,6 +395,60 @@ namespace Shipments.Repositories
                             RtoNumber = vehicle.RtoNumber,
                             Kilometers = shipment.Kilometers,
                             Status = shipment.Status,
+                            ShipmentDate = shipment.ShipmentDate
+                        }
+                    ).ToListAsync();
+                    return shipments;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<ShippedCollection>> GetShippedCollections(
+            int collectionCenterId,
+            string shipmentStatus
+        )
+        {
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipments = await (
+                        from shipment in context.Shipments
+                        join shipmentItem in context.ShipmentItems
+                            on shipment.Id equals shipmentItem.ShipmentId
+                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        join transporter in context.Transporters
+                            on vehicle.TransporterId equals transporter.Id
+                        join collection in context.GoodsCollections
+                            on shipmentItem.CollectionId equals collection.Id
+                        join collectionCenter in context.CollectionCenters
+                            on collection.CollectionCenterId equals collectionCenter.Id
+                        join verifiedCollection in context.VerifiedCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                        join crop in context.Crops on collection.CropId equals crop.Id
+                        where
+                            collection.CollectionCenterId == collectionCenterId
+                            && shipment.Status == shipmentStatus
+                        select new ShippedCollection()
+                        {
+                            CollectionId = collection.Id,
+                            CollectionCenterCorporateId = collectionCenter.CorporateId,
+                            MerchantCorporateId = merchant.CorporateId,
+                            TransporterCorporateId = transporter.CorporateId,
+                            FarmerId = collection.FarmerId,
+                            CropName = crop.Title,
+                            VehicleNumber = vehicle.RtoNumber,
+                            Grade = verifiedCollection.Grade,
+                            ContainerType = collection.ContainerType,
+                            Quantity = collection.Quantity,
+                            TotalWeight = collection.Weight,
+                            NetWeight = verifiedCollection.Weight,
+                            CollectionDate = collection.CollectionDate,
                             ShipmentDate = shipment.ShipmentDate
                         }
                     ).ToListAsync();

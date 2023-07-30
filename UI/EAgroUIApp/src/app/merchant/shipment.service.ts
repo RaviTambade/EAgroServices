@@ -6,6 +6,7 @@ import { ShipmentItemDetails } from './shipment-item-details';
 import { TransporterAmount } from './transporter-amount';
 import { InprogressVehicle } from '../collectioncenter/inprogress-vehicle';
 import { ShipmentItem } from '../collectioncenter/shipment-item';
+import { ShipmentStatus } from './shipment-status';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class ShipmentService {
 
   updateShipmentStatus(shipmentId: number): Observable<boolean> {
     let obj = {
-      "status": "delivered"
+      "status": ShipmentStatus.delivered
     }
     let url = "http://localhost:5067/api/shipments/status/" + shipmentId;
     return this.http.patch<boolean>(url, obj);

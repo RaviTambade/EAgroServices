@@ -3,6 +3,7 @@ import { ShipmentService } from '../shipment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MerchantShipment } from '../merchant-shipment';
 import { PaymentService } from 'src/app/payment.service';
+import { ShipmentStatus } from '../shipment-status';
 
 @Component({
   selector: 'merchant-shipment-list',
@@ -15,7 +16,7 @@ export class MerchantShipmentListComponent implements OnInit {
   constructor(private svc: ShipmentService,
      private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
-    this.svc.getShipments("inprogress").subscribe((res) => {
+    this.svc.getShipments(ShipmentStatus.inprogress).subscribe((res) => {
       console.log("🚀 ~ this.svc.getShipments ~ res:", res);
       this.merchantShipments = res;
 
@@ -28,7 +29,7 @@ export class MerchantShipmentListComponent implements OnInit {
 
 
   onClickDelivered() {
-    this.svc.getShipments("delivered").subscribe((res) => {
+    this.svc.getShipments(ShipmentStatus.delivered).subscribe((res) => {
       console.log("🚀 ~ this.svc.getShipments ~ res:", res);
       this.merchantShipments = res;
 
@@ -36,7 +37,7 @@ export class MerchantShipmentListComponent implements OnInit {
   }
 
   onClickInprogress() {
-    this.svc.getShipments("inprogress").subscribe((res) => {
+    this.svc.getShipments(ShipmentStatus.inprogress).subscribe((res) => {
       console.log("🚀 ~ this.svc.getShipments ~ res:", res);
       this.merchantShipments = res;
 

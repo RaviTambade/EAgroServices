@@ -75,12 +75,6 @@ namespace Shipments.Controllers
         [HttpPost]
         public async Task<bool> Insert(Shipment shipment)
         {
-            System.Console.WriteLine(shipment.Id);
-            System.Console.WriteLine(shipment.MerchantId);
-            System.Console.WriteLine(shipment.VehicleId);
-            System.Console.WriteLine(shipment.ShipmentDate);
-            System.Console.WriteLine(shipment.Status);
-
             return await _srv.Insert(shipment);
         }
 
@@ -103,5 +97,14 @@ namespace Shipments.Controllers
         {
             return await _srv.GetShipmentofTransporter(transporterId);
         }
+
+       [HttpGet("collections/{collectionCenterId}/status/{shipmentStatus}")]
+         public async Task<List<ShippedCollection>> GetShippedCollections(
+            int collectionCenterId,
+            string shipmentStatus
+        )
+        {
+            return await _srv.GetShippedCollections(collectionCenterId,shipmentStatus);
+        } 
     }
 }
