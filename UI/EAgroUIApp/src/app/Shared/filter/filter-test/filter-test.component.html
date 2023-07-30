@@ -78,12 +78,11 @@
         <app-sort-by [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-sort-by>
       </div>
 
-      <!-- <app-farmer-collection-list [farmerCollections]="farmerCollections"></app-farmer-collection-list> -->
-      <collection-center-collection-list [collections]="collections"></collection-center-collection-list>
+      <app-collection-list-head [collections]="collections"></app-collection-list-head>
       <div class="page-numbers-container">
         <button *ngFor="let pageNumber of pageNumbers" (click)="onPageClick(pageNumber)"
           [ngClass]="{'current-page':currentPage===pageNumber}">
-          {{ pageNumber }}
+          {{ pageNumber}}
         </button>
       </div>
     </div>

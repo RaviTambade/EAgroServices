@@ -6,14 +6,12 @@ import { CollectionService } from 'src/app/collection-service.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'collection-center-collection-list',
+  selector: 'collection-list-body',
   templateUrl: './collection-list.component.html',
-  standalone:true,
-  imports:[CommonModule],
   styleUrls: ['./collection-list.component.css']
 })
 export class CollectionListComponent implements OnInit {
-  @Input()collections: CollectionDetails[] = [];
+  @Input() collection!: CollectionDetails;
   addToShipmentStatus:boolean=false;
 
   constructor(private collectionsvc: CollectionService, private usrsvc: UserService) { }
@@ -22,6 +20,17 @@ export class CollectionListComponent implements OnInit {
   ngOnInit(): void {
     
   }
+
+  onAddToShipment(){
+    if (this.addToShipmentStatus == false) {
+      this.addToShipmentStatus = true;
+    }
+
+    else if (this.addToShipmentStatus == true) {
+      this.addToShipmentStatus = false;
+    }
+  }
+
   // ngOnInit(): void {
   //   this.collectionsvc.getCollections().subscribe((res) => {
   //     this.collections = res;

@@ -22,9 +22,12 @@ namespace Shipments.Controllers
         }
 
         [HttpGet("merchant/{merchantId}/status/{status}")]
-        public async Task<List<MerchantShipment>> GetShipmentsByMerchant(int merchantId,string status)
+        public async Task<List<MerchantShipment>?> GetShipmentsByMerchant(
+            int merchantId,
+            string status
+        )
         {
-            return await _srv.GetShipmentsByMerchant(merchantId,status);
+            return await _srv.GetShipmentsByMerchant(merchantId, status);
         }
 
         [HttpGet("shipmentitems/{shipmentId}")]
@@ -57,6 +60,12 @@ namespace Shipments.Controllers
             return await _srv.GetShipmentByVehicleId(vehicleId);
         }
 
+        [HttpGet("inprogress")]
+        public async Task<List<InprogressShipment>> GetInprogressShipments()
+        {
+            return await _srv.GetInprogressShipments();
+        }
+
         [HttpPatch("status/{shipmentId}")]
         public async Task<bool> UpdateStatus(int shipmentId, [FromBody] UpdateStatus statusObject)
         {
@@ -66,12 +75,6 @@ namespace Shipments.Controllers
         [HttpPost]
         public async Task<bool> Insert(Shipment shipment)
         {
-            System.Console.WriteLine(shipment.Id);
-            System.Console.WriteLine(shipment.MerchantId);
-            System.Console.WriteLine(shipment.VehicleId);
-            System.Console.WriteLine(shipment.ShipmentDate);
-            System.Console.WriteLine(shipment.Status);
-
             return await _srv.Insert(shipment);
         }
 
@@ -88,11 +91,20 @@ namespace Shipments.Controllers
         }
 
         [HttpGet("transporter/{transporterId}")]
-        public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId)
+        public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(
+            int transporterId
+        )
         {
             return await _srv.GetShipmentofTransporter(transporterId);
         }
 
+       [HttpGet("collections/{collectionCenterId}/status/{shipmentStatus}")]
+         public async Task<List<ShippedCollection>> GetShippedCollections(
+            int collectionCenterId,
+            string shipmentStatus
+        )
+        {
+            return await _srv.GetShippedCollections(collectionCenterId,shipmentStatus);
+        } 
     }
-
 }
