@@ -1,32 +1,50 @@
-
 <br>
 <br>
 <div *ngIf="verifiedCollections">
     <table>
         <thead>
-            <th>CollectionCenterName</th><hr>
-            <th>CollectionDate</th><hr>
-            <th>CropName</th><hr>
-            <th>ContainerType</th><hr>
-            <th>Quantity</th><hr>
-            <th>Weight</th><hr>
-            <th>Grade</th><hr>
-            <th>InspectionDate</th><hr>
-            <th>Weight</th><hr>
+            <th>CollectionCenterName</th>
+            <hr>
+            <th>CollectionDate</th>
+            <hr>
+            <th>CropName</th>
+            <hr>
+            <th>ContainerType</th>
+            <hr>
+            <th>Quantity</th>
+            <hr>
+            <th>Weight</th>
+            <hr>
+            <th>Grade</th>
+            <hr>
+            <th>InspectionDate</th>
+            <hr>
+            <th>Weight</th>
+            <hr>
         </thead>
         <tbody *ngFor="let veryfiedCollection of verifiedCollections">
-            <td>{{veryfiedCollection.collectionCenterName}}</td><hr>
-            <td>{{veryfiedCollection.collectionDate}}</td><hr>
-            <td>{{veryfiedCollection.cropName}}</td><hr>            
-            <img [src]="veryfiedCollection.imageUrl" style="border-radius: 50%; width: 150px; height: 150px;"/><hr>
-            <td>{{veryfiedCollection.containerType}}</td><hr>
-            <td>{{veryfiedCollection.quantity}}</td><hr>
-            <td>{{veryfiedCollection.weight}}</td><hr>
-            <td>{{veryfiedCollection.grade}}</td><hr>
-            <td>{{veryfiedCollection.inspectionDate|date}}</td><hr>
-            <td>{{veryfiedCollection.weight}}</td><hr>
+            <td>{{veryfiedCollection.collectionCenterName}}</td>
+            <hr>
+            <td>{{veryfiedCollection.collectionDate}}</td>
+            <hr>
+            <td>{{veryfiedCollection.cropName}}</td>
+            <hr>
+            <img [src]="veryfiedCollection.imageUrl" style="border-radius: 50%; width: 150px; height: 150px;" />
+            <hr>
+            <td>{{veryfiedCollection.containerType}}</td>
+            <hr>
+            <td>{{veryfiedCollection.quantity}}</td>
+            <hr>
+            <td>{{veryfiedCollection.weight}}</td>
+            <hr>
+            <td>{{veryfiedCollection.grade}}</td>
+            <hr>
+            <td>{{veryfiedCollection.inspectionDate|date}}</td>
+            <hr>
+            <td>{{veryfiedCollection.weight}}</td>
+            <hr>
         </tbody>
     </table>
 </div>
 
-            <!-- <button (click)="onClick(farmerCollection.id)">verifiedcollection</button> -->
+<!-- <button (click)="onClick(farmerCollection.id)">verifiedcollection</button> -->
