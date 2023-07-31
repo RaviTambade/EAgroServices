@@ -1,4 +1,3 @@
-
 using CollectionCenters.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +16,11 @@ namespace CollectionCenters.Repositories.Contexts
                 this._configuration.GetConnectionString("DefaultConnection")
                 ?? throw new ArgumentNullException(nameof(configuration));
         }
-        public DbSet<CollectionCenter> CollectionCenters {get; set;}
+
+        public DbSet<CollectionCenter> CollectionCenters { get; set; }
+        public DbSet<GoodsCollection> GoodsCollections { get; set; }
+        public DbSet<CollctionCenterPayment> CollctionCenterPayments { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,12 +33,41 @@ namespace CollectionCenters.Repositories.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-                modelBuilder.Entity<CollectionCenter>(entity =>
+            modelBuilder.Entity<CollectionCenter>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.CorporateId);
                 entity.Property(e => e.InspectorId);
                 modelBuilder.Entity<CollectionCenter>().ToTable("collectioncenters");
+            });
+
+            modelBuilder.Entity<CollctionCenterPayment>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CollectionId);
+                entity.Property(e => e.PaymentId);
+                modelBuilder.Entity<CollctionCenterPayment>().ToTable("goodsservicespayments");
+            });
+
+              modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Amount);
+                entity.Property(e => e.TransactionId);
+                entity.Property(e => e.Date);
+                modelBuilder.Entity<Payment>().ToTable("payments");
+            });
+            modelBuilder.Entity<GoodsCollection>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CollectionCenterId);
+                entity.Property(e => e.FarmerId);
+                entity.Property(e => e.CropId);
+                entity.Property(e => e.ContainerType);
+                entity.Property(e => e.Quantity);
+                entity.Property(e => e.Weight);
+                entity.Property(e => e.CollectionDate);
+                modelBuilder.Entity<GoodsCollection>().ToTable("goodscollections");
             });
         }
     }
