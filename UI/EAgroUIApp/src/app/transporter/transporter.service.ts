@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Vehicle } from './vehicle';
 import { Transporter } from './transporter';
 import { Vehiclenumberid } from './vehiclenumberid';
+import { Vehiclerevenue } from './vehiclerevenue';
 
 @Injectable({
   providedIn: 'root'
@@ -69,5 +70,9 @@ getAllShipmentsOfTransporter(transporterId:number):Observable<any>{
 getVehicleNumbers():Observable<Vehiclenumberid[]>{
   let url="http://localhost:5261/api/vehicles/numbers"
   return this.httpClient.get<Vehiclenumberid[]>(url)
+}
+getVehicleRevenues(transporterId:number):Observable<Vehiclerevenue[]>{
+  let url="http://localhost:5025/api/transporters/" + transporterId + "/revenues"
+  return this.httpClient.get<Vehiclerevenue[]>(url)
 }
 }

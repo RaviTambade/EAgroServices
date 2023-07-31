@@ -217,4 +217,15 @@ INNER JOIN transporterpayments
 ON  shipments.id=transporterpayments.shipmentid
 INNER JOIN payments
 ON transporterpayments.paymentid=payments.id
-WHERE transporterid=1  GROUP BY vehicles.id ;
+WHERE transporterid=1  GROUP BY vehicles.rtonumber;
+
+SELECT
+    vehicles.rtonumber,
+    SUM(payments.amount)
+FROM vehicles
+    INNER JOIN transporters ON vehicles.transporterid = transporters.id
+    INNER JOIN shipments ON vehicles.id = shipments.vehicleid
+    INNER JOIN transporterpayments ON shipments.id = transporterpayments.paymentid
+    INNER JOIN payments ON transporterpayments.paymentid = payments.id
+WHERE transporters.id = 1
+GROUP BY vehicles.rtonumber

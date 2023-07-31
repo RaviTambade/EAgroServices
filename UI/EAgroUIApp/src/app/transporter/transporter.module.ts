@@ -9,6 +9,8 @@ import { AddnewvehicleComponent } from './addnewvehicle/addnewvehicle.component'
 import { FormsModule } from '@angular/forms';
 import { GetvehicleshipmentitemsComponent } from './getvehicleshipmentitems/getvehicleshipmentitems.component';
 import { GetallshipmentsComponent } from './getallshipments/getallshipments.component';
+import { TransporterbarchartComponent } from './transporterbarchart/transporterbarchart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -16,7 +18,8 @@ export const transporterRoutes: Routes = [
   {path:'shipments/:id',component: GetshipmentsofvehicleComponent},
     {path:'addvehicle',component:AddnewvehicleComponent},
     {path:'shipmentdetails/:id',component:GetvehicleshipmentitemsComponent},
-    {path:'allshipments',component:GetallshipmentsComponent}
+    {path:'allshipments',component:GetallshipmentsComponent},
+    {path:'dashboard',component:TransporterbarchartComponent}
 ]
 
 
@@ -28,12 +31,14 @@ export const transporterRoutes: Routes = [
     AddnewvehicleComponent,
     GetvehicleshipmentitemsComponent,
     GetallshipmentsComponent,
+    TransporterbarchartComponent,
 
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(transporterRoutes)
+    RouterModule.forChild(transporterRoutes),
+    NgChartsModule
   ],
   exports:[
     VehiclesoftransporterComponent,
