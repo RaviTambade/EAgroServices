@@ -189,11 +189,10 @@ ON vehicles.id= shipments.vehicleid
 WHERE transporters.id=1;
 SELECT goodscollections.*
 FROM goodscollections
-<<<<<<< HEAD
     LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
 WHERE
     verifiedgoodscollection.collectionid IS NULL;
-=======
+
 LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
 WHERE verifiedgoodscollection.collectionid IS NULL;
 
@@ -220,7 +219,7 @@ ON transporterpayments.paymentid=payments.id
 WHERE transporterid=1  GROUP BY vehicles.rtonumber;
 
 SELECT
-    vehicles.rtonumber,
+    MONTHNAME(shipments.shipmentdate),
     SUM(payments.amount)
 FROM vehicles
     INNER JOIN transporters ON vehicles.transporterid = transporters.id
@@ -228,4 +227,6 @@ FROM vehicles
     INNER JOIN transporterpayments ON shipments.id = transporterpayments.paymentid
     INNER JOIN payments ON transporterpayments.paymentid = payments.id
 WHERE transporters.id = 1
-GROUP BY vehicles.rtonumber
+GROUP BY  shipments.shipmentdate;
+
+SELECT * FROM shipments;

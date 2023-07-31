@@ -69,5 +69,13 @@ namespace Transporters.Controllers
             return await _srv.GetVehicleRevenues(transporterId);
         }
 
+
+
+        [HttpGet("{transporterId}/monthlyrevenue")]
+         public async Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId)
+        {
+            return await _srv.GetTransporterRevenues(transporterId);
+        }
+
     }
 }

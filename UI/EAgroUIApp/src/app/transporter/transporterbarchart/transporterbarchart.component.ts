@@ -58,7 +58,23 @@ this.vehicleRevenues=res
 console.log(res)
 this.barChartData.labels=this.vehicleRevenues.map((revenues)=>revenues.rtoNumber);
 this.barChartData.datasets[0].data=this.vehicleRevenues.map((revenues)=>revenues.amount);
+this.barChartData.datasets[0].backgroundColor = this.getBarColors(this.vehicleRevenues.length);
     })
   }
 
+  getBarColors(dataLength: number): string[] {
+    const colors: string[] = [];
+    for (let i = 0; i < dataLength; i++) {
+      colors.push(this.getRandomColor());
+    }
+    return colors;
+  }
+getRandomColor(): string {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 }

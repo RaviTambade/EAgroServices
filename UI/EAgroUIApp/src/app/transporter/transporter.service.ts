@@ -5,6 +5,7 @@ import { Vehicle } from './vehicle';
 import { Transporter } from './transporter';
 import { Vehiclenumberid } from './vehiclenumberid';
 import { Vehiclerevenue } from './vehiclerevenue';
+import { Transporterrevenue } from './transporterrevenue';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +75,9 @@ getVehicleNumbers():Observable<Vehiclenumberid[]>{
 getVehicleRevenues(transporterId:number):Observable<Vehiclerevenue[]>{
   let url="http://localhost:5025/api/transporters/" + transporterId + "/revenues"
   return this.httpClient.get<Vehiclerevenue[]>(url)
+}
+getTransporterRevenue(transporterId:number):Observable<Transporterrevenue[]>{
+  let url="http://localhost:5025/api/transporters/" +transporterId + "/monthlyrevenue"
+  return this.httpClient.get<Transporterrevenue[]>(url)
 }
 }

@@ -11,6 +11,8 @@ import { GetvehicleshipmentitemsComponent } from './getvehicleshipmentitems/getv
 import { GetallshipmentsComponent } from './getallshipments/getallshipments.component';
 import { TransporterbarchartComponent } from './transporterbarchart/transporterbarchart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { TransporterdashboardComponent } from './transporterdashboard/transporterdashboard.component';
+import { TransporterpiechartComponent } from './transporterpiechart/transporterpiechart.component';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -19,7 +21,7 @@ export const transporterRoutes: Routes = [
     {path:'addvehicle',component:AddnewvehicleComponent},
     {path:'shipmentdetails/:id',component:GetvehicleshipmentitemsComponent},
     {path:'allshipments',component:GetallshipmentsComponent},
-    {path:'dashboard',component:TransporterbarchartComponent}
+    {path:'dashboard',component:TransporterdashboardComponent}
 ]
 
 
@@ -32,6 +34,8 @@ export const transporterRoutes: Routes = [
     GetvehicleshipmentitemsComponent,
     GetallshipmentsComponent,
     TransporterbarchartComponent,
+    TransporterdashboardComponent,
+    TransporterpiechartComponent,
 
   ],
   imports: [

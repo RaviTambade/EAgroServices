@@ -4,6 +4,8 @@ using Transporters.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using Microsoft.AspNetCore.Server.IIS.Core;
+using Microsoft.VisualBasic.FileIO;
+using System.Globalization;
 
 namespace Transporters.Repositories
 {
@@ -240,5 +242,30 @@ namespace Transporters.Repositories
             }
             
         }
+        public async Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId){
+            try{
+                using(var context =new TransporterContext(_configuration)){
+                    var revenues=await (from vehicle in context.Vehicles
+                                        join transporter in context.Transporters
+                                        on vehicle.TransporterId equals transporter.Id
+                                        join shipment in context.Shipments
+                                        on vehicle.Id equals shipment.VehicleId
+                                        join transporterpayment in context.TransporterPayments
+                                        on shipment.Id equals transporterpayment.ShipmentId
+                                        join payment in context.Payments
+                                        on transporterpayment.PaymentId equals payment.Id
+                                        where  transporter.Id ==transporterId group new {transporter,vehicle,transporterpayment,shipment,payment} by shipment.ShipmentDate.Month into ShipmentDateGroup
+                                        select new TransporterRevenue{
+                                            MonthName=CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ShipmentDateGroup.Key),
+                                            Amount=ShipmentDateGroup.Sum(p=>p.payment.Amount)
+                                        }).ToListAsync();
+                                        return revenues;
+                }
+            }
+            catch(Exception e){
+                throw e;
+            }
+        }
+        
     }
 }

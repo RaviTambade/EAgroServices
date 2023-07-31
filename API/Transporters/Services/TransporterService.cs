@@ -55,5 +55,9 @@ namespace Transporters.Services
         {
             return await _repo.GetVehicleRevenues(transporterId);
         }
+        public async Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId)
+        {
+            return await _repo.GetTransporterRevenues(transporterId);
+        }
     }
 }
