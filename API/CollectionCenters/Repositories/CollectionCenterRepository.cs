@@ -2,6 +2,7 @@ using CollectionCenters.Models;
 using CollectionCenters.Repositories.Interfaces;
 using CollectionCenters.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace CollectionCenters.Repositories
 {
@@ -137,6 +138,35 @@ namespace CollectionCenters.Repositories
                         select CollectionCenter.Id
                     ).FirstOrDefaultAsync();
                     return collectionCenterId;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<MonthRevenue>> GetMonthRevenue(int collectionCenterId)
+        {
+            try
+            {
+                using (var context = new CollectionCenterContext(_configuration))
+                {
+                    var revenueData = await (
+                        from goodServicePayment in context.CollctionCenterPayments
+                        join collection in context.GoodsCollections
+                            on goodServicePayment.CollectionId equals collection.Id
+                        join payment in context.Payments on goodServicePayment.PaymentId equals payment.Id
+                        where collection.CollectionCenterId == collectionCenterId
+                        group payment by payment.Date.Month into g
+                        orderby g.Key
+                        select new MonthRevenue()
+                        {
+                            Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+                            TotalAmount = g.Sum(p => p.Amount)
+                        }
+                    ).ToListAsync();
+                    return revenueData;
                 }
             }
             catch (Exception e)

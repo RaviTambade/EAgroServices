@@ -70,7 +70,10 @@ export class LoginComponent {
 
       case "merchant":
         if (this.userId != undefined)
+        
           this.merchantsvc.getmerchantIdByUserId(this.userId).subscribe((merchantId) => {
+        console.log("🚀 ~ navigateByRole ~ userId:", this.userId);
+        console.log("🚀 ~ this.merchantsvc.getmerchantIdByUserId ~ merchantId:", merchantId);
             localStorage.setItem("merchantId", merchantId.toString());
             this.router.navigate(['/merchant/home'])
           });
