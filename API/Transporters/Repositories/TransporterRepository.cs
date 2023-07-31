@@ -245,20 +245,19 @@ namespace Transporters.Repositories
         public async Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId){
             try{
                 using(var context =new TransporterContext(_configuration)){
-                    var revenues=await (from vehicle in context.Vehicles
-                                        join transporter in context.Transporters
-                                        on vehicle.TransporterId equals transporter.Id
-                                        join shipment in context.Shipments
-                                        on vehicle.Id equals shipment.VehicleId
-                                        join transporterpayment in context.TransporterPayments
-                                        on shipment.Id equals transporterpayment.ShipmentId
-                                        join payment in context.Payments
-                                        on transporterpayment.PaymentId equals payment.Id
-                                        where  transporter.Id ==transporterId group new {transporter,vehicle,transporterpayment,shipment,payment} by shipment.ShipmentDate.Month into ShipmentDateGroup
-                                        select new TransporterRevenue{
-                                            MonthName=CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ShipmentDateGroup.Key),
-                                            Amount=ShipmentDateGroup.Sum(p=>p.payment.Amount)
-                                        }).ToListAsync();
+                    var revenues=await(from shipment in context.Shipments
+                      join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                      join transporter in context.Transporters on vehicle.TransporterId equals transporter.Id
+                      join transporterPayment in context.TransporterPayments on shipment.Id equals transporterPayment.ShipmentId
+                      join payment in context.Payments on transporterPayment.PaymentId equals payment.Id
+                      where transporter.Id == transporterId
+                      group new {shipment,payment} by shipment.ShipmentDate.Month into g
+                        orderby g.Key
+                        select new TransporterRevenue()
+                      {
+                          MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+                          Amount = g.Sum(item => item.payment.Amount)
+                      }).ToListAsync();
                                         return revenues;
                 }
             }

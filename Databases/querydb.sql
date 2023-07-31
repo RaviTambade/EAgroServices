@@ -227,6 +227,19 @@ FROM vehicles
     INNER JOIN transporterpayments ON shipments.id = transporterpayments.paymentid
     INNER JOIN payments ON transporterpayments.paymentid = payments.id
 WHERE transporters.id = 1
-GROUP BY  shipments.shipmentdate;
+GROUP BY      MONTHNAME(shipments.shipmentdate);
 
 SELECT * FROM shipments;
+SELECT * FROM transporterpayments;
+
+SELECT * FROM vehicles;
+
+
+ SELECT MONTHNAME( `s`.`shipmentdate`), COALESCE(SUM(`p`.`amount`), 0.0)
+      FROM `vehicles` AS `v`
+      INNER JOIN `transporters` AS `t` ON `v`.`transporterid` = `t`.`id`
+      INNER JOIN `shipments` AS `s` ON `v`.`id` = `s`.`vehicleid`
+      INNER JOIN `transporterpayments` AS `t0` ON `s`.`id` = `t0`.`shipmentid`
+      INNER JOIN `payments` AS `p` ON `t0`.`paymentid` = `p`.`id`
+      WHERE `t`.`id` = 1
+      GROUP BY (`s`.`shipmentdate`);

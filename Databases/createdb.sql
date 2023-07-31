@@ -127,7 +127,7 @@ CREATE TABLE
     );
 
 CREATE TABLE
-     (
+    invoices (
         id INT AUTO_INCREMENT PRIMARY KEY,
         shipmentitemid INT UNIQUE,
         rateperkg DOUBLE  DEFAULT 0,
@@ -138,7 +138,7 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    payments
+    payments(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         date DATETIME DEFAULT CURRENT_TIMESTAMP,
         transactionid INT NOT NULL UNIQUE,
