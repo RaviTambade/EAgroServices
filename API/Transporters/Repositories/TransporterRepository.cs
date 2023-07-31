@@ -212,5 +212,33 @@ namespace Transporters.Repositories
                 throw e;
             }
         }
+
+        public async Task<List<VehicleRevenue>> GetVehicleRevenues(int transporterId)
+        {
+            try{
+                using(var context=new TransporterContext(_configuration)){
+                    var revenues=await (from vehicle in context.Vehicles
+                                        join transporter in context.Transporters
+                                        on vehicle.TransporterId equals transporter.Id
+                                        join shipment in context.Shipments
+                                        on vehicle.Id equals shipment.VehicleId
+                                        join transporterpayment in context.TransporterPayments
+                                        on shipment.Id equals transporterpayment.ShipmentId
+                                        join payment in context.Payments
+                                        on transporterpayment.PaymentId equals payment.Id
+                                        where  transporter.Id ==transporterId group new {vehicle,shipment,transporter,transporterpayment,payment} by vehicle.RtoNumber into RtoNumberGroup
+                                        select new VehicleRevenue{
+                                            RtoNumber=RtoNumberGroup.Key,
+                                            Amount=RtoNumberGroup.Sum(p=>p.payment.Amount)
+                                        }).ToListAsync();
+                                        return revenues;
+
+                }
+            }
+            catch(Exception e){
+                throw e;
+            }
+            
+        }
     }
 }

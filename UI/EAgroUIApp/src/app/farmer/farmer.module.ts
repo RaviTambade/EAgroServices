@@ -5,6 +5,7 @@ import { Routes } from '@angular/router';
 // import { CollectionComponent } from './collection/collection.component';
 import { GoodscollectionComponent } from './goodscollection/goodscollection.component';
 import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollection.component';
+import { InvoicedetailsComponent } from './invoicedetails/invoicedetails.component';
 
  export const farmerRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -16,7 +17,8 @@ import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollec
     HomeComponent,
     // CollectionComponent,
     GoodscollectionComponent,
-    VerifiedcollectionComponent
+    VerifiedcollectionComponent,
+    InvoicedetailsComponent
   ],
   imports: [
     CommonModule

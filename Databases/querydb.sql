@@ -202,3 +202,30 @@ SELECT * FROM verifiedgoodscollection;
 SELECT * FROM goodscollections;
 
 SELECT * FROM shipments;
+SELECT * FROM invoices;
+SELECT * FROM goodscollectionpayments;
+SELECT * FROM goodscosting;
+
+SELECT * FROM payments;
+SELECT * FROM goodscosting;
+SELECT vehicles.rtonumber, SUM(payments.amount) AS amount
+FROM transporters INNER JOIN vehicles
+ON transporters.id = vehicles.transporterid
+INNER JOIN shipments
+ON vehicles.id=shipments.vehicleid
+INNER JOIN transporterpayments
+ON  shipments.id=transporterpayments.shipmentid
+INNER JOIN payments
+ON transporterpayments.paymentid=payments.id
+WHERE transporterid=1  GROUP BY vehicles.rtonumber;
+
+SELECT
+    vehicles.rtonumber,
+    SUM(payments.amount)
+FROM vehicles
+    INNER JOIN transporters ON vehicles.transporterid = transporters.id
+    INNER JOIN shipments ON vehicles.id = shipments.vehicleid
+    INNER JOIN transporterpayments ON shipments.id = transporterpayments.paymentid
+    INNER JOIN payments ON transporterpayments.paymentid = payments.id
+WHERE transporters.id = 1
+GROUP BY vehicles.rtonumber
