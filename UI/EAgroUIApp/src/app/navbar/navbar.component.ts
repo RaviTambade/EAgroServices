@@ -36,4 +36,14 @@ isUser():boolean{
   }
   return false;
 }
+isLoggedIn():boolean{
+  const jwt =localStorage.getItem("jwt")
+  if (jwt != null) {
+    return false;
+  }
+  return true;
+}
+loggedOut(){
+  this.router.navigate(['userlogout']);
+}
 }

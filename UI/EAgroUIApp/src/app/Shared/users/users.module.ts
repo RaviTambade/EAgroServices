@@ -8,10 +8,12 @@ import { RemoveuserComponent } from './removeuser/removeuser.component';
 import { FormsModule } from '@angular/forms';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { Route, RouterModule, Routes } from '@angular/router';
+import { UserlogoutComponent } from './userlogout/userlogout.component';
 
 
 const userRoute:Routes=[
-  {path:'userinfo',component:UserprofileComponent}
+  {path:'userinfo',component:UserprofileComponent},
+  {path:'userlogout',component:UserlogoutComponent}
 ]
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ const userRoute:Routes=[
     EdituserComponent,
     GetuserComponent,
     RemoveuserComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    UserlogoutComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ const userRoute:Routes=[
     EdituserComponent,
     GetuserComponent,
     RemoveuserComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    UserlogoutComponent
 
   ]
 })

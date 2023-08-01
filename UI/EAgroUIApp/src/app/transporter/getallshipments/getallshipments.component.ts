@@ -12,6 +12,8 @@ import { VehicleCorporateShipment } from '../vehicle-corporate-shipment';
 })
 export class GetallshipmentsComponent implements OnInit{
   transporterId:any
+  currentPage = 0;
+arrLenght = 0;
 vehicleCorporateshipment:VehicleCorporateShipment;
 vehicleCorporateshipments:VehicleCorporateShipment[]
 constructor(private svc:TransporterService,private crpSvc:CorporateService,private router:Router){
@@ -27,7 +29,9 @@ constructor(private svc:TransporterService,private crpSvc:CorporateService,priva
     companyName: ''
   }
   this.vehicleCorporateshipments=[]
+  this.arrLenght = this.vehicleCorporateshipments.length
 }
+
   ngOnInit(): void {
     this.transporterId=localStorage.getItem("transporterId");
    this.svc.getAllShipmentsOfTransporter(this.transporterId).subscribe((response)=>{
@@ -60,5 +64,31 @@ console.log(crpId)
     // this.router.navigate(['transporter', shipment.vehicleId, 'shipmentdetails', shipment.id]);
     console.log(shipment.shipmentId)
   }
+  // get getItems(): any[] {
+  //   const startindex = this.currentPage * 5;
+  //   const endindex = startindex + 5;
+  //   return this.vehicleCorporateshipments.slice(startindex, endindex);  
+  // }
+  // next() {
+  //   this.currentPage++;
+  // }
+  // hasNextPage(): boolean {
+  //   const totalpages = Math.trunc(this.arrLenght / 5);
+  //   console.log("🚀 ~ hasnextPage ~ totalpages:", totalpages);
+   
+  //   if(this.arrLenght %5 ==0){
+  //     return this.currentPage < totalpages-1;
+  //   }
 
+  //   if (this.currentPage < totalpages ) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+  // hasPreviousPage(): boolean {
+  //   return this.currentPage != 0;
+  // }
+  // previous() {
+  //   this.currentPage--;
+  // }
 }
