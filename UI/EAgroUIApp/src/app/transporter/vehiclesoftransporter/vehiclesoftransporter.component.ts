@@ -10,11 +10,10 @@ import { Vehicle } from '../vehicle';
   styleUrls: ['./vehiclesoftransporter.component.css']
 })
 export class VehiclesoftransporterComponent implements OnInit {
-  transporterId: number;
+  transporterId: number |undefined;
   vehicles: Vehicle[];
   subscription: Subscription;
   constructor(private svc: TransporterService, private router: Router) {
-    this.transporterId = 1;
     this.vehicles = [];
     this.subscription = new Subscription();
   }
@@ -28,9 +27,9 @@ export class VehiclesoftransporterComponent implements OnInit {
     this.subscription.unsubscribe();
   }
   OnSelectGetShipment(vehicleId: number) {
-    this.router.navigate(['/transporter', this.transporterId, 'shipments', vehicleId]);
+    this.router.navigate(['/transporter/shipments', vehicleId]);
   }
   onAddNewVehicle() {
-    this.router.navigate(['transporter', this.transporterId, 'addvehicle']);
+    this.router.navigate(['transporter/addvehicle']);
   }
 }

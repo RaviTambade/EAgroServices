@@ -83,7 +83,7 @@ export class LoginComponent {
         if (this.userId != undefined)
         this.tarnsportsvc.gettransporterIdByUserId(this.userId).subscribe((transporterId) => {
           localStorage.setItem("transporterId",transporterId.toString());
-          this.router.navigate(['/transporter', transporterId ,'vehicles'])
+          this.router.navigate(['/transporter/vehicles'])
         });
         
         break;

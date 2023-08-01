@@ -81,7 +81,7 @@ export class GetshipmentsofvehicleComponent implements OnInit {
 }
 onClickShipmentDetails(shipment: Shipmentsmerchant) {
     localStorage.setItem('selectedShipment', JSON.stringify(shipment));
-    this.router.navigate(['transporter', this.transporterId, 'shipmentdetails', shipment.id]);
+    this.router.navigate(['transporter/shipmentdetails', shipment.id]);
     console.log(shipment.id)
   }
 

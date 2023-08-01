@@ -59,10 +59,10 @@ console.log(crpId)
     // });
 });
   }
-  onClickShipmentDetails(shipment: VehicleCorporateShipment) {
-    localStorage.setItem('selectedShipment', JSON.stringify(shipment));
-    // this.router.navigate(['transporter', shipment.vehicleId, 'shipmentdetails', shipment.id]);
-    console.log(shipment.shipmentId)
+  onClickShipmentDetails(shipmentId:number) {
+    // localStorage.setItem('selectedShipment', JSON.stringify(shipment));
+     this.router.navigate(['transporter/shipmentdetails', shipmentId]);
+    // console.log(shipment.shipmentId)
   }
   // get getItems(): any[] {
   //   const startindex = this.currentPage * 5;
