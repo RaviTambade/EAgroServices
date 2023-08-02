@@ -1,4 +1,4 @@
-export class UnverifiedCollection {
+export class Collection {
     constructor(
         public collectionId: number,
         public farmerId: number,

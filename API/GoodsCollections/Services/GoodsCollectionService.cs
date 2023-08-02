@@ -3,7 +3,6 @@ using GoodsCollections.Repositories.Interfaces;
 using GoodsCollections.Models;
 using GoodsCollections.Extensions;
 
-
 namespace GoodsCollections.Services
 {
     public class GoodsCollectionService : IGoodsCollectionService
@@ -15,16 +14,13 @@ namespace GoodsCollections.Services
             _repo = repo;
         }
 
-        public  PagedList<CollectionDetails> GetAll(int collectionCenterId,FilterRequest request,int pageNumber)
-        {
-            return  _repo.GetAll(collectionCenterId,request, pageNumber);
-        }
-
-        public async Task<List<UnverifiedCollection>> GetUnverifiedCollections(
-            int collectionCenterId
+        public PagedList<VerifiedCollectionDetails> GetVerifiedCollections(
+            int collectionCenterId,
+            FilterRequest request,
+            int pageNumber
         )
         {
-            return await _repo.GetUnverifiedCollections(collectionCenterId);
+            return _repo.GetVerifiedCollections(collectionCenterId, request, pageNumber);
         }
 
         public async Task<List<string>> GetContainerTypes()
@@ -65,6 +61,15 @@ namespace GoodsCollections.Services
         public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
         {
             return await _repo.GetUnverifiedCollectionsOfFarmer(farmerId);
+        }
+
+        public PagedList<Collection> GetCollections(
+            int collectionCenterId,
+            FilterRequest request,
+            int pageNumber
+        )
+        {
+            return _repo.GetCollections(collectionCenterId, request, pageNumber);
         }
     }
 }

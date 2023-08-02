@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace GoodsCollections.Controllers
 {
     [ApiController]
-    [Route("/api/collectiondetails/filterhelper")]
-    public class CollectionDetailsFilterHelperController : ControllerBase
+    [Route("/api/collections/filterhelper")]
+    public class CollectionsFilterHelperController : ControllerBase
     {
-        private readonly IFilterHelperService<CollectionDetails> _srv;
+        private readonly IFilterHelperService<Collection> _srv;
 
-        public CollectionDetailsFilterHelperController(IFilterHelperService<CollectionDetails> srv)
+        public CollectionsFilterHelperController(IFilterHelperService<Collection> srv)
         {
             _srv = srv;
         }

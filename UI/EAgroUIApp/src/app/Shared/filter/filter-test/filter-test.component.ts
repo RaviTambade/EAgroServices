@@ -14,8 +14,8 @@ import { CollectionCenterFilterFor } from '../collection-center-filter-for';
 })
 export class FilterTestComponent implements OnInit {
 
- @Input() collections: any[] = [];
- @Input() filterFor:string ='' 
+  @Input() collections: any[] = [];
+  @Input() filterFor!: string 
 
   collection = CollectionCenterFilterFor.collection;
   verifiedCollection = CollectionCenterFilterFor.verifiedCollection;
@@ -52,7 +52,8 @@ export class FilterTestComponent implements OnInit {
     if (prevFilterRequest != null) {
       this.filterRequest = JSON.parse(prevFilterRequest);
     }
-    this.getCollections();
+    console.log(this.filterFor)
+    this.getCollections(this.filterFor);
   }
 
   onClickEqualFilters() {
@@ -87,7 +88,7 @@ export class FilterTestComponent implements OnInit {
       sortBy: undefined,
       sortAscending: false
     };
-    this.getCollections();
+    this.getCollections(this.filterFor);
     window.location.reload();
   }
 
@@ -118,7 +119,7 @@ export class FilterTestComponent implements OnInit {
 
 
 
-  getCollections() {
+  getCollections(filterFor: string) {
     if (this.isFilterRequestChanged(this.filterRequest)) {
       this.pageNumber = 1;
       this.currentPage = 1;
@@ -129,64 +130,23 @@ export class FilterTestComponent implements OnInit {
     console.log("🚀 ~ getCollections ~ filterrequest:", filterRequest);
     console.log(this.pageNumber);
 
-    this.filterservice.sendVerifiedCollectionFilterRequest(filterRequest,this.pageNumber )
-
-    // // console.log(JSON.stringify(filterRequest))
-    // this.collectionsvc.getCollections(filterRequest, this.pageNumber)
-    //   .subscribe((response: HttpResponse<any[]>) => {
-    //     console.log('Filter request sent successfully:', response.body);
-    //     this.collections = response.body || [];
-    //     console.table(this.collections)
-    //     // console.log(response.headers)
-    //     const paginationHeader = response.headers.get('X-Pagination');
-    //     if (paginationHeader) {
-    //       const paginationData = JSON.parse(paginationHeader);
-    //       // console.log(paginationData)
-    //       console.log('Total Pages:', paginationData.TotalPages);
-    //       this.totalPages = paginationData.TotalPages;
-    //       this.pageNumbers = Array.from({ length: this.totalPages }, (_, index) => index + 1);
-    //     }
-
-    //     if (this.collections.length == 0) {
-    //             return;
-    //           }
-
-    //           let distinctfarmerIds = this.collections.map(item => item.farmerId)
-    //             .filter((number, index, array) => array.indexOf(number) === index);
-
-    //           let farmerIdString = distinctfarmerIds.join(',');
-
-    //           let distinctinspectorIds = this.collections.map(item => item.inspectorId)
-    //             .filter((number, index, array) => array.indexOf(number) === index);
-
-    //           let inspectorIdString = distinctinspectorIds.join(',');
+    switch (filterFor) {
+      case CollectionCenterFilterFor.verifiedCollection:
+        this.filterservice.sendVerifiedCollectionFilterRequest(filterRequest, this.pageNumber);
+        break;
+      case CollectionCenterFilterFor.collection:
+        this.filterservice.sendCollectionFilterRequest(filterRequest, this.pageNumber);
+        break;
+    }
 
 
-    //           this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
-    //             let farmerNames = names
-    //             this.collections.forEach(item => {
-    //               let matchingItem = farmerNames.find(element => element.id === item.farmerId);
-    //               if (matchingItem != undefined)
-    //                 item.farmerName = matchingItem.name;
-    //             });
-    //           });
-
-    //           this.usrsvc.getUserNamesWithId(inspectorIdString).subscribe((names) => {
-    //             let inspectorNames = names
-    //             this.collections.forEach(item => {
-    //               let matchingItem = inspectorNames.find(element => element.id === item.inspectorId);
-    //               if (matchingItem != undefined)
-    //                 item.inspectorName = matchingItem.name;
-    //             });
-    //           });  
-    //   });
   }
 
 
   onPageClick(pageNumber: number) {
     this.pageNumber = pageNumber;
     this.currentPage = pageNumber;
-    this.getCollections();
+    this.getCollections(this.filterFor);
     console.log('Clicked page number:', pageNumber);
   }
 
@@ -203,18 +163,18 @@ export class FilterTestComponent implements OnInit {
       // Set fromDate and toDate to empty strings
       this.filterRequest.dateRangeFilters[index].fromDate = '';
       this.filterRequest.dateRangeFilters[index].toDate = '';
-      this.getCollections();
+      this.getCollections(this.filterFor);
     } else if (filterType === 'range') {
 
       this.filterRequest.rangeFilters[index].minValue = undefined;
       this.filterRequest.rangeFilters[index].maxValue = undefined;
-      this.getCollections();
+      this.getCollections(this.filterFor);
     }
   }
 
   removeEqualFilterProperty(equalIndex: number, valueIndex: number) {
     this.filterRequest.equalFilters[equalIndex].propertyValues.splice(valueIndex, 1);
-    this.getCollections();
+    this.getCollections(this.filterFor);
   }
 
   genratePageNumbers(totalPages: number) {

@@ -25,8 +25,8 @@ public class PagedList<T> : List<T>
         if (pageNumber <= 0 || (pageNumber> totalPages && totalPages!=0))
         {
             pageNumber = 1;
-        }
-        var items = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        } var items = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+       
         return new PagedList<T>(items, count, totalPages, pageNumber);
     }
 }

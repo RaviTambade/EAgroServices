@@ -28,13 +28,11 @@ export class VeifiedCollectionListFilterComponent implements OnInit {
 
 
   getCollections(filterRequest: any, pageNumber: number) {
-    // console.log(JSON.stringify(filterRequest))
-    this.collectionsvc.getCollections(filterRequest, pageNumber)
+    this.collectionsvc.getVerifiedCollections(filterRequest, pageNumber)
       .subscribe((response: HttpResponse<any[]>) => {
         console.log('Filter request sent successfully:', response.body);
         this.collections = response.body || [];
         console.table(this.collections)
-        // console.log(response.headers)
         const paginationHeader = response.headers.get('X-Pagination');
         if (paginationHeader) {
           const paginationData = JSON.parse(paginationHeader);

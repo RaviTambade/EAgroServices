@@ -8,7 +8,7 @@ import { RangeFilterComponent } from './range-filter/range-filter.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CollectionListHeadComponent } from 'src/app/collectioncenter/collection-list-head/collection-list-head.component';
+import { CollectioncenterModule } from 'src/app/collectioncenter/collectioncenter.module';
 
 
 
@@ -28,7 +28,7 @@ import { CollectionListHeadComponent } from 'src/app/collectioncenter/collection
         FormsModule,
         HttpClientModule,
         CommonModule,
-        CollectionListHeadComponent
+        CollectioncenterModule
     ]
 })
 export class FilterModule { }

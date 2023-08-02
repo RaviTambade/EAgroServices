@@ -6,6 +6,7 @@ import { FilterModule } from '../Shared/filter/filter.module';
 import { Routes } from '@angular/router';
 
 export const collectionCenterFilterRoutes: Routes = [
+  { path: 'collections', component: CollectionListFilterComponent },
   { path: 'verifiedcollections', component: VeifiedCollectionListFilterComponent },
 ]
 

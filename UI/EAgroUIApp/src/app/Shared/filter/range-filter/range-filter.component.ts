@@ -13,6 +13,7 @@ import { NameId } from 'src/app/name-id';
 export class RangeFilterComponent implements OnInit {
 
   @Input() filterRequest!: FilterRequest;
+  @Input() filterFor!: string;
   @Output() filterChange = new EventEmitter<void>();
   expandedPropertyIndex: number = 0;
   rangeProperties: string[] = [];
@@ -25,7 +26,7 @@ export class RangeFilterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.filterservice.getRangeProperties().subscribe((response) => {
+    this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
       this.rangeProperties = response;
       if (!this.initializationDone) {
         if (!this.doesPreviousRequestContainsRangeProperties()) {

@@ -12,7 +12,8 @@ builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IGoodsCollectionRepository, GoodsCollectionRepository>();
 builder.Services.AddScoped<IGoodsCollectionService, GoodsCollectionService>();
-builder.Services.AddScoped<IFilterHelperService<CollectionDetails>,FilterHelperService<CollectionDetails>>();
+builder.Services.AddScoped<IFilterHelperService<VerifiedCollectionDetails>,FilterHelperService<VerifiedCollectionDetails>>();
+builder.Services.AddScoped<IFilterHelperService<Collection>,FilterHelperService<Collection>>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

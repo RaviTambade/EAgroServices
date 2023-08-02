@@ -12,8 +12,6 @@ import { FiltersService } from 'src/app/Shared/filter/filters.service';
 @Component({
   selector: 'app-collection-list-head',
   templateUrl: './collection-list-head.component.html',
-  standalone: true,
-  imports: [CommonModule, CollectioncenterModule],
   styleUrls: ['./collection-list-head.component.css']
 })
 export class CollectionListHeadComponent {
