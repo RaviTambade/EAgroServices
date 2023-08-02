@@ -18,8 +18,10 @@
         <td>{{ shipment.kilometers }}</td>
         <td>{{ shipment.status }}</td>
         <td>{{ shipment.shipmentDate |date }}</td>
-        <td><button (click)="onClickShipmentDetails(shipment)"> Details </button></td>
+        <td><button (click)="onClickShipmentDetails(shipment.shipmentId)"> Details </button></td>
       </tr>
     </tbody>
   </table>
-  
+  <!-- <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
+  <button *ngIf="hasNextPage()" (click)="next()">next</button>
+   -->

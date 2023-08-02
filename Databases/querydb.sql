@@ -220,14 +220,14 @@ WHERE transporterid=1  GROUP BY vehicles.rtonumber;
 
 SELECT
     MONTHNAME(shipments.shipmentdate),
-    SUM(payments.amount)
+    COUNT(shipments.id) 
 FROM vehicles
     INNER JOIN transporters ON vehicles.transporterid = transporters.id
     INNER JOIN shipments ON vehicles.id = shipments.vehicleid
     INNER JOIN transporterpayments ON shipments.id = transporterpayments.paymentid
     INNER JOIN payments ON transporterpayments.paymentid = payments.id
-WHERE transporters.id = 1
-GROUP BY      MONTHNAME(shipments.shipmentdate);
+WHERE transporters.id = 1 AND shipments.status='delivered'
+GROUP BY MONTHNAME(shipments.shipmentdate);
 
 SELECT * FROM shipments;
 SELECT * FROM transporterpayments;

@@ -24,7 +24,7 @@ export class TransporterbarchartComponent implements OnInit{
       x: {},
       y: {
         min: 500,
-        max:5000,
+        max:10000,
         ticks: {
           stepSize: 500,
         },
@@ -46,7 +46,10 @@ export class TransporterbarchartComponent implements OnInit{
   public barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: [
-      { data: [], label: 'Vehicle' },
+      {
+        data: [],
+        label: 'vehicles'
+      },
     ],
   };
 

@@ -77,5 +77,11 @@ namespace Transporters.Controllers
             return await _srv.GetTransporterRevenues(transporterId);
         }
 
+        [HttpGet("{transporterId}/shipmentcount")]
+         public Task<List<ShipmentCount>> GetShipmentCounts(int transporterId)
+        {
+            return _srv.GetShipmentCounts(transporterId);
+        }
+
     }
 }
