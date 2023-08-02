@@ -78,7 +78,12 @@
         <app-sort-by [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-sort-by>
       </div>
 
-      <app-collection-list-head [collections]="collections"></app-collection-list-head>
+
+      <div *ngIf="filterFor == verifiedCollection">
+      <app-collection-list-head [collections]="collections"  ></app-collection-list-head>
+    </div>
+
+
       <div class="page-numbers-container">
         <button *ngFor="let pageNumber of pageNumbers" (click)="onPageClick(pageNumber)"
           [ngClass]="{'current-page':currentPage===pageNumber}">

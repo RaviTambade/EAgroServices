@@ -1,13 +1,21 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { FilterRequest } from './filter-request';
 
+
+type requestObject = {
+  request:FilterRequest
+  pageNumber:number
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class FiltersService {
+
+  private toatalPages = new Subject<number>();
+  private verifiedCollectionFilterRequestSender = new Subject<requestObject>();
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +33,21 @@ export class FiltersService {
   //   return this.http.post<any[]>(apiEndpoint, filterRequest, { params: params, observe: 'response' });
   // }
 
+  sendTotalPages(data :number){
+    this.toatalPages.next(data);
+  } 
+
+  getTotalPages(){
+    return this.toatalPages.asObservable();
+  }
+
+  sendVerifiedCollectionFilterRequest(filterRequest: FilterRequest, pageNumber: number){
+    this.verifiedCollectionFilterRequestSender.next({ request:filterRequest , pageNumber: pageNumber });
+  }
+
+  getVerifiedCollectionFilterRequest(){
+    return this.verifiedCollectionFilterRequestSender.asObservable();
+  }
   
 
   getAllProperties(): Observable<any> {

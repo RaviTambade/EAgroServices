@@ -10,9 +10,9 @@ import { MerchantModule, merchantRoutes } from './merchant/merchant.module';
 import { FarmerModule, farmerRoutes } from './farmer/farmer.module';
 import { TransporterModule, transporterRoutes } from './transporter/transporter.module';
 import { UsersModule } from './Shared/users/users.module';
-import { FilterModule } from './Shared/filter/filter.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CropModule } from './crop/crop.module';
+import { CollectionCenterFiltersModule, collectionCenterFilterRoutes } from './collection-center-filters/collection-center-filters.module';
 
 
 const routes: Routes = [
@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'merchant', children: merchantRoutes },
   { path: 'transporter/:id', children: transporterRoutes },
   { path: 'collectioncenter', children: collectionCenterRoutes },
+  { path: 'collectioncenter/filters', children: collectionCenterFilterRoutes },
 ]
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ const routes: Routes = [
     CropModule,
     TransporterModule,
     UsersModule,
-    FilterModule
+    // CollectionCenterFiltersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
