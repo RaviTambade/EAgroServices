@@ -29,8 +29,6 @@ namespace Transporters.Repositories
                     {
                         return null;
                     }
-                    // foreach (var transporter in transporters)
-                    //     await GetNameofTransporter(transporter.CorporateId);
                     return transporters;
                 }
             }
@@ -40,23 +38,29 @@ namespace Transporters.Repositories
             }
         }
 
-        // private async Task<bool> GetNameofTransporter(int transporterId)
-        // {
-        //     using (var httpClient = new HttpClient())
-        //     {
-        //         using (
-        //             var response = await httpClient.GetAsync(
-        //                 $"http://localhost:5041/api/corporates/{transporterId}"
-        //             )
-        //         )
-        //         {
-        //             var apiResponse = await response.Content.ReadAsStringAsync();
-        //             var corporate = JsonSerializer.Deserialize<object>(apiResponse);
-        //             Console.WriteLine(corporate);
-        //         }
-        //         return true;
-        //     }
-        // }
+        public async Task<List<TransporterCorporate>> GetTransporterAndCorporateId()
+        {
+            try
+            {
+                using (var context = new TransporterContext(_configuration))
+                {
+                    return await context.Transporters
+                        .Select(
+                            transporter =>
+                                new TransporterCorporate()
+                                {
+                                    Id = transporter.Id,
+                                    CorporateId = transporter.CorporateId
+                                }
+                        )
+                        .ToListAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
         public async Task<Transporter> GetById(int transporterId)
         {
@@ -217,84 +221,111 @@ namespace Transporters.Repositories
 
         public async Task<List<VehicleRevenue>> GetVehicleRevenues(int transporterId)
         {
-            try{
-                using(var context=new TransporterContext(_configuration)){
-                    var revenues=await (from vehicle in context.Vehicles
-                                        join transporter in context.Transporters
-                                        on vehicle.TransporterId equals transporter.Id
-                                        join shipment in context.Shipments
-                                        on vehicle.Id equals shipment.VehicleId
-                                        join transporterpayment in context.TransporterPayments
-                                        on shipment.Id equals transporterpayment.ShipmentId
-                                        join payment in context.Payments
-                                        on transporterpayment.PaymentId equals payment.Id
-                                        where  transporter.Id ==transporterId group new {vehicle,shipment,transporter,transporterpayment,payment} by vehicle.RtoNumber into RtoNumberGroup
-                                        select new VehicleRevenue{
-                                            RtoNumber=RtoNumberGroup.Key,
-                                            Amount=RtoNumberGroup.Sum(p=>p.payment.Amount)
-                                        }).ToListAsync();
-                                        return revenues;
-
+            try
+            {
+                using (var context = new TransporterContext(_configuration))
+                {
+                    var revenues = await (
+                        from vehicle in context.Vehicles
+                        join transporter in context.Transporters
+                            on vehicle.TransporterId equals transporter.Id
+                        join shipment in context.Shipments on vehicle.Id equals shipment.VehicleId
+                        join transporterpayment in context.TransporterPayments
+                            on shipment.Id equals transporterpayment.ShipmentId
+                        join payment in context.Payments
+                            on transporterpayment.PaymentId equals payment.Id
+                        where transporter.Id == transporterId
+                        group new
+                        {
+                            vehicle,
+                            shipment,
+                            transporter,
+                            transporterpayment,
+                            payment
+                        } by vehicle.RtoNumber into RtoNumberGroup
+                        select new VehicleRevenue
+                        {
+                            RtoNumber = RtoNumberGroup.Key,
+                            Amount = RtoNumberGroup.Sum(p => p.payment.Amount)
+                        }
+                    ).ToListAsync();
+                    return revenues;
                 }
             }
-            catch(Exception e){
+            catch (Exception e)
+            {
                 throw e;
             }
-            
         }
-        public async Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId){
-            try{
-                using(var context =new TransporterContext(_configuration)){
-                    var revenues=await(from shipment in context.Shipments
-                      join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                      join transporter in context.Transporters on vehicle.TransporterId equals transporter.Id
-                      join transporterPayment in context.TransporterPayments on shipment.Id equals transporterPayment.ShipmentId
-                      join payment in context.Payments on transporterPayment.PaymentId equals payment.Id
-                      where transporter.Id == transporterId
-                      group new {shipment,payment} by shipment.ShipmentDate.Month into g
+
+        public async Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId)
+        {
+            try
+            {
+                using (var context = new TransporterContext(_configuration))
+                {
+                    var revenues = await (
+                        from shipment in context.Shipments
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        join transporter in context.Transporters
+                            on vehicle.TransporterId equals transporter.Id
+                        join transporterPayment in context.TransporterPayments
+                            on shipment.Id equals transporterPayment.ShipmentId
+                        join payment in context.Payments
+                            on transporterPayment.PaymentId equals payment.Id
+                        where transporter.Id == transporterId
+                        group new { shipment, payment } by shipment.ShipmentDate.Month into g
                         orderby g.Key
                         select new TransporterRevenue()
-                      {
-                          MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
-                          Amount = g.Sum(item => item.payment.Amount)
-                      }).ToListAsync();
-                                        return revenues;
+                        {
+                            MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(
+                                g.Key
+                            ),
+                            Amount = g.Sum(item => item.payment.Amount)
+                        }
+                    ).ToListAsync();
+                    return revenues;
                 }
             }
-            catch(Exception e){
+            catch (Exception e)
+            {
                 throw e;
             }
         }
 
-       public async Task<List<ShipmentCount>> GetShipmentCounts(int transporterId){
-        try{
-            using(var context=new TransporterContext(_configuration))
+        public async Task<List<ShipmentCount>> GetShipmentCounts(int transporterId)
+        {
+            try
             {
-                var shipmentCounts=await(from shipment in context.Shipments
-                                         join vehicle in context.Vehicles 
-                                         on shipment.VehicleId equals vehicle.Id
-                                         join transporter in context.Transporters 
-                                         on vehicle.TransporterId equals transporter.Id
-                                         join transporterPayment in context.TransporterPayments 
-                                         on shipment.Id equals transporterPayment.ShipmentId
-                                         join payment in context.Payments 
-                                         on transporterPayment.PaymentId equals payment.Id
-                                         where transporter.Id == transporterId && shipment.Status== "delivered"
-                                         group new {shipment} by shipment.ShipmentDate.Month into g
-                                         orderby g.Key
-                                         select new ShipmentCount()
-                                         {
-                                         MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
-                                         Count = g.Count()
-                                         }).ToListAsync();
-                                         return shipmentCounts;
+                using (var context = new TransporterContext(_configuration))
+                {
+                    var shipmentCounts = await (
+                        from shipment in context.Shipments
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        join transporter in context.Transporters
+                            on vehicle.TransporterId equals transporter.Id
+                        join transporterPayment in context.TransporterPayments
+                            on shipment.Id equals transporterPayment.ShipmentId
+                        join payment in context.Payments
+                            on transporterPayment.PaymentId equals payment.Id
+                        where transporter.Id == transporterId && shipment.Status == "delivered"
+                        group new { shipment } by shipment.ShipmentDate.Month into g
+                        orderby g.Key
+                        select new ShipmentCount()
+                        {
+                            MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(
+                                g.Key
+                            ),
+                            Count = g.Count()
+                        }
+                    ).ToListAsync();
+                    return shipmentCounts;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
-        catch(Exception e){
-            throw e;
-        }
-       }
-
-        
     }
 }

@@ -14,6 +14,7 @@ namespace Transporters.Repositories.Interfaces
         Task<bool> Insert(Transporter transporter);
         Task<bool> Update(Transporter transporter);
         Task<bool> Delete(int transporterId);
+        Task<List<TransporterCorporate>> GetTransporterAndCorporateId();
         Task<List<Vehicle>> GetTransportersVehicles(int transporterId);
     }
 }

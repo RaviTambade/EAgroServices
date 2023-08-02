@@ -169,17 +169,43 @@ namespace Merchants.Repositories
                 throw e;
             }
         }
-      public async Task<int> GetId(int corporateId){
-        try{
-            using(var context=new MerchantContext(_configuration)){
-                int id=await context.Merchants.Where(m=>m.CorporateId==corporateId).Select(m=>m.Id).FirstOrDefaultAsync();
-                return id;
+
+        public async Task<int> GetId(int corporateId)
+        {
+            try
+            {
+                using (var context = new MerchantContext(_configuration))
+                {
+                    int id = await context.Merchants
+                        .Where(m => m.CorporateId == corporateId)
+                        .Select(m => m.Id)
+                        .FirstOrDefaultAsync();
+                    return id;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
-        catch(Exception e){
-            throw e;
-        }
-      }
 
+        public async Task<List<MerchantCorporate>> GetMerchantAndCorporateId()
+        {
+            try
+            {
+                using (var context = new MerchantContext(_configuration))
+                {
+                    return await context.Merchants
+                        .Select(
+                            m => new MerchantCorporate() { Id = m.Id, CorporateId = m.CorporateId }
+                        )
+                        .ToListAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

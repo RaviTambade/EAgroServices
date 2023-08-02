@@ -15,7 +15,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
         _configuration = configuration;
     }
 
-    public  PagedList<Collection> GetCollections(
+    public PagedList<Collection> GetCollections(
         int collectionCenterId,
         FilterRequest request,
         int pageNumber
@@ -33,8 +33,8 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         into gj
                     from verifiedCollection in gj.DefaultIfEmpty()
                     where
-                        verifiedCollection == null
-                        && collection.CollectionCenterId == collectionCenterId
+                        collection.CollectionCenterId == collectionCenterId
+                        && verifiedCollection == null
                     select new Collection()
                     {
                         CollectionId = collection.Id,

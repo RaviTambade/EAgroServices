@@ -47,5 +47,10 @@ namespace CollectionCenters.Services
         {
             return await _repo.GetMonthRevenue(collectionCenterId);
         }
+
+         public async Task<List<CollectionCenterCorporate>> GetCollectionCenterAndCorporateId()
+        {
+            return await _repo.GetCollectionCenterAndCorporateId();
+        }
     }
 }

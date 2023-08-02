@@ -37,17 +37,25 @@ namespace Merchants.Services
         {
             return await _repo.Delete(merchantId);
         }
+
         public async Task<int> GetCorporateId(int merchantId)
         {
             return await _repo.GetCorporateId(merchantId);
         }
-         public async Task<int> GetMerchantId(int managerId)
+
+        public async Task<int> GetMerchantId(int managerId)
         {
             return await _repo.GetMerchantId(managerId);
         }
+
         public async Task<int> GetId(int corporateId)
         {
             return await _repo.GetId(corporateId);
+        }
+
+        public async Task<List<MerchantCorporate>> GetMerchantAndCorporateId()
+        {
+            return await _repo.GetMerchantAndCorporateId();
         }
     }
 }

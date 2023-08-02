@@ -156,7 +156,8 @@ namespace CollectionCenters.Repositories
                         from goodServicePayment in context.CollctionCenterPayments
                         join collection in context.GoodsCollections
                             on goodServicePayment.CollectionId equals collection.Id
-                        join payment in context.Payments on goodServicePayment.PaymentId equals payment.Id
+                        join payment in context.Payments
+                            on goodServicePayment.PaymentId equals payment.Id
                         where collection.CollectionCenterId == collectionCenterId
                         group payment by payment.Date.Month into g
                         orderby g.Key
@@ -183,6 +184,30 @@ namespace CollectionCenters.Repositories
                 return true;
             }
             return false;
+        }
+
+        public async Task<List<CollectionCenterCorporate>> GetCollectionCenterAndCorporateId()
+        {
+            try
+            {
+                using (var context = new CollectionCenterContext(_configuration))
+                {
+                    return await context.CollectionCenters
+                        .Select(
+                            collectionCenter =>
+                                new CollectionCenterCorporate()
+                                {
+                                    Id = collectionCenter.Id,
+                                    CorporateId = collectionCenter.CorporateId
+                                }
+                        )
+                        .ToListAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

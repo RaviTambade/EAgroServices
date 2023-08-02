@@ -56,5 +56,11 @@ namespace CollectionCenters.Controllers
         {
             return await _srv.GetMonthRevenue(collectionCenterId);
         }
+
+        [HttpGet("collectioncenterandcorporateid")]
+          public async Task<List<CollectionCenterCorporate>> GetCollectionCenterAndCorporateId()
+        {
+            return await _srv.GetCollectionCenterAndCorporateId();
+        }
     }
 }
