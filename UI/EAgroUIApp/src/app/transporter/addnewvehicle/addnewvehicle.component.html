@@ -1,5 +1,5 @@
 <div class="form-card">
-    <form (ngSubmit)="onSubmit()" #vehicleForm="ngForm" novalidate>
+    <form>
       <div class="form-group">
         <label for="vehicleType">Vehicle Type:</label>
         <input type="text" class="form-control" id="vehicleType" name="vehicleType" [(ngModel)]="vehicle.vehicleType" required>
@@ -10,7 +10,7 @@
         <input type="text" class="form-control" id="rtoNumber" name="rtoNumber" [(ngModel)]="vehicle.rtoNumber" required>
       </div>
     
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
     </form>
   </div>
   
