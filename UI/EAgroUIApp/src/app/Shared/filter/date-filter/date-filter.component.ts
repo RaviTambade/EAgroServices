@@ -8,8 +8,9 @@ import { FiltersService } from '../filters.service';
   styleUrls: ['./date-filter.component.css']
 })
 export class DateFilterComponent {
-  
+
   @Input() filterRequest!: FilterRequest;
+  @Input() filterFor!: string;
   @Output() filterChange = new EventEmitter<void>();
   isButtonClicked: boolean = false;
   expandedPropertyIndex: number = 0;
@@ -17,15 +18,15 @@ export class DateFilterComponent {
   initializationDone: boolean = false;
 
 
-  constructor( private filterservice: FiltersService) { }
+  constructor(private filterservice: FiltersService) { }
   ngOnInit(): void {
-    
+
     //fetching property types
-    this.filterservice.getDateRangeProperties().subscribe((response) => {
+    this.filterservice.getDateRangeProperties(this.filterFor).subscribe((response) => {
       this.dateProperties = response;
       if (!this.initializationDone) {
-        if(!this.doesPreviousRequestContainsDateProperties()){
-        this.initializeDateFilters();
+        if (!this.doesPreviousRequestContainsDateProperties()) {
+          this.initializeDateFilters();
         }
         this.initializationDone = true;
       }
@@ -49,9 +50,9 @@ export class DateFilterComponent {
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     this.filterChange.emit();
-    this.isButtonClicked=true;
+    this.isButtonClicked = true;
     setTimeout(() => {
       this.isButtonClicked = false;
     }, 500);
@@ -59,27 +60,27 @@ export class DateFilterComponent {
 
 
   toggleProperty(index: number): void {
-      this.expandedPropertyIndex = index;
+    this.expandedPropertyIndex = index;
   }
 
   isPropertyExpanded(index: number): boolean {
     return this.expandedPropertyIndex === index;
   }
 
-  doesPreviousRequestContainsDateProperties():boolean{
-    const prevFilterRequest= sessionStorage.getItem("prevFilterRequest");
-    if(prevFilterRequest!=null){
-     const filterRequest:FilterRequest=JSON.parse(prevFilterRequest);
-     return filterRequest.dateRangeFilters.length > 0
+  doesPreviousRequestContainsDateProperties(): boolean {
+    const prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
+    if (prevFilterRequest != null) {
+      const filterRequest: FilterRequest = JSON.parse(prevFilterRequest);
+      return filterRequest.dateRangeFilters.length > 0
     }
     return false;
   }
 
-//   @HostListener('window:beforeunload', ['$event'])
-//   onBeforeUnload(): void {
-//     sessionStorage.removeItem('dateFilterInitializationDone');
-//     sessionStorage.removeItem('equalFilterInitializationDone');
-//     sessionStorage.removeItem('rangeFilterInitializationDone');
+  //   @HostListener('window:beforeunload', ['$event'])
+  //   onBeforeUnload(): void {
+  //     sessionStorage.removeItem('dateFilterInitializationDone');
+  //     sessionStorage.removeItem('equalFilterInitializationDone');
+  //     sessionStorage.removeItem('rangeFilterInitializationDone');
 
-// }
+  // }
 }

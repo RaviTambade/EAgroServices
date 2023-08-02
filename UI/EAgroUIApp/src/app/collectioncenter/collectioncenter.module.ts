@@ -11,16 +11,14 @@ import { CollectionverificationDetailsComponent } from './collectionverification
 import { VerifyCollectionComponent } from './verify-collection/verify-collection.component';
 import { AddtoshipmentComponent } from './addtoshipment/addtoshipment.component';
 import { CorporateService } from '../corporate.service';
-import { CollectionListFilterComponent } from './collection-list-filter/collection-list-filter.component';
-import { FilterModule } from '../Shared/filter/filter.module';
 import { CreateShipmentComponent } from './create-shipment/create-shipment.component';
 import { CollectionShipmentListComponent } from './collection-shipment-list/collection-shipment-list.component';
+import { CollectionListHeadComponent } from './collection-list-head/collection-list-head.component';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'addcollection', component: AddCollectionComponent },
   { path: 'verifycollections', component: CollectionVerificationComponent },
-  { path: 'verifiedcollections', component: CollectionListFilterComponent },
 ]
 
 
@@ -33,22 +31,22 @@ export const collectionCenterRoutes: Routes = [
     CollectionverificationDetailsComponent,
     VerifyCollectionComponent,
     AddtoshipmentComponent,
-    CollectionListFilterComponent,
     CreateShipmentComponent,
     CollectionListComponent,
     CollectionShipmentListComponent,
+    CollectionListHeadComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // FilterModule,
   ],
   exports:[
     AddCollectionComponent,
     VerifyCollectionComponent,
     CollectionVerificationComponent,
     AddtoshipmentComponent,
+    CollectionListHeadComponent,
     CollectionListComponent,
   ],
   providers:[

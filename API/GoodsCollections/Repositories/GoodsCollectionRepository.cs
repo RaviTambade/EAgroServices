@@ -15,7 +15,48 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
         _configuration = configuration;
     }
 
-    public PagedList<CollectionDetails> GetAll(
+    public  PagedList<Collection> GetCollections(
+        int collectionCenterId,
+        FilterRequest request,
+        int pageNumber
+    )
+    {
+        try
+        {
+            using (var context = new GoodsCollectionContext(_configuration))
+            {
+                var query =
+                    from collection in context.GoodsCollections
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    join verifiedGoodsCollection in context.VerifiedGoodsCollections
+                        on collection.Id equals verifiedGoodsCollection.CollectionId
+                        into gj
+                    from verifiedCollection in gj.DefaultIfEmpty()
+                    where
+                        verifiedCollection == null
+                        && collection.CollectionCenterId == collectionCenterId
+                    select new Collection()
+                    {
+                        CollectionId = collection.Id,
+                        FarmerId = collection.FarmerId,
+                        CropName = crop.Title,
+                        CropId = crop.Id,
+                        ContainerType = collection.ContainerType,
+                        Quantity = collection.Quantity,
+                        Weight = collection.Weight,
+                        CollectionDate = collection.CollectionDate
+                    };
+                query = query.ApplyFilters(request);
+                return PagedList<Collection>.ToPagedList(query, pageNumber);
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+
+    public PagedList<VerifiedCollectionDetails> GetVerifiedCollections(
         int collectionCenterId,
         FilterRequest request,
         int pageNumber
@@ -34,10 +75,10 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         on collection.Id equals shipmentItem.CollectionId
                         into shipmentItemsCollection
                     from shipmentItem in shipmentItemsCollection.DefaultIfEmpty()
-                    where shipmentItem == null
-
+                    where
+                        shipmentItem == null && collection.CollectionCenterId == collectionCenterId
                     // select records which are verified but not added for shiping
-                    select new CollectionDetails()
+                    select new VerifiedCollectionDetails()
                     {
                         Id = collection.Id,
                         FarmerId = collection.FarmerId,
@@ -51,48 +92,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         CollectionDate = collection.CollectionDate
                     };
                 query = query.ApplyFilters(request);
-                return PagedList<CollectionDetails>.ToPagedList(query, pageNumber);
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-
-    public async Task<List<UnverifiedCollection>> GetUnverifiedCollections(int collectionCenterId)
-    {
-        try
-        {
-            using (var context = new GoodsCollectionContext(_configuration))
-            {
-                var collections = await (
-                    from collection in context.GoodsCollections
-                    join crop in context.Crops on collection.CropId equals crop.Id
-                    join verifiedGoodsCollection in context.VerifiedGoodsCollections
-                        on collection.Id equals verifiedGoodsCollection.CollectionId
-                        into gj
-                    from verifiedCollection in gj.DefaultIfEmpty()
-                    where
-                        verifiedCollection == null
-                        && collection.CollectionCenterId == collectionCenterId
-                    select new UnverifiedCollection()
-                    {
-                        CollectionId = collection.Id,
-                        FarmerId = collection.FarmerId,
-                        CropName = crop.Title,
-                        CropId = crop.Id,
-                        ContainerType = collection.ContainerType,
-                        Quantity = collection.Quantity,
-                        Weight = collection.Weight,
-                        CollectionDate = collection.CollectionDate
-                    }
-                ).ToListAsync();
-                if (collections == null)
-                {
-                    return null;
-                }
-                return collections;
+                return PagedList<VerifiedCollectionDetails>.ToPagedList(query, pageNumber);
             }
         }
         catch (Exception e)

@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CollectionDetails } from './collectioncenter/collection-details';
 import { GoodsCollection } from './collectioncenter/goods-collection';
-import { UnverifiedCollection } from './collectioncenter/unverified-collection';
+import { Collection } from './collectioncenter/collection';
 import { UpdateCollection } from './collectioncenter/update-collection';
 import { FilterRequest } from './Shared/filter/filter-request';
 
@@ -14,9 +13,9 @@ export class CollectionService {
 
   constructor(private http: HttpClient) { }
 
-  getCollections(filterRequest: FilterRequest, pageNumber: number): Observable<HttpResponse<any>> {
+  getVerifiedCollections(filterRequest: FilterRequest, pageNumber: number): Observable<HttpResponse<any>> {
     const collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5154/api/goodscollections/" + collectionCenterId;
+    let url = "http://localhost:5154/api/goodscollections/verified/collectioncenter/" + collectionCenterId;
     const params = new HttpParams().set('pageNumber', pageNumber.toString());
     return this.http.post<any[]>(url, filterRequest, { params: params, observe: 'response' });
   }
@@ -27,10 +26,13 @@ export class CollectionService {
     return this.http.post<boolean>(url, collection);
   }
 
-  getCollectionsForVerification(): Observable<UnverifiedCollection[]> {
+  getCollections(filterRequest: FilterRequest, pageNumber: number): Observable<HttpResponse<any>> {
+
     const collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5154/api/goodscollections/unverified/" + collectionCenterId;
-    return this.http.get<UnverifiedCollection[]>(url);
+    let url = "http://localhost:5154/api/goodscollections/" + collectionCenterId;
+    const params = new HttpParams().set('pageNumber', pageNumber.toString());
+    
+    return this.http.post<any>(url, filterRequest, { params: params, observe: 'response' });
   }
 
   updateCollection(collection: UpdateCollection): Observable<boolean> {

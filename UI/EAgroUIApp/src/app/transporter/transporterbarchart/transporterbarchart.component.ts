@@ -48,6 +48,7 @@ export class TransporterbarchartComponent implements OnInit{
     datasets: [
       {
         data: [],
+        label: 'vehicles'
       },
     ],
   };

@@ -265,6 +265,36 @@ namespace Transporters.Repositories
                 throw e;
             }
         }
+
+       public async Task<List<ShipmentCount>> GetShipmentCounts(int transporterId){
+        try{
+            using(var context=new TransporterContext(_configuration))
+            {
+                var shipmentCounts=await(from shipment in context.Shipments
+                                         join vehicle in context.Vehicles 
+                                         on shipment.VehicleId equals vehicle.Id
+                                         join transporter in context.Transporters 
+                                         on vehicle.TransporterId equals transporter.Id
+                                         join transporterPayment in context.TransporterPayments 
+                                         on shipment.Id equals transporterPayment.ShipmentId
+                                         join payment in context.Payments 
+                                         on transporterPayment.PaymentId equals payment.Id
+                                         where transporter.Id == transporterId && shipment.Status== "delivered"
+                                         group new {shipment} by shipment.ShipmentDate.Month into g
+                                         orderby g.Key
+                                         select new ShipmentCount()
+                                         {
+                                         MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+                                         Count = g.Count()
+                                         }).ToListAsync();
+                                         return shipmentCounts;
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+       }
+
         
     }
 }

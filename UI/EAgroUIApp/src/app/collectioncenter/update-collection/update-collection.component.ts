@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { GoodsCollection } from '../goods-collection';
-import { UnverifiedCollection } from '../unverified-collection';
+import { Collection } from '../collection';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NameId } from 'src/app/name-id';
 import { CropService } from 'src/app/crop.service';
@@ -17,7 +17,7 @@ import { VerifiedCollectionService } from 'src/app/verified-collection.service';
 })
 export class UpdateCollectionComponent {
 
-  @Input() collection!: UnverifiedCollection
+  @Input() collection!: Collection
 
   collectionForm: FormGroup | any;
   farmers: NameId[] = [];

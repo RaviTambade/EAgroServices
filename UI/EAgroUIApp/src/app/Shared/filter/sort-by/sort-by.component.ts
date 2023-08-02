@@ -9,6 +9,7 @@ import { FiltersService } from '../filters.service';
 })
 export class SortByComponent {
   @Input() filterRequest: FilterRequest | undefined;
+  @Input() filterFor!: string;
   @Output() filterChange = new EventEmitter<void>();
 
   sortByProperties: string[] =[]
@@ -16,7 +17,7 @@ export class SortByComponent {
   constructor( private filterservice: FiltersService) { }
   ngOnInit(): void {
     // fetching all properties for sorting
-    this.filterservice.getAllProperties().subscribe((response) => {
+    this.filterservice.getAllProperties(this.filterFor).subscribe((response) => {
       this.sortByProperties = response;
     });
   }
