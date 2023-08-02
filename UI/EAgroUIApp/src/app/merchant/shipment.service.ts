@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MerchantShipment } from './merchant-shipment';
@@ -8,6 +8,7 @@ import { InprogressVehicle } from '../collectioncenter/inprogress-vehicle';
 import { ShipmentItem } from '../collectioncenter/shipment-item';
 import { ShipmentStatus } from './shipment-status';
 import { ShippedCollection } from '../collectioncenter/shipped-collection';
+import { FilterRequest } from '../Shared/filter/filter-request';
 
 @Injectable({
   providedIn: 'root'
@@ -65,10 +66,11 @@ export class ShipmentService {
     return this.http.post<boolean>(url, shipmentItem);
   }
 
-  getShippedCollections(staus:string):Observable<ShippedCollection[]>{
+  getShippedCollections(filterRequest:FilterRequest,pageNumber:number,staus:string):Observable<HttpResponse<any>>{
     const collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5067/api/shipments/collections/"+collectionCenterId+"/status/"+staus;
-    return this.http.get<ShippedCollection[]>(url);
+    const params = new HttpParams().set('pageNumber', pageNumber.toString());
+    return this.http.post<any>(url, filterRequest, { params: params, observe: 'response' });  
   }
 
 

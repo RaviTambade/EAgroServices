@@ -1,9 +1,14 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FilterRequest } from '../filter-request';
 import { FiltersService } from '../filters.service';
 import { UserService } from '../../users/user.service';
 import { UserRoleService } from 'src/app/user-role.service';
 import { NameId } from 'src/app/name-id';
+import { MerchantService } from 'src/app/merchant/merchant.service';
+import { Corporate } from 'src/app/corporate';
+import { CorporateService } from 'src/app/corporate.service';
+import { CollectioncenterService } from 'src/app/collectioncenter.service';
+import { TransporterService } from 'src/app/transporter/transporter.service';
 
 @Component({
   selector: 'app-range-filter',
@@ -22,7 +27,13 @@ export class RangeFilterComponent implements OnInit {
   farmers: NameId[] = [];
   inspectors: NameId[] = [];
 
-  constructor(private filterservice: FiltersService, private usrsvc: UserService, private userrolesvc: UserRoleService) { }
+  merchants: Corporate[] = [];
+  collectionCenters: Corporate[] = [];
+  transporters: Corporate[] = [];
+
+  constructor(private filterservice: FiltersService, private usrsvc: UserService, private userrolesvc: UserRoleService,
+    private merchantsvc: MerchantService, private corpsvc: CorporateService,
+    private collectionCentersvc: CollectioncenterService, private transportersvc: TransporterService) { }
 
   ngOnInit(): void {
 
@@ -34,19 +45,75 @@ export class RangeFilterComponent implements OnInit {
         }
         this.initializationDone = true;
       }
+
+      if (this.rangeProperties.includes("FarmerId")) {
+        this.userrolesvc.getusersId("farmer").subscribe((res) => {
+          this.usrsvc.getUserNamesWithId(res).subscribe((farmers) => {
+            this.farmers = farmers;
+          });
+        });
+      }
+
+      if (this.rangeProperties.includes("InspectorId")) {
+        this.userrolesvc.getusersId("inspector").subscribe((res) => {
+          this.usrsvc.getUserNamesWithId(res).subscribe((inspectors) => {
+            this.inspectors = inspectors;
+          });
+        });
+      }
+
+
+      if (this.rangeProperties.includes("MerchantCorporateId")) {
+        this.merchantsvc.getMerchantAndCorporateId().subscribe((res) => {
+          this.merchants = res;
+          let distinctmerchantIds = this.merchants.map(item => item.corporateId)
+            .filter((number, index, array) => array.indexOf(number) === index);
+          let merchantIdString = distinctmerchantIds.join(',')
+          this.corpsvc.getCorporates(merchantIdString).subscribe((names) => {
+            let corporationNames = names
+            this.merchants.forEach(item => {
+              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+              if (matchingItem != undefined)
+                item.name = matchingItem.name;
+            });
+          });
+        });
+      }
+      if (this.rangeProperties.includes("CollectionCenterCorporateId")) {
+        this.collectionCentersvc.getCollectionCenterAndCorporateId().subscribe((res) => {
+          this.collectionCenters = res;
+          let distinctcollectionCenterIds = this.collectionCenters.map(item => item.corporateId)
+            .filter((number, index, array) => array.indexOf(number) === index);
+          let CollectionCenterIdString = distinctcollectionCenterIds.join(',')
+          this.corpsvc.getCorporates(CollectionCenterIdString).subscribe((names) => {
+            let corporationNames = names
+            this.collectionCenters.forEach(item => {
+              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+              if (matchingItem != undefined)
+                item.name = matchingItem.name;
+            });
+          });
+        });
+      }
+
+      if (this.rangeProperties.includes("TransporterCorporateId")) {
+        this.transportersvc.getTransporterAndCorporateId().subscribe((res) => {
+          this.transporters = res;
+          let distinctTransporterIds = this.transporters.map(item => item.corporateId)
+            .filter((number, index, array) => array.indexOf(number) === index);
+          let transporterIdString = distinctTransporterIds.join(',')
+          this.corpsvc.getCorporates(transporterIdString).subscribe((names) => {
+            let corporationNames = names
+            this.transporters.forEach(item => {
+              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+              if (matchingItem != undefined)
+                item.name = matchingItem.name;
+            });
+          });
+        });
+      }
     });
 
-    this.userrolesvc.getusersId("farmer").subscribe((res) => {
-      this.usrsvc.getUserNamesWithId(res).subscribe((farmers) => {
-        this.farmers = farmers;
-      });
-    });
-
-    this.userrolesvc.getusersId("inspector").subscribe((res) => {
-      this.usrsvc.getUserNamesWithId(res).subscribe((inspectors) => {
-        this.inspectors = inspectors;
-      });
-    });
   }
 
   initializeRangeFilters() {
@@ -58,7 +125,6 @@ export class RangeFilterComponent implements OnInit {
   setMaxValue(index: number) {
     const minVal = this.filterRequest.rangeFilters[index].minValue;
     this.filterRequest.rangeFilters[index].maxValue = minVal;
-    console.log("🚀 ~ setMaxValue ~       this.filterRequest.rangeFilters[index]:", this.filterRequest.rangeFilters[index]);
 
   }
   onSubmit() {
@@ -85,6 +151,11 @@ export class RangeFilterComponent implements OnInit {
       return filterRequest.rangeFilters.length > 0
     }
     return false;
+  }
+
+  propertyIsNotPersonOrCorporateId( property :string) :boolean{
+    return property !== 'FarmerId' && property !== 'InspectorId' && property !== 'MerchantCorporateId'
+    && property !== 'CollectionCenterCorporateId'  && property !== 'TransporterCorporateId';
   }
 
 }
