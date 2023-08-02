@@ -10,6 +10,7 @@ namespace Transporters.Repositories.Interfaces
         Task<int> GetCorporateIdOfTransporter(int transporterId);
         Task<List<VehicleRevenue>> GetVehicleRevenues(int transporterId);
         Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId);
+        Task<List<ShipmentCount>> GetShipmentCounts(int transporterId);
         Task<bool> Insert(Transporter transporter);
         Task<bool> Update(Transporter transporter);
         Task<bool> Delete(int transporterId);

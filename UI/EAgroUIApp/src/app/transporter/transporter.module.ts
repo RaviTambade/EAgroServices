@@ -13,6 +13,7 @@ import { TransporterbarchartComponent } from './transporterbarchart/transporterb
 import { NgChartsModule } from 'ng2-charts';
 import { TransporterdashboardComponent } from './transporterdashboard/transporterdashboard.component';
 import { TransporterpiechartComponent } from './transporterpiechart/transporterpiechart.component';
+import { TransporterbubblechartComponent } from './transporterbubblechart/transporterbubblechart.component';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -36,6 +37,7 @@ export const transporterRoutes: Routes = [
     TransporterbarchartComponent,
     TransporterdashboardComponent,
     TransporterpiechartComponent,
+    TransporterbubblechartComponent,
 
   ],
   imports: [
