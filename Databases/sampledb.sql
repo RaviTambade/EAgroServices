@@ -279,3 +279,5 @@ SELECT * FROM invoices;
     -- CALL calculate_total_amount(4);
  CALL call_all_procedures_for_charges(20);
  CALL call_all_procedures_for_totalamount(70);
+SELECT * FROM goodscollections;
+SELECT * FROM invoices;

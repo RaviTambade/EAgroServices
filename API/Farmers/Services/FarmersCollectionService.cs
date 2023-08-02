@@ -67,9 +67,13 @@ namespace Farmers.Services
             return await _repo.GetUnverifiedCollectionsOfFarmer(farmerId);
         }
 
-        public async Task<List<MonthlyRevenue>> MonthlyRevenue(int collectionId)
+        public async Task<List<MonthlyRevenue>> MonthlyRevenue(int farmerId)
         {
-                 return await _repo.MonthlyRevenue(collectionId);
+                 return await _repo.MonthlyRevenue(farmerId);
+        }
+        public async Task<List<CropRevenue>> CropRevenue(int farmerId)
+        {
+                 return await _repo.CropRevenue(farmerId);
         }
     }
 }

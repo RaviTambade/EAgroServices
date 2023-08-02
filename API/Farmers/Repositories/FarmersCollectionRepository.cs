@@ -337,7 +337,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
             throw e;
         }
     }
-       public async Task<List<MonthlyRevenue>> MonthlyRevenue(int collectionId)
+       public async Task<List<MonthlyRevenue>> MonthlyRevenue(int farmerId)
         {
             try
             {
@@ -361,7 +361,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         join verifiedCollection in context.VerifiedGoodsCollections
                             on collection.Id equals verifiedCollection.CollectionId
                         // join crop in context.Crops on collection.CropId equals crop.Id
-                        where shipmentItem.CollectionId == collectionId
+                        where collection.FarmerId == farmerId
                          group new {invoice,shipmentItem} by invoice.InvoiceDate.Month into g
                         orderby g.Key
                         select new MonthlyRevenue()
@@ -396,6 +396,72 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                     }
 
                     return monthlyRevenue;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+         public async Task<List<CropRevenue>> CropRevenue(int farmerId)
+        {
+            try
+            {
+                using (var context = new FarmerContext(_configuration))
+                {
+                    var cropRevenue = await (
+                        from invoice in context.Invoices
+                        join shipmentItem in context.ShipmentItems
+                            on invoice.ShipmentItemId equals shipmentItem.Id
+                        // join charges in context.Costing
+                        //     on shipmentItem.Id equals charges.ShipmentItemId
+                        // join shipment in context.Shipments
+                        //     on shipmentItem.ShipmentId equals shipment.Id
+                        // join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        // join transporter in context.Transporters
+                        //     on vehicle.TransporterId equals transporter.Id
+                        join collection in context.GoodsCollections
+                            on shipmentItem.CollectionId equals collection.Id
+                        join collectionCenter in context.CollectionCenters
+                            on collection.CollectionCenterId equals collectionCenter.Id
+                        join verifiedCollection in context.VerifiedGoodsCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                         join crop in context.Crops on collection.CropId equals crop.Id
+                        where collection.FarmerId == farmerId
+                         group new {invoice,shipmentItem,crop} by crop.Title into g
+                        orderby g.Key
+                        select new CropRevenue()
+                        {
+                            CropName = g.Key,
+                          TotalAmount = g.Sum(item => item.invoice.TotalAmount)
+                            // Id = invoice.Id,
+                            // FarmerId = collection.FarmerId,
+                            // CollectionId = collection.Id,
+                            // CollectionCenterCorporateId = collectionCenter.CorporateId,
+                            // TransporterCorporatId = transporter.CorporateId,
+                            // VehicleNumber = vehicle.RtoNumber,
+                            // CropName = crop.Title,
+                            // Grade = verifiedCollection.Grade,
+                            // ContainerType = collection.ContainerType,
+                            // Quantity = collection.Quantity,
+                            // TotalWeight = collection.Weight,
+                            // NetWeight = verifiedCollection.Weight,
+                            // FreightCharges = charges.FreightCharges,
+                            // LabourCharges = charges.LabourCharges,
+                            // PaymentStatus = invoice.PaymentStatus,
+                            // ServiceCharges = charges.ServiceCharges,
+                            // RatePerKg = invoice.RatePerKg,
+                            // TotalAmount = invoice.TotalAmount,
+                            // InvoiceDate = invoice.InvoiceDate
+                        }
+                    ).ToListAsync();
+
+                    if (cropRevenue is null)
+                    {
+                        return null;
+                    }
+
+                    return cropRevenue;
                 }
             }
             catch (Exception e)

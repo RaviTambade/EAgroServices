@@ -23,7 +23,8 @@ namespace Farmers.Repositories.Interfaces
         // Task<bool> Delete(int collectionId);
         Task<List<FarmerCollection>> FarmerCollection(int farmerId);
         Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId);
-        Task<List<MonthlyRevenue>> MonthlyRevenue(int collectionId);
+        Task<List<MonthlyRevenue>> MonthlyRevenue(int farmerId);
+        Task<List<CropRevenue>> CropRevenue(int farmerId);
         
         // Task<List<FarmerCollection>> GetverifiedCollectionsOfFarmer(int farmerId);
     }
