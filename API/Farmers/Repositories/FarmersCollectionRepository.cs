@@ -3,6 +3,7 @@ using Farmers.Models;
 using Farmers.Repositories.Interfaces;
 using Farmers.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace Farmers.Repositories;
 
@@ -336,7 +337,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
             throw e;
         }
     }
-       public async Task<MonthlyRevenue> MonthlyRevenue(int collectionId)
+       public async Task<List<MonthlyRevenue>> MonthlyRevenue(int collectionId)
         {
             try
             {
@@ -361,8 +362,12 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                             on collection.Id equals verifiedCollection.CollectionId
                         // join crop in context.Crops on collection.CropId equals crop.Id
                         where shipmentItem.CollectionId == collectionId
+                         group new {invoice,shipmentItem} by invoice.InvoiceDate.Month into g
+                        orderby g.Key
                         select new MonthlyRevenue()
                         {
+                             InvoiceDate = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+                          TotalAmount = g.Sum(item => item.invoice.TotalAmount)
                             // Id = invoice.Id,
                             // FarmerId = collection.FarmerId,
                             // CollectionId = collection.Id,
@@ -380,12 +385,12 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                             // PaymentStatus = invoice.PaymentStatus,
                             // ServiceCharges = charges.ServiceCharges,
                             // RatePerKg = invoice.RatePerKg,
-                            TotalAmount = invoice.TotalAmount,
-                            InvoiceDate = invoice.InvoiceDate
+                            // TotalAmount = invoice.TotalAmount,
+                            // InvoiceDate = invoice.InvoiceDate
                         }
-                    ).FirstOrDefaultAsync();
+                    ).ToListAsync();
 
-                    if (invoiceDetails is null)
+                    if (monthlyRevenue is null)
                     {
                         return null;
                     }

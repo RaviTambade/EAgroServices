@@ -97,5 +97,13 @@ namespace Farmers.Controllers
         {
             return await _srv.GetUnverifiedCollectionsOfFarmer(farmerId);
         }
+
+         [HttpGet("monthlyrevenue/{collectionId}")]
+         
+        public async Task<List<MonthlyRevenue>> MonthlyRevenue(int collectionId)
+        {
+            return await _srv.MonthlyRevenue(collectionId);
+
+        }
      }
  }
