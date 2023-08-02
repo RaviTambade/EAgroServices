@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
     
     INSERT INTO roles(name)VALUES('owner');
     INSERT INTO roles(name)VALUES ('farmer');
@@ -255,10 +255,10 @@
 
 
 
-    -- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (1,20);
-    -- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (2,22);
-    -- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (3,25);
-    -- INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (4,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (1,20);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (2,22);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (3,25);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (4,12);
 
 
 
@@ -279,3 +279,5 @@ SELECT * FROM invoices;
     -- CALL calculate_total_amount(4);
  CALL call_all_procedures_for_charges(20);
  CALL call_all_procedures_for_totalamount(70);
+SELECT * FROM goodscollections;
+SELECT * FROM invoices;
