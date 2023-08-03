@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Merchant } from './merchant';
+import { Collectioncount } from './collectioncount';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,9 @@ export class MerchantService {
   getIdOfMerchant(corporateId:number):Observable<(number)>{
     let url=" http://localhost:5276/api/merchants/id/" +corporateId
     return this.http.get<number>(url)
+  }
+  getCollectionCount(merchantId:number):Observable<Collectioncount[]>{
+    let url="http://localhost:5067/api/shipments/" + merchantId +"/collectioncount"
+    return this.http.get<Collectioncount[]>(url)
   }
 }

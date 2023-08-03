@@ -10,7 +10,9 @@
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/addcollection" routerLinkActive="router-link-active">add collection</a></li>
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/verifycollections" routerLinkActive="router-link-active">verify collections</a></li>
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/verifiedcollections" routerLinkActive="router-link-active">verified collections</a></li>
+      <li *ngIf="isroleMerchant()"><a routerLink="merchant/dashboard" routerLinkActive="router-link-active">dashboard</a></li>
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/home" routerLinkActive="router-link-active">Shipments</a></li>
+
       <li *ngIf="isUser()" class="user-profile-icon" (click)="openUserProfile()">
         <i class="fa fa-user-circle"></i>
       </li>
