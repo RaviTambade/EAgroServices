@@ -8,6 +8,7 @@ import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollec
 import { InvoicedetailsComponent } from './invoicedetails/invoicedetails.component';
 import { NgChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
+import { FarmerpiechartComponent } from './farmerpiechart/farmerpiechart.component';
 
  export const farmerRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     GoodscollectionComponent,
     VerifiedcollectionComponent,
     InvoicedetailsComponent,
-    RevenuebarchartComponent
+    RevenuebarchartComponent,
+    FarmerpiechartComponent
     
   ],
   imports: [
