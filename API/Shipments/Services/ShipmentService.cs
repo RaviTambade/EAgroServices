@@ -93,4 +93,9 @@ public class ShipmentService : IShipmentService
     {
         return await _repo.GetShipmentofTransporter(transporterId);
     }
+
+    public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
+    {
+        return await _repo.GetCollectionCounts(merchantId);
+    }
 }

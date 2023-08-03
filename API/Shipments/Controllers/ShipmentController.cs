@@ -100,6 +100,7 @@ namespace Shipments.Controllers
         }
 
         [HttpPost("collections/{collectionCenterId}/status/{shipmentStatus}")]
+          [HttpPost("collections/{collectionCenterId}/status/{shipmentStatus}")]
         public List<ShippedCollection> GetShippedCollections(
             int collectionCenterId,
             string shipmentStatus,
@@ -117,5 +118,11 @@ namespace Shipments.Controllers
 
             return shippedCollections;
         }
+
+        [HttpGet("{merchantId}/collectioncount")]
+          public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
+    {
+        return await _srv.GetCollectionCounts(merchantId);
+    }
     }
 }
