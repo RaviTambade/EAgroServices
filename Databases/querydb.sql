@@ -229,7 +229,10 @@ FROM vehicles
 WHERE transporters.id = 1 AND shipments.status='delivered'
 GROUP BY MONTHNAME(shipments.shipmentdate);
 
+
+
 SELECT * FROM shipments;
+SELECT * FROM  collectioncenters;
 SELECT * FROM transporterpayments;
 
 SELECT * FROM vehicles;
@@ -243,3 +246,16 @@ SELECT * FROM vehicles;
       INNER JOIN `payments` AS `p` ON `t0`.`paymentid` = `p`.`id`
       WHERE `t`.`id` = 1
       GROUP BY (`s`.`shipmentdate`);
+
+
+      SELECT collectioncenters.corporateid,COUNT(shipmentitems.collectionid),
+      goodscollections.collectioncenterid
+      FROM collectioncenters
+      INNER JOIN goodscollections ON collectioncenters.id=goodscollections.collectioncenterid
+      INNER JOIN shipmentitems
+      ON goodscollections.id=shipmentitems.collectionid
+      INNER JOIN shipments
+      ON shipmentitems.shipmentid=shipments.id
+      WHERE shipments.merchantid=2 GROUP BY collectioncenters.id ;
+
+      SELECT * FROM shipmentitems;

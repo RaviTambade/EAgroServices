@@ -30,8 +30,38 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="property == 'MerchantCorporateId'">
+          <div *ngFor="let merchant of merchants">
+            <label>
+              <input type="radio" [value]="merchant.id" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
+                (ngModelChange)="setMaxValue(i)" />
+              {{ merchant.name}}
+            </label>
+          </div>
+        </ng-container>
 
-        <div *ngIf="property !== 'FarmerId' && property !== 'InspectorId'">
+        <ng-container *ngIf="property == 'CollectionCenterCorporateId'">
+          <div *ngFor="let collectionCenter of collectionCenters">
+            <label>
+              <input type="radio" [value]="collectionCenter.id" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
+                (ngModelChange)="setMaxValue(i)" />
+              {{ collectionCenter.name}}
+            </label>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="property == 'TransporterCorporateId'">
+          <div *ngFor="let transporter of transporters">
+            <label>
+              <input type="radio" [value]="transporter.id" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
+                (ngModelChange)="setMaxValue(i)" />
+              {{ transporter.name}}
+            </label>
+          </div>
+        </ng-container>
+
+
+        <div *ngIf="propertyIsNotPersonOrCorporateId(property)">
           <label> Minvalue </label>
           <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].minValue" (ngModelChange)="setMaxValue(i)" />
           <label> maxValue </label>

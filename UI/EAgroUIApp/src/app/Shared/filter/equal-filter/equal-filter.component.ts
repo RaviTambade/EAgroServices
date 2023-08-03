@@ -31,7 +31,12 @@ export class EqualFilterComponent implements OnInit {
       this.equalProperties= this.equalProperties.map(item => {
         return { name:item, expanded: false };
       });
-      if (!this.initializationDone) {
+
+      let filterFor = sessionStorage.getItem("equalFilterFor");
+      if (this.filterFor !== filterFor) {
+        this.initializeEqualFilters();
+      }
+     else if (!this.initializationDone) {
         if(!this.doesPreviousRequestContainsEqualProperties()){
         this.initializeEqualFilters();
         }
@@ -59,6 +64,8 @@ export class EqualFilterComponent implements OnInit {
   }
 // intialize all equal propeties with empty array of values
   initializeEqualFilters() {
+    sessionStorage.setItem("equalFilterFor", this.filterFor);
+
     this.filterRequest.equalFilters = this.equalProperties.map(property => {
       return { propertyName: property.name, propertyValues: [] };
     });

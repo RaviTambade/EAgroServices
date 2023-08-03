@@ -18,6 +18,7 @@ export class FiltersService {
   private toatalPages = new Subject<number>();
   private verifiedCollectionFilterRequestSender = new Subject<requestObject>();
   private CollectionFilterRequestSender = new Subject<requestObject>();
+  private ShippedCollectionFilterRequestSender = new Subject<requestObject>();
 
   constructor(private http: HttpClient) { }
 
@@ -35,6 +36,14 @@ export class FiltersService {
 
   getVerifiedCollectionFilterRequest() {
     return this.verifiedCollectionFilterRequestSender.asObservable();
+  }
+
+  sendShippedCollectionFilterRequest(filterRequest: FilterRequest, pageNumber: number) {
+    this.ShippedCollectionFilterRequestSender.next({ request: filterRequest, pageNumber: pageNumber });
+  }
+
+  getShippedCollectionFilterRequest() {
+    return this.ShippedCollectionFilterRequestSender.asObservable();
   }
 
   sendCollectionFilterRequest(filterRequest: FilterRequest, pageNumber: number) {
@@ -73,7 +82,7 @@ export class FiltersService {
         break;
 
       case CollectionCenterFilterFor.shippedCollection:
-        url = ''
+        url = "http://localhost:5067/api/shippedcollections/filterhelper/getpropertynames"
         break;
 
     }
@@ -92,7 +101,7 @@ export class FiltersService {
         url = "http://localhost:5154/api/verifiedcollectiondetails/filterhelper/getequalproperties"
         break;
       case CollectionCenterFilterFor.shippedCollection:
-        url = ''
+        url = "http://localhost:5067/api/shippedcollections/filterhelper/getequalproperties"
         break;
     }
     return this.http.get<any>(url);
@@ -108,7 +117,7 @@ export class FiltersService {
         url = "http://localhost:5154/api/verifiedcollectiondetails/filterhelper/getrangeproperties"
         break;
       case CollectionCenterFilterFor.shippedCollection:
-        url = ''
+        url = "http://localhost:5067/api/shippedcollections/filterhelper/getrangeproperties"
         break;
     }
     return this.http.get<any>(url);
@@ -124,7 +133,7 @@ export class FiltersService {
         url = "http://localhost:5154/api/verifiedcollectiondetails/filterhelper/getdaterangeproperties"
         break;
       case CollectionCenterFilterFor.shippedCollection:
-        url = ''
+        url = "http://localhost:5067/api/shippedcollections/filterhelper/getdaterangeproperties"
         break;
     }
     return this.http.get<any>(url);

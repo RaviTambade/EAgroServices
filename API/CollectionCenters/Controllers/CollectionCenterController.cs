@@ -47,14 +47,32 @@ namespace CollectionCenters.Controllers
 
         [HttpGet("inspectorid/{inspectorId}")]
         public async Task<int> GetCollectionCenterIdByInspectorId(int inspectorId)
-        { 
-             return await _srv.GetCollectionCenterIdByInspectorId(inspectorId);
+        {
+            return await _srv.GetCollectionCenterIdByInspectorId(inspectorId);
         }
 
         [HttpGet("revenue/month/{collectionCenterId}")]
-        public async Task<List<MonthRevenue>> GetMonthRevenue(int collectionCenterId)
+        public async Task<List<MonthRevenue>> GetMonthRevenues(int collectionCenterId)
         {
-            return await _srv.GetMonthRevenue(collectionCenterId);
+            return await _srv.GetMonthRevenues(collectionCenterId);
+        }
+
+        [HttpGet("collectioncenterandcorporateid")]
+        public async Task<List<CollectionCenterCorporate>> GetCollectionCenterAndCorporateId()
+        {
+            return await _srv.GetCollectionCenterAndCorporateId();
+        }
+
+        [HttpGet("ordercount/{collectionCenterId}")]
+        public async Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId)
+        {
+            return await _srv.GetMonthOrders(collectionCenterId);
+        }
+
+        [HttpGet("revenue/crop/{collectionCenterId}")]
+        public async Task<List<CropRevenue>> GetCropRevenues(int collectionCenterId)
+        {
+            return await _srv.GetCropRevenues(collectionCenterId);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace CollectionCenters.Models
 {
-    public class CollctionCenterPayment
+    public class GoodsServicesPayment
     {
         public int Id { get; set; }
         public int CollectionId { get; set; }

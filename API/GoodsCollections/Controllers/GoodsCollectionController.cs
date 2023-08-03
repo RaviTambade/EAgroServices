@@ -25,19 +25,7 @@ namespace GoodsCollections.Controllers
         )
         {
             var collections = _srv.GetCollections(collectionCenterId, request, pageNumber);
-            if (collections != null)
-            {
-                var metadata = new
-                {
-                    collections.TotalCount,
-                    collections.CurrentPage,
-                    collections.TotalPages,
-                    collections.HasNext,
-                    collections.HasPrevious
-                };
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-            }
-
+            Response.AddPaginationHeader(collections);
             return collections;
         }
 
@@ -89,19 +77,7 @@ namespace GoodsCollections.Controllers
                 request,
                 pageNumber
             );
-            if (collectionDetails != null)
-            {
-                var metadata = new
-                {
-                    collectionDetails.TotalCount,
-                    collectionDetails.CurrentPage,
-                    collectionDetails.TotalPages,
-                    collectionDetails.HasNext,
-                    collectionDetails.HasPrevious
-                };
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-            }
-
+            Response.AddPaginationHeader(collectionDetails);
             return collectionDetails;
         }
 

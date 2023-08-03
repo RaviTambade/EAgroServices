@@ -53,9 +53,9 @@ export class TransporterlinechartComponent implements OnInit {
           grid: {
             color: 'rgba(255,0,0,0.3)',
           },
-          ticks: {
-            color: 'red',
-          },
+          // ticks: {
+          //   color: 'red',
+          // },
         },
       },
   

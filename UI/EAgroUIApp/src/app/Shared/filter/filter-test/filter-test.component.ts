@@ -15,7 +15,7 @@ import { CollectionCenterFilterFor } from '../collection-center-filter-for';
 export class FilterTestComponent implements OnInit {
 
   @Input() collections: any[] = [];
-  @Input() filterFor!: string 
+  @Input() filterFor!: string
 
   collection = CollectionCenterFilterFor.collection;
   verifiedCollection = CollectionCenterFilterFor.verifiedCollection;
@@ -136,6 +136,10 @@ export class FilterTestComponent implements OnInit {
         break;
       case CollectionCenterFilterFor.collection:
         this.filterservice.sendCollectionFilterRequest(filterRequest, this.pageNumber);
+        break;
+
+      case CollectionCenterFilterFor.shippedCollection:
+        this.filterservice.sendShippedCollectionFilterRequest(filterRequest, this.pageNumber);
         break;
     }
 

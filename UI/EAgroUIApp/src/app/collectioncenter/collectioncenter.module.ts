@@ -14,6 +14,11 @@ import { CorporateService } from '../corporate.service';
 import { CreateShipmentComponent } from './create-shipment/create-shipment.component';
 import { CollectionShipmentListComponent } from './collection-shipment-list/collection-shipment-list.component';
 import { CollectionListHeadComponent } from './collection-list-head/collection-list-head.component';
+import { CollectionCenterDashboardComponent } from './collection-center-dashboard/collection-center-dashboard.component';
+import { BarChartComponent } from './collection-center-dashboard/bar-chart/bar-chart.component';
+import { NgChartsModule } from 'ng2-charts';
+import { LineChartComponent } from './collection-center-dashboard/line-chart/line-chart.component';
+import { SteppedLineChartComponent } from './collection-center-dashboard/stepped-line-chart/stepped-line-chart.component';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -34,20 +39,23 @@ export const collectionCenterRoutes: Routes = [
     CreateShipmentComponent,
     CollectionListComponent,
     CollectionShipmentListComponent,
-    CollectionListHeadComponent
+    CollectionListHeadComponent,
+    CollectionCenterDashboardComponent,
+    BarChartComponent,
+    LineChartComponent,
+    SteppedLineChartComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    NgChartsModule
   ],
   exports:[
-    AddCollectionComponent,
-    VerifyCollectionComponent,
     CollectionVerificationComponent,
-    AddtoshipmentComponent,
     CollectionListHeadComponent,
     CollectionListComponent,
+    CollectionShipmentListComponent
   ],
   providers:[
     CorporateService,

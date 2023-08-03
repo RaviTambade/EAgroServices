@@ -91,6 +91,11 @@
         <app-collection-verification [collections]="collections"></app-collection-verification>
       </div>
 
+      <div *ngIf="filterFor == shippedCollection">
+        <app-collection-shipment-list [collections]="collections"></app-collection-shipment-list>
+      </div>
+      
+
 
       <div class="page-numbers-container">
         <button *ngFor="let pageNumber of pageNumbers" (click)="onPageClick(pageNumber)"

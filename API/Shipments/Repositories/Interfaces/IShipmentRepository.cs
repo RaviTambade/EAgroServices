@@ -1,3 +1,4 @@
+using Shipments.Extensions;
 using Shipments.Models;
 
 namespace Shipments.Repositories.Interfaces
@@ -10,14 +11,17 @@ namespace Shipments.Repositories.Interfaces
         Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId);
         Task<List<InprogressShipment>> GetInprogressShipments();
 
-        Task<List<ShippedCollection>> GetShippedCollections(
+        PagedList<ShippedCollection> GetShippedCollections(
             int collectionCenterId,
-            string shipmentStatus
+            string shipmentStatus,
+            FilterRequest request,
+            int pageNumber
         );
 
         Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId);
         Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId);
         Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId);
+        Task<List<CollectionCount>> GetCollectionCounts(int merchantId);
         Task<bool> IsShipmentStatusDelivered(int shipmentId);
         Task<bool> UpdateStatus(int shipmentId, UpdateStatus statusObject);
         Task<bool> Insert(Shipment shipment);

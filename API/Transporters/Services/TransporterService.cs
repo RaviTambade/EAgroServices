@@ -46,6 +46,10 @@ namespace Transporters.Services
         {
             return await _repo.GetTransporterId(managerId);
         }
+         public async Task<List<TransporterCorporate>> GetTransporterAndCorporateId()
+        {
+            return await _repo.GetTransporterAndCorporateId();
+        }
 
         public async Task<int> GetCorporateIdOfTransporter(int transporterId)
         {

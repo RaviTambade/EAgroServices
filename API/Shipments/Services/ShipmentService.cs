@@ -1,6 +1,7 @@
 using Shipments.Services.Interfaces;
 using Shipments.Repositories.Interfaces;
 using Shipments.Models;
+using Shipments.Extensions;
 
 namespace Shipments.Services;
 
@@ -33,12 +34,19 @@ public class ShipmentService : IShipmentService
         return await _repo.GetInprogressShipments();
     }
 
-    public async Task<List<ShippedCollection>> GetShippedCollections(
+    public PagedList<ShippedCollection> GetShippedCollections(
         int collectionCenterId,
-        string shipmentStatus
+        string shipmentStatus,
+        FilterRequest request,
+        int pageNumber
     )
     {
-        return await _repo.GetShippedCollections(collectionCenterId, shipmentStatus);
+        return _repo.GetShippedCollections(
+            collectionCenterId,
+            shipmentStatus,
+            request,
+            pageNumber
+        );
     }
 
     public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
@@ -84,5 +92,10 @@ public class ShipmentService : IShipmentService
     public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId)
     {
         return await _repo.GetShipmentofTransporter(transporterId);
+    }
+
+    public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
+    {
+        return await _repo.GetCollectionCounts(merchantId);
     }
 }
