@@ -24,6 +24,7 @@ namespace Invoices.Repositories.Contexts
         public DbSet<GoodsCollection> GoodsCollections { get; set; }
         public DbSet<VerifiedCollection> VerifiedCollections { get; set; }
         public DbSet<Crop> Crops { get; set; }
+        public DbSet<Merchant> Merchants { get; set; }
         public DbSet<CollectionCenter> CollectionCenters { get; set; }
         public DbSet<GoodsCosting> Costing { get; set; }
         public DbSet<Transporter> Transporters { get; set; }
@@ -135,6 +136,14 @@ namespace Invoices.Repositories.Contexts
                 entity.Property(e => e.CorporateId);
                 entity.Property(e => e.ManagerId);
                 modelBuilder.Entity<Transporter>().ToTable("transporters");
+            });
+
+             modelBuilder.Entity<Merchant>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CorporateId);
+                entity.Property(e => e.ManagerId);
+                modelBuilder.Entity<Merchant>().ToTable("merchants");
             });
         }
     }
