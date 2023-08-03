@@ -4,53 +4,57 @@
       <h3 (click)="onClickEqualFilters()">Equal Filters:</h3>
       <h3 (click)="onClickDateFilters()">Date Filters:</h3>
       <h3 (click)="onClickRangeFilters()">Range Filters:</h3>
-      <button class="button" (click)="getCollections()">Send Filters</button>
-      <button  class="button" (click)="clearFilters()">Clear Filters</button>
-      <button  class="button" (click)="onClickCloseFilters()">Close Filters</button>
+      <button class="button" (click)="getCollections(filterFor)">Send Filters</button>
+      <button class="button" (click)="clearFilters()">Clear Filters</button>
+      <button class="button" (click)="onClickCloseFilters()">Close Filters</button>
 
       <div style="margin: top 10px; "> Active Filters</div>
 
       <div *ngFor="let property of filterRequest.equalFilters; let i = index">
         <div *ngIf="filterRequest.equalFilters[i].propertyValues.length>0">
           <div *ngFor="let value of filterRequest.equalFilters[i].propertyValues; let z=index">
-            <div class="cbtn"  (click)="removeEqualFilterProperty(i, z)">
-              <div class="cbtn1">&#x2716;</div> 
-            <div class="cbtn2"> {{filterRequest.equalFilters[i].propertyName}} : {{ value }}</div>
-          </div>
-      </div>
-        </div>
-      </div>
-
-
-       <div *ngFor="let property of filterRequest.dateRangeFilters; let i = index">
-        <div *ngIf="filterRequest.dateRangeFilters[i].fromDate !== '' || filterRequest.dateRangeFilters[i].toDate !== '' ">
-          <div class="cbtn" (click)="removeFilterProperty('dateRange', i)">
-            <div class="cbtn1">&#x2716;</div> 
-          <div class="cbtn2" >
-            {{ filterRequest.dateRangeFilters[i].propertyName }}
-            {{ filterRequest.dateRangeFilters[i].fromDate ? ' from '+ filterRequest.dateRangeFilters[i].fromDate : ''}}
-            {{ filterRequest.dateRangeFilters[i].toDate ? ' to '+ filterRequest.dateRangeFilters[i].toDate : '' }}
-          </div>
-        </div>
-      </div>
-      </div>
-  
-
-     <div *ngFor="let property of filterRequest.rangeFilters; let i = index">
-        <div *ngIf="filterRequest.rangeFilters[i].minValue !== undefined || filterRequest.rangeFilters[i].maxValue !== undefined ">
-          <div *ngIf=" filterRequest.rangeFilters[i].minValue !== null || filterRequest.rangeFilters[i].maxValue !== null">
-            <div class="cbtn" (click)="removeFilterProperty('range', i)">
-              <div class="cbtn1">&#x2716;</div> 
-            <div class="cbtn2" >
-            {{ filterRequest.rangeFilters[i].propertyName }}
-            {{ filterRequest.rangeFilters[i].minValue ?  filterRequest.rangeFilters[i].minValue +' - ' : ' 0 -'}}
-            {{ filterRequest.rangeFilters[i].maxValue ?  filterRequest.rangeFilters[i].maxValue : '' }}
+            <div class="cbtn" (click)="removeEqualFilterProperty(i, z)">
+              <div class="cbtn1">&#x2716;</div>
+              <div class="cbtn2"> {{filterRequest.equalFilters[i].propertyName}} : {{ value }}</div>
             </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngFor="let property of filterRequest.dateRangeFilters; let i = index">
+        <div
+          *ngIf="filterRequest.dateRangeFilters[i].fromDate !== '' || filterRequest.dateRangeFilters[i].toDate !== '' ">
+          <div class="cbtn" (click)="removeFilterProperty('dateRange', i)">
+            <div class="cbtn1">&#x2716;</div>
+            <div class="cbtn2">
+              {{ filterRequest.dateRangeFilters[i].propertyName }}
+              {{ filterRequest.dateRangeFilters[i].fromDate ? ' from '+ filterRequest.dateRangeFilters[i].fromDate :
+              ''}}
+              {{ filterRequest.dateRangeFilters[i].toDate ? ' to '+ filterRequest.dateRangeFilters[i].toDate : '' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngFor="let property of filterRequest.rangeFilters; let i = index">
+        <div
+          *ngIf="filterRequest.rangeFilters[i].minValue !== undefined || filterRequest.rangeFilters[i].maxValue !== undefined ">
+          <div
+            *ngIf=" filterRequest.rangeFilters[i].minValue !== null || filterRequest.rangeFilters[i].maxValue !== null">
+            <div class="cbtn" (click)="removeFilterProperty('range', i)">
+              <div class="cbtn1">&#x2716;</div>
+              <div class="cbtn2">
+                {{ filterRequest.rangeFilters[i].propertyName }}
+                {{ filterRequest.rangeFilters[i].minValue ? filterRequest.rangeFilters[i].minValue +' - ' : ' 0 -'}}
+                {{ filterRequest.rangeFilters[i].maxValue ? filterRequest.rangeFilters[i].maxValue : '' }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div> 
-  </div>
   </div>
 
   <div class="farmer-collections-container">
@@ -59,29 +63,38 @@
         <div style="text-align: right; ">
           <button (click)="onClickCloseFilters()">Close Filters</button>
         </div>
-        <app-equal-filter [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-equal-filter>
+        <app-equal-filter [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-equal-filter>
       </div>
       <div *ngIf="dateClickStatus" class="filter-content-top">
         <div style="text-align: right; ">
           <button (click)="onClickCloseFilters()">Close Filters</button>
         </div>
-        <app-date-filter [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-date-filter>
+        <app-date-filter [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-date-filter>
       </div>
       <div *ngIf="rangeClickStatus" class="filter-content-top">
         <div style="text-align: right; ">
           <button (click)="onClickCloseFilters()">Close Filters</button>
         </div>
-        <app-range-filter [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-range-filter>
+        <app-range-filter [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-range-filter>
       </div>
 
       <div style="text-align: right; margin-top: 20px;">
-        <app-sort-by [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-sort-by>
+        <app-sort-by [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-sort-by>
       </div>
 
 
       <div *ngIf="filterFor == verifiedCollection">
-      <app-collection-list-head [collections]="collections"  ></app-collection-list-head>
-    </div>
+        <app-collection-list-head [collections]="collections"></app-collection-list-head>
+      </div>
+
+      <div *ngIf="filterFor == collection">
+        <app-collection-verification [collections]="collections"></app-collection-verification>
+      </div>
+
+      <div *ngIf="filterFor == shippedCollection">
+        <app-collection-shipment-list [collections]="collections"></app-collection-shipment-list>
+      </div>
+      
 
 
       <div class="page-numbers-container">

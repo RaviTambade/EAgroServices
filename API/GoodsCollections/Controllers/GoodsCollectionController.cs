@@ -4,7 +4,6 @@ using GoodsCollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-
 namespace GoodsCollections.Controllers
 {
     [ApiController]
@@ -19,27 +18,15 @@ namespace GoodsCollections.Controllers
         }
 
         [HttpPost("{collectionCenterId}")]
-        public  List<CollectionDetails> GetAll(
+        public  List<Collection>? GetCollections(
             int collectionCenterId,
             [FromBody] FilterRequest request,
             [FromQuery] int pageNumber
         )
         {
-            var collectionDetails =_srv.GetAll(collectionCenterId,request, pageNumber);
-            if (collectionDetails != null)
-            {
-                var metadata = new
-                {
-                    collectionDetails.TotalCount,
-                    collectionDetails.CurrentPage,
-                    collectionDetails.TotalPages,
-                    collectionDetails.HasNext,
-                    collectionDetails.HasPrevious
-                };
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-            }
-
-            return collectionDetails;
+            var collections = _srv.GetCollections(collectionCenterId, request, pageNumber);
+            Response.AddPaginationHeader(collections);
+            return collections;
         }
 
         [HttpGet("collection/{collectionId}")]
@@ -48,16 +35,8 @@ namespace GoodsCollections.Controllers
             return await _srv.GetById(collectionId);
         }
 
-        [HttpGet("unverified/{collectionCenterId}")]
-        public async Task<List<UnverifiedCollection>> GetUnverifiedCollections(
-            int collectionCenterId
-        )
-        {
-            return await _srv.GetUnverifiedCollections(collectionCenterId);
-        }
-
-         [HttpGet("verified/{farmerId}")]
-        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId )
+        [HttpGet("verified/{farmerId}")]
+        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId)
         {
             return await _srv.GetVerifiedCollection(farmerId);
         }
@@ -86,12 +65,29 @@ namespace GoodsCollections.Controllers
             return await _srv.FarmerCollection(farmerId);
         }
 
+        [HttpPost("verified/collectioncenter/{collectionCenterId}")]
+        public List<VerifiedCollectionDetails>? GetVerifiedCollections(
+            int collectionCenterId,
+            [FromBody] FilterRequest request,
+            [FromQuery] int pageNumber
+        )
+        {
+            var collectionDetails = _srv.GetVerifiedCollections(
+                collectionCenterId,
+                request,
+                pageNumber
+            );
+            Response.AddPaginationHeader(collectionDetails);
+            return collectionDetails;
+        }
+
         [HttpGet("containertypes")]
         public async Task<List<string>> GetContainerTypes()
         {
             return await _srv.GetContainerTypes();
         }
-         [HttpGet("farmerunverifiedcollection/{farmerId}")]
+
+        [HttpGet("farmerunverifiedcollection/{farmerId}")]
         public async Task<List<FarmerCollection>> GetVerifiedFarmerCollections(int farmerId)
         {
             return await _srv.GetUnverifiedCollectionsOfFarmer(farmerId);

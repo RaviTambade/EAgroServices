@@ -10,6 +10,7 @@ import { FiltersService } from '../filters.service';
 export class EqualFilterComponent implements OnInit {
 
   @Input() filterRequest!: FilterRequest;
+  @Input() filterFor!: string;
   @Output() filterChange = new EventEmitter<void>();
   equalProperties: any[] =[]
   selectedPropertyIndex: number = -1;
@@ -25,12 +26,17 @@ export class EqualFilterComponent implements OnInit {
   constructor(private filterservice: FiltersService) { }
   ngOnInit(): void {
    
-    this.filterservice.getEqualProperties().subscribe((response) => {
+    this.filterservice.getEqualProperties(this.filterFor).subscribe((response) => {
       this.equalProperties = response
       this.equalProperties= this.equalProperties.map(item => {
         return { name:item, expanded: false };
       });
-      if (!this.initializationDone) {
+
+      let filterFor = sessionStorage.getItem("equalFilterFor");
+      if (this.filterFor !== filterFor) {
+        this.initializeEqualFilters();
+      }
+     else if (!this.initializationDone) {
         if(!this.doesPreviousRequestContainsEqualProperties()){
         this.initializeEqualFilters();
         }
@@ -58,6 +64,8 @@ export class EqualFilterComponent implements OnInit {
   }
 // intialize all equal propeties with empty array of values
   initializeEqualFilters() {
+    sessionStorage.setItem("equalFilterFor", this.filterFor);
+
     this.filterRequest.equalFilters = this.equalProperties.map(property => {
       return { propertyName: property.name, propertyValues: [] };
     });

@@ -1,4 +1,4 @@
-import { UnverifiedCollection } from './collectioncenter/unverified-collection';
+import { UnverifiedCollection } from './collectioncenter/collection';
 
 describe('UnverifiedCollection', () => {
   it('should create an instance', () => {

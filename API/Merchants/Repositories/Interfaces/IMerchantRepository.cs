@@ -12,5 +12,8 @@ namespace Merchants.Repositories.Interfaces
         Task<bool> Insert(Merchant merchant);
         Task<bool> Update(Merchant merchant);
         Task<bool> Delete(int merchantId);
+
+        Task<List<MerchantCorporate>> GetMerchantAndCorporateId();
+
     }
 }

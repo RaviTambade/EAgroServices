@@ -1,18 +1,18 @@
 
-using GoodsCollections.Models;
-using GoodsCollections.Extensions;
+using Shipments.Models;
+using Shipments.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace GoodsCollections.Controllers
+namespace Shipments.Controllers
 {
     [ApiController]
-    [Route("/api/collectiondetails/filterhelper")]
-    public class CollectionDetailsFilterHelperController : ControllerBase
+    [Route("/api/shippedcollections/filterhelper")]
+    public class ShippedCollectionsFilterHelperController : ControllerBase
     {
-        private readonly IFilterHelperService<CollectionDetails> _srv;
+        private readonly IFilterHelperService<ShippedCollection> _srv;
 
-        public CollectionDetailsFilterHelperController(IFilterHelperService<CollectionDetails> srv)
+        public ShippedCollectionsFilterHelperController(IFilterHelperService<ShippedCollection> srv)
         {
             _srv = srv;
         }

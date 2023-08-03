@@ -7,6 +7,7 @@ import { Vehiclenumberid } from './vehiclenumberid';
 import { Vehiclerevenue } from './vehiclerevenue';
 import { Transporterrevenue } from './transporterrevenue';
 import { Shipmentcount } from './shipmentcount';
+import { Corporate } from '../corporate';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,12 @@ export class TransporterService {
 //   let url="http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
 //   return this.httpClient.get<any>(url)
 //  }
+
+
+getTransporterAndCorporateId(): Observable<Corporate[]> {
+  let url = "http://localhost:5025/api/transporters/transporterandcorporateid";
+  return this.httpClient.get<any>(url);
+}
 
  addVehicle(vehicle:Vehicle):Observable<any>{
   let url="http://localhost:5261/api/vehicles"

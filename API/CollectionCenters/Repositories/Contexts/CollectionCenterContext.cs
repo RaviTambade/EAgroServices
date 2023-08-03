@@ -19,8 +19,9 @@ namespace CollectionCenters.Repositories.Contexts
 
         public DbSet<CollectionCenter> CollectionCenters { get; set; }
         public DbSet<GoodsCollection> GoodsCollections { get; set; }
-        public DbSet<CollctionCenterPayment> CollctionCenterPayments { get; set; }
+        public DbSet<GoodsServicesPayment> GoodsServicesPayments { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Crop> Crops { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,12 +42,20 @@ namespace CollectionCenters.Repositories.Contexts
                 modelBuilder.Entity<CollectionCenter>().ToTable("collectioncenters");
             });
 
-            modelBuilder.Entity<CollctionCenterPayment>(entity =>
+            modelBuilder.Entity<GoodsServicesPayment>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.CollectionId);
                 entity.Property(e => e.PaymentId);
-                modelBuilder.Entity<CollctionCenterPayment>().ToTable("goodsservicespayments");
+                modelBuilder.Entity<GoodsServicesPayment>().ToTable("goodsservicespayments");
+            });
+            modelBuilder.Entity<Crop>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Title);
+                entity.Property(e => e.ImageUrl);
+                entity.Property(e => e.Rate);
+                modelBuilder.Entity<Crop>().ToTable("crops");
             });
 
               modelBuilder.Entity<Payment>(entity =>

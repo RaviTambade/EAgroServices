@@ -2,6 +2,7 @@ using Shipments.Models;
 using Shipments.Repositories.Interfaces;
 using Shipments.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Shipments.Extensions;
 
 namespace Shipments.Repositories
 {
@@ -407,16 +408,19 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<List<ShippedCollection>> GetShippedCollections(
+        public PagedList<ShippedCollection> GetShippedCollections(
             int collectionCenterId,
-            string shipmentStatus
+            string shipmentStatus,
+             FilterRequest request,
+            int pageNumber
+
         )
         {
             try
             {
                 using (var context = new ShipmentContext(_configuration))
                 {
-                    var shipments = await (
+                    var query = 
                         from shipment in context.Shipments
                         join shipmentItem in context.ShipmentItems
                             on shipment.Id equals shipmentItem.ShipmentId
@@ -450,9 +454,10 @@ namespace Shipments.Repositories
                             NetWeight = verifiedCollection.Weight,
                             CollectionDate = collection.CollectionDate,
                             ShipmentDate = shipment.ShipmentDate
-                        }
-                    ).ToListAsync();
-                    return shipments;
+                        };
+                    query=query.ApplyFilters(request);
+                    return PagedList<ShippedCollection>.ToPagedList(query,pageNumber);
+
                 }
             }
             catch (Exception e)
