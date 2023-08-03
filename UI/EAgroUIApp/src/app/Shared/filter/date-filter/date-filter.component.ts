@@ -24,7 +24,12 @@ export class DateFilterComponent {
     //fetching property types
     this.filterservice.getDateRangeProperties(this.filterFor).subscribe((response) => {
       this.dateProperties = response;
-      if (!this.initializationDone) {
+      let filterFor = sessionStorage.getItem("dateFilterFor");
+      if (this.filterFor !== filterFor) {
+        this.initializeDateFilters();
+      }
+
+      else if (!this.initializationDone) {
         if (!this.doesPreviousRequestContainsDateProperties()) {
           this.initializeDateFilters();
         }
@@ -35,6 +40,7 @@ export class DateFilterComponent {
 
 
   initializeDateFilters() {
+    sessionStorage.setItem("dateFilterFor", this.filterFor);
     this.filterRequest.dateRangeFilters = this.dateProperties.map(property => {
       return { propertyName: property, fromDate: '', toDate: '' }
     });

@@ -42,12 +42,10 @@ export const collectionCenterRoutes: Routes = [
     ReactiveFormsModule,
   ],
   exports:[
-    AddCollectionComponent,
-    VerifyCollectionComponent,
     CollectionVerificationComponent,
-    AddtoshipmentComponent,
     CollectionListHeadComponent,
     CollectionListComponent,
+    CollectionShipmentListComponent
   ],
   providers:[
     CorporateService,

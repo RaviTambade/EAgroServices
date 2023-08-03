@@ -39,7 +39,11 @@ export class RangeFilterComponent implements OnInit {
 
     this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
       this.rangeProperties = response;
-      if (!this.initializationDone) {
+      let filterFor = sessionStorage.getItem("rangeFilterFor");
+      if (this.filterFor !== filterFor) {
+        this.initializeRangeFilters();
+      }
+      else if (!this.initializationDone) {
         if (!this.doesPreviousRequestContainsRangeProperties()) {
           this.initializeRangeFilters();
         }
@@ -117,6 +121,7 @@ export class RangeFilterComponent implements OnInit {
   }
 
   initializeRangeFilters() {
+    sessionStorage.setItem("rangeFilterFor", this.filterFor);
     this.filterRequest.rangeFilters = this.rangeProperties.map(property => {
       return { propertyName: property, minValue: undefined, maxValue: undefined };
     });
@@ -153,9 +158,9 @@ export class RangeFilterComponent implements OnInit {
     return false;
   }
 
-  propertyIsNotPersonOrCorporateId( property :string) :boolean{
+  propertyIsNotPersonOrCorporateId(property: string): boolean {
     return property !== 'FarmerId' && property !== 'InspectorId' && property !== 'MerchantCorporateId'
-    && property !== 'CollectionCenterCorporateId'  && property !== 'TransporterCorporateId';
+      && property !== 'CollectionCenterCorporateId' && property !== 'TransporterCorporateId';
   }
 
 }

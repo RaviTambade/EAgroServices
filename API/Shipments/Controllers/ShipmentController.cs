@@ -1,6 +1,7 @@
 using Shipments.Models;
 using Shipments.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shipments.Extensions;
 
 namespace Shipments.Controllers
 {
@@ -21,7 +22,7 @@ namespace Shipments.Controllers
             return await _srv.GetAll();
         }
 
-        [HttpGet("merchant/{merchantId}/status/{status}")]
+        [HttpPost("merchant/{merchantId}/status/{status}")]
         public async Task<List<MerchantShipment>?> GetShipmentsByMerchant(
             int merchantId,
             string status
@@ -98,13 +99,23 @@ namespace Shipments.Controllers
             return await _srv.GetShipmentofTransporter(transporterId);
         }
 
-       [HttpGet("collections/{collectionCenterId}/status/{shipmentStatus}")]
-         public async Task<List<ShippedCollection>> GetShippedCollections(
+        [HttpPost("collections/{collectionCenterId}/status/{shipmentStatus}")]
+        public List<ShippedCollection> GetShippedCollections(
             int collectionCenterId,
-            string shipmentStatus
+            string shipmentStatus,
+            [FromBody] FilterRequest request,
+            [FromQuery] int pageNumber
         )
         {
-            return await _srv.GetShippedCollections(collectionCenterId,shipmentStatus);
-        } 
+            var shippedCollections = _srv.GetShippedCollections(
+                collectionCenterId,
+                shipmentStatus,
+                request,
+                pageNumber
+            );
+            Response.AddPaginationHeader(shippedCollections);
+
+            return shippedCollections;
+        }
     }
 }

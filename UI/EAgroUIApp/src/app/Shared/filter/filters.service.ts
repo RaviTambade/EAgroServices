@@ -82,7 +82,7 @@ export class FiltersService {
         break;
 
       case CollectionCenterFilterFor.shippedCollection:
-        url = ''
+        url = "http://localhost:5067/api/shippedcollections/filterhelper/getpropertynames"
         break;
 
     }
@@ -101,7 +101,7 @@ export class FiltersService {
         url = "http://localhost:5154/api/verifiedcollectiondetails/filterhelper/getequalproperties"
         break;
       case CollectionCenterFilterFor.shippedCollection:
-        url = ''
+        url = "http://localhost:5067/api/shippedcollections/filterhelper/getequalproperties"
         break;
     }
     return this.http.get<any>(url);
@@ -117,7 +117,7 @@ export class FiltersService {
         url = "http://localhost:5154/api/verifiedcollectiondetails/filterhelper/getrangeproperties"
         break;
       case CollectionCenterFilterFor.shippedCollection:
-        url = ''
+        url = "http://localhost:5067/api/shippedcollections/filterhelper/getrangeproperties"
         break;
     }
     return this.http.get<any>(url);
@@ -133,7 +133,7 @@ export class FiltersService {
         url = "http://localhost:5154/api/verifiedcollectiondetails/filterhelper/getdaterangeproperties"
         break;
       case CollectionCenterFilterFor.shippedCollection:
-        url = ''
+        url = "http://localhost:5067/api/shippedcollections/filterhelper/getdaterangeproperties"
         break;
     }
     return this.http.get<any>(url);

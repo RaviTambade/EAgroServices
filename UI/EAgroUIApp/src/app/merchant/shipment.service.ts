@@ -69,6 +69,7 @@ export class ShipmentService {
   getShippedCollections(filterRequest:FilterRequest,pageNumber:number,staus:string):Observable<HttpResponse<any>>{
     const collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5067/api/shipments/collections/"+collectionCenterId+"/status/"+staus;
+    console.log("🚀 ~ getShippedCollections ~ url:", url);
     const params = new HttpParams().set('pageNumber', pageNumber.toString());
     return this.http.post<any>(url, filterRequest, { params: params, observe: 'response' });  
   }
