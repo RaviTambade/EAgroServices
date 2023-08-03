@@ -4,16 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import com.eagroservices.crops.pojos.Crop;
+import com.eagroservices.crops.pojos.CropNameIdDetails;
 
 public interface ICropService {
 
     List<Crop> GetAll();
-    // List<string> GetCropNames();
-    // List<CropNameIdDetails> GetCropNamesWithId();
+    List<String> GetCropNames();
+    List<CropNameIdDetails> GetCropNamesWithId();
     Optional<Crop> GetById(int cropId);
-    Crop Insert(Crop crop);
-    Crop Update(Crop crop);
-    String Delete(int cropId);
+    Boolean Insert(Crop crop);
+    Boolean Update(Crop crop);
+    Boolean Delete(int cropId);
     
 }
   

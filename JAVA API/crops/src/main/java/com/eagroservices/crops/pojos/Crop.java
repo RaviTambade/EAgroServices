@@ -21,10 +21,10 @@ public class Crop {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
-	private String Title;
+	private Integer id;
+	private String title;
     @Column(name = "imageurl")
-	private String ImageUrl;
-	private Double Rate;
+	private String imageUrl;
+	private Double rate;
     
 }

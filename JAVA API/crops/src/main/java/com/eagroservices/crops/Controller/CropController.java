@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eagroservices.crops.pojos.Crop;
+import com.eagroservices.crops.pojos.CropNameIdDetails;
 import com.eagroservices.crops.services.ICropService;
 
 @RestController
@@ -28,13 +29,23 @@ public class CropController {
         return _service.GetAll();
     }
 
+    @GetMapping("/names")
+    public List<String> GetCropNames() {
+        return _service.GetCropNames();
+    }
+     @GetMapping("/nameswithid")
+     public List<CropNameIdDetails> GetCropNamesWithId() {
+        return _service.GetCropNamesWithId();
+    }
+
+
     @PostMapping
-    public Crop Insert(@RequestBody Crop crop) {
+    public Boolean Insert(@RequestBody Crop crop) {
         return _service.Insert(crop);
     }
 
     @DeleteMapping("/{cropId}")
-    public String Delete(@PathVariable int cropId) {
+    public Boolean Delete(@PathVariable int cropId) {
         return _service.Delete(cropId);
     }
 
@@ -44,7 +55,7 @@ public class CropController {
     }
 
     @PutMapping
-    public Crop Update(@RequestBody Crop crop) {
+    public Boolean Update(@RequestBody Crop crop) {
         return _service.Update(crop);
     }
 

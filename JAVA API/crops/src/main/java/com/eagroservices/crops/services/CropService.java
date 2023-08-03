@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.eagroservices.crops.dao.ICropRepository;
 import com.eagroservices.crops.pojos.Crop;
+import com.eagroservices.crops.pojos.CropNameIdDetails;
 
 @Service
 public class CropService implements ICropService {
@@ -25,23 +26,33 @@ public class CropService implements ICropService {
     }
 
     @Override
-    public Crop Insert(Crop crop) {
-        return _repo.save(crop);
+    public Boolean Insert(Crop crop) {
+        return _repo.save(crop) != null;
     }
 
     @Override
-    public Crop Update(Crop crop) {
-        return _repo.save(crop);
+    public Boolean Update(Crop crop) {
+        return _repo.save(crop) != null;
     }
 
     @Override
-    public String Delete(int cropId) {
-        String msg = "Deletion of crop failed!!!!!!!!!!!";
+    public Boolean Delete(int cropId) {
+       boolean status= false;
         if (_repo.existsById(cropId)) {
             _repo.deleteById(cropId);
-            msg = "Crop deleted successfully , for  id :" + cropId;
+            status=true;
         }
-        return msg;
+        return status;
+    }
+
+    @Override
+    public List<String> GetCropNames() {
+        return _repo.GetCropNames();
+    }
+
+    @Override
+    public List<CropNameIdDetails> GetCropNamesWithId() {
+        return _repo.GetCropNamesWithId();
     }
 
 }
