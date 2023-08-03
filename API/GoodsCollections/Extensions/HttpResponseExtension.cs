@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-using Shipments.Extensions;
+namespace GoodsCollections.Extensions;
 
 public static class HttpResponseExtensions
 {
