@@ -106,5 +106,12 @@ namespace Shipments.Controllers
         {
             return await _srv.GetShippedCollections(collectionCenterId,shipmentStatus);
         } 
+
+
+        [HttpGet("{merchantId}/collectioncount")]
+          public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
+    {
+        return await _srv.GetCollectionCounts(merchantId);
+    }
     }
 }

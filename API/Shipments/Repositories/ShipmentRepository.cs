@@ -460,5 +460,32 @@ namespace Shipments.Repositories
                 throw e;
             }
         }
+
+        public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
+        {
+            try{
+                using(var context=new ShipmentContext(_configuration)){
+                    var collectionCounts=await (
+                        from collectioncenter in context.CollectionCenters
+                        join goodscollection in context.GoodsCollections
+                        on collectioncenter.Id equals goodscollection.CollectionCenterId
+                        join shipmentitem in context.ShipmentItems
+                        on goodscollection.Id equals shipmentitem.CollectionId
+                        join shipment in context.Shipments
+                        on shipmentitem.ShipmentId equals shipment.Id
+                        where shipment.MerchantId == merchantId group new {goodscollection,collectioncenter} by collectioncenter.Id
+                        into c
+                        select new CollectionCount(){
+                        CollectionCenterId=c.Key,
+                        CorporateId=c.FirstOrDefault().collectioncenter.CorporateId,
+                        Count=c.Count()    
+                        }).ToListAsync();
+                        return collectionCounts;
+                }
+            }
+            catch(Exception e){
+                throw e;
+            }
+        }
     }
 }
