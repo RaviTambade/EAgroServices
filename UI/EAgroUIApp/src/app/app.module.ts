@@ -12,7 +12,7 @@ import { TransporterModule, transporterRoutes } from './transporter/transporter.
 import { UsersModule } from './Shared/users/users.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CropModule } from './crop/crop.module';
-import { CollectionCenterFiltersModule, collectionCenterFilterRoutes } from './collection-center-filters/collection-center-filters.module';
+import { collectionCenterFilterRoutes } from './collection-center-filters/collection-center-filters.module';
 
 
 const routes: Routes = [
