@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    password: password
+    url: jdbc:mysql://localhost:3306/eagroservicesdb?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true
