@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { Invoice } from './merchant/invoice';
 import { InvoiceDetails } from './merchant/invoice-details';
+import { CollectionCenterInvoiceDetails } from './collectioncenter/collection-center-invoice-details';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,12 @@ export class InvoicesService {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5197/api/invoices/collectionCenter/" + collectionCenterId;
     return this.http.get<Invoice[]>(url);
+  }
+
+  getCollectionCenterInvoicDetails(invoiceId:number): Observable<CollectionCenterInvoiceDetails> {
+    let collectionCenterId = localStorage.getItem("collectionCenterId");
+    let url = "http://localhost:5197/api/invoices/collectionCenter/" + collectionCenterId+"/invoice/"+invoiceId;
+    return this.http.get<CollectionCenterInvoiceDetails>(url);
   }
 
 

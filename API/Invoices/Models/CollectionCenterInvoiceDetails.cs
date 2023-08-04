@@ -6,10 +6,10 @@ namespace Invoices.Models
         public int FarmerId { get; set; }
         public int TransporterCorporateId { get; set; }
         public int MerchantCorporateId { get; set; }
-        public string? VehicleNumber { get; set; }
-        public string? CropName { get; set; }
-        public string? Grade { get; set; }
-        public string? ContainerType { get; set; }
+        public string VehicleNumber { get; set; } =string.Empty;
+        public string CropName { get; set; }  =string.Empty;
+        public string Grade { get; set; } =string.Empty;
+        public string ContainerType { get; set; } =string.Empty;
         public int Quantity { get; set; }
         public double TotalWeight { get; set; }
         public double NetWeight { get; set; }

@@ -7,7 +7,7 @@ namespace Invoices.Models
         public int Id { get; set; }
         public int FarmerId { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int MerchantCorporateId { get; set; }
         public string? CropName { get; set; }
         public int Quantity { get; set; }
