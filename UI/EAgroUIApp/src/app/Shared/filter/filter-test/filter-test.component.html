@@ -45,9 +45,9 @@
             *ngIf=" filterRequest.rangeFilters[i].minValue !== null || filterRequest.rangeFilters[i].maxValue !== null">
             <div class="cbtn" (click)="removeFilterProperty('range', i)">
               <div class="cbtn1">&#x2716;</div>
-              <div *ngIf=" filterRequest.rangeFilters[i].propertyName=='MerchantCorporateId' ">
+              <!-- <div *ngIf=" filterRequest.rangeFilters[i].propertyName=='MerchantCorporateId' ">
               Merchant->
-              </div>
+              </div> -->
               <div class="cbtn2">
                 {{ filterRequest.rangeFilters[i].propertyName }}
                 {{ filterRequest.rangeFilters[i].minValue ? filterRequest.rangeFilters[i].minValue +' - ' : ' 0 -'}}
