@@ -248,14 +248,19 @@ SELECT * FROM vehicles;
       GROUP BY (`s`.`shipmentdate`);
 
 
-      SELECT collectioncenters.corporateid,COUNT(shipmentitems.collectionid),
-      goodscollections.collectioncenterid
-      FROM collectioncenters
-      INNER JOIN goodscollections ON collectioncenters.id=goodscollections.collectioncenterid
+      SELECT COUNT(goodscollections.cropid),
+      crops.title
+      FROM goodscollections
+      INNER JOIN crops 
+      ON goodscollections.cropid=crops.id
       INNER JOIN shipmentitems
       ON goodscollections.id=shipmentitems.collectionid
       INNER JOIN shipments
       ON shipmentitems.shipmentid=shipments.id
-      WHERE shipments.merchantid=2 GROUP BY collectioncenters.id ;
+      WHERE shipments.merchantid=2 GROUP BY goodscollections.cropid ;
 
       SELECT * FROM shipmentitems;
+      SELECT * FROM goodscollections;
+SELECT * FROM shipments;
+      SELECT * FROM goodscollections;
+      SELECT * FROM crops;

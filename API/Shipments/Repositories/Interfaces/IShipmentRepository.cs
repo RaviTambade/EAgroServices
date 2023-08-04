@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Shipments.Extensions;
 using Shipments.Models;
 
@@ -22,6 +23,7 @@ namespace Shipments.Repositories.Interfaces
         Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId);
         Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId);
         Task<List<CollectionCount>> GetCollectionCounts(int merchantId);
+        Task<List<CropCount>> GetCropCounts(int merchantId);
         Task<bool> IsShipmentStatusDelivered(int shipmentId);
         Task<bool> UpdateStatus(int shipmentId, UpdateStatus statusObject);
         Task<bool> Insert(Shipment shipment);

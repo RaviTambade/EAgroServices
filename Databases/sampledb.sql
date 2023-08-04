@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
     
     INSERT INTO roles(name)VALUES('owner');
     INSERT INTO roles(name)VALUES ('farmer');
@@ -14,6 +14,10 @@
     INSERT INTO userroles(userid,roleid)VALUES(7,5);
     INSERT INTO userroles(userid,roleid)VALUES(8,5);
     INSERT INTO userroles(userid,roleid)VALUES(9,5);
+    INSERT INTO userroles(userid,roleid)VALUES(12,3);
+    INSERT INTO userroles(userid,roleid)VALUES(13,3);
+    INSERT INTO userroles(userid,roleid)VALUES(14,3);
+
 
 
 
@@ -40,6 +44,10 @@
     INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
 
     INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,3);
+    INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(9,12);
+    INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(10,13);
+    INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(11,14);
+
     INSERT INTO merchants (corporateid,managerid) VALUES(5,9);
     INSERT INTO merchants (corporateid,managerid) VALUES(7,3);
     INSERT INTO merchants (corporateid,managerid) VALUES(8,5);

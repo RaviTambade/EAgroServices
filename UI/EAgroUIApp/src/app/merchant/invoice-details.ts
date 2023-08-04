@@ -5,7 +5,7 @@ export class InvoiceDetails {
         public farmerName: string,
         public collectionCenterCorporateId: number,
         public collectionCenterName: string,
-        public transporterCorporatId: number,
+        public transporterCorporateId: number,
         public collectionId :number,
         public transporterName: string,
         public vehicleNumber: string,
