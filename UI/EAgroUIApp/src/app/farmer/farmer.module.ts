@@ -33,7 +33,9 @@ import { RevenuebarchartComponent } from './revenuebarchart/revenuebarchart.comp
   ],
   exports: [
     GoodscollectionComponent,
-    VerifiedcollectionComponent
+    VerifiedcollectionComponent,
+    FarmerpiechartComponent,
+    RevenuebarchartComponent
   ],
   providers:[]
 })

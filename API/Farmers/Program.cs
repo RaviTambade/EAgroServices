@@ -6,7 +6,7 @@ using Farmers.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IFarmersCollectionRepository, FarmersCollectionRepository>();
 builder.Services.AddScoped<IGoodsCollectionService, GoodsCollectionService>();
@@ -22,7 +22,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders(
+                       new string[] {"X-Pagination"}
+                    ));
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

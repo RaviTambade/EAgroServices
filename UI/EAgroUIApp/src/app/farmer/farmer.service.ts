@@ -20,6 +20,7 @@ export class FarmerService {
   }
   getMonthlyRevenue(farmerId: any): Observable<any> {
     let url = "http://localhost:5051/api/farmerscollections/monthlyrevenue/" + farmerId;
+    console.log(url);
     return this.http.get<any>(url);
   }
 }
