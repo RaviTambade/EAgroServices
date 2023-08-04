@@ -1,0 +1,68 @@
+<div *ngIf="invoiceDetails">
+    <table>
+        <tr>
+            <td>Invoice Date:</td>
+            <td>{{ invoiceDetails.invoiceDate | date}}</td>
+        </tr>
+        <tr>
+            <td>Farmer Name:</td>
+            <td>{{ invoiceDetails.farmerName }}</td>
+        </tr>
+        <tr>
+            <td>Merchant Name:</td>
+            <td>{{ invoiceDetails.merchantName }}</td>
+        </tr>
+        <tr>
+            <td>Transporter Name:</td>
+            <td>{{ invoiceDetails.transporterName }}</td>
+        </tr>
+        <tr>
+            <td>Vehicle Number:</td>
+            <td>{{ invoiceDetails.vehicleNumber }}</td>
+        </tr>
+        <tr>
+            <td>Crop Name:</td>
+            <td>{{ invoiceDetails.cropName }}</td>
+        </tr>
+        <tr>
+            <td>Grade:</td>
+            <td>{{ invoiceDetails.grade }}</td>
+        </tr>
+        <tr>
+            <td>Container Type:</td>
+            <td>{{ invoiceDetails.containerType }}</td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td>{{ invoiceDetails.quantity }}</td>
+        </tr>
+        <tr>
+            <td>Total Weight:</td>
+            <td>{{ invoiceDetails.totalWeight |number }}</td>
+        </tr>
+        <tr>
+            <td>Net Weight:</td>
+            <td>{{ invoiceDetails.netWeight |number }}</td>
+        </tr>
+        <tr>
+            <td>Freight Charges:</td>
+            <td>{{ invoiceDetails.freightCharges |number: '1.2-2' }}</td>
+        </tr>
+        <tr>
+            <td>Labour Charges:</td>
+            <td>{{ invoiceDetails.labourCharges |number }}</td>
+        </tr>
+        <tr>
+            <td>Service Charges:</td>
+            <td>{{ invoiceDetails.serviceCharges |number }}</td>
+        </tr>
+        <tr>
+            <td>Rate Per Kg:</td>
+                {{ invoiceDetails.ratePerKg |number }}
+        </tr>
+        <tr>
+            <td>Farmer Amount:</td>
+            <td>{{ invoiceDetails.farmerAmount |number }}</td>
+        </tr>
+
+    </table>

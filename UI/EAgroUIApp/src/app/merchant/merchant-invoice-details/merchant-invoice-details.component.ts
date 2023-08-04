@@ -48,7 +48,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
     this.invoicesvc.getInvoiceDetails(this.invoiceId).subscribe((res) => {
       this.invoiceDetails = res;
 
-      let ids: number[] = [this.invoiceDetails.collectionCenterCorporateId, this.invoiceDetails.transporterCorporatId];
+      let ids: number[] = [this.invoiceDetails.collectionCenterCorporateId, this.invoiceDetails.transporterCorporateId];
       let idString = ids.join(',');
 
 

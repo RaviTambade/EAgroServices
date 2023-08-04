@@ -59,7 +59,7 @@ namespace Invoices.Controllers
             return await _srv.Delete(invoiceId);
         }
 
-        [HttpGet("collectionCenter/{collectionCenterId}/{invoiceId}")]
+        [HttpGet("collectionCenter/{collectionCenterId}/invoice/{invoiceId}")]
         public async Task<CollectionCenterInvoiceDetails> GetCollectionCenterInvoiceDetails(
             int collectionCenterId,
             int invoiceId

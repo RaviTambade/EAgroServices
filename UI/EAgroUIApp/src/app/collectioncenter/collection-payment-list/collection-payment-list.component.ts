@@ -10,7 +10,6 @@ import { CorporateService } from 'src/app/corporate.service';
   styleUrls: ['./collection-payment-list.component.css']
 })
 export class CollectionPaymentListComponent {
-
   invoices: Invoice[] = [];
 
   constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService) { }
@@ -19,9 +18,7 @@ export class CollectionPaymentListComponent {
   ngOnInit(): void {
     this.fetchData();
   }
-  // onClickInvoiceDetails(invoiceId: number) {
-  //   this.router.navigate(['/merchant/invoicedetails', invoiceId]);
-  // }
+ 
 
   fetchData() {
     this.invoicesvc.getCollectionCenterInvoices().subscribe((response) => {

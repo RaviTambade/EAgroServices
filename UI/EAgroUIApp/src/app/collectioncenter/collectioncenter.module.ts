@@ -20,6 +20,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { LineChartComponent } from './collection-center-dashboard/line-chart/line-chart.component';
 import { SteppedLineChartComponent } from './collection-center-dashboard/stepped-line-chart/stepped-line-chart.component';
 import { CollectionPaymentListComponent } from './collection-payment-list/collection-payment-list.component';
+import { CollectionPaymentDetailsComponent } from './collection-payment-details/collection-payment-details.component';
+import { CollectionPaymentListBodyComponent } from './collection-payment-list-body/collection-payment-list-body.component';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -45,7 +47,9 @@ export const collectionCenterRoutes: Routes = [
     BarChartComponent,
     LineChartComponent,
     SteppedLineChartComponent,
-    CollectionPaymentListComponent
+    CollectionPaymentListComponent,
+    CollectionPaymentDetailsComponent,
+    CollectionPaymentListBodyComponent
   ],
   imports: [
     CommonModule,
