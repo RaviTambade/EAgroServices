@@ -11,6 +11,7 @@ import { CorporateService } from 'src/app/corporate.service';
 })
 export class CollectionPaymentListComponent {
   invoices: Invoice[] = [];
+  selectedInvoiceId: number | null = null;
 
   constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService) { }
 
@@ -18,8 +19,18 @@ export class CollectionPaymentListComponent {
   ngOnInit(): void {
     this.fetchData();
   }
- 
 
+
+  onClickClose() {
+    this.selectedInvoiceId = null;
+  }
+  onClickInvoiceDetails(invoiceId: number) {
+    if (this.selectedInvoiceId === invoiceId) {
+      this.selectedInvoiceId = null;
+    } else {
+      this.selectedInvoiceId = invoiceId;
+    }
+  }
   fetchData() {
     this.invoicesvc.getCollectionCenterInvoices().subscribe((response) => {
       this.invoices = response;

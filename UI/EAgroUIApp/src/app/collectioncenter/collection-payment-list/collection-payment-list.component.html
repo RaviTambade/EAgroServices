@@ -1,3 +1,5 @@
+<table class="table">
+  <thead>
     <tr>
       <th>Date </th>
       <th>FarmerName</th>
@@ -8,7 +10,32 @@
       <th>Rate Per Kg</th>
       <th>Service Amount</th>
     </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let invoice of invoices">
+      <tr>
+        <td>{{ invoice.invoiceDate | date }}</td>
+        <td>{{ invoice.farmerName }}</td>
+        <td>{{ invoice.merchantName }}</td>
+        <td>{{ invoice.cropName}}</td>
+        <td>{{ invoice.quantity}}</td>
+        <td>{{ invoice.weight}}</td>
+        <td>{{ invoice.ratePerKg}}</td>
+        <td>{{ invoice.totalAmount |number}}</td>
+        <td><button (click)="onClickInvoiceDetails(invoice.id)"> Details </button></td>
 
-    <div *ngFor="let invoice of invoices">
-      <app-collection-payment-list-body [invoice]="invoice"></app-collection-payment-list-body>
-    </div>
+      </tr>
+      <tr *ngIf="selectedInvoiceId === invoice.id">
+        <td colspan="8">
+
+          <div class="content-container">
+            <app-collection-payment-details [invoiceId]="selectedInvoiceId"></app-collection-payment-details>
+          </div>
+          <div> <button class="close-button" (click)="onClickClose()">Close</button>
+
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
