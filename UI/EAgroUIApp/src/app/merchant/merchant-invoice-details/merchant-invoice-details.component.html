@@ -68,13 +68,13 @@
         </tr>
         <tr>
             <td>Total Amount:</td>
-            <td>{{ invoiceDetails.totalAmount |number }}</td>
+            <td>{{ invoiceDetails.farmerAmount |number }}</td>
         </tr>
 
     </table>
 
 
-    <div *ngIf="invoiceDetails.totalAmount > 0">
+    <div *ngIf="invoiceDetails.farmerAmount > 0">
         <button (click)="onClickPaymentDetails()">Payment Details</button>
         <div *ngIf="showPayment">
             <table>
@@ -88,7 +88,7 @@
                     <td>{{ invoiceDetails.farmerName }}</td>
                     <td>{{farmerAccountInfo.accountNumber}}</td>
                     <td>{{farmerAccountInfo.ifscCode}}</td>
-                    <td>{{ invoiceDetails.totalAmount |number }}</td>
+                    <td>{{ invoiceDetails.farmerAmount |number }}</td>
 
                 </tr>
             </table>
@@ -107,7 +107,7 @@
                     <td>{{ invoiceDetails.labourCharges + invoiceDetails.serviceCharges |number }} </td>
                 </tr>
             </table>
-            <h6>Total Amount {{ invoiceDetails.totalAmount + invoiceDetails.labourCharges +
+            <h6>Total Amount {{ invoiceDetails.farmerAmount + invoiceDetails.labourCharges +
                 invoiceDetails.serviceCharges |number }} </h6>
 
             <h6>Payment : {{invoiceDetails.paymentStatus}}</h6>

@@ -26,12 +26,18 @@ namespace Invoices.Controllers
         {
             return await _srv.GetInvoice(collectionId);
         }
+
         [HttpGet("details/{invoiceId}")]
         public async Task<InvoiceChargesDetails> GetById(int invoiceId)
         {
             return await _srv.GetById(invoiceId);
         }
 
+        [HttpGet("collectionCenter/{collectionCenterId}")]
+        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId)
+        {
+            return await _srv.GetCollectionCenterInvoices(collectionCenterId);
+        }
 
         [HttpPost]
         public async Task<bool> Insert(Invoice invoice)
@@ -51,6 +57,15 @@ namespace Invoices.Controllers
         public async Task<bool> Delete(int invoiceId)
         {
             return await _srv.Delete(invoiceId);
+        }
+
+        [HttpGet("collectionCenter/{collectionCenterId}/{invoiceId}")]
+        public async Task<CollectionCenterInvoiceDetails> GetCollectionCenterInvoiceDetails(
+            int collectionCenterId,
+            int invoiceId
+        )
+        {
+            return await _srv.GetCollectionCenterInvoiceDetails(collectionCenterId, invoiceId);
         }
     }
 }

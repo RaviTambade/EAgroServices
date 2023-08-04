@@ -4,6 +4,8 @@ export class Invoice {
 
         public id: number,
         public farmerId: number,
+        public merchantCorporateId:number,
+        public merchantName:string,
         public farmerName: string,
         public cropName: string,
         public quantity:number,

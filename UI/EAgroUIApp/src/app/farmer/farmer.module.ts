@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
 // import { CollectionComponent } from './collection/collection.component';
 import { GoodscollectionComponent } from './goodscollection/goodscollection.component';
 import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollection.component';
 import { InvoicedetailsComponent } from './invoicedetails/invoicedetails.component';
+import { NgChartsModule } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
+import { FarmerpiechartComponent } from './farmerpiechart/farmerpiechart.component';
+import { RevenuebarchartComponent } from './revenuebarchart/revenuebarchart.component';
 
  export const farmerRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -18,14 +22,19 @@ import { InvoicedetailsComponent } from './invoicedetails/invoicedetails.compone
     // CollectionComponent,
     GoodscollectionComponent,
     VerifiedcollectionComponent,
-    InvoicedetailsComponent
+    InvoicedetailsComponent,
+    RevenuebarchartComponent,
+    FarmerpiechartComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgChartsModule,
+    FormsModule
   ],
   exports: [
     GoodscollectionComponent,
     VerifiedcollectionComponent
-  ]
+  ],
+  providers:[]
 })
 export class FarmerModule { }

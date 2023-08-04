@@ -20,7 +20,7 @@ export class InvoiceDetails {
         public serviceCharges: number,
         public paymentStatus: string,
         public ratePerKg: number,
-        public totalAmount: number,
+        public farmerAmount: number,
         public invoiceDate: string
     ) { }
 }

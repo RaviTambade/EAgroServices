@@ -27,4 +27,11 @@ export class InvoicesService {
     return this.http.patch<boolean>(url, body);
   }
 
+  getCollectionCenterInvoices(): Observable<Invoice[]> {
+    let collectionCenterId = localStorage.getItem("collectionCenterId");
+    let url = "http://localhost:5197/api/invoices/collectionCenter/" + collectionCenterId;
+    return this.http.get<Invoice[]>(url);
+  }
+
+
 }

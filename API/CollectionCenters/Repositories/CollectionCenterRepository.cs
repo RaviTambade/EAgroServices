@@ -222,7 +222,7 @@ namespace CollectionCenters.Repositories
                         {
                             CropName=g.Key,
                             TotalAmount = g.Sum(cropPayment => cropPayment.payment.Amount)
-                            // TotalAmount = g.Select( (cropPayment)=> cropPayment.payment).Sum(p => p.Amount)
+                            // TotPalAmount = g.Select( (cropPayment)=> cropPayment.payment).Sum(p => p.Amount)
                         }
                     ).ToListAsync();
                     return revenueData;

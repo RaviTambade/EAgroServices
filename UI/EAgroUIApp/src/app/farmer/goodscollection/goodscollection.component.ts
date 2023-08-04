@@ -3,7 +3,6 @@ import { FarmerService } from '../farmer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Goodscollection } from '../goodscollection';
 import { CorporateService } from 'src/app/corporate.service';
-
 @Component({
   selector: 'app-goodscollection',
   templateUrl: './goodscollection.component.html',

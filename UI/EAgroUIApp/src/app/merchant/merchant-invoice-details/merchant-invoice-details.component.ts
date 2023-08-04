@@ -102,7 +102,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
       toAcct: this.farmerAccountInfo.accountNumber,
       fromIfsc: this.merchantAccountInfo.ifscCode,
       toIfsc: this.farmerAccountInfo.ifscCode,
-      amount: this.invoiceDetails.totalAmount
+      amount: this.invoiceDetails.farmerAmount
     }
 
     this.banksvc.fundTransfer(farmerPaymentTransfer).subscribe((res) => {

@@ -13,6 +13,7 @@ import { UsersModule } from './Shared/users/users.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CropModule } from './crop/crop.module';
 import { collectionCenterFilterRoutes } from './collection-center-filters/collection-center-filters.module';
+import { FarmerpiechartComponent } from './farmer/farmerpiechart/farmerpiechart.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     NavbarComponent,
+    // FarmerpiechartComponent,
   ],
   imports: [
     BrowserModule,
