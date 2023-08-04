@@ -24,7 +24,7 @@ export class MerchantbarchartComponent {
       x: {},
       y: {
         min: 5,
-        max:500,
+        max:40,
         ticks: {
           stepSize: 5,
         },

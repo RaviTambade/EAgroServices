@@ -492,5 +492,29 @@ namespace Shipments.Repositories
                 throw e;
             }
         }
+
+        public async Task<List<CropCount>> GetCropCounts(int merchantId)
+        {
+           try{
+            using(var context=new ShipmentContext(_configuration)){
+                var cropCounts=await (from crop in context.Crops
+                                      join goodscollection in context.GoodsCollections
+                                      on crop.Id equals goodscollection.CropId
+                                      join shipmentitem in context.ShipmentItems
+                                      on goodscollection.Id equals shipmentitem.CollectionId
+                                      join shipment in context.Shipments
+                                      on shipmentitem.ShipmentId equals shipment.Id
+                                      where shipment.MerchantId == merchantId group new {crop,goodscollection} by goodscollection.CropId into c
+                                      select new CropCount(){
+                                        Count=c.Count(),
+                                        CropName=c.FirstOrDefault().crop.Title
+                                      }).ToListAsync();
+                                      return cropCounts;
+            }
+           }
+           catch(Exception e){
+            throw e;
+           }
+        }
     }
 }
