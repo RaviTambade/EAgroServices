@@ -14,6 +14,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { TransporterdashboardComponent } from './transporterdashboard/transporterdashboard.component';
 import { TransporterpiechartComponent } from './transporterpiechart/transporterpiechart.component';
 import { TransporterlinechartComponent } from './transporterlinechart/transporterlinechart.component';
+import { CorporatedetailsDirective } from './corporatedetails.directive';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -38,6 +39,7 @@ export const transporterRoutes: Routes = [
     TransporterdashboardComponent,
     TransporterpiechartComponent,
     TransporterlinechartComponent,
+    CorporatedetailsDirective,
 
   ],
   imports: [

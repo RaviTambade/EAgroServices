@@ -6,6 +6,7 @@ import { Shipment } from '../shipment';
 import { Shipmentsmerchant } from '../shipmentsmerchant';
 // import { Shipmentsmerchant } from '../shipmentsmerchant';
 import { TransporterService } from '../transporter.service';
+import { Corporation } from 'src/app/corporation';
 
 @Component({
   selector: 'app-getshipmentsofvehicle',
@@ -84,7 +85,7 @@ onClickShipmentDetails(shipment: Shipmentsmerchant) {
     this.router.navigate(['transporter/shipmentdetails', shipment.id]);
     console.log(shipment.id)
   }
-
+ 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

@@ -12,7 +12,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let shipment of shipmentmerchants">
-        <td>{{shipment.companyName}}</td>
+        <td appCorporatedetails>{{shipment.companyName}}</td>
         <td>{{ shipment.kilometers }}</td>
         <td>{{ shipment.status }}</td>
         <td>{{ shipment.shipmentDate |date }}</td>
@@ -21,7 +21,7 @@
     </tbody>
   </table>
 </div>
-
+<router-outlet></router-outlet>
 <!-- <div *ngIf="shipments.length === 0">
   No shipments found for the selected vehicle.
 </div> -->
