@@ -14,6 +14,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CropModule } from './crop/crop.module';
 import { collectionCenterFilterRoutes } from './collection-center-filters/collection-center-filters.module';
 import { FarmerpiechartComponent } from './farmer/farmerpiechart/farmerpiechart.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AddJwtHeaderIntreceptorInterceptor } from './add-jwt-header-intreceptor.interceptor';
 
 
 const routes: Routes = [
@@ -45,7 +47,13 @@ const routes: Routes = [
     UsersModule,
     // CollectionCenterFiltersModule
   ],
-  providers: [],
+  providers: [
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AddJwtHeaderIntreceptorInterceptor,
+        multi: true
+      }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
