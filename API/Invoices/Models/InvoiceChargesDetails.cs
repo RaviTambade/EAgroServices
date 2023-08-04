@@ -18,7 +18,6 @@ namespace Invoices.Models
         public double LabourCharges { get; set; }
         public double ServiceCharges { get; set; }
         public string PaymentStatus { get; set; }
-
         public double RatePerKg { get; set; }
         public double TotalAmount { get; set; } //{ get => farmerAmount=Math.Round(farmerAmount,2); set=> farmerAmount=value; }
         public DateTime InvoiceDate { get; set; }
