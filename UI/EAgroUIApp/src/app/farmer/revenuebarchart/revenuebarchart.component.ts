@@ -9,13 +9,13 @@ import { FarmerService } from '../farmer.service';
   templateUrl: './revenuebarchart.component.html',
   styleUrls: ['./revenuebarchart.component.css']
 })
-  export class TransporterbarchartComponent implements OnInit{
+  export class RevenuebarchartComponent implements OnInit{
     farmerId:any;
     FarmerRevenues:FarmerRevenue[]=[]
     constructor(private svc:FarmerService){}
     @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   
-    public barChartOptions: RTCConfiguration['options'] = {
+    public barChartOptions: ChartConfiguration['options'] = {
       responsive: true,
   
       // We use these empty structures as placeholders for dynamic theming.

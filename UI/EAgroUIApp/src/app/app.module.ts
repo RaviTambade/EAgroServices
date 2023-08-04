@@ -29,7 +29,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     NavbarComponent,
-    FarmerpiechartComponent,
+    // FarmerpiechartComponent,
   ],
   imports: [
     BrowserModule,

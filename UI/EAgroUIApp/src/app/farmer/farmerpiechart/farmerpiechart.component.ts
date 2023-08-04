@@ -5,11 +5,11 @@ import { FarmerRevenue } from '../farmer-revenue';
 import { FarmerService } from '../farmer.service';
 
 @Component({
-  selector: 'app-transporterpiechart',
-  templateUrl: './transporterpiechart.component.html',
-  styleUrls: ['./transporterpiechart.component.css']
+  selector: 'app-farmerpiechart',
+  templateUrl: './farmerpiechart.component.html',
+  styleUrls: ['./farmerpiechart.component.css']
 })
-export class TransporterpiechartComponent implements OnInit {
+export class FarmerpiechartComponent implements OnInit {
   farmerId:any;
 farmerRevenue:FarmerRevenue[]=[]
   constructor(private svc:FarmerService){}
