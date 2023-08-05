@@ -219,15 +219,27 @@ ON transporterpayments.paymentid=payments.id
 WHERE transporterid=1  GROUP BY vehicles.rtonumber;
 
 SELECT
+    YEAR(shipments.shipmentdate),
     MONTHNAME(shipments.shipmentdate),
-    COUNT(shipments.id) 
-FROM vehicles
+    COUNT(*) 
+FROM shipments
+    INNER JOIN vehicles ON  shipments.vehicleid=vehicles.id
     INNER JOIN transporters ON vehicles.transporterid = transporters.id
-    INNER JOIN shipments ON vehicles.id = shipments.vehicleid
-    INNER JOIN transporterpayments ON shipments.id = transporterpayments.paymentid
+    INNER JOIN transporterpayments ON shipments.id = transporterpayments.shipmentid
     INNER JOIN payments ON transporterpayments.paymentid = payments.id
 WHERE transporters.id = 1 AND shipments.status='delivered'
-GROUP BY MONTHNAME(shipments.shipmentdate);
+GROUP BY MONTHNAME(shipments.shipmentdate),YEAR(shipments.shipmentdate) ;
+
+SELECT EXTRACT(month FROM `s`.`shipmentdate`), COUNT(*), EXTRACT(year FROM `s`.`shipmentdate`)
+      FROM `shipments` AS `s`
+      INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
+      INNER JOIN `transporters` AS `t` ON `v`.`transporterid` = `t`.`id`
+      INNER JOIN `transporterpayments` AS `t0` ON `s`.`id` = `t0`.`shipmentid`
+      INNER JOIN `payments` AS `p` ON `t0`.`paymentid` = `p`.`id`
+      WHERE (`t`.`id` = 1) AND (`s`.`status` = 'delivered')
+      GROUP BY EXTRACT(year FROM `s`.`shipmentdate`), EXTRACT(month FROM `s`.`shipmentdate`)
+      ORDER BY EXTRACT(year FROM `s`.`shipmentdate`), EXTRACT(month FROM `s`.`shipmentdate`);
+
 
 
 
@@ -261,6 +273,7 @@ SELECT * FROM vehicles;
 
       SELECT * FROM shipmentitems;
       SELECT * FROM goodscollections;
+      SELECT * FROM merchants;
 SELECT * FROM shipments;
       SELECT * FROM goodscollections;
       SELECT * FROM crops;
