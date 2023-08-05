@@ -24,10 +24,13 @@ export class AuthService {
   }
 
   updatePassword(credential: UpdatePassword): Observable<boolean> {
+    // let url = "http://localhost:5077/api/authentication/update/password";
+    // const token = localStorage.getItem("jwt")
+    // const header = { "Authorization": "Bearer " + token }
+    // return this.httpClient.put<any>(url, credential, { headers: header });
     let url = "http://localhost:5077/api/authentication/update/password";
-    const token = localStorage.getItem("jwt")
-    const header = { "Authorization": "Bearer " + token }
-    return this.httpClient.put<any>(url, credential, { headers: header });
+
+    return this.httpClient.put<any>(url, credential);
   }
 
   updateContact(credential: UpdateContact): Observable<boolean> {
