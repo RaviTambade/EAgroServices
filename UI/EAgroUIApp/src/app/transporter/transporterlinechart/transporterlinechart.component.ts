@@ -5,6 +5,7 @@ import { TransporterService } from '../transporter.service';
 import { Chart, ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import Annotation from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
+import { count } from 'rxjs';
 
 @Component({
   selector: 'app-transporterlinechart',
@@ -13,8 +14,10 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class TransporterlinechartComponent implements OnInit {
   transporterId:any;
+  distinctYears: number[]=[];
+  selectedYear:number |any;
   shipmentCount:Shipmentcount[]=[]
-  private newLabel? = 'New label';
+  // private newLabel? = 'New label';
   
     constructor(private svc:TransporterService) {
       Chart.register(Annotation);
@@ -66,7 +69,6 @@ export class TransporterlinechartComponent implements OnInit {
             {
               type: 'line',
               scaleID: 'x',
-              value: 'March',
               borderColor: 'orange',
               borderWidth: 2,
               label: {
@@ -91,8 +93,24 @@ export class TransporterlinechartComponent implements OnInit {
     this.transporterId=localStorage.getItem("transporterId")
       this.svc.getShipmentsCount(this.transporterId).subscribe((res)=>{
         this.shipmentCount=res
-        this.lineChartData.labels=this.shipmentCount.map(s=>s.monthName);
-        this.lineChartData.datasets[0].data=this.shipmentCount.map(s=>Number(s.count));
-      })
+        console.log(res)
+        this.distinctYears = Array.from(new Set(this.shipmentCount.map(item => item.year)));
+        this.selectedYear = (new Date()).getFullYear();
+        for (let row in res) {
+          if (res[row].year == this.selectedYear) {
+            console.log("insid")
+            var month = res[row].monthName;
+            month = month.slice(0, 3)
+            var count =   res[row].count;
+            this.lineChartData.labels?.push(month);
+            this.lineChartData.datasets[0].data.push(count)
+            console.log(this.lineChartData.labels)
+            console.log( this.lineChartData.datasets[0].data)
+            }
+        }
+        // console.log(res)
+        // this.lineChartData.labels=this.shipmentCount.map(s=>s.monthName);
+        // this.lineChartData.datasets[0].data=this.shipmentCount.map(s=>Number(s.count));
+      });
   }
 }
