@@ -32,4 +32,7 @@ export class VehiclesoftransporterComponent implements OnInit {
   onAddNewVehicle() {
     this.router.navigate(['transporter/addvehicle']);
   }
+  OnUpdate(vehicleId:number){
+this.router.navigate(['/transporter/update',vehicleId])
+  }
 }

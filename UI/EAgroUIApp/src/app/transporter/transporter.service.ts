@@ -8,6 +8,7 @@ import { Vehiclerevenue } from './vehiclerevenue';
 import { Transporterrevenue } from './transporterrevenue';
 import { Shipmentcount } from './shipmentcount';
 import { Corporate } from '../corporate';
+import { verifyHostBindings } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -91,5 +92,9 @@ getTransporterRevenue(transporterId:number):Observable<Transporterrevenue[]>{
 getShipmentsCount(transporterId:number):Observable<Shipmentcount[]>{
   let url="http://localhost:5025/api/transporters/" + transporterId + "/shipmentcount"
   return this.httpClient.get<Shipmentcount[]>(url)
+}
+updateVehicle(vehicleId:number,vehicle:Vehicle):Observable<any>{
+  let url=" http://localhost:5261/api/vehicles/" +vehicleId
+  return this.httpClient.put<any>(url,vehicle)
 }
 }
