@@ -1,16 +1,16 @@
 <div class="form-card">
-    <form>
-      <div class="form-group">
-        <label for="vehicleType">Vehicle Type:</label>
-        <input type="text" class="form-control" id="vehicleType" name="vehicleType" [(ngModel)]="vehicle.vehicleType" required>
-      </div>
-    
-      <div class="form-group">
-        <label for="rtoNumber">RTO Number:</label>
-        <input type="text" class="form-control" id="rtoNumber" name="rtoNumber" [(ngModel)]="vehicle.rtoNumber" required>
-      </div>
-    
-      <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
-    </form>
-  </div>
-  
+  <form>
+    <div class="form-group">
+      <label for="vehicleType">Vehicle Type:</label>
+      <input type="text" class="form-control" id="vehicleType" name="vehicleType" [(ngModel)]="vehicle.vehicleType"
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="rtoNumber">RTO Number:</label>
+      <input type="text" class="form-control" id="rtoNumber" name="rtoNumber" [(ngModel)]="vehicle.rtoNumber" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+  </form>
+</div>
