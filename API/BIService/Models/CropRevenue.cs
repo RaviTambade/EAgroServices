@@ -1,4 +1,4 @@
-namespace CollectionCenters.Models
+namespace BIService.Models
 {
     public class CropRevenue
     {

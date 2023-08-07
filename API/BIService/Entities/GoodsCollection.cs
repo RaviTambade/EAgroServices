@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CollectionCenters.Models
+namespace BIService.Entities
 {
     public class GoodsCollection
     {

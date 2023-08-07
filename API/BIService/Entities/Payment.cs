@@ -1,4 +1,4 @@
-namespace CollectionCenters.Models
+namespace BIService.Entities
 {
     public class Payment
     {
@@ -7,4 +7,4 @@ namespace CollectionCenters.Models
         public double Amount { get; set; }
         public DateTime Date { get; set; }
     }
-         }
+}
