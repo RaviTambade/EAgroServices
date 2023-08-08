@@ -14,19 +14,19 @@ namespace BIService.Services
             _repo = repo;
         }
 
-         public async Task<List<MonthRevenue>> GetMonthRevenues(int collectionCenterId)
+         public async Task<IEnumerable<IRevenueModel>> GetMonthRevenues(int collectionCenterId)
         {
             return await _repo.GetMonthRevenues(collectionCenterId);
         }
 
-         public async Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId)
-        {
-            return await _repo.GetMonthOrders(collectionCenterId);
-        }
+        //  public async Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId)
+        // {
+        //     return await _repo.GetMonthOrders(collectionCenterId);
+        // }
 
-        public async Task<List<CropRevenue>> GetCropRevenues(int collectionCenterId)
-        {
-          return await _repo.GetCropRevenues(collectionCenterId);
-        }
+        // public async Task<List<CropRevenue>> GetCropRevenues(int collectionCenterId)
+        // {
+        //   return await _repo.GetCropRevenues(collectionCenterId);
+        // }
     }
 }
