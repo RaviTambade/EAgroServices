@@ -6,7 +6,7 @@ import { VehiclesoftransporterComponent } from './vehiclesoftransporter/vehicles
 import { GetshipmentsofvehicleComponent } from './getshipmentsofvehicle/getshipmentsofvehicle.component';
 import { CorporateService } from '../corporate.service';
 import { AddnewvehicleComponent } from './addnewvehicle/addnewvehicle.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GetvehicleshipmentitemsComponent } from './getvehicleshipmentitems/getvehicleshipmentitems.component';
 import { GetallshipmentsComponent } from './getallshipments/getallshipments.component';
 import { TransporterbarchartComponent } from './transporterbarchart/transporterbarchart.component';
@@ -48,6 +48,7 @@ export const transporterRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(transporterRoutes),
     NgChartsModule
   ],

@@ -1,8 +1,8 @@
 namespace BIService.Models
 {
-    public class CropRevenue
+    public class QuarterRevenue 
     {
-        public string? CropName { get; set; }
+        public int Quarter { get; set; }
         public double Amount { get; set; }
     }
 }
