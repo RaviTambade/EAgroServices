@@ -15,38 +15,31 @@ namespace BIService.Controllers
             _srv = srv;
         }
 
-        [HttpGet("revenue/{collectionCenterId}/{forYear}")]
-        public async Task<List<object>> GetRevenuesByType(
+        [HttpGet("revenue/year/{collectionCenterId:int}")]
+        public async Task<List<YearRevenue>> GetRevenuesByYear(int collectionCenterId)
+        {
+            return await _srv.GetRevenuesByYear(collectionCenterId);
+        }
+
+        [HttpGet("revenue/quarter/{collectionCenterId:int}/{year:int}")]
+        public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(
             int collectionCenterId,
-            int forYear,
-            [FromQuery] RevenueType revenueType
+            int year
         )
         {
-            var revenues = await _srv.GetRevenuesByType(collectionCenterId, revenueType, forYear);
-            List<object> specificRevenues = new List<object>();
+            return await _srv.GetRevenuesByQuarter(collectionCenterId, year);
+        }
 
-            if (revenues.Any())
-            {
-                var firstRevenue = revenues.First();
+        [HttpGet("revenue/month/{collectionCenterId:int}/{year:int}")]
+        public async Task<List<MonthRevenue>> GetRevenuesByMonth(int collectionCenterId, int year)
+        {
+            return await _srv.GetRevenuesByMonth(collectionCenterId, year);
+        }
 
-                if (firstRevenue is YearRevenue)
-                {
-                    specificRevenues.AddRange(revenues.OfType<YearRevenue>().ToList());
-                }
-                else if (firstRevenue is QuarterRevenue)
-                {
-                    specificRevenues.AddRange(revenues.OfType<QuarterRevenue>().ToList());
-                }
-                else if (firstRevenue is MonthRevenue)
-                {
-                    specificRevenues.AddRange(revenues.OfType<MonthRevenue>().ToList());
-                }
-                else if (firstRevenue is WeekRevenue)
-                {
-                    specificRevenues.AddRange(revenues.OfType<WeekRevenue>().ToList());
-                }
-            }
-            return specificRevenues;
+        [HttpGet("revenue/week/{collectionCenterId:int}/{year:int}")]
+        public async Task<List<WeekRevenue>> GetRevenuesByWeek(int collectionCenterId, int year)
+        {
+            return await _srv.GetRevenuesByWeek(collectionCenterId, year);
         }
 
         //   [HttpGet("ordercount/{collectionCenterId}")]

@@ -3,6 +3,6 @@ namespace BIService.Models
     public class CropRevenue
     {
         public string? CropName { get; set; }
-        public double TotalAmount { get; set; }
+        public double Amount { get; set; }
     }
 }
