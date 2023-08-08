@@ -200,6 +200,7 @@ WHERE verifiedgoodscollection.collectionid IS NULL;
 SELECT * FROM verifiedgoodscollection;
 SELECT * FROM goodscollections;
 
+
 SELECT * FROM shipments;
 SELECT * FROM invoices;
 SELECT * FROM goodscollectionpayments;

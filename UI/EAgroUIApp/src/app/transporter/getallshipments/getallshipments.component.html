@@ -1,27 +1,27 @@
 <table class="shipment-table">
-    <thead>
-      <tr>
-        <th>Corporate Merchant Name</th>
-        <th>Vehicle Type</th>
-        <th>RTO Number</th>
-        <th>Kilometers</th>
-        <th>Status</th>
-        <th>Shipment Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let shipment of vehicleCorporateshipments">
-        <td>{{ shipment.companyName }}</td>
-        <!-- <td>{{ shipment.corporateId }}</td> -->
-        <td>{{ shipment.vehicleType }}</td>
-        <td>{{ shipment.rtoNumber }}</td>
-        <td>{{ shipment.kilometers }}</td>
-        <td>{{ shipment.status }}</td>
-        <td>{{ shipment.shipmentDate |date }}</td>
-        <td><button (click)="onClickShipmentDetails(shipment.shipmentId)"> Details </button></td>
-      </tr>
-    </tbody>
-  </table>
-  <!-- <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
+  <thead>
+    <tr>
+      <th>Corporate Merchant Name</th>
+      <th>Vehicle Type</th>
+      <th>RTO Number</th>
+      <th>Kilometers</th>
+      <th>Status</th>
+      <th>Shipment Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let shipment of vehicleCorporateshipments">
+      <td>{{ shipment.companyName }}</td>
+      <!-- <td>{{ shipment.corporateId }}</td> -->
+      <td>{{ shipment.vehicleType }}</td>
+      <td>{{ shipment.rtoNumber }}</td>
+      <td>{{ shipment.kilometers }}</td>
+      <td>{{ shipment.status }}</td>
+      <td>{{ shipment.shipmentDate |date }}</td>
+      <td><button (click)="onClickShipmentDetails(shipment.shipmentId)"> Details </button></td>
+    </tr>
+  </tbody>
+</table>
+<!-- <button *ngIf="hasPreviousPage()" (click)="previous()">previous</button>
   <button *ngIf="hasNextPage()" (click)="next()">next</button>
    -->

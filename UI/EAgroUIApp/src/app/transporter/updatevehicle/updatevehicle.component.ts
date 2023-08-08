@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Vehicle } from '../vehicle';
 import { TransporterService } from '../transporter.service';
 import { ActivatedRoute, Route } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-updatevehicle',
@@ -9,27 +10,38 @@ import { ActivatedRoute, Route } from '@angular/router';
   styleUrls: ['./updatevehicle.component.css']
 })
 export class UpdatevehicleComponent implements OnInit {
-vehicle:Vehicle
 vehicleId:any
-constructor(private svc:TransporterService,private route:ActivatedRoute){
-  this.vehicle={
-    id: 0,
-    transporterId:Number( localStorage.getItem("transporterId")),
-    vehicleType: '',
-    rtoNumber: ''
-  }
+vehicle:Vehicle={
+  id: 0,
+  transporterId: 0,
+  vehicleType: '',
+  rtoNumber: ''
 }
+  constructor(
+    private svc: TransporterService,
+    private route: ActivatedRoute
+  ) {
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.vehicle.id=this.vehicleId
       this.vehicleId = params.get('id');
-  
-  })
-}
-updateVehicle(){
-  this.svc.updateVehicle(this.vehicleId,this.vehicle).subscribe((res)=>{
-    console.log(res)
-   })
-}
+      // Load vehicle data here and populate the form
+    });
+    this.svc.getVehicle(this.vehicleId).subscribe((res)=>{
+      this.vehicle=res
+      console.log(res)
+    })
+  }
 
+  updateVehicle(){
+    this.svc.updateVehicle(this.vehicleId, this.vehicle).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 }
