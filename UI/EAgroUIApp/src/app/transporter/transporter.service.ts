@@ -97,4 +97,8 @@ updateVehicle(vehicleId:number,vehicle:Vehicle):Observable<any>{
   let url=" http://localhost:5261/api/vehicles/" +vehicleId
   return this.httpClient.put<any>(url,vehicle)
 }
+getVehicle(vehicleId:number):Observable<any>{
+  let url=" http://localhost:5261/api/vehicles/" +vehicleId
+  return this.httpClient.get<any>(url)
+}
 }
