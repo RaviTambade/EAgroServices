@@ -10,7 +10,7 @@ import { FarmerService } from '../farmer.service';
   styleUrls: ['./farmerpiechart.component.css']
 })
 export class FarmerpiechartComponent implements OnInit {
-  farmerId =2;
+  farmerId:any;
 farmerRevenue:FarmerRevenue[]=[]
   constructor(private svc:FarmerService){}
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
@@ -44,7 +44,7 @@ farmerRevenue:FarmerRevenue[]=[]
   public pieChartPlugins =  [];
 
   ngOnInit(): void {
-    // this.farmerId = Number(localStorage.getItem("farmerId"));
+     this.farmerId = Number(localStorage.getItem("farmerId"));
     this.svc.getMonthlyRevenue(this.farmerId).subscribe((res)=>{
 this.farmerRevenue=res
 console.log(res)

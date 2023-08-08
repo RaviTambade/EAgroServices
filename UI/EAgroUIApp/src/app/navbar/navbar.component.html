@@ -16,6 +16,11 @@
      
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/dashboard" routerLinkActive="router-link-active">dashboard</a></li>
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/home" routerLinkActive="router-link-active">Shipments</a></li>
+      
+      <li *ngIf="isroleFarmer()"><a routerLink="farmer/dashboard" routerLinkActive="router-link-active">Dashboard</a></li>
+      <li *ngIf="isroleFarmer()"><a routerLink="farmer/collection" routerLinkActive="router-link-active">CollectionDetails</a></li>
+
+      
       <li *ngIf="isUser()" class="user-profile-icon" (click)="openUserProfile()">
         <i class="fa fa-user-circle"></i>
       </li>

@@ -24,6 +24,10 @@ export class NavbarComponent {
     const role = localStorage.getItem("role")
     return role == 'merchant';
   }
+  isroleFarmer(): boolean {
+    const role = localStorage.getItem("role")
+    return role == 'farmer';
+  }
 
   openUserProfile() {
     this.router.navigate(['userinfo']);
