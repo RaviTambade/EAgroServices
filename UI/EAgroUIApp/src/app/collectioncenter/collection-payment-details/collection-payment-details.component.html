@@ -1,5 +1,5 @@
 <div *ngIf="invoiceDetails">
-    <table>
+    <table class="table">
         <tr>
             <td>Invoice Date:</td>
             <td>{{ invoiceDetails.invoiceDate | date}}</td>
@@ -58,7 +58,8 @@
         </tr>
         <tr>
             <td>Rate Per Kg:</td>
-                {{ invoiceDetails.ratePerKg |number }}
+            <td>    {{ invoiceDetails.ratePerKg |number }}
+                </td>
         </tr>
         <tr>
             <td>Farmer Amount:</td>

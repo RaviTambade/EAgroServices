@@ -22,7 +22,7 @@ namespace Shipments.Controllers
             return await _srv.GetAll();
         }
 
-        [HttpPost("merchant/{merchantId}/status/{status}")]
+        [HttpGet("merchant/{merchantId}/status/{status}")]
         public async Task<List<MerchantShipment>?> GetShipmentsByMerchant(
             int merchantId,
             string status
@@ -99,7 +99,6 @@ namespace Shipments.Controllers
             return await _srv.GetShipmentofTransporter(transporterId);
         }
 
-        [HttpPost("collections/{collectionCenterId}/status/{shipmentStatus}")]
         [HttpPost("collections/{collectionCenterId}/status/{shipmentStatus}")]
         public List<ShippedCollection> GetShippedCollections(
             int collectionCenterId,

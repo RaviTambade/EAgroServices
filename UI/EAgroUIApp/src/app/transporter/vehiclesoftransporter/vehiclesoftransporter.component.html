@@ -21,12 +21,12 @@
         <td>{{ vehicle.id }}</td>
         <td>{{ vehicle.vehicleType }}</td>
         <td>{{ vehicle.rtoNumber }}</td>
+        <td><button (click)="OnUpdate(vehicle.id)">Update</button></td>
         <td><button (click)="OnSelectGetShipment(vehicle.id)">GetShipmentDetails</button></td>
       </tr>
     </tbody>
   </table>
 </div>
-
 <div *ngIf="vehicles.length === 0">
   No vehicles found for the transporter.
 </div>

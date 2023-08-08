@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Merchant } from './merchant';
 import { Collectioncount } from './collectioncount';
 import { Corporate } from '../corporate';
+import { Cropcount } from './cropcount';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,9 @@ export class MerchantService {
   getMerchantAndCorporateId(): Observable<Corporate[]> {
     let url = "http://localhost:5276/api/merchants/merchantandcorporateid"
     return this.http.get<any>(url)
+  }
+  getCropCount(merchantId:number):Observable<Cropcount[]>{
+    let url="http://localhost:5067/api/shipments/" + merchantId +"/cropcount"
+    return this.http.get<Cropcount[]>(url)
   }
 }

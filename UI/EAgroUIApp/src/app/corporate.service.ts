@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NameId } from './name-id';
+import { Corporate } from './corporate';
+import { Corporation } from './corporation';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +25,9 @@ export class CorporateService {
   getCorporateIdByPersonId(personId:number):Observable<number>{
     let url = "http://localhost:5041/api/corporates/person/" + personId;
     return this.http.get<number>(url);
+  }
+  getCorporateByName(name:string):Observable<Corporation>{
+    let url="http://localhost:5041/api/corporates/" +name + "/details"
+    return this.http.get<Corporation>(url)
   }
 }

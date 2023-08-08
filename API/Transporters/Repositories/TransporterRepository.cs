@@ -309,14 +309,15 @@ namespace Transporters.Repositories
                         join payment in context.Payments
                             on transporterPayment.PaymentId equals payment.Id
                         where transporter.Id == transporterId && shipment.Status == "delivered"
-                        group new { shipment } by shipment.ShipmentDate.Month into g
-                        orderby g.Key
+                         group  shipment by new   { shipment.ShipmentDate.Year,shipment.ShipmentDate.Month } into g
+                         orderby g.Key.Year,g.Key.Month
                         select new ShipmentCount()
                         {
                             MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(
-                                g.Key
+                                g.Key.Month
                             ),
-                            Count = g.Count()
+                            Count = g.Count(),
+                            Year=g.Key.Year
                         }
                     ).ToListAsync();
                     return shipmentCounts;

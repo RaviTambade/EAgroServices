@@ -1,4 +1,4 @@
-namespace CollectionCenters.Models
+namespace BIService.Entities
 {
     public class GoodsServicesPayment
     {

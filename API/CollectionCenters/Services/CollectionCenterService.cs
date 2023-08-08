@@ -43,24 +43,11 @@ namespace CollectionCenters.Services
             return await _repo.GetCollectionCenterIdByInspectorId(inspectorId);
         }
 
-        public async Task<List<MonthRevenue>> GetMonthRevenues(int collectionCenterId)
-        {
-            return await _repo.GetMonthRevenues(collectionCenterId);
-        }
 
         public async Task<List<CollectionCenterCorporate>> GetCollectionCenterAndCorporateId()
         {
             return await _repo.GetCollectionCenterAndCorporateId();
         }
 
-        public async Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId)
-        {
-            return await _repo.GetMonthOrders(collectionCenterId);
-        }
-
-        public async Task<List<CropRevenue>> GetCropRevenues(int collectionCenterId)
-        {
-          return await _repo.GetCropRevenues(collectionCenterId);
-        }
     }
 }

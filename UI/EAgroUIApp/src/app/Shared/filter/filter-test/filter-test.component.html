@@ -45,6 +45,9 @@
             *ngIf=" filterRequest.rangeFilters[i].minValue !== null || filterRequest.rangeFilters[i].maxValue !== null">
             <div class="cbtn" (click)="removeFilterProperty('range', i)">
               <div class="cbtn1">&#x2716;</div>
+              <!-- <div *ngIf=" filterRequest.rangeFilters[i].propertyName=='MerchantCorporateId' ">
+              Merchant->
+              </div> -->
               <div class="cbtn2">
                 {{ filterRequest.rangeFilters[i].propertyName }}
                 {{ filterRequest.rangeFilters[i].minValue ? filterRequest.rangeFilters[i].minValue +' - ' : ' 0 -'}}
@@ -58,7 +61,7 @@
   </div>
 
   <div class="farmer-collections-container">
-    <div class="card">
+    <div class="card" style="width: auto; border: none;">
       <div *ngIf="equalClickStatus" class="filter-content-top">
         <div style="text-align: right; ">
           <button (click)="onClickCloseFilters()">Close Filters</button>
@@ -78,24 +81,21 @@
         <app-range-filter [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-range-filter>
       </div>
 
-      <div style="text-align: right; margin-top: 20px;">
+      <div style="text-align: left; margin: 20px;">
         <app-sort-by [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-sort-by>
       </div>
-
-
-      <div *ngIf="filterFor == verifiedCollection">
-        <app-collection-list-head [collections]="collections"></app-collection-list-head>
-      </div>
-
       <div *ngIf="filterFor == collection">
         <app-collection-verification [collections]="collections"></app-collection-verification>
+      </div>
+
+      <div *ngIf="filterFor == verifiedCollection">
+        <collectioncenter-verified-collection-list [collections]="collections"></collectioncenter-verified-collection-list>
       </div>
 
       <div *ngIf="filterFor == shippedCollection">
         <app-collection-shipment-list [collections]="collections"></app-collection-shipment-list>
       </div>
       
-
 
       <div class="page-numbers-container">
         <button *ngFor="let pageNumber of pageNumbers" (click)="onPageClick(pageNumber)"

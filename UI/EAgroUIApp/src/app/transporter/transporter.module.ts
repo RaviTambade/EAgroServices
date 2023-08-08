@@ -14,11 +14,14 @@ import { NgChartsModule } from 'ng2-charts';
 import { TransporterdashboardComponent } from './transporterdashboard/transporterdashboard.component';
 import { TransporterpiechartComponent } from './transporterpiechart/transporterpiechart.component';
 import { TransporterlinechartComponent } from './transporterlinechart/transporterlinechart.component';
+import { CorporatedetailsDirective } from './corporatedetails.directive';
+import { UpdatevehicleComponent } from './updatevehicle/updatevehicle.component';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
   { path: 'vehicles', component: VehiclesoftransporterComponent },
   {path:'shipments/:id',component: GetshipmentsofvehicleComponent},
+  {path:'update/:id',component: UpdatevehicleComponent},
     {path:'addvehicle',component:AddnewvehicleComponent},
     {path:'shipmentdetails/:id',component:GetvehicleshipmentitemsComponent},
     {path:'allshipments',component:GetallshipmentsComponent},
@@ -38,6 +41,8 @@ export const transporterRoutes: Routes = [
     TransporterdashboardComponent,
     TransporterpiechartComponent,
     TransporterlinechartComponent,
+    CorporatedetailsDirective,
+    UpdatevehicleComponent,
 
   ],
   imports: [
