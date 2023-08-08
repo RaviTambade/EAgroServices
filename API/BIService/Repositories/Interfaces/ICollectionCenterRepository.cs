@@ -5,8 +5,8 @@ namespace BIService.Repositories.Interfaces
 {
     public interface ICollectionCenterRepository
     {
-        // Task<IEnumerable<IRevenueModel>> GetMonthRevenues(int collectionCenterId,RevenueType revenueType);
-        Task<IEnumerable<IRevenueModel>> GetMonthRevenues(int collectionCenterId);
+        Task<List<IRevenueModel>> GetRevenuesByType(int collectionCenterId, RevenueType revenueType,
+            int forYear );
         // Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId);
         // Task<List<CropRevenue>> GetCropRevenues(int collectionCenterId);
     }

@@ -14,9 +14,10 @@ namespace BIService.Services
             _repo = repo;
         }
 
-         public async Task<IEnumerable<IRevenueModel>> GetMonthRevenues(int collectionCenterId)
+        
+        public async Task<List<IRevenueModel>> GetRevenuesByType(int collectionCenterId, RevenueType revenueType, int forYear)
         {
-            return await _repo.GetMonthRevenues(collectionCenterId);
+           return await _repo.GetRevenuesByType(collectionCenterId,revenueType,forYear);
         }
 
         //  public async Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId)
