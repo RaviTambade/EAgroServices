@@ -15,7 +15,8 @@
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/filters/shipments" routerLinkActive="router-link-active">Shipment List</a></li>
      
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/dashboard" routerLinkActive="router-link-active">dashboard</a></li>
-      <li *ngIf="isroleMerchant()"><a routerLink="merchant/home" routerLinkActive="router-link-active">Shipments</a></li>
+      <li *ngIf="isroleMerchant()"><a routerLink="merchant/shipmentlist" routerLinkActive="router-link-active">Shipments</a></li>
+      <li *ngIf="isroleMerchant()"><a routerLink="merchant/invoices" routerLinkActive="router-link-active">Invoices</a></li>
       
       <li *ngIf="isroleFarmer()"><a routerLink="farmer/dashboard" routerLinkActive="router-link-active">Dashboard</a></li>
       <li *ngIf="isroleFarmer()"><a routerLink="farmer/collection" routerLinkActive="router-link-active">CollectionDetails</a></li>

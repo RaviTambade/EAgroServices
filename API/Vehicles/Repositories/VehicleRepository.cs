@@ -178,14 +178,19 @@ public class VehicleRepository : IVehicleRepository
         return status;
     }
 
-    public async Task<List<VehicleNumber>> GetVehicleNumbers()
+    public async Task<List<VehicleNumber>> GetAvailableVehicleNumbers()
     {
         List<VehicleNumber> values = new List<VehicleNumber>();
         MySqlConnection con = new MySqlConnection(_conString);
         try
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT id,rtonumber FROM vehicles";
+            cmd.CommandText = @"SELECT DISTINCT vehicles.id, vehicles.rtonumber FROM vehicles
+                                INNER JOIN shipments ON vehicles.id = shipments.vehicleid
+                                WHERE shipments.status = 'delivered'
+                                AND vehicles.id NOT IN (
+                                    SELECT vehicleid FROM shipments  WHERE status = 'inprogress'
+                                )";
             cmd.Connection = con;
             await con.OpenAsync();
             MySqlDataReader reader = cmd.ExecuteReader();

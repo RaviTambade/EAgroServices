@@ -3,7 +3,7 @@
     <label for="shipmentId">Vehicle Number:</label>
     <select id="shipmentId" formControlName="shipmentId">
       <option *ngFor="let shipmentVehicle of shipmentVehicleList" [value]="shipmentVehicle.id">{{
-        shipmentVehicle.vehicleNumber }}</option>
+        shipmentVehicle.vehicleNumber}} -{{ shipmentVehicle.merchantName}}</option>
     </select>
     <br>
     <button type="submit" [disabled]="!shipmentItemForm.valid">Submit</button>
