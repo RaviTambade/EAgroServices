@@ -46,9 +46,9 @@ public class VehiclesController:ControllerBase{
         return status;
     }
     [HttpGet("numbers")]
-     public async Task<List<VehicleNumber>> GetVehicleNumbers()
+     public async Task<List<VehicleNumber>> GetAvailableVehicleNumbers()
     {
-        return await _svc.GetVehicleNumbers();
+        return await _svc.GetAvailableVehicleNumbers();
     }
 
 

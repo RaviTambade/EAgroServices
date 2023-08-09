@@ -56,11 +56,5 @@ namespace UserRolesManagement.Controllers
         {
             return await _srv.Delete(userRoleId);
         }
-
-        [HttpGet("merchantsId")]
-        public async Task<List<string>> GetMerchantId()
-        {
-            return await _srv.GetMerchantId();
-        }
     }
 }

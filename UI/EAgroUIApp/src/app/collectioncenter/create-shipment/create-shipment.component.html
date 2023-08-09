@@ -1,8 +1,9 @@
+<div *ngIf="showForm">
 <form [formGroup]="shipmentForm" (ngSubmit)="OnSubmit()">
 
     <label for="merchantId">Merchant Name:</label>
     <select id="merchantId" formControlName="merchantId">
-      <option *ngFor="let merchant of merchants"  [value]="merchant.id">{{ merchant.name }}</option>
+      <option *ngFor="let merchant of merchants"  [value]="merchant.corporateId">{{ merchant.name }}</option>
     </select>
     <br>
   
@@ -18,4 +19,4 @@
 
     <button type="submit" [disabled]="!shipmentForm.valid" >Submit</button>
   </form>
-  
+</div>

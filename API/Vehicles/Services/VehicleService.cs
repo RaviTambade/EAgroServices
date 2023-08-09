@@ -32,9 +32,9 @@ public class VehicleService : IVehicleService
     {
     return await _repo.Delete(vehicleId);
     }
-    public async Task<List<VehicleNumber>> GetVehicleNumbers()
+    public async Task<List<VehicleNumber>> GetAvailableVehicleNumbers()
     {
-        return await _repo.GetVehicleNumbers();
+        return await _repo.GetAvailableVehicleNumbers();
     }
 
 }

@@ -77,10 +77,12 @@ namespace Shipments.Repositories
                     var shipments = await (
                         from shipment in context.Shipments
                         join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        join merchant in context.Merchants on shipment.MerchantId equals  merchant.Id
                         where shipment.Status == ShipmentStatus.Inprogress
                         select new InprogressShipment()
                         {
                             Id = shipment.Id,
+                            MerchantCorporateId=merchant.CorporateId,
                             VehicleNumber = vehicle.RtoNumber
                         }
                     ).ToListAsync();

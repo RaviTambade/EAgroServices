@@ -62,7 +62,10 @@ export class AddCollectionComponent implements OnInit {
       console.log("🚀 ~ OnSubmit ~ collection:", collection);
 
       this.collectionsvc.addCollection(collection).subscribe((res)=>{
-      console.log('res');
+      if(res){
+        alert("collection added Sucessfully")
+        this.collectionForm.reset();
+      }
       })
     } 
     else {
