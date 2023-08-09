@@ -23,4 +23,9 @@ export class FarmerService {
     console.log(url);
     return this.http.get<any>(url);
   }
+  getFarmerIdByUserId(userId:any):Observable<any>{
+    let url ="http://localhost:5051/api/farmerscollections/monthlyrevenue/" + userId;
+    return this.http.get<any>(url);
+
+  }
 }

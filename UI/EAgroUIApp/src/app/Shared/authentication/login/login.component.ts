@@ -65,6 +65,8 @@ export class LoginComponent {
     localStorage.setItem("role",role);
     switch (role) {
       case "farmer":
+        if (this.userId != undefined)
+        localStorage.setItem("farmerId",this.userId.toString());
         this.router.navigate(['/farmer/home/', this.userId])
         break;
 
