@@ -9,7 +9,7 @@ import { CorporateService } from 'src/app/corporate.service';
   styleUrls: ['./goodscollection.component.css']
 })
 export class GoodscollectionComponent implements OnInit {
-  farmerId = 2;
+  farmerId:any;
   corporateId: undefined;
   farmerCollections: Goodscollection[]=[];
   goodsCollections: Goodscollection = {
@@ -30,9 +30,9 @@ export class GoodscollectionComponent implements OnInit {
 
     // let distinctc = this.farmerCollections.map(item => item.collectionCenterCorporaterId)
     // .filter((number, index, array) => array.indexOf(number) === index);
-    //  this.route.paramMap.subscribe((params)=>{
-    //   this.farmerId=params.get('id');
-    //  })
+     this.route.paramMap.subscribe((params)=>{
+      this.farmerId=params.get('id');
+     })
     this.svc.getFarmerCollection(this.farmerId).subscribe((response) => {
       this.farmerCollections = response;
       this.corporateId = response.corporateId

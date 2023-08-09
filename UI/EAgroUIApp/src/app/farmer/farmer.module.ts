@@ -10,10 +10,13 @@ import { NgChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { FarmerpiechartComponent } from './farmerpiechart/farmerpiechart.component';
 import { RevenuebarchartComponent } from './revenuebarchart/revenuebarchart.component';
+import { CropModule } from '../crop/crop.module';
 
  export const farmerRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
+  {path:'dashboard',component:FarmerpiechartComponent},
   { path: 'verifiedcollection/:id', component:VerifiedcollectionComponent },
+  { path: 'collection/:id', component:GoodscollectionComponent },
 ]
 
 @NgModule({
@@ -29,11 +32,14 @@ import { RevenuebarchartComponent } from './revenuebarchart/revenuebarchart.comp
   imports: [
     CommonModule,
     NgChartsModule,
-    FormsModule
+    FormsModule,
+    CropModule
   ],
   exports: [
     GoodscollectionComponent,
-    VerifiedcollectionComponent
+    VerifiedcollectionComponent,
+    FarmerpiechartComponent,
+    RevenuebarchartComponent
   ],
   providers:[]
 })

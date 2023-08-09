@@ -10,7 +10,7 @@ import { FarmerService } from '../farmer.service';
   styleUrls: ['./revenuebarchart.component.css']
 })
   export class RevenuebarchartComponent implements OnInit{
-    farmerId:any;
+    farmerId=2;
     FarmerRevenues:FarmerRevenue[]=[]
     constructor(private svc:FarmerService){}
     @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
@@ -47,14 +47,14 @@ import { FarmerService } from '../farmer.service';
       datasets: [
         {
           data: [],
-          label: 'vehicles'
+          label: 'Monthly Revenue'
         },
       ],
     };
   
     
     ngOnInit(): void {
-      this.farmerId = Number(localStorage.getItem("farmerId"));
+      // this.farmerId = Number(localStorage.getItem("farmerId"));
       this.svc.getMonthlyRevenue(this.farmerId).subscribe((res)=>{
   this.FarmerRevenues=res
   console.log(res)

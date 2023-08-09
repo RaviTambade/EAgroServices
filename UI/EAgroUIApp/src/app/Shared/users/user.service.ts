@@ -17,6 +17,7 @@ export class UserService {
     let url = "http://localhost:5102/api/users/userid/" + contactNumber;
     return this.httpClient.get<number>(url);
   }
+  
 
   getUserNamesWithId(userId: string): Observable<NameId[]> {
     let url = "http://localhost:5102/api/users/name/" + userId;

@@ -44,10 +44,11 @@ farmerRevenue:FarmerRevenue[]=[]
   public pieChartPlugins =  [];
 
   ngOnInit(): void {
-    this.farmerId = Number(localStorage.getItem("transporterId"));
+     this.farmerId = Number(localStorage.getItem("farmerId"));
     this.svc.getMonthlyRevenue(this.farmerId).subscribe((res)=>{
 this.farmerRevenue=res
 console.log(res)
+console.log(this.farmerId);
 this.pieChartData.labels=this.farmerRevenue.map((revenues)=>revenues.monthName);
 this.pieChartData.datasets[0].data=this.farmerRevenue.map((revenues)=>revenues.totalAmount);
     })
