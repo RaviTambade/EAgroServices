@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'adduser',
@@ -9,9 +10,9 @@ import { UserService } from '../user.service';
 })
 export class AdduserComponent {
   user: User;
-  @Input() contactNumber:string|any;
+  @Input() contactNumber: string | any;
 
-  constructor(private svc: UserService) {
+  constructor(private svc: UserService, private router: Router) {
     this.user = {
       id: 0,
       aadharId: '',
@@ -25,11 +26,13 @@ export class AdduserComponent {
   }
 
   ngOnInit(): void {
-    this.user.contactNumber=this.contactNumber;
+    this.user.contactNumber = this.contactNumber;
   }
   addUser() {
     this.svc.addUser(this.user).subscribe((response) => {
-    console.log(response)
+      if (response) {
+        this.router.navigate(['/auth/login'])
+      }
     })
   }
 }
