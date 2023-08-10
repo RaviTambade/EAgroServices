@@ -41,9 +41,7 @@ export class FilterTestComponent implements OnInit {
 
 
   ngOnInit(): void {
-    CollectionCenterFilterFor.collection
     this.filterservice.getTotalPages().subscribe((toatalPages) => {
-      CollectionCenterFilterFor.collection
       this.genratePageNumbers(toatalPages);
       console.log("processed data")
     });
@@ -89,7 +87,7 @@ export class FilterTestComponent implements OnInit {
       sortAscending: false
     };
     this.getCollections(this.filterFor);
-    window.location.reload();
+    
   }
 
   removeDefaultValues(filterRequest: FilterRequest): FilterRequest {
