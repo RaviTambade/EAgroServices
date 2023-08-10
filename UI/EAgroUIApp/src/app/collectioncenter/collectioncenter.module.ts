@@ -23,6 +23,7 @@ import { CollectionPaymentDetailsComponent } from './collection-payment-details/
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'dashboard', component: CollectionCenterDashboardComponent },
   { path: 'addcollection', component: AddCollectionComponent },
   { path: 'verifycollections', component: CollectionVerificationComponent },
 ]
