@@ -22,12 +22,11 @@ import { CropModule } from '../crop/crop.module';
 @NgModule({
   declarations: [
     HomeComponent,
-    // CollectionComponent,
     GoodscollectionComponent,
     VerifiedcollectionComponent,
     InvoicedetailsComponent,
     RevenuebarchartComponent,
-    FarmerpiechartComponent
+    FarmerpiechartComponent,
   ],
   imports: [
     CommonModule,
