@@ -5,7 +5,7 @@ import Annotation from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
 import { BIServiceService } from 'src/app/biservice.service';
 @Component({
-  selector: 'app-revenue-line-chart',
+  selector: 'collectioncenter-revenue-line-chart',
   templateUrl: './revenue-line-chart.component.html',
   styleUrls: ['./revenue-line-chart.component.css']
 })
