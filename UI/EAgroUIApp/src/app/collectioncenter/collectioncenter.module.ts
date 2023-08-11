@@ -20,6 +20,7 @@ import { LineChartComponent } from './collection-center-dashboard/line-chart/lin
 import { SteppedLineChartComponent } from './collection-center-dashboard/stepped-line-chart/stepped-line-chart.component';
 import { CollectionPaymentListComponent } from './collection-payment-list/collection-payment-list.component';
 import { CollectionPaymentDetailsComponent } from './collection-payment-details/collection-payment-details.component';
+import { RevenueLineChartComponent } from './collection-center-dashboard/revenue-line-chart/revenue-line-chart.component';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -47,6 +48,7 @@ export const collectionCenterRoutes: Routes = [
     SteppedLineChartComponent,
     CollectionPaymentListComponent,
     CollectionPaymentDetailsComponent,
+    RevenueLineChartComponent,
   ],
   imports: [
     CommonModule,
