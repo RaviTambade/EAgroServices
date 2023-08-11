@@ -1,20 +1,20 @@
-
-<button (click)="onClickUnpaid()"> UnPaid </button> 
-<button (click)="onClickPaid()"> Paid </button> 
-<table>
-    <thead>
+<button (click)="onClickUnpaid()"> <a> UnPaid </a></button>
+<button (click)="onClickPaid()"> Paid </button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date </th>
+      <th>FarmerName</th>
+      <th>CropName</th>
+      <th>Quantity</th>
+      <th>Weight</th>
+      <th>Rate Per Kg</th>
+      <th>Total Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let invoice of invoices">
       <tr>
-        <th>Date </th>
-        <th>FarmerName</th>
-        <th>CropName</th>
-        <th>Quantity</th>
-        <th>Weight</th>
-        <th>Rate Per Kg</th>
-        <th>Total Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let invoice of invoices">
         <td>{{ invoice.invoiceDate | date }}</td>
         <td>{{ invoice.farmerName }}</td>
         <td>{{ invoice.cropName}}</td>
@@ -24,6 +24,13 @@
         <td>{{ invoice.totalAmount |number}}</td>
         <td><button (click)="onClickInvoiceDetails(invoice.id)"> Details </button></td>
       </tr>
-    </tbody>
-  </table>
-  
+      <tr *ngIf="selectedInvoiceId == invoice.id">
+        <td colspan="8">
+          <div>
+            <app-merchant-invoice-details [invoiceId]="invoice.id"></app-merchant-invoice-details>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
