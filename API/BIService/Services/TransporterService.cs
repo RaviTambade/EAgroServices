@@ -3,7 +3,7 @@ using BIService.Repositories.Interfaces;
 using BIService.Repositories;
 using BIService.Services.Interfaces;
 namespace BIService.Services;
-public class TransporterService{
+public class TransporterService:ITransporterService{
     public readonly ITransporterRepository _repo;
     public TransporterService(ITransporterRepository repo){
         _repo=repo;

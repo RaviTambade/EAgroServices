@@ -7,7 +7,6 @@ import { MerchantShipmentDetailsComponent } from './merchant-shipment-details/me
 import { MerchantInvoicesComponent } from './merchant-invoices/merchant-invoices.component';
 import { MerchantInvoiceDetailsComponent } from './merchant-invoice-details/merchant-invoice-details.component';
 import { FormsModule } from '@angular/forms';
-import { MerchantRoutingComponent } from './merchant-routing/merchant-routing.component';
 import { MerchantShipmentPaymentComponent } from './merchant-shipment-payment/merchant-shipment-payment.component';
 import { MerchantbarchartComponent } from './merchantbarchart/merchantbarchart.component';
 import { NgChartsModule } from 'ng2-charts';
@@ -33,7 +32,6 @@ export const merchantRoutes: Routes = [
     MerchantShipmentDetailsComponent,
     MerchantInvoicesComponent,
     MerchantInvoiceDetailsComponent,
-    MerchantRoutingComponent,
     MerchantShipmentPaymentComponent,
     MerchantbarchartComponent,
     MerchantdoughnutchartComponent,
@@ -45,7 +43,6 @@ export const merchantRoutes: Routes = [
     NgChartsModule
   ],
   exports:[
-    MerchantRoutingComponent
   ],
 })
 export class MerchantModule { }

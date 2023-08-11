@@ -1,29 +1,45 @@
 <button (click)="onClickInprogress()">Inprogress</button> |
 <button (click)="onClickDelivered()">Delivered</button> |
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Date </th>
       <th>Vehicle Number </th>
       <th>Kilometers</th>
-      <!-- <th>Dekivery Status</th> -->
       <th>Charges</th>
-      <!-- <th>Payment Status</th> -->
+      <th *ngIf="deliveredStatus">Payment Status</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let shipment of merchantShipments">
-      <td>{{ shipment.shipmentDate | date }}</td>
-      <td>{{ shipment.vehicleNumber }}</td>
-      <td>{{ shipment.kilometers }}</td>
-      <!-- <td>{{ shipment.deliveryStatus}}</td> -->
-      <td>{{ shipment.freightCharges}}</td>
-      <!-- <td>{{ shipment.paymentStatus}}</td> -->
+    <ng-container *ngFor="let shipment of merchantShipments">
+      <tr>
+        <td>{{ shipment.shipmentDate | date }}</td>
+        <td>{{ shipment.vehicleNumber }}</td>
+        <td>{{ shipment.kilometers }}</td>
+        <td>{{ shipment.freightCharges}}</td>
+        <td *ngIf="deliveredStatus">{{ shipment.paymentStatus}}</td>
 
-      <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
-      <td *ngIf="shipment.deliveryStatus == 'delivered'"><button
-          (click)="onClickpaymentDetails(shipment.id)"> paymentDetails </button></td>
-    </tr>
+        <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
+        <td *ngIf="deliveredStatus"><button (click)="onClickpaymentDetails(shipment.id)">
+            paymentDetails </button></td>
+      </tr> 
+      <tr *ngIf="selectedDetailsShipmentId === shipment.id">
+        <td colspan="8">
+          <div class="content-container">
+            <app-merchant-shipment-details [shipmentId]="shipment.id"></app-merchant-shipment-details>
+          </div>
+        </td>
+      </tr>
+
+      <tr *ngIf="selectedPaymentShipmentId === shipment.id">
+        <td colspan="8">
+          <div class="content-container">
+            <app-merchant-shipment-payment [shipmentId]="shipment.id"></app-merchant-shipment-payment>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+
   </tbody>
 </table>
