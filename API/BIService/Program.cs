@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<ICollectionCenterRepository, CollectionCenterRepository>();
 builder.Services.AddScoped<ICollectionCenterService, CollectionCenterService>();
+builder.Services.AddScoped<ITransporterRepository, TransporterRepository>();
+builder.Services.AddScoped<ITransporterService, TransporterService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

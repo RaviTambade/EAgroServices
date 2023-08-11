@@ -208,7 +208,7 @@ SELECT * FROM goodscosting;
 
 SELECT * FROM payments;
 SELECT * FROM goodscosting;
-SELECT vehicles.rtonumber, SUM(payments.amount) AS amount ,YEAR(shipments.shipmentdate)
+SELECT vehicles.rtonumber, SUM(payments.amount) AS amount
 FROM transporters INNER JOIN vehicles
 ON transporters.id = vehicles.transporterid
 INNER JOIN shipments

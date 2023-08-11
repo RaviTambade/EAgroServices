@@ -14,6 +14,7 @@ namespace BIService.Controllers
         {
             _srv = srv;
         }
+        [HttpGet("revenue/year/{transporterId:int}/{year:int}")]
     public async Task<List<YearlyVehicleRevenue>> GetRevenuesByYear(int transporterId,int year){
     return await _srv.GetRevenuesByYear(transporterId,year);
     }

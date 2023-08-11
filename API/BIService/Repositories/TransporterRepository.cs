@@ -21,7 +21,7 @@ public class TransporterRepository:ITransporterRepository{
         try
         {
             string query =
-                @" SELECT vehicles.rtonumber, SUM(payments.amount) AS amount ,YEAR(shipments.shipmentdate)
+                @" SELECT vehicles.rtonumber, SUM(payments.amount) AS amount
                    FROM transporters INNER JOIN vehicles
                    ON transporters.id = vehicles.transporterid
                    INNER JOIN shipments
@@ -43,7 +43,6 @@ public class TransporterRepository:ITransporterRepository{
                     new YearlyVehicleRevenue
                     {
                         RtoNumber= reader.GetString("RtoNumber"),
-                        Year = reader.GetInt32("Year"),
                         Amount = reader.GetDouble("Amount")
                     }
                 );
