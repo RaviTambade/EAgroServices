@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShipmentService } from '../shipment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from 'src/app/payment.service';
@@ -16,7 +16,7 @@ import { TransporterPayment } from 'src/app/transporter-payment';
   styleUrls: ['./merchant-shipment-payment.component.css']
 })
 export class MerchantShipmentPaymentComponent implements OnInit {
-  shipmentId: string | any;
+  @Input() shipmentId!: number;
   transporterName: string = '';
   amount: number | undefined;
   paymentStatus: string = ''
@@ -33,13 +33,13 @@ export class MerchantShipmentPaymentComponent implements OnInit {
   ispaymentButtonDisabled: boolean = false;
 
   constructor(private shipmentsvc: ShipmentService, private paymentsvc: PaymentService, private transportersvc: TransporterService,
-    private corpsvc: CorporateService, private route: ActivatedRoute, private router: Router,
+    private corpsvc: CorporateService,
     private banksvc: BankingService, private merchantsvc: MerchantService) { }
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.shipmentId = params.get('shipmentid');
-    });
+    this.fetchShipmentPaymentInfo();
+  }
 
+  fetchShipmentPaymentInfo() {
     this.shipmentsvc.getShipmentTransporterAmount(this.shipmentId).subscribe((transporterAmount) => {
       this.amount = transporterAmount.amount;
       this.paymentStatus = transporterAmount.paymentStatus;
@@ -61,7 +61,6 @@ export class MerchantShipmentPaymentComponent implements OnInit {
         this.merchantAccountInfo.ifscCode = merchantAccount.ifscCode;
       });
     });
-
   }
 
   onClickPay() {
@@ -89,7 +88,7 @@ export class MerchantShipmentPaymentComponent implements OnInit {
           this.paymentsvc.addTransporterPayment(tarnsporterPayment).subscribe((response) => {
             if (response) {
               console.log("payment done sucessfully")
-              window.location.reload();
+            this.fetchShipmentPaymentInfo();
             }
           });
         }

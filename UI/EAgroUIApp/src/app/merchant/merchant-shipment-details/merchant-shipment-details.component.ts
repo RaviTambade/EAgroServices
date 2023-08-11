@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShipmentService } from '../shipment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipmentItemDetails } from '../shipment-item-details';
@@ -11,72 +11,81 @@ import { UserService } from 'src/app/Shared/users/user.service';
   styleUrls: ['./merchant-shipment-details.component.css']
 })
 export class MerchantShipmentDetailsComponent implements OnInit {
-  shipmentId: any;
+  @Input() shipmentId!: number;
   shipmentStatus: boolean | undefined;
   shipmentItemsDetails: ShipmentItemDetails[] = [];
   updateStatus: boolean = false;
-  constructor(private shipmentsvc: ShipmentService, private corpsvc: CorporateService, private usrsvc: UserService,
-    private route: ActivatedRoute, private router: Router) { }
+  removeShipmentItemId: number | null = null;
+  constructor(private shipmentsvc: ShipmentService, private corpsvc: CorporateService, private usrsvc: UserService) { }
   ngOnInit(): void {
+    this.fetchShipmentItems();
+  }
 
-    this.route.paramMap.subscribe((params) => {
-      this.shipmentId = params.get('shipmentid');
-    });
+  fetchShipmentItems() {
     this.shipmentsvc.getShipmentItems(this.shipmentId).subscribe((res) => {
       this.shipmentItemsDetails = res;
-      if(this.shipmentItemsDetails.length!=0){
+      if (this.shipmentItemsDetails.length != 0) {
 
-      let distinctcollectioncenterIds = this.shipmentItemsDetails.map(item => item.collectionCenterCorporaterId)
-        .filter((number, index, array) => array.indexOf(number) === index);
+        let distinctcollectioncenterIds = this.shipmentItemsDetails.map(item => item.collectionCenterCorporaterId)
+          .filter((number, index, array) => array.indexOf(number) === index);
 
-      let distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
-        .filter((number, index, array) => array.indexOf(number) === index);
+        let distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
+          .filter((number, index, array) => array.indexOf(number) === index);
 
-      let collectionCenterIdString = distinctcollectioncenterIds.join(',');
-      let farmerIdString = distinctfarmerIds.join(',');
+        let collectionCenterIdString = distinctcollectioncenterIds.join(',');
+        let farmerIdString = distinctfarmerIds.join(',');
 
-      this.corpsvc.getCorporates(collectionCenterIdString).subscribe((names) => {
-        let corporationNames = names
-        this.shipmentItemsDetails.forEach(item => {
-          let matchingItem = corporationNames.find(element => element.id === item.collectionCenterCorporaterId);
-          if (matchingItem != undefined)
-            item.collectionCenterName = matchingItem.name;
+        this.corpsvc.getCorporates(collectionCenterIdString).subscribe((names) => {
+          let corporationNames = names
+          this.shipmentItemsDetails.forEach(item => {
+            let matchingItem = corporationNames.find(element => element.id === item.collectionCenterCorporaterId);
+            if (matchingItem != undefined)
+              item.collectionCenterName = matchingItem.name;
+          });
         });
-      });
 
-      this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
-        let farmerNames = names
-        this.shipmentItemsDetails.forEach(item => {
-          let matchingItem = farmerNames.find(element => element.id === item.farmerId);
-          if (matchingItem != undefined)
-          item.farmerName = matchingItem.name;
+        this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
+          let farmerNames = names
+          this.shipmentItemsDetails.forEach(item => {
+            let matchingItem = farmerNames.find(element => element.id === item.farmerId);
+            if (matchingItem != undefined)
+              item.farmerName = matchingItem.name;
+          });
         });
-      });
-    }
+      }
     });
 
     this.shipmentsvc.isShipmentStatusDelivered(this.shipmentId).subscribe((res) => {
       this.shipmentStatus = res;
-    })
+    });
+  }
+
+  onRemoveClick(shipmentItemId: number) {
+    if (this.removeShipmentItemId === shipmentItemId) {
+      this.removeShipmentItemId = null;
+    } else {
+      this.removeShipmentItemId = shipmentItemId;
+    }
   }
 
   removeItem(shipmentId: number) {
     this.shipmentsvc.removeShipmentItem(shipmentId).subscribe((response) => {
       if (response) {
         alert("record deleted");
-        window.location.reload();
+        this.fetchShipmentItems();
       }
     });
   }
 
   updateShipmentStatusDelivered(shipmentId: number) {
     this.shipmentsvc.updateShipmentStatus(shipmentId).subscribe((res) => {
-      console.log(res);
-      this.shipmentStatus = true;
+      if (res)
+        this.shipmentStatus = true;
     })
   }
 
   onCancelClick() {
+    this.removeShipmentItemId = null;
     this.updateStatus = false;
   }
 }

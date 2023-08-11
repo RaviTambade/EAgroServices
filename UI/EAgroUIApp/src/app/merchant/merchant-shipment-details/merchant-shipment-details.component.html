@@ -1,4 +1,4 @@
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Date </th>
@@ -13,32 +13,54 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let shipmentItem of shipmentItemsDetails">
-      <td>{{ shipmentItem.collectionDate | date }}</td>
-      <td>{{ shipmentItem.collectionCenterName }}</td>
-      <td>{{ shipmentItem.farmerName }}</td>
-      <td>{{ shipmentItem.cropName}}</td>
-      <td>{{ shipmentItem.grade}}</td>
-      <td>{{ shipmentItem.containerType}}</td>
-      <td>{{ shipmentItem.quantity}}</td>
-      <td>{{ shipmentItem.totalWeight}}</td>
-      <td>{{ shipmentItem.netWeight}}</td>
-      <td *ngIf="!shipmentStatus"><button (click)="removeItem(shipmentItem.id)"> Remove </button></td>
-    </tr>
+    <ng-container *ngFor="let shipmentItem of shipmentItemsDetails">
+      <tr>
+        <td>{{ shipmentItem.collectionDate | date }}</td>
+        <td>{{ shipmentItem.collectionCenterName }}</td>
+        <td>{{ shipmentItem.farmerName }}</td>
+        <td>{{ shipmentItem.cropName}}</td>
+        <td>{{ shipmentItem.grade}}</td>
+        <td>{{ shipmentItem.containerType}}</td>
+        <td>{{ shipmentItem.quantity}}</td>
+        <td>{{ shipmentItem.totalWeight}}</td>
+        <td>{{ shipmentItem.netWeight}}</td>
+        <td *ngIf="!shipmentStatus"><button (click)="onRemoveClick(shipmentItem.id)"> Remove </button></td>
+      </tr>
+      <tr *ngIf="removeShipmentItemId==shipmentItem.id">
+        <td colspan="10">
+          <div class="delete-confirmation">
+            <h2>Delete Confirmation</h2>
+            <p>Are you sure You want to remove this item ?</p>
+            <div class="buttons">
+              <button type="button" class="delete-button" (click)="removeItem(shipmentItem.id)">Delivered</button>
+              <button type="button" class="cancel-button" (click)="onCancelClick()">Cancel</button>
+            </div>
+          </div>
+
+        </td>
+
+      </tr>
+    </ng-container>
   </tbody>
 </table>
 
-<div *ngIf="!shipmentStatus">
-<h4 (click)="updateStatus=true">Set Shipment status Delivered</h4>
 
-<div *ngIf="updateStatus">
-  <div class="delete-confirmation">
-    <h2>Update Confirmation</h2>
-    <p>Are you sure this shipment is Delivered ?</p>
-    <div class="buttons">
-      <button type="button" class="delete-button" (click)="updateShipmentStatusDelivered(shipmentId)">Delivered</button>
-      <button type="button" class="cancel-button" (click)="onCancelClick()">Cancel</button>
+
+
+
+
+<div *ngIf="!shipmentStatus">
+  <h4 (click)="updateStatus=true"><button> Set Shipment status Delivered</button></h4>
+
+  <div *ngIf="updateStatus">
+    <div class="delete-confirmation">
+      <h2>Update Confirmation</h2>
+      <p>Are you sure this shipment is Delivered ?</p>
+      <div class="buttons">
+        <button type="button" class="delete-button"
+          (click)="updateShipmentStatusDelivered(shipmentId)">Delivered</button>
+        <button type="button" class="cancel-button" (click)="onCancelClick()">Cancel</button>
+      </div>
     </div>
   </div>
-</div>
 </div>
