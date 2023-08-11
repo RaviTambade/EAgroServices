@@ -86,7 +86,7 @@ export class FiltersService {
         break;
 
     }
-    return this.http.get<any>(url);;
+    return this.http.get<any>(url);
 
   }
 
