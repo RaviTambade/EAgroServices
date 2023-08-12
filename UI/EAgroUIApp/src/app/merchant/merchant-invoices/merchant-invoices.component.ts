@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Shared/users/user.service';
 import { CorporateService } from 'src/app/corporate.service';
 import { InvoicesService } from 'src/app/invoices.service';
@@ -13,16 +12,21 @@ import { Invoice } from '../invoice';
 export class MerchantInvoicesComponent implements OnInit {
 
   invoices: Invoice[] = [];
+  selectedInvoiceId:number|null=null;
 
-  constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService,
-    private route: ActivatedRoute, private router: Router) { }
+  constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService) { }
 
 
   ngOnInit(): void {
     this.onClickUnpaid();
   }
   onClickInvoiceDetails(invoiceId: number) {
-    this.router.navigate(['/merchant/invoicedetails', invoiceId]);
+    if(this.selectedInvoiceId===invoiceId){
+      this.selectedInvoiceId=null;
+    }
+    else{
+      this.selectedInvoiceId=invoiceId;
+    }
   }
  
   fetchData(status:string){
