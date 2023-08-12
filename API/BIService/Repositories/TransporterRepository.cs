@@ -61,4 +61,35 @@ public class TransporterRepository:ITransporterRepository{
         return result;
     }
 
+    public async Task<List<int>> GetYears(){
+        List<int> years= new();
+        MySqlConnection connection = new(_connectionString);
+        try{
+            string query =@"SELECT YEAR(shipments.shipmentdate) AS year FROM shipments GROUP BY YEAR(shipments.shipmentdate)";
+            MySqlCommand command = new(query, connection);
+            await connection.OpenAsync();
+            using MySqlDataReader reader = command.ExecuteReader();
+            while (await reader.ReadAsync())
+            {
+                result.Add(
+                    new int
+                    {
+                       int Year = reader.GetInt32("year")
+                    }
+                );
+            }
+            await reader.CloseAsync();
+            // result = result.AddMissingYears();;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return result;
+        }   
+    }
 }

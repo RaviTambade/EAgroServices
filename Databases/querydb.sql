@@ -243,7 +243,7 @@ SELECT EXTRACT(month FROM `s`.`shipmentdate`), COUNT(*), EXTRACT(year FROM `s`.`
 
 
 
-
+SELECT YEAR(shipments.shipmentdate) AS year FROM shipments GROUP BY YEAR(shipments.shipmentdate); 
 SELECT * FROM shipments;
 SELECT * FROM  collectioncenters;
 SELECT * FROM transporterpayments;

@@ -56,13 +56,13 @@ export class TransporterbarchartComponent implements OnInit{
   
   ngOnInit(): void {
     this.transporterId = Number(localStorage.getItem("transporterId"));
-    this.svc.getVehicleRevenues(this.transporterId).subscribe((res)=>{
-this.vehicleRevenues=res
-console.log(res)
-this.barChartData.labels=this.vehicleRevenues.map((revenues)=>revenues.rtoNumber);
-this.barChartData.datasets[0].data=this.vehicleRevenues.map((revenues)=>revenues.amount);
-this.barChartData.datasets[0].backgroundColor = this.getBarColors(this.vehicleRevenues.length);
-    })
+    // this.svc.getVehicleRevenues(this.transporterId).subscribe((res)=>{
+// this.vehicleRevenues=res
+// console.log(res)
+// this.barChartData.labels=this.vehicleRevenues.map((revenues)=>revenues.rtoNumber);
+// this.barChartData.datasets[0].data=this.vehicleRevenues.map((revenues)=>revenues.amount);
+// this.barChartData.datasets[0].backgroundColor = this.getBarColors(this.vehicleRevenues.length);
+//     })
   }
 
   getBarColors(dataLength: number): string[] {

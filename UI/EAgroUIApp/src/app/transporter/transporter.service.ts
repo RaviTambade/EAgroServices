@@ -81,8 +81,8 @@ getVehicleNumbers():Observable<Vehiclenumberid[]>{
   let url="http://localhost:5261/api/vehicles/numbers"
   return this.httpClient.get<Vehiclenumberid[]>(url)
 }
-getVehicleRevenues(transporterId:number):Observable<Vehiclerevenue[]>{
-  let url="http://localhost:5025/api/transporters/" + transporterId + "/revenues"
+getVehicleRevenues(transporterId:number,year:number):Observable<Vehiclerevenue[]>{
+  let url="http://localhost:5235/api/TransporterBI/revenue/year/" + transporterId + "/" +year
   return this.httpClient.get<Vehiclerevenue[]>(url)
 }
 getTransporterRevenue(transporterId:number):Observable<Transporterrevenue[]>{
