@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './invoicedetails.component.html',
   styleUrls: ['./invoicedetails.component.css']
 })
-export class InvoicedetailsComponent {
-
+export class InvoicedetailsComponent implements OnInit{
+ngOnInit() {}
 }

@@ -2,6 +2,7 @@ using BIService.Services.Interfaces;
 using BIService.Repositories.Interfaces;
 using BIService.Services;
 using BIService.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +12,7 @@ builder.Services.AddScoped<ICollectionCenterRepository, CollectionCenterReposito
 builder.Services.AddScoped<ICollectionCenterService, CollectionCenterService>();
 builder.Services.AddScoped<ITransporterRepository, TransporterRepository>();
 builder.Services.AddScoped<ITransporterService, TransporterService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,7 +28,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyHeader());
 app.MapControllers();
 
 app.Run();

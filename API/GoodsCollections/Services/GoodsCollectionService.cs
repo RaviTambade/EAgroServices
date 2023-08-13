@@ -66,10 +66,12 @@ namespace GoodsCollections.Services
         public PagedList<Collection> GetCollections(
             int collectionCenterId,
             FilterRequest request,
-            int pageNumber
+            int pageNumber,
+            string type
+
         )
         {
-            return _repo.GetCollections(collectionCenterId, request, pageNumber);
+            return _repo.GetCollections(collectionCenterId, request, pageNumber,type);
         }
     }
 }

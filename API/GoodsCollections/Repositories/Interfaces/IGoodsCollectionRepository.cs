@@ -14,7 +14,8 @@ namespace GoodsCollections.Repositories.Interfaces
         PagedList<Collection> GetCollections(
             int collectionCenterId,
             FilterRequest request,
-            int pageNumber
+            int pageNumber,
+            string type
         );
         Task<GoodsCollection> GetById(int collectionId);
         Task<bool> Insert(GoodsCollection collection);
