@@ -3,7 +3,8 @@ using BIService.Repositories.Interfaces;
 using MySql.Data.MySqlClient;
 using BIService.Extensions;
 namespace BIService.Repositories;
-public class TransporterRepository:ITransporterRepository{
+public class TransporterRepository : ITransporterRepository
+{
 
     private readonly IConfiguration _configuration;
     private readonly string _connectionString;
@@ -15,8 +16,9 @@ public class TransporterRepository:ITransporterRepository{
             _configuration.GetConnectionString("DefaultConnection")
             ?? throw new Exception("ConnectionString is not found");
     }
-    public async Task<List<YearlyVehicleRevenue>> GetRevenuesByYear(int transporterId,int year){
-         List<YearlyVehicleRevenue> result = new();
+    public async Task<List<YearlyVehicleRevenue>> GetRevenuesByYear(int transporterId, int year)
+    {
+        List<YearlyVehicleRevenue> result = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -42,7 +44,7 @@ public class TransporterRepository:ITransporterRepository{
                 result.Add(
                     new YearlyVehicleRevenue
                     {
-                        RtoNumber= reader.GetString("RtoNumber"),
+                        RtoNumber = reader.GetString("RtoNumber"),
                         Amount = reader.GetDouble("Amount")
                     }
                 );
@@ -61,11 +63,13 @@ public class TransporterRepository:ITransporterRepository{
         return result;
     }
 
-    public async Task<List<int>> GetYears(){
-        List<int> years= new();
+    public async Task<List<int>> GetYears()
+    {
+        List<int> years = new();
         MySqlConnection connection = new(_connectionString);
-        try{
-            string query =@"SELECT YEAR(shipments.shipmentdate) AS year FROM shipments GROUP BY YEAR(shipments.shipmentdate)";
+        try
+        {
+            string query = @"SELECT YEAR(shipments.shipmentdate) AS year FROM shipments GROUP BY YEAR(shipments.shipmentdate)";
             MySqlCommand command = new(query, connection);
             await connection.OpenAsync();
             using MySqlDataReader reader = command.ExecuteReader();
@@ -90,6 +94,11 @@ public class TransporterRepository:ITransporterRepository{
             connection.Close();
         }
         return result;
-        }   
     }
+
+    public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId)
+    {
+
+    }
+
 }
