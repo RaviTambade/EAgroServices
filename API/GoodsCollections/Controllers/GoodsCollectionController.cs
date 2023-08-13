@@ -21,10 +21,11 @@ namespace GoodsCollections.Controllers
         public  List<Collection>? GetCollections(
             int collectionCenterId,
             [FromBody] FilterRequest request,
-            [FromQuery] int pageNumber
+            [FromQuery] int pageNumber,
+            [FromQuery] string type="Unverified"
         )
         {
-            var collections = _srv.GetCollections(collectionCenterId, request, pageNumber);
+            var collections = _srv.GetCollections(collectionCenterId, request, pageNumber,type);
             Response.AddPaginationHeader(collections);
             return collections;
         }

@@ -13,6 +13,7 @@ export class BarChartComponent {
   constructor(private svc: CollectioncenterService) { }
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
+  
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
 

@@ -15,7 +15,7 @@ export class AddJwtHeaderIntreceptorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const jwt = localStorage.getItem("jwt");
     const modifiedRequest = request.clone({ setHeaders: { authorization: `Bearer ${jwt}`  } });
-    console.log(modifiedRequest.headers);
+    // console.log(modifiedRequest.headers);
     return next.handle(modifiedRequest);
   }
 }

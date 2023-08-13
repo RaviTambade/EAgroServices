@@ -30,7 +30,7 @@ export class CollectionService {
 
     const collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5154/api/goodscollections/" + collectionCenterId;
-    const params = new HttpParams().set('pageNumber', pageNumber.toString());
+    const params = new HttpParams().set('pageNumber', pageNumber.toString()).set('type', 'All');
     
     return this.http.post<any>(url, filterRequest, { params: params, observe: 'response' });
   }

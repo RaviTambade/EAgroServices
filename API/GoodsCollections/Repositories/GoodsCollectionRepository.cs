@@ -18,23 +18,18 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
     public PagedList<Collection> GetCollections(
         int collectionCenterId,
         FilterRequest request,
-        int pageNumber
+        int pageNumber,
+        string type
     )
     {
         try
         {
             using (var context = new GoodsCollectionContext(_configuration))
             {
-                var query =
+                IQueryable<Collection> baseQuery =
                     from collection in context.GoodsCollections
                     join crop in context.Crops on collection.CropId equals crop.Id
-                    join verifiedGoodsCollection in context.VerifiedGoodsCollections
-                        on collection.Id equals verifiedGoodsCollection.CollectionId
-                        into gj
-                    from verifiedCollection in gj.DefaultIfEmpty()
-                    where
-                        collection.CollectionCenterId == collectionCenterId
-                        && verifiedCollection == null
+                    where collection.CollectionCenterId == collectionCenterId
                     select new Collection()
                     {
                         CollectionId = collection.Id,
@@ -46,6 +41,29 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         Weight = collection.Weight,
                         CollectionDate = collection.CollectionDate
                     };
+
+                IQueryable<Collection> query;
+
+                if (type == "All")
+                {
+                    query = baseQuery;
+                }
+                else if (type == "Unverified")
+                {
+                    query =
+                        from item in baseQuery
+                        join verifiedGoodsCollection in context.VerifiedGoodsCollections
+                            on item.CollectionId equals verifiedGoodsCollection.CollectionId
+                            into gj
+                        from verifiedCollection in gj.DefaultIfEmpty()
+                        where verifiedCollection == null
+                        select item;
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid type parameter.");
+                }
+
                 query = query.ApplyFilters(request);
                 return PagedList<Collection>.ToPagedList(query, pageNumber);
             }
