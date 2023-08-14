@@ -1,5 +1,4 @@
 using Farmers.Models;
-// using Farmers.Extensions;
 using Farmers.Repositories.Interfaces;
 using Farmers.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;

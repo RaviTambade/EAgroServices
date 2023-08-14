@@ -231,7 +231,7 @@ FROM shipments
 WHERE transporters.id = 1 AND shipments.status='delivered'
 GROUP BY MONTHNAME(shipments.shipmentdate),YEAR(shipments.shipmentdate) ;
 
-SELECT EXTRACT(month FROM `s`.`shipmentdate`), COUNT(*), EXTRACT(year FROM `s`.`shipmentdate`)
+SELECT EXTRACT(month FROM `s`.`shipmentdate`),SUM(payments.amount)
       FROM `shipments` AS `s`
       INNER JOIN `vehicles` AS `v` ON `s`.`vehicleid` = `v`.`id`
       INNER JOIN `transporters` AS `t` ON `v`.`transporterid` = `t`.`id`
@@ -251,14 +251,15 @@ SELECT * FROM transporterpayments;
 SELECT * FROM vehicles;
 
 
+
  SELECT MONTHNAME( `s`.`shipmentdate`), COALESCE(SUM(`p`.`amount`), 0.0)
       FROM `vehicles` AS `v`
       INNER JOIN `transporters` AS `t` ON `v`.`transporterid` = `t`.`id`
       INNER JOIN `shipments` AS `s` ON `v`.`id` = `s`.`vehicleid`
       INNER JOIN `transporterpayments` AS `t0` ON `s`.`id` = `t0`.`shipmentid`
       INNER JOIN `payments` AS `p` ON `t0`.`paymentid` = `p`.`id`
-      WHERE `t`.`id` = 1
-      GROUP BY (`s`.`shipmentdate`);
+      WHERE `t`.`id` = 1 AND YEAR(`s`.`shipmentdate`)=2022
+      GROUP BY MONTHNAME(`s`.`shipmentdate`);
 
 
       SELECT COUNT(goodscollections.cropid),
