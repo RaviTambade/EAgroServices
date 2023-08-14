@@ -1,17 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Collection } from '../collection';
 import { CollectionService } from 'src/app/collection-service.service';
+import { ShowButtonService } from 'src/app/show-button-service.service';
 
 @Component({
   selector: 'app-collection-verification',
   templateUrl: './collection-verification.component.html',
   styleUrls: ['./collection-verification.component.css']
 })
-export class CollectionVerificationComponent  {
+export class CollectionVerificationComponent implements OnInit {
   @Input() collections: Collection[] = [];
+  showActions: boolean = true
 
-  constructor(private collectionsvc: CollectionService) { }
-
+  constructor(private collectionsvc: CollectionService, private btnsvc: ShowButtonService) { }
+  ngOnInit(): void {
+    this.btnsvc.getShowButtonVisibility().subscribe((res) => {
+      this.showActions = res;
+    });
+  }
   activeAction: 'verify' | 'update' | 'remove' | null = null;
   selectedCollectionId: number | null = null;
 
@@ -31,5 +37,5 @@ export class CollectionVerificationComponent  {
     })
   }
 
-  
+
 }

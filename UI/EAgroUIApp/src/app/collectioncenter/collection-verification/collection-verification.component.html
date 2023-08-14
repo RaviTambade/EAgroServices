@@ -15,10 +15,11 @@
             <td>{{ collection.containerType}}</td>
             <td>{{ collection.quantity}}</td>
             <td>{{ collection.weight}}</td>
+            <ng-container *ngIf="showActions">
             <td><button (click)="onActionClick('verify', collection.collectionId)"> Verify </button></td>
             <td><button (click)="onActionClick('update', collection.collectionId)"> Update </button></td>
             <td><button (click)="onActionClick('remove', collection.collectionId)"> Remove </button></td>
-        </tr>
+        </ng-container></tr>
 
         <tr *ngIf="activeAction === 'update' && selectedCollectionId === collection.collectionId">
             <td colspan="8">

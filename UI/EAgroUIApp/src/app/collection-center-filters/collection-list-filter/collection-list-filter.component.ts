@@ -5,6 +5,7 @@ import { FiltersService } from 'src/app/Shared/filter/filters.service';
 import { UserService } from 'src/app/Shared/users/user.service';
 import { CollectionService } from 'src/app/collection-service.service';
 import { Collection } from 'src/app/collectioncenter/collection';
+import { ShowButtonService } from 'src/app/show-button-service.service';
 
 enum CollectionListType {
   Unverified = "Unverified",
@@ -24,7 +25,7 @@ export class CollectionListFilterComponent {
   collectionType: CollectionListType = CollectionListType.Unverified;
 
 
-  constructor(private filtersvc: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService) { }
+  constructor(private filtersvc: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService ,private btnsvc:ShowButtonService) { }
   ngOnInit(): void {
     this.filtersvc.getCollectionFilterRequest().subscribe((res) => {
       this.filterRequest = res.request;
@@ -40,6 +41,12 @@ export class CollectionListFilterComponent {
 
   fetchCollections() {
     const type: string = this.collectionType === CollectionListType.Unverified ? CollectionListType.Unverified : CollectionListType.All
+    if(type== CollectionListType.Unverified){
+      this.btnsvc.setShowButtonVisibility(true);
+    }
+    if(type==CollectionListType.All){
+      this.btnsvc.setShowButtonVisibility(false);
+    }
     this.getCollections(this.filterRequest, this.pageNumber, type);
   }
 
