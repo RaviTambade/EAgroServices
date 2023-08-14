@@ -74,16 +74,12 @@ public class TransporterRepository : ITransporterRepository
             await connection.OpenAsync();
             using MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
-            {
-                result.Add(
-                    new int
-                    {
-                       int Year = reader.GetInt32("year")
-                    }
-                );
-            }
+             {
+            int year = reader.GetInt32("year"); 
+            years.Add(year); 
+        }
             await reader.CloseAsync();
-            // result = result.AddMissingYears();;
+           
         }
         catch (Exception)
         {
@@ -93,12 +89,12 @@ public class TransporterRepository : ITransporterRepository
         {
             connection.Close();
         }
-        return result;
+        return years;
     }
 
-    public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId)
-    {
+    // public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId)
+    // {
 
-    }
+    // }
 
 }

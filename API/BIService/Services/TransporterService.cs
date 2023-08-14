@@ -10,4 +10,8 @@ public class TransporterService:ITransporterService{
     }
     public async Task<List<YearlyVehicleRevenue>> GetRevenuesByYear(int transporterId,int year)=>
     await _repo.GetRevenuesByYear(transporterId,year);
+
+    public async  Task<List<int>> GetYears()=>await _repo.GetYears();
+
 }
+
