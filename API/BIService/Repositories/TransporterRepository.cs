@@ -5,10 +5,8 @@ using BIService.Extensions;
 namespace BIService.Repositories;
 public class TransporterRepository : ITransporterRepository
 {
-
     private readonly IConfiguration _configuration;
     private readonly string _connectionString;
-
     public TransporterRepository(IConfiguration configuration)
     {
         _configuration = configuration;
@@ -62,7 +60,6 @@ public class TransporterRepository : ITransporterRepository
         }
         return result;
     }
-
     public async Task<List<int>> GetYears(int transporterId)
     {
         List<int> years = new();
@@ -74,12 +71,11 @@ public class TransporterRepository : ITransporterRepository
             await connection.OpenAsync();
             using MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
-             {
-            int year = reader.GetInt32("year"); 
-            years.Add(year); 
-        }
+            {
+                int year = reader.GetInt32("year");
+                years.Add(year);
+            }
             await reader.CloseAsync();
-           
         }
         catch (Exception)
         {
@@ -92,9 +88,91 @@ public class TransporterRepository : ITransporterRepository
         return years;
     }
 
-    // public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId)
-    // {
+    public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId, int year)
+    {
+        List<MonthRevenue> result = new();
+        MySqlConnection connection = new(_connectionString);
+        try
+        {
+            string query = @"SELECT MONTHNAME(shipments.shipmentdate) AS Month,SUM(payments.amount) AS Amount
+                             FROM vehicles 
+                             INNER JOIN transporters ON vehicles.transporterid=transporters.id
+                             INNER JOIN shipments ON vehicles.id = shipments.vehicleid
+                             INNER JOIN transporterpayments ON shipments.id = transporterpayments.shipmentid
+                             INNER JOIN payments ON transporterpayments.paymentid = payments.id
+                             WHERE transporters.id =@transporterId AND YEAR(shipments.shipmentdate)=@year
+                             GROUP BY MONTHNAME(shipments.shipmentdate)";
+            MySqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@transporterId", transporterId);
+            command.Parameters.AddWithValue("@year", year);
+            await connection.OpenAsync();
+            using MySqlDataReader reader = command.ExecuteReader();
+            while (await reader.ReadAsync())
+            {
+                result.Add(
+                    new MonthRevenue
+                    {
+                        Month = reader.GetString("Month"),
+                        Amount = reader.GetDouble("Amount")
+                    }
+                );
+            }
+            await reader.CloseAsync();
+            result = result.AddMissingMonths();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return result;
+    }
 
-    // }
-
+    public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(int transporterId, int year)
+    {
+        List<QuarterRevenue> result = new();
+        MySqlConnection connection = new(_connectionString);
+        try
+        {
+            string query = @"SELECT QUARTER(shipments.shipmentdate) AS Quarter,SUM(payments.amount) AS Amount
+                             FROM vehicles 
+                             INNER JOIN transporters ON vehicles.transporterid=transporters.id
+                             INNER JOIN shipments ON vehicles.id = shipments.vehicleid
+                             INNER JOIN transporterpayments ON shipments.id = transporterpayments.shipmentid
+                             INNER JOIN payments ON transporterpayments.paymentid = payments.id
+                             WHERE transporters.id =@transporterId AND YEAR(shipments.shipmentdate)=@year
+                             GROUP BY QUARTER(shipments.shipmentdate)";
+            MySqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@transporterId", transporterId);
+            command.Parameters.AddWithValue("@year", year);
+            await connection.OpenAsync();
+            using MySqlDataReader reader = command.ExecuteReader();
+            while (await reader.ReadAsync())
+            {
+                result.Add(
+                    new QuarterRevenue
+                    {
+                        Quarter = reader.GetInt32("Quarter"),
+                        Amount = reader.GetDouble("Amount")
+                    }
+                );
+            }
+            await reader.CloseAsync();
+            result = result.AddMissingQuarters();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return result;
+    }
 }
+
+
