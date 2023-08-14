@@ -9,55 +9,47 @@ import { CorporateService } from 'src/app/corporate.service';
 import { ShipmentStatus } from 'src/app/merchant/shipment-status';
 import { ShipmentService } from 'src/app/merchant/shipment.service';
 
+enum FilterState {
+  InProgress,
+  Delivered,
+}
 @Component({
   selector: 'app-collection-shipment-filter-list',
   templateUrl: './collection-shipment-filter-list.component.html',
   styleUrls: ['./collection-shipment-filter-list.component.css']
 })
 export class CollectionShipmentFilterListComponent {
+  filterState = FilterState
   collections: ShippedCollection[] = [];
   shippedCollection = CollectionCenterFilterFor.shippedCollection;
   filterRequest: any;
   pageNumber: any;
-  inprogressClick: boolean = true;
-  deliverdClick: boolean = false;
-  constructor(private filtersvc: FiltersService, private shipmentsvc: ShipmentService, private corpsvc: CorporateService, private usrsvc: UserService) { }
+  currentFilterState: FilterState = FilterState.InProgress;
+
+  constructor(
+    private filtersvc: FiltersService,
+    private shipmentsvc: ShipmentService,
+    private corpsvc: CorporateService,
+    private usrsvc: UserService
+  ) { }
 
   ngOnInit(): void {
-
     this.filtersvc.getShippedCollectionFilterRequest().subscribe((res) => {
       this.filterRequest = res.request;
       this.pageNumber = res.pageNumber;
-    
-      if (this.inprogressClick) {
-        this.fetchInprogressShipments();
-      }
-      if (this.deliverdClick) {
-        console.log("deliverd click hit")
-        this.fetchDeliveredShipments();  
-      }
+
+      this.fetchFilteredShipments();
     });
-  };
-  
-  onInprogressClick() {
-  this.deliverdClick=false;
-  this.inprogressClick = true;
-  this.fetchInprogressShipments();
- }
-
- onDeliveredClick(){
-  this.deliverdClick=true;
-  this.inprogressClick = false;
-  this.fetchDeliveredShipments();
-
- }
-
-  fetchInprogressShipments() {
-    this.fetchCollections(this.filterRequest, this.pageNumber, ShipmentStatus.inprogress)
   }
 
-  fetchDeliveredShipments() {
-    this.fetchCollections(this.filterRequest, this.pageNumber, ShipmentStatus.delivered)
+  onFilterStateClick(state: FilterState) {
+    this.currentFilterState = state;
+    this.fetchFilteredShipments();
+  }
+
+  fetchFilteredShipments() {
+    const status = this.currentFilterState === FilterState.InProgress ? ShipmentStatus.inprogress : ShipmentStatus.delivered;
+    this.fetchCollections(this.filterRequest, this.pageNumber, status);
   }
 
   fetchCollections(filterRequest: FilterRequest, pageNumber: number, status: string) {

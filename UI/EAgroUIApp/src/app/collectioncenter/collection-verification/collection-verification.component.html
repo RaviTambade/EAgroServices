@@ -1,10 +1,51 @@
-<th>Collection Date</th>
-<th>Farmer Name</th>
-<th>Crop Name</th>
-<th>Container Type</th>
-<th>Quantity</th>
-<th>Weight</th> 
+<table class="table">
+    <tr>
+        <th>Collection Date</th>
+        <th>Farmer Name</th>
+        <th>Crop Name</th>
+        <th>Container Type</th>
+        <th>Quantity</th>
+        <th>Weight</th>
+    </tr>
+    <ng-container *ngFor="let collection of collections">
+        <tr>
+            <td>{{ collection.collectionDate | date }}</td>
+            <td>{{ collection.farmerName }}</td>
+            <td>{{ collection.cropName}}</td>
+            <td>{{ collection.containerType}}</td>
+            <td>{{ collection.quantity}}</td>
+            <td>{{ collection.weight}}</td>
+            <ng-container *ngIf="showActions">
+            <td><button (click)="onActionClick('verify', collection.collectionId)"> Verify </button></td>
+            <td><button (click)="onActionClick('update', collection.collectionId)"> Update </button></td>
+            <td><button (click)="onActionClick('remove', collection.collectionId)"> Remove </button></td>
+        </ng-container></tr>
 
-<div *ngFor="let collection of collections">
-    <app-collectionverification-details [collection]="collection"></app-collectionverification-details>
-</div>
+        <tr *ngIf="activeAction === 'update' && selectedCollectionId === collection.collectionId">
+            <td colspan="8">
+                <div>
+                    <app-update-collection [collection]="collection"></app-update-collection>
+                </div>
+            </td>
+        </tr>
+        <tr *ngIf="activeAction === 'verify' && selectedCollectionId === collection.collectionId">
+            <td colspan="8">
+                <div> <app-verify-collection [collectionId]="collection.collectionId"></app-verify-collection></div>
+            </td>
+        </tr>
+
+        <tr *ngIf="activeAction === 'remove' && selectedCollectionId === collection.collectionId">
+            <td colspan="8">
+                <div class="delete-confirmation">
+                    <h2>Delete Confirmation</h2>
+                    <p>Are you sure You want to Delete ?</p>
+                    <div class="buttons">
+                        <button type="button" class="delete-button"
+                            (click)="onConfirmRemove(collection.collectionId)">Delete</button>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </ng-container>
+</table>

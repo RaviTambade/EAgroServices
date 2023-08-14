@@ -26,12 +26,13 @@ export class CollectionService {
     return this.http.post<boolean>(url, collection);
   }
 
-  getCollections(filterRequest: FilterRequest, pageNumber: number): Observable<HttpResponse<any>> {
+  getCollections(filterRequest: FilterRequest, pageNumber: number, type: string): Observable<HttpResponse<any>> {
 
     const collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5154/api/goodscollections/" + collectionCenterId;
-    const params = new HttpParams().set('pageNumber', pageNumber.toString()).set('type', 'All');
-    
+    const params = new HttpParams().set('pageNumber', pageNumber.toString())
+                                   .set('type', type);
+
     return this.http.post<any>(url, filterRequest, { params: params, observe: 'response' });
   }
 

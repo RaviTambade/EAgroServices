@@ -1,3 +1,3 @@
-<button (click)="onInprogressClick()"> Inprogress</button>
-<button (click)="onDeliveredClick()"> Delivered</button>
+<button (click)="onFilterStateClick(filterState.InProgress)" [class.active]="currentFilterState === filterState.InProgress">In Progress</button>
+<button (click)="onFilterStateClick(filterState.Delivered)" [class.active]="currentFilterState === filterState.Delivered">Delivered</button>
 <filters  [collections]="collections" [filterFor]="shippedCollection"></filters>
