@@ -7,7 +7,6 @@ import { CollectionListComponent } from './collection-list/collection-list.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollectionVerificationComponent } from './collection-verification/collection-verification.component';
 import { UpdateCollectionComponent } from './update-collection/update-collection.component';
-import { CollectionverificationDetailsComponent } from './collectionverification-details/collectionverification-details.component';
 import { VerifyCollectionComponent } from './verify-collection/verify-collection.component';
 import { AddtoshipmentComponent } from './addtoshipment/addtoshipment.component';
 import { CorporateService } from '../corporate.service';
@@ -35,7 +34,6 @@ export const collectionCenterRoutes: Routes = [
     AddCollectionComponent,
     CollectionVerificationComponent,
     UpdateCollectionComponent,
-    CollectionverificationDetailsComponent,
     VerifyCollectionComponent,
     AddtoshipmentComponent,
     CreateShipmentComponent,
