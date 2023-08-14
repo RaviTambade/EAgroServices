@@ -40,6 +40,7 @@ isUser():boolean{
   }
   return false;
 }
+
 isLoggedIn():boolean{
   const jwt =localStorage.getItem("jwt")
   if (jwt != null) {

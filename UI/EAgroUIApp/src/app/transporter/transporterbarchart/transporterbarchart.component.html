@@ -1,4 +1,8 @@
-
+<div>
+  <select [(ngModel)]="selectedYear" (ngModelChange)="onYearChange($event)">
+    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+  </select>
+</div>
 <div style="height: 50%;width:50%">
 <canvas
   baseChart

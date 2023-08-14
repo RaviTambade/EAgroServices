@@ -86,8 +86,6 @@ export class MerchantDashboardComponent {
     })
 
     if (this.merchantId != undefined) {
-
-
       this.svc.getTotalPurchaseOrderCount(this.merchantId).subscribe((response) => {
         this.merchantOrderCount = response;
         this.distinctYears = Array.from(new Set(this.merchantOrderCount.map(item => item.year)));
@@ -106,7 +104,6 @@ export class MerchantDashboardComponent {
     }
   }
   changeGraphByYear() {
-
     let newdata = this.merchantOrderCount.filter(item => item.year == this.selectedYear);
     this.data = []
     for (let row in newdata) {

@@ -101,4 +101,8 @@ getVehicle(vehicleId:number):Observable<any>{
   let url=" http://localhost:5261/api/vehicles/" +vehicleId
   return this.httpClient.get<any>(url)
 }
+getYears(transporterId:number):Observable<any>{
+  let url="http://localhost:5235/api/transporterbi/years/" +transporterId
+  return this.httpClient.get<any>(url)
+}
 }

@@ -63,7 +63,7 @@ public class TransporterRepository : ITransporterRepository
         return result;
     }
 
-    public async Task<List<int>> GetYears()
+    public async Task<List<int>> GetYears(int transporterId)
     {
         List<int> years = new();
         MySqlConnection connection = new(_connectionString);

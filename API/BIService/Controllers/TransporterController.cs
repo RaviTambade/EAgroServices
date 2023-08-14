@@ -19,10 +19,10 @@ namespace BIService.Controllers
             return await _srv.GetRevenuesByYear(transporterId, year);
         }
 
-        [HttpGet("years")]
-        public async Task<List<int>> GetYears()
+        [HttpGet("years/{transporterId}")]
+        public async Task<List<int>> GetYears(int transporterId)
         {
-            return await _srv.GetYears();
+            return await _srv.GetYears(transporterId);
         }
     }
 }
