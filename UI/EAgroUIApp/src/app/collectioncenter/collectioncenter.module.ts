@@ -13,12 +13,12 @@ import { CorporateService } from '../corporate.service';
 import { CreateShipmentComponent } from './create-shipment/create-shipment.component';
 import { CollectionShipmentListComponent } from './collection-shipment-list/collection-shipment-list.component';
 import { CollectionCenterDashboardComponent } from './collection-center-dashboard/collection-center-dashboard.component';
-import { BarChartComponent } from './collection-center-dashboard/bar-chart/bar-chart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { SteppedLineChartComponent } from './collection-center-dashboard/stepped-line-chart/stepped-line-chart.component';
 import { CollectionPaymentListComponent } from './collection-payment-list/collection-payment-list.component';
 import { CollectionPaymentDetailsComponent } from './collection-payment-details/collection-payment-details.component';
 import { RevenueLineChartComponent } from './collection-center-dashboard/revenue-line-chart/revenue-line-chart.component';
+import { CropBarChartComponent } from './collection-center-dashboard/crop-bar-chart/crop-bar-chart.component';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -40,11 +40,11 @@ export const collectionCenterRoutes: Routes = [
     CollectionListComponent,
     CollectionShipmentListComponent,
     CollectionCenterDashboardComponent,
-    BarChartComponent,
     SteppedLineChartComponent,
     CollectionPaymentListComponent,
     CollectionPaymentDetailsComponent,
     RevenueLineChartComponent,
+    CropBarChartComponent,
   ],
   imports: [
     CommonModule,
