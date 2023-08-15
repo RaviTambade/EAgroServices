@@ -1,0 +1,8 @@
+.line-chart-size{
+    width: 60%;
+    height: 50%;
+ }
+ .myChartWrapper{
+  /* width: 500px; */
+  overflow-x: scroll;
+}

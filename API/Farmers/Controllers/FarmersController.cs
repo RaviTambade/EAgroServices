@@ -42,9 +42,16 @@ namespace Farmers.Controllers
 
          [HttpGet("monthlyrevenue/{farmerId}")]
          
-        public async Task<List<MonthlyRevenue>> MonthlyRevenue(int farmerId)
+        public async Task<List<Revenue>> MonthlyRevenue(int farmerId)
         {
             return await _srv.MonthlyRevenue(farmerId);
+
+        }
+         [HttpGet("yearrevenue/{farmerId}")]
+         
+        public async Task<List<Revenue>> YearRevenue(int farmerId)
+        {
+            return await _srv.YearRevenue(farmerId);
 
         }
          [HttpGet("croprevenue/{farmerId}")]

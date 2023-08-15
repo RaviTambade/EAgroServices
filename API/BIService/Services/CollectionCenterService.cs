@@ -20,7 +20,7 @@ namespace BIService.Services
 
         public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(
             int collectionCenterId,
-            int year
+            int year        
         )
         {
             return await _repo.GetRevenuesByQuarter(collectionCenterId, year);

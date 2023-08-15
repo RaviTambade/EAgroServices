@@ -33,17 +33,17 @@ export class LoginComponent {
       console.log(response);
       if (response.token != null) {
         localStorage.setItem("jwt", response.token)
-        alert("Login sucessfull")
+        alert("Login successfull")
 
         this.usersvc.getUserIdByContact(this.credential.contactNumber).subscribe((responseId) => {
           this.userId = responseId;
           localStorage.setItem("userId",this.userId.toString())
-          console.log("🚀 ~ this.svc.getUserIdByContact ~ userId:", this.userId);
+          console.log(this.userId);
 
           this.userrolesvc.getRolesOfUser(responseId).subscribe((responseRoles) => {
             console.log("func")
             this.roles = responseRoles;
-            console.log("🚀 ~ this.svc.getRolesOfUser ~ roles:", this.roles);
+            console.log(this.roles);
 
 
 
@@ -74,8 +74,8 @@ export class LoginComponent {
         if (this.userId != undefined)
         
           this.merchantsvc.getmerchantIdByUserId(this.userId).subscribe((merchantId) => {
-        console.log("🚀 ~ navigateByRole ~ userId:", this.userId);
-        console.log("🚀 ~ this.merchantsvc.getmerchantIdByUserId ~ merchantId:", merchantId);
+        console.log(this.userId);
+        console.log(merchantId);
             localStorage.setItem("merchantId", merchantId.toString());
             this.router.navigate(['/merchant/home'])
           });

@@ -12,6 +12,8 @@ builder.Services.AddScoped<ICollectionCenterRepository, CollectionCenterReposito
 builder.Services.AddScoped<ICollectionCenterService, CollectionCenterService>();
 builder.Services.AddScoped<ITransporterRepository, TransporterRepository>();
 builder.Services.AddScoped<ITransporterService, TransporterService>();
+builder.Services.AddScoped<IFarmerService, FarmerService>();
+builder.Services.AddScoped<IFarmerRepository, FarmerRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
