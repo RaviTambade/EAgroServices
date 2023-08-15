@@ -11,7 +11,8 @@ namespace Farmers.Repositories.Interfaces
 
         Task<List<FarmerCollection>> FarmerCollection(int farmerId);
         Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId);
-        Task<List<MonthlyRevenue>> MonthlyRevenue(int farmerId);
+        Task<List<Revenue>> MonthlyRevenue(int farmerId);
+        Task<List<Revenue>> YearRevenue(int farmerId);
         Task<List<CropRevenue>> CropRevenue(int farmerId);
         
     }

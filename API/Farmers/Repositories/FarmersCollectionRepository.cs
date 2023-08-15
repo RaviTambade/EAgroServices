@@ -139,7 +139,9 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
             throw e;
         }
     }
-       public async Task<List<MonthlyRevenue>> MonthlyRevenue(int farmerId)
+
+    
+       public async Task<List<Revenue>> MonthlyRevenue(int farmerId)
         {
             try
             {
@@ -158,7 +160,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         where collection.FarmerId == farmerId
                          group new {invoice,shipmentItem} by invoice.InvoiceDate.Month into g
                         orderby g.Key
-                        select new MonthlyRevenue()
+                        select new Revenue()
                         {
                              InvoiceDate = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
                           TotalAmount = g.Sum(item => item.invoice.TotalAmount)
@@ -179,6 +181,49 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                 throw e;
             }
         }
+
+
+  public async Task<List<Revenue>> YearRevenue(int farmerId)
+        {
+            try
+            {
+                using (var context = new FarmerContext(_configuration))
+                {
+                    var yearRevenue = await (
+                        from invoice in context.Invoices
+                        join shipmentItem in context.ShipmentItems
+                            on invoice.ShipmentItemId equals shipmentItem.Id
+                        join collection in context.GoodsCollections
+                            on shipmentItem.CollectionId equals collection.Id
+                        join collectionCenter in context.CollectionCenters
+                            on collection.CollectionCenterId equals collectionCenter.Id
+                        join verifiedCollection in context.VerifiedGoodsCollections
+                            on collection.Id equals verifiedCollection.CollectionId
+                        where collection.FarmerId == farmerId
+                         group new {invoice,shipmentItem} by invoice.InvoiceDate.Year into g
+                        orderby g.Key
+                        select new Revenue()
+                        {
+                             InvoiceDate = g.Key.ToString(),
+                          TotalAmount = g.Sum(item => item.invoice.TotalAmount)
+                           
+                        }
+                    ).ToListAsync();
+
+                    if (yearRevenue is null)
+                    {
+                        return null;
+                    }
+
+                    return yearRevenue;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
          public async Task<List<CropRevenue>> CropRevenue(int farmerId)
         {
             try
