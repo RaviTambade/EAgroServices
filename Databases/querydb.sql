@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
@@ -275,9 +275,29 @@ WHERE vehicles.transporterid=1 GROUP BY YEAR(shipments.shipmentdate) ;
       ON shipmentitems.shipmentid=shipments.id
       WHERE shipments.merchantid=2 GROUP BY goodscollections.cropid ;
 
-      SELECT * FROM shipmentitems;
+      SELECT * FROM ;
       SELECT * FROM goodscollections;
       SELECT * FROM merchants;
 SELECT * FROM shipments;
-      SELECT * FROM goodscollections;
-      SELECT * FROM crops;
+      SELECT * FROM payments;
+      SELECT * FROM invoices;
+      SELECT * FROM shipmentitems;
+SELECT * FROM collectioncenters;
+
+          SELECT year(invoices. invoicedate) AS Year, SUM(invoices.totalamount) AS Amount
+                FROM invoices 
+                JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+                JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+                WHERE goodscollections. farmerid =2 
+                GROUP BY year(invoices. invoicedate)
+                ORDER BY year(invoices. invoicedate) ASC ;
+
+
+
+                 SELECT QUARTER(invoices. invoicedate) AS QUARTER, SUM(invoices.totalamount) AS Amount
+                FROM invoices 
+                JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+                JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+                WHERE goodscollections. farmerid =2 AND YEAR(invoices.invoicedate) = 2023
+                GROUP BY QUARTER(invoices. invoicedate)
+                ORDER BY QUARTER(invoices. invoicedate) ASC
