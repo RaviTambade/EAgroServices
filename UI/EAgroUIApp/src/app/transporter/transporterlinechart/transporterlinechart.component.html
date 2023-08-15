@@ -1,11 +1,18 @@
-<div *ngIf="lineChartData">
-<div style="height: 50%;width:50%">
-<canvas
-  baseChart
-  class="chart"
-  [datasets]="lineChartData.datasets"
-  [labels]="lineChartData.labels"
-  [options]="lineChartOptions"
-  [type]="lineChartType"
-></canvas>
+
+<div>
+  <label >Select Interval:</label>
+  <select  [(ngModel)]="selectedInterval" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let option of chartIntervals" [value]="option">{{ option }}</option>
+  </select>
+</div>
+
+<div *ngIf="selectedInterval!= 'Year'">
+  <label >Select Year:</label>
+  <select  [(ngModel)]="selectedYear" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+  </select>
+</div>
+<div class="line-chart-size">
+  <canvas baseChart class="chart" [datasets]="barChartData.datasets" [labels]="barChartData.labels"
+      [options]="barChartOptions" [type]="barChartType"></canvas>
 </div>

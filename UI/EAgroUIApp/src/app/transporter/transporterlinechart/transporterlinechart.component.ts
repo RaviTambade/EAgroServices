@@ -13,104 +13,97 @@ import { count } from 'rxjs';
   styleUrls: ['./transporterlinechart.component.css']
 })
 export class TransporterlinechartComponent implements OnInit {
-  transporterId: any;
-  distinctYears: number[] = [];
-  selectedYear: number | any;
-  shipmentCount: Shipmentcount[] = []
-  // private newLabel? = 'New label';
+  transporterId:any
+  chartIntervals = ["Year", "Quarter", "Month", "Week"]
+  years:number[]=[]
+  selectedInterval: string = this.chartIntervals[0];
+  selectedYear: number = new Date().getFullYear();
 
   constructor(private svc: TransporterService) {
-    Chart.register(Annotation);
   }
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  public lineChartData: ChartConfiguration['data'] = {
+  public barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: {
+      x: {},
+      y: {
+        min: 500,
+        max: 10000,
+        ticks: {
+          stepSize: 500,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      },
+    },
+  };
+  public barChartType: ChartType = 'bar';
+  public barChartPlugins = [];
+
+  public barChartData: ChartData<'bar'> = {
+    labels: [],
     datasets: [
       {
         data: [],
-        label: 'Shipment count',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
+        label: 'vehicles'
       },
     ],
-    labels: [],
   };
-
-  public lineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.5,
-      },
-    },
-    scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      y: {
-        position: 'left',
-      },
-      y1: {
-        position: 'right',
-        grid: {
-          color: 'rgba(255,0,0,0.3)',
-        },
-        // ticks: {
-        //   color: 'red',
-        // },
-      },
-    },
-
-    plugins: {
-      legend: { display: true },
-      annotation: {
-        annotations: [
-          {
-            type: 'line',
-            scaleID: 'x',
-            borderColor: 'orange',
-            borderWidth: 2,
-            label: {
-              position: 'center',
-              color: 'orange',
-              content: 'LineAnno',
-              font: {
-                weight: 'bold',
-              },
-            },
-          },
-        ],
-      },
-    },
-  };
-
-  public lineChartType: ChartType = 'line';
-
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   ngOnInit(): void {
-    this.transporterId = localStorage.getItem("transporterId")
-    this.svc.getShipmentsCount(this.transporterId).subscribe((res) => {
-      this.shipmentCount = res
-      console.log(res)
-      this.distinctYears = Array.from(new Set(this.shipmentCount.map(item => item.year)));
-      this.selectedYear = (new Date()).getFullYear();
-      for (let row in res) {
-        if (res[row].year == this.selectedYear) {
-          console.log("insid")
-          var month = res[row].monthName;
-          month = month.slice(0, 3)
-          var count = res[row].count;
-          this.lineChartData.labels?.push(month);
-          this.lineChartData.datasets[0].data.push(count)
-          console.log(this.lineChartData.labels)
-          console.log(this.lineChartData.datasets[0].data)
-        }
+    this.fetchRevenueData()
       }
-      // console.log(res)
-      // this.lineChartData.labels=this.shipmentCount.map(s=>s.monthName);
-      // this.lineChartData.datasets[0].data=this.shipmentCount.map(s=>Number(s.count));
-    });
+  
+  fetchRevenueData(){
+    this.barChartData.datasets[0].label = this.selectedInterval + ' Amount'
+    switch (this.selectedInterval) {
+
+      case "Year":
+        this.svc.getRevenueByYear().subscribe((res) => {
+          console.log(res)
+          this.barChartData.labels = res.map(item => item.year);
+          this.barChartData.datasets[0].data = res.map(item => item.amount);
+          this.years=res.map(item => item.year)
+          console.log(this.years)
+          this.selectedYear= new Date().getFullYear() ;
+        });
+        break;
+
+      case "Quarter":
+        this.svc.getRevenueByQuarter(this.selectedYear).subscribe((res) => {
+          console.log(res)
+          this.barChartData.labels = res.map(item => item.quarter);
+          this.barChartData.datasets[0].data = res.map(item => item.amount);
+
+        });
+        break;
+      case "Month":
+        this.svc.getRevenueByMonth(this.selectedYear).subscribe((res) => {
+          console.log(res)
+          this.barChartData.labels = res.map(item => item.month);
+          this.barChartData.datasets[0].data = res.map(item => item.amount);
+        });
+        break;
+
+      case "Week":
+        this.svc.getRevenueByWeek(this.selectedYear).subscribe((res) => {
+          console.log(res)
+          this.barChartData.labels = res.map(item => item.weekNumber);
+          this.barChartData.datasets[0].data = res.map(item => item.amount);
+        });
+        break;
+    }
   }
+
 }
+
