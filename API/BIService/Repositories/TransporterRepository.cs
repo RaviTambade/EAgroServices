@@ -60,6 +60,49 @@ public class TransporterRepository : ITransporterRepository
         }
         return result;
     }
+
+      public async Task<List<YearRevenue>> GetRevenueByYear(int transporterId)
+    {
+        List<YearRevenue> result = new();
+        MySqlConnection connection = new(_connectionString);
+        try
+        {
+            string query = @"SELECT YEAR(shipments.shipmentdate) AS Year,SUM(payments.amount) AS Amount
+                             FROM vehicles 
+                             INNER JOIN transporters ON vehicles.transporterid=transporters.id
+                             INNER JOIN shipments ON vehicles.id = shipments.vehicleid
+                             INNER JOIN transporterpayments ON shipments.id = transporterpayments.shipmentid
+                             INNER JOIN payments ON transporterpayments.paymentid = payments.id
+                             WHERE transporters.id =@transporterId
+                             GROUP BY YEAR(shipments.shipmentdate)";
+            MySqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@transporterId", transporterId);
+            await connection.OpenAsync();
+            using MySqlDataReader reader = command.ExecuteReader();
+            while (await reader.ReadAsync())
+            {
+                result.Add(
+                    new YearRevenue
+                    {
+                        Year = reader.GetInt32("Year"),
+                        Amount = reader.GetDouble("Amount")
+                    }
+                );
+            }
+            await reader.CloseAsync();
+            result = result.AddMissingYears();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return result;
+    }
+
     public async Task<List<int>> GetYears(int transporterId)
     {
         List<int> years = new();
