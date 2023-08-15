@@ -23,10 +23,7 @@ namespace BIService.Controllers
         }
 
         [HttpGet("revenue/quarter/{collectionCenterId:int}/{year:int}")]
-        public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(
-            int collectionCenterId,
-            int year
-        )
+        public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(int collectionCenterId,int year)
         {
             return await _srv.GetRevenuesByQuarter(collectionCenterId, year);
         }
