@@ -15,5 +15,7 @@ public class TransporterService:ITransporterService{
     await _repo.GetMonthlyRevenue(transporterId,year);
     public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(int transporterId, int year)=>
     await _repo.GetRevenuesByQuarter(transporterId,year);
+    public async Task<List<WeekRevenue>> GetRevenuesByWeek(int transporterId,int year )=>
+    await _repo.GetRevenuesByWeek(transporterId,year);
 }
 

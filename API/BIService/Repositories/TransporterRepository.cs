@@ -66,8 +66,13 @@ public class TransporterRepository : ITransporterRepository
         MySqlConnection connection = new(_connectionString);
         try
         {
-            string query = @"SELECT YEAR(shipments.shipmentdate) AS year FROM shipments GROUP BY YEAR(shipments.shipmentdate)";
+            string query = @"SELECT YEAR(shipments.shipmentdate) AS year 
+                             FROM shipments 
+                             INNER JOIN vehicles ON shipments.vehicleid=vehicles.id
+                             WHERE vehicles.transporterid=@transporterId
+                             GROUP BY YEAR(shipments.shipmentdate)";
             MySqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@transporterId", transporterId);
             await connection.OpenAsync();
             using MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
@@ -168,6 +173,47 @@ public class TransporterRepository : ITransporterRepository
             throw;
         }
         finally
+        {
+            connection.Close();
+        }
+        return result;
+    }
+    public async Task<List<WeekRevenue>> GetRevenuesByWeek(int transporterId,int year ){
+        List<WeekRevenue> result=new();
+        MySqlConnection connection=new(_connectionString);
+        try
+        {
+              string query = @"SELECT WEEK(shipments.shipmentdate,1) AS WeekNumber,SUM(payments.amount) AS Amount
+                             FROM vehicles 
+                             INNER JOIN transporters ON vehicles.transporterid=transporters.id
+                             INNER JOIN shipments ON vehicles.id = shipments.vehicleid
+                             INNER JOIN transporterpayments ON shipments.id = transporterpayments.shipmentid
+                             INNER JOIN payments ON transporterpayments.paymentid = payments.id
+                             WHERE transporters.id =@transporterId AND YEAR(shipments.shipmentdate)=@year
+                             GROUP BY WEEK(shipments.shipmentdate,1)";
+            MySqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@transporterId", transporterId);
+            command.Parameters.AddWithValue("@year", year);
+            await connection.OpenAsync();
+            using MySqlDataReader reader = command.ExecuteReader();
+            while (await reader.ReadAsync())
+            {
+                result.Add(
+                    new WeekRevenue
+                    {
+                        WeekNumber = reader.GetInt32("WeekNumber"),
+                        Amount = reader.GetDouble("Amount")
+                    }
+                );
+            }
+            await reader.CloseAsync();
+            result = result.AddMissingWeeks();
+        }
+        catch (System.Exception)
+        {    
+            throw;
+        }
+          finally
         {
             connection.Close();
         }

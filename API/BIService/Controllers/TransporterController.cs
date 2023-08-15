@@ -36,5 +36,10 @@ namespace BIService.Controllers
         {
           return await _srv.GetRevenuesByQuarter(transporterId,year);
         }
+
+        [HttpGet("revenue/week/{transporterId:int}/{year:int}")]
+        public async Task<List<WeekRevenue>> GetRevenuesByWeek(int transporterId,int year){
+            return await _srv.GetRevenuesByWeek(transporterId,year);
+        }
     }
 }
