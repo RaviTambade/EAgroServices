@@ -261,7 +261,9 @@ SELECT * FROM vehicles;
       WHERE `t`.`id` = 1 AND YEAR(`s`.`shipmentdate`)=2022
       GROUP BY MONTHNAME(`s`.`shipmentdate`);
 
-
+SELECT YEAR(shipments.shipmentdate) AS year FROM shipments 
+INNER JOIN vehicles ON shipments.vehicleid=vehicles.id
+WHERE vehicles.transporterid=1 GROUP BY YEAR(shipments.shipmentdate) ;
       SELECT COUNT(goodscollections.cropid),
       crops.title
       FROM goodscollections

@@ -24,5 +24,27 @@ namespace BIService.Controllers
         {
             return await _srv.GetYears(transporterId);
         }
+
+        [HttpGet("revenue/month/{transporterId:int}/{year:int}")]
+        public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId,int year)
+        {
+          return await _srv.GetMonthlyRevenue(transporterId,year);
+        }
+
+        [HttpGet("revenue/quarter/{transporterId:int}/{year:int}")]
+        public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(int transporterId, int year)
+        {
+          return await _srv.GetRevenuesByQuarter(transporterId,year);
+        }
+
+        [HttpGet("revenue/week/{transporterId:int}/{year:int}")]
+        public async Task<List<WeekRevenue>> GetRevenuesByWeek(int transporterId,int year){
+          return await _srv.GetRevenuesByWeek(transporterId,year);
+        }
+
+         [HttpGet("revenue/year/{transporterId:int}")]
+        public async Task<List<YearRevenue>> GetRevenueByYear(int transporterId){
+          return await _srv.GetRevenueByYear(transporterId);
+        }
     }
 }
