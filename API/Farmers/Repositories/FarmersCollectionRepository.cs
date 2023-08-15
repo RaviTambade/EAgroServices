@@ -204,7 +204,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         orderby g.Key
                         select new Revenue()
                         {
-                             InvoiceDate = g.Key.ToString(),
+                             Year = g.Key,
                           TotalAmount = g.Sum(item => item.invoice.TotalAmount)
                            
                         }
