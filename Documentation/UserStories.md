@@ -11,10 +11,15 @@
 
 - As a registered user, I want to create account with various roles(transporter,farmer,merchant) so that I can use system efficiently.
 
-- As a signed-in user, I want to have the option to update my profile details such as my name, contact information,and other relevant information. This will help me keep my profile information accurate and up- to- date.
-- As a signed-in user, I want to be able to update my profile picture by selecting an image from my device or capturing a new photo using my device's camera. This will allow me to personalize my account and have a recognizable image associated with my profile across the platform.
+- As a registered user, I want to remember my login credentials, so that I don't have to log in again every time I visit the application.
 
-- As a user ,I want to add or update corporate details if I am collection manager,merchant,transporter so that they can easily mentain the corporates details
+- As a registered user, I want to create account with various roles(transporter,farmer,merchant), so that I can use system efficiently.
+
+- As a signed-in user, I want to update my profile details,so that It will help me keep my profile information accurate and up-to-date.
+
+- As a signed-in user, I want to change credentials of Account , so that I can keep it secure.
+
+
 
 
 - As a collection manager, I want to add new collections gathered at the collection center so that I can accurately record for further processing .
@@ -40,6 +45,8 @@ so that I can add collection for shipment.
 
 - As a collection manager, I want to see revenue charts based on specific time  (yearly, quarterly, monthly, weekly) so that I can analyze my income.
     
+- As a merchant, I want to view reports for different time frames (yearly, quarterly, monthly, weekly) so that I can identify trends and areas for business enhancement.
+
 - As a merchant, I want to  view a list of shipments sent from various collection centers so that I can track the movement of goods collections.
 
 - As a merchant, I want to have the ability to remove a collection from a shipment,so that I can maintain the quality of the shipments I manage.
@@ -49,7 +56,31 @@ so that I can add collection for shipment.
 - As a merchant, I want to categorize delivered shipments into "paid delivered" and "unpaid delivered" so that I can easily track the shipments .
 
 - As a merchant, I want to access a record of all past collections, so that I can Make business related decisions .
+
 - As a merchant, I want the ability to set and adjust collection rates for different,so that I can manage pricing based on market conditions.
+
+- As a merchant, I want  to change the status of a shipment (e.g.,inprogress, delivered), so that I can keep all stakeholders informed about the progress.
+
+- As a merchant, I want to categorize delivered shipments into "paid delivered" and "unpaid delivered" so that I can easily track the shipments .
+
+- As a merchant, I want to view records of all past collections, so that I can Make business related decisions .
+
+- As a merchant, I want to set and adjust goods rates of collections,so that I can manage pricing based on market conditions.
+
+- As a merchant, I want to initiate  payments using account- to- account transfers or UPI ,so that I can enhance financial transaction efficiency.
+
+- As a merchant, I want to easily access my bank account statement so that I can track my business transactions.
+
+- As a merchant, I want to search and filter my bank account statement based on criteria like account numbers or transaction dates. so that I can quickly locate specific transactions.
+
+- As a merchant, I want to make payments to transporters for their services, so I can reduce need of third party application.
+
+- As a merchant, I want to filter a payment history by
+a specific  transporter, collection center and farmer, so that I can find specific financial records.
+
+- As a merchant, I want the ability to make payments to farmers and collection centers for the goods they provide , so that I can reduce need of third party application.
+
+- As a merchant, I want to search and filter collection invoices  so that I can quickly find specific ones.
 
 - As a merchant, I want to initiate  payments using account- to- account transfers or UPI ,so that I can enhance financial transaction efficiency.
 
@@ -87,20 +118,52 @@ analyze my business.
 - As a transporter,I want to view my payment against an each shipment, so that I analyze my financial bank statements.
 
                                                          *************
-                                                         *************
 - As a farmer, I want to view a dashboard that displays my current orders, pending shipments, and completed transactions, allowing me to manage my sales effectively.
 
 - As a farmer ,I want to the dashboard should display an overview of recent collections and their status so that farmer can updated with his resent collection.
+
 - As a farmer ,I want to  the ability to view detailed information about each collection so that farmer can access the details of each collection.
+
 - As a farmer ,I want to the information to be displayed includes the collection date, collection center details, and the total amount of goods collected so that farme will able to see the date wise collection details.
+
 - As a farmer ,I want to the system should allow filtering and searching for specific collection records so that the farmer can access the collection with search by date or crop name etc.
+
 - As a farmer ,I want to the system should send notifications to farmers about collection status updates, verifications, and deliveries so that the farmer is informed with his collection status.
+
 - As a farmer I want the dashboard should display the average rates of goods in the market for the current day so that farmer can see the current rates of crops.
+
 - As a farmer,I wants to access of (yearly,quarterly,monthly,weekly)for the charts to display on the dashboard revenue so that farmer can see the average collection of week,month,year,quarter.
+
 - As a farmer,I wants to access of my all verifiedgoodscollection details list so that farmer can access the verifiedcollection list it can be sorted by using search with grade,crope & date .
+
 - As a farmer, I wants to able to view a list of their collections, each with its associated payment details so that the farmer can see their payments against the verifiedcollections.
+
 - As a farmer,I want collection details with his payment details with grade.
+
 - As a farmer ,I wants to see payments against the verifiedcollection .
+
+- As a farmer, I want to the dashboard should display an overview of recent collections and their status so that farmer can updated with his recent collection.
+
+- As a farmer, I want to view  revenue charts so that I can analyze financial activities.
+
+- As a farmer, I want the dashboard should display the average rates of goods in the market for the current day so that farmer can see the current rates of crops.
+
+- As a farmer, I want to see my history of collection list  so that I can make buissness decison based on it .
+
+- As a farmer, I want to  the ability to view detailed information about each collection so that farmer can access the details of each collection.
+
+- As a farmer, I want to filtering and searching for collection records so that I can find specific collections.
+
+- As a farmer, I want to send notifications to farmers about collection status updates, verifications, and deliveries so that the farmer is informed with his collection status.
+
+- As a farmer, I want to view of  the charts to display on the dashboard  so that I can analyze my activity.
+
+- As a farmer, I want to view list of verifiedgoodscollections  so that I can see the quality and quantity of goods.
+
+- As a farmer, I want to view the charges details of a collection so that I can analyze how many charges are applied.  
+
+- As a farmer, I want to  view a list of payment details so that I can see payments of goodscollection.
+
 
 
 
