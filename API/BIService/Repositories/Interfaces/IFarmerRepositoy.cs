@@ -5,7 +5,7 @@ namespace BIService.Repositories.Interfaces
     {
         Task<List<YearRevenue>> GetRevenuesByYear(int FarmerId);
         Task<List<QuarterRevenue>> GetRevenuesByQuarter(int FarmerId,int year );
-        // Task<List<MonthRevenue>> GetRevenuesByMonth(int FarmerId,int year );
-        // Task<List<WeekRevenue>> GetRevenuesByWeek(int FarmerId,int year );
+         Task<List<MonthRevenue>> GetRevenuesByMonth(int FarmerId,int year );
+         Task<List<WeekRevenue>> GetRevenuesByWeek(int FarmerId,int year );
 }
 }

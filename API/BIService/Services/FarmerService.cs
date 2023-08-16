@@ -21,5 +21,14 @@ namespace BIService.Services
         {
             return await _repo.GetRevenuesByQuarter(farmerId, year);
         }
+         public async Task<List<MonthRevenue>> GetRevenuesByMonth(int farmerId, int year)
+        {
+            return await _repo.GetRevenuesByMonth(farmerId, year);
+        }
+
+         public async Task<List<WeekRevenue>> GetRevenuesByWeek(int farmerId, int year)
+        {
+            return await _repo.GetRevenuesByWeek(farmerId, year);
+        }
         }
         }

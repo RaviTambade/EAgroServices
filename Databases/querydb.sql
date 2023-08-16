@@ -300,4 +300,11 @@ SELECT * FROM collectioncenters;
                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
                 WHERE goodscollections. farmerid =2 AND YEAR(invoices.invoicedate) = 2023
                 GROUP BY QUARTER(invoices. invoicedate)
-                ORDER BY QUARTER(invoices. invoicedate) ASC
+                ORDER BY QUARTER(invoices. invoicedate) ASC;
+
+               SELECT  MONTH(invoices. invoicedate) AS Month, SUM(invoices.totalamount) AS Amount
+                FROM invoices 
+                JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+                JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+                WHERE goodscollections. farmerid =@farmerId AND YEAR(invoices. invoicedate) = @year
+                 GROUP BY  MONTH(invoices. invoicedate) ORDER BY MONTH(invoices. invoicedate) ASC 
