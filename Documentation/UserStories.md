@@ -13,18 +13,34 @@
 
 - As a signed-in user, I want to have the option to update my profile details such as my name, contact information,and other relevant information. This will help me keep my profile information accurate and up- to- date.
 - As a signed-in user, I want to be able to update my profile picture by selecting an image from my device or capturing a new photo using my device's camera. This will allow me to personalize my account and have a recognizable image associated with my profile across the platform.
+
 - As a user ,I want to add or update corporate details if I am collection manager,merchant,transporter so that they can easily mentain the corporates details
 
 
-- As a collection manager, I want to be able to add new collections gathered at the collection center so that I can accurately record   for further processing .
-- As a collection manager, I want to review and verify the added collections so that I can ensure that the quality standards are met before allowing the collections to proceed to the shipment phase.
-- As a collection manager, I want the ability to edit details of collected collections so that I can make necessary corrections or updates in case of inaccuracies, ensuring that our data remains precise.
-- As a collection manager, I want the option to remove collected collections from the system if there are issues with them, maintaining accurate records and data integrity.
-- As a collection manager, once I've verified a collection for Grade and Weight, I want it to automatically proceed to the shipment phase so that the validated collections can be dispatched in shipment phase for delivery, optimizing efficiency.
-- As a collection manager, when a verified collection is ready for shipment, I want the system to check if a vehicle is available. If not, I want the system to allow me to create a new shipment so that our collections can be transported in a timely manner.
+- As a collection manager, I want to add new collections gathered at the collection center so that I can accurately record for further processing .
+
+- As a collection manager, I want to review and verify the added collections so that I can ensure that the quality standards.
+
+- As a collection manager, I want to edit details of collected collections so that I can make necessary corrections or updates.
+
+- As a collection manager, I want the option to remove collected collections so that I can maintain accurate records and data.
+
+- As a collection manager, once I've verified a collection it should be ready for shipment so that I can proceed that collection to shipment phase .
+
+- As a collection manager when a collection is ready for shipment,I want to check if vehicle is available for transportation so that I can add into it.
+
+- As a collection manager,I want to assign new vehicle for shipment if there vehicle is not available
+so that I can add collection for shipment.
+
+
+ I can add it in shipment so that i can transport it, I want the system to check if a vehicle is available.
+
+ If not, I want the system to allow me to create a new shipment so that our collections can be transported in a timely manner.
+
 - As a collection manager, I want to ensure that the collections added to shipments are listed in the shipments' record so that I can have a clear overview of what is being transported, aiding in accurate monitoring and coordination.
 - As a collection manager, I want the ability to sort and filter collections based on different properties such as the farmer's name, crop type, container used, and date collected so that I can organize data effectively and gain insights for decision- making.
 - As a collection manager, I want to access a history of all collections for reference so that I can review past activities, identify trends, and make informed decisions based on historical data.
+
 - As a collection manager, I want to generate charts and reports based on specific time frames (yearly, quarterly, monthly, weekly) so that I can visualize collection patterns and trends during different periods, facilitating data- driven decisions.
 
 - As a merchant, I want to  view a list of shipments sent from various collection centers so that I can track the movement of goods collections.
@@ -38,7 +54,7 @@
 - As a merchant, I want to search and filter my bank account statement based on criteria like account numbers or transaction dates. so that I can quickly locate specific transactions.
 - As a merchant, I want to make payments to transporters for their services, so I can reduce need of third party application.
 - As a merchant, I want to filter a payment history by transporter, collection center and farmer, so that I can find specific financial records.
-- As a merchant, I want to create reports for different time frames (yearly, quarterly, monthly, weekly) so that I can identify trends and areas for business enhancement.
+- As a merchant, I want to view reports for different time frames (yearly, quarterly, monthly, weekly) so that I can identify trends and areas for business enhancement.
 - As a merchant, I want the ability to make payments to farmers and collection centers for the collections they provide , so that I can reduce need of third party application.
 - As a merchant, I want to search and filter collection invoices  so that I can quickly locate specific ones.
 
