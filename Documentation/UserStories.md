@@ -116,14 +116,22 @@ analyze my business.
 
                                                          *************
 
--As a farmer, I want to the dashboard should display an overview of recent collections and their status so that farmer can updated with his recent collection.
+-As a farmer, I want to the dashboard should display an overview of recent collections and their status, so that I can stay updated.
+
 -As a farmer, I want to view  revenue charts so that I can analyze financial activities.
--As a farmer, I want the dashboard should display the average rates of goods in the market for the current day so that farmer can see the current rates of crops.
--As a farmer, I want to see my history of collection list  so that I can make buissness decison based on it 
--As a farmer, I want to  the ability to view detailed information about each collection so that farmer can access the details of each collection.
--As a farmer, I want to filtering and searching for collection records so that I can find specific collections.
--As a farmer, I want to send notifications to farmers about collection status updates, verifications, and deliveries so that the farmer is informed with his collection status.
--As a farmer, I want to view of  the charts to display on the dashboard  so that I can analyze my activity.
+
+-As a farmer, I want the dashboard should display the average rates of goods in the market for the current day, so that I can see the current rates of crops.
+
+-As a farmer, I want to see my history of collection list,  so that I can make buissness decison based on it .
+
+-As a farmer, I want to filtering and searching for collection records, so that I can find specific collections.
+
+-As a farmer, I want to send notifications to farmers about collection status updates, verifications, and deliveries ,so that the farmer is informed with his collection status.
+
+-As a farmer, I want to view the charts to display on the dashboard ,so that I can analyze my activity.
+
 -As a farmer, I want to view list of verifiedgoodscollections  so that I can see the quality and quantity of goods.
--As a farmer, I want to view the charges details of a collection so that I can analyze how many charges are applied.  
--As a farmer, I want to  view a list of payment details so that I can see payments of goodscollection.
+
+-As a farmer, I want to view the charges details of a collection so that I can analyze how many charges are applied. 
+ 
+-As a farmer, I want to  view a list of payment details so that I can see payments for goods collections.
