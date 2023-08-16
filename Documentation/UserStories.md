@@ -8,13 +8,15 @@
 - As a registered user, I want to be able to log in to my account using my mobile number and password, so that I can access account.
 - As a registered user, I want to reset my forgotten password , so that I can regain access to my account.
 - As a registered user, I want to see appropriate error messages if I enter incorrect login credentials, guiding me to provide accurate information.
-- As a registered user, I want the system to remember my login credentials, so that I don't have to log in again every time I visit the application.
-- As a registered user, I want to create account with various roles(transporter,farmer,merchant) so that I can use system efficiently.
+- As a registered user, I want to remember my login credentials, so that I don't have to log in again every time I visit the application.
+- As a registered user, I want to create account with various roles(transporter,farmer,merchant), so that I can use system efficiently.
 
-- As a signed-in user, I want to have the option to update my profile details such as my name, contact information,and other relevant information. This will help me keep my profile information accurate and up- to- date.
-- As a signed-in user, I want to be able to update my profile picture by selecting an image from my device or capturing a new photo using my device's camera. This will allow me to personalize my account and have a recognizable image associated with my profile across the platform.
+- As a signed-in user, I want to update my profile details,so that It will help me keep my profile information accurate and up-to-date.
 
-- As a user ,I want to add or update corporate details if I am collection manager,merchant,transporter so that they can easily mentain the corporates details
+- As a signed-in user, I want to change credentials of Account , so that I can keep it secure.
+
+
+
 
 
 - As a collection manager, I want to add new collections gathered at the collection center so that I can accurately record for further processing .
