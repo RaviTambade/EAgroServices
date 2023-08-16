@@ -43,20 +43,23 @@ so that I can add collection for shipment.
 
 - As a collection manager, I want to generate charts and reports based on specific time frames (yearly, quarterly, monthly, weekly) so that I can visualize collection patterns and trends during different periods, facilitating data- driven decisions.
 
+- As a merchant, I want to view reports for different time frames (yearly, quarterly, monthly, weekly) so that I can identify trends and areas for business enhancement.
 - As a merchant, I want to  view a list of shipments sent from various collection centers so that I can track the movement of goods collections.
 - As a merchant, I want to have the ability to remove a collection from a shipment,so that I can maintain the quality of the shipments I manage.
-- As a merchant, I want the capability to change the status of a shipment (e.g.,inprogress, delivered), so that I can keep all stakeholders informed about the progress.
+- As a merchant, I want  to change the status of a shipment (e.g.,inprogress, delivered), so that I can keep all stakeholders informed about the progress.
 - As a merchant, I want to categorize delivered shipments into "paid delivered" and "unpaid delivered" so that I can easily track the shipments .
-- As a merchant, I want to access a record of all past collections, so that I can Make business related decisions .
-- As a merchant, I want the ability to set and adjust collection rates for different,so that I can manage pricing based on market conditions.
+- As a merchant, I want to view records of all past collections, so that I can Make business related decisions .
+- As a merchant, I want to set and adjust goods rates of collections,so that I can manage pricing based on market conditions.
 - As a merchant, I want to initiate  payments using account- to- account transfers or UPI ,so that I can enhance financial transaction efficiency.
 - As a merchant, I want to easily access my bank account statement so that I can track my business transactions.
 - As a merchant, I want to search and filter my bank account statement based on criteria like account numbers or transaction dates. so that I can quickly locate specific transactions.
 - As a merchant, I want to make payments to transporters for their services, so I can reduce need of third party application.
-- As a merchant, I want to filter a payment history by transporter, collection center and farmer, so that I can find specific financial records.
-- As a merchant, I want to view reports for different time frames (yearly, quarterly, monthly, weekly) so that I can identify trends and areas for business enhancement.
-- As a merchant, I want the ability to make payments to farmers and collection centers for the collections they provide , so that I can reduce need of third party application.
-- As a merchant, I want to search and filter collection invoices  so that I can quickly locate specific ones.
+- As a merchant, I want to filter a payment history by
+a specific  transporter, collection center and farmer, so that I can find specific financial records.
+
+- As a merchant, I want the ability to make payments to farmers and collection centers for the goods they provide , so that I can reduce need of third party application.
+- As a merchant, I want to search and filter collection invoices  so that I can quickly find specific ones.
+
 
                                                           **********
 - As a transporter ,I want to see my already added vehicles to system, so that I can efficiently manage and track the available vehicles.
