@@ -19,9 +19,6 @@
 
 - As a signed-in user, I want to change credentials of Account , so that I can keep it secure.
 
-
-
-
 - As a collection manager, I want to add new collections gathered at the collection center so that I can accurately record for further processing .
 
 - As a collection manager, I want to review and verify the added collections so that I can ensure that the quality standards.
@@ -118,55 +115,15 @@ analyze my business.
 - As a transporter,I want to view my payment against an each shipment, so that I analyze my financial bank statements.
 
                                                          *************
-- As a farmer, I want to view a dashboard that displays my current orders, pending shipments, and completed transactions, allowing me to manage my sales effectively.
 
-- As a farmer ,I want to the dashboard should display an overview of recent collections and their status so that farmer can updated with his resent collection.
-
-- As a farmer ,I want to  the ability to view detailed information about each collection so that farmer can access the details of each collection.
-
-- As a farmer ,I want to the information to be displayed includes the collection date, collection center details, and the total amount of goods collected so that farme will able to see the date wise collection details.
-
-- As a farmer ,I want to the system should allow filtering and searching for specific collection records so that the farmer can access the collection with search by date or crop name etc.
-
-- As a farmer ,I want to the system should send notifications to farmers about collection status updates, verifications, and deliveries so that the farmer is informed with his collection status.
-
-- As a farmer I want the dashboard should display the average rates of goods in the market for the current day so that farmer can see the current rates of crops.
-
-- As a farmer,I wants to access of (yearly,quarterly,monthly,weekly)for the charts to display on the dashboard revenue so that farmer can see the average collection of week,month,year,quarter.
-
-- As a farmer,I wants to access of my all verifiedgoodscollection details list so that farmer can access the verifiedcollection list it can be sorted by using search with grade,crope & date .
-
-- As a farmer, I wants to able to view a list of their collections, each with its associated payment details so that the farmer can see their payments against the verifiedcollections.
-
-- As a farmer,I want collection details with his payment details with grade.
-
-- As a farmer ,I wants to see payments against the verifiedcollection .
-
-- As a farmer, I want to the dashboard should display an overview of recent collections and their status so that farmer can updated with his recent collection.
-
-- As a farmer, I want to view  revenue charts so that I can analyze financial activities.
-
-- As a farmer, I want the dashboard should display the average rates of goods in the market for the current day so that farmer can see the current rates of crops.
-
-- As a farmer, I want to see my history of collection list  so that I can make buissness decison based on it .
-
-- As a farmer, I want to  the ability to view detailed information about each collection so that farmer can access the details of each collection.
-
-- As a farmer, I want to filtering and searching for collection records so that I can find specific collections.
-
-- As a farmer, I want to send notifications to farmers about collection status updates, verifications, and deliveries so that the farmer is informed with his collection status.
-
-- As a farmer, I want to view of  the charts to display on the dashboard  so that I can analyze my activity.
-
-- As a farmer, I want to view list of verifiedgoodscollections  so that I can see the quality and quantity of goods.
-
-- As a farmer, I want to view the charges details of a collection so that I can analyze how many charges are applied.  
-
-- As a farmer, I want to  view a list of payment details so that I can see payments of goodscollection.
-
-
-
-
-
-
-
+-As a farmer, I want to the dashboard should display an overview of recent collections and their status so that farmer can updated with his recent collection.
+-As a farmer, I want to view  revenue charts so that I can analyze financial activities.
+-As a farmer, I want the dashboard should display the average rates of goods in the market for the current day so that farmer can see the current rates of crops.
+-As a farmer, I want to see my history of collection list  so that I can make buissness decison based on it 
+-As a farmer, I want to  the ability to view detailed information about each collection so that farmer can access the details of each collection.
+-As a farmer, I want to filtering and searching for collection records so that I can find specific collections.
+-As a farmer, I want to send notifications to farmers about collection status updates, verifications, and deliveries so that the farmer is informed with his collection status.
+-As a farmer, I want to view of  the charts to display on the dashboard  so that I can analyze my activity.
+-As a farmer, I want to view list of verifiedgoodscollections  so that I can see the quality and quantity of goods.
+-As a farmer, I want to view the charges details of a collection so that I can analyze how many charges are applied.  
+-As a farmer, I want to  view a list of payment details so that I can see payments of goodscollection.
