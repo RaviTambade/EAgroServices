@@ -1,7 +1,39 @@
+<div class="user-profile-icon" style="height: 50%; width: 50%;">
+  <span class="fa fa-user-circle">User</span>
+</div>
+<div class="user-profile-icon"  *ngIf="filename">
+  <img [src]="url + filename"  alt="User Profile">
+</div>
+<hr /><br>
+<div class="row" style="margin-bottom:15px;">
+  <div class="col-md-3">
+    <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;" multiple>
+    <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+  </div>
+  <div class="col-md-4">
+    <span class="upload" *ngIf="progress > 0">
+      {{progress}}%
+    </span>
+    <span class="upload" *ngIf="message">
+      {{message}}
+    </span>
+  </div>
+</div>
+<!-- <div>
+  <h2>Get File</h2>
+  <input type="text" placeholder="filename" [(ngModel)]="filename">
+  <button type="button" class="btn btn-success" (click)="getImage()">Get File</button>
+</div> -->
+
+<!-- <img [src]="imageToShow" *ngIf="!isImageLoading"> -->
+
 <form (ngSubmit)="addUser()">
   <div>
     <label for="aadharId">Aadhar ID:</label>
     <input type="text" id="aadharId" name="aadharId" [(ngModel)]="user.aadharId" required>
+  </div>
+  <div>
+    <input type="text" id="imageurl" name="imageurl" [(ngModel)]="user.imageurl" readonly hidden>
   </div>
   <div>
     <label for="firstName">First Name:</label>
@@ -32,7 +64,7 @@
   </div>
   <div>
     <label for="contactNumber">Contact Number:</label>
-    <input type="text" id="contactNumber" name="contactNumber" [(ngModel)]="user.contactNumber" required disabled>
+    <input type="text" id="contactNumber" name="contactNumber" [(ngModel)]="user.contactNumber" required >
   </div>
   <div>
     <button type="submit">Add User</button>

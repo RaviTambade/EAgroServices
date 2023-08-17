@@ -25,7 +25,7 @@ export class CollectionListFilterComponent implements OnInit,OnDestroy {
   pageNumber: any;
   collection = CollectionCenterFilterFor.collection;
   collectionType: CollectionListType = CollectionListType.Unverified;
-
+  
   private filterRequestSubscription: Subscription | undefined;
   private collectionsSubscription: Subscription | undefined;
   private userNamesSubscription: Subscription | undefined;
