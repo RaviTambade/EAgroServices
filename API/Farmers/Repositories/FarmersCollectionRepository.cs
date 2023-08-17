@@ -241,13 +241,15 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         join verifiedCollection in context.VerifiedGoodsCollections
                             on collection.Id equals verifiedCollection.CollectionId
                          join crop in context.Crops on collection.CropId equals crop.Id
-                        where collection.FarmerId == farmerId
-                         group new {invoice,shipmentItem,crop} by crop.Title into g
-                        orderby g.Key
+                        where collection.FarmerId == farmerId && invoice.PaymentStatus == "paid"
+                         group new {invoice,shipmentItem,crop}  by new { crop.Title, Year = invoice.InvoiceDate.Year } into g
+    orderby g.Key.Title, g.Key.Year
                         select new CropRevenue()
                         {
-                            CropName = g.Key,
+                            Year = g.Key.Year,
+                            CropName = g.Key.Title,
                           TotalAmount = g.Sum(item => item.invoice.TotalAmount)
+                          
                           
                         }
                     ).ToListAsync();

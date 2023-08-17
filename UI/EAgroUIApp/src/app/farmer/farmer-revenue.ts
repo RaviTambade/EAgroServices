@@ -1,3 +1,3 @@
 export class FarmerRevenue {
-    constructor(public monthName:string,public totalAmount:number){}
+    constructor(public cropName:string,public totalAmount:number,public year:number){}
 }

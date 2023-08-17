@@ -22,8 +22,8 @@ import { FarmerService } from '../farmer.service';
       scales: {
         x: {},
         y: {
-          min: 500,
-          max:10000,
+          min: 1000,
+          max:60000,
           ticks: {
             stepSize: 500,
           },
@@ -47,18 +47,18 @@ import { FarmerService } from '../farmer.service';
       datasets: [
         {
           data: [],
-          label: 'Monthly Revenue'
+          label: 'Total Crop Revenue'
         },
       ],
     };
   
     
     ngOnInit(): void {
-       this.farmerId = Number(localStorage.getItem("farmerId"));
-      this.svc.getMonthlyRevenue(this.farmerId).subscribe((res)=>{
+      // this.farmerId = Number(localStorage.getItem("farmerId"));
+      this.svc.getCropRevenue().subscribe((res)=>{
   this.FarmerRevenues=res
   console.log(res)
-  this.barChartData.labels=this.FarmerRevenues.map((revenues)=>revenues.monthName);
+  this.barChartData.labels=this.FarmerRevenues.map((revenues)=>revenues.cropName + " "+ revenues.year);
   this.barChartData.datasets[0].data=this.FarmerRevenues.map((revenues)=>revenues.totalAmount);
   this.barChartData.datasets[0].backgroundColor = this.getBarColors(this.FarmerRevenues.length);
       })
