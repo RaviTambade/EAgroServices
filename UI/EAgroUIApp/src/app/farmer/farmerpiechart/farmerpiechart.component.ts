@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { FarmerRevenue } from '../farmer-revenue';
 import { FarmerService } from '../farmer.service';
+import { YearRevenue } from 'src/app/year-revenue';
 
 @Component({
   selector: 'app-farmerpiechart',
@@ -11,7 +11,7 @@ import { FarmerService } from '../farmer.service';
 })
 export class FarmerpiechartComponent implements OnInit {
   farmerId: any;
-  farmerRevenue: FarmerRevenue[] = []
+  farmerRevenue: YearRevenue[] = []
   constructor(private svc: FarmerService) { }
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -32,7 +32,7 @@ export class FarmerpiechartComponent implements OnInit {
       },
     },
   };
-  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+  public pieChartData: ChartData<'pie', number[], number | number[]> = {
     labels: [],
     datasets: [
       {
@@ -45,12 +45,12 @@ export class FarmerpiechartComponent implements OnInit {
 
   ngOnInit(): void {
     this.farmerId = Number(localStorage.getItem("farmerId"));
-    this.svc.getMonthlyRevenue(this.farmerId).subscribe((res) => {
+    this.svc.getFarmerYearlyRevenue().subscribe((res) => {
       this.farmerRevenue = res
       console.log(res)
       console.log(this.farmerId);
-      this.pieChartData.labels = this.farmerRevenue.map((revenues) => revenues.monthName);
-      this.pieChartData.datasets[0].data = this.farmerRevenue.map((revenues) => revenues.totalAmount);
+      this.pieChartData.labels = this.farmerRevenue.map((revenues) => revenues.year);
+      this.pieChartData.datasets[0].data = this.farmerRevenue.map((revenues) => revenues.amount);
     })
   }
 }

@@ -11,9 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { FarmerpiechartComponent } from './farmerpiechart/farmerpiechart.component';
 import { RevenuebarchartComponent } from './revenuebarchart/revenuebarchart.component';
 import { CropModule } from '../crop/crop.module';
+import { FarmerdashboardComponent } from './farmerdashboard/farmerdashboard.component';
 
  export const farmerRoutes: Routes = [
-  { path: 'home/:id', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   {path:'dashboard',component:FarmerpiechartComponent},
   { path: 'verifiedcollection/:id', component:VerifiedcollectionComponent },
   { path: 'collection/:id', component:GoodscollectionComponent },
@@ -27,6 +28,7 @@ import { CropModule } from '../crop/crop.module';
     InvoicedetailsComponent,
     RevenuebarchartComponent,
     FarmerpiechartComponent,
+    FarmerdashboardComponent,
   ],
   imports: [
     CommonModule,
