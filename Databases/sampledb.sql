@@ -267,6 +267,17 @@
     INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (2,22);
     INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (3,25);
     INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (4,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (5,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (6,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (7,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (8,15);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (9,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (10,15);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (11,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (12,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (13,12);
+    INSERT INTO invoices(shipmentitemid,rateperkg) VALUES (14,12);
+
 
 
 
