@@ -34,14 +34,14 @@ public class ShipmentService : IShipmentService
         return await _repo.GetInprogressShipments();
     }
 
-    public PagedList<ShippedCollection> GetShippedCollections(
+    public async Task<PagedList<ShippedCollection>> GetShippedCollections(
         int collectionCenterId,
         string shipmentStatus,
         FilterRequest request,
         int pageNumber
     )
     {
-        return _repo.GetShippedCollections(
+        return await  _repo.GetShippedCollections(
             collectionCenterId,
             shipmentStatus,
             request,

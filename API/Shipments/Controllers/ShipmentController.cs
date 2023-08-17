@@ -100,14 +100,14 @@ namespace Shipments.Controllers
         }
 
         [HttpPost("collections/{collectionCenterId}/status/{shipmentStatus}")]
-        public List<ShippedCollection> GetShippedCollections(
+        public async Task<List<ShippedCollection>> GetShippedCollections(
             int collectionCenterId,
             string shipmentStatus,
             [FromBody] FilterRequest request,
             [FromQuery] int pageNumber
         )
         {
-            var shippedCollections = _srv.GetShippedCollections(
+            var shippedCollections = await _srv.GetShippedCollections(
                 collectionCenterId,
                 shipmentStatus,
                 request,

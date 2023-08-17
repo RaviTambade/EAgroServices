@@ -52,9 +52,9 @@ namespace Invoices.Services
             return await _repo.GetCollectionCenterInvoiceDetails(collectionCenterId,invoiceId);
         }
 
-        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId)
+        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId,string status)
         {
-            return await _repo.GetCollectionCenterInvoices(collectionCenterId);
+            return await _repo.GetCollectionCenterInvoices(collectionCenterId,status);
         }
     }
 }

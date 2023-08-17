@@ -12,7 +12,7 @@ namespace Shipments.Repositories.Interfaces
         Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId);
         Task<List<InprogressShipment>> GetInprogressShipments();
 
-        PagedList<ShippedCollection> GetShippedCollections(
+        Task<PagedList<ShippedCollection>> GetShippedCollections(
             int collectionCenterId,
             string shipmentStatus,
             FilterRequest request,

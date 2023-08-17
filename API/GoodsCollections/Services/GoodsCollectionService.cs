@@ -14,13 +14,13 @@ namespace GoodsCollections.Services
             _repo = repo;
         }
 
-        public PagedList<VerifiedCollectionDetails> GetVerifiedCollections(
+        public async Task<PagedList<VerifiedCollectionDetails>> GetVerifiedCollections(
             int collectionCenterId,
             FilterRequest request,
             int pageNumber
         )
         {
-            return _repo.GetVerifiedCollections(collectionCenterId, request, pageNumber);
+            return await _repo.GetVerifiedCollections(collectionCenterId, request, pageNumber);
         }
 
         public async Task<List<string>> GetContainerTypes()
@@ -63,15 +63,14 @@ namespace GoodsCollections.Services
             return await _repo.GetUnverifiedCollectionsOfFarmer(farmerId);
         }
 
-        public PagedList<Collection> GetCollections(
+        public async Task<PagedList<Collection>> GetCollections(
             int collectionCenterId,
             FilterRequest request,
             int pageNumber,
             string type
-
         )
         {
-            return _repo.GetCollections(collectionCenterId, request, pageNumber,type);
+            return await _repo.GetCollections(collectionCenterId, request, pageNumber, type);
         }
     }
 }

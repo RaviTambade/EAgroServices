@@ -33,10 +33,10 @@ namespace Invoices.Controllers
             return await _srv.GetById(invoiceId);
         }
 
-        [HttpGet("collectionCenter/{collectionCenterId}")]
-        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId)
+        [HttpGet("collectionCenter/{collectionCenterId}/status/{status}")]
+        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId,string status)
         {
-            return await _srv.GetCollectionCenterInvoices(collectionCenterId);
+            return await _srv.GetCollectionCenterInvoices(collectionCenterId,status);
         }
 
         [HttpPost]

@@ -2,7 +2,6 @@ using GoodsCollections.Models;
 using GoodsCollections.Extensions;
 using GoodsCollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace GoodsCollections.Controllers
 {
@@ -18,14 +17,14 @@ namespace GoodsCollections.Controllers
         }
 
         [HttpPost("{collectionCenterId}")]
-        public  List<Collection>? GetCollections(
+        public async Task<List<Collection>>? GetCollections(
             int collectionCenterId,
             [FromBody] FilterRequest request,
             [FromQuery] int pageNumber,
             [FromQuery] string type="Unverified"
         )
         {
-            var collections = _srv.GetCollections(collectionCenterId, request, pageNumber,type);
+            var collections =  await _srv.GetCollections(collectionCenterId, request, pageNumber,type);
             Response.AddPaginationHeader(collections);
             return collections;
         }
@@ -67,13 +66,13 @@ namespace GoodsCollections.Controllers
         }
 
         [HttpPost("verified/collectioncenter/{collectionCenterId}")]
-        public List<VerifiedCollectionDetails>? GetVerifiedCollections(
+        public async Task<List<VerifiedCollectionDetails>>? GetVerifiedCollections(
             int collectionCenterId,
             [FromBody] FilterRequest request,
             [FromQuery] int pageNumber
         )
         {
-            var collectionDetails = _srv.GetVerifiedCollections(
+            var collectionDetails =  await _srv.GetVerifiedCollections(
                 collectionCenterId,
                 request,
                 pageNumber

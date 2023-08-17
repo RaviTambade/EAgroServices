@@ -15,7 +15,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
         _configuration = configuration;
     }
 
-    public PagedList<Collection> GetCollections(
+    public async Task<PagedList<Collection>> GetCollections(
         int collectionCenterId,
         FilterRequest request,
         int pageNumber,
@@ -65,16 +65,16 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 }
 
                 query = query.ApplyFilters(request);
-                return PagedList<Collection>.ToPagedList(query, pageNumber);
+                return  await PagedList<Collection>.ToPagedList(query, pageNumber);
             }
         }
-        catch (Exception e)
+        catch (Exception )
         {
-            throw e;
+            throw ;
         }
     }
 
-    public PagedList<VerifiedCollectionDetails> GetVerifiedCollections(
+    public async Task<PagedList<VerifiedCollectionDetails>> GetVerifiedCollections(
         int collectionCenterId,
         FilterRequest request,
         int pageNumber
@@ -110,12 +110,12 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         CollectionDate = collection.CollectionDate
                     };
                 query = query.ApplyFilters(request);
-                return PagedList<VerifiedCollectionDetails>.ToPagedList(query, pageNumber);
+                return await PagedList<VerifiedCollectionDetails>.ToPagedList(query, pageNumber);
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -126,18 +126,12 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
             using (var context = new GoodsCollectionContext(_configuration))
             {
                 var collection = await context.GoodsCollections.FindAsync(collectionId);
-
-                if (collection == null)
-                {
-                    return null;
-                }
-
                 return collection;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -153,9 +147,9 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 return status;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -180,9 +174,9 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 return status;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -202,9 +196,9 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 return status;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -260,9 +254,9 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 return farmercollections;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -298,16 +292,12 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         InspectionDate = verifiedGoodsCollection.InspectionDate
                     }
                 ).ToListAsync();
-                if (verifiedcollection == null)
-                {
-                    return null;
-                }
                 return verifiedcollection;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -349,9 +339,9 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 return collections;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Invoices.Repositories
             }
         }
 
-        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId)
+        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId,string status)
         {
             try
             {
@@ -83,7 +83,8 @@ namespace Invoices.Repositories
                         join crop in context.Crops on collection.CropId equals crop.Id
                         where
                             collection.CollectionCenterId == collectionCenterId
-                            && invoice.PaymentStatus == "paid"
+                            && invoice.PaymentStatus == status
+                        orderby invoice.InvoiceDate descending    
                         select new InvoiceDetails()
                         {
                             Id = invoice.Id,
@@ -93,22 +94,16 @@ namespace Invoices.Repositories
                             Quantity = collection.Quantity,
                             Weight = verifiedCollection.Weight,
                             RatePerKg = invoice.RatePerKg,
-                            // PaymentStatus = invoice.PaymentStatus,
                             TotalAmount = charges.ServiceCharges + charges.LabourCharges,
                             InvoiceDate = invoice.InvoiceDate
                         }
                     ).ToListAsync();
-
-                    if (invoices is null)
-                    {
-                        return null;
-                    }
                     return invoices;
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                throw e;
+                throw ;
             }
         }
 

@@ -6,12 +6,12 @@ namespace GoodsCollections.Repositories.Interfaces
     public interface IGoodsCollectionRepository
     {
         // Task<List<VerifiedCollectionDetails>> GetVerifiedCollections(int collectionCenterId);
-        PagedList<VerifiedCollectionDetails> GetVerifiedCollections(
+        Task<PagedList<VerifiedCollectionDetails>> GetVerifiedCollections(
             int collectionCenterId,
             FilterRequest request,
             int pageNumber
         );
-        PagedList<Collection> GetCollections(
+        Task<PagedList<Collection>> GetCollections(
             int collectionCenterId,
             FilterRequest request,
             int pageNumber,

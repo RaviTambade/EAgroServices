@@ -25,9 +25,9 @@ namespace Shipments.Repositories
                     return shipments;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -89,9 +89,9 @@ namespace Shipments.Repositories
                     return shipments;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -128,9 +128,9 @@ namespace Shipments.Repositories
                     return shipmentItems;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -150,9 +150,9 @@ namespace Shipments.Repositories
                     return shipment;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -180,9 +180,9 @@ namespace Shipments.Repositories
                     return transporterAmount;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -202,9 +202,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -223,9 +223,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -248,9 +248,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -280,9 +280,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -306,9 +306,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -328,9 +328,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -368,9 +368,9 @@ namespace Shipments.Repositories
                     return shipments;
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                throw e;
+                throw ;
             }
         }
 
@@ -404,13 +404,13 @@ namespace Shipments.Repositories
                     return shipments;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
-        public PagedList<ShippedCollection> GetShippedCollections(
+        public async Task<PagedList<ShippedCollection>> GetShippedCollections(
             int collectionCenterId,
             string shipmentStatus,
              FilterRequest request,
@@ -458,13 +458,13 @@ namespace Shipments.Repositories
                             ShipmentDate = shipment.ShipmentDate
                         };
                     query=query.ApplyFilters(request);
-                    return PagedList<ShippedCollection>.ToPagedList(query,pageNumber);
+                    return  await PagedList<ShippedCollection>.ToPagedList(query,pageNumber);
 
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -490,8 +490,8 @@ namespace Shipments.Repositories
                         return collectionCounts;
                 }
             }
-            catch(Exception e){
-                throw e;
+            catch(Exception){
+                throw;
             }
         }
 
@@ -514,8 +514,8 @@ namespace Shipments.Repositories
                                       return cropCounts;
             }
            }
-           catch(Exception e){
-            throw e;
+           catch(Exception){
+            throw;
            }
         }
     }
