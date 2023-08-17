@@ -39,7 +39,6 @@ export class FilterTestComponent implements OnInit {
 
   constructor(private filterservice: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService) { }
 
-
   ngOnInit(): void {
     this.filterservice.getTotalPages().subscribe((toatalPages) => {
       this.genratePageNumbers(toatalPages);
@@ -114,7 +113,6 @@ export class FilterTestComponent implements OnInit {
     filteredRequest.sortAscending = filterRequest.sortAscending;
     return filteredRequest;
   }
-
 
 
   getCollections(filterFor: string) {

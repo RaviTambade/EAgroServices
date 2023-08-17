@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { UserlogoutComponent } from './userlogout/userlogout.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const userRoute:Routes=[
@@ -28,6 +29,7 @@ const userRoute:Routes=[
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forChild(userRoute)
     
   ],

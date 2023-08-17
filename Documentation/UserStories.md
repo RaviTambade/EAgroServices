@@ -72,8 +72,7 @@ so that I can add collection for shipment.
 
 - As a merchant, I want to make payments to transporters for their services, so I can reduce need of third party application.
 
-- As a merchant, I want to filter a payment history by
-a specific  transporter, collection center and farmer, so that I can find specific financial records.
+- As a merchant, I want to filter a payment history by a specific  transporter, collection center and farmer, so that I can find specific financial records.
 
 - As a merchant, I want the ability to make payments to farmers and collection centers for the goods they provide , so that I can reduce need of third party application.
 
@@ -122,7 +121,7 @@ analyze my business.
 
 -As a farmer, I want the dashboard should display the average rates of goods in the market for the current day, so that I can see the current rates of crops.
 
--As a farmer, I want to see my history of collection list,  so that I can make buissness decison based on it .
+-As a farmer, I want to see my history of collection list,  so that I can make business decision based on it .
 
 -As a farmer, I want to filtering and searching for collection records, so that I can find specific collections.
 
@@ -130,8 +129,8 @@ analyze my business.
 
 -As a farmer, I want to view the charts to display on the dashboard ,so that I can analyze my activity.
 
--As a farmer, I want to view list of verifiedgoodscollections  so that I can see the quality and quantity of goods.
+-As a farmer, I want to view list of verified goods so that I can see the quality and quantity of goods.
 
 -As a farmer, I want to view the charges details of a collection so that I can analyze how many charges are applied. 
  
--As a farmer, I want to  view a list of payment details so that I can see payments for goods collections.
+-As a farmer, I want to view a list of payment details so that I can see payments against goods collections.

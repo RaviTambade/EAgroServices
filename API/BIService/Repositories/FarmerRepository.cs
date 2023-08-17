@@ -67,7 +67,7 @@ namespace BIService.Repositories{
         try
         {
             string query =
-                @" SELECT QUARTER(invoices. invoicedate) AS Quarter, SUM(invoices.totalamount) AS Amount
+                @"SELECT QUARTER(invoices. invoicedate) AS Quarter, SUM(invoices.totalamount) AS Amount
                 FROM invoices 
                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
