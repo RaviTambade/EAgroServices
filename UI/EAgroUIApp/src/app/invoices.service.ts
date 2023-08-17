@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { Invoice } from './merchant/invoice';
 import { InvoiceDetails } from './merchant/invoice-details';
 import { CollectionCenterInvoiceDetails } from './collectioncenter/collection-center-invoice-details';
+import { FilterRequest } from './Shared/filter/filter-request';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +29,11 @@ export class InvoicesService {
     return this.http.patch<boolean>(url, body);
   }
 
-  getCollectionCenterInvoices(): Observable<Invoice[]> {
+  getCollectionCenterInvoices(filterRequest: FilterRequest, pageNumber: number,status:string): Observable<HttpResponse<any>> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5197/api/invoices/collectionCenter/" + collectionCenterId;
-    return this.http.get<Invoice[]>(url);
-  }
+    let url = "http://localhost:5197/api/invoices/collectionCenter/" + collectionCenterId+"/status/"+status;
+    const params = new HttpParams().set('pageNumber', pageNumber.toString());
+    return this.http.post<any[]>(url, filterRequest, { params: params, observe: 'response' });  }
 
   getCollectionCenterInvoicDetails(invoiceId:number): Observable<CollectionCenterInvoiceDetails> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");

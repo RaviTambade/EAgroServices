@@ -55,7 +55,8 @@ export const collectionCenterRoutes: Routes = [
   exports:[
     CollectionVerificationComponent,
     CollectionListComponent,
-    CollectionShipmentListComponent
+    CollectionShipmentListComponent,
+    CollectionPaymentListComponent
   ],
   providers:[
     CorporateService,

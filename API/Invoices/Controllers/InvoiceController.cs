@@ -1,3 +1,4 @@
+using Invoices.Extensions;
 using Invoices.Models;
 using Invoices.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +34,17 @@ namespace Invoices.Controllers
             return await _srv.GetById(invoiceId);
         }
 
-        [HttpGet("collectionCenter/{collectionCenterId}/status/{status}")]
-        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId,string status)
+        [HttpPost("collectionCenter/{collectionCenterId}/status/{status}")]
+        public async Task<List<CollectionCenterInvoice>> GetCollectionCenterInvoices(
+            int collectionCenterId,
+            string status,
+            [FromBody] FilterRequest request,
+            [FromQuery] int pageNumber
+        )
         {
-            return await _srv.GetCollectionCenterInvoices(collectionCenterId,status);
+            var invoices= await _srv.GetCollectionCenterInvoices(collectionCenterId, status,request,pageNumber);
+            Response.AddPaginationHeader(invoices);
+            return invoices;
         }
 
         [HttpPost]
