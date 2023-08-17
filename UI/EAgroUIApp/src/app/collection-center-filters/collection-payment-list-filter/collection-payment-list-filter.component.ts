@@ -8,16 +8,25 @@ import { CorporateService } from 'src/app/corporate.service';
 import { InvoicesService } from 'src/app/invoices.service';
 import { Invoice } from 'src/app/merchant/invoice';
 
+enum PaymentListType {
+  Paid = "paid",
+  Unpaid = "unpaid"
+}
 @Component({
   selector: 'app-collection-payment-list-filter',
   templateUrl: './collection-payment-list-filter.component.html',
   styleUrls: ['./collection-payment-list-filter.component.css']
 })
+
 export class CollectionPaymentListFilterComponent implements OnInit,OnDestroy {
+  PaymentListType=PaymentListType;
+  
   collectionInvoices: Invoice[] = [];
   collectionPayments = CollectionCenterFilterFor.collectionPayments;
   filterRequest:any;
   pageNumber: number=1;
+
+  paymentStatus=PaymentListType.Unpaid;
 
   private filterRequestSubscription: Subscription | undefined;
   private invoicesSubscription: Subscription | undefined;
@@ -30,8 +39,18 @@ export class CollectionPaymentListFilterComponent implements OnInit,OnDestroy {
     this.filterRequestSubscription =  this.filtersvc.getCollectionPaymentListFilterRequest().subscribe((res) => {
       this.filterRequest = res.request;
       this.pageNumber = res.pageNumber;
-      this.fetchData(this.filterRequest, this.pageNumber,"paid");
+      this.fetchInvoices();
     });
+  }
+
+  onFetchInvoicesClick(paymentStatus: PaymentListType) {
+    this.paymentStatus = paymentStatus;
+    this.fetchInvoices();
+  }
+
+  fetchInvoices() {
+    const type: string = this.paymentStatus === PaymentListType.Unpaid ? PaymentListType.Unpaid : PaymentListType.Paid;
+    this.fetchData(this.filterRequest, this.pageNumber, type);
   }
 
   fetchData(filterRequest: any, pageNumber: number,status:string) {
