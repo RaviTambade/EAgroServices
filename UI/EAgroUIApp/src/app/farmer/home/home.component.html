@@ -1,4 +1,25 @@
 
-<app-farmerdashboard></app-farmerdashboard>
-<app-farmerpiechart></app-farmerpiechart>
-<app-revenuebarchart></app-revenuebarchart>
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="card farmer-dashboard-card">
+              <div class="card-body">
+                <app-farmerdashboard></app-farmerdashboard>
+              </div>
+            </div>
+            <div class="card pie-chart-card mt-12">
+              <div class="card-body">
+                <app-farmerpiechart></app-farmerpiechart>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card crops-details-card">
+              <div class="card-body overflow-auto" style="max-height: 1020px;">
+                <app-cropsdetails></app-cropsdetails>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      

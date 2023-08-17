@@ -279,6 +279,7 @@ WHERE vehicles.transporterid=1 GROUP BY YEAR(shipments.shipmentdate) ;
       SELECT * FROM goodscollections;
       SELECT * FROM merchants;
 SELECT * FROM shipments;
+SELECT * FROM crops;
       SELECT * FROM payments;
       SELECT * FROM invoices;
       SELECT * FROM shipmentitems;
