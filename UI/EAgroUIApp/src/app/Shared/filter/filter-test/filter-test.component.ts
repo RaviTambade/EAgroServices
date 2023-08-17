@@ -1,10 +1,10 @@
-import { HttpResponse } from '@angular/common/http';
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { FiltersService } from '../filters.service';
 import { FilterRequest } from '../filter-request';
 import { CollectionService } from 'src/app/collection-service.service';
 import { UserService } from '../../users/user.service';
 import { CollectionCenterFilterFor } from '../collection-center-filter-for';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { CollectionCenterFilterFor } from '../collection-center-filter-for';
   templateUrl: './filter-test.component.html',
   styleUrls: ['./filter-test.component.css']
 })
-export class FilterTestComponent implements OnInit {
+export class FilterTestComponent implements OnInit, OnDestroy {
 
   @Input() collections: any[] = [];
   @Input() filterFor!: string
@@ -20,6 +20,7 @@ export class FilterTestComponent implements OnInit {
   collection = CollectionCenterFilterFor.collection;
   verifiedCollection = CollectionCenterFilterFor.verifiedCollection;
   shippedCollection = CollectionCenterFilterFor.shippedCollection;
+  collectionPayments = CollectionCenterFilterFor.collectionPayments;
 
   filterRequest: FilterRequest = {
     equalFilters: [],
@@ -36,14 +37,14 @@ export class FilterTestComponent implements OnInit {
   dateClickStatus: boolean = false;
   rangeClickStatus: boolean = false;
 
-
+  private totalPagesSubscription: Subscription | undefined;
   constructor(private filterservice: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService) { }
+ 
 
 
   ngOnInit(): void {
-    this.filterservice.getTotalPages().subscribe((toatalPages) => {
-      this.genratePageNumbers(toatalPages);
-      console.log("processed data")
+    this.totalPagesSubscription = this.filterservice.getTotalPages().subscribe((totalPages) => {
+      this.genratePageNumbers(totalPages);
     });
 
     let prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
@@ -87,7 +88,7 @@ export class FilterTestComponent implements OnInit {
       sortAscending: false
     };
     this.getCollections(this.filterFor);
-    
+
   }
 
   removeDefaultValues(filterRequest: FilterRequest): FilterRequest {
@@ -139,6 +140,10 @@ export class FilterTestComponent implements OnInit {
       case CollectionCenterFilterFor.shippedCollection:
         this.filterservice.sendShippedCollectionFilterRequest(filterRequest, this.pageNumber);
         break;
+
+      case CollectionCenterFilterFor.collectionPayments:
+        this.filterservice.sendCollectionPaymentListFilterRequest(filterRequest, this.pageNumber);
+        break;
     }
 
 
@@ -180,7 +185,14 @@ export class FilterTestComponent implements OnInit {
   }
 
   genratePageNumbers(totalPages: number) {
+    console.log("processed data")
+    console.log(totalPages)
     this.pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+  ngOnDestroy(): void {
+    if (this.totalPagesSubscription) {
+      this.totalPagesSubscription.unsubscribe();
+    }
   }
 
 }

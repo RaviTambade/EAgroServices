@@ -2,6 +2,7 @@ using Invoices.Services.Interfaces;
 using Invoices.Repositories.Interfaces;
 using Invoices.Models;
 using ZstdNet;
+using Invoices.Extensions;
 
 namespace Invoices.Services
 {
@@ -49,12 +50,22 @@ namespace Invoices.Services
             int invoiceId
         )
         {
-            return await _repo.GetCollectionCenterInvoiceDetails(collectionCenterId,invoiceId);
+            return await _repo.GetCollectionCenterInvoiceDetails(collectionCenterId, invoiceId);
         }
 
-        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId,string status)
+        public async Task<PagedList<CollectionCenterInvoice>> GetCollectionCenterInvoices(
+            int collectionCenterId,
+            string status,
+            FilterRequest request,
+            int pageNumber
+        )
         {
-            return await _repo.GetCollectionCenterInvoices(collectionCenterId,status);
+            return await _repo.GetCollectionCenterInvoices(
+                collectionCenterId,
+                status,
+                request,
+                pageNumber
+            );
         }
     }
 }

@@ -2,6 +2,7 @@ using Invoices.Models;
 using Invoices.Repositories.Interfaces;
 using Invoices.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Invoices.Extensions;
 
 namespace Invoices.Repositories
 {
@@ -61,13 +62,18 @@ namespace Invoices.Repositories
             }
         }
 
-        public async Task<List<InvoiceDetails>> GetCollectionCenterInvoices(int collectionCenterId,string status)
+        public async Task<PagedList<CollectionCenterInvoice>> GetCollectionCenterInvoices(
+            int collectionCenterId,
+            string status,
+            FilterRequest request,
+            int pageNumber
+        )
         {
             try
             {
                 using (var context = new InvoiceContext(_configuration))
                 {
-                    var invoices = await (
+                    var query =
                         from invoice in context.Invoices
                         join shipmentItem in context.ShipmentItems
                             on invoice.ShipmentItemId equals shipmentItem.Id
@@ -84,8 +90,8 @@ namespace Invoices.Repositories
                         where
                             collection.CollectionCenterId == collectionCenterId
                             && invoice.PaymentStatus == status
-                        orderby invoice.InvoiceDate descending    
-                        select new InvoiceDetails()
+                        orderby invoice.InvoiceDate descending
+                        select new CollectionCenterInvoice()
                         {
                             Id = invoice.Id,
                             MerchantCorporateId = merchant.CorporateId,
@@ -96,14 +102,14 @@ namespace Invoices.Repositories
                             RatePerKg = invoice.RatePerKg,
                             TotalAmount = charges.ServiceCharges + charges.LabourCharges,
                             InvoiceDate = invoice.InvoiceDate
-                        }
-                    ).ToListAsync();
-                    return invoices;
+                        };
+                    query = query.ApplyFilters(request);
+                    return await PagedList<CollectionCenterInvoice>.ToPagedList(query, pageNumber);
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
-                throw ;
+                throw;
             }
         }
 
