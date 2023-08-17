@@ -5,11 +5,13 @@ import { VeifiedCollectionListFilterComponent } from './veified-collection-list-
 import { FilterModule } from '../Shared/filter/filter.module';
 import { Routes } from '@angular/router';
 import { CollectionShipmentFilterListComponent } from './collection-shipment-filter-list/collection-shipment-filter-list.component';
+import { CollectionPaymentListFilterComponent } from './collection-payment-list-filter/collection-payment-list-filter.component';
 
 export const collectionCenterFilterRoutes: Routes = [
   { path: 'collections', component: CollectionListFilterComponent },
   { path: 'verifiedcollections', component: VeifiedCollectionListFilterComponent },
   { path: 'shipments', component: CollectionShipmentFilterListComponent },
+  { path: 'payment', component: CollectionPaymentListFilterComponent },
 ]
 
 
@@ -17,7 +19,8 @@ export const collectionCenterFilterRoutes: Routes = [
   declarations: [
     CollectionListFilterComponent,
     VeifiedCollectionListFilterComponent,
-    CollectionShipmentFilterListComponent
+    CollectionShipmentFilterListComponent,
+    CollectionPaymentListFilterComponent
   ],
   imports: [
     CommonModule,

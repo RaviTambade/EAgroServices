@@ -15,10 +15,12 @@ type requestObject = {
 })
 export class FiltersService {
 
+  
   private toatalPages = new Subject<number>();
   private verifiedCollectionFilterRequestSender = new Subject<requestObject>();
   private CollectionFilterRequestSender = new Subject<requestObject>();
   private ShippedCollectionFilterRequestSender = new Subject<requestObject>();
+  private collectionPaymentListFilterRequestSender = new Subject<requestObject>();
 
   constructor(private http: HttpClient) { }
 
@@ -54,6 +56,14 @@ export class FiltersService {
     return this.CollectionFilterRequestSender.asObservable();
   }
 
+  sendCollectionPaymentListFilterRequest(filterRequest: FilterRequest, pageNumber: number) {
+    this.collectionPaymentListFilterRequestSender.next({ request: filterRequest, pageNumber: pageNumber });
+  }
+
+  getCollectionPaymentListFilterRequest() {
+    return this.collectionPaymentListFilterRequestSender.asObservable();
+  }
+
 
   getCrops(): Observable<any> {
     let url = "http://localhost:5250/api/crops/names"
@@ -85,6 +95,10 @@ export class FiltersService {
         url = "http://localhost:5067/api/shippedcollections/filterhelper/getpropertynames"
         break;
 
+      case CollectionCenterFilterFor.collectionPayments:
+        url = "http://localhost:5197/api/collectioncenterinvoice/filterhelper/getpropertynames"
+        break;
+
     }
     return this.http.get<any>(url);
 
@@ -103,6 +117,9 @@ export class FiltersService {
       case CollectionCenterFilterFor.shippedCollection:
         url = "http://localhost:5067/api/shippedcollections/filterhelper/getequalproperties"
         break;
+      case CollectionCenterFilterFor.collectionPayments:
+        url = "http://localhost:5197/api/collectioncenterinvoice/filterhelper/getequalproperties"
+        break;
     }
     return this.http.get<any>(url);
   }
@@ -119,6 +136,9 @@ export class FiltersService {
       case CollectionCenterFilterFor.shippedCollection:
         url = "http://localhost:5067/api/shippedcollections/filterhelper/getrangeproperties"
         break;
+      case CollectionCenterFilterFor.collectionPayments:
+        url = "http://localhost:5197/api/collectioncenterinvoice/filterhelper/getrangeproperties"
+        break;
     }
     return this.http.get<any>(url);
   }
@@ -134,6 +154,9 @@ export class FiltersService {
         break;
       case CollectionCenterFilterFor.shippedCollection:
         url = "http://localhost:5067/api/shippedcollections/filterhelper/getdaterangeproperties"
+        break;
+      case CollectionCenterFilterFor.collectionPayments:
+        url = "http://localhost:5197/api/collectioncenterinvoice/filterhelper/getdaterangeproperties"
         break;
     }
     return this.http.get<any>(url);

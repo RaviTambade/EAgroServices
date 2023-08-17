@@ -3,6 +3,8 @@ using Invoices.Services.Interfaces;
 using Invoices.Repositories.Interfaces;
 using Invoices.Services;
 using Invoices.Repositories;
+using Invoices.Extensions;
+using Invoices.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IFilterHelperService<CollectionCenterInvoice>,FilterHelperService<CollectionCenterInvoice>>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,8 +28,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders(
+                       new string[] {"X-Pagination"}
+                    ));
 app.UseAuthorization();
 
 app.MapControllers();

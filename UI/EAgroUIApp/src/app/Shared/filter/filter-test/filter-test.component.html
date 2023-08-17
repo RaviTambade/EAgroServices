@@ -95,6 +95,10 @@
       <div *ngIf="filterFor == shippedCollection">
         <app-collection-shipment-list [collections]="collections"></app-collection-shipment-list>
       </div>
+
+      <div *ngIf="filterFor == collectionPayments">
+        <collectioncenter-collection-payment-list [invoices]="collections"></collectioncenter-collection-payment-list>
+      </div>
       
 
       <div class="page-numbers-container">

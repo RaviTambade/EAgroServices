@@ -4,7 +4,14 @@ button {
     cursor: pointer;
   }
   
-  button.active {
+  button.selected {
     background-color: #007bff;
     color: #fff;
   }
+  
+  
+  
+  
+  
+  
+  

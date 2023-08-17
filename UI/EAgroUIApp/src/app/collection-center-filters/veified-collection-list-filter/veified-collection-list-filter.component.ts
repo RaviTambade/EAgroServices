@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { HttpResponse } from '@angular/common/http';
 import { FiltersService } from 'src/app/Shared/filter/filters.service';
@@ -6,6 +6,7 @@ import { CollectionService } from 'src/app/collection-service.service';
 import { UserService } from 'src/app/Shared/users/user.service';
 import { CollectionDetails } from 'src/app/collectioncenter/collection-details';
 import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-center-filter-for';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -13,13 +14,16 @@ import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-cent
   templateUrl: './veified-collection-list-filter.component.html',
   styleUrls: ['./veified-collection-list-filter.component.css']
 })
-export class VeifiedCollectionListFilterComponent implements OnInit {
+export class VeifiedCollectionListFilterComponent implements OnInit,OnDestroy {
   collections: CollectionDetails[] = [];
   verifiedCollection = CollectionCenterFilterFor.verifiedCollection;
-  
+  private filterRequestSubscription: Subscription | undefined;
+  private collectionsSubscription: Subscription | undefined;
+  private farmerNamesSubscription: Subscription | undefined;
+  private inspectorNamesSubscription: Subscription | undefined;
   constructor(private filtersvc: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService) { }
   ngOnInit(): void {
-    this.filtersvc.getVerifiedCollectionFilterRequest().subscribe((res)=>{
+    this.filterRequestSubscription=this.filtersvc.getVerifiedCollectionFilterRequest().subscribe((res)=>{
       const filterRequest = res.request;
       const pageNumber = res.pageNumber;
       this.getCollections(filterRequest,pageNumber);
@@ -28,7 +32,7 @@ export class VeifiedCollectionListFilterComponent implements OnInit {
 
 
   getCollections(filterRequest: any, pageNumber: number) {
-    this.collectionsvc.getVerifiedCollections(filterRequest, pageNumber)
+    this.collectionsSubscription = this.collectionsvc.getVerifiedCollections(filterRequest, pageNumber)
       .subscribe((response: HttpResponse<any[]>) => {
         console.log('Filter request sent successfully:', response.body);
         this.collections = response.body || [];
@@ -57,7 +61,7 @@ export class VeifiedCollectionListFilterComponent implements OnInit {
         let inspectorIdString = distinctinspectorIds.join(',');
 
 
-        this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
+        this.farmerNamesSubscription = this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
           let farmerNames = names
           this.collections.forEach(item => {
             let matchingItem = farmerNames.find(element => element.id === item.farmerId);
@@ -66,7 +70,7 @@ export class VeifiedCollectionListFilterComponent implements OnInit {
           });
         });
 
-        this.usrsvc.getUserNamesWithId(inspectorIdString).subscribe((names) => {
+        this.inspectorNamesSubscription = this.usrsvc.getUserNamesWithId(inspectorIdString).subscribe((names) => {
           let inspectorNames = names
           this.collections.forEach(item => {
             let matchingItem = inspectorNames.find(element => element.id === item.inspectorId);
@@ -75,5 +79,19 @@ export class VeifiedCollectionListFilterComponent implements OnInit {
           });
         });
       });
+  }
+  ngOnDestroy(): void {
+    if (this.filterRequestSubscription) {
+      this.filterRequestSubscription.unsubscribe();
+    }
+    if (this.collectionsSubscription) {
+      this.collectionsSubscription.unsubscribe();
+    }
+    if (this.farmerNamesSubscription) {
+      this.farmerNamesSubscription.unsubscribe();
+    }
+    if (this.inspectorNamesSubscription) {
+      this.inspectorNamesSubscription.unsubscribe();
+    }
   }
 }

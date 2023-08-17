@@ -28,7 +28,7 @@ namespace BIService.Repositories{
                 FROM invoices 
                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
-                WHERE goodscollections. farmerid =@farmerId 
+                WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =@farmerId 
                 GROUP BY year(invoices. invoicedate)
                 ORDER BY year(invoices. invoicedate) ASC ";
             MySqlCommand command = new(query, connection);
@@ -71,7 +71,7 @@ namespace BIService.Repositories{
                 FROM invoices 
                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
-                WHERE goodscollections. farmerid =@farmerId AND YEAR(invoices.invoicedate) = @year
+                WHERE  invoices.paymentstatus = 'paid' AND goodscollections. farmerid =@farmerId AND YEAR(invoices.invoicedate) = @year
                 GROUP BY QUARTER(invoices. invoicedate)
                 ORDER BY QUARTER(invoices. invoicedate) ASC ";
             MySqlCommand command = new(query, connection);
@@ -111,12 +111,12 @@ namespace BIService.Repositories{
         try
         {
             string query =
-                @" SELECT  MONTH(invoices. invoicedate) AS Month, SUM(invoices.totalamount) AS Amount
+                @" SELECT  MONTHNAME(invoices. invoicedate) AS Month, SUM(invoices.totalamount) AS Amount
                 FROM invoices 
                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
-                WHERE goodscollections. farmerid =@farmerId AND YEAR(invoices. invoicedate) = @year
-                 GROUP BY  MONTH(invoices. invoicedate) ORDER BY MONTH(invoices. invoicedate) ASC ";
+                WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =@farmerId AND YEAR(invoices. invoicedate) = @year
+                 GROUP BY  MONTHNAME(invoices. invoicedate) ORDER BY MONTHNAME(invoices. invoicedate) ASC ";
             MySqlCommand command = new(query, connection);
             command.Parameters.AddWithValue("@farmerId", farmerId);
             command.Parameters.AddWithValue("@year", year);
@@ -158,7 +158,7 @@ namespace BIService.Repositories{
                 FROM invoices 
                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
-                WHERE goodscollections. farmerid = @farmerId AND YEAR(invoices. invoicedate) = @year
+                WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid = @farmerId AND YEAR(invoices. invoicedate) = @year
                 GROUP BY WEEK(invoices. invoicedate, 1)
                 ORDER BY WEEK(invoices. invoicedate, 1); ";
             MySqlCommand command = new(query, connection);

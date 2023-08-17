@@ -41,7 +41,7 @@
     INSERT INTO crops(title,imageurl,rate)VALUES('Bitroot','/assets/images/beetroot.jpeg',30);
     INSERT INTO crops(title,imageurl,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
     INSERT INTO crops(title,imageurl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
-    INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpeg',29);
+    INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpg',29);
 
     INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,3);
     INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(9,12);
