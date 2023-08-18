@@ -13,7 +13,7 @@ export class EdituserComponent {
   constructor(private svc:UserService){
     this.user={
       id: 1,
-      imageurl:'',
+      imageUrl:'',
       aadharId: '',
       firstName: '',
       lastName: '',

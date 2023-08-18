@@ -3,6 +3,7 @@ using Vehicles.Models;
 namespace Vehicles.Repositories.Interfaces;
 public interface IVehicleRepository{
     Task<List<Vehicle>> GetAll();
+     Task<List<string>> GetvehicleNumbers();
     Task<Vehicle> GetVehicle(int vehicleId);
     Task<List<VehicleNumber>> GetAvailableVehicleNumbers();
     Task<bool> Insert(Vehicle vehicle);

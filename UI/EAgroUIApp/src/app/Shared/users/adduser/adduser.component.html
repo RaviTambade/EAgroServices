@@ -1,10 +1,7 @@
-<div class="user-profile-icon" style="height: 50%; width: 50%;">
-  <span class="fa fa-user-circle">User</span>
+
+<div>
+  <img [src]="url" style="border-radius: 50%; width: 150px; height:150px;" >
 </div>
-<div class="user-profile-icon"  *ngIf="filename">
-  <img [src]="url + filename"  alt="User Profile">
-</div>
-<hr /><br>
 <div class="row" style="margin-bottom:15px;">
   <div class="col-md-3">
     <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;" multiple>
@@ -21,11 +18,10 @@
 </div>
 <!-- <div>
   <h2>Get File</h2>
-  <input type="text" placeholder="filename" [(ngModel)]="filename">
+  <input type="text" placeholder="filename" [(ngModel)]="filename" hidden>
   <button type="button" class="btn btn-success" (click)="getImage()">Get File</button>
-</div> -->
-
-<!-- <img [src]="imageToShow" *ngIf="!isImageLoading"> -->
+</div>
+<img [src]="imageToShow" *ngIf="!isImageLoading"> -->
 
 <form (ngSubmit)="addUser()">
   <div>
@@ -33,7 +29,7 @@
     <input type="text" id="aadharId" name="aadharId" [(ngModel)]="user.aadharId" required>
   </div>
   <div>
-    <input type="text" id="imageurl" name="imageurl" [(ngModel)]="user.imageurl" readonly hidden>
+    <input type="text" id="imageurl" name="imageurl" [(ngModel)]="user.imageUrl" readonly hidden>
   </div>
   <div>
     <label for="firstName">First Name:</label>

@@ -11,10 +11,11 @@ import { UserService } from '../user.service';
 export class UserprofileComponent {
   user: User;
   userId: any;
+  url:string="http://localhost:5102/"
   constructor(private svc: UserService) {
     this.user = {
       id: 0,
-      imageurl:'',
+      imageUrl:'',
       aadharId: '',
       firstName: '',
       lastName: '',

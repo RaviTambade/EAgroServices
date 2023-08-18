@@ -80,6 +80,11 @@ export class FiltersService {
     return this.http.get<any>(url);
   }
 
+  getVehicles(){
+    let url = "http://localhost:5261/api/vehicles/numbers"
+    return this.http.get<any>(url);
+  }
+
 
   getAllProperties(filterFor: string): Observable<any> {
     let url = ''
