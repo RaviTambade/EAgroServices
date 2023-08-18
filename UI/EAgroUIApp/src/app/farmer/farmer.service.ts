@@ -61,4 +61,8 @@ export class FarmerService {
     let url = "http://localhost:5235/api/Farmer/revenue/week/" + farmerId + "/" + year;
     return this.http.get<any>(url);
   }
+  getCollectionInvoice(collectionId:any):Observable<any>{
+    let url = "http://localhost:5197/api/invoices/collectioninvoice/" + collectionId;
+    return this.http.get<any>(url);
+  }
 }

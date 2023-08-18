@@ -20,6 +20,7 @@ import { CollectionsComponent } from './collections/collections.component';
   { path: 'unverifiedcollection', component:GoodscollectionComponent },
   { path: 'collection', component:CollectionsComponent },
   { path: 'verifiedcollection', component:VerifiedcollectionComponent },
+  { path: 'invoice/:id', component:InvoicedetailsComponent },
 
 ]
 

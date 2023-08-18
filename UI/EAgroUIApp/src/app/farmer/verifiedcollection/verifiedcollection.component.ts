@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FarmerService } from '../farmer.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CorporateService } from 'src/app/corporate.service';
 import { Verifiedcollection } from 'src/app/farmer/verifiedcollection';
 
@@ -14,7 +14,7 @@ export class VerifiedcollectionComponent implements OnInit {
   verifiedCollections: Verifiedcollection[] = [];
 
 
-  constructor(private svc: FarmerService, private route: ActivatedRoute, private crpSvc: CorporateService) { }
+  constructor(private svc: FarmerService, private route: ActivatedRoute, private crpSvc: CorporateService,private router:Router) { }
   ngOnInit(): void {
     
     this.svc.getVerifiedCollection().subscribe((response) => {
@@ -35,5 +35,8 @@ export class VerifiedcollectionComponent implements OnInit {
       });
     })
   }
-
+onClick(id:number){
+  console.log(id);
+  this.router.navigate(['farmer/invoice/'+ id]);
+}
 }

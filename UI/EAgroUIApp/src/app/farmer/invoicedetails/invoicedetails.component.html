@@ -1,1 +1,70 @@
-<p>invoicedetails works!</p>
+
+<div *ngIf="invoice">
+    <table class="table">
+        <tr>
+            <td>Invoice Date:</td>
+            <td>{{ invoice.invoiceDate | date}}</td>
+        </tr>
+        <tr>
+            <td>Farmer Name:</td>
+            <td>{{ invoice.farmerName }}</td>
+        </tr>
+        <!-- <tr>
+            <td>Merchant Name:</td>
+            <td>{{ invoice.merchantName }}</td>
+        </tr> -->
+        <tr>
+            <td>Transporter Name:</td>
+            <td>{{ invoice.transporterName }}</td>
+        </tr>
+        <tr>
+            <td>Vehicle Number:</td>
+            <td>{{ invoice.vehicleNumber }}</td>
+        </tr>
+        <tr>
+            <td>Crop Name:</td>
+            <td>{{ invoice.cropName }}</td>
+        </tr>
+        <tr>
+            <td>Grade:</td>
+            <td>{{ invoice.grade }}</td>
+        </tr>
+        <tr>
+            <td>Container Type:</td>
+            <td>{{ invoice.containerType }}</td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td>{{ invoice.quantity }}</td>
+        </tr>
+        <tr>
+            <td>Total Weight:</td>
+            <td>{{ invoice.totalWeight |number }}</td>
+        </tr>
+        <tr>
+            <td>Net Weight:</td>
+            <td>{{ invoice.netWeight |number }}</td>
+        </tr>
+        <tr>
+            <td>Freight Charges:</td>
+            <td>{{ invoice.freightCharges |number: '1.2-2' }}</td>
+        </tr>
+        <tr>
+            <td>Labour Charges:</td>
+            <td>{{ invoice.labourCharges |number }}</td>
+        </tr>
+        <tr>
+            <td>Service Charges:</td>
+            <td>{{ invoice.serviceCharges |number }}</td>
+        </tr>
+        <tr>
+            <td>Rate Per Kg:</td>
+            <td>    {{ invoice.ratePerKg |number }}
+                </td>
+        </tr>
+        <tr>
+            <td>Farmer Amount:</td>
+            <td>{{ invoice.farmerAmount |number }}</td>
+        </tr>
+
+    </table>

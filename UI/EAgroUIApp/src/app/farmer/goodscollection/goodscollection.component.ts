@@ -51,10 +51,10 @@ export class GoodscollectionComponent implements OnInit {
     });
     })
   }
-   onClick(collectionId:number){
-    console.log(collectionId);
-   this.router.navigate(['/farmer/verifiedcollection/',collectionId]);
-   }
+
+  onClickVerified(){
+    this.router.navigate(['farmer/verifiedcollection'])
+  }
 }
 
 

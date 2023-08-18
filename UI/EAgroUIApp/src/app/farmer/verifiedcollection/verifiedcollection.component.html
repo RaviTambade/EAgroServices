@@ -22,6 +22,7 @@
             <th>Weight</th>
             <hr>
         </thead>
+
         <tbody *ngFor="let veryfiedCollection of verifiedCollections">
             <td>{{veryfiedCollection.collectionCenterName}}</td>
             <hr>
@@ -43,8 +44,7 @@
             <hr>
             <td>{{veryfiedCollection.weight}}</td>
             <hr>
+ <button (click)="onClick(veryfiedCollection.id)">verifiedcollection</button>
         </tbody>
     </table>
 </div>
-
-<!-- <button (click)="onClick(farmerCollection.id)">verifiedcollection</button> -->

@@ -52,5 +52,12 @@ export class CollectionsComponent implements OnInit{
     });
     })
   }
+
+  onClickUnverified(){
+    this.router.navigate(['farmer/unverifiedcollection'])
+  }
   
+  onClickVerified(){
+    this.router.navigate(['farmer/verifiedcollection'])
+  }
 }
