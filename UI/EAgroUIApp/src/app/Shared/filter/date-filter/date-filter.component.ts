@@ -1,13 +1,14 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FilterRequest } from '../filter-request';
 import { FiltersService } from '../filters.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-date-filter',
   templateUrl: './date-filter.component.html',
   styleUrls: ['./date-filter.component.css']
 })
-export class DateFilterComponent {
+export class DateFilterComponent implements OnInit, OnDestroy {
 
   @Input() filterRequest!: FilterRequest;
   @Input() filterFor!: string;
@@ -17,12 +18,13 @@ export class DateFilterComponent {
   dateProperties: string[] = []
   initializationDone: boolean = false;
 
+  private datePropertiesSubscription: Subscription | undefined;
 
   constructor(private filterservice: FiltersService) { }
   ngOnInit(): void {
 
     //fetching property types
-    this.filterservice.getDateRangeProperties(this.filterFor).subscribe((response) => {
+    this.datePropertiesSubscription = this.filterservice.getDateRangeProperties(this.filterFor).subscribe((response) => {
       this.dateProperties = response;
       let filterFor = sessionStorage.getItem("dateFilterFor");
       if (this.filterFor !== filterFor) {
@@ -82,11 +84,7 @@ export class DateFilterComponent {
     return false;
   }
 
-  //   @HostListener('window:beforeunload', ['$event'])
-  //   onBeforeUnload(): void {
-  //     sessionStorage.removeItem('dateFilterInitializationDone');
-  //     sessionStorage.removeItem('equalFilterInitializationDone');
-  //     sessionStorage.removeItem('rangeFilterInitializationDone');
-
-  // }
+  ngOnDestroy(): void {
+    this.datePropertiesSubscription?.unsubscribe();
+  }
 }

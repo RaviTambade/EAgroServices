@@ -1,8 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, map, switchMap } from 'rxjs';
 import { FilterRequest } from './filter-request';
 import { CollectionCenterFilterFor } from './collection-center-filter-for';
+import { UserService } from '../users/user.service';
+import { UserRoleService } from 'src/app/user-role.service';
+import { CorporateService } from 'src/app/corporate.service';
+import { MerchantService } from 'src/app/merchant/merchant.service';
+import { CollectioncenterService } from 'src/app/collectioncenter.service';
+import { TransporterService } from 'src/app/transporter/transporter.service';
+import { Corporate } from 'src/app/corporate';
+import { NameId } from 'src/app/name-id';
 
 
 type requestObject = {
@@ -15,14 +23,16 @@ type requestObject = {
 })
 export class FiltersService {
 
-  
+
   private toatalPages = new Subject<number>();
   private verifiedCollectionFilterRequestSender = new Subject<requestObject>();
   private CollectionFilterRequestSender = new Subject<requestObject>();
   private ShippedCollectionFilterRequestSender = new Subject<requestObject>();
   private collectionPaymentListFilterRequestSender = new Subject<requestObject>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private usrsvc: UserService, private userrolesvc: UserRoleService,
+    private merchantsvc: MerchantService, private corpsvc: CorporateService,
+    private collectionCentersvc: CollectioncenterService, private transportersvc: TransporterService) { }
 
   sendTotalPages(data: number) {
     this.toatalPages.next(data);
@@ -80,7 +90,7 @@ export class FiltersService {
     return this.http.get<any>(url);
   }
 
-  getVehicles(){
+  getVehicles() {
     let url = "http://localhost:5261/api/vehicles/numbers"
     return this.http.get<any>(url);
   }
@@ -166,4 +176,87 @@ export class FiltersService {
     }
     return this.http.get<any>(url);
   }
+
+  getFarmers(): Observable<NameId[]> {
+    return this.userrolesvc.getusersId("farmer").pipe(
+      switchMap((res) => this.usrsvc.getUserNamesWithId(res))
+    );
+  }
+  getInspectors(): Observable<NameId[]> {
+    return this.userrolesvc.getusersId("inspector").pipe(
+      switchMap((res) => this.usrsvc.getUserNamesWithId(res))
+    );
+  }
+
+  getMerchants(): Observable<Corporate[]> {
+    return this.merchantsvc.getMerchantAndCorporateId().pipe(
+      switchMap((res) => {
+        let merchants = res;
+        let distinctmerchantIds = merchants.map(item => item.corporateId)
+          .filter((number, index, array) => array.indexOf(number) === index);
+        let merchantIdString = distinctmerchantIds.join(',');
+
+        return this.corpsvc.getCorporates(merchantIdString).pipe(
+          map((names) => {
+            let corporationNames = names;
+            merchants.forEach(item => {
+              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+              if (matchingItem != undefined) {
+                item.name = matchingItem.name;
+              }
+            });
+            return merchants;
+          })
+        );
+      })
+    );
+  }
+
+  getCollectionCenters(): Observable<Corporate[]> {
+
+    return this.collectionCentersvc.getCollectionCenterAndCorporateId().pipe(
+      switchMap((res) => {
+        let collectionCenters = res;
+        let distinctcollectionCenterIds = collectionCenters.map(item => item.corporateId)
+          .filter((number, index, array) => array.indexOf(number) === index);
+        let CollectionCenterIdString = distinctcollectionCenterIds.join(',')
+
+        return this.corpsvc.getCorporates(CollectionCenterIdString).pipe(
+          map((names) => {
+            let corporationNames = names
+            collectionCenters.forEach(item => {
+              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+              if (matchingItem != undefined)
+                item.name = matchingItem.name;
+            });
+            return collectionCenters;
+          })
+        );
+      })
+    );
+  }
+
+  getTransporters(): Observable<Corporate[]> {
+    return this.transportersvc.getTransporterAndCorporateId().pipe(
+      switchMap((res) => {
+        let transporters = res;
+        let distinctTransporterIds = transporters.map(item => item.corporateId)
+          .filter((number, index, array) => array.indexOf(number) === index);
+        let transporterIdString = distinctTransporterIds.join(',')
+
+        return this.corpsvc.getCorporates(transporterIdString).pipe(
+          map((names) => {
+            let corporationNames = names
+            transporters.forEach(item => {
+              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+              if (matchingItem != undefined)
+                item.name = matchingItem.name;
+            });
+            return transporters;
+          })
+        );
+      })
+    );
+  }
+
 }
