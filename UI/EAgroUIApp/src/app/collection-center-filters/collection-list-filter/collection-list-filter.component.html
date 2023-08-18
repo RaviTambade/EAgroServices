@@ -1,5 +1,5 @@
 <button (click)="onFetchCollectionClick(collectionListType.Unverified)"
-    [class.active]="collectionType === collectionListType.Unverified">UnVerified</button>
+    [ngClass]="{'active': collectionType === collectionListType.Unverified}">UnVerified</button>
 <button (click)="onFetchCollectionClick(collectionListType.All)"
-    [class.active]="collectionType === collectionListType.All">All</button>
+    [ngClass]="{'active': collectionType ===collectionListType.All}">All</button>
 <filters [collections]="collections" [filterFor]="collection"></filters>

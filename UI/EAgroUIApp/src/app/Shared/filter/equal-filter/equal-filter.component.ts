@@ -12,57 +12,72 @@ export class EqualFilterComponent implements OnInit {
   @Input() filterRequest!: FilterRequest;
   @Input() filterFor!: string;
   @Output() filterChange = new EventEmitter<void>();
-  equalProperties: any[] =[]
+  equalProperties: any[] = []
   selectedPropertyIndex: number = -1;
   initializationDone: boolean = false;
-  
+
 
   crops: any[] = []
   // ["Potato", "Tomato"];
   grades: any[] = []
   // ["A", "B", "C", "D"];
   containerTypes: any[] = []
+  vehicles: any[] = []
   // ["bags", "lenobags", "crates"]
   constructor(private filterservice: FiltersService) { }
   ngOnInit(): void {
-   
+
     this.filterservice.getEqualProperties(this.filterFor).subscribe((response) => {
       this.equalProperties = response
-      this.equalProperties= this.equalProperties.map(item => {
-        return { name:item, expanded: false };
+      this.equalProperties = this.equalProperties.map(item => {
+        return { name: item, expanded: false };
       });
 
       let filterFor = sessionStorage.getItem("equalFilterFor");
       if (this.filterFor !== filterFor) {
         this.initializeEqualFilters();
       }
-     else if (!this.initializationDone) {
-        if(!this.doesPreviousRequestContainsEqualProperties()){
-        this.initializeEqualFilters();
+      else if (!this.initializationDone) {
+        if (!this.doesPreviousRequestContainsEqualProperties()) {
+          this.initializeEqualFilters();
         }
         this.initializationDone = true;
       }
       this.toggleProperty(0);
+
+      //fetching crop names
+      if (response.includes("CropName")) {
+        this.filterservice.getCrops().subscribe((response) => {
+          this.crops = response;
+        });
+      }
+
+      //fetching grades
+      if (response.includes("Grade")) {
+      this.filterservice.getGrades().subscribe((response) => {
+        this.grades = response;
+      });
+    }
+
+      //fetching containerTypes
+      if (response.includes("ContainerType")) {
+      this.filterservice.getContainerTypes().subscribe((response) => {
+        this.containerTypes = response;
+      });
+    }
+
+     //fetching containerTypes
+     if (response.includes("VehicleNumber")) {
+      this.filterservice.getVehicles().subscribe((response) => {
+        this.vehicles = response;
+      });
+    }
+
     });
 
-    //fetching crop names
-    this.filterservice.getCrops().subscribe((response) => {
-      this.crops = response;
-      console.log("🚀 ~ this.filterservice.getCrops ~ this.crops:", this.crops);
-    });
-
-    //fetching grades
-    this.filterservice.getGrades().subscribe((response) => {
-      this.grades = response;
-    });
-
-    //fetching containerTypes
-    this.filterservice.getContainerTypes().subscribe((response) => {
-      this.containerTypes = response;
-    });
 
   }
-// intialize all equal propeties with empty array of values
+  // intialize all equal propeties with empty array of values
   initializeEqualFilters() {
     sessionStorage.setItem("equalFilterFor", this.filterFor);
 
@@ -84,14 +99,14 @@ export class EqualFilterComponent implements OnInit {
     }
     this.filterChange.emit();
   }
-// expanding the property whose index matches
+  // expanding the property whose index matches
   toggleProperty(index: number): void {
     this.selectedPropertyIndex = index;
     for (let i = 0; i < this.equalProperties.length; i++) {
       this.equalProperties[i].expanded = (i === index);
     }
   }
-// check property is expanded or not 
+  // check property is expanded or not 
   isPropertyExpanded(property: any): boolean {
     return property.expanded;
   }
@@ -100,17 +115,12 @@ export class EqualFilterComponent implements OnInit {
     return this.selectedPropertyIndex === index;
   }
 
-  doesPreviousRequestContainsEqualProperties():boolean{
-    const prevFilterRequest= sessionStorage.getItem("prevFilterRequest");
-    if(prevFilterRequest!=null){
-     const filterRequest:FilterRequest=JSON.parse(prevFilterRequest);
-     return filterRequest.equalFilters.length > 0
+  doesPreviousRequestContainsEqualProperties(): boolean {
+    const prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
+    if (prevFilterRequest != null) {
+      const filterRequest: FilterRequest = JSON.parse(prevFilterRequest);
+      return filterRequest.equalFilters.length > 0
     }
     return false;
   }
-
-  // removing  session data of initalize Filter
-  // @HostListener('window:beforeunload', ['$event'])
-  // onBeforeUnload(): void {
-  // }
 }

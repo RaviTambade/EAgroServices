@@ -40,20 +40,20 @@ namespace Farmers.Controllers
             return await _srv.GetUnverifiedCollectionsOfFarmer(farmerId);
         }
 
-         [HttpGet("monthlyrevenue/{farmerId}")]
+        //  [HttpGet("monthlyrevenue/{farmerId}")]
          
-        public async Task<List<Revenue>> MonthlyRevenue(int farmerId)
-        {
-            return await _srv.MonthlyRevenue(farmerId);
+        // public async Task<List<Revenue>> MonthlyRevenue(int farmerId)
+        // {
+        //     return await _srv.MonthlyRevenue(farmerId);
 
-        }
-         [HttpGet("yearrevenue/{farmerId}")]
+        // }
+        //  [HttpGet("yearrevenue/{farmerId}")]
          
-        public async Task<List<Revenue>> YearRevenue(int farmerId)
-        {
-            return await _srv.YearRevenue(farmerId);
+        // public async Task<List<Revenue>> YearRevenue(int farmerId)
+        // {
+        //     return await _srv.YearRevenue(farmerId);
 
-        }
+        // }
          [HttpGet("croprevenue/{farmerId}")]
          
         public async Task<List<CropRevenue>> CropRevenue(int farmerId)

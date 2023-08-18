@@ -79,7 +79,7 @@ export class TransporterService {
     return this.httpClient.get<any>(url)
   }
   getVehicleNumbers(): Observable<Vehiclenumberid[]> {
-    let url = "http://localhost:5261/api/vehicles/numbers"
+    let url = "http://localhost:5261/api/vehicles/availabelvehicles"
     return this.httpClient.get<Vehiclenumberid[]>(url)
   }
   getTransporterRevenue(transporterId: number): Observable<Transporterrevenue[]> {

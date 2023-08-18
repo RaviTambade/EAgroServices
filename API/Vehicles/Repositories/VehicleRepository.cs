@@ -2,27 +2,31 @@ using Vehicles.Models;
 using Vehicles.Repositories.Interfaces;
 using System.Data;
 using MySql.Data.MySqlClient;
+
 namespace Vehicles.Repositories;
+
 public class VehicleRepository : IVehicleRepository
 {
     private readonly IConfiguration _configuration;
     private readonly string _conString;
+
     public VehicleRepository(IConfiguration configuration)
     {
         _configuration = configuration;
         _conString = this._configuration.GetConnectionString("DefaultConnection");
     }
+
     public async Task<List<Vehicle>> GetAll()
     {
         List<Vehicle> vehicles = new List<Vehicle>();
         MySqlConnection con = new MySqlConnection(_conString);
         try
         {
-            MySqlCommand com = new MySqlCommand();
-            com.CommandText = "SELECT * FROM vehicles";
-            com.Connection = con;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "SELECT * FROM vehicles";
+            cmd.Connection = con;
             await con.OpenAsync();
-            MySqlDataReader reader = com.ExecuteReader();
+            MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 int id = int.Parse(reader["id"].ToString());
@@ -40,9 +44,37 @@ public class VehicleRepository : IVehicleRepository
             }
             await reader.CloseAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
+        }
+        finally
+        {
+            await con.CloseAsync();
+        }
+        return vehicles;
+    }
+
+    public async Task<List<string>> GetvehicleNumbers()
+    {
+        List<string> vehicles = new();
+        MySqlConnection con = new MySqlConnection(_conString);
+        try
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "SELECT rtonumber FROM vehicles";
+            cmd.Connection = con;
+            await con.OpenAsync();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                vehicles.Add(reader.GetString("rtonumber"));
+            }
+            await reader.CloseAsync();
+        }
+        catch (Exception)
+        {
+            throw;
         }
         finally
         {
@@ -57,12 +89,12 @@ public class VehicleRepository : IVehicleRepository
         MySqlConnection con = new MySqlConnection(_conString);
         try
         {
-            MySqlCommand com = new MySqlCommand();
-            com.CommandText = "SELECT * FROM vehicles WHERE id=@vehicleId";
-            com.Parameters.AddWithValue("@vehicleId", vehicleId);
-            com.Connection = con;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "SELECT * FROM vehicles WHERE id=@vehicleId";
+            cmd.Parameters.AddWithValue("@vehicleId", vehicleId);
+            cmd.Connection = con;
             await con.OpenAsync();
-            MySqlDataReader reader = com.ExecuteReader();
+            MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
                 int id = int.Parse(reader["id"].ToString());
@@ -79,9 +111,9 @@ public class VehicleRepository : IVehicleRepository
             }
             await reader.CloseAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -89,30 +121,32 @@ public class VehicleRepository : IVehicleRepository
         }
         return vehicle;
     }
+
     public async Task<bool> Insert(Vehicle vehicle)
     {
         bool status = false;
         MySqlConnection con = new MySqlConnection(_conString);
         try
         {
-            MySqlCommand com = new MySqlCommand();
-            com.CommandText = "INSERT INTO vehicles(id,transporterid,vehicletype,rtonumber)VALUES(@id,@transporterId,@vehicleType,@rtoNumber)";
-            com.Parameters.AddWithValue("@id", vehicle.Id);
-            com.Parameters.AddWithValue("@transporterId", vehicle.TransporterId);
-            com.Parameters.AddWithValue("@vehicleType", vehicle.VehicleType);
-            com.Parameters.AddWithValue("@rtoNumber", vehicle.RtoNumber);
-            com.Connection = con;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText =
+                "INSERT INTO vehicles(id,transporterid,vehicletype,rtonumber)VALUES(@id,@transporterId,@vehicleType,@rtoNumber)";
+            cmd.Parameters.AddWithValue("@id", vehicle.Id);
+            cmd.Parameters.AddWithValue("@transporterId", vehicle.TransporterId);
+            cmd.Parameters.AddWithValue("@vehicleType", vehicle.VehicleType);
+            cmd.Parameters.AddWithValue("@rtoNumber", vehicle.RtoNumber);
+            cmd.Connection = con;
             await con.OpenAsync();
-            int rowsAffected = com.ExecuteNonQuery();
+            int rowsAffected = cmd.ExecuteNonQuery();
             status = true;
             // if (rowsAffected > 0)
             //     {
             //         status = true;
-            //     }       
+            //     }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -120,29 +154,31 @@ public class VehicleRepository : IVehicleRepository
         }
         return status;
     }
+
     public async Task<bool> Update(int vehicleId, Vehicle vehicle)
     {
         bool status = false;
         MySqlConnection con = new MySqlConnection(_conString);
         try
         {
-            MySqlCommand com = new MySqlCommand();
-            com.CommandText = "UPDATE vehicles SET transporterid=@transporterId,vehicletype=@vehicleType,rtonumber=@rtoNumber WHERE id=@id";
-            com.Connection = con;
-            com.Parameters.AddWithValue("@id", vehicleId);
-            com.Parameters.AddWithValue("@transporterId", vehicle.TransporterId);
-            com.Parameters.AddWithValue("@vehicleType", vehicle.VehicleType);
-            com.Parameters.AddWithValue("@rtoNumber", vehicle.RtoNumber);
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText =
+                "UPDATE vehicles SET transporterid=@transporterId,vehicletype=@vehicleType,rtonumber=@rtoNumber WHERE id=@id";
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@id", vehicleId);
+            cmd.Parameters.AddWithValue("@transporterId", vehicle.TransporterId);
+            cmd.Parameters.AddWithValue("@vehicleType", vehicle.VehicleType);
+            cmd.Parameters.AddWithValue("@rtoNumber", vehicle.RtoNumber);
             await con.OpenAsync();
-            int rowsAffected = com.ExecuteNonQuery();
+            int rowsAffected = cmd.ExecuteNonQuery();
             if (rowsAffected > 0)
             {
                 status = true;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -150,26 +186,27 @@ public class VehicleRepository : IVehicleRepository
         }
         return status;
     }
+
     public async Task<bool> Delete(int vehicleId)
     {
         bool status = false;
         MySqlConnection con = new MySqlConnection(_conString);
         try
         {
-            MySqlCommand com = new MySqlCommand();
-            com.CommandText = "DELETE FROM vehicles WHERE id=@id";
-            com.Connection = con;
-            com.Parameters.AddWithValue("@id", vehicleId);
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "DELETE FROM vehicles WHERE id=@id";
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@id", vehicleId);
             await con.OpenAsync();
-            int rowsAffected = com.ExecuteNonQuery();
+            int rowsAffected = cmd.ExecuteNonQuery();
             if (rowsAffected > 0)
             {
                 status = true;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -180,12 +217,13 @@ public class VehicleRepository : IVehicleRepository
 
     public async Task<List<VehicleNumber>> GetAvailableVehicleNumbers()
     {
-        List<VehicleNumber> values = new List<VehicleNumber>();
+        List<VehicleNumber> vehicleNumbers = new List<VehicleNumber>();
         MySqlConnection con = new MySqlConnection(_conString);
         try
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = @"SELECT DISTINCT vehicles.id, vehicles.rtonumber FROM vehicles
+            cmd.CommandText =
+                @"SELECT DISTINCT vehicles.id, vehicles.rtonumber FROM vehicles
                                 INNER JOIN shipments ON vehicles.id = shipments.vehicleid
                                 WHERE shipments.status = 'delivered'
                                 AND vehicles.id NOT IN (
@@ -198,22 +236,18 @@ public class VehicleRepository : IVehicleRepository
             {
                 int id = int.Parse(reader["id"].ToString());
                 string rtoNumber = reader["rtonumber"].ToString();
-                values.Add(new ()
-                {
-                    Id = id,
-                    RtoNumber = rtoNumber
-                });
+                vehicleNumbers.Add(new VehicleNumber() { Id = id, RtoNumber = rtoNumber });
             }
-           await reader.CloseAsync();
+            await reader.CloseAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
-          await  con.CloseAsync();
+            await con.CloseAsync();
         }
-        return values;
+        return vehicleNumbers;
     }
 }

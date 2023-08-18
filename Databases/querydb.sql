@@ -310,3 +310,16 @@ SELECT * FROM collectioncenters;
                 WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid = @farmerId AND YEAR(invoices. invoicedate) = @year
                 GROUP BY WEEK(invoices. invoicedate, 1)
                 ORDER BY WEEK(invoices. invoicedate, 1);
+
+
+
+                 SELECT 2022 AS `Year`, `c0`.`title` AS `CropName`, COALESCE(SUM(`i`.`totalamount`), 0.0) AS `TotalAmount`
+      FROM `invoices` AS `i`
+      INNER JOIN `shipmentitems` AS `s` ON `i`.`shipmentitemid` = `s`.`id`
+      INNER JOIN `goodscollections` AS `g` ON `s`.`collectionid` = `g`.`id`
+      INNER JOIN `collectioncenters` AS `c` ON `g`.`collectioncenterid` = `c`.`id`     
+      INNER JOIN `verifiedgoodscollection` AS `v` ON `g`.`id` = `v`.`collectionid`     
+      INNER JOIN `crops` AS `c0` ON `g`.`cropid` = `c0`.`id`
+      WHERE ((`g`.`farmerid` = 2) AND (`i`.`paymentstatus` = 'paid')) AND (EXTRACT(year FROM `i`.`invoicedate`) =2022)
+      GROUP BY `c0`.`title`
+      ORDER BY `c0`.`title`;
