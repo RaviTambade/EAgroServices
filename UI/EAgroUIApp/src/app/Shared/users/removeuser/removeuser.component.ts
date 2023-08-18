@@ -13,7 +13,7 @@ export class RemoveuserComponent {
   constructor(private svc:UserService){
     this.user={
       id: 0,
-      imageurl:'',
+      imageUrl:'',
       aadharId: '',
       firstName: '',
       lastName: '',
