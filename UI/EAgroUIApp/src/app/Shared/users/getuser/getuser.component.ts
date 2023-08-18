@@ -17,7 +17,7 @@ export class GetuserComponent {
   constructor(private svc :UserService){
     this.user={
       id: 0,
-      imageurl:'',
+      imageUrl:'',
       aadharId: '',
       firstName: '',
       lastName: '',

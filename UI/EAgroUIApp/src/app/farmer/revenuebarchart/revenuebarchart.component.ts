@@ -58,7 +58,7 @@ import { FarmerService } from '../farmer.service';
       this.svc.getCropRevenue().subscribe((res)=>{
   this.FarmerRevenues=res
   console.log(res)
-  this.barChartData.labels=this.FarmerRevenues.map((revenues)=>revenues.cropName + " "+ revenues.year);
+  this.barChartData.labels=this.FarmerRevenues.map((revenues)=>revenues.cropName);
   this.barChartData.datasets[0].data=this.FarmerRevenues.map((revenues)=>revenues.totalAmount);
   this.barChartData.datasets[0].backgroundColor = this.getBarColors(this.FarmerRevenues.length);
       })

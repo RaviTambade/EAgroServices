@@ -2,6 +2,9 @@
 <div class="container">
   <div class="user-card" >
     <div class="user-details">
+      <div>
+        <img [src]="url +user.imageUrl" >
+      </div>
       <h2>{{ user.firstName }} {{ user.lastName }}</h2>
       <p><strong>Birth Date:</strong> {{ user.birthDate |date }}</p>
       <p><strong>Gender:</strong> {{ user.gender }}</p>

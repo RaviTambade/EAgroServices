@@ -22,6 +22,8 @@
       
       <li *ngIf="isroleFarmer()"><a routerLink="farmer/dashboard" routerLinkActive="router-link-active">Dashboard</a></li>
       <li *ngIf="isroleFarmer()"><a routerLink="farmer/collection" routerLinkActive="router-link-active">CollectionDetails</a></li>
+      <li *ngIf="isroleFarmer()"><a routerLink="farmer/unverifiedcollection" routerLinkActive="router-link-active">UnverifiedCollection</a></li>
+      <li *ngIf="isroleFarmer()"><a routerLink="farmer/verifiedcollection" routerLinkActive="router-link-active">VerifiedCollection</a></li>
 
       
       <li *ngIf="isUser()" class="user-profile-icon" (click)="openUserProfile()">

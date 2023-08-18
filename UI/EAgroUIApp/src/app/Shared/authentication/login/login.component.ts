@@ -67,7 +67,7 @@ export class LoginComponent {
       case "farmer":
         if (this.userId != undefined)
         localStorage.setItem("farmerId",this.userId.toString());
-        this.router.navigate(['/farmer/home/', this.userId])
+        this.router.navigate(['/farmer/home'])
         break;
 
       case "merchant":

@@ -42,6 +42,8 @@
     INSERT INTO crops(title,imageurl,rate)VALUES('Beans','/assets/images/beans.jpeg',29);
     INSERT INTO crops(title,imageurl,rate)VALUES('Brinjal','/assets/images/Brinjal.jpeg',29);
     INSERT INTO crops(title,imageurl,rate)VALUES('wheat','/assets/images/wheat.jpg',29);
+    INSERT INTO crops(title,imageurl,rate)VALUES('pea','/assets/images/pea.jpeg',50);
+    INSERT INTO crops(title,imageurl,rate)VALUES('soyabean','/assets/images/soyabean.jpg',60);
 
     INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,3);
     INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(9,12);
@@ -114,7 +116,15 @@
     (1,2, 4, 'crates', 74,  385,  '2020-05-20 13:30:00'),
      (1,2, 3, 'polythene bags', 225,  804, '2021-01-20 13:30:00'),
     (1,2, 4, 'crates', 72,  374,  '2022-01-20 13:30:00'),
-    (1,2, 4, 'crates', 74,  385,  '2023-05-20 13:30:00');
+    (1,2, 4, 'crates', 74,  385,  '2023-05-20 13:30:00'),
+    (1,2, 4, 'crates', 74,  388,  '2023-04-22 13:30:00'),
+    (1,2, 2, 'crates', 100,  387,  '2023-04-22 13:30:00'),
+    (1,2, 1, 'polythene bags', 100,  1500,  '2023-04-22 13:30:00'),
+    (1,2, 3, 'bags', 100,  2500,  '2023-04-22 13:30:00'),
+    (1,2, 5, 'bags', 100,  2500,  '2023-04-22 13:30:00'),
+    (1,2, 6, 'bags', 100,  2500,  '2023-04-22 13:30:00'),
+    (1,2, 7, 'bags', 100,  2500,  '2023-04-22 13:30:00'),
+    (1,2, 8, 'bags', 100,  2500,  '2023-04-22 13:30:00');
 
 
 
