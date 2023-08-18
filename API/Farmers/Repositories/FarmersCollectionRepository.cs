@@ -230,7 +230,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
             {
                 using (var context = new FarmerContext(_configuration))
                 {
-                    var cropRevenue = await (
+                     var cropRevenue = await (
                         from invoice in context.Invoices
                         join shipmentItem in context.ShipmentItems
                             on invoice.ShipmentItemId equals shipmentItem.Id
@@ -242,12 +242,12 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                             on collection.Id equals verifiedCollection.CollectionId
                          join crop in context.Crops on collection.CropId equals crop.Id
                         where collection.FarmerId == farmerId && invoice.PaymentStatus == "paid"
-                         group new {invoice,shipmentItem,crop}  by new { crop.Title, Year = invoice.InvoiceDate.Year } into g
-    orderby g.Key.Title, g.Key.Year
+                         group new {invoice,shipmentItem,crop} by crop.Title into g
+                        orderby g.Key
                         select new CropRevenue()
                         {
-                            Year = g.Key.Year,
-                            CropName = g.Key.Title,
+                           // Year = g.Key.Year,
+                            CropName = g.Key,
                           TotalAmount = g.Sum(item => item.invoice.TotalAmount)
                           
                           

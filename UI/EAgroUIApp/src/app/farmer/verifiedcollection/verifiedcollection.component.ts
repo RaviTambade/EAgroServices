@@ -10,19 +10,16 @@ import { Verifiedcollection } from 'src/app/farmer/verifiedcollection';
   styleUrls: ['./verifiedcollection.component.css']
 })
 export class VerifiedcollectionComponent implements OnInit {
-  farmerId: any;
+ 
   verifiedCollections: Verifiedcollection[] = [];
 
 
   constructor(private svc: FarmerService, private route: ActivatedRoute, private crpSvc: CorporateService) { }
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.farmerId = params.get('id');
-      console.log(this.farmerId);
-    })
-    this.svc.getVerifiedCollection(this.farmerId).subscribe((response) => {
+    
+    this.svc.getVerifiedCollection().subscribe((response) => {
       this.verifiedCollections = response;
-      console.log(response);
+      console.table(response);
       let distinctcollectioncenterIds = this.verifiedCollections.map(item => item.corporateId)
         .filter((number, index, array) => array.indexOf(number) === index);
 

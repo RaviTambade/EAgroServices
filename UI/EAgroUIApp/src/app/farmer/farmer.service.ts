@@ -12,12 +12,20 @@ import { WeekRevenue } from '../week-revenue';
 export class FarmerService {
   constructor(private http: HttpClient) { }
 
-  getFarmerCollection(id: any): Observable<any> {
-    let url = "http://localhost:5051/api/farmerscollections/unverifiedcollection/" + id;
+  getFarmerCollection(): Observable<any> {
+    let farmerId = localStorage.getItem("farmerId");
+    let url = "http://localhost:5051/api/farmerscollections/unverifiedcollection/" + farmerId;
     console.log(url);
     return this.http.get<any>(url);
   }
-  getVerifiedCollection(farmerId: any): Observable<any> {
+  getCollection(): Observable<any> {
+    let farmerId = localStorage.getItem("farmerId");
+    let url = "http://localhost:5051/api/farmerscollections/" + farmerId;
+    console.log(url);
+    return this.http.get<any>(url);
+  }
+  getVerifiedCollection(): Observable<any> {
+    let farmerId = localStorage.getItem("farmerId");
     let url = "http://localhost:5051/api/farmerscollections/verified/" + farmerId;
     console.log(url);
     return this.http.get<any>(url);
