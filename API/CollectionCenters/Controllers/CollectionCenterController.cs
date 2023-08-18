@@ -45,6 +45,12 @@ namespace CollectionCenters.Controllers
             return await _srv.Delete(collectionCenterId);
         }
 
+        [HttpGet("corporateid/{collectionCenterId}")]
+        public async Task<int> GetCorporateIdByCollectionCenterId(int collectionCenterId)
+        {
+            return await _srv.GetCorporateIdByCollectionCenterId(collectionCenterId);
+        }
+
         [HttpGet("inspectorid/{inspectorId}")]
         public async Task<int> GetCollectionCenterIdByInspectorId(int inspectorId)
         {

@@ -19,12 +19,14 @@ import { CollectionPaymentListComponent } from './collection-payment-list/collec
 import { CollectionPaymentDetailsComponent } from './collection-payment-details/collection-payment-details.component';
 import { RevenueLineChartComponent } from './collection-center-dashboard/revenue-line-chart/revenue-line-chart.component';
 import { CropBarChartComponent } from './collection-center-dashboard/crop-bar-chart/crop-bar-chart.component';
+import { BankingComponent } from './banking/banking.component';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: CollectionCenterDashboardComponent },
   { path: 'addcollection', component: AddCollectionComponent },
   { path: 'verifycollections', component: CollectionVerificationComponent },
+  { path: 'banking', component: BankingComponent },
 ]
 
 
@@ -45,12 +47,14 @@ export const collectionCenterRoutes: Routes = [
     CollectionPaymentDetailsComponent,
     RevenueLineChartComponent,
     CropBarChartComponent,
+    BankingComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgChartsModule
+    NgChartsModule,
+    DatePipe
   ],
   exports:[
     CollectionVerificationComponent,
