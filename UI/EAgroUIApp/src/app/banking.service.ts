@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccountInfo } from './merchant/account-info';
 import { PaymentTransferDetails } from './merchant/payment-transfer-details';
+import { BankStatement } from './bank-statement';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class BankingService {
   fundTransfer(payment: PaymentTransferDetails): Observable<number> {
     let url = "http://localhost:5001/api/fundstransfer";
     return this.http.post<any>(url, payment);
+  }
+  getBankStatement(acctNumber: string): Observable<BankStatement[]> {
+    let url = "http://localhost:5053/api/banking/accounts/" + acctNumber + "/statement";
+    return this.http.get<any>(url);
   }
 }

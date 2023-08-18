@@ -30,17 +30,15 @@ export class CollectioncenterService {
     return this.http.get<any>(url);
   }
 
-  getMonthRevenue(): Observable<MonthRevenue[]> {
+  getCorporateIdByCollectionCenterId() : Observable<number>{
     let collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5192/api/collectioncenters/revenue/month/" + collectionCenterId;
-    return this.http.get<MonthRevenue[]>(url);
+    let url = "http://localhost:5192/api/collectioncenters/corporateid/"+collectionCenterId;
+    return this.http.get<any>(url);
   }
 
-  getCropRevenue(): Observable<CropRevenue[]> {
-    let collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url ="http://localhost:5192/api/collectioncenters/revenue/crop/" + collectionCenterId;
-    return this.http.get<CropRevenue[]>(url);
-  }
+
+
+
 
   getMonthOrderCount(): Observable<MonthOrderCount[]> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");

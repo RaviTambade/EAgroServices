@@ -92,16 +92,16 @@ export class LoginComponent {
 
       case "owner":
         if (this.userId != undefined)
-        this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((transporterId) => {
-          localStorage.setItem("collectionCenterId",transporterId.toString());
+        this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((collectionCenterId) => {
+          localStorage.setItem("collectionCenterId",collectionCenterId.toString());
           this.router.navigate(['/collectioncenter/home'])
         });
         break;
 
       case "inspector":
         if (this.userId != undefined)
-        this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((transporterId) => {
-          localStorage.setItem("collectionCenterId",transporterId.toString());
+        this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((collectionCenterId) => {
+          localStorage.setItem("collectionCenterId",collectionCenterId.toString());
           this.router.navigate(['/collectioncenter/home'])
         });
         break;

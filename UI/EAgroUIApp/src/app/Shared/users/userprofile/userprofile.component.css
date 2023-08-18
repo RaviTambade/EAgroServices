@@ -1,41 +1,27 @@
-/* app.component.css */
-.container {
+.profile-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
 }
 
-.user-card {
-  background-color: #f2f2f2;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 300px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* .profile-info {
+  display: flex;
+  align-items: flex-start;
+} */
+
+.profile-image {
+  margin-right: 20px;
+}
+
+.profile-details {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-.user-profile-icon {
-  position: absolute;
-  top: 0%;
-  right: 30px;
-  font-size: 36px;
-  color: #007bff; /* Replace with your desired icon color */
-  cursor: pointer;
+.edit-link {
+  margin-right: 450px;
+  align-self: flex-start;
 }
 
-h2 {
-  margin-bottom: 10px;
-  font-size: 24px;
-}
-
-p {
-  margin: 5px 0;
-}
+/* Add any additional styling you need */

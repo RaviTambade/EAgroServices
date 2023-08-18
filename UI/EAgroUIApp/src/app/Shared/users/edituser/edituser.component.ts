@@ -12,7 +12,7 @@ export class EdituserComponent {
   userId:number;
   constructor(private svc:UserService){
     this.user={
-      id: 1,
+      id: 0,
       imageUrl:'',
       aadharId: '',
       firstName: '',
@@ -22,7 +22,7 @@ export class EdituserComponent {
       email: '',
       contactNumber: ''
     },
-    this.userId=1;
+   this.userId=Number(localStorage.getItem("userId"));
   }
     ngOnInit(): void {
     }
