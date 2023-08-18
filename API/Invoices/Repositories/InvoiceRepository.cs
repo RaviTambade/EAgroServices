@@ -171,7 +171,7 @@ namespace Invoices.Repositories
             }
         }
 
-        public async Task<InvoiceChargesDetails> GetInvoice(int collectionId)
+        public async Task<FarmerInvoice> GetInvoice(int collectionId)
         {
             try
             {
@@ -195,12 +195,11 @@ namespace Invoices.Repositories
                         join verifiedCollection in context.VerifiedCollections
                             on collection.Id equals verifiedCollection.CollectionId
                         join crop in context.Crops on collection.CropId equals crop.Id
+                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
                         where shipmentItem.CollectionId == collectionId
-                        select new InvoiceChargesDetails()
+                        select new FarmerInvoice()
                         {
-                            Id = invoice.Id,
-                            FarmerId = collection.FarmerId,
-                            CollectionId = collection.Id,
+                            MerchantCorporateId=merchant.CorporateId,
                             CollectionCenterCorporateId = collectionCenter.CorporateId,
                             TransporterCorporateId = transporter.CorporateId,
                             VehicleNumber = vehicle.RtoNumber,

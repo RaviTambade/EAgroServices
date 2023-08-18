@@ -23,7 +23,7 @@ namespace Invoices.Controllers
         }
 
         [HttpGet("collectioninvoice/{collectionId}")]
-        public async Task<InvoiceChargesDetails> GetInvoice(int collectionId)
+        public async Task<FarmerInvoice> GetInvoice(int collectionId)
         {
             return await _srv.GetInvoice(collectionId);
         }

@@ -282,6 +282,7 @@ SELECT * FROM shipments;
 SELECT * FROM crops;
       SELECT * FROM payments;
       SELECT * FROM invoices;
+      SHOW TABLES;
       SELECT * FROM shipmentitems;
 SELECT * FROM collectioncenters;
 
