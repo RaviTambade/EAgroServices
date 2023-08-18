@@ -12,12 +12,15 @@ import { FarmerpiechartComponent } from './farmerpiechart/farmerpiechart.compone
 import { RevenuebarchartComponent } from './revenuebarchart/revenuebarchart.component';
 import { CropModule } from '../crop/crop.module';
 import { FarmerdashboardComponent } from './farmerdashboard/farmerdashboard.component';
+import { CollectionsComponent } from './collections/collections.component';
 
  export const farmerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  {path:'dashboard',component:FarmerpiechartComponent},
-  { path: 'verifiedcollection/:id', component:VerifiedcollectionComponent },
-  { path: 'collection/:id', component:GoodscollectionComponent },
+  {path:'dashboard',component:FarmerdashboardComponent},
+  { path: 'unverifiedcollection', component:GoodscollectionComponent },
+  { path: 'collection', component:CollectionsComponent },
+  { path: 'verifiedcollection', component:VerifiedcollectionComponent },
+
 ]
 
 @NgModule({
@@ -29,6 +32,7 @@ import { FarmerdashboardComponent } from './farmerdashboard/farmerdashboard.comp
     RevenuebarchartComponent,
     FarmerpiechartComponent,
     FarmerdashboardComponent,
+    CollectionsComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,6 @@ import { FarmerdashboardComponent } from './farmerdashboard/farmerdashboard.comp
   ],
   exports: [
     GoodscollectionComponent,
-    VerifiedcollectionComponent,
     FarmerpiechartComponent,
     RevenuebarchartComponent
   ],

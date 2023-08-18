@@ -22,16 +22,12 @@ namespace CollectionCenters.Repositories
                 using (var context = new CollectionCenterContext(_configuration))
                 {
                     var collectionCenters = await context.CollectionCenters.ToListAsync();
-                    if (collectionCenters == null)
-                    {
-                        return null;
-                    }
                     return collectionCenters;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -44,18 +40,12 @@ namespace CollectionCenters.Repositories
                     var collectionCenter = await context.CollectionCenters.FindAsync(
                         collectionCenterId
                     );
-
-                    if (collectionCenter == null)
-                    {
-                        return null;
-                    }
-
-                    return collectionCenter;
+                    return collectionCenter ;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -71,9 +61,9 @@ namespace CollectionCenters.Repositories
                 }
                 return status;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -96,9 +86,9 @@ namespace CollectionCenters.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -120,9 +110,9 @@ namespace CollectionCenters.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -140,9 +130,9 @@ namespace CollectionCenters.Repositories
                     return collectionCenterId;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -174,9 +164,29 @@ namespace CollectionCenters.Repositories
                         .ToListAsync();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
+            }
+        }
+
+        public async Task<int> GetCorporateIdByCollectionCenterId(int collectionCenterId)
+        {
+            try
+            {
+                using (var context = new CollectionCenterContext(_configuration))
+                {
+                    var corporateId = await (
+                        from CollectionCenter in context.CollectionCenters
+                        where CollectionCenter.Id == collectionCenterId
+                        select CollectionCenter.CorporateId
+                    ).FirstOrDefaultAsync();
+                    return corporateId;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

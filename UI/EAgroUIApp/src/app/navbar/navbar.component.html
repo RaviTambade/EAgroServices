@@ -14,6 +14,7 @@
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/filters/verifiedcollections" routerLinkActive="router-link-active">verified collections</a></li>
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/filters/shipments" routerLinkActive="router-link-active">Shipment List</a></li>
       <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/filters/payment" routerLinkActive="router-link-active">Invoices List</a></li>
+      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/banking" routerLinkActive="router-link-active">banking</a></li>
      
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/dashboard" routerLinkActive="router-link-active">dashboard</a></li>
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/shipmentlist" routerLinkActive="router-link-active">Shipments</a></li>
@@ -21,6 +22,8 @@
       
       <li *ngIf="isroleFarmer()"><a routerLink="farmer/dashboard" routerLinkActive="router-link-active">Dashboard</a></li>
       <li *ngIf="isroleFarmer()"><a routerLink="farmer/collection" routerLinkActive="router-link-active">CollectionDetails</a></li>
+      <li *ngIf="isroleFarmer()"><a routerLink="farmer/unverifiedcollection" routerLinkActive="router-link-active">UnverifiedCollection</a></li>
+      <li *ngIf="isroleFarmer()"><a routerLink="farmer/verifiedcollection" routerLinkActive="router-link-active">VerifiedCollection</a></li>
 
       
       <li *ngIf="isUser()" class="user-profile-icon" (click)="openUserProfile()">

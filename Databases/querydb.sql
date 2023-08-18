@@ -276,7 +276,7 @@ WHERE vehicles.transporterid=1 GROUP BY YEAR(shipments.shipmentdate) ;
       WHERE shipments.merchantid=2 GROUP BY goodscollections.cropid ;
 
       SELECT * FROM ;
-      SELECT * FROM goodscollections;
+      SELECT * FROM verifiedgoodscollectioncollections;
       SELECT * FROM merchants;
 SELECT * FROM shipments;
 SELECT * FROM crops;
@@ -323,3 +323,12 @@ SELECT * FROM collectioncenters;
       WHERE ((`g`.`farmerid` = 2) AND (`i`.`paymentstatus` = 'paid')) AND (EXTRACT(year FROM `i`.`invoicedate`) =2022)
       GROUP BY `c0`.`title`
       ORDER BY `c0`.`title`;
+
+
+
+       SELECT `g`.`id` AS `Id`, `c0`.`title` AS `CropName`, `c0`.`imageurl` AS `ImageUrl`, `g`.`collectioncenterid` AS `CollectionCenterId`, `c`.`corporateid` AS `CorporateId`, `g`.`quantity` AS `Quantity`, `g`.`containertype` AS `ContainerType`, `g`.`weight` AS `Weight`, `g`.`collectiondate` AS `CollectionDate`
+      FROM `goodscollections` AS `g`
+      INNER JOIN `collectioncenters` AS `c` ON `g`.`collectioncenterid` = `c`.`id`   
+      INNER JOIN `crops` AS `c0` ON `g`.`cropid` = `c0`.`id`
+      LEFT JOIN `verifiedgoodscollection` AS `v` ON `g`.`id` = `v`.`collectionid`    
+      WHERE `v`.`id` IS NULL AND (`g`.`farmerid` =2)

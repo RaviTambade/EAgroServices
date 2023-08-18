@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Goodscollection } from '../goodscollection';
 import { FarmerService } from '../farmer.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Goodscollection } from '../goodscollection';
 import { CorporateService } from 'src/app/corporate.service';
+
 @Component({
-  selector: 'app-goodscollection',
-  templateUrl: './goodscollection.component.html',
-  styleUrls: ['./goodscollection.component.css']
+  selector: 'app-collections',
+  templateUrl: './collections.component.html',
+  styleUrls: ['./collections.component.css']
 })
-export class GoodscollectionComponent implements OnInit {
- 
+export class CollectionsComponent implements OnInit{
+
   corporateId: undefined;
   farmerCollections: Goodscollection[]=[];
   goodsCollections: Goodscollection = {
@@ -31,7 +32,7 @@ export class GoodscollectionComponent implements OnInit {
     // let distinctc = this.farmerCollections.map(item => item.collectionCenterCorporaterId)
     // .filter((number, index, array) => array.indexOf(number) === index);
      
-    this.svc.getFarmerCollection().subscribe((response) => {
+    this.svc.getCollection().subscribe((response) => {
       this.farmerCollections = response;
       this.corporateId = response.corporateId
       console.log(response);
@@ -51,10 +52,5 @@ export class GoodscollectionComponent implements OnInit {
     });
     })
   }
-   onClick(collectionId:number){
-    console.log(collectionId);
-   this.router.navigate(['/farmer/verifiedcollection/',collectionId]);
-   }
+  
 }
-
-

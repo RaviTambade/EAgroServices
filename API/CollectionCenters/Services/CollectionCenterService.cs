@@ -43,11 +43,14 @@ namespace CollectionCenters.Services
             return await _repo.GetCollectionCenterIdByInspectorId(inspectorId);
         }
 
-
         public async Task<List<CollectionCenterCorporate>> GetCollectionCenterAndCorporateId()
         {
             return await _repo.GetCollectionCenterAndCorporateId();
         }
 
+        public async Task<int> GetCorporateIdByCollectionCenterId(int collectionCenterId)
+        {
+            return await _repo.GetCorporateIdByCollectionCenterId(collectionCenterId);
+        }
     }
 }

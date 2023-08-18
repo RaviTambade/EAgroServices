@@ -1,0 +1,36 @@
+<br>
+<br>
+<div *ngIf="farmerCollections">
+    <table>
+        <thead>
+            <th>CollectionCenterName</th>
+            <hr>
+            <th>CollectionDate</th>
+            <hr>
+            <th>CropName</th>
+            <hr>
+            <th>ContainerType</th>
+            <hr>
+            <th>Quantity</th>
+            <hr>
+            <th>Weight</th>
+            <hr>
+        </thead>
+        <tbody *ngFor="let farmerCollection of farmerCollections">
+            <td>{{farmerCollection.collectionCenterName}}</td>
+            <hr>
+            <td>{{farmerCollection.collectionDate}}</td>
+            <hr>
+            <td>{{farmerCollection.cropName}}</td>
+            <hr>
+            <img [src]="farmerCollection.imageUrl" style="border-radius: 50%; width: 150px; height: 150px;" />
+            <hr>
+            <td>{{farmerCollection.containerType}}</td>
+            <hr>
+            <td>{{farmerCollection.quantity}}</td>
+            <hr>
+            <td>{{farmerCollection.weight}}</td>
+            <hr>
+        </tbody>
+    </table>
+</div>
