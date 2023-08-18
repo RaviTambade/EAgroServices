@@ -43,6 +43,16 @@
               </label>
             </div>
           </div>
+
+          <div *ngIf="property.name === 'VehicleNumber'" class="property-values-card">
+            <div *ngFor="let vehicle of vehicles">
+              <label>
+                <input type="checkbox" [checked]="filterRequest.equalFilters[i].propertyValues.includes(vehicle)"
+                  (change)="onCheckboxChange(vehicle, i)" />
+                {{ vehicle }}
+              </label>
+            </div>
+          </div>
         </div>
       </ng-container>
     </div>

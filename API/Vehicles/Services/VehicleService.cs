@@ -37,4 +37,8 @@ public class VehicleService : IVehicleService
         return await _repo.GetAvailableVehicleNumbers();
     }
 
+    public async Task<List<string>> GetvehicleNumbers()
+    {
+       return await _repo.GetvehicleNumbers();
+    }
 }
