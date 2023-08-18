@@ -10,11 +10,14 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { UserlogoutComponent } from './userlogout/userlogout.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UpdatePasswordComponent } from '../authentication/update-password/update-password.component';
 
 
 const userRoute:Routes=[
   {path:'userinfo',component:UserprofileComponent},
-  {path:'userlogout',component:UserlogoutComponent}
+  {path:'userlogout',component:UserlogoutComponent},
+  {path:'userinfo/changeprofile',component:EdituserComponent},
+  {path:'userinfo/updatepassword',component:UpdatePasswordComponent}
 ]
 @NgModule({
   declarations: [
@@ -24,7 +27,7 @@ const userRoute:Routes=[
     GetuserComponent,
     RemoveuserComponent,
     UserprofileComponent,
-    UserlogoutComponent
+    UserlogoutComponent,
   ],
   imports: [
     CommonModule,
