@@ -1,5 +1,7 @@
-<button (click)="onClickInprogress()">Inprogress</button> |
-<button (click)="onClickDelivered()">Delivered</button> |
+<button (click)="onClickInprogress()"
+  [ngClass]="{'active': !unpaidDeliveredStatus && !paidDeliveredStatus}">Inprogress</button> |
+<button (click)="onClickUnpaidDelivered()" [ngClass]="{'active': unpaidDeliveredStatus}"> UnPaid Delivered</button> |
+<button (click)="onClickPaidDelivered()" [ngClass]="{'active': paidDeliveredStatus}"> Paid Delivered</button> |
 
 <table class="table">
   <thead>
@@ -8,7 +10,7 @@
       <th>Vehicle Number </th>
       <th>Kilometers</th>
       <th>Charges</th>
-      <th *ngIf="deliveredStatus">Payment Status</th>
+      <th *ngIf="paidDeliveredStatus">Payment Status</th>
     </tr>
   </thead>
   <tbody>
@@ -18,12 +20,12 @@
         <td>{{ shipment.vehicleNumber }}</td>
         <td>{{ shipment.kilometers }}</td>
         <td>{{ shipment.freightCharges}}</td>
-        <td *ngIf="deliveredStatus">{{ shipment.paymentStatus}}</td>
+        <td *ngIf="paidDeliveredStatus">{{ shipment.paymentStatus}}</td>
 
         <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
-        <td *ngIf="deliveredStatus"><button (click)="onClickpaymentDetails(shipment.id)">
+        <td *ngIf="paidDeliveredStatus"><button (click)="onClickpaymentDetails(shipment.id)">
             paymentDetails </button></td>
-      </tr> 
+      </tr>
       <tr *ngIf="selectedDetailsShipmentId === shipment.id">
         <td colspan="8">
           <div class="content-container">

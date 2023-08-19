@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipmentService } from '../shipment.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MerchantShipment } from '../merchant-shipment';
-import { PaymentService } from 'src/app/payment.service';
-import { ShipmentStatus } from '../shipment-status';
+
 
 @Component({
   selector: 'merchant-shipment-list',
@@ -11,13 +9,17 @@ import { ShipmentStatus } from '../shipment-status';
   styleUrls: ['./merchant-shipment-list.component.css']
 })
 export class MerchantShipmentListComponent implements OnInit {
-  deliveredStatus: boolean = false;
+  paidDeliveredStatus: boolean = false;
+  unpaidDeliveredStatus: boolean = false;
   merchantShipments: MerchantShipment[] | undefined;
 
   selectedDetailsShipmentId: number | null = null;
   selectedPaymentShipmentId: number | null = null;
 
-
+  constructor(private svc: ShipmentService) { }
+  ngOnInit(): void {
+    this.onClickInprogress();
+  }
 
   onClickShipmentDetails(shipmentId: number) {
     if (this.selectedDetailsShipmentId === shipmentId) {
@@ -40,37 +42,32 @@ export class MerchantShipmentListComponent implements OnInit {
     }
   }
 
-  constructor(private svc: ShipmentService,
-    private route: ActivatedRoute, private router: Router) { }
-  ngOnInit(): void {
-    this.svc.getShipments(ShipmentStatus.inprogress).subscribe((res) => {
-      console.log("🚀 ~ this.svc.getShipments ~ res:", res);
-      this.merchantShipments = res;
+  
 
+
+
+  onClickUnpaidDelivered() {
+    this.unpaidDeliveredStatus = true;
+    this.paidDeliveredStatus = false;
+    this.svc.getDeliveredShipmentByMerchant("UnPaid").subscribe((res) => {
+      this.merchantShipments = res;
     });
   }
-
-
-
-  onClickDelivered() {
-    this.deliveredStatus = true;
-    this.svc.getShipments(ShipmentStatus.delivered).subscribe((res) => {
-      console.log("🚀 ~ this.svc.getShipments ~ res:", res);
+  onClickPaidDelivered() {
+    this.paidDeliveredStatus = true;
+    this.unpaidDeliveredStatus = false;
+    this.svc.getDeliveredShipmentByMerchant("Paid").subscribe((res) => {
       this.merchantShipments = res;
-
     });
   }
 
   onClickInprogress() {
-    this.deliveredStatus = false;
-    this.svc.getShipments(ShipmentStatus.inprogress).subscribe((res) => {
-      console.log("🚀 ~ this.svc.getShipments ~ res:", res);
+    this.paidDeliveredStatus = false;
+    this.unpaidDeliveredStatus = false;
+        this.svc.getInprogressShipmentsByMerchant().subscribe((res) => {
       this.merchantShipments = res;
-
     });
   }
 
-  // onClickpaymentDetails(shipmentId:number){
-  //   this.router.navigate(['/merchant/shipment/payment', shipmentId]);
-  // }
+  
 }

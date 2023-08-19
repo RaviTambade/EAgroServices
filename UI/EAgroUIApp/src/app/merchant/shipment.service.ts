@@ -17,12 +17,17 @@ export class ShipmentService {
 
   constructor(private http: HttpClient) { }
 
-  getShipments(status: string): Observable<MerchantShipment[]> {
+  getInprogressShipmentsByMerchant(): Observable<MerchantShipment[]>{
     let merchantId = localStorage.getItem("merchantId");
-    let url = "http://localhost:5067/api/shipments/merchant/" + merchantId + "/status/" + status;
+    let url = "http://localhost:5067/api/shipments/inprogress/merchant/"+merchantId;
     return this.http.get<MerchantShipment[]>(url);
   }
-
+  getDeliveredShipmentByMerchant(paymentStatus:string): Observable<MerchantShipment[]>{
+    let merchantId = localStorage.getItem("merchantId");
+    let url = "http://localhost:5067/api/shipments/delivered/merchant/"+merchantId+"/"+paymentStatus;
+    return this.http.get<MerchantShipment[]>(url);
+  }
+  
   getShipmentItems(shipmentId: number): Observable<ShipmentItemDetails[]> {
     let url = "http://localhost:5067/api/shipments/shipmentitems/" + shipmentId;
     return this.http.get<ShipmentItemDetails[]>(url);
@@ -67,10 +72,9 @@ export class ShipmentService {
   }
 
   getShippedCollections(filterRequest:FilterRequest,pageNumber:number,staus:string):Observable<HttpResponse<any>>{
-    const collectionCenterId = localStorage.getItem("collectionCenterId");
+    let collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5067/api/shipments/collections/"+collectionCenterId+"/status/"+staus;
-    console.log("🚀 ~ getShippedCollections ~ url:", url);
-    const params = new HttpParams().set('pageNumber', pageNumber.toString());
+    let params = new HttpParams().set('pageNumber', pageNumber.toString());
     return this.http.post<any>(url, filterRequest, { params: params, observe: 'response' });  
   }
 

@@ -1,6 +1,5 @@
 using Shipments.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace Shipments.Repositories.Contexts
 {

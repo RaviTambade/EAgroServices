@@ -24,11 +24,6 @@ public class ShipmentService : IShipmentService
         return await _repo.GetById(shipmentId);
     }
 
-    public async Task<List<MerchantShipment>?> GetShipmentsByMerchant(int merchantId, string status)
-    {
-        return await _repo.GetShipmentsByMerchant(merchantId, status);
-    }
-
     public async Task<List<InprogressShipment>> GetInprogressShipments()
     {
         return await _repo.GetInprogressShipments();
@@ -41,7 +36,7 @@ public class ShipmentService : IShipmentService
         int pageNumber
     )
     {
-        return await  _repo.GetShippedCollections(
+        return await _repo.GetShippedCollections(
             collectionCenterId,
             shipmentStatus,
             request,
@@ -101,6 +96,19 @@ public class ShipmentService : IShipmentService
 
     public async Task<List<CropCount>> GetCropCounts(int merchantId)
     {
-       return await _repo.GetCropCounts(merchantId);
+        return await _repo.GetCropCounts(merchantId);
+    }
+
+    public async Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId)
+    {
+        return await _repo.GetInprogressShipmentsByMerchant(merchantId);
+    }
+
+    public async Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
+        int merchantId,
+        string paymentStatus
+    )
+    {
+        return await _repo.GetDeliveredShipmentsByMerchant(merchantId, paymentStatus);
     }
 }
