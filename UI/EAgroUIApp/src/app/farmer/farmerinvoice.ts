@@ -1,5 +1,6 @@
 export class Farmerinvoice {
     constructor(
+        public merchantCorporateId:number,
         public merchantName:string,
         public collectionCenterCorporateId: number,
         public collectionCenterName: string,
