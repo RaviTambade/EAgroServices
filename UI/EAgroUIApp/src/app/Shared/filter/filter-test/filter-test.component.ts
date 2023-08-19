@@ -1,10 +1,12 @@
-import { Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FiltersService } from '../filters.service';
 import { FilterRequest } from '../filter-request';
 import { CollectionService } from 'src/app/collection-service.service';
 import { UserService } from '../../users/user.service';
 import { CollectionCenterFilterFor } from '../collection-center-filter-for';
 import { Subscription } from 'rxjs';
+import { NameId } from 'src/app/name-id';
+import { Corporate } from 'src/app/corporate';
 
 
 @Component({
@@ -37,15 +39,46 @@ export class FilterTestComponent implements OnInit, OnDestroy {
   dateClickStatus: boolean = false;
   rangeClickStatus: boolean = false;
 
+  farmers: NameId[] = [];
+  inspectors: NameId[] = [];
+  merchants: Corporate[] = [];
+  collectionCenters: Corporate[] = [];
+  transporters: Corporate[] = [];
+
+  private farmersSubscription: Subscription | undefined;
+  private merchantsSubscription: Subscription | undefined;
+  private collectionCentersSubscription: Subscription | undefined;
+  private inspectorsSubscription: Subscription | undefined;
+  private transportersSubscription: Subscription | undefined;
+
   private totalPagesSubscription: Subscription | undefined;
   constructor(private filterservice: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService) { }
- 
+
 
   ngOnInit(): void {
     this.totalPagesSubscription = this.filterservice.getTotalPages().subscribe((totalPages) => {
       this.genratePageNumbers(totalPages);
     });
 
+    this.farmersSubscription = this.filterservice.getFarmers().subscribe((farmers) => {
+      this.farmers = farmers;
+    });
+
+    this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
+      this.merchants = res;
+    });
+
+    this.collectionCentersSubscription = this.filterservice.getCollectionCenters().subscribe((res) => {
+      this.collectionCenters = res;
+    });
+
+    this.inspectorsSubscription = this.filterservice.getInspectors().subscribe((res) => {
+      this.inspectors = res;
+    });
+
+    this.transportersSubscription = this.filterservice.getTransporters().subscribe((res) => {
+      this.transporters = res;
+    });
     let prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
     if (prevFilterRequest != null) {
       this.filterRequest = JSON.parse(prevFilterRequest);
@@ -54,6 +87,45 @@ export class FilterTestComponent implements OnInit, OnDestroy {
     this.getCollections(this.filterFor);
   }
 
+
+  displayNameMap = [
+    { key: 'FarmerId', value: 'Farmer' },
+    { key: 'MerchantCorporateId', value: 'Merchant' },
+    { key: 'CollectionCenterCorporateId', value: 'CollectionCenter' },
+    { key: 'TransporterCorporateId', value: 'Transporter' },
+    { key: 'InspectorId', value: 'Inspector' },
+  ];
+
+  getDisplayValue(minVal: number | undefined, maxVal: number | undefined, property: string): any {
+    if (property === 'FarmerId') {
+      let farmer = this.farmers.find(farmer => farmer.id === minVal);
+      return farmer?.name
+    }
+    if (property === 'MerchantCorporateId') {
+      let merchant = this.merchants.find(merchant => merchant.corporateId === minVal);
+      return merchant?.name;
+    }
+
+    if (property === 'InspectorId') {
+      let inspector = this.inspectors.find(inspector => inspector.id === minVal);
+      return inspector?.name;
+    }
+    if (property === 'CollectionCenterCorporateId') {
+      let collectionCenter = this.collectionCenters.find(collectionCenter => collectionCenter.corporateId === minVal);
+      return collectionCenter?.name;
+    }
+    if (property === 'TransporterCorporateId') {
+      let transporter = this.transporters.find(transporter => transporter.corporateId === minVal);
+      return transporter?.name;
+    }
+    return minVal?.toString() + " -" + maxVal?.toString();
+  }
+
+
+  displayPropertyName(property: string): string {
+    const mapping = this.displayNameMap.find(map => map.key === property);
+    return mapping?.value || property;
+  }
   onClickEqualFilters() {
     this.equalClickStatus = true;
     this.dateClickStatus = false;
@@ -86,6 +158,7 @@ export class FilterTestComponent implements OnInit, OnDestroy {
       sortBy: undefined,
       sortAscending: false
     };
+    window.location.reload();
     this.getCollections(this.filterFor);
 
   }
@@ -188,11 +261,14 @@ export class FilterTestComponent implements OnInit, OnDestroy {
     this.pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
   }
   ngOnDestroy(): void {
-    if (this.totalPagesSubscription) {
-      this.totalPagesSubscription.unsubscribe();
-    }
+    this.totalPagesSubscription?.unsubscribe();
+    this.farmersSubscription?.unsubscribe();
+    this.merchantsSubscription?.unsubscribe();
+    this.collectionCentersSubscription?.unsubscribe();
+    this.inspectorsSubscription?.unsubscribe();
+    this.transportersSubscription?.unsubscribe();
   }
-
 }
+
 
 

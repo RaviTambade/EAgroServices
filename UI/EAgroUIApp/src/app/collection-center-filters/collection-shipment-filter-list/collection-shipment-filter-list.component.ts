@@ -19,7 +19,7 @@ enum FilterState {
   templateUrl: './collection-shipment-filter-list.component.html',
   styleUrls: ['./collection-shipment-filter-list.component.css']
 })
-export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
+export class CollectionShipmentFilterListComponent implements OnInit, OnDestroy {
   filterState = FilterState
   collections: ShippedCollection[] = [];
   shippedCollection = CollectionCenterFilterFor.shippedCollection;
@@ -32,7 +32,7 @@ export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
   private corporationsSubscription: Subscription | undefined;
   private transporterSubscription: Subscription | undefined;
   private userNamesSubscription: Subscription | undefined;
-  private merchantCorporationsSubscription: Subscription|undefined;
+  private merchantCorporationsSubscription: Subscription | undefined;
 
   constructor(
     private filtersvc: FiltersService,
@@ -42,7 +42,7 @@ export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.filterRequestSubscription= this.filtersvc.getShippedCollectionFilterRequest().subscribe((res) => {
+    this.filterRequestSubscription = this.filtersvc.getShippedCollectionFilterRequest().subscribe((res) => {
       this.filterRequest = res.request;
       this.pageNumber = res.pageNumber;
       this.fetchFilteredShipments();
@@ -60,7 +60,7 @@ export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
   }
 
   fetchCollections(filterRequest: FilterRequest, pageNumber: number, status: string) {
-    this.collectionsSubscription=  this.shipmentsvc.getShippedCollections(filterRequest, pageNumber, status).subscribe((response: HttpResponse<any[]>) => {
+    this.collectionsSubscription = this.shipmentsvc.getShippedCollections(filterRequest, pageNumber, status).subscribe((response: HttpResponse<any[]>) => {
       console.log('Filter request sent successfully:', response.body);
       this.collections = response.body || [];
       console.table(this.collections)
@@ -93,7 +93,7 @@ export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
       let merchantIdString = distinctMerchantIds.join(',');
       let transporterIdString = distinctTransporterIds.join(',');
 
-      this.corporationsSubscription=  this.corpsvc.getCorporates(collectionCenterIdString).subscribe((names) => {
+      this.corporationsSubscription = this.corpsvc.getCorporates(collectionCenterIdString).subscribe((names) => {
         let corporationNames = names
         this.collections.forEach(item => {
           let matchingItem = corporationNames.find(element => element.id === item.collectionCenterCorporateId);
@@ -102,7 +102,7 @@ export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
         });
       });
 
-      this.merchantCorporationsSubscription=   this.corpsvc.getCorporates(merchantIdString).subscribe((names) => {
+      this.merchantCorporationsSubscription = this.corpsvc.getCorporates(merchantIdString).subscribe((names) => {
         let corporationNames = names
         this.collections.forEach(item => {
           let matchingItem = corporationNames.find(element => element.id === item.merchantCorporateId);
@@ -111,7 +111,7 @@ export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
         });
       });
 
-      this.transporterSubscription=  this.corpsvc.getCorporates(transporterIdString).subscribe((names) => {
+      this.transporterSubscription = this.corpsvc.getCorporates(transporterIdString).subscribe((names) => {
         let corporationNames = names
         this.collections.forEach(item => {
           let matchingItem = corporationNames.find(element => element.id === item.transporterCorporateId);
@@ -120,7 +120,7 @@ export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
         });
       });
 
-      this.userNamesSubscription= this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
+      this.userNamesSubscription = this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
         let farmerNames = names
         this.collections.forEach(item => {
           let matchingItem = farmerNames.find(element => element.id === item.farmerId);
@@ -131,23 +131,11 @@ export class CollectionShipmentFilterListComponent implements OnInit,OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    if (this.filterRequestSubscription) {
-      this.filterRequestSubscription.unsubscribe();
-    }
-    if (this.collectionsSubscription) {
-      this.collectionsSubscription.unsubscribe();
-    }
-    if (this.corporationsSubscription) {
-      this.corporationsSubscription.unsubscribe();
-    }
-    if (this.transporterSubscription) {
-      this.transporterSubscription.unsubscribe();
-    }
-    if (this.userNamesSubscription) {
-      this.userNamesSubscription.unsubscribe();
-    }
-    if(this.merchantCorporationsSubscription){
-      this.merchantCorporationsSubscription.unsubscribe();
-    }
+    this.filterRequestSubscription?.unsubscribe();
+    this.collectionsSubscription?.unsubscribe();
+    this.corporationsSubscription?.unsubscribe();
+    this.transporterSubscription?.unsubscribe();
+    this.userNamesSubscription?.unsubscribe();
+    this.merchantCorporationsSubscription?.unsubscribe();
   }
 }

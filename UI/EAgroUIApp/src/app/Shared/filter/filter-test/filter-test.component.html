@@ -45,13 +45,10 @@
             *ngIf=" filterRequest.rangeFilters[i].minValue !== null || filterRequest.rangeFilters[i].maxValue !== null">
             <div class="cbtn" (click)="removeFilterProperty('range', i)">
               <div class="cbtn1">&#x2716;</div>
-              <!-- <div *ngIf=" filterRequest.rangeFilters[i].propertyName=='MerchantCorporateId' ">
-              Merchant->
-              </div> -->
               <div class="cbtn2">
-                {{ filterRequest.rangeFilters[i].propertyName }}
-                {{ filterRequest.rangeFilters[i].minValue ? filterRequest.rangeFilters[i].minValue +' - ' : ' 0 -'}}
-                {{ filterRequest.rangeFilters[i].maxValue ? filterRequest.rangeFilters[i].maxValue : '' }}
+                {{ displayPropertyName(filterRequest.rangeFilters[i].propertyName) }} :
+                {{getDisplayValue( filterRequest.rangeFilters[i].minValue ,
+                filterRequest.rangeFilters[i].maxValue,filterRequest.rangeFilters[i].propertyName)}}
               </div>
             </div>
           </div>
@@ -66,30 +63,35 @@
         <div style="text-align: right; ">
           <button (click)="onClickCloseFilters()">Close Filters</button>
         </div>
-        <app-equal-filter [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-equal-filter>
+        <app-equal-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-equal-filter>
       </div>
       <div *ngIf="dateClickStatus" class="filter-content-top">
         <div style="text-align: right; ">
           <button (click)="onClickCloseFilters()">Close Filters</button>
         </div>
-        <app-date-filter [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-date-filter>
+        <app-date-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-date-filter>
       </div>
       <div *ngIf="rangeClickStatus" class="filter-content-top">
         <div style="text-align: right; ">
           <button (click)="onClickCloseFilters()">Close Filters</button>
         </div>
-        <app-range-filter [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-range-filter>
+        <app-range-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-range-filter>
       </div>
 
       <div style="text-align: left; margin: 20px;">
-        <app-sort-by [filterRequest]="filterRequest" [filterFor]="filterFor" (filterChange)="getCollections(filterFor)"></app-sort-by>
+        <app-sort-by [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-sort-by>
       </div>
       <div *ngIf="filterFor == collection">
         <app-collection-verification [collections]="collections"></app-collection-verification>
       </div>
 
       <div *ngIf="filterFor == verifiedCollection">
-        <collectioncenter-verified-collection-list [collections]="collections"></collectioncenter-verified-collection-list>
+        <collectioncenter-verified-collection-list
+          [collections]="collections"></collectioncenter-verified-collection-list>
       </div>
 
       <div *ngIf="filterFor == shippedCollection">
@@ -99,7 +101,7 @@
       <div *ngIf="filterFor == collectionPayments">
         <collectioncenter-collection-payment-list [invoices]="collections"></collectioncenter-collection-payment-list>
       </div>
-      
+
 
       <div class="page-numbers-container">
         <button *ngFor="let pageNumber of pageNumbers" (click)="onPageClick(pageNumber)"

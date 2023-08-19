@@ -1,13 +1,14 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FilterRequest } from '../filter-request';
 import { FiltersService } from '../filters.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-equal-filter',
   templateUrl: './equal-filter.component.html',
   styleUrls: ['./equal-filter.component.css']
 })
-export class EqualFilterComponent implements OnInit {
+export class EqualFilterComponent implements OnInit, OnDestroy {
 
   @Input() filterRequest!: FilterRequest;
   @Input() filterFor!: string;
@@ -18,16 +19,20 @@ export class EqualFilterComponent implements OnInit {
 
 
   crops: any[] = []
-  // ["Potato", "Tomato"];
   grades: any[] = []
-  // ["A", "B", "C", "D"];
   containerTypes: any[] = []
   vehicles: any[] = []
-  // ["bags", "lenobags", "crates"]
+
+  private equalPropertiesSubscription: Subscription | undefined;
+  private cropsSubscription: Subscription | undefined;
+  private gradesSubscription: Subscription | undefined;
+  private containerTypesSubscription: Subscription | undefined;
+  private vehiclesSubscription: Subscription | undefined;
   constructor(private filterservice: FiltersService) { }
+  
   ngOnInit(): void {
 
-    this.filterservice.getEqualProperties(this.filterFor).subscribe((response) => {
+    this.equalPropertiesSubscription = this.filterservice.getEqualProperties(this.filterFor).subscribe((response) => {
       this.equalProperties = response
       this.equalProperties = this.equalProperties.map(item => {
         return { name: item, expanded: false };
@@ -47,31 +52,31 @@ export class EqualFilterComponent implements OnInit {
 
       //fetching crop names
       if (response.includes("CropName")) {
-        this.filterservice.getCrops().subscribe((response) => {
+        this.cropsSubscription = this.filterservice.getCrops().subscribe((response) => {
           this.crops = response;
         });
       }
 
       //fetching grades
       if (response.includes("Grade")) {
-      this.filterservice.getGrades().subscribe((response) => {
-        this.grades = response;
-      });
-    }
+        this.gradesSubscription = this.filterservice.getGrades().subscribe((response) => {
+          this.grades = response;
+        });
+      }
 
       //fetching containerTypes
       if (response.includes("ContainerType")) {
-      this.filterservice.getContainerTypes().subscribe((response) => {
-        this.containerTypes = response;
-      });
-    }
+        this.containerTypesSubscription = this.filterservice.getContainerTypes().subscribe((response) => {
+          this.containerTypes = response;
+        });
+      }
 
-     //fetching containerTypes
-     if (response.includes("VehicleNumber")) {
-      this.filterservice.getVehicles().subscribe((response) => {
-        this.vehicles = response;
-      });
-    }
+      //fetching containerTypes
+      if (response.includes("VehicleNumber")) {
+        this.vehiclesSubscription = this.filterservice.getVehicles().subscribe((response) => {
+          this.vehicles = response;
+        });
+      }
 
     });
 
@@ -122,5 +127,15 @@ export class EqualFilterComponent implements OnInit {
       return filterRequest.equalFilters.length > 0
     }
     return false;
+  }
+
+
+  ngOnDestroy(): void {
+    this.equalPropertiesSubscription?.unsubscribe();
+    this.cropsSubscription?.unsubscribe();
+    this.gradesSubscription?.unsubscribe();
+    this.containerTypesSubscription?.unsubscribe();
+    this.vehiclesSubscription?.unsubscribe();
+
   }
 }

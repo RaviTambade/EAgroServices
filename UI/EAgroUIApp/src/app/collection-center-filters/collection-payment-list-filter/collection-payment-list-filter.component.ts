@@ -99,18 +99,9 @@ export class CollectionPaymentListFilterComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.filterRequestSubscription) {
-      this.filterRequestSubscription.unsubscribe();
-    }
-    if (this.invoicesSubscription) {
-      this.invoicesSubscription.unsubscribe();
-    }
-    if (this.corporationsSubscription) {
-      this.corporationsSubscription.unsubscribe();
-    }
-    if (this.userNamesSubscription) {
-      this.userNamesSubscription.unsubscribe();
-    }
+      this.filterRequestSubscription?.unsubscribe();
+      this.invoicesSubscription?.unsubscribe();
+      this.corporationsSubscription?.unsubscribe();
+      this.userNamesSubscription?.unsubscribe(); 
   }
-
 }

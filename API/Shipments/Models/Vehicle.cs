@@ -11,8 +11,8 @@ public class Vehicle
     public int TransporterId { get; set; }
 
     [Column("vehicletype")]
-    public string VehicleType { get; set; }
+    public string? VehicleType { get; set; }
 
     [Column("rtonumber")]
-    public string RtoNumber { get; set; }
+    public string? RtoNumber { get; set; }
 }

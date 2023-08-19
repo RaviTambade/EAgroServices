@@ -23,38 +23,28 @@ namespace Shipments.Repositories
                 using (var context = new ShipmentContext(_configuration))
                 {
                     var shipmentItems = await context.ShipmentItems.ToListAsync();
-                    if (shipmentItems is null)
-                    {
-                        return null;
-                    }
                     return shipmentItems;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
-        public async Task<ShipmentItem> GetById(int ShipmentItemId)
+        public async Task<ShipmentItem?> GetById(int ShipmentItemId)
         {
             try
             {
                 using (var context = new ShipmentContext(_configuration))
                 {
                     var shipmentItem = await context.ShipmentItems.FindAsync(ShipmentItemId);
-
-                    if (shipmentItem is null)
-                    {
-                        return null;
-                    }
-
                     return shipmentItem;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -70,9 +60,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -93,9 +83,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -115,9 +105,9 @@ namespace Shipments.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 

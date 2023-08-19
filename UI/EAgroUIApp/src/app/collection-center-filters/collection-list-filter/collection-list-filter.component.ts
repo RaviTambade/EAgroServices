@@ -97,14 +97,8 @@ export class CollectionListFilterComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.filterRequestSubscription) {
-      this.filterRequestSubscription.unsubscribe();
-    }
-    if (this.collectionsSubscription) {
-      this.collectionsSubscription.unsubscribe();
-    }
-    if (this.userNamesSubscription) {
-      this.userNamesSubscription.unsubscribe();
-    }
+      this.filterRequestSubscription?.unsubscribe();
+      this.collectionsSubscription?.unsubscribe();
+      this.userNamesSubscription?.unsubscribe();
   }
 }

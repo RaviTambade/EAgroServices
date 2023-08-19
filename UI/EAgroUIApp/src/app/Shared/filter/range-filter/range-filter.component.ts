@@ -1,21 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FilterRequest } from '../filter-request';
 import { FiltersService } from '../filters.service';
-import { UserService } from '../../users/user.service';
-import { UserRoleService } from 'src/app/user-role.service';
 import { NameId } from 'src/app/name-id';
-import { MerchantService } from 'src/app/merchant/merchant.service';
 import { Corporate } from 'src/app/corporate';
-import { CorporateService } from 'src/app/corporate.service';
-import { CollectioncenterService } from 'src/app/collectioncenter.service';
-import { TransporterService } from 'src/app/transporter/transporter.service';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-range-filter',
   templateUrl: './range-filter.component.html',
   styleUrls: ['./range-filter.component.css']
 })
-export class RangeFilterComponent implements OnInit {
+export class RangeFilterComponent implements OnInit ,OnDestroy {
 
   @Input() filterRequest!: FilterRequest;
   @Input() filterFor!: string;
@@ -24,16 +20,20 @@ export class RangeFilterComponent implements OnInit {
   rangeProperties: string[] = [];
   isButtonClicked: boolean = false;
   initializationDone: boolean = false;
+
   farmers: NameId[] = [];
   inspectors: NameId[] = [];
-
   merchants: Corporate[] = [];
   collectionCenters: Corporate[] = [];
   transporters: Corporate[] = [];
 
-  constructor(private filterservice: FiltersService, private usrsvc: UserService, private userrolesvc: UserRoleService,
-    private merchantsvc: MerchantService, private corpsvc: CorporateService,
-    private collectionCentersvc: CollectioncenterService, private transportersvc: TransporterService) { }
+  private farmersSubscription: Subscription | undefined;
+  private merchantsSubscription: Subscription | undefined;
+  private collectionCentersSubscription: Subscription | undefined;
+  private inspectorsSubscription: Subscription | undefined;
+  private transportersSubscription: Subscription | undefined;
+
+  constructor(private filterservice: FiltersService) { }
 
   ngOnInit(): void {
 
@@ -51,70 +51,39 @@ export class RangeFilterComponent implements OnInit {
       }
 
       if (this.rangeProperties.includes("FarmerId")) {
-        this.userrolesvc.getusersId("farmer").subscribe((res) => {
-          this.usrsvc.getUserNamesWithId(res).subscribe((farmers) => {
-            this.farmers = farmers;
-          });
-        });
+        this.rangeProperties = this.rangeProperties.map(property => property.replace("FarmerId", "Farmer"));
+        this.farmersSubscription = this.filterservice.getFarmers().subscribe((farmers) => {
+          this.farmers = farmers;
+        })
       }
 
       if (this.rangeProperties.includes("InspectorId")) {
-        this.userrolesvc.getusersId("inspector").subscribe((res) => {
-          this.usrsvc.getUserNamesWithId(res).subscribe((inspectors) => {
-            this.inspectors = inspectors;
-          });
-        });
+        this.rangeProperties = this.rangeProperties.map(property => property.replace("InspectorId", "Inspector"));
+        this.inspectorsSubscription = this.filterservice.getInspectors().subscribe((res) => {
+          this.inspectors = res;
+        })
       }
 
 
       if (this.rangeProperties.includes("MerchantCorporateId")) {
-        this.merchantsvc.getMerchantAndCorporateId().subscribe((res) => {
-          this.merchants = res;
-          let distinctmerchantIds = this.merchants.map(item => item.corporateId)
-            .filter((number, index, array) => array.indexOf(number) === index);
-          let merchantIdString = distinctmerchantIds.join(',')
-          this.corpsvc.getCorporates(merchantIdString).subscribe((names) => {
-            let corporationNames = names
-            this.merchants.forEach(item => {
-              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
-              if (matchingItem != undefined)
-                item.name = matchingItem.name;
-            });
-          });
-        });
+        this.rangeProperties = this.rangeProperties.map(property => property.replace("MerchantCorporateId", "Merchant"));
+        this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
+          this.merchants = res
+        })
       }
+
       if (this.rangeProperties.includes("CollectionCenterCorporateId")) {
-        this.collectionCentersvc.getCollectionCenterAndCorporateId().subscribe((res) => {
+        this.rangeProperties = this.rangeProperties.map(property => property.replace("CollectionCenterCorporateId", "CollectionCenter"));
+        this.collectionCentersSubscription = this.filterservice.getCollectionCenters().subscribe((res) => {
           this.collectionCenters = res;
-          let distinctcollectionCenterIds = this.collectionCenters.map(item => item.corporateId)
-            .filter((number, index, array) => array.indexOf(number) === index);
-          let CollectionCenterIdString = distinctcollectionCenterIds.join(',')
-          this.corpsvc.getCorporates(CollectionCenterIdString).subscribe((names) => {
-            let corporationNames = names
-            this.collectionCenters.forEach(item => {
-              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
-              if (matchingItem != undefined)
-                item.name = matchingItem.name;
-            });
-          });
-        });
+        })
       }
 
       if (this.rangeProperties.includes("TransporterCorporateId")) {
-        this.transportersvc.getTransporterAndCorporateId().subscribe((res) => {
+        this.rangeProperties = this.rangeProperties.map(property => property.replace("TransporterCorporateId", "Transporter"));
+        this.transportersSubscription = this.filterservice.getTransporters().subscribe((res) => {
           this.transporters = res;
-          let distinctTransporterIds = this.transporters.map(item => item.corporateId)
-            .filter((number, index, array) => array.indexOf(number) === index);
-          let transporterIdString = distinctTransporterIds.join(',')
-          this.corpsvc.getCorporates(transporterIdString).subscribe((names) => {
-            let corporationNames = names
-            this.transporters.forEach(item => {
-              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
-              if (matchingItem != undefined)
-                item.name = matchingItem.name;
-            });
-          });
-        });
+        })
       }
     });
 
@@ -159,8 +128,17 @@ export class RangeFilterComponent implements OnInit {
   }
 
   propertyIsNotPersonOrCorporateId(property: string): boolean {
-    return property !== 'FarmerId' && property !== 'InspectorId' && property !== 'MerchantCorporateId'
-      && property !== 'CollectionCenterCorporateId' && property !== 'TransporterCorporateId';
+    return property !== 'Farmer' && property !== 'Inspector' && property !== 'Merchant'
+      && property !== 'CollectionCenter' && property !== 'Transporter';
+  }
+
+
+  ngOnDestroy(): void {
+    this.farmersSubscription?.unsubscribe();
+    this.merchantsSubscription?.unsubscribe();
+    this.collectionCentersSubscription?.unsubscribe();
+    this.inspectorsSubscription?.unsubscribe();
+    this.transportersSubscription?.unsubscribe();
   }
 
 }

@@ -22,13 +22,19 @@ namespace Shipments.Controllers
             return await _srv.GetAll();
         }
 
-        [HttpGet("merchant/{merchantId}/status/{status}")]
-        public async Task<List<MerchantShipment>?> GetShipmentsByMerchant(
+        [HttpGet("inprogress/merchant/{merchantId}")]
+        public async Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId)
+        {
+            return await _srv.GetInprogressShipmentsByMerchant(merchantId);
+        }
+
+        [HttpGet("delivered/merchant/{merchantId}/{paymentStatus}")]
+        public async Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
             int merchantId,
-            string status
+            string paymentStatus
         )
         {
-            return await _srv.GetShipmentsByMerchant(merchantId, status);
+            return await _srv.GetDeliveredShipmentsByMerchant(merchantId, paymentStatus);
         }
 
         [HttpGet("shipmentitems/{shipmentId}")]
@@ -38,13 +44,13 @@ namespace Shipments.Controllers
         }
 
         [HttpGet("transporteramount/{shipmentId}")]
-        public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+        public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
         {
             return await _srv.GetTransporterAmountByShipmentId(shipmentId);
         }
 
         [HttpGet("{shipmentId}")]
-        public async Task<Shipment> GetById(int shipmentId)
+        public async Task<Shipment?> GetById(int shipmentId)
         {
             return await _srv.GetById(shipmentId);
         }

@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './veified-collection-list-filter.component.html',
   styleUrls: ['./veified-collection-list-filter.component.css']
 })
-export class VeifiedCollectionListFilterComponent implements OnInit,OnDestroy {
+export class VeifiedCollectionListFilterComponent implements OnInit, OnDestroy {
   collections: CollectionDetails[] = [];
   verifiedCollection = CollectionCenterFilterFor.verifiedCollection;
   private filterRequestSubscription: Subscription | undefined;
@@ -23,12 +23,12 @@ export class VeifiedCollectionListFilterComponent implements OnInit,OnDestroy {
   private inspectorNamesSubscription: Subscription | undefined;
   constructor(private filtersvc: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService) { }
   ngOnInit(): void {
-    this.filterRequestSubscription=this.filtersvc.getVerifiedCollectionFilterRequest().subscribe((res)=>{
+    this.filterRequestSubscription = this.filtersvc.getVerifiedCollectionFilterRequest().subscribe((res) => {
       const filterRequest = res.request;
       const pageNumber = res.pageNumber;
-      this.getCollections(filterRequest,pageNumber);
+      this.getCollections(filterRequest, pageNumber);
     });
-    }
+  }
 
 
   getCollections(filterRequest: any, pageNumber: number) {
@@ -81,17 +81,9 @@ export class VeifiedCollectionListFilterComponent implements OnInit,OnDestroy {
       });
   }
   ngOnDestroy(): void {
-    if (this.filterRequestSubscription) {
-      this.filterRequestSubscription.unsubscribe();
-    }
-    if (this.collectionsSubscription) {
-      this.collectionsSubscription.unsubscribe();
-    }
-    if (this.farmerNamesSubscription) {
-      this.farmerNamesSubscription.unsubscribe();
-    }
-    if (this.inspectorNamesSubscription) {
-      this.inspectorNamesSubscription.unsubscribe();
-    }
+    this.filterRequestSubscription?.unsubscribe();
+    this.collectionsSubscription?.unsubscribe();
+    this.farmerNamesSubscription?.unsubscribe();
+    this.inspectorNamesSubscription?.unsubscribe();
   }
 }

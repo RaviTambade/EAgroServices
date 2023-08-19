@@ -11,7 +11,7 @@ public class Crop
     public string? Title { get; set; }
 
     [Column("imageurl")]
-    public string ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
 
     [Column("rate")]
     public double Rate { get; set; }
