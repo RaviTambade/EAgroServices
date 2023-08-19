@@ -19,7 +19,7 @@ public class ShipmentService : IShipmentService
         return await _repo.GetAll();
     }
 
-    public async Task<Shipment> GetById(int shipmentId)
+    public async Task<Shipment?> GetById(int shipmentId)
     {
         return await _repo.GetById(shipmentId);
     }
@@ -49,7 +49,7 @@ public class ShipmentService : IShipmentService
         return await _repo.GetShipmentItemsById(shipmentId);
     }
 
-    public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+    public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
     {
         return await _repo.GetTransporterAmountByShipmentId(shipmentId);
     }

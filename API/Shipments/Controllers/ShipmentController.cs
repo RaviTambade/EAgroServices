@@ -44,13 +44,13 @@ namespace Shipments.Controllers
         }
 
         [HttpGet("transporteramount/{shipmentId}")]
-        public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+        public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
         {
             return await _srv.GetTransporterAmountByShipmentId(shipmentId);
         }
 
         [HttpGet("{shipmentId}")]
-        public async Task<Shipment> GetById(int shipmentId)
+        public async Task<Shipment?> GetById(int shipmentId)
         {
             return await _srv.GetById(shipmentId);
         }

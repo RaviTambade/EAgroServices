@@ -32,7 +32,7 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<ShipmentItem> GetById(int ShipmentItemId)
+        public async Task<ShipmentItem?> GetById(int ShipmentItemId)
         {
             try
             {

@@ -7,7 +7,7 @@ namespace Shipments.Repositories.Interfaces
     public interface IShipmentRepository
     {
         Task<List<Shipment>> GetAll();
-        Task<Shipment> GetById(int shipmentId);
+        Task<Shipment?> GetById(int shipmentId);
         Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId);
         Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
             int merchantId,
@@ -25,7 +25,7 @@ namespace Shipments.Repositories.Interfaces
 
         Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId);
         Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId);
-        Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId);
+        Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId);
         Task<List<CollectionCount>> GetCollectionCounts(int merchantId);
         Task<List<CropCount>> GetCropCounts(int merchantId);
         Task<bool> IsShipmentStatusDelivered(int shipmentId);

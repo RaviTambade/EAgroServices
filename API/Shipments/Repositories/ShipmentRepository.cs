@@ -75,12 +75,14 @@ namespace Shipments.Repositories
                     var shipments = await (
                         from shipment in context.Shipments
                         join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        where shipment.MerchantId == merchantId && shipment.Status == ShipmentStatus.Delivered
+                        where
+                            shipment.MerchantId == merchantId
+                            && shipment.Status == ShipmentStatus.Delivered
                         let calculatedPaymentStatus = context.TransporterPayments.Any(
                             tp => tp.ShipmentId == shipment.Id
                         )
                             ? PaymentStatus.Paid
-                            :PaymentStatus.UnPaid
+                            : PaymentStatus.UnPaid
                         where calculatedPaymentStatus == paymentStatus
                         select new MerchantShipment()
                         {
@@ -169,19 +171,13 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<Shipment> GetById(int shipmentId)
+        public async Task<Shipment?> GetById(int shipmentId)
         {
             try
             {
                 using (var context = new ShipmentContext(_configuration))
                 {
                     var shipment = await context.Shipments.FindAsync(shipmentId);
-
-                    if (shipment is null)
-                    {
-                        return null;
-                    }
-
                     return shipment;
                 }
             }
@@ -191,7 +187,7 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+        public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
         {
             try
             {
@@ -524,7 +520,8 @@ namespace Shipments.Repositories
                         select new CollectionCount()
                         {
                             CollectionCenterId = c.Key,
-                            CorporateId = c.FirstOrDefault().collectioncenter.CorporateId,
+                            CorporateId = c.Select(item => item.collectioncenter.CorporateId)
+                                .FirstOrDefault(),
                             Count = c.Count()
                         }
                     ).ToListAsync();
@@ -556,7 +553,7 @@ namespace Shipments.Repositories
                         select new CropCount()
                         {
                             Count = c.Count(),
-                            CropName = c.FirstOrDefault().crop.Title
+                            CropName = c.Select(item => item.crop.Title).FirstOrDefault()
                         }
                     ).ToListAsync();
                     return cropCounts;
