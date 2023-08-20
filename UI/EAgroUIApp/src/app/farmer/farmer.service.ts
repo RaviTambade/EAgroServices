@@ -24,6 +24,12 @@ export class FarmerService {
     console.log(url);
     return this.http.get<any>(url);
   }
+  VerifiedCollection(paymentStatus:string): Observable<any> {
+    let farmerId = localStorage.getItem("farmerId");
+    let url = "http://localhost:5051/api/farmerscollections/verified/" + farmerId+"/"+paymentStatus;
+    console.log(url);
+    return this.http.get<any>(url);
+  }
   getVerifiedCollection(): Observable<any> {
     let farmerId = localStorage.getItem("farmerId");
     let url = "http://localhost:5051/api/farmerscollections/verified/" + farmerId;

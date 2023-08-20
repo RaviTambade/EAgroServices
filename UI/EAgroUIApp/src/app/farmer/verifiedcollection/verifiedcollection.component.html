@@ -1,4 +1,9 @@
 <br>
+<!-- <button (click)="onFilterStateClick(filterState.InProgress)"
+    [ngClass]="{'active': currentFilterState === filterState.InProgress}">In Progress</button>
+<button (click)="onFilterStateClick(filterState.Delivered)"
+    [ngClass]="{'active': currentFilterState === filterState.Delivered}">Delivered</button>
+<filters [collections]="collections" [filterFor]="shippedCollection"></filters> -->
 <br>
 <div *ngIf="verifiedCollections">
     <table>

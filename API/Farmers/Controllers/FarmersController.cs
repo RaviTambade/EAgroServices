@@ -19,11 +19,17 @@ namespace Farmers.Controllers
 
 
 
-         [HttpGet("verified/{farmerId}")]
-        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId )
+         [HttpGet("verified/{farmerId}/{paymentStatus}")]
+        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId,string paymentStatus )
         {
             Console.WriteLine(farmerId);
-            return await _srv.GetVerifiedCollection(farmerId);
+            return await _srv.GetVerifiedCollection(farmerId,paymentStatus);
+        }
+            [HttpGet("verifiedcollection/{farmerId}")]
+        public async Task<List<FarmerCollection>> VerifiedCollection(int farmerId)
+        {
+            Console.WriteLine(farmerId);
+            return await _srv.VerifiedCollection(farmerId);
         }
 
 

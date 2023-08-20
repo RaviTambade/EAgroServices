@@ -75,8 +75,8 @@
 
 
     <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+        <!-- <div class="row justify-content-center"> -->
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
                         <h4>Invoice Details</h4>
@@ -150,7 +150,9 @@
                             </tr>
                             <tr>
                                 <td><strong>Payment Status:</strong></td>
+                                <span class="badge {{ invoice.paymentStatus === 'paid' ? 'badge-danger' : 'badge-success' }}">
                                 <td>{{ invoice.paymentStatus }}</td>
+                                </span>
                             </tr>
                             <!-- Repeat the rest of the rows similarly -->
                             <!-- ... -->
@@ -159,5 +161,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     

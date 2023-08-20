@@ -7,7 +7,8 @@ namespace Farmers.Repositories.Interfaces
     public interface IFarmersCollectionRepository
     {
   
-        Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId);
+        Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId,string paymentStatus);
+        Task<List<FarmerCollection>> VerifiedCollection(int farmerId);
 
         Task<List<FarmerCollection>> FarmerCollection(int farmerId);
         Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId);
