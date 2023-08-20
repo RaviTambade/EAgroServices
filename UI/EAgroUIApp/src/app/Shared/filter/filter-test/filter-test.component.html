@@ -1,14 +1,13 @@
-<div>
+<div >
   <div class="filter-container">
-    <div class="card">
-      <h3 (click)="onClickEqualFilters()">Equal Filters:</h3>
-      <h3 (click)="onClickDateFilters()">Date Filters:</h3>
-      <h3 (click)="onClickRangeFilters()">Range Filters:</h3>
+    <div class="card" style="height: auto; min-height: 650px;">
+      <h3 (click)="onClickFilter(filterModes.Equal)">Equal Filters:</h3>
+      <h3 (click)="onClickFilter(filterModes.Date)">Date Filters:</h3>
+      <h3 (click)="onClickFilter(filterModes.Range)">Range Filters:</h3>
       <button class="button" (click)="getCollections(filterFor)">Send Filters</button>
       <button class="button" (click)="clearFilters()">Clear Filters</button>
-      <button class="button" (click)="onClickCloseFilters()">Close Filters</button>
 
-      <div style="margin: top 10px; "> Active Filters</div>
+      <div style="margin: top 20px; "> Active Filters</div>
 
       <div *ngFor="let property of filterRequest.equalFilters; let i = index">
         <div *ngIf="filterRequest.equalFilters[i].propertyValues.length>0">
@@ -57,28 +56,24 @@
     </div>
   </div>
 
-  <div class="farmer-collections-container">
+  <div class="collections-container">
     <div class="card" style="width: auto; border: none;">
-      <div *ngIf="equalClickStatus" class="filter-content-top">
-        <div style="text-align: right; ">
-          <button (click)="onClickCloseFilters()">Close Filters</button>
-        </div>
+      <div *ngIf="isFilterActive(filterModes.Equal)" class="filter-content-top">
         <app-equal-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
           (filterChange)="getCollections(filterFor)"></app-equal-filter>
       </div>
-      <div *ngIf="dateClickStatus" class="filter-content-top">
-        <div style="text-align: right; ">
-          <button (click)="onClickCloseFilters()">Close Filters</button>
-        </div>
+      <div *ngIf="isFilterActive(filterModes.Date)" class="filter-content-top">
         <app-date-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
           (filterChange)="getCollections(filterFor)"></app-date-filter>
       </div>
-      <div *ngIf="rangeClickStatus" class="filter-content-top">
-        <div style="text-align: right; ">
-          <button (click)="onClickCloseFilters()">Close Filters</button>
-        </div>
+      <div *ngIf="isFilterActive(filterModes.Range)" class="filter-content-top">
         <app-range-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
           (filterChange)="getCollections(filterFor)"></app-range-filter>
+      </div>
+
+      <div style="text-align: left; margin: 20px;">
+        <app-search-bar [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-search-bar>
       </div>
 
       <div style="text-align: left; margin: 20px;">

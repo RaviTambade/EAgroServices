@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './range-filter.component.html',
   styleUrls: ['./range-filter.component.css']
 })
-export class RangeFilterComponent implements OnInit ,OnDestroy {
+export class RangeFilterComponent implements OnInit, OnDestroy {
 
   @Input() filterRequest!: FilterRequest;
   @Input() filterFor!: string;
@@ -27,17 +27,14 @@ export class RangeFilterComponent implements OnInit ,OnDestroy {
   collectionCenters: Corporate[] = [];
   transporters: Corporate[] = [];
 
-  private farmersSubscription: Subscription | undefined;
-  private merchantsSubscription: Subscription | undefined;
-  private collectionCentersSubscription: Subscription | undefined;
-  private inspectorsSubscription: Subscription | undefined;
-  private transportersSubscription: Subscription | undefined;
+  private rangePropertiesSubscription: Subscription | undefined;
+
 
   constructor(private filterservice: FiltersService) { }
 
   ngOnInit(): void {
 
-    this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
+    this.rangePropertiesSubscription = this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
       this.rangeProperties = response;
       let filterFor = sessionStorage.getItem("rangeFilterFor");
       if (this.filterFor !== filterFor) {
@@ -49,44 +46,7 @@ export class RangeFilterComponent implements OnInit ,OnDestroy {
         }
         this.initializationDone = true;
       }
-
-      if (this.rangeProperties.includes("FarmerId")) {
-        this.rangeProperties = this.rangeProperties.map(property => property.replace("FarmerId", "Farmer"));
-        this.farmersSubscription = this.filterservice.getFarmers().subscribe((farmers) => {
-          this.farmers = farmers;
-        })
-      }
-
-      if (this.rangeProperties.includes("InspectorId")) {
-        this.rangeProperties = this.rangeProperties.map(property => property.replace("InspectorId", "Inspector"));
-        this.inspectorsSubscription = this.filterservice.getInspectors().subscribe((res) => {
-          this.inspectors = res;
-        })
-      }
-
-
-      if (this.rangeProperties.includes("MerchantCorporateId")) {
-        this.rangeProperties = this.rangeProperties.map(property => property.replace("MerchantCorporateId", "Merchant"));
-        this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
-          this.merchants = res
-        })
-      }
-
-      if (this.rangeProperties.includes("CollectionCenterCorporateId")) {
-        this.rangeProperties = this.rangeProperties.map(property => property.replace("CollectionCenterCorporateId", "CollectionCenter"));
-        this.collectionCentersSubscription = this.filterservice.getCollectionCenters().subscribe((res) => {
-          this.collectionCenters = res;
-        })
-      }
-
-      if (this.rangeProperties.includes("TransporterCorporateId")) {
-        this.rangeProperties = this.rangeProperties.map(property => property.replace("TransporterCorporateId", "Transporter"));
-        this.transportersSubscription = this.filterservice.getTransporters().subscribe((res) => {
-          this.transporters = res;
-        })
-      }
     });
-
   }
 
   initializeRangeFilters() {
@@ -128,17 +88,10 @@ export class RangeFilterComponent implements OnInit ,OnDestroy {
   }
 
   propertyIsNotPersonOrCorporateId(property: string): boolean {
-    return property !== 'Farmer' && property !== 'Inspector' && property !== 'Merchant'
-      && property !== 'CollectionCenter' && property !== 'Transporter';
+    return property !== 'FarmerId' && property !== 'InspectorId' && property !== 'MerchantCorporateId'
+      && property !== 'CollectionCenterCorporateId' && property !== 'TransporterCorporateId';
   }
-
-
   ngOnDestroy(): void {
-    this.farmersSubscription?.unsubscribe();
-    this.merchantsSubscription?.unsubscribe();
-    this.collectionCentersSubscription?.unsubscribe();
-    this.inspectorsSubscription?.unsubscribe();
-    this.transportersSubscription?.unsubscribe();
+    this.rangePropertiesSubscription?.unsubscribe();
   }
-
 }
