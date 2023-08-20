@@ -4,6 +4,6 @@ namespace Shipments.Models
     {
         public int Id { get; set; }
         public int MerchantCorporateId { get; set; }
-        public string VehicleNumber{ get; set; } = string.Empty;
+        public string? VehicleNumber{ get; set; } 
     }
 }

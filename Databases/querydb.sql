@@ -205,6 +205,7 @@ SELECT * FROM shipments;
 SELECT * FROM invoices;
 SELECT * FROM goodscollectionpayments;
 SELECT * FROM goodscosting;
+SELECT * FROM shipmentitems;
 
 SELECT * FROM payments;
 SELECT * FROM goodscosting;
@@ -282,7 +283,12 @@ SELECT * FROM shipments;
 SELECT * FROM crops;
       SELECT * FROM payments;
       SELECT * FROM invoices;
+      SELECT * FROM shipmentitems;
+      SELECT * FROM shipments;
+      SELECT * FROM goodscosting;
+    
       SHOW TABLES;
+      SELECT * FROM verifiedgoodscollection;
       SELECT * FROM shipmentitems;
 SELECT * FROM collectioncenters;
 
@@ -333,3 +339,21 @@ SELECT * FROM collectioncenters;
       INNER JOIN `crops` AS `c0` ON `g`.`cropid` = `c0`.`id`
       LEFT JOIN `verifiedgoodscollection` AS `v` ON `g`.`id` = `v`.`collectionid`    
       WHERE `v`.`id` IS NULL AND (`g`.`farmerid` =2)
+
+      SELECT * from verifiedgoodscollection WHERE collectionid=3;
+
+       SELECT `m`.`corporateid` AS `MerchantCorporateId`, `c`.`corporateid` AS `CollectionCenterCorporateId`, `t`.`corporateid` AS `TransporterCorporateId`, `v`.`rtonumber` 
+AS `VehicleNumber`, `c0`.`title` AS `CropName`, `v0`.`grade` AS `Grade`, `g0`.`containertype` AS `ContainerType`, `g0`.`quantity` AS `Quantity`, `g0`.`weight` AS `TotalWeight`, `v0`.`weight` AS `NetWeight`, `g`.`freightcharges` AS `FreightCharges`, `g`.`labourcharges` AS `LabourCharges`, `i`.`paymentstatus` AS `PaymentStatus`, `g`.`servicecharges` AS `ServiceCharges`, `i`.`rateperkg` AS `RatePerKg`, `i`.`totalamount` AS `FarmerAmount`, `i`.`invoicedate` AS `InvoiceDate`
+      FROM `invoices` AS `i`
+      INNER JOIN `shipmentitems` AS `s` ON `i`.`shipmentitemid` = `s`.`id`
+      INNER JOIN `goodscosting` AS `g` ON `s`.`id` = `g`.`shipmentitemid`
+      INNER JOIN `shipments` AS `s0` ON `s`.`shipmentid` = `s0`.`id`
+      INNER JOIN `vehicles` AS `v` ON `s0`.`vehicleid` = `v`.`id`
+      INNER JOIN `transporters` AS `t` ON `v`.`transporterid` = `t`.`id`
+      INNER JOIN `goodscollections` AS `g0` ON `s`.`collectionid` = `g0`.`id`
+      INNER JOIN `collectioncenters` AS `c` ON `g0`.`collectioncenterid` = `c`.`id`   
+      INNER JOIN `verifiedgoodscollection` AS `v0` ON `g0`.`id` = `v0`.`collectionid` 
+      INNER JOIN `crops` AS `c0` ON `g0`.`cropid` = `c0`.`id`
+      INNER JOIN `merchants` AS `m` ON `s0`.`merchantid` = `m`.`id`
+      WHERE `s`.`collectionid` =9
+

@@ -21,11 +21,14 @@ namespace Farmers.Services
             return await _repo.FarmerCollection(farmerId);
         }
 
-        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId)
+        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId,string paymentStatus)
         {
-            return await _repo.GetVerifiedCollection(farmerId);
+            return await _repo.GetVerifiedCollection(farmerId,paymentStatus);
         }
-
+         public async Task<List<FarmerCollection>> VerifiedCollection(int farmerId)
+        {
+            return await _repo.VerifiedCollection(farmerId);
+        }
         public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
         {
             return await _repo.GetUnverifiedCollectionsOfFarmer(farmerId);

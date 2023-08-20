@@ -1,50 +1,46 @@
 <br>
+ <button type="button" class="btn btn-info" (click)="onClick()">Paid Collection</button>
+ <br>
+<button type="button" class="btn btn-info" (click)="unpaidClick()">Unpaid Collection</button>
+    
 <br>
-<div *ngIf="verifiedCollections">
-    <table>
-        <thead>
-            <th>CollectionCenterName</th>
-            <hr>
-            <th>CollectionDate</th>
-            <hr>
-            <th>CropName</th>
-            <hr>
-            <th>ContainerType</th>
-            <hr>
-            <th>Quantity</th>
-            <hr>
-            <th>Weight</th>
-            <hr>
-            <th>Grade</th>
-            <hr>
-            <th>InspectionDate</th>
-            <hr>
-            <th>Weight</th>
-            <hr>
-        </thead>
+<div class="container mt-4">
+    <div *ngIf="verifiedCollections">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Collection Center Name</th>
+                    <th>Collection Date</th>
+                    <th>Crop Info</th>
+                    <th>Container Type</th>
+                    <th>Quantity</th>
+                    <th>Weight</th>
+                    <th>Grade</th>
+                    <th>Inspection Date</th>
+                    <th>Weight</th>
 
-        <tbody *ngFor="let veryfiedCollection of verifiedCollections">
-            <td>{{veryfiedCollection.collectionCenterName}}</td>
-            <hr>
-            <td>{{veryfiedCollection.collectionDate}}</td>
-            <hr>
-            <td>{{veryfiedCollection.cropName}}</td>
-            <hr>
-            <img [src]="veryfiedCollection.imageUrl" style="border-radius: 50%; width: 150px; height: 150px;" />
-            <hr>
-            <td>{{veryfiedCollection.containerType}}</td>
-            <hr>
-            <td>{{veryfiedCollection.quantity}}</td>
-            <hr>
-            <td>{{veryfiedCollection.weight}}</td>
-            <hr>
-            <td>{{veryfiedCollection.grade}}</td>
-            <hr>
-            <td>{{veryfiedCollection.inspectionDate }}</td>
-            <hr>
-            <td>{{veryfiedCollection.weight}}</td>
-            <hr>
- <button (click)="onClick(veryfiedCollection.id)">verifiedcollection</button>
-        </tbody>
-    </table>
+                </tr>
+            </thead>
+
+            <tbody *ngFor="let veryfiedCollection of verifiedCollections" class="align-middle">
+                <tr>
+                    
+                    <td>{{veryfiedCollection.collectionCenterName}}</td>
+                    <td>{{veryfiedCollection.collectionDate}}</td>
+                    <td>
+                        <div class="crop-info" class="rounded-image">
+                            <img [src]="veryfiedCollection.imageUrl" class="crop-image"/>
+                            <div class="crop-name">{{veryfiedCollection.cropName}}</div>
+                        </div>
+                    </td>
+                    <td>{{veryfiedCollection.containerType}}</td>
+                    <td>{{veryfiedCollection.quantity}}</td>
+                    <td>{{veryfiedCollection.weight}}</td>
+                    <td>{{veryfiedCollection.grade}}</td>
+                    <td>{{veryfiedCollection.inspectionDate}}</td>
+                    <td>{{veryfiedCollection.weight}}</td>              
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

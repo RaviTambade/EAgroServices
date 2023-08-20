@@ -22,7 +22,7 @@ namespace Shipments.Controllers
         }
 
         [HttpGet("{shipmentItemId}")]
-        public async Task<ShipmentItem> GetById(int shipmentItemId)
+        public async Task<ShipmentItem?> GetById(int shipmentItemId)
         {
             return await _srv.GetById(shipmentItemId);
         }

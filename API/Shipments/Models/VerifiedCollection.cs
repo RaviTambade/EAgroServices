@@ -11,7 +11,7 @@ public class VerifiedCollection
     public int CollectionId { get; set; }
 
     [Column("grade")]
-    public string Grade { get; set; }
+    public string? Grade { get; set; }
 
     [Column("weight")]
     public double Weight { get; set; }

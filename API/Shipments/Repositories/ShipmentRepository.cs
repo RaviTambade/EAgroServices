@@ -31,9 +31,41 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<List<MerchantShipment>?> GetShipmentsByMerchant(
+        public async Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId)
+        {
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var shipments = await (
+                        from shipment in context.Shipments
+                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
+                        where
+                            shipment.MerchantId == merchantId
+                            && shipment.Status == ShipmentStatus.Inprogress
+                        select new MerchantShipment()
+                        {
+                            Id = shipment.Id,
+                            VehicleNumber = vehicle.RtoNumber,
+                            Kilometers = shipment.Kilometers,
+                            DeliveryStatus = shipment.Status,
+                            PaymentStatus = PaymentStatus.UnPaid,
+                            ShipmentDate = shipment.ShipmentDate,
+                            FreightCharges = context.TotalFreightCharges(shipment.Id)
+                        }
+                    ).ToListAsync();
+                    return shipments;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
             int merchantId,
-            string status
+            string paymentStatus
         )
         {
             try
@@ -43,22 +75,27 @@ namespace Shipments.Repositories
                     var shipments = await (
                         from shipment in context.Shipments
                         join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        where shipment.MerchantId == merchantId && shipment.Status == status
+                        where
+                            shipment.MerchantId == merchantId
+                            && shipment.Status == ShipmentStatus.Delivered
+                        let calculatedPaymentStatus = context.TransporterPayments.Any(
+                            tp => tp.ShipmentId == shipment.Id
+                        )
+                            ? PaymentStatus.Paid
+                            : PaymentStatus.UnPaid
+                        where calculatedPaymentStatus == paymentStatus
                         select new MerchantShipment()
                         {
                             Id = shipment.Id,
                             VehicleNumber = vehicle.RtoNumber,
                             Kilometers = shipment.Kilometers,
                             DeliveryStatus = shipment.Status,
-                            PaymentStatus = context.TransporterPayments.Any(
-                                tp => tp.ShipmentId == shipment.Id
-                            )
-                                ? "paid"
-                                : "unpaid",
+                            PaymentStatus = calculatedPaymentStatus,
                             ShipmentDate = shipment.ShipmentDate,
                             FreightCharges = context.TotalFreightCharges(shipment.Id)
                         }
                     ).ToListAsync();
+
                     return shipments;
                 }
             }
@@ -77,12 +114,12 @@ namespace Shipments.Repositories
                     var shipments = await (
                         from shipment in context.Shipments
                         join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        join merchant in context.Merchants on shipment.MerchantId equals  merchant.Id
+                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
                         where shipment.Status == ShipmentStatus.Inprogress
                         select new InprogressShipment()
                         {
                             Id = shipment.Id,
-                            MerchantCorporateId=merchant.CorporateId,
+                            MerchantCorporateId = merchant.CorporateId,
                             VehicleNumber = vehicle.RtoNumber
                         }
                     ).ToListAsync();
@@ -134,19 +171,13 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<Shipment> GetById(int shipmentId)
+        public async Task<Shipment?> GetById(int shipmentId)
         {
             try
             {
                 using (var context = new ShipmentContext(_configuration))
                 {
                     var shipment = await context.Shipments.FindAsync(shipmentId);
-
-                    if (shipment is null)
-                    {
-                        return null;
-                    }
-
                     return shipment;
                 }
             }
@@ -156,7 +187,7 @@ namespace Shipments.Repositories
             }
         }
 
-        public async Task<TransporterAmount> GetTransporterAmountByShipmentId(int shipmentId)
+        public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
         {
             try
             {
@@ -368,9 +399,9 @@ namespace Shipments.Repositories
                     return shipments;
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
-                throw ;
+                throw;
             }
         }
 
@@ -413,16 +444,15 @@ namespace Shipments.Repositories
         public async Task<PagedList<ShippedCollection>> GetShippedCollections(
             int collectionCenterId,
             string shipmentStatus,
-             FilterRequest request,
+            FilterRequest request,
             int pageNumber
-
         )
         {
             try
             {
                 using (var context = new ShipmentContext(_configuration))
                 {
-                    var query = 
+                    var query =
                         from shipment in context.Shipments
                         join shipmentItem in context.ShipmentItems
                             on shipment.Id equals shipmentItem.ShipmentId
@@ -457,9 +487,8 @@ namespace Shipments.Repositories
                             CollectionDate = collection.CollectionDate,
                             ShipmentDate = shipment.ShipmentDate
                         };
-                    query=query.ApplyFilters(request);
-                    return  await PagedList<ShippedCollection>.ToPagedList(query,pageNumber);
-
+                    query = query.ApplyFilters(request);
+                    return await PagedList<ShippedCollection>.ToPagedList(query, pageNumber);
                 }
             }
             catch (Exception)
@@ -470,53 +499,70 @@ namespace Shipments.Repositories
 
         public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
         {
-            try{
-                using(var context=new ShipmentContext(_configuration)){
-                    var collectionCounts=await (
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var collectionCounts = await (
                         from collectioncenter in context.CollectionCenters
                         join goodscollection in context.GoodsCollections
-                        on collectioncenter.Id equals goodscollection.CollectionCenterId
+                            on collectioncenter.Id equals goodscollection.CollectionCenterId
                         join shipmentitem in context.ShipmentItems
-                        on goodscollection.Id equals shipmentitem.CollectionId
+                            on goodscollection.Id equals shipmentitem.CollectionId
                         join shipment in context.Shipments
-                        on shipmentitem.ShipmentId equals shipment.Id
-                        where shipment.MerchantId == merchantId group new {goodscollection,collectioncenter} by collectioncenter.Id
-                        into c
-                        select new CollectionCount(){
-                        CollectionCenterId=c.Key,
-                        CorporateId=c.FirstOrDefault().collectioncenter.CorporateId,
-                        Count=c.Count()    
-                        }).ToListAsync();
-                        return collectionCounts;
+                            on shipmentitem.ShipmentId equals shipment.Id
+                        where shipment.MerchantId == merchantId
+                        group new
+                        {
+                            goodscollection,
+                            collectioncenter
+                        } by collectioncenter.Id into c
+                        select new CollectionCount()
+                        {
+                            CollectionCenterId = c.Key,
+                            CorporateId = c.Select(item => item.collectioncenter.CorporateId)
+                                .FirstOrDefault(),
+                            Count = c.Count()
+                        }
+                    ).ToListAsync();
+                    return collectionCounts;
                 }
             }
-            catch(Exception){
+            catch (Exception)
+            {
                 throw;
             }
         }
 
         public async Task<List<CropCount>> GetCropCounts(int merchantId)
         {
-           try{
-            using(var context=new ShipmentContext(_configuration)){
-                var cropCounts=await (from crop in context.Crops
-                                      join goodscollection in context.GoodsCollections
-                                      on crop.Id equals goodscollection.CropId
-                                      join shipmentitem in context.ShipmentItems
-                                      on goodscollection.Id equals shipmentitem.CollectionId
-                                      join shipment in context.Shipments
-                                      on shipmentitem.ShipmentId equals shipment.Id
-                                      where shipment.MerchantId == merchantId group new {crop,goodscollection} by goodscollection.CropId into c
-                                      select new CropCount(){
-                                        Count=c.Count(),
-                                        CropName=c.FirstOrDefault().crop.Title
-                                      }).ToListAsync();
-                                      return cropCounts;
+            try
+            {
+                using (var context = new ShipmentContext(_configuration))
+                {
+                    var cropCounts = await (
+                        from crop in context.Crops
+                        join goodscollection in context.GoodsCollections
+                            on crop.Id equals goodscollection.CropId
+                        join shipmentitem in context.ShipmentItems
+                            on goodscollection.Id equals shipmentitem.CollectionId
+                        join shipment in context.Shipments
+                            on shipmentitem.ShipmentId equals shipment.Id
+                        where shipment.MerchantId == merchantId
+                        group new { crop, goodscollection } by goodscollection.CropId into c
+                        select new CropCount()
+                        {
+                            Count = c.Count(),
+                            CropName = c.Select(item => item.crop.Title).FirstOrDefault()
+                        }
+                    ).ToListAsync();
+                    return cropCounts;
+                }
             }
-           }
-           catch(Exception){
-            throw;
-           }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

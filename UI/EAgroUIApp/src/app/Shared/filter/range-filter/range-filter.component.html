@@ -1,74 +1,27 @@
 <div class="property-container">
   <div class="properties-card">
-    <div *ngFor="let property of rangeProperties; let i = index" (click)="toggleProperty(i)"
-      [ngClass]="{'active': isPropertyExpanded(i)}">
-      {{ property | titlecase }}
-    </div>
+    <ng-container *ngFor="let property of rangeProperties; let i = index">
+      <div class="property-item" 
+           (click)="toggleProperty(i)" 
+           [ngClass]="{'active': isPropertyExpanded(i)}" 
+           *ngIf="propertyIsNotPersonOrCorporateId(property)">
+        {{ property | titlecase }}
+      </div>
+    </ng-container>
   </div>
 
-  <div class="expansion-card">
-    <div *ngFor="let property of rangeProperties; let i = index">
+
+
+<div class="expansion-card">
+  <div *ngFor="let property of rangeProperties; let i = index">
+    <div *ngIf="propertyIsNotPersonOrCorporateId(property)">
       <div *ngIf="isPropertyExpanded(i)" style="margin: 20px;">
-
-        <ng-container *ngIf="property == 'Farmer'">
-          <div *ngFor="let farmer of farmers">
-            <label>
-              <input type="radio" [value]="farmer.id" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
-                (ngModelChange)="setMaxValue(i)" />
-              {{ farmer.name}}
-            </label>
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="property == 'Inspector' ">
-          <div *ngFor="let inspector of inspectors">
-            <label>
-              <input type="radio" [value]="inspector.id" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
-                (ngModelChange)="setMaxValue(i)" />
-              {{ inspector.name}}
-            </label>
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="property == 'Merchant'">
-          <div *ngFor="let merchant of merchants">
-            <label>
-              <input type="radio" [value]="merchant.corporateId" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
-                (ngModelChange)="setMaxValue(i)" />
-              {{ merchant.name}}
-            </label>
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="property == 'CollectionCenter'">
-          <div *ngFor="let collectionCenter of collectionCenters">
-            <label>
-              <input type="radio" [value]="collectionCenter.corporateId" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
-                (ngModelChange)="setMaxValue(i)" />
-              {{ collectionCenter.name}}
-            </label>
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="property == 'Transporter'">
-          <div *ngFor="let transporter of transporters">
-            <label>
-              <input type="radio" [value]="transporter.corporateId" [(ngModel)]="filterRequest.rangeFilters[i].minValue"
-                (ngModelChange)="setMaxValue(i)" />
-              {{ transporter.name}}
-            </label>
-          </div>
-        </ng-container>
-
-
-        <div *ngIf="propertyIsNotPersonOrCorporateId(property)">
-          <label> Minvalue </label>
-          <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].minValue" (ngModelChange)="setMaxValue(i)" />
-          <label> maxValue </label>
-          <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].maxValue" />
-        </div>
+        <label> Minvalue </label>
+        <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].minValue" (ngModelChange)="setMaxValue(i)" />
+        <label> maxValue </label>
+        <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].maxValue" />
         <button (click)="onSubmit()" [class.clicked]="isButtonClicked">Go</button>
-
       </div>
     </div>
   </div>
+</div>

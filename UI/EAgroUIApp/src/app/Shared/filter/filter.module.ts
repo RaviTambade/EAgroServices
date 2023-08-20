@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CollectioncenterModule } from 'src/app/collectioncenter/collectioncenter.module';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 
 
@@ -19,6 +20,7 @@ import { CollectioncenterModule } from 'src/app/collectioncenter/collectioncente
         EqualFilterComponent,
         DateFilterComponent,
         RangeFilterComponent,
+        SearchBarComponent,
     ],
     exports: [
         FilterTestComponent

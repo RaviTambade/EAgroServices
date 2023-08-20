@@ -12,8 +12,8 @@ import { Verifiedcollection } from 'src/app/farmer/verifiedcollection';
 export class VerifiedcollectionComponent implements OnInit {
  
   verifiedCollections: Verifiedcollection[] = [];
-
-
+  paidStatus='paid';
+  unpaidStatus='unpaid';
   constructor(private svc: FarmerService, private route: ActivatedRoute, private crpSvc: CorporateService,private router:Router) { }
   ngOnInit(): void {
     
@@ -35,8 +35,12 @@ export class VerifiedcollectionComponent implements OnInit {
       });
     })
   }
-onClick(id:number){
-  console.log(id);
-  this.router.navigate(['farmer/invoice/'+ id]);
+onClick(){
+  console.log(this.paidStatus);
+  this.router.navigate(['farmer/paidcollection/'+ this.paidStatus]);
+}
+
+unpaidClick(){
+  this.router.navigate(['farmer/unpaidcollection/'+this.unpaidStatus]);
 }
 }

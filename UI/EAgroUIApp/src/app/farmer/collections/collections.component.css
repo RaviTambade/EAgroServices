@@ -1,0 +1,13 @@
+.rounded-image img {
+    border-radius: 10px; 
+    width: 125px;
+    height: 125px;
+}
+.btn {
+  margin-left: 10px; 
+  
+}
+.btn:hover{
+   background-color:rgb(11, 11, 11);
+   color:gold
+}

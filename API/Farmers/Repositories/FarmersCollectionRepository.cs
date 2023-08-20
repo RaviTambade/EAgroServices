@@ -51,7 +51,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
         }
     }
 
-    public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId)
+    public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId,string paymentStatus)
     {
         try
         {
@@ -65,6 +65,55 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                     join crop in context.Crops on collection.CropId equals crop.Id
                     join verifiedGoodsCollection in context.VerifiedGoodsCollections
                         on collection.Id equals verifiedGoodsCollection.CollectionId
+                        join shipmentiteam in context.ShipmentItems on verifiedGoodsCollection.CollectionId equals shipmentiteam.CollectionId   
+                        join invoice in context.Invoices on shipmentiteam.Id equals invoice.ShipmentItemId
+                    where collection.FarmerId == farmerId && invoice.PaymentStatus == paymentStatus
+                    select new FarmerCollection()
+                    {
+                        Id = collection.Id,
+                        CropName = crop.Title,
+                        ImageUrl = crop.ImageUrl,
+                        CollectionCenterId = collection.CollectionCenterId,
+                        CorporateId = center.CorporateId,
+                        InspectorId = center.CorporateId,
+                        Quantity = (int)collection.Quantity,
+                        ContainerType = collection.ContainerType,
+                        Weight = collection.Weight,
+                        CollectionDate = collection.CollectionDate,
+                        Grade = verifiedGoodsCollection.Grade,
+                        VerifiedWeight = verifiedGoodsCollection.Weight,
+                        InspectionDate = verifiedGoodsCollection.InspectionDate,
+                        PaymentStatus=invoice.PaymentStatus
+                    }
+                ).ToListAsync();
+                if (verifiedcollection == null)
+                {
+                    return null;
+                }
+                return verifiedcollection;
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+ public async Task<List<FarmerCollection>> VerifiedCollection(int farmerId)
+    {
+        try
+        {
+            Console.WriteLine(farmerId);
+            using (var context = new FarmerContext(_configuration))
+            {
+                var verifiedcollection = await (
+                    from collection in context.GoodsCollections
+                    join center in context.CollectionCenters
+                        on collection.CollectionCenterId equals center.Id
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    join verifiedGoodsCollection in context.VerifiedGoodsCollections
+                        on collection.Id equals verifiedGoodsCollection.CollectionId
+                    join shipmentiteam in context.ShipmentItems on verifiedGoodsCollection.CollectionId equals shipmentiteam.CollectionId   
+                        join invoice in context.Invoices on shipmentiteam.Id equals invoice.ShipmentItemId
                     where collection.FarmerId == farmerId
                     select new FarmerCollection()
                     {
@@ -80,7 +129,9 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         CollectionDate = collection.CollectionDate,
                         Grade = verifiedGoodsCollection.Grade,
                         VerifiedWeight = verifiedGoodsCollection.Weight,
-                        InspectionDate = verifiedGoodsCollection.InspectionDate
+                        InspectionDate = verifiedGoodsCollection.InspectionDate,
+                        PaymentStatus=invoice.PaymentStatus
+
                     }
                 ).ToListAsync();
                 if (verifiedcollection == null)

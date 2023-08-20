@@ -17,7 +17,7 @@ namespace Shipments.Models
         public int CropId { get; set; }
 
         [Column("containertype")]
-        public string ContainerType { get; set; }
+        public string? ContainerType { get; set; }
 
         [Column("quantity")]
         public int Quantity { get; set; }
