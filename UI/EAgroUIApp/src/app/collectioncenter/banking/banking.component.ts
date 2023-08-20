@@ -18,6 +18,7 @@ export class BankingComponent implements OnInit {
         this.accountNumber = res.accountNumber;
         this.banksvc.getBankStatement(this.accountNumber).subscribe((statement) => {
           this.statement=statement
+          console.log(statement)
         })
       });
     });

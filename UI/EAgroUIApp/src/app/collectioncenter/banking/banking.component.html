@@ -1,22 +1,17 @@
 <table class="table">
     <tr>
         <th>Date</th>
-        <th>Debit</th>
-        <th>Credit</th>
+        <th>Amount</th>
+        <th>Mode</th>
+        <th>Desciption</th>
         <th>balance</th>
     </tr>
     <ng-container *ngFor="let st of statement">
         <tr>
             <td>{{st.date | date }}</td>
-            <ng-container *ngIf="st.mode === 'W'; else other">
-                <td>{{st.amount |currency:"INR"}}</td>
-            </ng-container>
-            <ng-container *ngIf="st.mode === 'D'; else other">
-                <td>{{st.amount |currency:"INR"}}</td>
-            </ng-container>
-            <ng-template #other>
-                <td>&nbsp;</td>
-            </ng-template>
+            <td>{{st.amount |currency:"INR"}}</td>
+            <td>{{st.mode}}</td>
+            <td>{{st.description}}</td>
             <td>{{st.balance |currency:"INR"}}</td>
         </tr>
     </ng-container>
