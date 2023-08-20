@@ -1,13 +1,17 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FiltersService } from '../filters.service';
 import { FilterRequest } from '../filter-request';
-import { CollectionService } from 'src/app/collection-service.service';
-import { UserService } from '../../users/user.service';
 import { CollectionCenterFilterFor } from '../collection-center-filter-for';
 import { Subscription } from 'rxjs';
 import { NameId } from 'src/app/name-id';
 import { Corporate } from 'src/app/corporate';
 
+enum FilterMode {
+  None,
+  Equal,
+  Date,
+  Range,
+}
 
 @Component({
   selector: 'filters',
@@ -24,6 +28,9 @@ export class FilterTestComponent implements OnInit, OnDestroy {
   shippedCollection = CollectionCenterFilterFor.shippedCollection;
   collectionPayments = CollectionCenterFilterFor.collectionPayments;
 
+  activeFilterMode: FilterMode = FilterMode.None;
+  filterModes = FilterMode;
+
   filterRequest: FilterRequest = {
     equalFilters: [],
     rangeFilters: [],
@@ -35,9 +42,6 @@ export class FilterTestComponent implements OnInit, OnDestroy {
   pageNumbers: any[] = [];
   pageNumber: number = 1;
   currentPage: number = 1;
-  equalClickStatus: boolean = false;
-  dateClickStatus: boolean = false;
-  rangeClickStatus: boolean = false;
 
   farmers: NameId[] = [];
   inspectors: NameId[] = [];
@@ -52,7 +56,7 @@ export class FilterTestComponent implements OnInit, OnDestroy {
   private transportersSubscription: Subscription | undefined;
 
   private totalPagesSubscription: Subscription | undefined;
-  constructor(private filterservice: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService) { }
+  constructor(private filterservice: FiltersService) { }
 
 
   ngOnInit(): void {
@@ -88,6 +92,15 @@ export class FilterTestComponent implements OnInit, OnDestroy {
   }
 
 
+  onClickFilter(mode: FilterMode) {
+    this.activeFilterMode = (this.activeFilterMode === mode) ? FilterMode.None : mode;
+  }
+
+  isFilterActive(mode: FilterMode): boolean {
+    return this.activeFilterMode === mode;
+  }
+
+
   displayNameMap = [
     { key: 'FarmerId', value: 'Farmer' },
     { key: 'MerchantCorporateId', value: 'Merchant' },
@@ -95,6 +108,11 @@ export class FilterTestComponent implements OnInit, OnDestroy {
     { key: 'TransporterCorporateId', value: 'Transporter' },
     { key: 'InspectorId', value: 'Inspector' },
   ];
+
+  displayPropertyName(property: string): string {
+    const mapping = this.displayNameMap.find(map => map.key === property);
+    return mapping?.value || property;
+  }
 
   getDisplayValue(minVal: number | undefined, maxVal: number | undefined, property: string): any {
     if (property === 'FarmerId') {
@@ -120,35 +138,6 @@ export class FilterTestComponent implements OnInit, OnDestroy {
     }
     return minVal?.toString() + " -" + maxVal?.toString();
   }
-
-
-  displayPropertyName(property: string): string {
-    const mapping = this.displayNameMap.find(map => map.key === property);
-    return mapping?.value || property;
-  }
-  onClickEqualFilters() {
-    this.equalClickStatus = true;
-    this.dateClickStatus = false;
-    this.rangeClickStatus = false;
-  }
-  onClickDateFilters() {
-    this.equalClickStatus = false;
-    this.dateClickStatus = true;
-    this.rangeClickStatus = false;
-  }
-
-  onClickRangeFilters() {
-    this.equalClickStatus = false;
-    this.dateClickStatus = false;
-    this.rangeClickStatus = true;
-  }
-  onClickCloseFilters() {
-    this.equalClickStatus = false;
-    this.dateClickStatus = false;
-    this.rangeClickStatus = false;
-  }
-
-
 
   clearFilters() {
     this.filterRequest = {

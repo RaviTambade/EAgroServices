@@ -2,9 +2,10 @@
   float: left;
   width: 200px; 
   padding-right: 20px; 
+  
 }
 
-.farmer-collections-container {
+.collections-container {
   margin-top: 20px;
   margin-left: 220px;
  max-width:100% ; width:auto;
