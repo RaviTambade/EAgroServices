@@ -58,6 +58,13 @@
 
   <div class="collections-container">
     <div class="card" style="width: auto; border: none;">
+      <div class="searchandsort" >
+        <app-search-bar [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-search-bar>
+
+        <app-sort-by [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-sort-by>
+      </div>
       <div *ngIf="isFilterActive(filterModes.Equal)" class="filter-content-top">
         <app-equal-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
           (filterChange)="getCollections(filterFor)"></app-equal-filter>
@@ -71,15 +78,7 @@
           (filterChange)="getCollections(filterFor)"></app-range-filter>
       </div>
 
-      <div style="text-align: left; margin: 20px;">
-        <app-search-bar [filterRequest]="filterRequest" [filterFor]="filterFor"
-          (filterChange)="getCollections(filterFor)"></app-search-bar>
-      </div>
-
-      <div style="text-align: left; margin: 20px;">
-        <app-sort-by [filterRequest]="filterRequest" [filterFor]="filterFor"
-          (filterChange)="getCollections(filterFor)"></app-sort-by>
-      </div>
+    
       <div *ngIf="filterFor == collection">
         <app-collection-verification [collections]="collections"></app-collection-verification>
       </div>

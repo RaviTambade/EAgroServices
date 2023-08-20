@@ -60,7 +60,7 @@
   }
 
   .properties-card::-webkit-scrollbar {
-    display: none;
+    width: 6px;
   }
 
 

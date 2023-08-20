@@ -21,7 +21,15 @@ export class SortByComponent implements OnInit, OnDestroy {
     // fetching all properties for sorting
     this.propertiesSubscription = this.filterservice.getAllProperties(this.filterFor).subscribe((response) => {
       this.sortByProperties = response;
+      const displayNameKeys = this.filterservice.getDisplayNamesMap().map(property => property.key);
+
+      this.sortByProperties = this.sortByProperties.filter(
+        prop => !displayNameKeys.includes(prop) && !prop.endsWith('Id')
+      );
+      
     });
+
+
   }
 
   onChange() {

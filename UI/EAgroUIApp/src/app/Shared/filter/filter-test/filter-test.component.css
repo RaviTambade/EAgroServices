@@ -79,3 +79,10 @@
 .cbtn2:hover{
   text-decoration: line-through;
 }
+
+.searchandsort{
+  margin: 20px;
+  display: flex;
+  align-items: flex-start ;
+  justify-content: space-between;
+}
