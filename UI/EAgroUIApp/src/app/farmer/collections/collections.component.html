@@ -1,39 +1,30 @@
 <br>
 <br>
-<button (click)="onClickUnverified()">UnverifiedCollection</button>
-<button (click)="onClickVerified()">VerifiedCollection</button>
+<button type="button" class="btn btn-primary" (click)="onClickUnverified()">UnverifiedCollection</button>
+<button type="button" class="btn btn-primary" (click)="onClickVerified()">VerifiedCollection</button>
 
-<div *ngIf="farmerCollections">
-    <table>
+    <div class="container mt-4">
+        <div *ngIf="farmerCollections">
+            <table class="table table-bordered">
         <thead>
             <th>CollectionCenterName</th>
-            <hr>
             <th>CollectionDate</th>
-            <hr>
-            <th>CropName</th>
-            <hr>
+            <th>Crop</th>
             <th>ContainerType</th>
-            <hr>
             <th>Quantity</th>
-            <hr>
             <th>Weight</th>
-            <hr>
         </thead>
         <tbody *ngFor="let farmerCollection of farmerCollections">
             <td>{{farmerCollection.collectionCenterName}}</td>
-            <hr>
             <td>{{farmerCollection.collectionDate}}</td>
-            <hr>
             <td>{{farmerCollection.cropName}}</td>
-            <hr>
-            <img [src]="farmerCollection.imageUrl" style="border-radius: 50%; width: 150px; height: 150px;" />
-            <hr>
+            <div class="crop-info" class="rounded-image">
+                <img [src]="farmerCollection.imageUrl" class="crop-image"/>
+                <div class="crop-name">{{farmerCollection.cropName}}</div>
+            </div>
             <td>{{farmerCollection.containerType}}</td>
-            <hr>
             <td>{{farmerCollection.quantity}}</td>
-            <hr>
             <td>{{farmerCollection.weight}}</td>
-            <hr>
         </tbody>
     </table>
 </div>
