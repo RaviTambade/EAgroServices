@@ -13,6 +13,7 @@ import { RevenuebarchartComponent } from './revenuebarchart/revenuebarchart.comp
 import { CropModule } from '../crop/crop.module';
 import { FarmerdashboardComponent } from './farmerdashboard/farmerdashboard.component';
 import { CollectionsComponent } from './collections/collections.component';
+import { CollectionstatusComponent } from './verifiedcollection/collectionstatus/collectionstatus.component';
 
  export const farmerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -21,6 +22,8 @@ import { CollectionsComponent } from './collections/collections.component';
   { path: 'collection', component:CollectionsComponent },
   { path: 'verifiedcollection', component:VerifiedcollectionComponent },
   { path: 'invoice/:id', component:InvoicedetailsComponent },
+  { path: 'paidcollection/:status', component:CollectionstatusComponent },
+  { path: 'unpaidcollection/:status', component:CollectionstatusComponent },
 
 ]
 
@@ -34,6 +37,7 @@ import { CollectionsComponent } from './collections/collections.component';
     FarmerpiechartComponent,
     FarmerdashboardComponent,
     CollectionsComponent,
+    CollectionstatusComponent,
   ],
   imports: [
     CommonModule,

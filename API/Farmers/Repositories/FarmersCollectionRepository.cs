@@ -112,6 +112,8 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                     join crop in context.Crops on collection.CropId equals crop.Id
                     join verifiedGoodsCollection in context.VerifiedGoodsCollections
                         on collection.Id equals verifiedGoodsCollection.CollectionId
+                    join shipmentiteam in context.ShipmentItems on verifiedGoodsCollection.CollectionId equals shipmentiteam.CollectionId   
+                        join invoice in context.Invoices on shipmentiteam.Id equals invoice.ShipmentItemId
                     where collection.FarmerId == farmerId
                     select new FarmerCollection()
                     {
@@ -128,6 +130,8 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         Grade = verifiedGoodsCollection.Grade,
                         VerifiedWeight = verifiedGoodsCollection.Weight,
                         InspectionDate = verifiedGoodsCollection.InspectionDate,
+                        PaymentStatus=invoice.PaymentStatus
+
                     }
                 ).ToListAsync();
                 if (verifiedcollection == null)

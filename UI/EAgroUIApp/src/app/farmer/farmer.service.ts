@@ -32,7 +32,7 @@ export class FarmerService {
   }
   getVerifiedCollection(): Observable<any> {
     let farmerId = localStorage.getItem("farmerId");
-    let url = "http://localhost:5051/api/farmerscollections/verified/" + farmerId;
+    let url = "http://localhost:5051/api/farmerscollections/verifiedcollection/" + farmerId;
     console.log(url);
     return this.http.get<any>(url);
   }

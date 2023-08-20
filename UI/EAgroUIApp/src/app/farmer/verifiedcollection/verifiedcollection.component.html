@@ -1,8 +1,8 @@
 <br>
-<!-- <button (click)="onFilterStateClick(filterState.InProgress)"
-    [ngClass]="{'active': currentFilterState === filterState.InProgress}">In Progress</button>
-<button (click)="onFilterStateClick(filterState.Delivered)"
-    [ngClass]="{'active': currentFilterState === filterState.Delivered}">Delivered</button>
+ <button (click)="onClick()">Paid Collection</button>
+    <!-- [ngClass]="{'active': currentFilterState === filterState.InProgress}">In Progress</button> -->
+<button (click)="unpaidClick()">Unpaid Collection</button>
+    <!-- [ngClass]="{'active': currentFilterState === filterState.Delivered}">Delivered</button>
 <filters [collections]="collections" [filterFor]="shippedCollection"></filters> -->
 <br>
 <div *ngIf="verifiedCollections">
@@ -49,7 +49,7 @@
             <hr>
             <td>{{veryfiedCollection.weight}}</td>
             <hr>
- <button (click)="onClick(veryfiedCollection.id)">Collection Invoice</button>
+ <!-- <button (click)="onClick(veryfiedCollection.id)">Collection Invoice</button> -->
         </tbody>
     </table>
 </div>
