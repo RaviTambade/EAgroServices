@@ -4,7 +4,6 @@ import { FiltersService } from '../filters.service';
 import { NameId } from 'src/app/name-id';
 import { Corporate } from 'src/app/corporate';
 import { Subscription } from 'rxjs';
-import { Farmer } from 'src/app/farmer/farmer';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -32,13 +31,17 @@ export class SearchBarComponent {
   showSuggestions = false;
   suggestions: any[] = [];
 
+
+
   private farmersSubscription: Subscription | undefined;
   private merchantsSubscription: Subscription | undefined;
   private collectionCentersSubscription: Subscription | undefined;
   private inspectorsSubscription: Subscription | undefined;
   private transportersSubscription: Subscription | undefined;
 
-  constructor(private filterservice: FiltersService) { }
+  constructor(private filterservice: FiltersService) {
+
+  }
 
   ngOnInit(): void {
     this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
@@ -94,17 +97,9 @@ export class SearchBarComponent {
     });
   }
 
-  displayNameMap = [
-    { key: 'FarmerId', value: 'Farmer' },
-    { key: 'MerchantCorporateId', value: 'Merchant' },
-    { key: 'CollectionCenterCorporateId', value: 'CollectionCenter' },
-    { key: 'TransporterCorporateId', value: 'Transporter' },
-    { key: 'InspectorId', value: 'Inspector' },
-  ];
 
   displayPropertyName(property: string): string {
-    const mapping = this.displayNameMap.find(map => map.key === property);
-    return mapping?.value || property;
+    return this.filterservice.displayPropertyName(property);
   }
   onSearchInput() {
     if (this.searchQuery) {
@@ -159,6 +154,7 @@ export class SearchBarComponent {
     });
     this.filterChange.emit();
   }
+
   propertyIsPerson(property: string): boolean {
     return property === 'FarmerId' || property === 'InspectorId'
   }

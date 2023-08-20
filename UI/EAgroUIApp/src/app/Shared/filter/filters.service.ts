@@ -30,9 +30,26 @@ export class FiltersService {
   private ShippedCollectionFilterRequestSender = new Subject<requestObject>();
   private collectionPaymentListFilterRequestSender = new Subject<requestObject>();
 
+  private displayNameMap = [
+    { key: 'FarmerId', value: 'Farmer' },
+    { key: 'MerchantCorporateId', value: 'Merchant' },
+    { key: 'CollectionCenterCorporateId', value: 'CollectionCenter' },
+    { key: 'TransporterCorporateId', value: 'Transporter' },
+    { key: 'InspectorId', value: 'Inspector' },
+  ];
+
   constructor(private http: HttpClient, private usrsvc: UserService, private userrolesvc: UserRoleService,
     private merchantsvc: MerchantService, private corpsvc: CorporateService,
     private collectionCentersvc: CollectioncenterService, private transportersvc: TransporterService) { }
+
+  getDisplayNamesMap() {
+    return this.displayNameMap
+  }
+  
+  displayPropertyName(property: string): string {
+    const mapping = this.displayNameMap.find(map => map.key === property);
+    return mapping?.value || property;
+  }
 
   sendTotalPages(data: number) {
     this.toatalPages.next(data);
@@ -139,7 +156,7 @@ export class FiltersService {
     return this.http.get<any>(url);
   }
 
-  getRangeProperties(filterFor: string): Observable<any> {
+  getRangeProperties(filterFor: string): Observable<string[]> {
     let url = ''
     switch (filterFor) {
       case CollectionCenterFilterFor.collection:

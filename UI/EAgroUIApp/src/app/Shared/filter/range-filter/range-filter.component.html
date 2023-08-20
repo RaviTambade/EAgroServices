@@ -1,23 +1,27 @@
 <div class="property-container">
   <div class="properties-card">
-    <div *ngFor="let property of rangeProperties; let i = index" (click)="toggleProperty(i)"
-      [ngClass]="{'active': isPropertyExpanded(i)}">
-      <ng-container *ngIf="propertyIsNotPersonOrCorporateId(property)">
-      {{ property | titlecase }}
+    <ng-container *ngFor="let property of rangeProperties; let i = index">
+      <div class="property-item" 
+           (click)="toggleProperty(i)" 
+           [ngClass]="{'active': isPropertyExpanded(i)}" 
+           *ngIf="propertyIsNotPersonOrCorporateId(property)">
+        {{ property | titlecase }}
+      </div>
     </ng-container>
   </div>
-  </div>
 
-  <div class="expansion-card">
-    <div *ngFor="let property of rangeProperties; let i = index">
-      <div *ngIf="propertyIsNotPersonOrCorporateId(property)">
+
+
+<div class="expansion-card">
+  <div *ngFor="let property of rangeProperties; let i = index">
+    <div *ngIf="propertyIsNotPersonOrCorporateId(property)">
       <div *ngIf="isPropertyExpanded(i)" style="margin: 20px;">
-          <label> Minvalue </label>
-          <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].minValue" (ngModelChange)="setMaxValue(i)" />
-          <label> maxValue </label>
-          <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].maxValue" />
-          <button (click)="onSubmit()" [class.clicked]="isButtonClicked">Go</button>
-        </div>
+        <label> Minvalue </label>
+        <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].minValue" (ngModelChange)="setMaxValue(i)" />
+        <label> maxValue </label>
+        <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].maxValue" />
+        <button (click)="onSubmit()" [class.clicked]="isButtonClicked">Go</button>
       </div>
     </div>
   </div>
+</div>

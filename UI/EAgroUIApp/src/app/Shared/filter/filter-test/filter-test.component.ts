@@ -49,6 +49,7 @@ export class FilterTestComponent implements OnInit, OnDestroy {
   collectionCenters: Corporate[] = [];
   transporters: Corporate[] = [];
 
+
   private farmersSubscription: Subscription | undefined;
   private merchantsSubscription: Subscription | undefined;
   private collectionCentersSubscription: Subscription | undefined;
@@ -56,6 +57,7 @@ export class FilterTestComponent implements OnInit, OnDestroy {
   private transportersSubscription: Subscription | undefined;
 
   private totalPagesSubscription: Subscription | undefined;
+  rangeProperties: string[] = [];
   constructor(private filterservice: FiltersService) { }
 
 
@@ -63,31 +65,42 @@ export class FilterTestComponent implements OnInit, OnDestroy {
     this.totalPagesSubscription = this.filterservice.getTotalPages().subscribe((totalPages) => {
       this.genratePageNumbers(totalPages);
     });
+    
+     this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
+      this.rangeProperties = response;
 
-    this.farmersSubscription = this.filterservice.getFarmers().subscribe((farmers) => {
-      this.farmers = farmers;
+      if (this.rangeProperties.includes("FarmerId")) {
+        this.farmersSubscription = this.filterservice.getFarmers().subscribe((farmers) => {
+          this.farmers = farmers;
+        })
+      }
+
+      if (this.rangeProperties.includes("InspectorId")) {
+        this.inspectorsSubscription = this.filterservice.getInspectors().subscribe((res) => {
+          this.inspectors = res;
+        })
+      }
+
+
+      if (this.rangeProperties.includes("MerchantCorporateId")) {
+        this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
+          this.merchants = res
+        })
+      }
+
+      if (this.rangeProperties.includes("CollectionCenterCorporateId")) {
+        this.collectionCentersSubscription = this.filterservice.getCollectionCenters().subscribe((res) => {
+          this.collectionCenters = res;
+        })
+      }
+
+      if (this.rangeProperties.includes("TransporterCorporateId")) {
+        this.transportersSubscription = this.filterservice.getTransporters().subscribe((res) => {
+          this.transporters = res;
+        })
+      }
     });
 
-    this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
-      this.merchants = res;
-    });
-
-    this.collectionCentersSubscription = this.filterservice.getCollectionCenters().subscribe((res) => {
-      this.collectionCenters = res;
-    });
-
-    this.inspectorsSubscription = this.filterservice.getInspectors().subscribe((res) => {
-      this.inspectors = res;
-    });
-
-    this.transportersSubscription = this.filterservice.getTransporters().subscribe((res) => {
-      this.transporters = res;
-    });
-    let prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
-    if (prevFilterRequest != null) {
-      this.filterRequest = JSON.parse(prevFilterRequest);
-    }
-    console.log(this.filterFor)
     this.getCollections(this.filterFor);
   }
 
@@ -101,17 +114,8 @@ export class FilterTestComponent implements OnInit, OnDestroy {
   }
 
 
-  displayNameMap = [
-    { key: 'FarmerId', value: 'Farmer' },
-    { key: 'MerchantCorporateId', value: 'Merchant' },
-    { key: 'CollectionCenterCorporateId', value: 'CollectionCenter' },
-    { key: 'TransporterCorporateId', value: 'Transporter' },
-    { key: 'InspectorId', value: 'Inspector' },
-  ];
-
   displayPropertyName(property: string): string {
-    const mapping = this.displayNameMap.find(map => map.key === property);
-    return mapping?.value || property;
+    return this.filterservice.displayPropertyName(property);
   }
 
   getDisplayValue(minVal: number | undefined, maxVal: number | undefined, property: string): any {
