@@ -26,13 +26,8 @@ export class DateFilterComponent implements OnInit, OnDestroy {
     //fetching property types
     this.datePropertiesSubscription = this.filterservice.getDateRangeProperties(this.filterFor).subscribe((response) => {
       this.dateProperties = response;
-      let filterFor = sessionStorage.getItem("dateFilterFor");
-      if (this.filterFor !== filterFor) {
-        this.initializeDateFilters();
-      }
-
-      else if (!this.initializationDone) {
-        if (!this.doesPreviousRequestContainsDateProperties()) {
+      if (!this.initializationDone) {
+        if (!this.doesPreviousRequestContainsDateProperties(this.filterFor)) {
           this.initializeDateFilters();
         }
         this.initializationDone = true;
@@ -50,10 +45,10 @@ export class DateFilterComponent implements OnInit, OnDestroy {
 
 
   updateToDate(index: number) {
-    const fromDate = this.filterRequest.dateRangeFilters[index].fromDate;
+    let fromDate = this.filterRequest.dateRangeFilters[index].fromDate;
     if (fromDate && this.filterRequest.dateRangeFilters[index].toDate == '') {
-      const fromDateObj = new Date(fromDate);
-      const toDateObj = new Date(fromDateObj.getTime() + (24 * 60 * 60 * 1000)); // Add one day (24 hours) to the fromDate
+      let fromDateObj = new Date(fromDate);
+      let toDateObj = new Date(fromDateObj.getTime() + (24 * 60 * 60 * 1000)); // Add one day (24 hours) to the fromDate
       this.filterRequest.dateRangeFilters[index].toDate = toDateObj.toISOString().substring(0, 10);
     }
   }
@@ -75,8 +70,8 @@ export class DateFilterComponent implements OnInit, OnDestroy {
     return this.expandedPropertyIndex === index;
   }
 
-  doesPreviousRequestContainsDateProperties(): boolean {
-    const prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
+  doesPreviousRequestContainsDateProperties(filterFor: string): boolean {
+    const prevFilterRequest = sessionStorage.getItem(filterFor + "prevFilterRequest");
     if (prevFilterRequest != null) {
       const filterRequest: FilterRequest = JSON.parse(prevFilterRequest);
       return filterRequest.dateRangeFilters.length > 0
