@@ -79,7 +79,7 @@ export class GetshipmentsofvehicleComponent implements OnInit {
       // });
     });
   })
-}
+  }  
 onClickShipmentDetails(shipment: Shipmentsmerchant) {
     localStorage.setItem('selectedShipment', JSON.stringify(shipment));
     this.router.navigate(['transporter/shipmentdetails', shipment.id]);

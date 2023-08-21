@@ -16,6 +16,7 @@ import { TransporterpiechartComponent } from './transporterpiechart/transporterp
 import { TransporterlinechartComponent } from './transporterlinechart/transporterlinechart.component';
 import { CorporatedetailsDirective } from './corporatedetails.directive';
 import { UpdatevehicleComponent } from './updatevehicle/updatevehicle.component';
+import { TransporterbankingComponent } from './transporterbanking/transporterbanking.component';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
@@ -25,7 +26,9 @@ export const transporterRoutes: Routes = [
     {path:'addvehicle',component:AddnewvehicleComponent},
     {path:'shipmentdetails/:id',component:GetvehicleshipmentitemsComponent},
     {path:'allshipments',component:GetallshipmentsComponent},
-    {path:'dashboard',component:TransporterdashboardComponent}
+    {path:'dashboard',component:TransporterdashboardComponent},
+    {path:'banking',component:TransporterbankingComponent},
+
 ]
 
 
@@ -43,6 +46,7 @@ export const transporterRoutes: Routes = [
     TransporterlinechartComponent,
     CorporatedetailsDirective,
     UpdatevehicleComponent,
+    TransporterbankingComponent,
 
   ],
   imports: [
@@ -56,7 +60,8 @@ export const transporterRoutes: Routes = [
     VehiclesoftransporterComponent,
     GetshipmentsofvehicleComponent,
     AddnewvehicleComponent,
-    GetallshipmentsComponent
+    GetallshipmentsComponent,
+    TransporterbankingComponent
   ],
   providers:[
     CorporateService
