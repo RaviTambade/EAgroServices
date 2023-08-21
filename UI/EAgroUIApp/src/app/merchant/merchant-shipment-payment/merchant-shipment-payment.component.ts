@@ -46,8 +46,9 @@ export class MerchantShipmentPaymentComponent implements OnInit {
       this.transportersvc.getCorporateIdOfTransporter().subscribe((corporateId) => {
         this.corpsvc.getCorporates(corporateId.toString()).subscribe((res) => {
           this.transporterName = res[0].name
-
+          console.log((res[0].id))
           this.banksvc.getCorporateAccountInfo(res[0].id).subscribe((transporterAccount) => {
+            console.log(transporterAccount)
             this.transporterAccountInfo.accountNumber = transporterAccount.accountNumber;
             this.transporterAccountInfo.ifscCode = transporterAccount.ifscCode;
           });
@@ -56,6 +57,7 @@ export class MerchantShipmentPaymentComponent implements OnInit {
     });
 
     this.merchantsvc.getMerchantCorporateId().subscribe((corpId) => {
+      console.log("corporate id",corpId);
       this.banksvc.getCorporateAccountInfo(corpId).subscribe((merchantAccount) => {
         this.merchantAccountInfo.accountNumber = merchantAccount.accountNumber;
         this.merchantAccountInfo.ifscCode = merchantAccount.ifscCode;

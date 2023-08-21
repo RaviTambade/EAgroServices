@@ -201,7 +201,8 @@ export class FiltersService {
   }
   getInspectors(): Observable<NameId[]> {
     return this.userrolesvc.getusersId("inspector").pipe(
-      switchMap((res) => this.usrsvc.getUserNamesWithId(res))
+      switchMap((res) => this.usrsvc.getUserNamesWithId(res)
+      )
     );
   }
 

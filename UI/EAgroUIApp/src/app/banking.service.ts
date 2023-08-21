@@ -16,7 +16,7 @@ export class BankingService {
     let url = "http://localhost:5053/api/accounts/details";
     let body = {
       "Usertype": "person",
-      "DependancyId": farmerId
+      "DependencyId": farmerId
     }
     return this.http.post<any>(url, body);
   }
@@ -25,7 +25,7 @@ export class BankingService {
     let url = "http://localhost:5053/api/accounts/details";
     let body = {
       "Usertype": "corporation",
-      "DependancyId": corporateId
+      "DependencyId": corporateId
     }
     return this.http.post<any>(url, body);
   }
