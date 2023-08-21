@@ -36,12 +36,8 @@ export class RangeFilterComponent implements OnInit, OnDestroy {
 
     this.rangePropertiesSubscription = this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
       this.rangeProperties = response;
-      let filterFor = sessionStorage.getItem("rangeFilterFor");
-      if (this.filterFor !== filterFor) {
-        this.initializeRangeFilters();
-      }
-      else if (!this.initializationDone) {
-        if (!this.doesPreviousRequestContainsRangeProperties()) {
+       if (!this.initializationDone) {
+        if (!this.doesPreviousRequestContainsRangeProperties(this.filterFor)) {
           this.initializeRangeFilters();
         }
         this.initializationDone = true;
@@ -78,8 +74,8 @@ export class RangeFilterComponent implements OnInit, OnDestroy {
     return this.expandedPropertyIndex === index;
   }
 
-  doesPreviousRequestContainsRangeProperties(): boolean {
-    const prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
+  doesPreviousRequestContainsRangeProperties(filterFor:string): boolean {
+    const prevFilterRequest = sessionStorage.getItem(filterFor+"prevFilterRequest");
     if (prevFilterRequest != null) {
       const filterRequest: FilterRequest = JSON.parse(prevFilterRequest);
       return filterRequest.rangeFilters.length > 0

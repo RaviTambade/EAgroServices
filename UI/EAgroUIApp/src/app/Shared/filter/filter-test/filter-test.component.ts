@@ -62,10 +62,11 @@ export class FilterTestComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    console.log("--------------------------------------------------------------------------------")
     this.totalPagesSubscription = this.filterservice.getTotalPages().subscribe((totalPages) => {
       this.genratePageNumbers(totalPages);
     });
-    
+
      this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
       this.rangeProperties = response;
 
@@ -100,6 +101,15 @@ export class FilterTestComponent implements OnInit, OnDestroy {
         })
       }
     });
+
+    setTimeout(()=>{},2000)
+    let prevFilterRequest = sessionStorage.getItem(this.filterFor+"prevFilterRequest");
+    console.log(prevFilterRequest);
+    console.log(this.filterFor+"prevFilterRequest");
+    if (prevFilterRequest != null) {
+      this.filterRequest = JSON.parse(prevFilterRequest);
+      console.log(this.filterRequest);
+    }
 
     this.getCollections(this.filterFor);
   }
@@ -183,11 +193,11 @@ export class FilterTestComponent implements OnInit, OnDestroy {
 
 
   getCollections(filterFor: string) {
-    if (this.isFilterRequestChanged(this.filterRequest)) {
+    if (this.isFilterRequestChanged(this.filterRequest,filterFor)) {
       this.pageNumber = 1;
       this.currentPage = 1;
     }
-    sessionStorage.setItem("prevFilterRequest", JSON.stringify(this.filterRequest));
+    sessionStorage.setItem(filterFor+"prevFilterRequest", JSON.stringify(this.filterRequest));
 
     var filterRequest = this.removeDefaultValues(this.filterRequest);
     console.log("🚀 ~ getCollections ~ filterrequest:", filterRequest);
@@ -221,8 +231,8 @@ export class FilterTestComponent implements OnInit, OnDestroy {
     console.log('Clicked page number:', pageNumber);
   }
 
-  isFilterRequestChanged(filterRequest: FilterRequest): boolean {
-    var prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
+  isFilterRequestChanged(filterRequest: FilterRequest,filterFor:string): boolean {
+    var prevFilterRequest = sessionStorage.getItem(filterFor+"prevFilterRequest");
     if (prevFilterRequest == null) {
       return false;
     }

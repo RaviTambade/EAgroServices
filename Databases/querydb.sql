@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
@@ -355,5 +355,6 @@ AS `VehicleNumber`, `c0`.`title` AS `CropName`, `v0`.`grade` AS `Grade`, `g0`.`c
       INNER JOIN `verifiedgoodscollection` AS `v0` ON `g0`.`id` = `v0`.`collectionid` 
       INNER JOIN `crops` AS `c0` ON `g0`.`cropid` = `c0`.`id`
       INNER JOIN `merchants` AS `m` ON `s0`.`merchantid` = `m`.`id`
-      WHERE `s`.`collectionid` =9
-
+      WHERE `s`.`collectionid` =9;
+      SELECT * FROM transporters;
+SELECT * FROM userroles;

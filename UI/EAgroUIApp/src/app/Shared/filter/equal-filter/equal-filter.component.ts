@@ -17,7 +17,7 @@ export class EqualFilterComponent implements OnInit, OnDestroy {
   selectedPropertyIndex: number = -1;
   initializationDone: boolean = false;
 
-
+  searchText: string = '';
   crops: any[] = []
   grades: any[] = []
   containerTypes: any[] = []
@@ -29,7 +29,7 @@ export class EqualFilterComponent implements OnInit, OnDestroy {
   private containerTypesSubscription: Subscription | undefined;
   private vehiclesSubscription: Subscription | undefined;
   constructor(private filterservice: FiltersService) { }
-  
+
   ngOnInit(): void {
 
     this.equalPropertiesSubscription = this.filterservice.getEqualProperties(this.filterFor).subscribe((response) => {
@@ -38,12 +38,8 @@ export class EqualFilterComponent implements OnInit, OnDestroy {
         return { name: item, expanded: false };
       });
 
-      let filterFor = sessionStorage.getItem("equalFilterFor");
-      if (this.filterFor !== filterFor) {
-        this.initializeEqualFilters();
-      }
-      else if (!this.initializationDone) {
-        if (!this.doesPreviousRequestContainsEqualProperties()) {
+      if (!this.initializationDone) {
+        if (!this.doesPreviousRequestContainsEqualProperties(this.filterFor)) {
           this.initializeEqualFilters();
         }
         this.initializationDone = true;
@@ -54,6 +50,7 @@ export class EqualFilterComponent implements OnInit, OnDestroy {
       if (response.includes("CropName")) {
         this.cropsSubscription = this.filterservice.getCrops().subscribe((response) => {
           this.crops = response;
+          // this.filteredCrops=response;
         });
       }
 
@@ -82,6 +79,16 @@ export class EqualFilterComponent implements OnInit, OnDestroy {
 
 
   }
+
+  applySearchFilter(input: string, items: string[]): string[] {
+    if (!input) {
+      return items;
+    }
+    const searchText = input.toLowerCase();
+    return items.filter(item => item.toLowerCase().includes(searchText));
+  }
+
+
   // intialize all equal propeties with empty array of values
   initializeEqualFilters() {
     sessionStorage.setItem("equalFilterFor", this.filterFor);
@@ -120,8 +127,8 @@ export class EqualFilterComponent implements OnInit, OnDestroy {
     return this.selectedPropertyIndex === index;
   }
 
-  doesPreviousRequestContainsEqualProperties(): boolean {
-    const prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
+  doesPreviousRequestContainsEqualProperties(filterFor: string): boolean {
+    const prevFilterRequest = sessionStorage.getItem(filterFor + "prevFilterRequest");
     if (prevFilterRequest != null) {
       const filterRequest: FilterRequest = JSON.parse(prevFilterRequest);
       return filterRequest.equalFilters.length > 0

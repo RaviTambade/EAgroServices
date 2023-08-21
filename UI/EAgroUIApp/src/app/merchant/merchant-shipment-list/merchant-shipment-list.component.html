@@ -10,7 +10,7 @@
       <th>Vehicle Number </th>
       <th>Kilometers</th>
       <th>Charges</th>
-      <th *ngIf="paidDeliveredStatus">Payment Status</th>
+      <!-- <th *ngIf="paidDeliveredStatus">Payment Status</th> -->
     </tr>
   </thead>
   <tbody>
@@ -20,10 +20,10 @@
         <td>{{ shipment.vehicleNumber }}</td>
         <td>{{ shipment.kilometers }}</td>
         <td>{{ shipment.freightCharges}}</td>
-        <td *ngIf="paidDeliveredStatus">{{ shipment.paymentStatus}}</td>
+        <!-- <td *ngIf="paidDeliveredStatus">{{ shipment.paymentStatus}}</td> -->
 
         <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
-        <td *ngIf="paidDeliveredStatus"><button (click)="onClickpaymentDetails(shipment.id)">
+        <td *ngIf="paidDeliveredStatus || unpaidDeliveredStatus"><button (click)="onClickpaymentDetails(shipment.id)">
             paymentDetails </button></td>
       </tr>
       <tr *ngIf="selectedDetailsShipmentId === shipment.id">

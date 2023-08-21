@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit, OnDestroy {
   @Input() filterRequest!: FilterRequest;
   @Input() filterFor!: string;
   @Output() filterChange = new EventEmitter<void>();
@@ -27,7 +27,7 @@ export class SearchBarComponent {
   collectionCenters: Corporate[] = [];
   transporters: Corporate[] = [];
 
-  searchQuery = '';
+  searchText = '';
   showSuggestions = false;
   suggestions: any[] = [];
 
@@ -46,12 +46,8 @@ export class SearchBarComponent {
   ngOnInit(): void {
     this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
       this.rangeProperties = response;
-      let filterFor = sessionStorage.getItem("rangeFilterFor");
-      if (this.filterFor !== filterFor) {
-        this.initializeRangeFilters();
-      }
-      else if (!this.initializationDone) {
-        if (!this.doesPreviousRequestContainsRangeProperties()) {
+      if (!this.initializationDone) {
+        if (!this.doesPreviousRequestContainsRangeProperties(this.filterFor)) {
           this.initializeRangeFilters();
         }
         this.initializationDone = true;
@@ -102,33 +98,32 @@ export class SearchBarComponent {
     return this.filterservice.displayPropertyName(property);
   }
   onSearchInput() {
-    if (this.searchQuery) {
+    if (this.searchText) {
       this.showSuggestions = true;
-      console.log(this.selectedRole)
       switch (this.selectedRole) {
         case "FarmerId":
           this.suggestions = this.farmers.filter(farmer =>
-            farmer.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+            farmer.name.toLowerCase().includes(this.searchText.toLowerCase())
           );
           break;
         case "MerchantCorporateId":
           this.suggestions = this.merchants.filter(merchant =>
-            merchant.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+            merchant.name.toLowerCase().includes(this.searchText.toLowerCase())
           );
           break;
         case "CollectionCenterCorporateId":
           this.suggestions = this.collectionCenters.filter(collectionCenter =>
-            collectionCenter.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+            collectionCenter.name.toLowerCase().includes(this.searchText.toLowerCase())
           );
           break;
         case "InspectorId":
           this.suggestions = this.inspectors.filter(inspector =>
-            inspector.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+            inspector.name.toLowerCase().includes(this.searchText.toLowerCase())
           );
           break;
         case "TransporterCorporateId":
           this.suggestions = this.transporters.filter(transporter =>
-            transporter.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+            transporter.name.toLowerCase().includes(this.searchText.toLowerCase())
           );
           break;
       }
@@ -139,7 +134,7 @@ export class SearchBarComponent {
   }
 
   selectSuggestion(suggestion: Corporate) {
-    this.searchQuery = suggestion.name;
+    this.searchText = suggestion.name;
     this.showSuggestions = false;
     this.suggestions = [];
     this.filterRequest.rangeFilters.forEach(property => {
@@ -172,8 +167,8 @@ export class SearchBarComponent {
     });
   }
 
-  doesPreviousRequestContainsRangeProperties(): boolean {
-    const prevFilterRequest = sessionStorage.getItem("prevFilterRequest");
+  doesPreviousRequestContainsRangeProperties(filterFor: string): boolean {
+    const prevFilterRequest = sessionStorage.getItem(filterFor+"prevFilterRequest");
     if (prevFilterRequest != null) {
       const filterRequest: FilterRequest = JSON.parse(prevFilterRequest);
       return filterRequest.rangeFilters.length > 0
