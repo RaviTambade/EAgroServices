@@ -90,11 +90,11 @@ export class LoginComponent {
         
         break;
 
-      case "owner":
+      case "collection manager":
         if (this.userId != undefined)
         this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((collectionCenterId) => {
           localStorage.setItem("collectionCenterId",collectionCenterId.toString());
-          this.router.navigate(['/collectioncenter/home'])
+          this.router.navigate(['/collectioncenter/dashboard'])
         });
         break;
 
@@ -102,7 +102,7 @@ export class LoginComponent {
         if (this.userId != undefined)
         this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((collectionCenterId) => {
           localStorage.setItem("collectionCenterId",collectionCenterId.toString());
-          this.router.navigate(['/collectioncenter/home'])
+          this.router.navigate(['/collectioncenter/dashboard'])
         });
         break;
     }
