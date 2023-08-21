@@ -65,7 +65,8 @@ export class TransporterService {
     return this.httpClient.post<any>(url, transport)
   }
 
-  getCorporateIdOfTransporter(transporterId: number): Observable<number> {
+  getCorporateIdOfTransporter(): Observable<number> {
+    let transporterId=localStorage.getItem("transporterId")
     let url = "http://localhost:5025/api/transporters/corporateid/" + transporterId;
     return this.httpClient.get<number>(url);
   }

@@ -90,7 +90,7 @@ public class TransporterRepository : ITransporterRepository
                 );
             }
             await reader.CloseAsync();
-            result = result.Add();
+            // result = result.Add();
         }
         catch (Exception)
         {
