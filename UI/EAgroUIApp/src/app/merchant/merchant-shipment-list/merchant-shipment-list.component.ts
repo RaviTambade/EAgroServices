@@ -38,7 +38,6 @@ export class MerchantShipmentListComponent implements OnInit {
     } else {
       this.selectedPaymentShipmentId = shipmentId;
       this.selectedDetailsShipmentId = null;
-
     }
   }
 

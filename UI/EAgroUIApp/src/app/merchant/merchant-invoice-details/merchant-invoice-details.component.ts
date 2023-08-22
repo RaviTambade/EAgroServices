@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserService } from 'src/app/Shared/users/user.service';
 import { CorporateService } from 'src/app/corporate.service';
 import { InvoicesService } from 'src/app/invoices.service';
@@ -19,6 +18,7 @@ import { NameId } from 'src/app/name-id';
 })
 export class MerchantInvoiceDetailsComponent implements OnInit {
   @Input() invoiceId!: number;
+  @Output() refetchData = new EventEmitter<void>();
   invoiceDetails!: InvoiceDetails;
   showPayment: boolean = false;
   farmerAccountInfo: AccountInfo = {
@@ -47,7 +47,7 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
   fetchInvoiceDetails() {
     this.invoicesvc.getInvoiceDetails(this.invoiceId).subscribe((res) => {
       this.invoiceDetails = res;
-      
+
       console.log(res)
       console.log(this.invoiceId)
 
@@ -144,8 +144,9 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
 
 
               this.paymentsvc.addFarmerServicepayment(serviceOwnerPayment).subscribe((response) => {
-                if(response)
-                this.fetchInvoiceDetails();
+                if (response)
+                alert("payment done sucessfully")
+                  this.refetchData.emit();
               });
             }
             else

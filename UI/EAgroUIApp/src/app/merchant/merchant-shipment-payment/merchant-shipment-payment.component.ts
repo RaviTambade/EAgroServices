@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ShipmentService } from '../shipment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from 'src/app/payment.service';
@@ -17,6 +17,7 @@ import { TransporterPayment } from 'src/app/transporter-payment';
 })
 export class MerchantShipmentPaymentComponent implements OnInit {
   @Input() shipmentId!: number;
+  @Output() refetchData = new EventEmitter();
   transporterName: string = '';
   amount: number | undefined;
   paymentStatus: string = ''
@@ -57,7 +58,7 @@ export class MerchantShipmentPaymentComponent implements OnInit {
     });
 
     this.merchantsvc.getMerchantCorporateId().subscribe((corpId) => {
-      console.log("corporate id",corpId);
+      console.log("corporate id", corpId);
       this.banksvc.getCorporateAccountInfo(corpId).subscribe((merchantAccount) => {
         this.merchantAccountInfo.accountNumber = merchantAccount.accountNumber;
         this.merchantAccountInfo.ifscCode = merchantAccount.ifscCode;
@@ -89,8 +90,8 @@ export class MerchantShipmentPaymentComponent implements OnInit {
 
           this.paymentsvc.addTransporterPayment(tarnsporterPayment).subscribe((response) => {
             if (response) {
-              console.log("payment done sucessfully")
-            this.fetchShipmentPaymentInfo();
+              alert("payment done sucessfully")
+              this.refetchData.emit();
             }
           });
         }
@@ -98,3 +99,5 @@ export class MerchantShipmentPaymentComponent implements OnInit {
     }
   }
 }
+
+
