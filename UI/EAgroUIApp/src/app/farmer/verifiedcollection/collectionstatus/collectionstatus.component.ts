@@ -43,4 +43,7 @@ console.log(response);
 this.router.navigate(['farmer/invoice/'+id])
   }
 
+  back(){
+    this.router.navigate(['farmer/verifiedcollection/'])
+      }
 }
