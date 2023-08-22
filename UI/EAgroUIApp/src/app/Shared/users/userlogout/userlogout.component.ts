@@ -16,8 +16,11 @@ export class UserlogoutComponent implements OnInit{
       console.log ("logging out");
       localStorage.removeItem("jwt");
       localStorage.removeItem("userId");
-      localStorage.removeItem("role");   
-    
+      localStorage.removeItem("role");  
+      localStorage.removeItem("transporterId");   
+      localStorage.removeItem("collectionCenterId");   
+      localStorage.removeItem("merchantId");   
+      localStorage.removeItem("farmerId");   
     }
     else{
       this.router.navigate(["home"]);

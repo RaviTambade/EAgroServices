@@ -18,7 +18,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddJwtHeaderIntreceptorInterceptor } from './add-jwt-header-intreceptor.interceptor';
 import { HomeComponent } from './default/home/home.component';
 
-
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'membership', children: membershipRoutes },

@@ -35,11 +35,6 @@ export class CollectioncenterService {
     let url = "http://localhost:5192/api/collectioncenters/corporateid/"+collectionCenterId;
     return this.http.get<any>(url);
   }
-
-
-
-
-
   getMonthOrderCount(): Observable<MonthOrderCount[]> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5192/api/collectioncenters/ordercount/" + collectionCenterId;

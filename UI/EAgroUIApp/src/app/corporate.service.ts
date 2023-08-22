@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NameId } from './name-id';
 import { Corporate } from './corporate';
-import { Corporation } from './corporation';
+import { Corporation } from './membership/corporation';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,10 @@ export class CorporateService {
   }
   getCorporateByName(name:string):Observable<Corporation>{
     let url="http://localhost:5041/api/corporates/" +name + "/details"
+    return this.http.get<Corporation>(url)
+  }
+  getCorporateDetails(corporateId:number):Observable<Corporation>{
+    let url="http://localhost:5041/api/corporates/" + corporateId
     return this.http.get<Corporation>(url)
   }
 }
