@@ -12,12 +12,12 @@ export class NavbarComponent {
 
   isroleInspector(): boolean {
     const role = localStorage.getItem("role")
-    return role == 'inspector';
+    return role == 'inspector' || role =='collection manager';
   }
 
   isroleTransporter(): boolean {
     const role = localStorage.getItem("role")
-    return role == 'transporter';
+    return role == 'transporter' ;
   }
 
   isroleMerchant(): boolean {

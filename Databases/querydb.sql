@@ -358,3 +358,8 @@ AS `VehicleNumber`, `c0`.`title` AS `CropName`, `v0`.`grade` AS `Grade`, `g0`.`c
       WHERE `s`.`collectionid` =9;
       SELECT * FROM transporters;
 SELECT * FROM userroles;
+
+
+SELECT * FROM transporters;
+SELECT * FROM collectioncenters;
+SELECT * FROM merchants;

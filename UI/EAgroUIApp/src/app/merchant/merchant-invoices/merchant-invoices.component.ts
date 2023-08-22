@@ -13,6 +13,7 @@ export class MerchantInvoicesComponent implements OnInit {
 
   invoices: Invoice[] = [];
   selectedInvoiceId:number|null=null;
+  paidStatus:boolean=false;
 
   constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService) { }
 
@@ -53,10 +54,12 @@ export class MerchantInvoicesComponent implements OnInit {
   }
 
   onClickPaid(){
+    this.paidStatus=true;
     this.fetchData("paid");
   }
 
   onClickUnpaid(){
+    this.paidStatus=false;
     this.fetchData("unpaid");
   }
 

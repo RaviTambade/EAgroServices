@@ -11,6 +11,7 @@ import { Route, RouterModule, Routes } from '@angular/router';
 import { UserlogoutComponent } from './userlogout/userlogout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UpdatePasswordComponent } from '../authentication/update-password/update-password.component';
+import { CorporatedetailsComponent } from './corporatedetails/corporatedetails.component';
 
 
 const userRoute:Routes=[
@@ -28,6 +29,7 @@ const userRoute:Routes=[
     RemoveuserComponent,
     UserprofileComponent,
     UserlogoutComponent,
+    CorporatedetailsComponent
   ],
   imports: [
     CommonModule,

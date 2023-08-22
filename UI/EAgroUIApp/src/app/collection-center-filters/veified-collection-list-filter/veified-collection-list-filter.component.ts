@@ -46,38 +46,39 @@ export class VeifiedCollectionListFilterComponent implements OnInit, OnDestroy {
           this.filtersvc.sendTotalPages(totalPages);
         }
 
-        if (this.collections.length == 0) {
-          return;
+        if (this.collections.length > 0) {
+
+
+
+          let distinctfarmerIds = this.collections.map(item => item.farmerId)
+            .filter((number, index, array) => array.indexOf(number) === index);
+
+          let farmerIdString = distinctfarmerIds.join(',');
+
+          let distinctinspectorIds = this.collections.map(item => item.inspectorId)
+            .filter((number, index, array) => array.indexOf(number) === index);
+
+          let inspectorIdString = distinctinspectorIds.join(',');
+
+
+          this.farmerNamesSubscription = this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
+            let farmerNames = names
+            this.collections.forEach(item => {
+              let matchingItem = farmerNames.find(element => element.id === item.farmerId);
+              if (matchingItem != undefined)
+                item.farmerName = matchingItem.name;
+            });
+          });
+
+          this.inspectorNamesSubscription = this.usrsvc.getUserNamesWithId(inspectorIdString).subscribe((names) => {
+            let inspectorNames = names
+            this.collections.forEach(item => {
+              let matchingItem = inspectorNames.find(element => element.id === item.inspectorId);
+              if (matchingItem != undefined)
+                item.inspectorName = matchingItem.name;
+            });
+          });
         }
-
-        let distinctfarmerIds = this.collections.map(item => item.farmerId)
-          .filter((number, index, array) => array.indexOf(number) === index);
-
-        let farmerIdString = distinctfarmerIds.join(',');
-
-        let distinctinspectorIds = this.collections.map(item => item.inspectorId)
-          .filter((number, index, array) => array.indexOf(number) === index);
-
-        let inspectorIdString = distinctinspectorIds.join(',');
-
-
-        this.farmerNamesSubscription = this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
-          let farmerNames = names
-          this.collections.forEach(item => {
-            let matchingItem = farmerNames.find(element => element.id === item.farmerId);
-            if (matchingItem != undefined)
-              item.farmerName = matchingItem.name;
-          });
-        });
-
-        this.inspectorNamesSubscription = this.usrsvc.getUserNamesWithId(inspectorIdString).subscribe((names) => {
-          let inspectorNames = names
-          this.collections.forEach(item => {
-            let matchingItem = inspectorNames.find(element => element.id === item.inspectorId);
-            if (matchingItem != undefined)
-              item.inspectorName = matchingItem.name;
-          });
-        });
       });
   }
   ngOnDestroy(): void {

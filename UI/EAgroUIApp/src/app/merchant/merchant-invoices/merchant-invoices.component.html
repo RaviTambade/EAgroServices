@@ -1,5 +1,5 @@
-<button (click)="onClickUnpaid()"> <a> UnPaid </a></button>
-<button (click)="onClickPaid()"> Paid </button>
+<button (click)="onClickUnpaid()" [ngClass]="{'active':!paidStatus}"> <a> UnPaid </a></button>
+<button (click)="onClickPaid()" [ngClass]="{'active':paidStatus}"> Paid </button>
 <table class="table">
   <thead>
     <tr>
@@ -27,7 +27,7 @@
       <tr *ngIf="selectedInvoiceId == invoice.id">
         <td colspan="8">
           <div>
-            <app-merchant-invoice-details [invoiceId]="invoice.id"></app-merchant-invoice-details>
+            <app-merchant-invoice-details [invoiceId]="invoice.id" (refetchData)="onClickUnpaid()"></app-merchant-invoice-details>
           </div>
         </td>
       </tr>
