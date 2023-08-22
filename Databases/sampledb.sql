@@ -176,8 +176,6 @@
     (38,'B',115,2,'2022-01-20 13:30:00'),
     (39,'C',750,2,'2022-01-20 13:30:00');
     
-    SELECT * FROM verifiedgoodscollection;
-
 
     INSERT INTO shipments(vehicleid,merchantid,kilometers,shipmentdate) VALUES
     (1,1,55,'2023-07-20 13:30:00'),
@@ -244,6 +242,6 @@
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (18,39);
 
 
-
+   
  CALL call_all_procedures_for_charges(14);
  CALL call_all_procedures_for_totalamount(39);

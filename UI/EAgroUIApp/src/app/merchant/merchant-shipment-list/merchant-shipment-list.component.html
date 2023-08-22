@@ -37,7 +37,7 @@
       <tr *ngIf="selectedPaymentShipmentId === shipment.id">
         <td colspan="8">
           <div class="content-container">
-            <app-merchant-shipment-payment [shipmentId]="shipment.id"></app-merchant-shipment-payment>
+            <app-merchant-shipment-payment [shipmentId]="shipment.id" (refetchData)="onClickUnpaidDelivered()"></app-merchant-shipment-payment>
           </div>
         </td>
       </tr>

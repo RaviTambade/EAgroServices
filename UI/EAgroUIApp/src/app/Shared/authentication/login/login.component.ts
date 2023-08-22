@@ -77,7 +77,7 @@ export class LoginComponent {
         console.log(this.userId);
         console.log(merchantId);
             localStorage.setItem("merchantId", merchantId.toString());
-            this.router.navigate(['/merchant/home'])
+            this.router.navigate(['/merchant/dashboard'])
           });
         break;
 

@@ -46,15 +46,15 @@
         </tr>
         <tr>
             <td>Freight Charges:</td>
-            <td>{{ invoiceDetails.freightCharges |number: '1.2-2' }}</td>
+            <td>{{ invoiceDetails.freightCharges |currency:"INR" }}</td>
         </tr>
         <tr>
             <td>Labour Charges:</td>
-            <td>{{ invoiceDetails.labourCharges |number }}</td>
+            <td>{{ invoiceDetails.labourCharges |currency:"INR" }}</td>
         </tr>
         <tr>
             <td>Service Charges:</td>
-            <td>{{ invoiceDetails.serviceCharges |number }}</td>
+            <td>{{ invoiceDetails.serviceCharges |currency:"INR" }}</td>
         </tr>
         <tr>
             <td>Rate Per Kg:</td>
@@ -67,8 +67,8 @@
             </ng-template>
         </tr>
         <tr>
-            <td>Total Amount:</td>
-            <td>{{ invoiceDetails.farmerAmount |number }}</td>
+            <td>Farmer Amount:</td>
+            <td>{{ invoiceDetails.farmerAmount |currency:"INR" }}</td>
         </tr>
 
     </table>
@@ -88,7 +88,7 @@
                     <td>{{ invoiceDetails.farmerName }}</td>
                     <td>{{farmerAccountInfo.accountNumber}}</td>
                     <td>{{farmerAccountInfo.ifscCode}}</td>
-                    <td>{{ invoiceDetails.farmerAmount |number }}</td>
+                    <td>{{ invoiceDetails.farmerAmount |currency:"INR" }}</td>
 
                 </tr>
             </table>
@@ -108,7 +108,7 @@
                 </tr>
             </table>
             <h6>Total Amount {{ invoiceDetails.farmerAmount + invoiceDetails.labourCharges +
-                invoiceDetails.serviceCharges |number }} </h6>
+                invoiceDetails.serviceCharges |currency:"INR" }} </h6>
 
             <h6>Payment : {{invoiceDetails.paymentStatus}}</h6>
             <div *ngIf="invoiceDetails.paymentStatus == 'unpaid' ">

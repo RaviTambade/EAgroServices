@@ -25,6 +25,8 @@ namespace Invoices.Repositories
                         from invoice in context.Invoices
                         join shipmentItem in context.ShipmentItems
                             on invoice.ShipmentItemId equals shipmentItem.Id
+                        join charges in context.Costing
+                            on shipmentItem.Id equals charges.ShipmentItemId
                         join shipment in context.Shipments
                             on shipmentItem.ShipmentId equals shipment.Id
                         join collection in context.GoodsCollections
@@ -44,7 +46,7 @@ namespace Invoices.Repositories
                             Weight = verifiedCollection.Weight,
                             RatePerKg = invoice.RatePerKg,
                             PaymentStatus = invoice.PaymentStatus,
-                            TotalAmount = invoice.TotalAmount,
+                            TotalAmount = invoice.TotalAmount+charges.LabourCharges+charges.ServiceCharges,
                             InvoiceDate = invoice.InvoiceDate
                         }
                     ).ToListAsync();
