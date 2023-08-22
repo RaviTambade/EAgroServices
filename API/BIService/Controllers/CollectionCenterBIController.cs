@@ -82,41 +82,6 @@ namespace BIService.Controllers
             return await _srv.GetYearsForCropRevenues(collectionCenterId);
         }
 
-        [HttpGet("weeks/{year}")]
-        public void Getweeks(int year)
-        {
-            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
-            Calendar cal = dfi.Calendar;
 
-            DateTime startDate = new DateTime(year, 1, 1);
-
-            while (startDate.Year == year)
-            {
-                int weekNumber = cal.GetWeekOfYear(
-                    startDate,
-                    dfi.CalendarWeekRule,
-                    dfi.FirstDayOfWeek
-                );
-                DateTime endDate = startDate.AddDays(6);
-                Console.WriteLine(
-                    $"Week {weekNumber}: {startDate.ToShortDateString()} - {endDate.ToShortDateString()}"
-                );
-
-                // Move to the start of the next week
-                startDate = startDate.AddDays(7);
-            }
-        }
-
-        //   [HttpGet("ordercount/{collectionCenterId}")]
-        // public async Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId)
-        // {
-        //     return await _srv.GetMonthOrders(collectionCenterId);
-        // }
-
-        // [HttpGet("revenue/crop/{collectionCenterId}")]
-        // public async Task<List<CropRevenue>> GetCropRevenues(int collectionCenterId)
-        // {
-        //     return await _srv.GetCropRevenues(collectionCenterId);
-        // }
     }
 }

@@ -73,19 +73,6 @@ namespace BIService.Services
             return await _repo.GetYearsForCropRevenues(collectionCenterId);
         }
 
-        // public async Task<List<IRevenueModel>> GetRevenuesByType(int collectionCenterId, RevenueType revenueType, int year)
-        // {
-        //    return await _repo.GetRevenuesByType(collectionCenterId,revenueType,year);
-        // }
 
-        //  public async Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId)
-        // {
-        //     return await _repo.GetMonthOrders(collectionCenterId);
-        // }
-
-        // public async Task<List<CropRevenue>> GetCropRevenues(int collectionCenterId)
-        // {
-        //   return await _repo.GetCropRevenues(collectionCenterId);
-        // }
     }
 }
