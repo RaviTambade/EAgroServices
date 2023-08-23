@@ -30,7 +30,7 @@ export class InvoicesService {
     return this.http.patch<boolean>(url, body);
   }
 
-  getCollectionCenterInvoices(filterRequest: FilterRequest, pageNumber: number,status:string): Observable<HttpResponse<any>> {
+  getCollectionCenterInvoices(filterRequest: FilterRequest, pageNumber: number,status:string): Observable<HttpResponse<Invoice[]>> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5197/api/invoices/collectionCenter/" + collectionCenterId+"/status/"+status;
     const params = new HttpParams().set('pageNumber', pageNumber.toString());

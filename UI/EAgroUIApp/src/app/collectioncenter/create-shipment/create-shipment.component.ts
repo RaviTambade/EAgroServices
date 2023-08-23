@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ShipmentStatus } from 'src/app/Models/Enums/shipment-status';
 import { Corporate } from 'src/app/Models/corporate';
 import { VehicleNumberId } from 'src/app/Models/vehiclenumberid';
 import { CorporateService } from 'src/app/Services/corporate.service';
@@ -16,9 +17,15 @@ export class CreateShipmentComponent implements OnInit {
   shipmentForm: FormGroup;
   merchants: Corporate[] = []
   vehicles: VehicleNumberId[] = []
-  showForm:boolean=true
-  constructor(private formBuilder: FormBuilder, private merchantsvc: MerchantService, private corpsvc: CorporateService, private svc: ShipmentService, private trpSvc: TransporterService, public mrtSvc: MerchantService) {
-    this.shipmentForm = this.formBuilder.group({
+  showForm: boolean = true
+  constructor(
+    private formbuilder: FormBuilder, 
+    private merchantsvc: MerchantService, 
+    private corppratesvc: CorporateService, 
+    private shipmentsvc: ShipmentService, 
+    private trnsportersvc: TransporterService, 
+     ) {
+    this.shipmentForm = this.formbuilder.group({
       vehicleId: ['', Validators.required],
       merchantId: ['', Validators.required],
       kilometers: ['', Validators.required],
@@ -30,7 +37,7 @@ export class CreateShipmentComponent implements OnInit {
       let distinctmerchantIds = this.merchants.map(item => item.corporateId)
         .filter((number, index, array) => array.indexOf(number) === index);
       let merchantIdString = distinctmerchantIds.join(',')
-      this.corpsvc.getCorporates(merchantIdString).subscribe((names) => {
+      this.corppratesvc.getCorporates(merchantIdString).subscribe((names) => {
         let corporationNames = names
         this.merchants.forEach(item => {
           let matchingItem = corporationNames.find(element => element.id === item.corporateId);
@@ -40,7 +47,7 @@ export class CreateShipmentComponent implements OnInit {
       });
     });
 
-    this.trpSvc.getVehicleNumbers().subscribe((vehicles) => {
+    this.trnsportersvc.getVehicleNumbers().subscribe((vehicles) => {
       console.log(vehicles)
       this.vehicles = vehicles
     })
@@ -53,18 +60,18 @@ export class CreateShipmentComponent implements OnInit {
         vehicleId: this.shipmentForm.get('vehicleId')?.value,
         merchantId: this.shipmentForm.get('merchantId')?.value,
         kilometers: this.shipmentForm.get('kilometers')?.value,
-        status: "inprogress"
+        status: ShipmentStatus.inprogress
       }
       console.log(shipment)
 
-      this.mrtSvc.getIdOfMerchant(shipment.merchantId).subscribe((res) => {
+      this.merchantsvc.getIdOfMerchant(shipment.merchantId).subscribe((res) => {
         shipment.merchantId = res
         console.log(res)
-        this.svc.addShipment(shipment).subscribe((res) => {
+        this.shipmentsvc.addShipment(shipment).subscribe((res) => {
           console.log(res);
-          if(res){
-          this.shipmentForm.reset();
-          this.showForm=false
+          if (res) {
+            this.shipmentForm.reset();
+            this.showForm = false
           }
         });
       });

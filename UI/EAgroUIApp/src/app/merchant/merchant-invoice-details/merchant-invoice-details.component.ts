@@ -18,9 +18,32 @@ import { UserService } from 'src/app/Shared/users/user.service';
   styleUrls: ['./merchant-invoice-details.component.css']
 })
 export class MerchantInvoiceDetailsComponent implements OnInit {
-  @Input() invoiceId!: number;
+  @Input() invoiceId: number | undefined;
   @Output() refetchData = new EventEmitter<void>();
-  invoiceDetails!: InvoiceDetails;
+  invoiceDetails: InvoiceDetails={
+    id: 0,
+    farmerId: 0,
+    farmerName: '',
+    collectionCenterCorporateId: 0,
+    collectionCenterName: '',
+    transporterCorporateId: 0,
+    collectionId: 0,
+    transporterName: '',
+    vehicleNumber: '',
+    cropName: '',
+    grade: '',
+    containerType: '',
+    quantity: 0,
+    totalWeight: 0,
+    netWeight: 0,
+    freightCharges: 0,
+    labourCharges: 0,
+    serviceCharges: 0,
+    paymentStatus: '',
+    ratePerKg: 0,
+    farmerAmount: 0,
+    invoiceDate: ''
+  } ;
   showPayment: boolean = false;
   farmerAccountInfo: AccountInfo = {
     accountNumber: '',
@@ -36,9 +59,15 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
     ifscCode: ''
   };
   ispaymentButtonDisabled: boolean = false;
-  constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService,
-    private usrsvc: UserService, private banksvc: BankingService, private paymentsvc: PaymentService,
-    private merchantsvc: MerchantService) { }
+  constructor(
+    private invoicesvc: InvoicesService, 
+    private corppratesvc: CorporateService,
+    private usersvc: UserService, 
+    private banksvc: BankingService, 
+    private paymentsvc: PaymentService,
+    private merchantsvc: MerchantService) { 
+      
+    }
 
 
   ngOnInit(): void {
@@ -46,6 +75,9 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
   }
 
   fetchInvoiceDetails() {
+    if(!this.invoiceId){
+      return
+    }
     this.invoicesvc.getInvoiceDetails(this.invoiceId).subscribe((res) => {
       this.invoiceDetails = res;
 
@@ -56,14 +88,14 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
       let idString = ids.join(',');
 
 
-      this.corpsvc.getCorporates(idString).subscribe((names: NameId[]) => {
+      this.corppratesvc.getCorporates(idString).subscribe((names: NameId[]) => {
         this.invoiceDetails.collectionCenterName = names[0].name
         this.invoiceDetails.transporterName = names[1].name
 
       });
 
       let farmerId: string = this.invoiceDetails.farmerId.toString();
-      this.usrsvc.getUserNamesWithId(farmerId).subscribe((response: any[]) => {
+      this.usersvc.getUserNamesWithId(farmerId).subscribe((response: any[]) => {
         this.invoiceDetails.farmerName = response[0].name
       });
 
@@ -146,8 +178,8 @@ export class MerchantInvoiceDetailsComponent implements OnInit {
 
               this.paymentsvc.addFarmerServicepayment(serviceOwnerPayment).subscribe((response) => {
                 if (response)
-                alert("payment done sucessfully")
-                  this.refetchData.emit();
+                  alert("payment done sucessfully")
+                this.refetchData.emit();
               });
             }
             else

@@ -5,6 +5,7 @@ import { Collection } from 'src/app/Models/collection';
 import { CollectionService } from 'src/app/Services/collection-service.service';
 import { ShowButtonService } from 'src/app/Services/show-button-service.service';
 import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-center-filter-for';
+import { FilterRequest } from 'src/app/Shared/filter/filter-request';
 import { FiltersService } from 'src/app/Shared/filter/filters.service';
 import { UserService } from 'src/app/Shared/users/user.service';
 
@@ -19,14 +20,14 @@ enum CollectionListType {
   templateUrl: './collection-list-filter.component.html',
   styleUrls: ['./collection-list-filter.component.css']
 })
-export class CollectionListFilterComponent implements OnInit,OnDestroy {
+export class CollectionListFilterComponent implements OnInit, OnDestroy {
   collectionListType = CollectionListType;
   collections: Collection[] = [];
-  filterRequest: any;
-  pageNumber: any;
+  filterRequest: FilterRequest | undefined;
+  pageNumber: number = 1;
   collection = CollectionCenterFilterFor.collection;
   collectionType: CollectionListType = CollectionListType.Unverified;
-  
+
   private filterRequestSubscription: Subscription | undefined;
   private collectionsSubscription: Subscription | undefined;
   private userNamesSubscription: Subscription | undefined;
@@ -59,12 +60,16 @@ export class CollectionListFilterComponent implements OnInit,OnDestroy {
     if (type == CollectionListType.All) {
       this.btnsvc.setShowButtonVisibility(false);
     }
+    if (!this.filterRequest) {
+      return
+    }
     this.getCollections(this.filterRequest, this.pageNumber, type);
+
   }
 
-  getCollections(filterRequest: any, pageNumber: number, type: string) {
+  getCollections(filterRequest: FilterRequest, pageNumber: number, type: string) {
     this.collectionsSubscription = this.collectionsvc.getCollections(filterRequest, pageNumber, type)
-      .subscribe((response: HttpResponse<any[]>) => {
+      .subscribe((response: HttpResponse<Collection[]>) => {
         console.log('Filter request sent successfully:', response.body);
         this.collections = response.body || [];
         console.table(this.collections);
@@ -98,8 +103,8 @@ export class CollectionListFilterComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.filterRequestSubscription?.unsubscribe();
-      this.collectionsSubscription?.unsubscribe();
-      this.userNamesSubscription?.unsubscribe();
+    this.filterRequestSubscription?.unsubscribe();
+    this.collectionsSubscription?.unsubscribe();
+    this.userNamesSubscription?.unsubscribe();
   }
 }

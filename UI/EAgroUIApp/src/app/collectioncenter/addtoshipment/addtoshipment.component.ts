@@ -12,16 +12,21 @@ import { CorporateService } from 'src/app/Services/corporate.service';
   styleUrls: ['./addtoshipment.component.css']
 })
 export class AddtoshipmentComponent implements OnInit {
-  @Input() CollectionId!: number
+  @Input() CollectionId: number | undefined
   shipmentItemForm: FormGroup;
   shipmentVehicleList: InprogressVehicle[] = []
   newShipmentStatus: boolean = false;
   componentViewStatus: boolean = true;
-  constructor(private formBuilder: FormBuilder, private shipmentsvc: ShipmentService, private corpsvc: CorporateService) {
-    this.shipmentItemForm = this.formBuilder.group({
+
+  constructor(
+    private formbuilder: FormBuilder,
+    private shipmentsvc: ShipmentService,
+    private corporatesvc: CorporateService) {
+    this.shipmentItemForm = this.formbuilder.group({
       shipmentId: ['', Validators.required],
     })
   }
+
   ngOnInit(): void {
     this.shipmentsvc.getInprogressShipments().subscribe((res) => {
       this.shipmentVehicleList = res;
@@ -29,7 +34,7 @@ export class AddtoshipmentComponent implements OnInit {
       let distinctmerchantIds = this.shipmentVehicleList.map(item => item.merchantCorporateId)
         .filter((number, index, array) => array.indexOf(number) === index);
       let merchantIdString = distinctmerchantIds.join(',')
-      this.corpsvc.getCorporates(merchantIdString).subscribe((names) => {
+      this.corporatesvc.getCorporates(merchantIdString).subscribe((names) => {
         let corporationNames = names
         this.shipmentVehicleList.forEach(item => {
           let matchingItem = corporationNames.find(element => element.id === item.merchantCorporateId);
@@ -43,6 +48,9 @@ export class AddtoshipmentComponent implements OnInit {
   }
 
   OnSubmit() {
+    if (!this.CollectionId) {
+      return
+    }
     const shipmentItem: ShipmentItem = {
       shipmentId: this.shipmentItemForm.get('shipmentId')?.value,
       collectionId: this.CollectionId

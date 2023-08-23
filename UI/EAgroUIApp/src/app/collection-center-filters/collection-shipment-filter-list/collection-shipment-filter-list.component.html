@@ -1,5 +1,5 @@
-<button (click)="onFilterStateClick(filterState.InProgress)"
-    [ngClass]="{'active': currentFilterState === filterState.InProgress}">In Progress</button>
-<button (click)="onFilterStateClick(filterState.Delivered)"
-    [ngClass]="{'active': currentFilterState === filterState.Delivered}">Delivered</button>
+<button (click)="onFilterStateClick(shipmentStatus.inprogress)"
+    [ngClass]="{'active': currentShipmentStatus === shipmentStatus.inprogress}">In Progress</button>
+<button (click)="onFilterStateClick(shipmentStatus.delivered)"
+    [ngClass]="{'active': currentShipmentStatus === shipmentStatus.delivered}">Delivered</button>
 <filters [collections]="collections" [filterFor]="shippedCollection"></filters>

@@ -1,4 +1,4 @@
-export class Person {
+export class UserDetails {
     constructor(
         public id: number,
         public aadharId: string,
