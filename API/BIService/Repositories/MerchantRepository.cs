@@ -17,7 +17,7 @@ namespace BIService.Repositories
                 ?? throw new Exception("ConnectionString is not found");
         }
 
-        public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId)
+        public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId,int year)
         {
             List<CollectionCenterMonthCount> result = new();
             MySqlConnection connection = new(_connectionString);
@@ -31,7 +31,7 @@ namespace BIService.Repositories
                     INNER JOIN goodscollections ON collectioncenters.id = goodscollections.collectioncenterid
                     INNER JOIN shipmentitems ON goodscollections.id = shipmentitems.collectionid
                     INNER JOIN shipments ON shipmentitems.shipmentid = shipments.id
-                    WHERE shipments.merchantid = @merchantId AND shipments.status='delivered'
+                    WHERE shipments.merchantid = @merchantId AND shipments.status='delivered' AND YEAR(shipments.shipmentdate)=@year
                    GROUP BY collectioncenters.corporateid,MONTH(shipments.shipmentdate) ORDER BY MONTH(shipments.shipmentdate) ASC ";
                 MySqlCommand command = new(query, connection);
                 command.Parameters.AddWithValue("@merchantId", merchantId);

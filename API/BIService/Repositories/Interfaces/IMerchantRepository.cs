@@ -4,6 +4,6 @@ namespace BIService.Repositories.Interfaces
 {
     public interface IMerchantRepository
     {
-        Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId);
+        Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId,int year);
     }
 }

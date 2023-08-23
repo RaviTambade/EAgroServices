@@ -15,10 +15,10 @@ namespace BIService.Controllers
             _srv = srv;
         }
 
-        [HttpGet("count/month/{merchantId:int}")]
-        public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId)
+        [HttpGet("count/month/{merchantId:int}/{year:int}")]
+        public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId,int year)
         {
-            return await _srv.GetCollectionCountByMonth(merchantId);
+            return await _srv.GetCollectionCountByMonth(merchantId,year);
         }
     }
 }
