@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Corporation } from '../corporation';
-import { CorporateService } from 'src/app/corporate.service';
+import { Corporation } from '../../Models/corporation';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserRole } from '../user-role';
-import { NameId } from 'src/app/name-id';
-import { MembershipService } from '../membership.service';
-import { MerchantService } from 'src/app/merchant/merchant.service';
-import { Merchant } from 'src/app/merchant/merchant';
-import { TransporterService } from 'src/app/transporter/transporter.service';
-import { Transporter } from 'src/app/transporter/transporter';
-import { Collectioncenter } from 'src/app/collectioncenter';
-import { CollectioncenterService } from 'src/app/collectioncenter.service';
+import { Collectioncenter } from 'src/app/Models/collectioncenter';
+import { Merchant } from 'src/app/Models/merchant';
+import { NameId } from 'src/app/Models/name-id';
+import { Transporter } from 'src/app/Models/transporter';
+import { UserRole } from 'src/app/Models/user-role';
+import { CollectioncenterService } from 'src/app/Services/collectioncenter.service';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { MembershipService } from 'src/app/Services/membership.service';
+import { MerchantService } from 'src/app/Services/merchant.service';
+import { TransporterService } from 'src/app/Services/transporter.service';
+
 
 @Component({
   selector: 'app-register-corporate',

@@ -1,11 +1,8 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Shipmentcount } from '../shipmentcount';
-import { TransporterService } from '../transporter.service';
-import { Chart, ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import Annotation from 'chartjs-plugin-annotation';
+import { TransporterService } from '../../Services/transporter.service';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { count } from 'rxjs';
 
 @Component({
   selector: 'app-transporterlinechart',

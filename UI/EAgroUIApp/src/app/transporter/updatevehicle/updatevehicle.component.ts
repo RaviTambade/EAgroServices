@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Vehicle } from '../vehicle';
-import { TransporterService } from '../transporter.service';
+import { TransporterService } from '../../Services/transporter.service';
 import { ActivatedRoute, Route } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Vehicle } from 'src/app/Models/vehicle';
 
 @Component({
   selector: 'app-updatevehicle',

@@ -2,8 +2,8 @@ import { AbstractType, Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective  } from 'ng2-charts';
 import 'chartjs-plugin-datalabels';
-import { FarmerRevenue } from '../farmer-revenue';
-import { FarmerService } from '../farmer.service';
+import { FarmerService } from '../../Services/farmer.service';
+import { FarmerRevenue } from 'src/app/Models/farmer-revenue';
 @Component({
   selector: 'app-revenuebarchart',
   templateUrl: './revenuebarchart.component.html',

@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { InvoicesService } from 'src/app/invoices.service';
-import { Invoice } from 'src/app/merchant/invoice';
-import { UserService } from 'src/app/Shared/users/user.service';
-import { CorporateService } from 'src/app/corporate.service';
+import { Invoice } from 'src/app/Models/invoice';
+
 
 @Component({
   selector: 'collectioncenter-collection-payment-list',

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { TransporterService } from '../transporter.service';
-import { Transporterrevenue } from '../transporterrevenue';
-import { Vehiclerevenue } from '../vehiclerevenue';
+import { TransporterService } from '../../Services/transporter.service';
+import { Transporterrevenue } from 'src/app/Models/transporterrevenue';
+
 
 @Component({
   selector: 'app-transporterpiechart',

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FarmerServicePayment } from './farmer-service-payment';
-import { TransporterPayment } from './transporter-payment';
+import { FarmerServicePayment } from '../Models/farmer-service-payment';
+import { TransporterPayment } from '../Models/transporter-payment';
+
 
 @Injectable({
   providedIn: 'root'

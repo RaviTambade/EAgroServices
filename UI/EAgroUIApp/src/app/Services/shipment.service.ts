@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MerchantShipment } from './merchant-shipment';
-import { ShipmentItemDetails } from './shipment-item-details';
-import { TransporterAmount } from './transporter-amount';
-import { InprogressVehicle } from '../collectioncenter/inprogress-vehicle';
-import { ShipmentItem } from '../collectioncenter/shipment-item';
-import { ShipmentStatus } from './shipment-status';
-import { ShippedCollection } from '../collectioncenter/shipped-collection';
+import { MerchantShipment } from '../Models/merchant-shipment';
+import { ShipmentItemDetails } from '../Models/shipment-item-details';
+import { ShipmentStatus } from '../Models/shipment-status';
+import { TransporterAmount } from '../Models/transporter-amount';
+import { InprogressVehicle } from '../Models/inprogress-vehicle';
+import { ShipmentItem } from '../Models/shipment-item';
 import { FilterRequest } from '../Shared/filter/filter-request';
+
 
 @Injectable({
   providedIn: 'root'

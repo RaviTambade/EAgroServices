@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { TransporterService } from '../transporter.service';
-import { Vehicle } from '../vehicle';
+import { TransporterService } from '../../Services/transporter.service';
+import { Vehicle } from 'src/app/Models/vehicle';
 
 @Component({
   selector: 'app-vehiclesoftransporter',

@@ -1,5 +1,5 @@
 import { Component, Input, } from '@angular/core';
-import { ShippedCollection } from '../shipped-collection';
+import { ShippedCollection } from 'src/app/Models/shipped-collection';
 
 
 @Component({

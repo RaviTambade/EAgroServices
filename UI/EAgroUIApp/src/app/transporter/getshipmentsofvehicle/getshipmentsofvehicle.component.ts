@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { ObjectUnsubscribedError, Subscription } from 'rxjs';
-import { CorporateService } from 'src/app/corporate.service';
-import { Shipment } from '../shipment';
-import { Shipmentsmerchant } from '../shipmentsmerchant';
-// import { Shipmentsmerchant } from '../shipmentsmerchant';
-import { TransporterService } from '../transporter.service';
-import { Corporation } from 'src/app/corporation';
+import { ActivatedRoute, Router } from '@angular/router';
+import {  Subscription } from 'rxjs';
+import { Shipment } from 'src/app/Models/shipment';
+import { Shipmentsmerchant } from 'src/app/Models/shipmentsmerchant';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { TransporterService } from 'src/app/Services/transporter.service';
+
 
 @Component({
   selector: 'app-getshipmentsofvehicle',

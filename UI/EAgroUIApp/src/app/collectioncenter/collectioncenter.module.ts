@@ -9,7 +9,6 @@ import { CollectionVerificationComponent } from './collection-verification/colle
 import { UpdateCollectionComponent } from './update-collection/update-collection.component';
 import { VerifyCollectionComponent } from './verify-collection/verify-collection.component';
 import { AddtoshipmentComponent } from './addtoshipment/addtoshipment.component';
-import { CorporateService } from '../corporate.service';
 import { CreateShipmentComponent } from './create-shipment/create-shipment.component';
 import { CollectionShipmentListComponent } from './collection-shipment-list/collection-shipment-list.component';
 import { CollectionCenterDashboardComponent } from './collection-center-dashboard/collection-center-dashboard.component';
@@ -20,6 +19,7 @@ import { CollectionPaymentDetailsComponent } from './collection-payment-details/
 import { RevenueLineChartComponent } from './collection-center-dashboard/revenue-line-chart/revenue-line-chart.component';
 import { CropBarChartComponent } from './collection-center-dashboard/crop-bar-chart/crop-bar-chart.component';
 import { BankingComponent } from './banking/banking.component';
+import { CorporateService } from '../Services/corporate.service';
 
 export const collectionCenterRoutes: Routes = [
   { path: 'home', component: HomeComponent },

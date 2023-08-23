@@ -1,12 +1,13 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Collection } from 'src/app/Models/collection';
+import { CollectionService } from 'src/app/Services/collection-service.service';
+import { ShowButtonService } from 'src/app/Services/show-button-service.service';
 import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-center-filter-for';
 import { FiltersService } from 'src/app/Shared/filter/filters.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { CollectionService } from 'src/app/collection-service.service';
-import { Collection } from 'src/app/collectioncenter/collection';
-import { ShowButtonService } from 'src/app/show-button-service.service';
+
 
 enum CollectionListType {
   Unverified = "Unverified",

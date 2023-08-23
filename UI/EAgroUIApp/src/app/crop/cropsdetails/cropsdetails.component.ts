@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CropService } from '../crop.service';
-import { Crop } from '../crop';
+import { Crop } from '../../Models/crop';
+import { CropService } from 'src/app/Services/crop.service';
 
 @Component({
   selector: 'app-cropsdetails',

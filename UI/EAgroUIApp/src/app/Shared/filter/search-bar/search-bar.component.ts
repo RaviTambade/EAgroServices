@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FilterRequest } from '../filter-request';
 import { FiltersService } from '../filters.service';
-import { NameId } from 'src/app/name-id';
-import { Corporate } from 'src/app/corporate';
+
 import { Subscription } from 'rxjs';
+import { Corporate } from 'src/app/Models/corporate';
+import { NameId } from 'src/app/Models/name-id';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',

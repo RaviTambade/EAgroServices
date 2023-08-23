@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Merchant } from './merchant';
-import { Collectioncount } from './collectioncount';
-import { Corporate } from '../corporate';
-import { Cropcount } from './cropcount';
+import { Merchant } from '../Models/merchant';
+import { Collectioncount } from '../Models/collectioncount';
+import { Corporate } from '../Models/corporate';
+import { Cropcount } from '../Models/cropcount';
+
 
 @Injectable({
   providedIn: 'root'

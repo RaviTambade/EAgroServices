@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import Annotation from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
-import { CollectioncenterService } from 'src/app/collectioncenter.service';
+import { CollectioncenterService } from 'src/app/Services/collectioncenter.service';
 
 @Component({
   selector: 'collectioncenter-stepped-line-chart',

@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Collection } from '../collection';
-import { CollectionService } from 'src/app/collection-service.service';
-import { ShowButtonService } from 'src/app/show-button-service.service';
+import { Collection } from 'src/app/Models/collection';
+import { CollectionService } from 'src/app/Services/collection-service.service';
+import { ShowButtonService } from 'src/app/Services/show-button-service.service';
+
 
 @Component({
   selector: 'app-collection-verification',

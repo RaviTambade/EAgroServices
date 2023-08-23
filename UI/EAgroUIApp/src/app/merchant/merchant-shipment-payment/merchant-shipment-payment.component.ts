@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ShipmentService } from '../shipment.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PaymentService } from 'src/app/payment.service';
-import { TransporterService } from 'src/app/transporter/transporter.service';
-import { CorporateService } from 'src/app/corporate.service';
-import { AccountInfo } from '../account-info';
-import { BankingService } from 'src/app/banking.service';
-import { MerchantService } from '../merchant.service';
-import { PaymentTransferDetails } from '../payment-transfer-details';
-import { TransporterPayment } from 'src/app/transporter-payment';
+import { ShipmentService } from '../../Services/shipment.service';
+import { AccountInfo } from 'src/app/Models/account-info';
+import { PaymentTransferDetails } from 'src/app/Models/payment-transfer-details';
+import { TransporterPayment } from 'src/app/Models/transporter-payment';
+import { BankingService } from 'src/app/Services/banking.service';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { MerchantService } from 'src/app/Services/merchant.service';
+import { PaymentService } from 'src/app/Services/payment.service';
+import { TransporterService } from 'src/app/Services/transporter.service';
+
 
 @Component({
   selector: 'app-merchant-shipment-payment',

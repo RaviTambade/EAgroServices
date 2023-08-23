@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ShipmentService } from '../shipment.service';
-import { MerchantShipment } from '../merchant-shipment';
+import { ShipmentService } from '../../Services/shipment.service';
+import { MerchantShipment } from 'src/app/Models/merchant-shipment';
 
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BankStatement } from 'src/app/bank-statement';
-import { BankingService } from 'src/app/banking.service';
-import { CollectioncenterService } from 'src/app/collectioncenter.service';
-import { TransporterService } from '../transporter.service';
+import { BankStatement } from 'src/app/Models/bank-statement';
+import { BankingService } from 'src/app/Services/banking.service';
+import { TransporterService } from 'src/app/Services/transporter.service';
+
 
 @Component({
   selector: 'app-transporterbanking',

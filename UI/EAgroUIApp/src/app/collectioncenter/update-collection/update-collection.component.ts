@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { GoodsCollection } from '../goods-collection';
-import { Collection } from '../collection';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NameId } from 'src/app/name-id';
-import { CropService } from 'src/app/crop.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Collection } from 'src/app/Models/collection';
+import { NameId } from 'src/app/Models/name-id';
+import { UpdateCollection } from 'src/app/Models/update-collection';
+import { CollectionService } from 'src/app/Services/collection-service.service';
+import { CropService } from 'src/app/Services/crop.service';
+import { UserRoleService } from 'src/app/Services/user-role.service';
+import { VerifiedCollectionService } from 'src/app/Services/verified-collection.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { UserRoleService } from 'src/app/user-role.service';
-import { CollectionService } from 'src/app/collection-service.service';
-import { UpdateCollection } from '../update-collection';
-import { VerifiedCollectionService } from 'src/app/verified-collection.service';
 
 @Component({
   selector: 'app-update-collection',

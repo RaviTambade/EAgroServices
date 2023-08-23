@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FarmerService } from '../../farmer.service';
-import { Verifiedcollection } from '../../verifiedcollection';
+import { FarmerService } from '../../../Services/farmer.service';
+import { Verifiedcollection } from '../../../Models/verifiedcollection';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CorporateService } from 'src/app/corporate.service';
-import { Invoice } from 'src/app/merchant/invoice';
+import { Invoice } from 'src/app/Models/invoice';
+import { CorporateService } from 'src/app/Services/corporate.service';
+
 
 @Component({
   selector: 'app-collectionstatus',

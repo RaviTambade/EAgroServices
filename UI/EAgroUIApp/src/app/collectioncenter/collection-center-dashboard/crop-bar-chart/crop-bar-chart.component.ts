@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { BIService } from 'src/app/biservice.service';
-import { RevenueDateService } from 'src/app/revenue-date-service.service';
+import { BIService } from 'src/app/Services/biservice.service';
+import { RevenueDateService } from 'src/app/Services/revenue-date-service.service';
+
 
 
 @Component({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from './user';
 import { Observable, Subject } from 'rxjs';
-import { NameId } from 'src/app/name-id';
+import { NameId } from 'src/app/Models/name-id';
 
 
 

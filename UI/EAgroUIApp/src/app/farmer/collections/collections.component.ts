@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Goodscollection } from '../goodscollection';
-import { FarmerService } from '../farmer.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CorporateService } from 'src/app/corporate.service';
+import { Goodscollection } from 'src/app/Models/goodscollection';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { FarmerService } from 'src/app/Services/farmer.service';
+
 
 @Component({
   selector: 'app-collections',

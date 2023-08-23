@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CollectionCenterInvoiceDetails } from '../collection-center-invoice-details';
-import { InvoicesService } from 'src/app/invoices.service';
-import { CorporateService } from 'src/app/corporate.service';
+import { CollectionCenterInvoiceDetails } from 'src/app/Models/collection-center-invoice-details';
+import { NameId } from 'src/app/Models/name-id';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { InvoicesService } from 'src/app/Services/invoices.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { NameId } from 'src/app/name-id';
+
 
 @Component({
   selector: 'app-collection-payment-details',

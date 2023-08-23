@@ -1,10 +1,11 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
-import { Invoice } from './merchant/invoice';
-import { InvoiceDetails } from './merchant/invoice-details';
-import { CollectionCenterInvoiceDetails } from './collectioncenter/collection-center-invoice-details';
-import { FilterRequest } from './Shared/filter/filter-request';
+import { Invoice } from '../Models/invoice';
+import { InvoiceDetails } from '../Models/invoice-details';
+import { FilterRequest } from '../Shared/filter/filter-request';
+import { CollectionCenterInvoiceDetails } from '../Models/collection-center-invoice-details';
+
 
 @Injectable({
   providedIn: 'root'

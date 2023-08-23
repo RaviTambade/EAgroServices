@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MonthRevenue } from './month-revenue';
-import { WeekRevenue } from './week-revenue';
-import { YearRevenue } from './year-revenue';
-import { QuarterRevenue } from './quarter-revenue';
-import { CropRevenue } from './crop-revenue';
+import { YearRevenue } from '../Models/year-revenue';
+import { QuarterRevenue } from '../Models/quarter-revenue';
+import { MonthRevenue } from '../Models/month-revenue';
+import { WeekRevenue } from '../Models/week-revenue';
+import { CropRevenue } from '../Models/crop-revenue';
 
 @Injectable({
   providedIn: 'root'

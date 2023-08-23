@@ -1,10 +1,9 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GoodsCollection } from './collectioncenter/goods-collection';
-import { Collection } from './collectioncenter/collection';
-import { UpdateCollection } from './collectioncenter/update-collection';
-import { FilterRequest } from './Shared/filter/filter-request';
+import { FilterRequest } from '../Shared/filter/filter-request';
+import { GoodsCollection } from '../Models/goods-collection';
+import { UpdateCollection } from '../Models/update-collection';
 
 @Injectable({
   providedIn: 'root'

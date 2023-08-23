@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { VerifiedCollection } from '../verified-collection';
-import { VerifiedCollectionService } from 'src/app/verified-collection.service';
+import { VerifiedCollection } from '../../Models/verified-collection';
+import { VerifiedCollectionService } from 'src/app/Services/verified-collection.service';
 
 @Component({
   selector: 'app-verify-collection',

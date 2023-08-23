@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FarmerService } from '../farmer.service';
+import { FarmerService } from '../../Services/farmer.service';
 import { ActivatedRoute } from '@angular/router';
-import { Invoice } from 'src/app/merchant/invoice';
-import { InvoiceDetails } from 'src/app/merchant/invoice-details';
-import { Farmerinvoice } from '../farmerinvoice';
-import { CorporateService } from 'src/app/corporate.service';
+import { Farmerinvoice } from 'src/app/Models/farmerinvoice';
+import { CorporateService } from 'src/app/Services/corporate.service';
+
 
 @Component({
   selector: 'app-invoicedetails',

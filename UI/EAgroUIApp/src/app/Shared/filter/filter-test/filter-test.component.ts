@@ -3,8 +3,9 @@ import { FiltersService } from '../filters.service';
 import { FilterRequest } from '../filter-request';
 import { CollectionCenterFilterFor } from '../collection-center-filter-for';
 import { Subscription } from 'rxjs';
-import { NameId } from 'src/app/name-id';
-import { Corporate } from 'src/app/corporate';
+import { Corporate } from 'src/app/Models/corporate';
+import { NameId } from 'src/app/Models/name-id';
+
 
 enum FilterMode {
   None,

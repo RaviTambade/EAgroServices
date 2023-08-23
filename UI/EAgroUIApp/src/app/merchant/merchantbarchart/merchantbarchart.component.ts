@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Collectioncount } from '../collectioncount';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { MerchantService } from '../merchant.service';
-import { CorporateService } from 'src/app/corporate.service';
+import { MerchantService } from 'src/app/Services/merchant.service';
+import { Collectioncount } from 'src/app/Models/collectioncount';
+import { CorporateService } from 'src/app/Services/corporate.service';
+
 
 @Component({
   selector: 'app-merchantbarchart',

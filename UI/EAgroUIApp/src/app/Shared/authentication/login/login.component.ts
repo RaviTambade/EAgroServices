@@ -3,10 +3,11 @@ import { AuthService } from '../auth.service';
 import { Credential } from '../credential';
 import { Router } from '@angular/router';
 import { UserService } from '../../users/user.service';
-import { UserRoleService } from 'src/app/user-role.service';
-import { MerchantService } from 'src/app/merchant/merchant.service';
-import { TransporterService } from 'src/app/transporter/transporter.service';
-import { CollectioncenterService } from 'src/app/collectioncenter.service';
+import { CollectioncenterService } from 'src/app/Services/collectioncenter.service';
+import { MerchantService } from 'src/app/Services/merchant.service';
+import { TransporterService } from 'src/app/Services/transporter.service';
+import { UserRoleService } from 'src/app/Services/user-role.service';
+
 
 @Component({
   selector: 'auth-login',

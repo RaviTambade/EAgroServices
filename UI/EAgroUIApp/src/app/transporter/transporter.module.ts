@@ -4,7 +4,6 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { VehiclesoftransporterComponent } from './vehiclesoftransporter/vehiclesoftransporter.component';
 import { GetshipmentsofvehicleComponent } from './getshipmentsofvehicle/getshipmentsofvehicle.component';
-import { CorporateService } from '../corporate.service';
 import { AddnewvehicleComponent } from './addnewvehicle/addnewvehicle.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GetvehicleshipmentitemsComponent } from './getvehicleshipmentitems/getvehicleshipmentitems.component';
@@ -14,7 +13,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { TransporterdashboardComponent } from './transporterdashboard/transporterdashboard.component';
 import { TransporterpiechartComponent } from './transporterpiechart/transporterpiechart.component';
 import { TransporterlinechartComponent } from './transporterlinechart/transporterlinechart.component';
-import { CorporatedetailsDirective } from './corporatedetails.directive';
+import { CorporatedetailsDirective } from '../Directives/corporatedetails.directive';
 import { UpdatevehicleComponent } from './updatevehicle/updatevehicle.component';
 import { TransporterbankingComponent } from './transporterbanking/transporterbanking.component';
 
@@ -64,7 +63,6 @@ export const transporterRoutes: Routes = [
     TransporterbankingComponent
   ],
   providers:[
-    CorporateService
   ]
 })
 export class TransporterModule { }

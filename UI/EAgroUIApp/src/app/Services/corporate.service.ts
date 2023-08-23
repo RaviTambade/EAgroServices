@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NameId } from './name-id';
-import { Corporate } from './corporate';
-import { Corporation } from './membership/corporation';
+import { NameId } from '../Models/name-id';
+import { Corporation } from '../Models/corporation';
+
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { VerifiedCollection } from './collectioncenter/verified-collection';
+import { VerifiedCollection } from '../Models/verified-collection';
 
 @Injectable({
   providedIn: 'root'

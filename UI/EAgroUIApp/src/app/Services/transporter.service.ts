@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Vehicle } from './vehicle';
-import { Transporter } from './transporter';
-import { Vehiclenumberid } from './vehiclenumberid';
-import { Vehiclerevenue } from './vehiclerevenue';
-import { Transporterrevenue } from './transporterrevenue';
-import { Shipmentcount } from './shipmentcount';
-import { Corporate } from '../corporate';
-import { verifyHostBindings } from '@angular/compiler';
-import { YearRevenue } from '../year-revenue';
-import { MonthRevenue } from '../month-revenue';
-import { QuarterRevenue } from '../quarter-revenue';
-import { WeekRevenue } from '../week-revenue';
+import { Corporate } from '../Models/corporate';
+import { Transporter } from '../Models/transporter';
+import { Vehicle } from '../Models/vehicle';
+import { VehicleNumberId } from '../Models/vehiclenumberid';
+import { Transporterrevenue } from '../Models/transporterrevenue';
+import { Shipmentcount } from '../Models/shipmentcount';
+import { Vehiclerevenue } from '../Models/vehiclerevenue';
+import { YearRevenue } from '../Models/year-revenue';
+import { MonthRevenue } from '../Models/month-revenue';
+import { QuarterRevenue } from '../Models/quarter-revenue';
+import { WeekRevenue } from '../Models/week-revenue';
+
 
 @Injectable({
   providedIn: 'root'
@@ -79,9 +79,9 @@ export class TransporterService {
     let url = "http://localhost:5067/api/shipments/transporter/" + transporterId
     return this.httpClient.get<any>(url)
   }
-  getVehicleNumbers(): Observable<Vehiclenumberid[]> {
+  getVehicleNumbers(): Observable<VehicleNumberId[]> {
     let url = "http://localhost:5261/api/vehicles/availabelvehicles"
-    return this.httpClient.get<Vehiclenumberid[]>(url)
+    return this.httpClient.get<VehicleNumberId[]>(url)
   }
   getTransporterRevenue(transporterId: number): Observable<Transporterrevenue[]> {
     let url = "http://localhost:5025/api/transporters/" + transporterId + "/monthlyrevenue"

@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { HttpResponse } from '@angular/common/http';
 import { FiltersService } from 'src/app/Shared/filter/filters.service';
-import { CollectionService } from 'src/app/collection-service.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { CollectionDetails } from 'src/app/collectioncenter/collection-details';
 import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-center-filter-for';
 import { Subscription } from 'rxjs';
+import { CollectionDetails } from 'src/app/Models/collection-details';
+import { CollectionService } from 'src/app/Services/collection-service.service';
 
 
 @Component({

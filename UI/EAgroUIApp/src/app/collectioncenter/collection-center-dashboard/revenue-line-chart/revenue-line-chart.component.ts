@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import Annotation from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
-import { BIService } from 'src/app/biservice.service';
+import { BIService } from 'src/app/Services/biservice.service';
 @Component({
   selector: 'collectioncenter-revenue-line-chart',
   templateUrl: './revenue-line-chart.component.html',

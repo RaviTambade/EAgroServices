@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectioncenterService } from 'src/app/collectioncenter.service';
-import { CorporateService } from 'src/app/corporate.service';
-import { Corporation } from 'src/app/membership/corporation';
-import { MerchantService } from 'src/app/merchant/merchant.service';
-import { TransporterService } from 'src/app/transporter/transporter.service';
+import { Corporation } from 'src/app/Models/corporation';
+import { CollectioncenterService } from 'src/app/Services/collectioncenter.service';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { MerchantService } from 'src/app/Services/merchant.service';
+import { TransporterService } from 'src/app/Services/transporter.service';
 
 @Component({
   selector: 'app-corporatedetails',

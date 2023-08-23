@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { InprogressVehicle } from '../inprogress-vehicle';
-import { ShipmentService } from 'src/app/merchant/shipment.service';
+import { ShipmentService } from 'src/app/Services/shipment.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ShipmentItem } from '../shipment-item';
-import { CorporateService } from 'src/app/corporate.service';
+import { InprogressVehicle } from 'src/app/Models/inprogress-vehicle';
+import { ShipmentItem } from 'src/app/Models/shipment-item';
+import { CorporateService } from 'src/app/Services/corporate.service';
+
 
 @Component({
   selector: 'app-addtoshipment',

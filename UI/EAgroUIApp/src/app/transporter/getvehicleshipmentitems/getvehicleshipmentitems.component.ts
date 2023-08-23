@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
-import { CorporateService } from 'src/app/corporate.service';
-import { MerchantShipment } from 'src/app/merchant/merchant-shipment';
-import { ShipmentItemDetails } from 'src/app/merchant/shipment-item-details';
-import { ShipmentService } from 'src/app/merchant/shipment.service';
+import { ShipmentItemDetails } from 'src/app/Models/shipment-item-details';
+import { Shipmentsmerchant } from 'src/app/Models/shipmentsmerchant';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { ShipmentService } from 'src/app/Services/shipment.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { Shipmentsmerchant } from '../shipmentsmerchant';
 
 @Component({
   selector: 'app-getvehicleshipmentitems',

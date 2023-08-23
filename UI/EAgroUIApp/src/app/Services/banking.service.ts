@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountInfo } from './merchant/account-info';
-import { PaymentTransferDetails } from './merchant/payment-transfer-details';
-import { BankStatement } from './bank-statement';
+import { AccountInfo } from '../Models/account-info';
+import { PaymentTransferDetails } from '../Models/payment-transfer-details';
+import { BankStatement } from '../Models/bank-statement';
+
 
 @Injectable({
   providedIn: 'root'

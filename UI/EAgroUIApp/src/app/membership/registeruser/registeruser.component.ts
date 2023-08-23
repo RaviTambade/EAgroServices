@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/Shared/authentication/auth.service';
-import { Person } from '../person';
-import { MembershipService } from '../membership.service';
-import { UserRole } from '../user-role';
+import { Person } from 'src/app/Models/person';
+import { UserRole } from 'src/app/Models/user-role';
+import { MembershipService } from 'src/app/Services/membership.service';
 
 @Component({
   selector: 'app-registeruser',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FarmerService } from '../farmer.service';
+import { FarmerService } from '../../Services/farmer.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CorporateService } from 'src/app/corporate.service';
-import { Verifiedcollection } from 'src/app/farmer/verifiedcollection';
+import { Verifiedcollection } from 'src/app/Models/verifiedcollection';
+import { CorporateService } from 'src/app/Services/corporate.service';
 
 @Component({
   selector: 'app-verifiedcollection',

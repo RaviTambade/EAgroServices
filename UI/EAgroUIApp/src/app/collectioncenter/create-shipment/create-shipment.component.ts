@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CorporateService } from 'src/app/corporate.service';
-import { NameId } from 'src/app/name-id';
-import { ShipmentService } from 'src/app/merchant/shipment.service';
-import { TransporterService } from 'src/app/transporter/transporter.service';
-import { Vehiclenumberid } from 'src/app/transporter/vehiclenumberid';
-import { MerchantService } from 'src/app/merchant/merchant.service';
-import { Corporate } from 'src/app/corporate';
+import { Corporate } from 'src/app/Models/corporate';
+import { VehicleNumberId } from 'src/app/Models/vehiclenumberid';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { MerchantService } from 'src/app/Services/merchant.service';
+import { ShipmentService } from 'src/app/Services/shipment.service';
+import { TransporterService } from 'src/app/Services/transporter.service';
+
 @Component({
   selector: 'app-create-shipment',
   templateUrl: './create-shipment.component.html',
@@ -15,7 +15,7 @@ import { Corporate } from 'src/app/corporate';
 export class CreateShipmentComponent implements OnInit {
   shipmentForm: FormGroup;
   merchants: Corporate[] = []
-  vehicles: Vehiclenumberid[] = []
+  vehicles: VehicleNumberId[] = []
   showForm:boolean=true
   constructor(private formBuilder: FormBuilder, private merchantsvc: MerchantService, private corpsvc: CorporateService, private svc: ShipmentService, private trpSvc: TransporterService, public mrtSvc: MerchantService) {
     this.shipmentForm = this.formBuilder.group({

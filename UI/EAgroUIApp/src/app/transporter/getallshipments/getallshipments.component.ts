@@ -1,9 +1,9 @@
 import { getLocaleWeekEndRange } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
-import { CorporateService } from 'src/app/corporate.service';
-import { TransporterService } from '../transporter.service';
-import { VehicleCorporateShipment } from '../vehicle-corporate-shipment';
+import { TransporterService } from '../../Services/transporter.service';
+import { VehicleCorporateShipment } from 'src/app/Models/vehicle-corporate-shipment';
+import { CorporateService } from 'src/app/Services/corporate.service';
 
 @Component({
   selector: 'app-getallshipments',

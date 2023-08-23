@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Transporter } from '../transporter';
-import { TransporterService } from '../transporter.service';
-import { Vehicle } from '../vehicle';
+import { TransporterService } from '../../Services/transporter.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Vehicle } from 'src/app/Models/vehicle';
 
 @Component({
   selector: 'app-addnewvehicle',

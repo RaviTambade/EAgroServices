@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { FarmerService } from '../farmer.service';
-import { YearRevenue } from 'src/app/year-revenue';
+import { FarmerService } from '../../Services/farmer.service';
+import { YearRevenue } from 'src/app/Models/year-revenue';
 
 @Component({
   selector: 'app-farmerpiechart',

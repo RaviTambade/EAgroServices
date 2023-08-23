@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartData, ChartEvent, ChartType } from 'chart.js';
-import { Cropcount } from '../cropcount';
-import { MerchantService } from '../merchant.service';
+import { Cropcount } from 'src/app/Models/cropcount';
+import { MerchantService } from 'src/app/Services/merchant.service';
 
 @Component({
   selector: 'app-merchantdoughnutchart',

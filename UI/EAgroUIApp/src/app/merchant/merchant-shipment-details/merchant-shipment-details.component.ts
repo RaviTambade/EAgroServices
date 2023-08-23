@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ShipmentService } from '../shipment.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ShipmentItemDetails } from '../shipment-item-details';
-import { CorporateService } from 'src/app/corporate.service';
+import { ShipmentService } from '../../Services/shipment.service';
+import { ShipmentItemDetails } from 'src/app/Models/shipment-item-details';
+import { CorporateService } from 'src/app/Services/corporate.service';
 import { UserService } from 'src/app/Shared/users/user.service';
+
 
 @Component({
   selector: 'app-merchant-shipment-details',

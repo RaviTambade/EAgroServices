@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Invoice } from 'src/app/Models/invoice';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { InvoicesService } from 'src/app/Services/invoices.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { CorporateService } from 'src/app/corporate.service';
-import { InvoicesService } from 'src/app/invoices.service';
-import { Invoice } from '../invoice';
+
 
 @Component({
   selector: 'merchant-invoices',

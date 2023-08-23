@@ -5,10 +5,11 @@ import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-cent
 import { FilterRequest } from 'src/app/Shared/filter/filter-request';
 import { FiltersService } from 'src/app/Shared/filter/filters.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { ShippedCollection } from 'src/app/collectioncenter/shipped-collection';
-import { CorporateService } from 'src/app/corporate.service';
-import { ShipmentStatus } from 'src/app/merchant/shipment-status';
-import { ShipmentService } from 'src/app/merchant/shipment.service';
+
+import { ShipmentService } from 'src/app/Services/shipment.service';
+import { ShippedCollection } from 'src/app/Models/shipped-collection';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { ShipmentStatus } from 'src/app/Models/shipment-status';
 
 enum FilterState {
   InProgress,

@@ -1,15 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AccountInfo } from 'src/app/Models/account-info';
+import { FarmerServicePayment } from 'src/app/Models/farmer-service-payment';
+import { InvoiceDetails } from 'src/app/Models/invoice-details';
+import { NameId } from 'src/app/Models/name-id';
+import { PaymentTransferDetails } from 'src/app/Models/payment-transfer-details';
+import { BankingService } from 'src/app/Services/banking.service';
+import { CorporateService } from 'src/app/Services/corporate.service';
+import { InvoicesService } from 'src/app/Services/invoices.service';
+import { MerchantService } from 'src/app/Services/merchant.service';
+import { PaymentService } from 'src/app/Services/payment.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { CorporateService } from 'src/app/corporate.service';
-import { InvoicesService } from 'src/app/invoices.service';
-import { InvoiceDetails } from '../invoice-details';
-import { BankingService } from 'src/app/banking.service';
-import { AccountInfo } from '../account-info';
-import { PaymentTransferDetails } from '../payment-transfer-details';
-import { PaymentService } from 'src/app/payment.service';
-import { FarmerServicePayment } from 'src/app/farmer-service-payment';
-import { MerchantService } from '../merchant.service';
-import { NameId } from 'src/app/name-id';
+
 
 @Component({
   selector: 'app-merchant-invoice-details',

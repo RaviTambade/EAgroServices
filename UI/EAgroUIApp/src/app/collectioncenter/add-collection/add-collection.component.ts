@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { GoodsCollection } from '../goods-collection';
-import { NameId } from 'src/app/name-id';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CropService } from 'src/app/crop.service';
-import { CollectionService } from 'src/app/collection-service.service';
-import { UserRoleService } from 'src/app/user-role.service';
+import { GoodsCollection } from 'src/app/Models/goods-collection';
+import { NameId } from 'src/app/Models/name-id';
+import { CollectionService } from 'src/app/Services/collection-service.service';
+import { CropService } from 'src/app/Services/crop.service';
+import { UserRoleService } from 'src/app/Services/user-role.service';
+import { VerifiedCollectionService } from 'src/app/Services/verified-collection.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-import { VerifiedCollectionService } from 'src/app/verified-collection.service';
+
 
 @Component({
   selector: 'app-add-collection',

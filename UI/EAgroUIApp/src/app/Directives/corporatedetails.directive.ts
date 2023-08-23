@@ -1,13 +1,13 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import { CorporateService } from '../corporate.service';
-import { Corporate } from '../corporate';
-import { Corporation } from '../corporation';
+import { CorporateService } from '../Services/corporate.service';
+import { CorporationDetails } from '../Models/corporation-details';
+
 
 @Directive({
   selector: '[appCorporatedetails]'
 })
 export class CorporatedetailsDirective {
-corporate:Corporation|any;
+corporate:CorporationDetails|any;
 private tooltipElement:HTMLElement |null =null;
 constructor(
   private crpSvc: CorporateService,
@@ -36,7 +36,7 @@ constructor(
   this.hideTooltip();
 }
 
-private updateTooltip(corporate: Corporation) {
+private updateTooltip(corporate: CorporationDetails) {
   const content = `
     <h3>${corporate.name}</h3>
     <p>${corporate.email}</p>

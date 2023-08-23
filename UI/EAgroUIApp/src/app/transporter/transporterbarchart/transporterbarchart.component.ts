@@ -1,10 +1,9 @@
 import { AbstractType, Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { TransporterService } from '../transporter.service';
-import { Vehiclerevenue } from '../vehiclerevenue';
+import { TransporterService } from '../../Services/transporter.service';
+import { Vehiclerevenue } from '../../Models/vehiclerevenue';
 import 'chartjs-plugin-datalabels';
-import { YearRevenue } from 'src/app/year-revenue';
 
 @Component({
   selector: 'app-transporterbarchart',

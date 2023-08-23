@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CollectionDetails } from '../collection-details';
+import { CollectionDetails } from 'src/app/Models/collection-details';
 
 
 @Component({

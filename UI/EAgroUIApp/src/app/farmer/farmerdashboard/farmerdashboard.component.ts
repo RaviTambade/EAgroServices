@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FarmerService } from '../farmer.service';
+import { FarmerService } from '../../Services/farmer.service';
 import { Chart, ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import Annotation from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
