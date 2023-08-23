@@ -17,7 +17,7 @@ export class BankingService {
     let url = "http://localhost:5053/api/accounts/details";
     let body = {
       "Usertype": "person",
-      "DependencyId": farmerId
+      "DependancyId": farmerId     
     }
     return this.http.post<any>(url, body);
   }

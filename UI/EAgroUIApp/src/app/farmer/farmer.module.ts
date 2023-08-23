@@ -13,6 +13,7 @@ import { CropModule } from '../crop/crop.module';
 import { FarmerdashboardComponent } from './farmerdashboard/farmerdashboard.component';
 import { CollectionsComponent } from './collections/collections.component';
 import { CollectionstatusComponent } from './verifiedcollection/collectionstatus/collectionstatus.component';
+import { FarmerbankingComponent } from './farmerbanking/farmerbanking.component';
 
  export const farmerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,6 +24,8 @@ import { CollectionstatusComponent } from './verifiedcollection/collectionstatus
   { path: 'invoice/:id', component:InvoicedetailsComponent },
   { path: 'paidcollection/:status', component:CollectionstatusComponent },
   { path: 'unpaidcollection/:status', component:CollectionstatusComponent },
+  { path: 'bankstatement', component:FarmerbankingComponent },
+
 
 ]
 
@@ -37,6 +40,7 @@ import { CollectionstatusComponent } from './verifiedcollection/collectionstatus
     FarmerdashboardComponent,
     CollectionsComponent,
     CollectionstatusComponent,
+    FarmerbankingComponent,
   ],
   imports: [
     CommonModule,

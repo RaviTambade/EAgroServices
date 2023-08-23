@@ -1,0 +1,18 @@
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Mode</th>
+        <th>Desciption</th>
+        <th>balance</th>
+    </tr>
+    <ng-container *ngFor="let statemen of bankStatement">
+        <tr>
+            <td>{{statemen.date | date }}</td>
+            <td>{{statemen.amount |currency:"INR"}}</td>
+            <td>{{statemen.mode}}</td>
+            <td>{{statemen.description}}</td>
+            <td>{{statemen.balance |currency:"INR"}}</td>
+        </tr>
+    </ng-container>
+</table>    
