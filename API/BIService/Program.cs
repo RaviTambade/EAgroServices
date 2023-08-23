@@ -14,6 +14,8 @@ builder.Services.AddScoped<ITransporterRepository, TransporterRepository>();
 builder.Services.AddScoped<ITransporterService, TransporterService>();
 builder.Services.AddScoped<IFarmerService, FarmerService>();
 builder.Services.AddScoped<IFarmerRepository, FarmerRepository>();
+builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
+builder.Services.AddScoped<IMerchantService, MerchantService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

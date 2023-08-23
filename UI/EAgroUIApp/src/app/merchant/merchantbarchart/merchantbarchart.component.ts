@@ -11,9 +11,9 @@ import { CorporateService } from 'src/app/corporate.service';
   styleUrls: ['./merchantbarchart.component.css']
 })
 export class MerchantbarchartComponent {
-  merchantId:any;
-  collectionCount:Collectioncount[]=[]
-  constructor(private svc:MerchantService,private crpSvc:CorporateService){}
+  merchantId: any;
+  collectionCount: Collectioncount[] = []
+  constructor(private svc: MerchantService, private crpSvc: CorporateService) { }
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   public barChartOptions: ChartConfiguration['options'] = {
@@ -24,7 +24,7 @@ export class MerchantbarchartComponent {
       x: {},
       y: {
         min: 5,
-        max:40,
+        max: 40,
         ticks: {
           stepSize: 5,
         },
@@ -53,27 +53,27 @@ export class MerchantbarchartComponent {
     ],
   };
 
-  
+
   ngOnInit(): void {
     this.merchantId = Number(localStorage.getItem("merchantId"));
-    this.svc.getCollectionCount(this.merchantId).subscribe((res)=>{
-this.collectionCount=res
-console.log(res)
-let distinctCorporateIds=this.collectionCount.map(crp=>crp.corporateId);
-let crpId=distinctCorporateIds.join(',');
-this.crpSvc.getCorporates(crpId).subscribe((names) => {
-  console.log(names)
-  let corporationNames = names
-  this.collectionCount.forEach(item => {
-    let matchingItem = corporationNames.find(element => element.id === item.corporateId);
-    if (matchingItem != undefined)
-      item.companyName = matchingItem.name;
-  
-this.barChartData.labels=this.collectionCount.map((revenues)=>revenues.companyName);
-    console.log(matchingItem)
-  });
-});
-this.barChartData.datasets[0].data=this.collectionCount.map((revenues)=>revenues.count);
+    this.svc.getCollectionCount(this.merchantId).subscribe((res) => {
+      this.collectionCount = res
+      console.log(res)
+      let distinctCorporateIds = this.collectionCount.map(crp => crp.corporateId);
+      let crpId = distinctCorporateIds.join(',');
+      this.crpSvc.getCorporates(crpId).subscribe((names) => {
+        console.log(names)
+        let corporationNames = names
+        this.collectionCount.forEach(item => {
+          let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+          if (matchingItem != undefined)
+            item.companyName = matchingItem.name;
+
+          this.barChartData.labels = this.collectionCount.map((revenues) => revenues.companyName);
+          console.log(matchingItem)
+        });
+      });
+      this.barChartData.datasets[0].data = this.collectionCount.map((revenues) => revenues.count);
     })
   }
 
@@ -84,12 +84,12 @@ this.barChartData.datasets[0].data=this.collectionCount.map((revenues)=>revenues
     }
     return colors;
   }
-getRandomColor(): string {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+  getRandomColor(): string {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
-  return color;
-}
 }

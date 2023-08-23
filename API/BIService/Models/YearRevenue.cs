@@ -6,3 +6,4 @@ namespace BIService.Models
         public double Amount { get; set; }
     }
 }
+

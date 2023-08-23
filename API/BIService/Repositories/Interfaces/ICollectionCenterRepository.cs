@@ -27,7 +27,5 @@ namespace BIService.Repositories.Interfaces
             string endDate
         );
         Task<List<int>> GetYearsForCropRevenues(int collectionCenterId);
-        // Task<List<MonthOrderCount>> GetMonthOrders(int collectionCenterId);
-        // Task<List<CropRevenue>> GetCropRevenues(int collectionCenterId);
     }
 }

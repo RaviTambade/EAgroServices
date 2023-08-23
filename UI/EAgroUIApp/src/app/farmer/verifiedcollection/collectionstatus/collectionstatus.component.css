@@ -3,3 +3,12 @@
     width: 125px;
     height: 125px;
 }
+.btn{
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+    .btn:hover::shadow{
+        box-shadow: 4px 4px 8px rgba(25, 25, 25, 0.4);
+        background-color: aqua;
+        color: black;
+    }

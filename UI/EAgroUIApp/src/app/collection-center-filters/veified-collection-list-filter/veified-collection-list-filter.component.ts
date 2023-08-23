@@ -47,9 +47,6 @@ export class VeifiedCollectionListFilterComponent implements OnInit, OnDestroy {
         }
 
         if (this.collections.length > 0) {
-
-
-
           let distinctfarmerIds = this.collections.map(item => item.farmerId)
             .filter((number, index, array) => array.indexOf(number) === index);
 
