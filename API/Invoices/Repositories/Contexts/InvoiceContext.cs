@@ -1,6 +1,5 @@
-using Invoices.Models;
+using Invoices.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace Invoices.Repositories.Contexts
 {
@@ -12,9 +11,7 @@ namespace Invoices.Repositories.Contexts
         public InvoiceContext(IConfiguration configuration)
         {
             _configuration = configuration;
-            _conString =
-                this._configuration.GetConnectionString("DefaultConnection")
-                ?? throw new ArgumentNullException(nameof(configuration));
+            _conString = _configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         }
 
         public DbSet<Invoice> Invoices { get; set; }
@@ -138,7 +135,7 @@ namespace Invoices.Repositories.Contexts
                 modelBuilder.Entity<Transporter>().ToTable("transporters");
             });
 
-             modelBuilder.Entity<Merchant>(entity =>
+            modelBuilder.Entity<Merchant>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.CorporateId);

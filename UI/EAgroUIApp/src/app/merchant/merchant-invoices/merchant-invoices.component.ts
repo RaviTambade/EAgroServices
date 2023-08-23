@@ -13,25 +13,28 @@ import { UserService } from 'src/app/Shared/users/user.service';
 export class MerchantInvoicesComponent implements OnInit {
 
   invoices: Invoice[] = [];
-  selectedInvoiceId:number|null=null;
-  paidStatus:boolean=false;
+  selectedInvoiceId: number | null = null;
+  paidStatus: boolean = false;
 
-  constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService) { }
+  constructor(
+    private invoicesvc: InvoicesService,
+    private corpsvc: CorporateService,
+    private usrsvc: UserService) { }
 
 
   ngOnInit(): void {
     this.onClickUnpaid();
   }
   onClickInvoiceDetails(invoiceId: number) {
-    if(this.selectedInvoiceId===invoiceId){
-      this.selectedInvoiceId=null;
+    if (this.selectedInvoiceId === invoiceId) {
+      this.selectedInvoiceId = null;
     }
-    else{
-      this.selectedInvoiceId=invoiceId;
+    else {
+      this.selectedInvoiceId = invoiceId;
     }
   }
- 
-  fetchData(status:string){
+
+  fetchData(status: string) {
     this.invoicesvc.getInvoices(status).subscribe((response) => {
       this.invoices = response;
 
@@ -54,13 +57,13 @@ export class MerchantInvoicesComponent implements OnInit {
     });
   }
 
-  onClickPaid(){
-    this.paidStatus=true;
+  onClickPaid() {
+    this.paidStatus = true;
     this.fetchData("paid");
   }
 
-  onClickUnpaid(){
-    this.paidStatus=false;
+  onClickUnpaid() {
+    this.paidStatus = false;
     this.fetchData("unpaid");
   }
 

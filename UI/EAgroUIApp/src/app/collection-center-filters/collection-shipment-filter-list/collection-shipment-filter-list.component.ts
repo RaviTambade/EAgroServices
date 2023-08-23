@@ -5,28 +5,24 @@ import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-cent
 import { FilterRequest } from 'src/app/Shared/filter/filter-request';
 import { FiltersService } from 'src/app/Shared/filter/filters.service';
 import { UserService } from 'src/app/Shared/users/user.service';
-
 import { ShipmentService } from 'src/app/Services/shipment.service';
 import { ShippedCollection } from 'src/app/Models/shipped-collection';
 import { CorporateService } from 'src/app/Services/corporate.service';
-import { ShipmentStatus } from 'src/app/Models/shipment-status';
+import { ShipmentStatus } from 'src/app/Models/Enums/shipment-status';
 
-enum FilterState {
-  InProgress,
-  Delivered,
-}
+
 @Component({
   selector: 'app-collection-shipment-filter-list',
   templateUrl: './collection-shipment-filter-list.component.html',
   styleUrls: ['./collection-shipment-filter-list.component.css']
 })
 export class CollectionShipmentFilterListComponent implements OnInit, OnDestroy {
-  filterState = FilterState
+  shipmentStatus = ShipmentStatus;
   collections: ShippedCollection[] = [];
   shippedCollection = CollectionCenterFilterFor.shippedCollection;
-  filterRequest: any;
-  pageNumber: any;
-  currentFilterState: FilterState = FilterState.InProgress;
+  filterRequest: FilterRequest | undefined;
+  pageNumber: number = 1;
+  currentShipmentStatus: ShipmentStatus = ShipmentStatus.inprogress;
 
   private filterRequestSubscription: Subscription | undefined;
   private collectionsSubscription: Subscription | undefined;
@@ -50,14 +46,18 @@ export class CollectionShipmentFilterListComponent implements OnInit, OnDestroy 
     });
   }
 
-  onFilterStateClick(state: FilterState) {
-    this.currentFilterState = state;
+  onFilterStateClick(status: ShipmentStatus) {
+    this.currentShipmentStatus = status;
     this.fetchFilteredShipments();
   }
 
   fetchFilteredShipments() {
-    const status = this.currentFilterState === FilterState.InProgress ? ShipmentStatus.inprogress : ShipmentStatus.delivered;
+    const status = this.currentShipmentStatus === this.shipmentStatus.inprogress ? this.shipmentStatus.inprogress : this.shipmentStatus.delivered;
+    if (!this.filterRequest) {
+      return
+    }
     this.fetchCollections(this.filterRequest, this.pageNumber, status);
+
   }
 
   fetchCollections(filterRequest: FilterRequest, pageNumber: number, status: string) {
@@ -68,12 +68,11 @@ export class CollectionShipmentFilterListComponent implements OnInit, OnDestroy 
       const paginationHeader = response.headers.get('X-Pagination');
       if (paginationHeader) {
         const paginationData = JSON.parse(paginationHeader);
-        // console.log(paginationData)
         console.log('Total Pages:', paginationData.TotalPages);
         let totalPages = paginationData.TotalPages;
         this.filtersvc.sendTotalPages(totalPages);
       }
-      if (this.collections.length == 0) {
+      if (!this.collections.length ) {
         return;
       }
       let distinctcollectioncenterIds = this.collections.map(item => item.collectionCenterCorporateId)

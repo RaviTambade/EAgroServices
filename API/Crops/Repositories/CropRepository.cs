@@ -1,6 +1,8 @@
 using Crops.Models;
 using Crops.Repositories.Interfaces;
 using Crops.Contexts;
+using Crops.Entities;
+
 
 namespace Crops.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,16 +23,12 @@ public class CropRepository : ICropRepository
             using (var context = new CropContext(_configuration))
             {
                 List<Crop> varieties = await context.Crops.ToListAsync();
-                if (varieties == null)
-                {
-                    return null;
-                }
                 return varieties;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -45,16 +43,12 @@ public class CropRepository : ICropRepository
                     Id=crop.Id,
                     Name=crop.Title
                 }).ToListAsync();
-                if (names == null)
-                {
-                    return null;
-                }
                 return names;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
       public async Task<List<string>> GetCropNames()
@@ -65,36 +59,28 @@ public class CropRepository : ICropRepository
             {
                 var names = await (from crop in context.Crops 
                 select crop.Title).ToListAsync();
-                if (names == null)
-                {
-                    return null;
-                }
                 return names;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
-    public async Task<Crop> GetById(int varietyId)
+    public async Task<Crop?> GetById(int varietyId)
     {
         try
         {
             using (var context = new CropContext(_configuration))
             {
-                Crop variety = await context.Crops.FindAsync(varietyId);
-                if (variety == null)
-                {
-                    return null;
-                }
+                var variety = await context.Crops.FindAsync(varietyId);
                 return variety;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -110,9 +96,9 @@ public class CropRepository : ICropRepository
                 status = true;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         return status;
     }
@@ -135,9 +121,9 @@ public class CropRepository : ICropRepository
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         return status;
     }
@@ -158,9 +144,9 @@ public class CropRepository : ICropRepository
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         return status;
     }

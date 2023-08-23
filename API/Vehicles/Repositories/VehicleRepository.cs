@@ -13,7 +13,7 @@ public class VehicleRepository : IVehicleRepository
     public VehicleRepository(IConfiguration configuration)
     {
         _configuration = configuration;
-        _conString = this._configuration.GetConnectionString("DefaultConnection");
+        _conString = this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
     }
 
     public async Task<List<Vehicle>> GetAll()
@@ -29,8 +29,8 @@ public class VehicleRepository : IVehicleRepository
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                int id = int.Parse(reader["id"].ToString());
-                int transporterId = int.Parse(reader["transporterid"].ToString());
+                int id = reader.GetInt32("id");
+                int transporterId = reader.GetInt32("transporterid");
                 string? vehicleType = reader["vehicletype"].ToString();
                 string? rtoNumber = reader["rtonumber"].ToString();
                 Vehicle vehicle = new Vehicle()
@@ -97,8 +97,8 @@ public class VehicleRepository : IVehicleRepository
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                int id = int.Parse(reader["id"].ToString());
-                int transporterId = int.Parse(reader["transporterid"].ToString());
+                int id = reader.GetInt32("id");
+                int transporterId = reader.GetInt32("transporterid");
                 string? vehicleType = reader["vehicletype"].ToString();
                 string? rtoNumber = reader["rtonumber"].ToString();
                 vehicle = new Vehicle()
@@ -139,10 +139,6 @@ public class VehicleRepository : IVehicleRepository
             await con.OpenAsync();
             int rowsAffected = cmd.ExecuteNonQuery();
             status = true;
-            // if (rowsAffected > 0)
-            //     {
-            //         status = true;
-            //     }
         }
         catch (Exception)
         {
@@ -234,8 +230,8 @@ public class VehicleRepository : IVehicleRepository
             MySqlDataReader reader = cmd.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                int id = int.Parse(reader["id"].ToString());
-                string rtoNumber = reader["rtonumber"].ToString();
+                int id = reader.GetInt32("id");
+                string rtoNumber = reader.GetString("rtonumber");
                 vehicleNumbers.Add(new VehicleNumber() { Id = id, RtoNumber = rtoNumber });
             }
             await reader.CloseAsync();

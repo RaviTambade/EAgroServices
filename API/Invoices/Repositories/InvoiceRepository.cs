@@ -1,4 +1,5 @@
 using Invoices.Models;
+using Invoices.Entities;
 using Invoices.Repositories.Interfaces;
 using Invoices.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -50,17 +51,12 @@ namespace Invoices.Repositories
                             InvoiceDate = invoice.InvoiceDate
                         }
                     ).ToListAsync();
-
-                    if (invoices is null)
-                    {
-                        return null;
-                    }
                     return invoices;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -115,7 +111,7 @@ namespace Invoices.Repositories
             }
         }
 
-        public async Task<InvoiceChargesDetails> GetById(int invoiceId)
+        public async Task<InvoiceChargesDetails?> GetById(int invoiceId)
         {
             try
             {
@@ -167,13 +163,13 @@ namespace Invoices.Repositories
                     return invoiceDetails;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
-        public async Task<FarmerInvoice> GetInvoice(int collectionId)
+        public async Task<FarmerInvoice?> GetInvoice(int collectionId)
         {
             try
             {
@@ -223,9 +219,9 @@ namespace Invoices.Repositories
                     return invoiceDetails;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -241,9 +237,9 @@ namespace Invoices.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -268,9 +264,9 @@ namespace Invoices.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -290,9 +286,9 @@ namespace Invoices.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -306,7 +302,7 @@ namespace Invoices.Repositories
             return false;
         }
 
-        public async Task<CollectionCenterInvoiceDetails> GetCollectionCenterInvoiceDetails(
+        public async Task<CollectionCenterInvoiceDetails?> GetCollectionCenterInvoiceDetails(
             int collectionCenterId,
             int invoiceId
         )
@@ -361,9 +357,9 @@ namespace Invoices.Repositories
                     return invoiceDetails;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
     }

@@ -1,6 +1,6 @@
 using UserRolesManagement.Services.Interfaces;
 using UserRolesManagement.Repositories.Interfaces;
-using UserRolesManagement.Models;
+using UserRolesManagement.Entities;
 
 namespace UserRolesManagement.Services
 {
@@ -18,7 +18,7 @@ namespace UserRolesManagement.Services
             return await _repo.GetAll();
         }
 
-        public async Task<UserRole> GetById(int userRoleId)
+        public async Task<UserRole?> GetById(int userRoleId)
         {
             return await _repo.GetById(userRoleId);
         }

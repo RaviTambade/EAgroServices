@@ -1,11 +1,11 @@
-using UserRolesManagement.Models;
+using UserRolesManagement.Entities;
 
 namespace UserRolesManagement.Repositories.Interfaces
 {
     public interface IUserRoleRepository
     {
         Task<List<UserRole>> GetAll();
-        Task<UserRole> GetById(int userRoleId);
+        Task<UserRole?> GetById(int userRoleId);
        Task<List<string>> GetUsersId(string role);
         Task<List<string>> GetRolesByUserId(int userId);
         Task<bool> Insert(UserRole userRole);

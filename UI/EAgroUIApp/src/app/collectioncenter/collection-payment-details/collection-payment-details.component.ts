@@ -12,12 +12,19 @@ import { UserService } from 'src/app/Shared/users/user.service';
   styleUrls: ['./collection-payment-details.component.css']
 })
 export class CollectionPaymentDetailsComponent implements OnInit {
- @Input() invoiceId!:number;
- invoiceDetails!:CollectionCenterInvoiceDetails
+  @Input() invoiceId: number | undefined;
+  invoiceDetails!: CollectionCenterInvoiceDetails
 
-  constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService) { }
+  constructor(
+    private invoicesvc: InvoicesService,
+    private corporatesvc: CorporateService,
+    private usersvc: UserService) { }
+
   ngOnInit(): void {
-
+    if (!this.invoiceId) {
+      console.error('Invoice ID is undefined.');
+      return;
+    }
     this.invoicesvc.getCollectionCenterInvoicDetails(this.invoiceId).subscribe((res) => {
       this.invoiceDetails = res;
 
@@ -25,19 +32,19 @@ export class CollectionPaymentDetailsComponent implements OnInit {
       let idString = ids.join(',');
 
 
-      this.corpsvc.getCorporates(idString).subscribe((names: NameId[]) => {
+      this.corporatesvc.getCorporates(idString).subscribe((names: NameId[]) => {
         this.invoiceDetails.merchantName = names[0].name
         this.invoiceDetails.transporterName = names[1].name
 
       });
 
       let farmerId: string = this.invoiceDetails.farmerId.toString();
-      this.usrsvc.getUserNamesWithId(farmerId).subscribe((response) => {
-        this.invoiceDetails.farmerName= response[0].name
+      this.usersvc.getUserNamesWithId(farmerId).subscribe((response) => {
+        this.invoiceDetails.farmerName = response[0].name
       });
 
     });
-    
+
   }
 
 

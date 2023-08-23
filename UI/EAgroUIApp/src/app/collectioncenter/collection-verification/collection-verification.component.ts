@@ -11,16 +11,21 @@ import { ShowButtonService } from 'src/app/Services/show-button-service.service'
 })
 export class CollectionVerificationComponent implements OnInit {
   @Input() collections: Collection[] = [];
+  activeAction: 'verify' | 'update' | 'remove' | null = null;
+  selectedCollectionId: number | null = null;
   showActions: boolean = true
 
-  constructor(private collectionsvc: CollectionService, private btnsvc: ShowButtonService) { }
+  constructor(
+    private collectionsvc: CollectionService,
+    private btnsvc: ShowButtonService) { }
+
   ngOnInit(): void {
     this.btnsvc.getShowButtonVisibility().subscribe((res) => {
       this.showActions = res;
     });
   }
-  activeAction: 'verify' | 'update' | 'remove' | null = null;
-  selectedCollectionId: number | null = null;
+
+
 
   onActionClick(action: 'verify' | 'update' | 'remove', collectionId: number) {
     if (this.activeAction === action && this.selectedCollectionId === collectionId) {

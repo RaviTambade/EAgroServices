@@ -41,10 +41,6 @@ export class MerchantShipmentListComponent implements OnInit {
     }
   }
 
-  
-
-
-
   onClickUnpaidDelivered() {
     this.unpaidDeliveredStatus = true;
     this.paidDeliveredStatus = false;

@@ -1,6 +1,7 @@
 using Merchants.Services.Interfaces;
 using Merchants.Repositories.Interfaces;
 using Merchants.Models;
+using Merchants.Entities;
 
 namespace Merchants.Services
 {
@@ -18,7 +19,7 @@ namespace Merchants.Services
             return await _repo.GetAll();
         }
 
-        public async Task<Merchant> GetById(int merchantId)
+        public async Task<Merchant?> GetById(int merchantId)
         {
             return await _repo.GetById(merchantId);
         }

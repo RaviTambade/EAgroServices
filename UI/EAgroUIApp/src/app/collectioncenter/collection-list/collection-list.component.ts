@@ -11,8 +11,6 @@ export class CollectionListComponent {
   @Input() collections: CollectionDetails[] = [];
   selectedCollectionId: number | null = null;
 
-
-
   onAddToShipment(collectionId: number) {
     if (this.selectedCollectionId === collectionId) {
       this.selectedCollectionId = null;
@@ -20,7 +18,4 @@ export class CollectionListComponent {
       this.selectedCollectionId = collectionId;
     }
   }
-
-  
-
 }

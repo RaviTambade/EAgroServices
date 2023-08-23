@@ -3,6 +3,7 @@ using Invoices.Repositories.Interfaces;
 using Invoices.Models;
 using ZstdNet;
 using Invoices.Extensions;
+using Invoices.Entities;
 
 namespace Invoices.Services
 {
@@ -20,12 +21,12 @@ namespace Invoices.Services
             return await _repo.GetAll(merchantId, paymentStatus);
         }
 
-        public async Task<FarmerInvoice> GetInvoice(int collectionId)
+        public async Task<FarmerInvoice?> GetInvoice(int collectionId)
         {
             return await _repo.GetInvoice(collectionId);
         }
 
-        public async Task<InvoiceChargesDetails> GetById(int invoiceId)
+        public async Task<InvoiceChargesDetails?> GetById(int invoiceId)
         {
             return await _repo.GetById(invoiceId);
         }
@@ -45,7 +46,7 @@ namespace Invoices.Services
             return await _repo.Delete(invoiceId);
         }
 
-        public async Task<CollectionCenterInvoiceDetails> GetCollectionCenterInvoiceDetails(
+        public async Task<CollectionCenterInvoiceDetails?> GetCollectionCenterInvoiceDetails(
             int collectionCenterId,
             int invoiceId
         )

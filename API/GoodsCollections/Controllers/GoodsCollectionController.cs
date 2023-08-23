@@ -1,4 +1,5 @@
 using GoodsCollections.Models;
+using GoodsCollections.Entities;
 using GoodsCollections.Extensions;
 using GoodsCollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace GoodsCollections.Controllers
         }
 
         [HttpGet("collection/{collectionId}")]
-        public async Task<GoodsCollection> GetById(int collectionId)
+        public async Task<GoodsCollection?> GetById(int collectionId)
         {
             return await _srv.GetById(collectionId);
         }
@@ -82,7 +83,7 @@ namespace GoodsCollections.Controllers
         }
 
         [HttpGet("containertypes")]
-        public async Task<List<string>> GetContainerTypes()
+        public async Task<List<string?>> GetContainerTypes()
         {
             return await _srv.GetContainerTypes();
         }

@@ -66,24 +66,4 @@ export class BIService {
     return this.http.get<any>(url);
   }
 
-
-
-  // getMonthRevenue(): Observable<MonthRevenue[]> {
-  //   let collectionCenterId = localStorage.getItem("collectionCenterId");
-  //   let url = "http://localhost:5192/api/collectioncenters/revenue/month/" + collectionCenterId;
-  //   return this.http.get<[]>(url);
-  // }
-
-  // getCropRevenue(): Observable<CropRevenue[]> {
-  //   let collectionCenterId = localStorage.getItem("collectionCenterId");
-  //   let url ="http://localhost:5192/api/collectioncenters/revenue/crop/" + collectionCenterId;
-  //   return this.http.get<CropRevenue[]>(url);
-  // }
-
-  // getMonthOrderCount(): Observable<MonthOrderCount[]> {
-  //   let collectionCenterId = localStorage.getItem("collectionCenterId");
-  //   let url = "http://localhost:5192/api/collectioncenters/ordercount/" + collectionCenterId;
-  //   return this.http.get<MonthOrderCount[]>(url);
-  // }
-
 }

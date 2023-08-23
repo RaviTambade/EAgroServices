@@ -1,6 +1,8 @@
 using CollectionCenters.Services.Interfaces;
 using CollectionCenters.Repositories.Interfaces;
 using CollectionCenters.Models;
+using CollectionCenters.Entities;
+
 
 namespace CollectionCenters.Services
 {
@@ -18,7 +20,7 @@ namespace CollectionCenters.Services
             return await _repo.GetAll();
         }
 
-        public async Task<CollectionCenter> GetById(int collectionCenterId)
+        public async Task<CollectionCenter?> GetById(int collectionCenterId)
         {
             return await _repo.GetById(collectionCenterId);
         }

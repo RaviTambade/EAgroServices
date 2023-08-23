@@ -1,6 +1,7 @@
 using GoodsCollections.Services.Interfaces;
 using GoodsCollections.Repositories.Interfaces;
 using GoodsCollections.Models;
+using GoodsCollections.Entities;
 using GoodsCollections.Extensions;
 
 namespace GoodsCollections.Services
@@ -23,12 +24,12 @@ namespace GoodsCollections.Services
             return await _repo.GetVerifiedCollections(collectionCenterId, request, pageNumber);
         }
 
-        public async Task<List<string>> GetContainerTypes()
+        public async Task<List<string?>> GetContainerTypes()
         {
             return await _repo.GetContainerTypes();
         }
 
-        public async Task<GoodsCollection> GetById(int collectionId)
+        public async Task<GoodsCollection?> GetById(int collectionId)
         {
             return await _repo.GetById(collectionId);
         }

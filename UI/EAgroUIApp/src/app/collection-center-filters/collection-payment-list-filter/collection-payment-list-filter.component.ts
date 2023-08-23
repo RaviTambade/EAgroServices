@@ -5,6 +5,7 @@ import { Invoice } from 'src/app/Models/invoice';
 import { CorporateService } from 'src/app/Services/corporate.service';
 import { InvoicesService } from 'src/app/Services/invoices.service';
 import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-center-filter-for';
+import { FilterRequest } from 'src/app/Shared/filter/filter-request';
 import { FiltersService } from 'src/app/Shared/filter/filters.service';
 import { UserService } from 'src/app/Shared/users/user.service';
 
@@ -19,25 +20,28 @@ enum PaymentListType {
   styleUrls: ['./collection-payment-list-filter.component.css']
 })
 
-export class CollectionPaymentListFilterComponent implements OnInit,OnDestroy {
-  PaymentListType=PaymentListType;
-  
+export class CollectionPaymentListFilterComponent implements OnInit, OnDestroy {
+  PaymentListType = PaymentListType;
+
   collectionInvoices: Invoice[] = [];
   collectionPayments = CollectionCenterFilterFor.collectionPayments;
-  filterRequest:any;
-  pageNumber: number=1;
-
-  paymentStatus=PaymentListType.Unpaid;
+  filterRequest: FilterRequest | undefined;
+  pageNumber: number = 1;
+  paymentStatus = PaymentListType.Unpaid;
 
   private filterRequestSubscription: Subscription | undefined;
   private invoicesSubscription: Subscription | undefined;
   private corporationsSubscription: Subscription | undefined;
   private userNamesSubscription: Subscription | undefined;
-  
-  constructor(private invoicesvc: InvoicesService, private corpsvc: CorporateService, private usrsvc: UserService,
-    private filtersvc: FiltersService,) { }
+
+  constructor(
+    private invoicesvc: InvoicesService,
+    private corporatesvc: CorporateService,
+    private usersvc: UserService,
+    private filtersvc: FiltersService) { }
+
   ngOnInit(): void {
-    this.filterRequestSubscription =  this.filtersvc.getCollectionPaymentListFilterRequest().subscribe((res) => {
+    this.filterRequestSubscription = this.filtersvc.getCollectionPaymentListFilterRequest().subscribe((res) => {
       this.filterRequest = res.request;
       this.pageNumber = res.pageNumber;
       this.fetchInvoices();
@@ -51,11 +55,15 @@ export class CollectionPaymentListFilterComponent implements OnInit,OnDestroy {
 
   fetchInvoices() {
     const type: string = this.paymentStatus === PaymentListType.Unpaid ? PaymentListType.Unpaid : PaymentListType.Paid;
+    if (!this.filterRequest) {
+      return
+    }
     this.fetchData(this.filterRequest, this.pageNumber, type);
+
   }
 
-  fetchData(filterRequest: any, pageNumber: number,status:string) {
-    this.invoicesSubscription = this.invoicesvc.getCollectionCenterInvoices(filterRequest,pageNumber,status).subscribe((response: HttpResponse<any[]>) => {
+  fetchData(filterRequest: FilterRequest, pageNumber: number, status: string) {
+    this.invoicesSubscription = this.invoicesvc.getCollectionCenterInvoices(filterRequest, pageNumber, status).subscribe((response: HttpResponse<any[]>) => {
       console.log('Filter request sent successfully:', response.body);
       this.collectionInvoices = response.body || [];
       console.table(this.collectionInvoices)
@@ -78,7 +86,7 @@ export class CollectionPaymentListFilterComponent implements OnInit,OnDestroy {
 
         let merchantIdString = distinctMerchantIds.join(',');
 
-      this.corporationsSubscription=  this.corpsvc.getCorporates(merchantIdString).subscribe((names) => {
+        this.corporationsSubscription = this.corporatesvc.getCorporates(merchantIdString).subscribe((names) => {
           let corporationNames = names
           this.collectionInvoices.forEach(item => {
             let matchingItem = corporationNames.find(element => element.id === item.merchantCorporateId);
@@ -87,7 +95,7 @@ export class CollectionPaymentListFilterComponent implements OnInit,OnDestroy {
           });
         });
 
-        this.userNamesSubscription= this.usrsvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
+        this.userNamesSubscription = this.usersvc.getUserNamesWithId(farmerIdString).subscribe((names) => {
           let farmerNames = names
           this.collectionInvoices.forEach(item => {
             let matchingItem = farmerNames.find(element => element.id === item.farmerId);
@@ -100,9 +108,9 @@ export class CollectionPaymentListFilterComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.filterRequestSubscription?.unsubscribe();
-      this.invoicesSubscription?.unsubscribe();
-      this.corporationsSubscription?.unsubscribe();
-      this.userNamesSubscription?.unsubscribe(); 
+    this.filterRequestSubscription?.unsubscribe();
+    this.invoicesSubscription?.unsubscribe();
+    this.corporationsSubscription?.unsubscribe();
+    this.userNamesSubscription?.unsubscribe();
   }
 }

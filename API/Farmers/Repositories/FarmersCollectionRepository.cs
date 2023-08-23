@@ -15,7 +15,6 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
         _configuration = configuration;
     }
 
-
     public async Task<List<FarmerCollection>> FarmerCollection(int farmerId)
     {
         try
@@ -36,7 +35,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         CollectionCenterId = collection.CollectionCenterId,
                         CorporateId = center.CorporateId,
                         InspectorId = center.CorporateId,
-                        Quantity = (int)collection.Quantity,
+                        Quantity = collection.Quantity,
                         ContainerType = collection.ContainerType,
                         Weight = collection.Weight,
                         CollectionDate = collection.CollectionDate
@@ -45,28 +44,32 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                 return farmercollections;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
-    public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId,string paymentStatus)
+    public async Task<List<FarmerCollection>> GetVerifiedCollection(
+        int farmerId,
+        string paymentStatus
+    )
     {
         try
         {
-            Console.WriteLine(farmerId);
             using (var context = new FarmerContext(_configuration))
             {
-                var verifiedcollection = await (
+                List<FarmerCollection> verifiedcollection = await (
                     from collection in context.GoodsCollections
                     join center in context.CollectionCenters
                         on collection.CollectionCenterId equals center.Id
                     join crop in context.Crops on collection.CropId equals crop.Id
                     join verifiedGoodsCollection in context.VerifiedGoodsCollections
                         on collection.Id equals verifiedGoodsCollection.CollectionId
-                        join shipmentiteam in context.ShipmentItems on verifiedGoodsCollection.CollectionId equals shipmentiteam.CollectionId   
-                        join invoice in context.Invoices on shipmentiteam.Id equals invoice.ShipmentItemId
+                    join shipmentiteam in context.ShipmentItems
+                        on verifiedGoodsCollection.CollectionId equals shipmentiteam.CollectionId
+                    join invoice in context.Invoices
+                        on shipmentiteam.Id equals invoice.ShipmentItemId
                     where collection.FarmerId == farmerId && invoice.PaymentStatus == paymentStatus
                     select new FarmerCollection()
                     {
@@ -76,44 +79,42 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         CollectionCenterId = collection.CollectionCenterId,
                         CorporateId = center.CorporateId,
                         InspectorId = center.CorporateId,
-                        Quantity = (int)collection.Quantity,
+                        Quantity = collection.Quantity,
                         ContainerType = collection.ContainerType,
                         Weight = collection.Weight,
                         CollectionDate = collection.CollectionDate,
                         Grade = verifiedGoodsCollection.Grade,
                         VerifiedWeight = verifiedGoodsCollection.Weight,
                         InspectionDate = verifiedGoodsCollection.InspectionDate,
-                        PaymentStatus=invoice.PaymentStatus
+                        PaymentStatus = invoice.PaymentStatus
                     }
                 ).ToListAsync();
-                if (verifiedcollection == null)
-                {
-                    return null;
-                }
                 return verifiedcollection;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
- public async Task<List<FarmerCollection>> VerifiedCollection(int farmerId)
+
+    public async Task<List<FarmerCollection>> VerifiedCollection(int farmerId)
     {
         try
         {
-            Console.WriteLine(farmerId);
             using (var context = new FarmerContext(_configuration))
             {
-                var verifiedcollection = await (
+                List<FarmerCollection> verifiedcollection = await (
                     from collection in context.GoodsCollections
                     join center in context.CollectionCenters
                         on collection.CollectionCenterId equals center.Id
                     join crop in context.Crops on collection.CropId equals crop.Id
                     join verifiedGoodsCollection in context.VerifiedGoodsCollections
                         on collection.Id equals verifiedGoodsCollection.CollectionId
-                    join shipmentiteam in context.ShipmentItems on verifiedGoodsCollection.CollectionId equals shipmentiteam.CollectionId   
-                        join invoice in context.Invoices on shipmentiteam.Id equals invoice.ShipmentItemId
+                    join shipmentiteam in context.ShipmentItems
+                        on verifiedGoodsCollection.CollectionId equals shipmentiteam.CollectionId
+                    join invoice in context.Invoices
+                        on shipmentiteam.Id equals invoice.ShipmentItemId
                     where collection.FarmerId == farmerId
                     select new FarmerCollection()
                     {
@@ -123,27 +124,22 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         CollectionCenterId = collection.CollectionCenterId,
                         CorporateId = center.CorporateId,
                         InspectorId = center.CorporateId,
-                        Quantity = (int)collection.Quantity,
+                        Quantity = collection.Quantity,
                         ContainerType = collection.ContainerType,
                         Weight = collection.Weight,
                         CollectionDate = collection.CollectionDate,
                         Grade = verifiedGoodsCollection.Grade,
                         VerifiedWeight = verifiedGoodsCollection.Weight,
                         InspectionDate = verifiedGoodsCollection.InspectionDate,
-                        PaymentStatus=invoice.PaymentStatus
-
+                        PaymentStatus = invoice.PaymentStatus
                     }
                 ).ToListAsync();
-                if (verifiedcollection == null)
-                {
-                    return null;
-                }
                 return verifiedcollection;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
@@ -153,7 +149,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
         {
             using (var context = new FarmerContext(_configuration))
             {
-                var collections = await (
+                List<FarmerCollection> collections = await (
                     from collection in context.GoodsCollections
                     join center in context.CollectionCenters
                         on collection.CollectionCenterId equals center.Id
@@ -172,150 +168,126 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                         CollectionCenterId = collection.CollectionCenterId,
                         CorporateId = center.CorporateId,
                         InspectorId = center.CorporateId,
-                        Quantity = (int)collection.Quantity,
+                        Quantity = collection.Quantity,
                         ContainerType = collection.ContainerType,
                         Weight = collection.Weight,
                         CollectionDate = collection.CollectionDate
                     }
                 ).ToListAsync();
-                if (collections == null)
-                {
-                    return null;
-                }
                 return collections;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
     }
 
-    
-       public async Task<List<Revenue>> MonthlyRevenue(int farmerId)
+    public async Task<List<Revenue>> MonthlyRevenue(int farmerId)
+    {
+        try
         {
-            try
+            using (var context = new FarmerContext(_configuration))
             {
-                using (var context = new FarmerContext(_configuration))
-                {
-                    var monthlyRevenue = await (
-                        from invoice in context.Invoices
-                        join shipmentItem in context.ShipmentItems
-                            on invoice.ShipmentItemId equals shipmentItem.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join collectionCenter in context.CollectionCenters
-                            on collection.CollectionCenterId equals collectionCenter.Id
-                        join verifiedCollection in context.VerifiedGoodsCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        where collection.FarmerId == farmerId
-                         group new {invoice,shipmentItem} by invoice.InvoiceDate.Month into g
-                        orderby g.Key
-                        select new Revenue()
-                        {
-                             InvoiceDate = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
-                          TotalAmount = g.Sum(item => item.invoice.TotalAmount)
-                           
-                        }
-                    ).ToListAsync();
-
-                    if (monthlyRevenue is null)
+                List<Revenue> monthlyRevenue = await (
+                    from invoice in context.Invoices
+                    join shipmentItem in context.ShipmentItems
+                        on invoice.ShipmentItemId equals shipmentItem.Id
+                    join collection in context.GoodsCollections
+                        on shipmentItem.CollectionId equals collection.Id
+                    join collectionCenter in context.CollectionCenters
+                        on collection.CollectionCenterId equals collectionCenter.Id
+                    join verifiedCollection in context.VerifiedGoodsCollections
+                        on collection.Id equals verifiedCollection.CollectionId
+                    where collection.FarmerId == farmerId
+                    group new { invoice, shipmentItem } by invoice.InvoiceDate.Month into g
+                    orderby g.Key
+                    select new Revenue()
                     {
-                        return null;
+                        InvoiceDate = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+                        TotalAmount = g.Sum(item => item.invoice.TotalAmount)
                     }
-
-                    return monthlyRevenue;
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
+                ).ToListAsync();
+                return monthlyRevenue;
             }
         }
-
-
-  public async Task<List<Revenue>> YearRevenue(int farmerId)
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new FarmerContext(_configuration))
-                {
-                    var yearRevenue = await (
-                        from invoice in context.Invoices
-                        join shipmentItem in context.ShipmentItems
-                            on invoice.ShipmentItemId equals shipmentItem.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join collectionCenter in context.CollectionCenters
-                            on collection.CollectionCenterId equals collectionCenter.Id
-                        join verifiedCollection in context.VerifiedGoodsCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        where collection.FarmerId == farmerId
-                         group new {invoice,shipmentItem} by invoice.InvoiceDate.Year into g
-                        orderby g.Key
-                        select new Revenue()
-                        {
-                             Year = g.Key,
-                          TotalAmount = g.Sum(item => item.invoice.TotalAmount)
-                           
-                        }
-                    ).ToListAsync();
+            throw;
+        }
+    }
 
-                    if (yearRevenue is null)
+    public async Task<List<Revenue>> YearRevenue(int farmerId)
+    {
+        try
+        {
+            using (var context = new FarmerContext(_configuration))
+            {
+                List<Revenue> yearRevenue = await (
+                    from invoice in context.Invoices
+                    join shipmentItem in context.ShipmentItems
+                        on invoice.ShipmentItemId equals shipmentItem.Id
+                    join collection in context.GoodsCollections
+                        on shipmentItem.CollectionId equals collection.Id
+                    join collectionCenter in context.CollectionCenters
+                        on collection.CollectionCenterId equals collectionCenter.Id
+                    join verifiedCollection in context.VerifiedGoodsCollections
+                        on collection.Id equals verifiedCollection.CollectionId
+                    where collection.FarmerId == farmerId
+                    group new { invoice, shipmentItem } by invoice.InvoiceDate.Year into g
+                    orderby g.Key
+                    select new Revenue()
                     {
-                        return null;
+                        Year = g.Key,
+                        TotalAmount = g.Sum(item => item.invoice.TotalAmount)
                     }
-
-                    return yearRevenue;
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
+                ).ToListAsync();
+                return yearRevenue;
             }
         }
-
-         public async Task<List<CropRevenue>> CropRevenue(int farmerId)
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new FarmerContext(_configuration))
-                {
-                     var cropRevenue = await (
-                        from invoice in context.Invoices
-                        join shipmentItem in context.ShipmentItems
-                            on invoice.ShipmentItemId equals shipmentItem.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join collectionCenter in context.CollectionCenters
-                            on collection.CollectionCenterId equals collectionCenter.Id
-                        join verifiedCollection in context.VerifiedGoodsCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                         join crop in context.Crops on collection.CropId equals crop.Id
-                        where collection.FarmerId == farmerId && invoice.PaymentStatus == "paid"
-                         group new {invoice,shipmentItem,crop} by crop.Title into g
-                        orderby g.Key
-                        select new CropRevenue()
-                        {
-                           // Year = g.Key.Year,
-                            CropName = g.Key,
-                          TotalAmount = g.Sum(item => item.invoice.TotalAmount)
-                          
-                          
-                        }
-                    ).ToListAsync();
+            throw;
+        }
+    }
 
-                    if (cropRevenue is null)
+    public async Task<List<CropRevenue>> CropRevenue(int farmerId)
+    {
+        try
+        {
+            using (var context = new FarmerContext(_configuration))
+            {
+                List<CropRevenue> cropRevenue = await (
+                    from invoice in context.Invoices
+                    join shipmentItem in context.ShipmentItems
+                        on invoice.ShipmentItemId equals shipmentItem.Id
+                    join collection in context.GoodsCollections
+                        on shipmentItem.CollectionId equals collection.Id
+                    join collectionCenter in context.CollectionCenters
+                        on collection.CollectionCenterId equals collectionCenter.Id
+                    join verifiedCollection in context.VerifiedGoodsCollections
+                        on collection.Id equals verifiedCollection.CollectionId
+                    join crop in context.Crops on collection.CropId equals crop.Id
+                    where collection.FarmerId == farmerId && invoice.PaymentStatus == "paid"
+                    group new
                     {
-                        return null;
+                        invoice,
+                        shipmentItem,
+                        crop
+                    } by crop.Title into g
+                    orderby g.Key
+                    select new CropRevenue()
+                    {
+                        CropName = g.Key,
+                        TotalAmount = g.Sum(item => item.invoice.TotalAmount)
                     }
-
-                    return cropRevenue;
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
+                ).ToListAsync();
+                return cropRevenue;
             }
         }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

@@ -1,11 +1,12 @@
 using GoodsCollections.Models;
 using GoodsCollections.Extensions;
+using GoodsCollections.Entities;
+
 
 namespace GoodsCollections.Repositories.Interfaces
 {
     public interface IGoodsCollectionRepository
     {
-        // Task<List<VerifiedCollectionDetails>> GetVerifiedCollections(int collectionCenterId);
         Task<PagedList<VerifiedCollectionDetails>> GetVerifiedCollections(
             int collectionCenterId,
             FilterRequest request,
@@ -17,9 +18,9 @@ namespace GoodsCollections.Repositories.Interfaces
             int pageNumber,
             string type
         );
-        Task<GoodsCollection> GetById(int collectionId);
+        Task<GoodsCollection?> GetById(int collectionId);
         Task<bool> Insert(GoodsCollection collection);
-        Task<List<string>> GetContainerTypes();
+        Task<List<string?>> GetContainerTypes();
 
         Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId);
 
@@ -27,6 +28,5 @@ namespace GoodsCollections.Repositories.Interfaces
         Task<bool> Delete(int collectionId);
         Task<List<FarmerCollection>> FarmerCollection(int farmerId);
         Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId);
-        // Task<List<FarmerCollection>> GetverifiedCollectionsOfFarmer(int farmerId);
     }
 }

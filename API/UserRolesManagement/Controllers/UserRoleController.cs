@@ -1,4 +1,4 @@
-using UserRolesManagement.Models;
+using UserRolesManagement.Entities;
 using UserRolesManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +22,7 @@ namespace UserRolesManagement.Controllers
         }
 
         [HttpGet("{userRoleId}")]
-        public async Task<UserRole> GetById(int userRoleId)
+        public async Task<UserRole?> GetById(int userRoleId)
         {
             return await _srv.GetById(userRoleId);
         }

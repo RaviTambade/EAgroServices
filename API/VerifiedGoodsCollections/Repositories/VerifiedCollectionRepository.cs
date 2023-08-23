@@ -14,7 +14,7 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
     public VerifiedCollectionRepository(IConfiguration configuration)
     {
         _configuration = configuration;
-        _conString = this._configuration.GetConnectionString("DefaultConnection");
+        _conString = this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
     }
 
     public async Task<List<VerifiedCollection>> GetAll()
@@ -30,12 +30,12 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                int id = int.Parse(reader["id"].ToString());
-                int collectionId = int.Parse(reader["collectionid"].ToString());
-                string? grade = reader["grade"].ToString();
-                double weight = double.Parse(reader["weight"].ToString());
-                int inspectorId = int.Parse(reader["inspectorid"].ToString());
-                DateTime inspectionDate = DateTime.Parse(reader["inspectiondate"].ToString());
+                int id = reader.GetInt32("id");
+                int collectionId = reader.GetInt32("collectionid");
+                string? grade = reader.GetString("grade");
+                double weight = reader.GetDouble("weight");
+                int inspectorId = reader.GetInt32("inspectorid");
+                DateTime inspectionDate = reader.GetDateTime("inspectiondate");
                 VerifiedCollection verifiedCollection = new VerifiedCollection()
                 {
                     Id = id,
@@ -49,9 +49,9 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
             }
             await reader.CloseAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -75,12 +75,12 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                int id = int.Parse(reader["id"].ToString());
-                int collectionId = int.Parse(reader["collectionid"].ToString());
-                string? grade = reader["grade"].ToString();
-                double weight = double.Parse(reader["weight"].ToString());
-                int inspectorId = int.Parse(reader["inspectorid"].ToString());
-                DateTime inspectionDate = DateTime.Parse(reader["inspectiondate"].ToString());
+                int id = reader.GetInt32("id");
+                int collectionId = reader.GetInt32("collectionid");
+                string? grade = reader.GetString("grade");
+                double weight = reader.GetDouble("weight");
+                int inspectorId = reader.GetInt32("inspectorid");
+                DateTime inspectionDate = reader.GetDateTime("inspectiondate");
                 verifiedCollection = new VerifiedCollection()
                 {
                     Id = id,
@@ -93,9 +93,9 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
             }
             await reader.CloseAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -126,9 +126,9 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
                 status = true;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -152,15 +152,15 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
             MySqlDataReader reader = cmd.ExecuteReader();
             if (await reader.ReadAsync())
             {
-                string gradesString = reader["grades"].ToString();
+                string gradesString = reader.GetString("grades");
                 gradesString = gradesString.Replace("(", "").Replace(")", "").Replace("'", "");
                 grades = gradesString.Split(',').Select(s => s.Trim()).ToList();
             }
             await reader.CloseAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -169,7 +169,7 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
         return grades;
     }
 
-     public async Task<List<string>> GetContinerTypes()
+    public async Task<List<string>> GetContinerTypes()
     {
         List<string> containerTypes = new();
         MySqlConnection con = new MySqlConnection(_conString);
@@ -184,16 +184,18 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
             MySqlDataReader reader = cmd.ExecuteReader();
             if (await reader.ReadAsync())
             {
-                string containerTypesString = reader["containertypes"].ToString();
-                Console.WriteLine(containerTypesString);
-                containerTypesString = containerTypesString.Replace("(", "").Replace(")", "").Replace("'", "");
+                string containerTypesString = reader.GetString("containertypes");
+                containerTypesString = containerTypesString
+                    .Replace("(", "")
+                    .Replace(")", "")
+                    .Replace("'", "");
                 containerTypes = containerTypesString.Split(',').Select(s => s.Trim()).ToList();
             }
             await reader.CloseAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -225,9 +227,9 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
                 status = true;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {
@@ -253,9 +255,9 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
                 status = true;
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            throw e;
+            throw;
         }
         finally
         {

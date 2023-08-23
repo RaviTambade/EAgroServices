@@ -1,4 +1,5 @@
 using CollectionCenters.Models;
+using CollectionCenters.Entities;
 using CollectionCenters.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace CollectionCenters.Controllers
         }
 
         [HttpGet("{collectionCenterId}")]
-        public async Task<CollectionCenter> GetById(int collectionCenterId)
+        public async Task<CollectionCenter?> GetById(int collectionCenterId)
         {
             return await _srv.GetById(collectionCenterId);
         }

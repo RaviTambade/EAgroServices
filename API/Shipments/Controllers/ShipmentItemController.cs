@@ -1,4 +1,4 @@
-using Shipments.Models;
+using Shipments.Entities;
 using Shipments.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
