@@ -1,8 +1,6 @@
 using Crops.Repositories.Interfaces;
 using Crops.Repositories;
 using Crops.Services.Interfaces;
-using Crops.Repositories.Interfaces;
-using Crops.Repositories;
 using Crops.Services;
 var builder = WebApplication.CreateBuilder(args);
 

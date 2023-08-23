@@ -1,6 +1,6 @@
-using System.Security.Cryptography;
 using Shipments.Extensions;
 using Shipments.Models;
+using Shipments.Entities;
 
 namespace Shipments.Repositories.Interfaces
 {

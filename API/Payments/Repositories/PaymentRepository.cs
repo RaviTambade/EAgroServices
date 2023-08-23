@@ -13,7 +13,7 @@ namespace Payments.Repositories
         public PaymentRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            _conString = this._configuration.GetConnectionString("DefaultConnection");
+            _conString = _configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         }
 
         public async Task<bool> Add(FarmerServicePayment payment)
@@ -35,9 +35,9 @@ namespace Payments.Repositories
                     status = true;
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                throw e;
+                throw ;
             }
             finally
             {

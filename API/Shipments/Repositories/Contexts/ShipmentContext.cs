@@ -1,4 +1,4 @@
-using Shipments.Models;
+using Shipments.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Shipments.Repositories.Contexts
@@ -11,9 +11,7 @@ namespace Shipments.Repositories.Contexts
         public ShipmentContext(IConfiguration configuration)
         {
             _configuration = configuration;
-            _conString =
-                this._configuration.GetConnectionString("DefaultConnection")
-                ?? throw new ArgumentNullException(nameof(configuration));
+            _conString = _configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         }
 
         public DbSet<Shipment> Shipments { get; set; }
@@ -22,11 +20,10 @@ namespace Shipments.Repositories.Contexts
         public DbSet<GoodsCollection> GoodsCollections { get; set; }
         public DbSet<VerifiedCollection> VerifiedCollections { get; set; }
         public DbSet<Crop> Crops { get; set; }
-        public DbSet<Merchant> Merchants{get;set;}
+        public DbSet<Merchant> Merchants { get; set; }
         public DbSet<CollectionCenter> CollectionCenters { get; set; }
         public DbSet<TransporterPayment> TransporterPayments { get; set; }
         public DbSet<Transporter> Transporters { get; set; }
-
 
         public double TotalFreightCharges(int shipmentId) => throw new NotSupportedException();
 
@@ -62,14 +59,14 @@ namespace Shipments.Repositories.Contexts
                 entity.Property(e => e.ShipmentDate);
                 modelBuilder.Entity<Shipment>().ToTable("shipments");
             });
-              modelBuilder.Entity<Merchant>(entity =>
+            modelBuilder.Entity<Merchant>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.CorporateId);
                 entity.Property(e => e.ManagerId);
                 modelBuilder.Entity<Merchant>().ToTable("merchants");
             });
-              modelBuilder.Entity<Transporter>(entity =>
+            modelBuilder.Entity<Transporter>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.CorporateId);

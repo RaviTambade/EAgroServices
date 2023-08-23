@@ -1,6 +1,7 @@
 using Shipments.Services.Interfaces;
 using Shipments.Repositories.Interfaces;
 using Shipments.Models;
+using Shipments.Entities;
 
 namespace Shipments.Services
 {

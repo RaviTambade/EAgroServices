@@ -1,4 +1,4 @@
-using CollectionCenters.Models;
+using CollectionCenters.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,8 +13,7 @@ namespace CollectionCenters.Repositories.Contexts
         {
             _configuration = configuration;
             _conString =
-                this._configuration.GetConnectionString("DefaultConnection")
-                ?? throw new ArgumentNullException(nameof(configuration));
+                this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         }
 
         public DbSet<CollectionCenter> CollectionCenters { get; set; }

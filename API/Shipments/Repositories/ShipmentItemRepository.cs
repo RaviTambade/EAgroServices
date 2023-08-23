@@ -1,9 +1,7 @@
-
-using Shipments.Models;
 using Shipments.Repositories.Interfaces;
 using Shipments.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
-
+using Shipments.Entities;
 
 namespace Shipments.Repositories
 {

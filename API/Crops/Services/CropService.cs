@@ -1,6 +1,6 @@
 using Crops.Models;
 using Crops.Repositories.Interfaces;
-using Crops.Repositories;
+using Crops.Entities;
 using Crops.Services.Interfaces;
 
 namespace Crops.Services;
@@ -21,7 +21,7 @@ public class CropService : ICropService
 
     public async Task<List<CropNameIdDetails>> GetCropNamesWithId() => await _repo.GetCropNamesWithId();
 
-    public async Task<Crop> GetById(int varietyId) => await _repo.GetById(varietyId);
+    public async Task<Crop?> GetById(int varietyId) => await _repo.GetById(varietyId);
 
     public async Task<bool> Insert(Crop variety) => await _repo.Insert(variety);
 

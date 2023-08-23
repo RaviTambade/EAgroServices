@@ -1,4 +1,5 @@
 using GoodsCollections.Models;
+using GoodsCollections.Entities;
 using GoodsCollections.Extensions;
 using GoodsCollections.Repositories.Interfaces;
 using GoodsCollections.Repositories.Contexts;
@@ -65,12 +66,12 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 }
 
                 query = query.ApplyFilters(request);
-                return  await PagedList<Collection>.ToPagedList(query, pageNumber);
+                return await PagedList<Collection>.ToPagedList(query, pageNumber);
             }
         }
-        catch (Exception )
+        catch (Exception)
         {
-            throw ;
+            throw;
         }
     }
 
@@ -119,7 +120,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
         }
     }
 
-    public async Task<GoodsCollection> GetById(int collectionId)
+    public async Task<GoodsCollection?> GetById(int collectionId)
     {
         try
         {
@@ -212,12 +213,12 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
         return false;
     }
 
-    public async Task<List<string>> GetContainerTypes()
+    public async Task<List<string?>> GetContainerTypes()
     {
         using (var dbContext = new GoodsCollectionContext(_configuration))
         {
-            List<string> containerTypes = await dbContext.GoodsCollections
-                .Select(collection => collection.ContainerType)
+            List<string?> containerTypes = await dbContext.GoodsCollections
+                .Select(collection => collection.ContainerType )
                 .Distinct()
                 .ToListAsync();
 
@@ -326,16 +327,12 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         CollectionCenterId = collection.CollectionCenterId,
                         CorporateId = center.CorporateId,
                         InspectorId = center.CorporateId,
-                        Quantity = (int)collection.Quantity,
+                        Quantity = collection.Quantity,
                         ContainerType = collection.ContainerType,
                         Weight = collection.Weight,
                         CollectionDate = collection.CollectionDate
                     }
                 ).ToListAsync();
-                if (collections == null)
-                {
-                    return null;
-                }
                 return collections;
             }
         }

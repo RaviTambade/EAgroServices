@@ -1,7 +1,6 @@
-
-using RateCards.Models;
+using RateCards.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+
 
 namespace RateCards.Repositories.Contexts
 {
@@ -14,11 +13,10 @@ namespace RateCards.Repositories.Contexts
         {
             _configuration = configuration;
             _conString =
-                this._configuration.GetConnectionString("DefaultConnection")
-                ?? throw new ArgumentNullException(nameof(configuration));
-
+                this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         }
-        public DbSet<RateCard> RateCards{get;set;}
+
+        public DbSet<RateCard> RateCards { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,13 +30,13 @@ namespace RateCards.Repositories.Contexts
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<RateCard>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.Title);
-            entity.Property(e => e.Description);
-            entity.Property(e => e.Amount);
-            modelBuilder.Entity<RateCard>().ToTable("ratecard");
-        });
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Title);
+                entity.Property(e => e.Description);
+                entity.Property(e => e.Amount);
+                modelBuilder.Entity<RateCard>().ToTable("ratecard");
+            });
         }
     }
 }
