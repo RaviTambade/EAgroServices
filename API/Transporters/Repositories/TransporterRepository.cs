@@ -6,6 +6,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.VisualBasic.FileIO;
 using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Transporters.Repositories
 {
@@ -25,10 +26,6 @@ namespace Transporters.Repositories
                 using (var context = new TransporterContext(_configuration))
                 {
                     var transporters = await context.Transporters.ToListAsync();
-                    if (transporters == null)
-                    {
-                        return null;
-                    }
                     return transporters;
                 }
             }
@@ -62,25 +59,19 @@ namespace Transporters.Repositories
             }
         }
 
-        public async Task<Transporter> GetById(int transporterId)
+        public async Task<Transporter?> GetById(int transporterId)
         {
             try
             {
                 using (var context = new TransporterContext(_configuration))
                 {
                     var transporter = await context.Transporters.FindAsync(transporterId);
-
-                    if (transporter == null)
-                    {
-                        return null;
-                    }
-
                     return transporter;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw ;
             }
         }
 
@@ -96,9 +87,9 @@ namespace Transporters.Repositories
                 }
                 return status;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw ;
             }
         }
 
@@ -328,5 +319,40 @@ namespace Transporters.Repositories
                 throw e;
             }
         }
+
+        public async Task<List<TransporterInvoice>> GetTransporterInvoices(int transporterId)
+        {
+            try{
+                using(var context=new TransporterContext(_configuration)){
+                    List<TransporterInvoice> invoices=await(from transporter in context.Transporters
+                                                      join vehicle in context.Vehicles
+                                                      on transporter.Id equals vehicle.TransporterId
+                                                      join shipment in context.Shipments 
+                                                      on vehicle.Id equals shipment.VehicleId
+                                                      join shipmentitem in context.ShipmentItems
+                                                      on shipment.Id equals shipmentitem.ShipmentId
+                                                      join goodscosting in context.GoodsCostings
+                                                      on shipmentitem.Id equals goodscosting.ShipmentItemId
+                                                      join invoice in context.Invoices
+                                                      on shipmentitem.Id equals invoice.ShipmentItemId
+                                                      where transporter.Id==transporterId
+                                                      group new{shipment,shipmentitem,goodscosting,invoice} by  shipmentitem.ShipmentId  into g
+                                                      orderby g.Key
+                                           select new TransporterInvoice()
+                                           {
+                                               MerchantId=g.FirstOrDefault().shipment.MerchantId,
+                                               Date=g.FirstOrDefault().shipment.ShipmentDate,
+                                               FreightCharges= g.FirstOrDefault().goodscosting.FreightCharges,
+                                               PaymentStatus=g.FirstOrDefault().invoice.PaymentStatus
+                                           }).ToListAsync();
+                                           return invoices;
+                }
+            }
+            catch(Exception){
+                throw;
+            }
+        }
     }
 }
+
+

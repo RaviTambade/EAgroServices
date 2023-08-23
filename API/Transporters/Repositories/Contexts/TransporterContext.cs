@@ -22,8 +22,9 @@ namespace Transporters.Repositories.Contexts
         public DbSet<TransporterPayment> TransporterPayments{get;set;}  
         public DbSet<Shipment> Shipments{get;set;}
         public DbSet<Payment> Payments{get;set;}
-
-
+        public DbSet<Invoice> Invoices{get;set;}
+        public DbSet<GoodsCosting> GoodsCostings{get;set;}  
+        public DbSet<ShipmentItem> ShipmentItems{get;set;}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL(
@@ -41,6 +42,16 @@ namespace Transporters.Repositories.Contexts
                 entity.Property(e => e.CorporateId);
                 entity.Property(e => e.ManagerId);
                 modelBuilder.Entity<Transporter>().ToTable("transporters");
+            });
+              modelBuilder.Entity<Invoice>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ShipmentItemId);
+                entity.Property(e => e.RatePerKg);
+                entity.Property(e => e.TotalAmount);
+                entity.Property(e => e.PaymentStatus);
+                entity.Property(e => e.InvoiceDate);
+                modelBuilder.Entity<Invoice>().ToTable("invoices");
             });
              modelBuilder.Entity<Vehicle>(entity =>
             {
@@ -60,12 +71,28 @@ namespace Transporters.Repositories.Contexts
                 entity.Property(e => e.ShipmentDate);
                 modelBuilder.Entity<Shipment>().ToTable("shipments");
             });
+            modelBuilder.Entity<ShipmentItem>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ShipmentId);
+                entity.Property(e => e.CollectionId);
+                modelBuilder.Entity<ShipmentItem>().ToTable("shipmentitems");
+            });
              modelBuilder.Entity<TransporterPayment>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.ShipmentId);
                 entity.Property(e => e.PaymentId);
                 modelBuilder.Entity<TransporterPayment>().ToTable("transporterpayments");
+            });
+                modelBuilder.Entity<GoodsCosting>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ShipmentItemId);
+                entity.Property(e => e.FreightCharges);
+                entity.Property(e => e.LabourCharges);
+                entity.Property(e => e.ServiceCharges);
+                modelBuilder.Entity<GoodsCosting>().ToTable("goodscosting");
             });
               modelBuilder.Entity<Payment>(entity =>
             {
