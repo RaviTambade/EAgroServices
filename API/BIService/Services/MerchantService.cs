@@ -17,5 +17,17 @@ namespace BIService.Services
         {
             return await _repo.GetCollectionCountByMonth(merchantid,year);
         }
+          public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantid)
+        {
+            return await _repo.GetCollectionCountByYear(merchantid);
+        }
+            public async Task<List<CollectionCenterQuarterCount>> GetCollectionCountByQuarter(int merchantid,int year)
+        {
+            return await _repo.GetCollectionCountByQuarter(merchantid,year);
+        }
+             public async Task<List<CollectionCenterWeekCount>> GetCollectionCountByWeek(int merchantid,int year)
+        {
+            return await _repo.GetCollectionCountByWeek(merchantid,year);
+        }
     }
 }

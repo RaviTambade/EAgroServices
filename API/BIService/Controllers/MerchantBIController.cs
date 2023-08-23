@@ -20,5 +20,20 @@ namespace BIService.Controllers
         {
             return await _srv.GetCollectionCountByMonth(merchantId,year);
         }
+         [HttpGet("count/Year/{merchantId:int}")]
+        public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantId)
+        {
+            return await _srv.GetCollectionCountByYear(merchantId);
+        }
+         [HttpGet("count/Quarter/{merchantId:int}/{year:int}")]
+        public async Task<List<CollectionCenterQuarterCount>> GetCollectionCountByQuarter(int merchantId,int year)
+        {
+            return await _srv.GetCollectionCountByQuarter(merchantId,year);
+        }
+          [HttpGet("count/week/{merchantId:int}/{year:int}")]
+        public async Task<List<CollectionCenterWeekCount>> GetCollectionCountByWeek(int merchantId,int year)
+        {
+            return await _srv.GetCollectionCountByWeek(merchantId,year);
+        }
     }
 }
