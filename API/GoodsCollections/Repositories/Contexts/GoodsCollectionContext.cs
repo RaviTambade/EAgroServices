@@ -1,6 +1,5 @@
-using GoodsCollections.Models;
+using GoodsCollections.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace GoodsCollections.Repositories.Contexts
 {
@@ -13,8 +12,7 @@ namespace GoodsCollections.Repositories.Contexts
         {
             _configuration = configuration;
             _conString =
-                this._configuration.GetConnectionString("DefaultConnection")
-                ?? throw new ArgumentNullException(nameof(configuration));
+                this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         }
 
         public DbSet<GoodsCollection> GoodsCollections { get; set; }
@@ -73,7 +71,7 @@ namespace GoodsCollections.Repositories.Contexts
                 entity.Property(e => e.InspectorId);
                 modelBuilder.Entity<CollectionCenter>().ToTable("collectioncenters");
             });
-                 base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Invoice>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -84,14 +82,13 @@ namespace GoodsCollections.Repositories.Contexts
                 entity.Property(e => e.InvoiceDate);
                 modelBuilder.Entity<Invoice>().ToTable("invoices");
             });
-             modelBuilder.Entity<ShipmentItem>(entity =>
+            modelBuilder.Entity<ShipmentItem>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.ShipmentId);
                 entity.Property(e => e.CollectionId);
                 modelBuilder.Entity<ShipmentItem>().ToTable("shipmentitems");
             });
-
         }
     }
 }

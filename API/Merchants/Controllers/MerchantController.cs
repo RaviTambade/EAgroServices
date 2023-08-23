@@ -1,3 +1,4 @@
+using Merchants.Entities;
 using Merchants.Models;
 using Merchants.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace Merchants.Controllers
         }
 
         [HttpGet("{merchantId}")]
-        public async Task<Merchant> GetById(int merchantId)
+        public async Task<Merchant?> GetById(int merchantId)
         {
             return await _srv.GetById(merchantId);
         }

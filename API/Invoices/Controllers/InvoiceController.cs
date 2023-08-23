@@ -1,3 +1,4 @@
+using Invoices.Entities;
 using Invoices.Extensions;
 using Invoices.Models;
 using Invoices.Services.Interfaces;
@@ -23,13 +24,13 @@ namespace Invoices.Controllers
         }
 
         [HttpGet("collectioninvoice/{collectionId}")]
-        public async Task<FarmerInvoice> GetInvoice(int collectionId)
+        public async Task<FarmerInvoice?> GetInvoice(int collectionId)
         {
             return await _srv.GetInvoice(collectionId);
         }
 
         [HttpGet("details/{invoiceId}")]
-        public async Task<InvoiceChargesDetails> GetById(int invoiceId)
+        public async Task<InvoiceChargesDetails?> GetById(int invoiceId)
         {
             return await _srv.GetById(invoiceId);
         }
@@ -68,7 +69,7 @@ namespace Invoices.Controllers
         }
 
         [HttpGet("collectionCenter/{collectionCenterId}/invoice/{invoiceId}")]
-        public async Task<CollectionCenterInvoiceDetails> GetCollectionCenterInvoiceDetails(
+        public async Task<CollectionCenterInvoiceDetails?> GetCollectionCenterInvoiceDetails(
             int collectionCenterId,
             int invoiceId
         )

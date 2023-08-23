@@ -1,5 +1,5 @@
 
-using Shipments.Models;
+using Shipments.Entities;
 
 namespace Shipments.Repositories.Interfaces
 {

@@ -13,7 +13,7 @@ namespace Payments.Repositories
         public TransporterPaymentRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            _conString = this._configuration.GetConnectionString("DefaultConnection");
+            _conString = this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         }
 
         public async Task<bool> isShipmentPaymentPaid(int shipmentId)
@@ -27,12 +27,12 @@ namespace Payments.Repositories
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@shipmentId", shipmentId);
                 await con.OpenAsync();
-                long existsValue = (long)cmd.ExecuteScalar();
-                status = (existsValue == 1);
+                int existsValue = (int)cmd.ExecuteScalar();
+                status = existsValue == 1;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
             finally
             {
@@ -59,9 +59,9 @@ namespace Payments.Repositories
                     status = true;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw ;
             }
             finally
             {

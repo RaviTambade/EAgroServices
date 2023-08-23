@@ -1,4 +1,5 @@
 using Shipments.Models;
+using Shipments.Entities;
 using Shipments.Repositories.Interfaces;
 using Shipments.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;

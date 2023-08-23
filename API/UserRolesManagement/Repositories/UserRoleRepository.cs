@@ -1,4 +1,4 @@
-using UserRolesManagement.Models;
+using UserRolesManagement.Entities;
 using UserRolesManagement.Repositories.Interfaces;
 using UserRolesManagement.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -21,38 +21,28 @@ namespace UserRolesManagement.Repositories
                 using (var context = new UserRoleContext(_configuration))
                 {
                     var userRoles = await context.UserRoles.ToListAsync();
-                    if (userRoles is null)
-                    {
-                        return null;
-                    }
                     return userRoles;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
-        public async Task<UserRole> GetById(int userRoleId)
+        public async Task<UserRole?> GetById(int userRoleId)
         {
             try
             {
                 using (var context = new UserRoleContext(_configuration))
                 {
                     var userRole = await context.UserRoles.FindAsync(userRoleId);
-
-                    if (userRole is null)
-                    {
-                        return null;
-                    }
-
                     return userRole;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -68,18 +58,12 @@ namespace UserRolesManagement.Repositories
                         where userRoles.UserId == userId
                         select role.Name
                     ).ToListAsync();
-
-                    if (roles is null)
-                    {
-                        return null;
-                    }
-
                     return roles;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -100,13 +84,11 @@ namespace UserRolesManagement.Repositories
                     return farmersIds;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
-
-        
 
         public async Task<bool> Insert(UserRole userRole)
         {
@@ -120,9 +102,9 @@ namespace UserRolesManagement.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -143,9 +125,9 @@ namespace UserRolesManagement.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -165,9 +147,9 @@ namespace UserRolesManagement.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -180,5 +162,5 @@ namespace UserRolesManagement.Repositories
             }
             return false;
         }
-}
+    }
 }

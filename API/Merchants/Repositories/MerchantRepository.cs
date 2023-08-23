@@ -2,6 +2,7 @@ using Merchants.Models;
 using Merchants.Repositories.Interfaces;
 using Merchants.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Merchants.Entities;
 
 namespace Merchants.Repositories
 {
@@ -21,38 +22,28 @@ namespace Merchants.Repositories
                 using (var context = new MerchantContext(_configuration))
                 {
                     var merchants = await context.Merchants.ToListAsync();
-                    if (merchants is null)
-                    {
-                        return null;
-                    }
                     return merchants;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
-        public async Task<Merchant> GetById(int merchantId)
+        public async Task<Merchant?> GetById(int merchantId)
         {
             try
             {
                 using (var context = new MerchantContext(_configuration))
                 {
                     var merchant = await context.Merchants.FindAsync(merchantId);
-
-                    if (merchant is null)
-                    {
-                        return null;
-                    }
-
                     return merchant;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -68,9 +59,9 @@ namespace Merchants.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -91,9 +82,9 @@ namespace Merchants.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -113,9 +104,9 @@ namespace Merchants.Repositories
                     return status;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -144,9 +135,9 @@ namespace Merchants.Repositories
                     return corporateId;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -164,9 +155,9 @@ namespace Merchants.Repositories
                     return merchantId;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -183,9 +174,9 @@ namespace Merchants.Repositories
                     return id;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -202,9 +193,9 @@ namespace Merchants.Repositories
                         .ToListAsync();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
     }

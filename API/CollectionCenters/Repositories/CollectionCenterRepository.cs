@@ -2,7 +2,8 @@ using CollectionCenters.Models;
 using CollectionCenters.Repositories.Interfaces;
 using CollectionCenters.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
+using CollectionCenters.Entities;
+
 
 namespace CollectionCenters.Repositories
 {
@@ -31,7 +32,7 @@ namespace CollectionCenters.Repositories
             }
         }
 
-        public async Task<CollectionCenter> GetById(int collectionCenterId)
+        public async Task<CollectionCenter?> GetById(int collectionCenterId)
         {
             try
             {

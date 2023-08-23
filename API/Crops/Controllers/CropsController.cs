@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Crops.Models;
+using Crops.Entities;
 using Crops.Services.Interfaces;
-using Crops.Services;
+
 
 namespace Crops.Controller;
 
@@ -29,7 +30,7 @@ public class CropsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<Crop> GeById(int id)
+    public async Task<Crop?> GeById(int id)
     {
         return await _service.GetById(id);
     }

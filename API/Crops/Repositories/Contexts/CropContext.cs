@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Crops.Models;
+using Crops.Entities;
+
 namespace Crops.Contexts;
 public class CropContext : DbContext
 {
@@ -8,7 +9,7 @@ public class CropContext : DbContext
     public CropContext(IConfiguration configuration)
     {
         _configuration = configuration;
-        _conString = _configuration.GetConnectionString("DefaultConnection");
+        _conString = _configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
     }
     public DbSet<Crop> Crops { get; set; }
 
