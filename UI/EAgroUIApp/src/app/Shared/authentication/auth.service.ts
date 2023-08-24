@@ -9,34 +9,33 @@ import { LocalStorageKeys } from 'src/app/Models/Enums/local-storage-keys';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   constructor(
     private httpClient: HttpClient,
     private jwtHelper: JwtHelperService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   validate(credential: Credential): Observable<any> {
-    let url = "http://localhost:5077/api/authentication/signin";
+    let url = 'http://localhost:5077/api/authentication/signin';
     return this.httpClient.post<any>(url, credential);
   }
 
   register(credential: Credential): Observable<boolean> {
-
-    let url = "http://localhost:5077/api/authentication/register";
+    let url = 'http://localhost:5077/api/authentication/register';
     return this.httpClient.post<any>(url, credential);
   }
 
   updatePassword(credential: UpdatePassword): Observable<boolean> {
-    let url = "http://localhost:5077/api/authentication/update/password";
+    let url = 'http://localhost:5077/api/authentication/update/password';
 
     return this.httpClient.put<any>(url, credential);
   }
 
   updateContact(credential: UpdateContact): Observable<boolean> {
-    let url = "http://localhost:5077/api/authentication/update/contactnumber";
+    let url = 'http://localhost:5077/api/authentication/update/contactnumber';
     return this.httpClient.put<any>(url, credential);
   }
 
@@ -73,8 +72,7 @@ export class AuthService {
   }
 
   isTokenHaveRequiredRole(role: string): boolean {
-    const roles = this.getRolesFromToken()
+    const roles = this.getRolesFromToken();
     return roles.includes(role);
   }
-
 }
