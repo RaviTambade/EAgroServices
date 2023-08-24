@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Person } from 'src/app/Models/person';
+import { UserDetails } from 'src/app/Models/user-details';
 import { UserRole } from 'src/app/Models/user-role';
 import { MembershipService } from 'src/app/Services/membership.service';
 
@@ -12,7 +12,7 @@ import { MembershipService } from 'src/app/Services/membership.service';
 export class RegisteruserComponent implements OnInit {
 
   contactNumber: string | any;
-  person: Person | undefined;
+  userDetails: UserDetails | undefined;
   userRole: UserRole = {
     userId: 0,
     roleId: 0
@@ -30,7 +30,7 @@ export class RegisteruserComponent implements OnInit {
     if (this.contactNumber != null) {
       this.svc.getUserByContact(this.contactNumber).subscribe((response) => {
         console.log(response);
-        this.person = response;
+        this.userDetails = response;
       });
     }
   }
@@ -40,28 +40,10 @@ export class RegisteruserComponent implements OnInit {
     this.callAddUser();
   }
 
-  onClickUserRoleMerchant() {
-    this.setRoleAndUserId(5);
-    this.callAddUser();
-
-  }
-
-  onClickUserRoleTransporter() {
-    this.setRoleAndUserId(4);
-    this.callAddUser();
-
-  }
-
-  onClickUserRoleCollectionCenter() {
-    this.setRoleAndUserId(1);
-    this.callAddUser();
-
-  }
-
   setRoleAndUserId(roleId: number) {
     this.userRole.roleId = roleId;
-    if (this.person?.id !== undefined) {
-      this.userRole.userId = this.person.id;
+    if (this.userDetails?.id !== undefined) {
+      this.userRole.userId = this.userDetails.id;
     }
   }
 
@@ -77,7 +59,7 @@ export class RegisteruserComponent implements OnInit {
   }
 
   onClickAddCorporate(){
-    this.router.navigate(['/membership/corporate/register/',this.person?.id])
+    this.router.navigate(['/membership/corporate/register/',this.userDetails?.id])
   }
 }
 

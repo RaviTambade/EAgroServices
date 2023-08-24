@@ -68,5 +68,10 @@ namespace Transporters.Services
         {
             return _repo.GetShipmentCounts(transporterId);
         }
+
+        public Task<List<TransporterInvoice>> GetTransporterInvoices(int transporterId,string paymentStatus)
+        {
+           return _repo.GetTransporterInvoices(transporterId, paymentStatus);
+        }
     }
 }

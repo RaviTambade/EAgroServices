@@ -6,6 +6,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.VisualBasic.FileIO;
 using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Transporters.Repositories
 {
@@ -25,10 +26,6 @@ namespace Transporters.Repositories
                 using (var context = new TransporterContext(_configuration))
                 {
                     var transporters = await context.Transporters.ToListAsync();
-                    if (transporters == null)
-                    {
-                        return null;
-                    }
                     return transporters;
                 }
             }
@@ -62,25 +59,19 @@ namespace Transporters.Repositories
             }
         }
 
-        public async Task<Transporter> GetById(int transporterId)
+        public async Task<Transporter?> GetById(int transporterId)
         {
             try
             {
                 using (var context = new TransporterContext(_configuration))
                 {
                     var transporter = await context.Transporters.FindAsync(transporterId);
-
-                    if (transporter == null)
-                    {
-                        return null;
-                    }
-
                     return transporter;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw ;
             }
         }
 
@@ -96,9 +87,9 @@ namespace Transporters.Repositories
                 }
                 return status;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw ;
             }
         }
 
@@ -328,5 +319,39 @@ namespace Transporters.Repositories
                 throw e;
             }
         }
+
+        public async Task<List<TransporterInvoice>> GetTransporterInvoices(int transporterId,string paymentStatus)
+        {
+            try{
+                using(var context=new TransporterContext(_configuration)){
+                    List<TransporterInvoice> invoices=await(from transporter in context.Transporters
+                                                      join vehicle in context.Vehicles
+                                                      on transporter.Id equals vehicle.TransporterId
+                                                      join shipment in context.Shipments 
+                                                      on vehicle.Id equals shipment.VehicleId
+                                                      where transporter.Id==transporterId
+                                                      && shipment.Status == ShipmentStatus.Delivered
+                                                      let calculatedPaymentStatus = context.TransporterPayments.Any(
+                                                      tp => tp.ShipmentId == shipment.Id
+                                                      )
+                                                      ? PaymentStatus.Paid
+                                                     : PaymentStatus.UnPaid
+                        where calculatedPaymentStatus == paymentStatus
+                                           select new TransporterInvoice()
+                                           {
+                                               MerchantId=shipment.MerchantId,
+                                               Date=shipment.ShipmentDate,
+                                               FreightCharges= context.TotalFreightCharges(shipment.Id),
+                                               PaymentStatus=paymentStatus
+                                           }).ToListAsync();
+                                           return invoices;
+                }
+            }
+            catch(Exception){
+                throw;
+            }
+        }
     }
 }
+
+

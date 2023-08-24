@@ -7,6 +7,7 @@ import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-cent
 import { Subscription } from 'rxjs';
 import { CollectionDetails } from 'src/app/Models/collection-details';
 import { CollectionService } from 'src/app/Services/collection-service.service';
+import { FilterRequest } from 'src/app/Shared/filter/filter-request';
 
 
 @Component({
@@ -21,7 +22,12 @@ export class VeifiedCollectionListFilterComponent implements OnInit, OnDestroy {
   private collectionsSubscription: Subscription | undefined;
   private farmerNamesSubscription: Subscription | undefined;
   private inspectorNamesSubscription: Subscription | undefined;
-  constructor(private filtersvc: FiltersService, private collectionsvc: CollectionService, private usrsvc: UserService) { }
+
+  constructor(
+    private filtersvc: FiltersService,
+    private collectionsvc: CollectionService,
+    private usrsvc: UserService) { }
+
   ngOnInit(): void {
     this.filterRequestSubscription = this.filtersvc.getVerifiedCollectionFilterRequest().subscribe((res) => {
       const filterRequest = res.request;
@@ -31,9 +37,9 @@ export class VeifiedCollectionListFilterComponent implements OnInit, OnDestroy {
   }
 
 
-  getCollections(filterRequest: any, pageNumber: number) {
+  getCollections(filterRequest: FilterRequest, pageNumber: number) {
     this.collectionsSubscription = this.collectionsvc.getVerifiedCollections(filterRequest, pageNumber)
-      .subscribe((response: HttpResponse<any[]>) => {
+      .subscribe((response: HttpResponse<CollectionDetails[]>) => {
         console.log('Filter request sent successfully:', response.body);
         this.collections = response.body || [];
         console.table(this.collections)

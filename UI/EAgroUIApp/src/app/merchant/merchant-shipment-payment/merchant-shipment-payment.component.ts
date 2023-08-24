@@ -44,7 +44,7 @@ export class MerchantShipmentPaymentComponent implements OnInit {
     this.shipmentsvc.getShipmentTransporterAmount(this.shipmentId).subscribe((transporterAmount) => {
       this.amount = transporterAmount.amount;
       this.paymentStatus = transporterAmount.paymentStatus;
-      this.transportersvc.getCorporateIdOfTransporter().subscribe((corporateId) => {
+      this.merchantsvc.getCorporateIdOfTransporter(transporterAmount.transporterId).subscribe((corporateId) => {
         this.corpsvc.getCorporates(corporateId.toString()).subscribe((res) => {
           this.transporterName = res[0].name
           console.log((res[0].id))

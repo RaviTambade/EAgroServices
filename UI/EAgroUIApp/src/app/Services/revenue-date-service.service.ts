@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { WeekDate } from '../Models/week-date';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class RevenueDateService {
     'August', 'September', 'October', 'November', 'December']
 
   private quarters: number[] = [1, 2, 3, 4]
-  private weeks: { weekNumber: number, startDate: Date, endDate: Date }[] = [];
+  private weeks: WeekDate[] = [];
 
   getMonths(): string[] {
     return this.months;

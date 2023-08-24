@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { WeekDate } from 'src/app/Models/week-date';
 import { BIService } from 'src/app/Services/biservice.service';
 import { RevenueDateService } from 'src/app/Services/revenue-date-service.service';
 
@@ -22,7 +23,7 @@ export class CropBarChartComponent {
   years: number[] = [];
   months: string[];
   quarters: number[];
-  weeks: any[] = []
+  weeks: WeekDate[] = []
   constructor(private svc: BIService, private datesvc: RevenueDateService) {
     this.months = datesvc.getMonths();
     this.selectedMonth = this.months[0];
@@ -69,7 +70,7 @@ export class CropBarChartComponent {
       {
         // barThickness:50,
         data: [],
-        label:'Crop Amount'
+        label: 'Crop Amount'
       },
     ],
   };
@@ -85,7 +86,7 @@ export class CropBarChartComponent {
   }
 
   fetchRevenuesData() {
-    this.barChartData.datasets[0].label =  this.selectedInterval +'ly Crop Amount'
+    this.barChartData.datasets[0].label = this.selectedInterval + 'ly Crop Amount'
     switch (this.selectedInterval) {
       case "Year":
         this.svc.getCollectionCenterYearWiseCropRevenue(this.selectedYear).subscribe((res) => {
@@ -117,11 +118,14 @@ export class CropBarChartComponent {
       case "Week":
 
         let week = this.weeks.find(w => w.weekNumber == this.selectedWeek);
+        if (!week) {
+          return
+        }
         let localStartDate = new Date(week.startDate.getTime() - week.startDate.getTimezoneOffset() * 60000);
-        let startDate= localStartDate.toISOString().slice(0, 10);
+        let startDate = localStartDate.toISOString().slice(0, 10);
         let localEndDate = new Date(week.endDate.getTime() - week.endDate.getTimezoneOffset() * 60000);
-        let endDate=localEndDate.toISOString().slice(0, 10);
-        this.svc.getCollectionCenterWeekWiseCropRevenue(startDate,endDate).subscribe((res) => {
+        let endDate = localEndDate.toISOString().slice(0, 10);
+        this.svc.getCollectionCenterWeekWiseCropRevenue(startDate, endDate).subscribe((res) => {
           console.log(res)
           this.barChartData.labels = res.map(item => item.cropName);
           this.barChartData.datasets[0].data = res.map(item => item.amount);

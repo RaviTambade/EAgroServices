@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Role } from 'src/app/Models/Enums/role';
 import { Collection } from 'src/app/Models/collection';
 import { NameId } from 'src/app/Models/name-id';
 import { UpdateCollection } from 'src/app/Models/update-collection';
@@ -16,30 +17,33 @@ import { UserService } from 'src/app/Shared/users/user.service';
 })
 export class UpdateCollectionComponent {
 
-  @Input() collection!: Collection
+  @Input() collection: Collection | undefined
 
   collectionForm: FormGroup | any;
   farmers: NameId[] = [];
   crops: NameId[] = [];
   containerTypes: string[] = [];
-  UpdateStatus:boolean=true;
+  UpdateStatus: boolean = true;
 
-  constructor(private formBuilder: FormBuilder, private cropsvc: CropService, private usrsvc: UserService,
-    private collectionsvc: CollectionService, private userrolesvc: UserRoleService, private verifiedcollectionsvc: VerifiedCollectionService) {
-
-  }
+  constructor(
+    private formbuilder: FormBuilder,
+    private cropsvc: CropService,
+    private usersvc: UserService,
+    private collectionsvc: CollectionService,
+    private userrolesvc: UserRoleService,
+    private verifiedcollectionsvc: VerifiedCollectionService) { }
 
   ngOnInit() {
-    this.collectionForm = this.formBuilder.group({
-      farmerId: [this.collection.farmerId, Validators.required],
-      cropId: [this.collection.cropId, Validators.required],
-      containerType: [this.collection.containerType, Validators.required],
-      quantity: [this.collection.quantity, [Validators.required, Validators.pattern('[0-9]+')]],
-      weight: [this.collection.weight, [Validators.required, Validators.pattern('[0-9]+')]]
+    this.collectionForm = this.formbuilder.group({
+      farmerId: [this.collection?.farmerId, Validators.required],
+      cropId: [this.collection?.cropId, Validators.required],
+      containerType: [this.collection?.containerType, Validators.required],
+      quantity: [this.collection?.quantity, [Validators.required, Validators.pattern('[0-9]+')]],
+      weight: [this.collection?.weight, [Validators.required, Validators.pattern('[0-9]+')]]
     });
     console.log();
-    this.userrolesvc.getusersId("farmer").subscribe((res) => {
-      this.usrsvc.getUserNamesWithId(res).subscribe((farmers) => {
+    this.userrolesvc.getusersId(Role.farmer).subscribe((res) => {
+      this.usersvc.getUserNamesWithId(res).subscribe((farmers) => {
         this.farmers = farmers;
       });
     })
@@ -55,7 +59,7 @@ export class UpdateCollectionComponent {
 
   OnSubmit() {
 
-    if (this.collectionForm.valid) {
+    if (this.collectionForm.valid && this.collection) {
       let collection: UpdateCollection = {
         farmerId: this.collectionForm.get('farmerId')?.value,
         cropId: this.collectionForm.get('cropId')?.value,
@@ -68,21 +72,8 @@ export class UpdateCollectionComponent {
 
       this.collectionsvc.updateCollection(collection).subscribe((res) => {
         console.log(res);
-        if(res){
-
+        if (res) {
           window.location.reload();
-        //   this.collection={
-        //     farmerId: this.collectionForm.get('farmerId')?.value,
-        //     cropId: this.collectionForm.get('cropId')?.value,
-        //     containerType: this.collectionForm.get('containerType')?.value,
-        //     quantity: this.collectionForm.get('quantity')?.value,
-        //     weight: this.collectionForm.get('weight')?.value,
-        //     collectionId: this.collection.collectionId,
-        //     farmerName:this.farmers.find(item => item.id === collection.farmerId)?.name,
-        //     cropName:this.crops.find(item => item.id === collection.farmerId)?.name,
-        //     collectionDate:this.collection.collectionDate
-        //   };
-
         }
 
       })
@@ -92,8 +83,8 @@ export class UpdateCollectionComponent {
     }
   }
 
-  onCancelClick(){
-    this.UpdateStatus=false;
+  onCancelClick() {
+    this.UpdateStatus = false;
   }
 
 

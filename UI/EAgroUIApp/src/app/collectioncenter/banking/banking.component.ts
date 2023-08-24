@@ -10,15 +10,19 @@ import { CollectioncenterService } from 'src/app/Services/collectioncenter.servi
   styleUrls: ['./banking.component.css']
 })
 export class BankingComponent implements OnInit {
-  statement:BankStatement[]=[]
+  statement: BankStatement[] = []
   accountNumber: string = '';
-  constructor(private collectioncentersvc: CollectioncenterService, private banksvc: BankingService) { }
+
+  constructor(
+    private collectioncentersvc: CollectioncenterService,
+    private banksvc: BankingService) { }
+
   ngOnInit(): void {
     this.collectioncentersvc.getCorporateIdByCollectionCenterId().subscribe((corporeateId) => {
       this.banksvc.getCorporateAccountInfo(corporeateId).subscribe((res) => {
         this.accountNumber = res.accountNumber;
         this.banksvc.getBankStatement(this.accountNumber).subscribe((statement) => {
-          this.statement=statement
+          this.statement = statement
           console.log(statement)
         })
       });

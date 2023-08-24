@@ -8,15 +8,13 @@ import { Invoice } from 'src/app/Models/invoice';
   styleUrls: ['./collection-payment-list.component.css']
 })
 export class CollectionPaymentListComponent {
-  @Input()invoices!: Invoice[] ;
+  @Input() invoices: Invoice[] = [];
   selectedInvoiceId: number | null = null;
-
-
-
 
   onClickClose() {
     this.selectedInvoiceId = null;
   }
+
   onClickInvoiceDetails(invoiceId: number) {
     if (this.selectedInvoiceId === invoiceId) {
       this.selectedInvoiceId = null;
