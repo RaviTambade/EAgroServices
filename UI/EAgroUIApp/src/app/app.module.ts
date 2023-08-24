@@ -17,6 +17,7 @@ import { FarmerpiechartComponent } from './farmer/farmerpiechart/farmerpiechart.
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddJwtHeaderIntreceptorInterceptor } from './Interceptor/add-jwt-header-intreceptor.interceptor';
 import { HomeComponent } from './default/home/home.component';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -53,7 +54,14 @@ const routes: Routes = [
         provide: HTTP_INTERCEPTORS,
         useClass: AddJwtHeaderIntreceptorInterceptor,
         multi: true
-      }
+      },
+      { provide: JWT_OPTIONS, useValue: {
+        tokenGetter: () => {
+          return;
+        },
+        throwNoTokenError: true,
+      } },
+      JwtHelperService
   ],
   bootstrap: [AppComponent]
 })

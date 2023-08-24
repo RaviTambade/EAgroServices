@@ -9,21 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserlogoutComponent implements OnInit{
   constructor(private route:ActivatedRoute,private router:Router){}
   ngOnInit(): void {
-    // const jwt=localStorage.getItem("jwt")
     const result=window.confirm("Are you sure you want to log out?");
     if(result){
       this.router.navigate(["auth/login"])
       console.log ("logging out");
-      localStorage.removeItem("jwt");
-      localStorage.removeItem("userId");
-      localStorage.removeItem("role");  
-      localStorage.removeItem("transporterId");   
-      localStorage.removeItem("collectionCenterId");   
-      localStorage.removeItem("merchantId");   
-      localStorage.removeItem("farmerId");   
+      localStorage.clear();
     }
     else{
-      this.router.navigate(["home"]);
+      // this.router.navigate(["home"]);
       console.log("logout canceled");
     }
     

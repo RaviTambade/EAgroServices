@@ -3,19 +3,19 @@
       <li><a routerLink="home" routerLinkActive="router-link-active">Home</a></li>
       <li><a routerLink="about" routerLinkActive="router-link-active">About</a></li>
       <li><a routerLink="contact" routerLinkActive="router-link-active">Contact</a></li>
-      <li *ngIf="isLoggedIn()"><a routerLink="auth/login" routerLinkActive="router-link-active">Login</a></li>
+      <li *ngIf="!isLoggedIn()"><a routerLink="auth/login" routerLinkActive="router-link-active">Login</a></li>
       <li *ngIf="isroleTransporter()"><a routerLink="transporter/dashboard" routerLinkActive="router-link-active">Dashboard</a></li>
       <li *ngIf="isroleTransporter()"><a routerLink="transporter/vehicles" routerLinkActive="router-link-active">Vehicles</a></li>
       <li *ngIf="isroleTransporter()"><a routerLink="transporter/allshipments" routerLinkActive="router-link-active">All Shipments</a></li>
       <li *ngIf="isroleTransporter()"><a routerLink="transporter/banking" routerLinkActive="router-link-active">Bankstatement</a></li>
      
-      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/dashboard" routerLinkActive="router-link-active">Dashboard</a></li>
-      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/addcollection" routerLinkActive="router-link-active">add collection</a></li>
-      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/filters/collections" routerLinkActive="router-link-active">verify collections</a></li>
-      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/filters/verifiedcollections" routerLinkActive="router-link-active">verified collections</a></li>
-      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/filters/shipments" routerLinkActive="router-link-active">Shipment List</a></li>
-      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/filters/payment" routerLinkActive="router-link-active">Invoices List</a></li>
-      <li *ngIf="isroleInspector()"><a routerLink="collectioncenter/banking" routerLinkActive="router-link-active">banking</a></li>
+      <li *ngIf="isroleCollectionManager()"><a routerLink="collectioncenter/dashboard" routerLinkActive="router-link-active">Dashboard</a></li>
+      <li *ngIf="isroleCollectionManager()"><a routerLink="collectioncenter/addcollection" routerLinkActive="router-link-active">add collection</a></li>
+      <li *ngIf="isroleCollectionManager()"><a routerLink="collectioncenter/filters/collections" routerLinkActive="router-link-active">verify collections</a></li>
+      <li *ngIf="isroleCollectionManager()"><a routerLink="collectioncenter/filters/verifiedcollections" routerLinkActive="router-link-active">verified collections</a></li>
+      <li *ngIf="isroleCollectionManager()"><a routerLink="collectioncenter/filters/shipments" routerLinkActive="router-link-active">Shipment List</a></li>
+      <li *ngIf="isroleCollectionManager()"><a routerLink="collectioncenter/filters/payment" routerLinkActive="router-link-active">Invoices List</a></li>
+      <li *ngIf="isroleCollectionManager()"><a routerLink="collectioncenter/banking" routerLinkActive="router-link-active">banking</a></li>
      
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/dashboard" routerLinkActive="router-link-active">dashboard</a></li>
       <li *ngIf="isroleMerchant()"><a routerLink="merchant/shipmentlist" routerLinkActive="router-link-active">Shipments</a></li>
@@ -29,10 +29,10 @@
       <li *ngIf="isroleFarmer()"><a routerLink="farmer/bankstatement" routerLinkActive="router-link-active">Bank Statement</a></li>
 
       
-      <li *ngIf="isUser()" class="user-profile-icon" (click)="openUserProfile()">
+      <li *ngIf="isLoggedIn()" class="user-profile-icon" (click)="openUserProfile()">
         <i class="fa fa-user-circle"></i>
       </li>
-      <li *ngIf="isUser()" (click)="loggedOut()">
+      <li *ngIf="isLoggedIn()" (click)="loggedOut()">
         <i class="fas fa-sign-out-alt"></i>
       </li>
 
