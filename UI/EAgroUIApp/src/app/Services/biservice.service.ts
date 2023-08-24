@@ -6,6 +6,10 @@ import { QuarterRevenue } from '../Models/quarter-revenue';
 import { MonthRevenue } from '../Models/month-revenue';
 import { WeekRevenue } from '../Models/week-revenue';
 import { CropRevenue } from '../Models/crop-revenue';
+import { Merchantcollectioncount } from '../Models/merchantcollectioncount';
+import { MerchantcollectioncountMonth } from '../Models/merchantcollectioncount-month';
+import { MerchantcollectioncountQuarter } from '../Models/merchantcollectioncount-quarter';
+import { MerchantcollectioncountWeek } from '../Models/merchantcollectioncount-week';
 
 @Injectable({
   providedIn: 'root'
@@ -37,53 +41,55 @@ export class BIService {
     return this.http.get<any>(url);
   }
 
-  getCollectionCenterYearWiseCropRevenue(year:number): Observable<CropRevenue[]> {
+  getCollectionCenterYearWiseCropRevenue(year: number): Observable<CropRevenue[]> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/year/" + collectionCenterId + "/" + year;
     return this.http.get<any>(url);
   }
-  getCollectionCenterQuarterWiseCropRevenue(year:number,quarter:number): Observable<CropRevenue[]> {
+  getCollectionCenterQuarterWiseCropRevenue(year: number, quarter: number): Observable<CropRevenue[]> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/quarter/" + collectionCenterId + "/" + year+ "/" + quarter;
+    let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/quarter/" + collectionCenterId + "/" + year + "/" + quarter;
     return this.http.get<any>(url);
   }
 
-  getCollectionCenterMonthWiseCropRevenue(year:number,monthName:string): Observable<CropRevenue[]> {
+  getCollectionCenterMonthWiseCropRevenue(year: number, monthName: string): Observable<CropRevenue[]> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/month/" + collectionCenterId + "/" + year+ "/" + monthName;
+    let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/month/" + collectionCenterId + "/" + year + "/" + monthName;
     return this.http.get<any>(url);
   }
 
-   getCollectionCenterWeekWiseCropRevenue(startDate:string,endDate:string): Observable<CropRevenue[]> {
+  getCollectionCenterWeekWiseCropRevenue(startDate: string, endDate: string): Observable<CropRevenue[]> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/dates/" + collectionCenterId + "/" + startDate+ "/" + endDate;
+    let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/dates/" + collectionCenterId + "/" + startDate + "/" + endDate;
     return this.http.get<any>(url);
   }
 
-  getYearsForCropRevenues():Observable<number[]> {
+  getYearsForCropRevenues(): Observable<number[]> {
     let collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/years/" + collectionCenterId 
+    let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/years/" + collectionCenterId
     return this.http.get<any>(url);
   }
 
+  getCollectionCenterCountByYear(): Observable<Merchantcollectioncount[]> {
+    let merchantId = localStorage.getItem("merchantId");
+    let url = "http://localhost:5235/api/merchantBI/count/year/" + merchantId;
+    return this.http.get<Merchantcollectioncount[]>(url);
+  }
 
+  getCollectionCenterCountByMonth(year:number): Observable<MerchantcollectioncountMonth[]> {
+    let merchantId = localStorage.getItem("merchantId");
+    let url = "http://localhost:5235/api/merchantBI/count/month/" + merchantId + "/"+year;
+    return this.http.get<MerchantcollectioncountMonth[]>(url);
 
-  // getMonthRevenue(): Observable<MonthRevenue[]> {
-  //   let collectionCenterId = localStorage.getItem("collectionCenterId");
-  //   let url = "http://localhost:5192/api/collectioncenters/revenue/month/" + collectionCenterId;
-  //   return this.http.get<[]>(url);
-  // }
-
-  // getCropRevenue(): Observable<CropRevenue[]> {
-  //   let collectionCenterId = localStorage.getItem("collectionCenterId");
-  //   let url ="http://localhost:5192/api/collectioncenters/revenue/crop/" + collectionCenterId;
-  //   return this.http.get<CropRevenue[]>(url);
-  // }
-
-  // getMonthOrderCount(): Observable<MonthOrderCount[]> {
-  //   let collectionCenterId = localStorage.getItem("collectionCenterId");
-  //   let url = "http://localhost:5192/api/collectioncenters/ordercount/" + collectionCenterId;
-  //   return this.http.get<MonthOrderCount[]>(url);
-  // }
-
+  }
+  getCollectionCenterCountByQuarter(year:number): Observable<MerchantcollectioncountQuarter[]> {
+    let merchantId = localStorage.getItem("merchantId");
+    let url = "http://localhost:5235/api/merchantBI/count/quarter/" + merchantId + "/"+year;
+    return this.http.get<MerchantcollectioncountQuarter[]>(url);
+  }
+  getCollectionCenterCountByWeek(year:number): Observable<MerchantcollectioncountWeek[]> {
+    let merchantId = localStorage.getItem("merchantId");
+    let url = "http://localhost:5235/api/merchantBI/count/week/" + merchantId + "/"+year;
+    return this.http.get<MerchantcollectioncountWeek[]>(url);
+  }
 }

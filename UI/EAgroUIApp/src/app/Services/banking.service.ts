@@ -17,9 +17,9 @@ export class BankingService {
     let url = "http://localhost:5053/api/accounts/details";
     let body = {
       "Usertype": "person",
-      "DependancyId": farmerId     
+      "DependencyId": farmerId     
     }
-    return this.http.post<any>(url, body);
+    return this.http.post<AccountInfo>(url, body);
   }
 
   getCorporateAccountInfo(corporateId: number): Observable<AccountInfo> {
@@ -28,15 +28,15 @@ export class BankingService {
       "Usertype": "corporation",
       "DependencyId": corporateId
     }
-    return this.http.post<any>(url, body);
+    return this.http.post<AccountInfo>(url, body);
   }
 
   fundTransfer(payment: PaymentTransferDetails): Observable<number> {
     let url = "http://localhost:5001/api/fundstransfer";
-    return this.http.post<any>(url, payment);
+    return this.http.post<number>(url, payment);
   }
   getBankStatement(acctNumber: string): Observable<BankStatement[]> {
     let url = "http://localhost:5053/api/banking/accounts/" + acctNumber + "/statement";
-    return this.http.get<any>(url);
+    return this.http.get<BankStatement[]>(url);
   }
 }

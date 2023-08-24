@@ -11,6 +11,7 @@ import { MerchantShipmentPaymentComponent } from './merchant-shipment-payment/me
 import { MerchantbarchartComponent } from './merchantbarchart/merchantbarchart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MerchantdoughnutchartComponent } from './merchantdoughnutchart/merchantdoughnutchart.component';
+import { MerchantdashboardComponent } from './merchantdashboard/merchantdashboard.component';
 
 
 export const merchantRoutes: Routes = [
@@ -35,6 +36,7 @@ export const merchantRoutes: Routes = [
     MerchantShipmentPaymentComponent,
     MerchantbarchartComponent,
     MerchantdoughnutchartComponent,
+    MerchantdashboardComponent,
   ],
   imports: [
     CommonModule,
