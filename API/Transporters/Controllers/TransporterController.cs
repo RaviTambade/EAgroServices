@@ -89,5 +89,10 @@ namespace Transporters.Controllers
             return _srv.GetShipmentCounts(transporterId);
         }
 
+        [HttpGet("{transporterId}/invoices/{paymentStatus}")]
+        public Task<List<TransporterInvoice>> GetTransporterInvoices(int transporterId,string paymentStatus)
+        {
+           return _srv.GetTransporterInvoices(transporterId, paymentStatus);
+        }
     }
 }

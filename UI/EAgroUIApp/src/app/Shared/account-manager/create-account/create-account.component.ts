@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AccountManagerService } from '../account-manager.service';
-import { Account } from 'src/app/Account';
+import { Account } from 'src/app/Models/account';
 
 @Component({
   selector: 'app-create-account',

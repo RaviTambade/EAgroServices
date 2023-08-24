@@ -1,5 +1,5 @@
 
-namespace Shipments.Models
+namespace Transporters.Models
 {
     public static class 
     ShipmentStatus
