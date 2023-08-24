@@ -25,6 +25,8 @@ namespace Transporters.Repositories.Contexts
         public DbSet<Invoice> Invoices{get;set;}
         public DbSet<GoodsCosting> GoodsCostings{get;set;}  
         public DbSet<ShipmentItem> ShipmentItems{get;set;}
+
+        public double TotalFreightCharges(int shipmentId) => throw new NotSupportedException();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL(
@@ -35,6 +37,15 @@ namespace Transporters.Repositories.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder //Database function registration
+                .HasDbFunction(
+                    typeof(TransporterContext).GetMethod(
+                        nameof(TotalFreightCharges),
+                        new[] { typeof(int) }
+                    )
+                )
+                .HasName("apply_total_freight_charges");
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Transporter>(entity =>
             {

@@ -359,7 +359,21 @@ AS `VehicleNumber`, `c0`.`title` AS `CropName`, `v0`.`grade` AS `Grade`, `g0`.`c
       SELECT * FROM transporters;
 SELECT * FROM userroles;
 
-
+SELECT * FROM shipments;
 SELECT * FROM transporters;
 SELECT * FROM collectioncenters;
 SELECT * FROM merchants;
+
+SELECT shipments.merchantid,apply_total_freight_charges(shipments.id)
+FROM transporters 
+INNER JOIN vehicles 
+ON transporters.id=vehicles.transporterid
+INNER JOIN shipments
+join transporterpayments
+ON shipments.id =transporterpayments.shipmentid 
+ON vehicles.id=shipments.vehicleid
+WHERE transporters.id=1 ;
+
+
+select apply_total_freight_charges(1);
+

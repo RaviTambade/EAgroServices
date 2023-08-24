@@ -320,7 +320,7 @@ namespace Transporters.Repositories
             }
         }
 
-        public async Task<List<TransporterInvoice>> GetTransporterInvoices(int transporterId)
+        public async Task<List<TransporterInvoice>> GetTransporterInvoices(int transporterId,string paymentStatus)
         {
             try{
                 using(var context=new TransporterContext(_configuration)){
@@ -329,21 +329,20 @@ namespace Transporters.Repositories
                                                       on transporter.Id equals vehicle.TransporterId
                                                       join shipment in context.Shipments 
                                                       on vehicle.Id equals shipment.VehicleId
-                                                      join shipmentitem in context.ShipmentItems
-                                                      on shipment.Id equals shipmentitem.ShipmentId
-                                                      join goodscosting in context.GoodsCostings
-                                                      on shipmentitem.Id equals goodscosting.ShipmentItemId
-                                                      join invoice in context.Invoices
-                                                      on shipmentitem.Id equals invoice.ShipmentItemId
                                                       where transporter.Id==transporterId
-                                                      group new{shipment,shipmentitem,goodscosting,invoice} by  shipmentitem.ShipmentId  into g
-                                                      orderby g.Key
+                                                      && shipment.Status == ShipmentStatus.Delivered
+                                                      let calculatedPaymentStatus = context.TransporterPayments.Any(
+                                                      tp => tp.ShipmentId == shipment.Id
+                                                      )
+                                                      ? PaymentStatus.Paid
+                                                     : PaymentStatus.UnPaid
+                        where calculatedPaymentStatus == paymentStatus
                                            select new TransporterInvoice()
                                            {
-                                               MerchantId=g.FirstOrDefault().shipment.MerchantId,
-                                               Date=g.FirstOrDefault().shipment.ShipmentDate,
-                                               FreightCharges= g.FirstOrDefault().goodscosting.FreightCharges,
-                                               PaymentStatus=g.FirstOrDefault().invoice.PaymentStatus
+                                               MerchantId=shipment.MerchantId,
+                                               Date=shipment.ShipmentDate,
+                                               FreightCharges= context.TotalFreightCharges(shipment.Id),
+                                               PaymentStatus=paymentStatus
                                            }).ToListAsync();
                                            return invoices;
                 }
