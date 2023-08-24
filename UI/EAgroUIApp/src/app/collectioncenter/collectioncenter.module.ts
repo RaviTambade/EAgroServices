@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AddCollectionComponent } from './add-collection/add-collection.component';
 import { CollectionListComponent } from './collection-list/collection-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,9 +21,9 @@ import { CropBarChartComponent } from './collection-center-dashboard/crop-bar-ch
 import { BankingComponent } from './banking/banking.component';
 import { CorporateService } from '../Services/corporate.service';
 
-export const collectionCenterRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+const collectionCenterRoutes: Routes = [
   { path: 'dashboard', component: CollectionCenterDashboardComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'addcollection', component: AddCollectionComponent },
   { path: 'verifycollections', component: CollectionVerificationComponent },
   { path: 'banking', component: BankingComponent },
@@ -54,15 +54,15 @@ export const collectionCenterRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgChartsModule,
-    DatePipe
+    DatePipe,
+    RouterModule.forChild(collectionCenterRoutes)
   ],
   exports:[
     CollectionVerificationComponent,
     CollectionListComponent,
     CollectionShipmentListComponent,
     CollectionPaymentListComponent,
-    BankingComponent
-  ],
+    BankingComponent,     ],
   providers:[
     CorporateService,
     DatePipe

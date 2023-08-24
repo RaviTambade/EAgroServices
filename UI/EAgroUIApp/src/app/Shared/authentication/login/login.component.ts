@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Credential } from '../credential';
 import { Router } from '@angular/router';
-import { UserService } from '../../users/user.service';
 import { CollectioncenterService } from 'src/app/Services/collectioncenter.service';
 import { MerchantService } from 'src/app/Services/merchant.service';
 import { TransporterService } from 'src/app/Services/transporter.service';
-import { UserRoleService } from 'src/app/Services/user-role.service';
 import { LocalStorageKeys } from 'src/app/Models/Enums/local-storage-keys';
+import { Role } from 'src/app/Models/Enums/role';
 
 
 @Component({
@@ -22,8 +21,11 @@ export class LoginComponent {
     contactNumber: '',
     password: ''
   }
-  userId: number | undefined;
   roles: string[] = [];
+
+  showPassword: boolean = false;
+
+
 
   constructor(
     private authsvc: AuthService,
@@ -36,6 +38,11 @@ export class LoginComponent {
     console.log(form);
     this.authsvc.validate(form).subscribe((response) => {
       console.log(response);
+      if (response == null) {
+        alert("Invalid credentials");
+        return;
+      }
+
       if (response.token != null) {
         localStorage.setItem(LocalStorageKeys.jwt, response.token)
         alert("Login successfull")
@@ -54,55 +61,55 @@ export class LoginComponent {
   }
 
   navigateByRole(role: string) {
-    localStorage.setItem("role", role);
+    console.log(role)
+    const userId = this.authsvc.getUserIdFromToken();
+    if (!userId) {
+      window.location.reload();
+      return;
+    }
+    console.log(userId)
     switch (role) {
-      case "farmer":
-        if (this.userId != undefined)
-          localStorage.setItem("farmerId", this.userId.toString());
+      case Role.farmer:
+        localStorage.setItem(LocalStorageKeys.farmerId, userId.toString());
         this.router.navigate(['/farmer/home'])
         break;
 
-      case "merchant":
-        if (this.userId != undefined)
-
-          this.merchantsvc.getmerchantIdByUserId(this.userId).subscribe((merchantId) => {
-            console.log(this.userId);
-            console.log(merchantId);
-            localStorage.setItem("merchantId", merchantId.toString());
-            this.router.navigate(['/merchant/dashboard'])
-          });
+      case Role.merchant:
+        this.merchantsvc.getmerchantIdByUserId(userId).subscribe((merchantId) => {
+          localStorage.setItem(LocalStorageKeys.merchantId, merchantId.toString());
+          this.router.navigate(['/merchant/dashboard'])
+        });
         break;
 
-      case "transporter":
-        if (this.userId != undefined)
-          this.tarnsportsvc.gettransporterIdByUserId(this.userId).subscribe((transporterId) => {
-            localStorage.setItem("transporterId", transporterId.toString());
-            this.router.navigate(['/transporter/vehicles'])
-          });
+      case Role.transporter:
+        this.tarnsportsvc.gettransporterIdByUserId(userId).subscribe((transporterId) => {
+          localStorage.setItem(LocalStorageKeys.transporterId, transporterId.toString());
+          this.router.navigate(['/transporter/vehicles'])
+        });
 
         break;
 
-      case "collection manager":
-        if (this.userId != undefined)
-          this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((collectionCenterId) => {
-            localStorage.setItem("collectionCenterId", collectionCenterId.toString());
-            this.router.navigate(['/collectioncenter/dashboard'])
-          });
+      case Role.collectionmanager:
+        this.collectioncentersvc.getCollectionCenterId(userId).subscribe((collectionCenterId) => {
+          localStorage.setItem(LocalStorageKeys.collectionCenterId, collectionCenterId.toString());
+          this.router.navigate(['/collectioncenter/dashboard'])
+        });
         break;
 
-      case "inspector":
-        if (this.userId != undefined)
-          this.collectioncentersvc.getCollectionCenterId(this.userId).subscribe((collectionCenterId) => {
-            localStorage.setItem("collectionCenterId", collectionCenterId.toString());
-            this.router.navigate(['/collectioncenter/dashboard'])
-          });
+      case Role.inspector:
+        this.collectioncentersvc.getCollectionCenterId(userId).subscribe((collectionCenterId) => {
+          localStorage.setItem(LocalStorageKeys.collectionCenterId, collectionCenterId.toString());
+          this.router.navigate(['/collectioncenter/dashboard'])
+        });
         break;
     }
   }
 
-  newAccountStatus() {
+  showLoginPage() {
     return this.roles.length < 1;
   }
-
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
 }

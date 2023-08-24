@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { CollectionListFilterComponent } from './collection-list-filter/collection-list-filter.component';
 import { VeifiedCollectionListFilterComponent } from './veified-collection-list-filter/veified-collection-list-filter.component';
 import { FilterModule } from '../Shared/filter/filter.module';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { CollectionShipmentFilterListComponent } from './collection-shipment-filter-list/collection-shipment-filter-list.component';
 import { CollectionPaymentListFilterComponent } from './collection-payment-list-filter/collection-payment-list-filter.component';
 
-export const collectionCenterFilterRoutes: Routes = [
+const collectionCenterFilterRoutes: Routes = [
   { path: 'collections', component: CollectionListFilterComponent },
   { path: 'verifiedcollections', component: VeifiedCollectionListFilterComponent },
   { path: 'shipments', component: CollectionShipmentFilterListComponent },
@@ -24,7 +24,8 @@ export const collectionCenterFilterRoutes: Routes = [
   ],
   imports: [
     CommonModule,
-    FilterModule
+    FilterModule,
+    RouterModule.forChild(collectionCenterFilterRoutes)
   ]
 })
 export class CollectionCenterFiltersModule { }

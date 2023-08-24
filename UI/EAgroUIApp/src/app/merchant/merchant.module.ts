@@ -14,14 +14,14 @@ import { MerchantdoughnutchartComponent } from './merchantdoughnutchart/merchant
 import { MerchantdashboardComponent } from './merchantdashboard/merchantdashboard.component';
 
 
-export const merchantRoutes: Routes = [
+const merchantRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'shipmentlist', component:MerchantShipmentListComponent  },
-  { path: 'shipmentdetails/:shipmentid', component:MerchantShipmentDetailsComponent  },
-  { path: 'invoices', component:MerchantInvoicesComponent  },
-  { path: 'invoicedetails/:invoiceid', component:MerchantInvoiceDetailsComponent  },
-  { path: 'shipment/payment/:shipmentid', component:MerchantShipmentPaymentComponent  },
-  { path: 'dashboard', component:MerchantbarchartComponent  },
+  { path: 'shipmentlist', component: MerchantShipmentListComponent },
+  { path: 'shipmentdetails/:shipmentid', component: MerchantShipmentDetailsComponent },
+  { path: 'invoices', component: MerchantInvoicesComponent },
+  { path: 'invoicedetails/:invoiceid', component: MerchantInvoiceDetailsComponent },
+  { path: 'shipment/payment/:shipmentid', component: MerchantShipmentPaymentComponent },
+  { path: 'dashboard', component: MerchantbarchartComponent },
 
 
 ]
@@ -41,10 +41,10 @@ export const merchantRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
+    RouterModule.forChild(merchantRoutes),
     NgChartsModule
   ],
-  exports:[
+  exports: [
   ],
 })
 export class MerchantModule { }

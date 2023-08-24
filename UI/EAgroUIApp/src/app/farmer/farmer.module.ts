@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { GoodscollectionComponent } from './goodscollection/goodscollection.component';
 import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollection.component';
 import { InvoicedetailsComponent } from './invoicedetails/invoicedetails.component';
@@ -15,16 +15,16 @@ import { CollectionsComponent } from './collections/collections.component';
 import { CollectionstatusComponent } from './verifiedcollection/collectionstatus/collectionstatus.component';
 import { FarmerbankingComponent } from './farmerbanking/farmerbanking.component';
 
- export const farmerRoutes: Routes = [
+const farmerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  {path:'dashboard',component:FarmerdashboardComponent},
-  { path: 'unverifiedcollection', component:GoodscollectionComponent },
-  { path: 'collection', component:CollectionsComponent },
-  { path: 'verifiedcollection', component:VerifiedcollectionComponent },
-  { path: 'invoice/:id', component:InvoicedetailsComponent },
-  { path: 'paidcollection/:status', component:CollectionstatusComponent },
-  { path: 'unpaidcollection/:status', component:CollectionstatusComponent },
-  { path: 'bankstatement', component:FarmerbankingComponent },
+  { path: 'dashboard', component: FarmerdashboardComponent },
+  { path: 'unverifiedcollection', component: GoodscollectionComponent },
+  { path: 'collection', component: CollectionsComponent },
+  { path: 'verifiedcollection', component: VerifiedcollectionComponent },
+  { path: 'invoice/:id', component: InvoicedetailsComponent },
+  { path: 'paidcollection/:status', component: CollectionstatusComponent },
+  { path: 'unpaidcollection/:status', component: CollectionstatusComponent },
+  { path: 'bankstatement', component: FarmerbankingComponent },
 
 
 ]
@@ -46,13 +46,14 @@ import { FarmerbankingComponent } from './farmerbanking/farmerbanking.component'
     CommonModule,
     NgChartsModule,
     FormsModule,
-    CropModule
+    CropModule,
+    RouterModule.forChild(farmerRoutes)
   ],
   exports: [
     GoodscollectionComponent,
     FarmerpiechartComponent,
     RevenuebarchartComponent
   ],
-  providers:[]
+  providers: []
 })
 export class FarmerModule { }
