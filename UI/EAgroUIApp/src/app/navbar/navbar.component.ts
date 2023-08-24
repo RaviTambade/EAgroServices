@@ -1,38 +1,32 @@
 import { Component } from '@angular/core';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../Shared/authentication/auth.service';
 import { Role } from '../Models/Enums/role';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  
-  constructor(private router: Router, private authsvc: AuthService) { }
+  constructor(private router: Router, private authsvc: AuthService) {}
 
   isroleCollectionManager(): boolean {
-    const roles = this.authsvc.getRolesFromToken()
-    return roles.includes(Role.collectionmanager)
+    return this.authsvc.isTokenHaveRequiredRole(Role.collectionmanager);
   }
   isroleInspector(): boolean {
-    const roles = this.authsvc.getRolesFromToken()
-    return roles.includes(Role.inspector)
+    return this.authsvc.isTokenHaveRequiredRole(Role.inspector);
   }
 
   isroleTransporter(): boolean {
-    const roles = this.authsvc.getRolesFromToken()
-    return roles.includes(Role.transporter)
+    return this.authsvc.isTokenHaveRequiredRole(Role.transporter);
   }
 
   isroleMerchant(): boolean {
-    const roles = this.authsvc.getRolesFromToken()
-    return roles.includes(Role.merchant)
+    return this.authsvc.isTokenHaveRequiredRole(Role.merchant);
   }
   isroleFarmer(): boolean {
-    const roles = this.authsvc.getRolesFromToken()
-    return roles.includes(Role.farmer)
+    return this.authsvc.isTokenHaveRequiredRole(Role.farmer);
   }
 
   openUserProfile() {
@@ -44,13 +38,12 @@ export class NavbarComponent {
   }
 
   loggedOut() {
-    const result=window.confirm("Are you sure you want to log out?");
-    if(result){
-      this.router.navigate(["auth/login"])
+    const result = window.confirm('Are you sure you want to log out?');
+    if (result) {
+      this.router.navigate(['auth/login']);
       localStorage.clear();
-    }
-    else{
-      console.log("logout canceled");
+    } else {
+      console.log('logout canceled');
     }
   }
 }

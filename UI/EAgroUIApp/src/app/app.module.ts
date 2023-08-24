@@ -5,28 +5,75 @@ import { AppComponent } from './app.component';
 import { DefaultModule } from './default/default.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AddJwtHeaderIntreceptorInterceptor } from './Interceptor/add-jwt-header-intreceptor.interceptor';
+import { AddJwtHeaderIntreceptorInterceptor } from './Interceptors/add-jwt-header-intreceptor.interceptor';
 import { HomeComponent } from './default/home/home.component';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
-
-
+import {
+  canActivateCollectionCenterRoutes,
+  canActivateFarmerRoutes,
+  canActivateMerchantRoutes,
+  canActivateTransporterRoutes,
+} from './Guards/guards';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'membership',  loadChildren: () => import('./membership/membership.module').then(m => m.MembershipModule) },
-  { path: 'auth',  loadChildren: () => import('./Shared/authentication/authentication.module').then(m => m.AuthenticationModule) },
-  { path: 'farmer',  loadChildren: () => import('./farmer/farmer.module').then(m => m.FarmerModule) },
-  { path: 'merchant',  loadChildren: () => import('./merchant/merchant.module').then(m => m.MerchantModule)},
-  { path: 'transporter',  loadChildren: () => import('./transporter/transporter.module').then(m => m.TransporterModule) },
-  { path: 'collectioncenter', loadChildren: () => import('./collectioncenter/collectioncenter.module').then(m => m.CollectioncenterModule) },
-  { path: 'collectioncenter/filters', loadChildren: () => import('./collection-center-filters/collection-center-filters.module').then(m => m.CollectionCenterFiltersModule) },
-]
+  {
+    path: 'membership',
+    loadChildren: () =>
+      import('./membership/membership.module').then((m) => m.MembershipModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./Shared/authentication/authentication.module').then(
+        (m) => m.AuthenticationModule
+      ),
+  },
+  {
+    path: 'farmer',
+    canMatch: [canActivateFarmerRoutes()],
+    canActivate: [canActivateFarmerRoutes()],
+    loadChildren: () =>
+      import('./farmer/farmer.module').then((m) => m.FarmerModule),
+  },
+  {
+    path: 'merchant',
+    canMatch: [canActivateMerchantRoutes()],
+    canActivate: [canActivateMerchantRoutes()],
+    loadChildren: () =>
+      import('./merchant/merchant.module').then((m) => m.MerchantModule),
+  },
+  {
+    path: 'transporter',
+    canMatch: [canActivateTransporterRoutes()],
+    canActivate: [canActivateTransporterRoutes()],
+    loadChildren: () =>
+      import('./transporter/transporter.module').then(
+        (m) => m.TransporterModule
+      ),
+  },
+  {
+    path: 'collectioncenter',
+    canMatch: [canActivateCollectionCenterRoutes()],
+    canActivate: [canActivateCollectionCenterRoutes()],
+    loadChildren: () =>
+      import('./collectioncenter/collectioncenter.module').then(
+        (m) => m.CollectioncenterModule
+      ),
+  },
+  {
+    path: 'collectioncenter/filters',
+    canMatch: [canActivateCollectionCenterRoutes()],
+    canActivate: [canActivateCollectionCenterRoutes()],
+    loadChildren: () =>
+      import(
+        './collection-center-filters/collection-center-filters.module'
+      ).then((m) => m.CollectionCenterFiltersModule),
+  },
+];
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-   
-  ],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     DefaultModule,
@@ -34,19 +81,22 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
   ],
   providers: [
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: AddJwtHeaderIntreceptorInterceptor,
-        multi: true
-      },
-      { provide: JWT_OPTIONS, useValue: {
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddJwtHeaderIntreceptorInterceptor,
+      multi: true,
+    },
+    {
+      provide: JWT_OPTIONS,
+      useValue: {
         tokenGetter: () => {
           return;
         },
         throwNoTokenError: true,
-      } },
-      JwtHelperService,
+      },  
+    },
+    JwtHelperService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

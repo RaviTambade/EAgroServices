@@ -6,6 +6,7 @@ import { UpdatePassword } from './update-password';
 import { UpdateContact } from './update-contact';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LocalStorageKeys } from 'src/app/Models/Enums/local-storage-keys';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
-    private jwtHelper: JwtHelperService) { }
+    private jwtHelper: JwtHelperService,
+    private router: Router) { }
 
   validate(credential: Credential): Observable<any> {
     let url = "http://localhost:5077/api/authentication/signin";
@@ -65,4 +67,14 @@ export class AuthService {
     }
     return null;
   }
+
+  redirectToLogin() {
+    return this.router.navigateByUrl('/auth/login');
+  }
+
+  isTokenHaveRequiredRole(role: string): boolean {
+    const roles = this.getRolesFromToken()
+    return roles.includes(role);
+  }
+
 }
