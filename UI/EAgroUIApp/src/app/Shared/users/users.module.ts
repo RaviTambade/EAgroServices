@@ -36,7 +36,6 @@ const userRoute:Routes=[
     FormsModule,
     HttpClientModule,
     RouterModule.forChild(userRoute)
-    
   ],
   exports:[
     AdduserComponent,
@@ -46,7 +45,6 @@ const userRoute:Routes=[
     RemoveuserComponent,
     UserprofileComponent,
     UserlogoutComponent
-
   ]
 })
 export class UsersModule { }

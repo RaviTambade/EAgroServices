@@ -31,7 +31,7 @@ export class UserService {
   }
 
   updateUser(id: number, user: User): Observable<any> {
-    let url = "http://localhost:5102/api/users/updateuser/" + id
+    let url = "http://localhost:5102/api/users/" + id
     return this.httpClient.put<any>(url, user)
   }
 

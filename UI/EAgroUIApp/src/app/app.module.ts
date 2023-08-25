@@ -30,6 +30,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./Shared/users/users.module').then((m) => m.UsersModule),
+  },
+  {
     path: 'farmer',
     canMatch: [canActivateFarmerRoutes()],
     canActivate: [canActivateFarmerRoutes()],
@@ -88,7 +93,7 @@ const routes: Routes = [
     },
     {
       provide: JWT_OPTIONS,
-      useValue: {
+      useValue: { 
         tokenGetter: () => {
           return;
         },
