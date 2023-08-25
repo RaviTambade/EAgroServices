@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AddJwtHeaderIntreceptorInterceptor } from './Interceptors/add-jwt-header-intreceptor.interceptor';
 import { HomeComponent } from './default/home/home.component';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+
 import {
   canActivateCollectionCenterRoutes,
   canActivateFarmerRoutes,
@@ -28,6 +29,11 @@ const routes: Routes = [
       import('./Shared/authentication/authentication.module').then(
         (m) => m.AuthenticationModule
       ),
+  },
+  {
+    path: 'user',
+    loadChildren: () =>
+      import('./Shared/users/users.module').then((m) => m.UsersModule),
   },
   {
     path: 'farmer',
@@ -80,6 +86,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
+
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -93,7 +100,7 @@ const routes: Routes = [
           return;
         },
         throwNoTokenError: true,
-      },  
+      },
     },
     JwtHelperService,
   ],

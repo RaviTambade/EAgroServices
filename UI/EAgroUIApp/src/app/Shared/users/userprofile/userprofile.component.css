@@ -1,27 +1,75 @@
 .profile-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 20px;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
 }
 
-/* .profile-info {
+.profile-info {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   display: flex;
-  align-items: flex-start;
-} */
+  flex-direction: row; 
+  align-items: flex-start; 
+  width: 80%; 
+}
 
-.profile-image {
-  margin-right: 20px;
+.profile-image,
+.image-preview {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-image img,
+.image-preview img {
+  height: auto;
+  border-radius: 50%;
+  width: 260px;
+  height: 260px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image button,
+.image-preview button {
+  margin-top: 10px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-image button:hover,
+.image-preview button:hover {
+  background-color: #2980b9;
 }
 
 .profile-details {
-  display: flex;
-  flex-direction: column;
+  flex: 1; 
+  padding-right: 20px; 
 }
 
 .edit-link {
-  margin-right: 450px;
-  align-self: flex-start;
+  list-style-type: none;
+  margin-top: 20px;
+  text-align: center;
 }
 
-/* Add any additional styling you need */
+.edit-link li {
+  margin-bottom: 10px;
+}
+
+.edit-link a {
+  text-decoration: none;
+  color: #3498db;
+  transition: color 0.3s;
+}
+
+.edit-link a:hover {
+  color: #2980b9;
+}

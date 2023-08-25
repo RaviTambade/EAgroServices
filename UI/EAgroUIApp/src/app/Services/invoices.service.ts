@@ -31,13 +31,13 @@ export class InvoicesService {
   }
 
   getCollectionCenterInvoices(filterRequest: FilterRequest, pageNumber: number,status:string): Observable<HttpResponse<Invoice[]>> {
-    let collectionCenterId = localStorage.getItem("collectionCenterId");
+    const collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5197/api/invoices/collectionCenter/" + collectionCenterId+"/status/"+status;
     const params = new HttpParams().set('pageNumber', pageNumber.toString());
-    return this.http.post<any[]>(url, filterRequest, { params: params, observe: 'response' });  }
+    return this.http.post<Invoice[]>(url, filterRequest, { params: params, observe: 'response' });  }
 
   getCollectionCenterInvoicDetails(invoiceId:number): Observable<CollectionCenterInvoiceDetails> {
-    let collectionCenterId = localStorage.getItem("collectionCenterId");
+    const collectionCenterId = localStorage.getItem("collectionCenterId");
     let url = "http://localhost:5197/api/invoices/collectionCenter/" + collectionCenterId+"/invoice/"+invoiceId;
     return this.http.get<CollectionCenterInvoiceDetails>(url);
   }

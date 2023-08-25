@@ -43,7 +43,12 @@ namespace Invoices.Controllers
             [FromQuery] int pageNumber
         )
         {
-            var invoices= await _srv.GetCollectionCenterInvoices(collectionCenterId, status,request,pageNumber);
+            var invoices = await _srv.GetCollectionCenterInvoices(
+                collectionCenterId,
+                status,
+                request,
+                pageNumber
+            );
             Response.AddPaginationHeader(invoices);
             return invoices;
         }

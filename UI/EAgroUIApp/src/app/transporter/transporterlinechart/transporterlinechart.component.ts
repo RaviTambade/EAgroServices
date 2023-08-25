@@ -10,9 +10,8 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrls: ['./transporterlinechart.component.css']
 })
 export class TransporterlinechartComponent implements OnInit {
-  transporterId:any
   chartIntervals = ["Year", "Quarter", "Month", "Week"]
-  years:number[]=[]
+  years: number[] = []
   selectedInterval: string = this.chartIntervals[0];
   selectedYear: number = new Date().getFullYear();
 
@@ -22,8 +21,6 @@ export class TransporterlinechartComponent implements OnInit {
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-
-    // We use these empty structures as placeholders for dynamic theming.
     scales: {
       x: {},
       y: {
@@ -59,9 +56,9 @@ export class TransporterlinechartComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchRevenueData()
-      }
-  
-  fetchRevenueData(){
+  }
+
+  fetchRevenueData() {
     this.barChartData.datasets[0].label = this.selectedInterval + ' Amount'
     switch (this.selectedInterval) {
 
@@ -70,9 +67,9 @@ export class TransporterlinechartComponent implements OnInit {
           console.log(res)
           this.barChartData.labels = res.map(item => item.year);
           this.barChartData.datasets[0].data = res.map(item => item.amount);
-          this.years=res.map(item => item.year)
+          this.years = res.map(item => item.year)
           console.log(this.years)
-          this.selectedYear= new Date().getFullYear() ;
+          this.selectedYear = new Date().getFullYear();
         });
         break;
 

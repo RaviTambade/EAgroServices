@@ -1,3 +1,6 @@
 export class Vehiclerevenue {
-    constructor(public rtoNumber:string,public amount:number){}
+    constructor(
+        public rtoNumber: string,
+        public amount: number
+    ) { }
 }
