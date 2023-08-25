@@ -1,8 +1,22 @@
 <div class="profile-container">
   <div class="profile-info">
-    <div class="profile-image">
-      <img [src]="url + user.imageUrl">
+
+    <div class="profile-image" *ngIf="!editingImage">
+      <img style="height:auto; border-radius: 250px;" [src]="url + user.imageUrl" width="260" height="260">
+      <br>
+      <button (click)="editImage()">
+        <i class="fa fa-pencil"></i> Edit
+      </button>
+      <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
     </div>
+    <div class="image-preview" *ngIf="selectedImageUrl && editingImage">
+      <img style="height:auto; border-radius: 250px;" [src]="selectedImageUrl" alt="Preview Image" width="260"
+        height="260">
+      <br>
+      <button (click)="confirmImage()">Confirm</button>
+      <button (click)="cancelImage()">Cancel</button>
+    </div>
+
     <div class="profile-details">
       <h2>{{ user.firstName }} {{ user.lastName }}</h2>
       <p><strong>Birth Date:</strong> {{ user.birthDate | date }}</p>
@@ -10,11 +24,14 @@
       <p><strong>AadharId:</strong> {{ user.aadharId }}</p>
       <p><strong>Email:</strong> {{ user.email }}</p>
       <p><strong>Contact Number:</strong> {{ user.contactNumber }}</p>
+      <div class="edit-link">
+        <li><a routerLink="changeprofile" routerLinkActive="router-link-active">Update Profile</a></li>
+        <li><a routerLink="/auth/updatepassword" routerLinkActive="router-link-active">Update Your Password</a></li>
+      </div>
     </div>
-  <app-corporatedetails></app-corporatedetails>
-  </div>
-  <div class="edit-link">
-    <li><a routerLink="changeprofile" routerLinkActive="router-link-active">Edit Your Profile</a></li>
-    <li><a routerLink="updatepassword" routerLinkActive="router-link-active">Update Your Password</a></li>
+    <div *ngIf="isCorporate()">
+      <app-corporatedetails></app-corporatedetails>
+    </div>
+    
   </div>
 </div>

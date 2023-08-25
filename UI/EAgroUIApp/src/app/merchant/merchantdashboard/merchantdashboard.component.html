@@ -1,22 +1,46 @@
-<div style="height: 600px;width:600px">
-    <!-- <canvas
-      baseChart
-      class="chart"
-      [datasets]="barChartData.datasets"
-      [labels]="barChartData.labels"  
-      [options]="barChartOptions"
-      [plugins]="barChartPlugins"
-      [type]="barChartType"
-    >
-    </canvas> -->
-    <div class="line-chart-size" >
-        <canvas baseChart class="chart" [datasets]="barChartData.datasets" [labels]="barChartData.labels"
-            [options]="barChartOptions" [type]="barChartType"></canvas>
-    </div>
-    
-    <div>
-        <label >Select Interval:</label>
-        <select  [(ngModel)]="selectedInterval" (ngModelChange)="fetchRevenueData()">
-            <option *ngFor="let option of chartIntervals" [value]="option">{{ option }}</option>
-        </select>
-    </div>
+<!-- <div class="bar-chart-size">
+    <canvas baseChart class="chart" [datasets]="barChartData.datasets" [labels]="barChartData.labels"
+      [options]="barChartOptions" [plugins]="barChartPlugins" [type]="barChartType">
+    </canvas>
+  </div> -->
+  
+  <div>
+    <label>Select Interval:</label>
+    <select [(ngModel)]="selectedInterval" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let option of chartIntervals" [value]="option">{{ option }}</option>
+    </select>
+  </div>
+  
+  <div>
+    <label>Select Year:</label>
+    <select [(ngModel)]="selectedYear" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+  </div>
+  
+  <div *ngIf="selectedInterval== 'Quarter'" >
+    <label>Select Quarter:</label>
+    <select [(ngModel)]="selectedQuarter" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let quarter of quarters" [value]="quarter">Q{{ quarter }}</option>
+    </select>
+  </div>
+  
+  <div *ngIf="selectedInterval== 'Month'" >
+    <label>Select Month:</label>
+    <select [(ngModel)]="selectedMonth" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+    </select>
+  </div>
+  
+  <div *ngIf="selectedInterval== 'Week'" >
+    <label>Select Week:</label>
+    <select [(ngModel)]="selectedWeek" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let week of weeks" [value]="week.weekNumber"> {{week.weekNumber }} : {{ week.startDate | date:'mediumDate' }} </option>
+    </select>
+  </div>
+  <div class="bar-chart-size">
+    <canvas baseChart class="chart" [datasets]="barChartData.datasets" [labels]="barChartData.labels"
+      [options]="barChartOptions" [plugins]="barChartPlugins" [type]="barChartType">
+    </canvas>
+  </div>
+  

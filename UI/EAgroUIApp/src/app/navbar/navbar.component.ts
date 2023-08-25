@@ -30,7 +30,7 @@ export class NavbarComponent {
   }
 
   openUserProfile() {
-    this.router.navigate(['userinfo']);
+    this.router.navigate(['user/userinfo']);
   }
 
   isLoggedIn(): boolean {
