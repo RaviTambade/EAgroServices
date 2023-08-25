@@ -85,7 +85,7 @@ export class RangeFilterComponent implements OnInit, OnDestroy {
   }
 
   propertyIsNotPersonOrCorporateId(property: string): boolean {
-    return property !== 'FarmerId' && property !== 'InspectorId' && property !== 'MerchantCorporateId'
+    return property !== 'FarmerId' && property !== 'ManagerId' && property !== 'MerchantCorporateId'
       && property !== 'CollectionCenterCorporateId' && property !== 'TransporterCorporateId';
   }
   ngOnDestroy(): void {

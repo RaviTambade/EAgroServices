@@ -377,3 +377,4 @@ WHERE transporters.id=1 ;
 
 select apply_total_freight_charges(1);
 
+SELECT * FROM goodscollectionpayments;

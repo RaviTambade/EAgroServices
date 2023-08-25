@@ -81,7 +81,7 @@ namespace CollectionCenters.Repositories
                     if (oldCollectionCenter is not null)
                     {
                         oldCollectionCenter.CorporateId = collectionCenter.CorporateId;
-                        oldCollectionCenter.InspectorId = collectionCenter.InspectorId;
+                        oldCollectionCenter.ManagerId = collectionCenter.ManagerId;
                         status = await SaveChanges(context);
                     }
                     return status;
@@ -117,7 +117,7 @@ namespace CollectionCenters.Repositories
             }
         }
 
-        public async Task<int> GetCollectionCenterIdByInspectorId(int inspectorId)
+        public async Task<int> GetCollectionCenterIdByManagerId(int managerId)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace CollectionCenters.Repositories
                 {
                     var collectionCenterId = await (
                         from CollectionCenter in context.CollectionCenters
-                        where CollectionCenter.InspectorId == inspectorId
+                        where CollectionCenter.ManagerId == managerId
                         select CollectionCenter.Id
                     ).FirstOrDefaultAsync();
                     return collectionCenterId;

@@ -54,7 +54,6 @@ const collectionCenterRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgChartsModule,
-    DatePipe,
     RouterModule.forChild(collectionCenterRoutes)
   ],
   exports:[
@@ -62,7 +61,8 @@ const collectionCenterRoutes: Routes = [
     CollectionListComponent,
     CollectionShipmentListComponent,
     CollectionPaymentListComponent,
-    BankingComponent,     ],
+    BankingComponent, 
+      ],
   providers:[
     CorporateService,
     DatePipe

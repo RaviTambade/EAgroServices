@@ -9,7 +9,7 @@ namespace GoodsCollections.Models
         public string? Grade { get; set; }
         public int Quantity { get; set; }
 
-        public int InspectorId { get; set; }
+        public int ManagerId { get; set; }
         public double TotalWeight { get; set; }
         public double NetWeight { get; set; }
         public DateTime CollectionDate { get; set; }

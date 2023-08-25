@@ -52,10 +52,10 @@ namespace CollectionCenters.Controllers
             return await _srv.GetCorporateIdByCollectionCenterId(collectionCenterId);
         }
 
-        [HttpGet("inspectorid/{inspectorId}")]
-        public async Task<int> GetCollectionCenterIdByInspectorId(int inspectorId)
+        [HttpGet("managerId/{managerId}")]
+        public async Task<int> GetCollectionCenterIdByManagerId(int managerId)
         {
-            return await _srv.GetCollectionCenterIdByInspectorId(inspectorId);
+            return await _srv.GetCollectionCenterIdByManagerId(managerId);
         }
 
         [HttpGet("collectioncenterandcorporateid")]

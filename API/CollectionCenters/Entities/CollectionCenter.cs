@@ -10,7 +10,7 @@ namespace CollectionCenters.Entities
         [Column("corporateid")]
         public int CorporateId { get; set; }
 
-        [Column("inspectorid")]
-        public int InspectorId { get; set; }
+        [Column("managerid")]
+        public int ManagerId { get; set; }
     }
 }

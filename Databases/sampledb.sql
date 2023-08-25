@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
     
     INSERT INTO roles(name)VALUES('collection manager');
     INSERT INTO roles(name)VALUES ('farmer');
@@ -19,10 +19,13 @@
     INSERT INTO userroles(userid,roleid)VALUES(12,5);
 
 
-    INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(1,4);
-    INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(2,5);
-    INSERT INTO collectioncenters (corporateid,inspectorid) VALUES(3,6);
+    INSERT INTO collectioncenters (corporateid,managerid) VALUES(1,4);
+    INSERT INTO collectioncenters (corporateid,managerid) VALUES(2,5);
+    INSERT INTO collectioncenters (corporateid,managerid) VALUES(3,6);
 
+    INSERT INTO inspectors(collectioncenterid) VALUES(1);
+    INSERT INTO inspectors(collectioncenterid) VALUES(2);
+    INSERT INTO inspectors(collectioncenterid) VALUES(3);
 
     INSERT INTO transporters (corporateid,managerid) VALUES(4,7);
     INSERT INTO transporters (corporateid,managerid) VALUES(5,8);
@@ -243,5 +246,3 @@
 
 
    
- CALL call_all_procedures_for_charges(14);
- CALL call_all_procedures_for_totalamount(39);

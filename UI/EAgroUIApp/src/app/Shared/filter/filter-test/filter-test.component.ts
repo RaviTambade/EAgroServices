@@ -77,7 +77,7 @@ export class FilterTestComponent implements OnInit, OnDestroy {
         })
       }
 
-      if (this.rangeProperties.includes("InspectorId")) {
+      if (this.rangeProperties.includes("ManagerId")) {
         this.inspectorsSubscription = this.filterservice.getInspectors().subscribe((res) => {
           this.inspectors = res;
         })
@@ -139,7 +139,7 @@ export class FilterTestComponent implements OnInit, OnDestroy {
       return merchant?.name;
     }
 
-    if (property === 'InspectorId') {
+    if (property === 'ManagerId') {
       let inspector = this.inspectors.find(inspector => inspector.id === minVal);
       return inspector?.name;
     }

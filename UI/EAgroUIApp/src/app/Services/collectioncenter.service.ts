@@ -12,8 +12,7 @@ export class CollectioncenterService {
   constructor(private http: HttpClient) {}
 
   getCollectionCenterId(userId: number): Observable<number> {
-    let url =
-      'http://localhost:5192/api/collectioncenters/inspectorid/' + userId;
+    let url ='http://localhost:5192/api/collectioncenters/managerId/' + userId;
     return this.http.get<number>(url);
   }
 

@@ -11,7 +11,7 @@ namespace CollectionCenters.Repositories.Interfaces
         Task<bool> Insert(CollectionCenter collectionCenter);
         Task<bool> Update(CollectionCenter collectionCenter);
         Task<bool> Delete(int collectionCenterId);
-        Task<int> GetCollectionCenterIdByInspectorId(int inspectorId);
+        Task<int> GetCollectionCenterIdByManagerId(int managerId);
         Task<int> GetCorporateIdByCollectionCenterId(int collectionCenterId);
         Task<List<CollectionCenterCorporate>> GetCollectionCenterAndCorporateId();
     }

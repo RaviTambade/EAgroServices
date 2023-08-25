@@ -114,7 +114,7 @@ namespace Invoices.Repositories.Contexts
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.CorporateId);
-                entity.Property(e => e.InspectorId);
+                entity.Property(e => e.ManagerId);
                 modelBuilder.Entity<CollectionCenter>().ToTable("collectioncenters");
             });
 

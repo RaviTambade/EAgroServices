@@ -62,7 +62,7 @@ export class RegisterCorporateComponent implements OnInit {
             case 1:
               const collectionCenter: Collectioncenter = {
                 corporateId: corporateId,
-                inspectorId: this.userRole.userId
+                managerId: this.userRole.userId
               }
               this.collectioncentersvc.addCollectioncenter(collectionCenter).subscribe((r) => {
                 console.log(r);

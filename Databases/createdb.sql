@@ -1,4 +1,4 @@
--- Active: 1682349138553@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
@@ -48,9 +48,15 @@ CREATE TABLE
     collectioncenters(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         corporateid INT NOT NULL ,
-        inspectorid INT NOT NULL UNIQUE,
-        CONSTRAINT fk_inspector_user FOREIGN KEY(inspectorid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
+        managerid INT NOT NULL UNIQUE,
+        CONSTRAINT fk_collection_manager FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
     );
+CREATE TABLE 
+   inspectors(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    collectioncenterid INT NOT NULL,
+    CONSTRAINT fk_collection_center FOREIGN KEY(collectioncenterid) REFERENCES collectioncenters(id) ON UPDATE CASCADE ON DELETE CASCADE
+   );
 
 CREATE TABLE
     merchants(
@@ -83,7 +89,7 @@ CREATE TABLE
         weight DOUBLE,
         inspectorid INT,
         CONSTRAINT fk_verified_goodscollections FOREIGN KEY (collectionid) REFERENCES goodscollections(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_inspector_users FOREIGN KEY (inspectorid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT fk_inspector_users FOREIGN KEY (inspectorid) REFERENCES inspectors(id) ON UPDATE CASCADE ON DELETE CASCADE,
         inspectiondate DATETIME NOT NULL DEFAULT NOW()
     );
 

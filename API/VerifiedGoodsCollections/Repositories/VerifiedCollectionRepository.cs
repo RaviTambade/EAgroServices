@@ -212,7 +212,7 @@ public class VerifiedCollectionRepository : IVerifiedCollectionRepository
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText =
-                "UPDATE verifiedgoodscollection SET collectionid=@collectionId,grade=@grade,weight=@weight,inspectorid=@inspectorId,inspectiondate=@inspectionDate WHERE id=@id";
+                "UPDATE verifiedgoodscollection SET collectionid=@collectionId,grade=@grade,weight=@weight,inspectori=@inspectorId,inspectiondate=@inspectionDate WHERE id=@id";
             cmd.Connection = con;
             cmd.Parameters.AddWithValue("@id", verifiedCollectionId);
             cmd.Parameters.AddWithValue("@collectionId", verifiedCollection.CollectionId);

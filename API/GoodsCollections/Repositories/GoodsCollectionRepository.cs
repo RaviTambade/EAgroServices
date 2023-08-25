@@ -107,7 +107,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         Grade = verifiedCollection.Grade,
                         TotalWeight = collection.Weight,
                         NetWeight = verifiedCollection.Weight,
-                        InspectorId = verifiedCollection.InspectorId,
+                        ManagerId = verifiedCollection.InspectorId,
                         CollectionDate = collection.CollectionDate
                     };
                 query = query.ApplyFilters(request);
@@ -245,7 +245,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         ImageUrl = crop.ImageUrl,
                         CollectionCenterId = collection.CollectionCenterId,
                         CorporateId = center.CorporateId,
-                        InspectorId = center.CorporateId,
+                        ManagerId = center.CorporateId,
                         Quantity = (int)collection.Quantity,
                         ContainerType = collection.ContainerType,
                         Weight = collection.Weight,
@@ -283,7 +283,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         ImageUrl = crop.ImageUrl,
                         CollectionCenterId = collection.CollectionCenterId,
                         CorporateId = center.CorporateId,
-                        InspectorId = center.CorporateId,
+                        ManagerId = center.CorporateId,
                         Quantity = (int)collection.Quantity,
                         ContainerType = collection.ContainerType,
                         Weight = collection.Weight,
@@ -326,7 +326,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                         ImageUrl = crop.ImageUrl,
                         CollectionCenterId = collection.CollectionCenterId,
                         CorporateId = center.CorporateId,
-                        InspectorId = center.CorporateId,
+                        ManagerId = center.CorporateId,
                         Quantity = collection.Quantity,
                         ContainerType = collection.ContainerType,
                         Weight = collection.Weight,

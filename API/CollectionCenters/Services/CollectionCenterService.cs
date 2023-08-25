@@ -40,9 +40,9 @@ namespace CollectionCenters.Services
             return await _repo.Delete(collectionCenterId);
         }
 
-        public async Task<int> GetCollectionCenterIdByInspectorId(int inspectorId)
+        public async Task<int> GetCollectionCenterIdByManagerId(int managerId)
         {
-            return await _repo.GetCollectionCenterIdByInspectorId(inspectorId);
+            return await _repo.GetCollectionCenterIdByManagerId(managerId);
         }
 
         public async Task<List<CollectionCenterCorporate>> GetCollectionCenterAndCorporateId()

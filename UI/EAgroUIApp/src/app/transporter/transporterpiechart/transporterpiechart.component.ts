@@ -4,16 +4,15 @@ import { BaseChartDirective } from 'ng2-charts';
 import { TransporterService } from '../../Services/transporter.service';
 import { Transporterrevenue } from 'src/app/Models/transporterrevenue';
 
-
 @Component({
   selector: 'app-transporterpiechart',
   templateUrl: './transporterpiechart.component.html',
-  styleUrls: ['./transporterpiechart.component.css']
+  styleUrls: ['./transporterpiechart.component.css'],
 })
 export class TransporterpiechartComponent implements OnInit {
   transporterId: number | undefined;
-  transporterRevenue: Transporterrevenue[] = []
-  constructor(private svc: TransporterService) { }
+  transporterRevenue: Transporterrevenue[] = [];
+  constructor(private svc: TransporterService) {}
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -43,12 +42,16 @@ export class TransporterpiechartComponent implements OnInit {
   public pieChartPlugins = [];
 
   ngOnInit(): void {
-    this.transporterId = Number(localStorage.getItem("transporterId"));
+    this.transporterId = Number(localStorage.getItem('transporterId'));
     this.svc.getTransporterRevenue(this.transporterId).subscribe((res) => {
-      this.transporterRevenue = res
-      console.log(res)
-      this.pieChartData.labels = this.transporterRevenue.map((revenues) => revenues.monthName);
-      this.pieChartData.datasets[0].data = this.transporterRevenue.map((revenues) => revenues.amount);
-    })
+      this.transporterRevenue = res;
+      console.log(res);
+      this.pieChartData.labels = this.transporterRevenue.map(
+        (revenues) => revenues.monthName
+      );
+      this.pieChartData.datasets[0].data = this.transporterRevenue.map(
+        (revenues) => revenues.amount
+      );
+    });
   }
 }
