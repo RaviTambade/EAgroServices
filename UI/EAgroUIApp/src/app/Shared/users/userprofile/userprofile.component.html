@@ -2,7 +2,7 @@
   <div class="profile-info">
 
     <div class="profile-image" *ngIf="!editingImage">
-      <img style="height:auto; border-radius: 250px;" [src]="url + user.imageUrl" width="260" height="260">
+      <img style="height:auto; border-radius: 250px;" [src]=imageurl width="260" height="260">
       <br>
       <button (click)="editImage()">
         <i class="fa fa-pencil"></i> Edit
