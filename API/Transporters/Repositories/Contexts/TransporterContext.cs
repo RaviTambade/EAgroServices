@@ -1,6 +1,7 @@
 using Transporters.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Transporters.Entities;
 
 namespace Transporters.Repositories.Contexts
 {
@@ -25,6 +26,7 @@ namespace Transporters.Repositories.Contexts
         public DbSet<Invoice> Invoices{get;set;}
         public DbSet<GoodsCosting> GoodsCostings{get;set;}  
         public DbSet<ShipmentItem> ShipmentItems{get;set;}
+        public DbSet<Merchant> Merchants{get;set;}
 
         public double TotalFreightCharges(int shipmentId) => throw new NotSupportedException();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -53,6 +55,13 @@ namespace Transporters.Repositories.Contexts
                 entity.Property(e => e.CorporateId);
                 entity.Property(e => e.ManagerId);
                 modelBuilder.Entity<Transporter>().ToTable("transporters");
+            });
+               modelBuilder.Entity<Merchant>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CorporateId);
+                entity.Property(e => e.ManagerId);
+                modelBuilder.Entity<Merchant>().ToTable("merchants");
             });
               modelBuilder.Entity<Invoice>(entity =>
             {

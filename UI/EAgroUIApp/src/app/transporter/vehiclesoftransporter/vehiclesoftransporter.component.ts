@@ -10,10 +10,11 @@ import { Vehicle } from 'src/app/Models/vehicle';
   styleUrls: ['./vehiclesoftransporter.component.css']
 })
 export class VehiclesoftransporterComponent implements OnInit {
-  transporterId: number |undefined;
+  transporterId: number | undefined;
   vehicles: Vehicle[];
   subscription: Subscription;
-  constructor(private svc: TransporterService, private router: Router) {
+  constructor(private svc: TransporterService,
+    private router: Router) {
     this.vehicles = [];
     this.subscription = new Subscription();
   }
@@ -32,7 +33,7 @@ export class VehiclesoftransporterComponent implements OnInit {
   onAddNewVehicle() {
     this.router.navigate(['transporter/addvehicle']);
   }
-  OnUpdate(vehicleId:number){
-this.router.navigate(['/transporter/update',vehicleId])
+  OnUpdate(vehicleId: number) {
+    this.router.navigate(['/transporter/update', vehicleId])
   }
 }

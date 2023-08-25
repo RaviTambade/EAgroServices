@@ -1,3 +1,6 @@
 export class Transporter {
-    constructor(public corporateId:number,public managerId:number){}
+    constructor(
+        public corporateId: number,
+        public managerId: number
+    ) { }
 }

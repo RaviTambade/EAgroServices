@@ -11,8 +11,8 @@ import 'chartjs-plugin-datalabels';
   styleUrls: ['./transporterbarchart.component.css']
 })
 export class TransporterbarchartComponent implements OnInit {
-  transporterId: any;
-  years:any[]=[]
+  transporterId: number | undefined;
+  years: string[] = []
   selectedYear: number = new Date().getFullYear();
   vehicleRevenues: Vehiclerevenue[] = []
   constructor(private svc: TransporterService) { }
@@ -20,8 +20,6 @@ export class TransporterbarchartComponent implements OnInit {
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-
-    // We use these empty structures as placeholders for dynamic theming.
     scales: {
       x: {},
       y: {
@@ -59,13 +57,13 @@ export class TransporterbarchartComponent implements OnInit {
   ngOnInit(): void {
     this.transporterId = Number(localStorage.getItem("transporterId"));
     this.fetchVehicleRevenues(this.selectedYear);
-    this.svc.getYears(this.transporterId).subscribe((res)=>{
-      this.years=res
+    this.svc.getYears(this.transporterId).subscribe((res) => {
+      this.years = res
       console.log(this.years)
     })
-    }
+  }
   fetchVehicleRevenues(year: number): void {
-    this.svc.getVehicleRevenues(this.transporterId, year).subscribe((res) => {
+    this.svc.getVehicleRevenues(Number(this.transporterId), year).subscribe((res) => {
       this.vehicleRevenues = res;
       this.barChartData.labels = this.vehicleRevenues.map((revenues) => revenues.rtoNumber);
       this.barChartData.datasets[0].data = this.vehicleRevenues.map((revenues) => revenues.amount);

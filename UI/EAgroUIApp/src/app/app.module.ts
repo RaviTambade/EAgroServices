@@ -32,7 +32,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     NavbarComponent,
-    // FarmerpiechartComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +45,6 @@ const routes: Routes = [
     CropModule,
     TransporterModule,
     UsersModule,
-    // CollectionCenterFiltersModule
   ],
   providers: [
       {

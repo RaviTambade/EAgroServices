@@ -18,11 +18,10 @@ export class MerchantInvoicesComponent implements OnInit {
 
   constructor(
     private invoicesvc: InvoicesService,
-    private corpsvc: CorporateService,
     private usrsvc: UserService) { }
 
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
     this.onClickUnpaid();
   }
   onClickInvoiceDetails(invoiceId: number) {

@@ -12,6 +12,9 @@ import { YearRevenue } from '../Models/year-revenue';
 import { MonthRevenue } from '../Models/month-revenue';
 import { QuarterRevenue } from '../Models/quarter-revenue';
 import { WeekRevenue } from '../Models/week-revenue';
+import { Transporterinvoice } from '../Models/transporterinvoice';
+import { Shipmentsmerchant } from '../Models/shipmentsmerchant';
+import { VehicleCorporateShipment } from '../Models/vehicle-corporate-shipment';
 
 
 @Injectable({
@@ -22,9 +25,10 @@ export class TransporterService {
   private shipmentSubject: Subject<any[]> = new Subject<any[]>();
 
   constructor(public httpClient: HttpClient) { }
-  getVehiclesOfTransporter(transporterId: number): Observable<any> {
+
+  getVehiclesOfTransporter(transporterId: number): Observable<Vehicle[]> {
     let url = " http://localhost:5025/api/transporters/" + transporterId + "/vehicles"
-    this.httpClient.get<any[]>(url).subscribe(
+    this.httpClient.get<Vehicle[]>(url).subscribe(
       (response) => {
         this.vehicleSubject.next(response);
       },
@@ -34,9 +38,10 @@ export class TransporterService {
     );
     return this.vehicleSubject.asObservable();
   }
-  getShipmentsOfVehicle(vehicleId: number): Observable<any> {
+
+  getShipmentsOfVehicle(vehicleId: number): Observable<Shipmentsmerchant[]> {
     let url = "http://localhost:5067/api/shipments/vehicles/" + vehicleId
-    this.httpClient.get<any[]>(url).subscribe(
+    this.httpClient.get<Shipmentsmerchant[]>(url).subscribe(
       (response) => {
         this.shipmentSubject.next(response);
       },
@@ -46,23 +51,20 @@ export class TransporterService {
     );
     return this.shipmentSubject.asObservable();
   }
-  //  getCorporateId(merchantId:number):Observable<any>{
-  //   let url="http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
-  //   return this.httpClient.get<any>(url)
-  //  }
+
   getTransporterAndCorporateId(): Observable<Corporate[]> {
     let url = "http://localhost:5025/api/transporters/transporterandcorporateid";
-    return this.httpClient.get<any>(url);
+    return this.httpClient.get<Corporate[]>(url);
   }
 
-  addVehicle(vehicle: Vehicle): Observable<any> {
+  addVehicle(vehicle: Vehicle): Observable<boolean> {
     let url = "http://localhost:5261/api/vehicles"
-    return this.httpClient.post<any>(url, vehicle)
+    return this.httpClient.post<boolean>(url, vehicle)
   }
 
-  addTransporter(transport: Transporter): Observable<any> {
+  addTransporter(transport: Transporter): Observable<boolean> {
     let url = "http://localhost:5025/api/transporters"
-    return this.httpClient.post<any>(url, transport)
+    return this.httpClient.post<boolean>(url, transport)
   }
 
   getCorporateIdOfTransporter(): Observable<number> {
@@ -75,9 +77,9 @@ export class TransporterService {
     let url = "http://localhost:5025/api/transporters/manager/" + userId;
     return this.httpClient.get<number>(url);
   }
-  getAllShipmentsOfTransporter(transporterId: number): Observable<any> {
+  getAllShipmentsOfTransporter(transporterId: number): Observable<VehicleCorporateShipment[]> {
     let url = "http://localhost:5067/api/shipments/transporter/" + transporterId
-    return this.httpClient.get<any>(url)
+    return this.httpClient.get<VehicleCorporateShipment[]>(url)
   }
   getVehicleNumbers(): Observable<VehicleNumberId[]> {
     let url = "http://localhost:5261/api/vehicles/availabelvehicles"
@@ -91,17 +93,17 @@ export class TransporterService {
     let url = "http://localhost:5025/api/transporters/" + transporterId + "/shipmentcount"
     return this.httpClient.get<Shipmentcount[]>(url)
   }
-  updateVehicle(vehicleId: number, vehicle: Vehicle): Observable<any> {
+  updateVehicle(vehicleId: number, vehicle: Vehicle): Observable<boolean> {
     let url = " http://localhost:5261/api/vehicles/" + vehicleId
-    return this.httpClient.put<any>(url, vehicle)
+    return this.httpClient.put<boolean>(url, vehicle)
   }
-  getVehicle(vehicleId: number): Observable<any> {
+  getVehicle(vehicleId: number): Observable<Vehicle> {
     let url = " http://localhost:5261/api/vehicles/" + vehicleId
-    return this.httpClient.get<any>(url)
+    return this.httpClient.get<Vehicle>(url)
   }
-  getYears(transporterId: number): Observable<any> {
+  getYears(transporterId: number): Observable<string[]> {
     let url = "http://localhost:5235/api/transporterbi/years/" + transporterId
-    return this.httpClient.get<any>(url)
+    return this.httpClient.get<string[]>(url)
   }
   getVehicleRevenues(transporterId: number, year: number): Observable<Vehiclerevenue[]> {
     let url = "http://localhost:5235/api/TransporterBI/revenue/year/" + transporterId + "/" + year
@@ -126,5 +128,11 @@ export class TransporterService {
     let transporterId = Number(localStorage.getItem("transporterId"));
     let url="http://localhost:5235/api/TransporterBI/revenue/week/" + transporterId +"/" +year
     return this.httpClient.get<WeekRevenue[]>(url)
+  }
+
+  getTransporterInvoices(paymentStatus:string):Observable<Transporterinvoice[]>{
+    let transporterId = Number(localStorage.getItem("transporterId"));
+    let url="http://localhost:5025/api/transporters/" + transporterId + "/invoices/" +paymentStatus
+    return this.httpClient.get<Transporterinvoice[]>(url);
   }
 }

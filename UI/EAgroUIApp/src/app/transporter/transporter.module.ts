@@ -16,17 +16,19 @@ import { TransporterlinechartComponent } from './transporterlinechart/transporte
 import { CorporatedetailsDirective } from '../Directives/corporatedetails.directive';
 import { UpdatevehicleComponent } from './updatevehicle/updatevehicle.component';
 import { TransporterbankingComponent } from './transporterbanking/transporterbanking.component';
+import { TransporterinvoicesComponent } from './transporterinvoices/transporterinvoices.component';
 
 export const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
   { path: 'vehicles', component: VehiclesoftransporterComponent },
-  {path:'shipments/:id',component: GetshipmentsofvehicleComponent},
-  {path:'update/:id',component: UpdatevehicleComponent},
-    {path:'addvehicle',component:AddnewvehicleComponent},
-    {path:'shipmentdetails/:id',component:GetvehicleshipmentitemsComponent},
-    {path:'allshipments',component:GetallshipmentsComponent},
-    {path:'dashboard',component:TransporterdashboardComponent},
-    {path:'banking',component:TransporterbankingComponent},
+  { path: 'shipments/:id', component: GetshipmentsofvehicleComponent },
+  { path: 'update/:id', component: UpdatevehicleComponent },
+  { path: 'addvehicle', component: AddnewvehicleComponent },
+  { path: 'shipmentdetails/:id', component: GetvehicleshipmentitemsComponent },
+  { path: 'allshipments', component: GetallshipmentsComponent },
+  { path: 'dashboard', component: TransporterdashboardComponent },
+  { path: 'banking', component: TransporterbankingComponent },
+  { path: 'invoices', component: TransporterinvoicesComponent },
 
 ]
 
@@ -46,6 +48,7 @@ export const transporterRoutes: Routes = [
     CorporatedetailsDirective,
     UpdatevehicleComponent,
     TransporterbankingComponent,
+    TransporterinvoicesComponent,
 
   ],
   imports: [
@@ -55,14 +58,14 @@ export const transporterRoutes: Routes = [
     RouterModule.forChild(transporterRoutes),
     NgChartsModule
   ],
-  exports:[
+  exports: [
     VehiclesoftransporterComponent,
     GetshipmentsofvehicleComponent,
     AddnewvehicleComponent,
     GetallshipmentsComponent,
     TransporterbankingComponent
   ],
-  providers:[
+  providers: [
   ]
 })
 export class TransporterModule { }

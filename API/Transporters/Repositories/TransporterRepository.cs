@@ -329,6 +329,8 @@ namespace Transporters.Repositories
                                                       on transporter.Id equals vehicle.TransporterId
                                                       join shipment in context.Shipments 
                                                       on vehicle.Id equals shipment.VehicleId
+                                                      join merchant in context.Merchants
+                                                      on shipment.MerchantId equals merchant.Id
                                                       where transporter.Id==transporterId
                                                       && shipment.Status == ShipmentStatus.Delivered
                                                       let calculatedPaymentStatus = context.TransporterPayments.Any(
@@ -339,7 +341,7 @@ namespace Transporters.Repositories
                         where calculatedPaymentStatus == paymentStatus
                                            select new TransporterInvoice()
                                            {
-                                               MerchantId=shipment.MerchantId,
+                                               CorporateId=merchant.CorporateId,
                                                Date=shipment.ShipmentDate,
                                                FreightCharges= context.TotalFreightCharges(shipment.Id),
                                                PaymentStatus=paymentStatus
