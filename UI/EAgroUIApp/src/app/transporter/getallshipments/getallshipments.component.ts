@@ -11,12 +11,12 @@ import { CorporateService } from 'src/app/Services/corporate.service';
   styleUrls: ['./getallshipments.component.css']
 })
 export class GetallshipmentsComponent implements OnInit {
-  transporterId: any
-  currentPage = 0;
-  arrLenght = 0;
+  transporterId: number | undefined
   vehicleCorporateshipment: VehicleCorporateShipment;
   vehicleCorporateshipments: VehicleCorporateShipment[]
-  constructor(private svc: TransporterService, private crpSvc: CorporateService, private router: Router) {
+  constructor(private svc: TransporterService,
+    private crpSvc: CorporateService,
+    private router: Router) {
     this.vehicleCorporateshipment = {
       shipmentId: 0,
       vehicleId: 0,
@@ -29,58 +29,30 @@ export class GetallshipmentsComponent implements OnInit {
       companyName: ''
     }
     this.vehicleCorporateshipments = []
-    this.arrLenght = this.vehicleCorporateshipments.length
+
   }
 
   ngOnInit(): void {
-    this.transporterId = localStorage.getItem("transporterId");
-    this.svc.getAllShipmentsOfTransporter(this.transporterId).subscribe((response) => {
-      this.vehicleCorporateshipments = response
-      let corporateIds = this.vehicleCorporateshipments.map(item => item.corporateId)
-        .filter((number, index, array) => array.indexOf(number) === index);
-      let crpId = corporateIds.join(',');
-      console.log(crpId)
-      this.crpSvc.getCorporates(crpId).subscribe((names) => {
-        console.log(names)
-        let corporationNames = names
-        this.vehicleCorporateshipments.forEach(item => {
-          let matchingItem = corporationNames.find(element => element.id === item.corporateId);
-          if (matchingItem != undefined)
-            item.companyName = matchingItem.name;
-          console.log(matchingItem)
+      this.transporterId = Number(localStorage.getItem("transporterId"));
+      this.svc.getAllShipmentsOfTransporter(this.transporterId).subscribe((response) => {
+        this.vehicleCorporateshipments = response
+        let corporateIds = this.vehicleCorporateshipments.map(item => item.corporateId)
+          .filter((number, index, array) => array.indexOf(number) === index);
+        let crpId = corporateIds.join(',');
+        console.log(crpId)
+        this.crpSvc.getCorporates(crpId).subscribe((names) => {
+          console.log(names)
+          let corporationNames = names
+          this.vehicleCorporateshipments.forEach(item => {
+            let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+            if (matchingItem != undefined)
+              item.companyName = matchingItem.name;
+            console.log(matchingItem)
+          });
         });
       });
-      // });
-    });
   }
   onClickShipmentDetails(shipmentId: number) {
     this.router.navigate(['transporter/shipmentdetails', shipmentId]);
   }
-  // get getItems(): any[] {
-  //   const startindex = this.currentPage * 5;
-  //   const endindex = startindex + 5;
-  //   return this.vehicleCorporateshipments.slice(startindex, endindex);  
-  // }
-  // next() {
-  //   this.currentPage++;
-  // }
-  // hasNextPage(): boolean {
-  //   const totalpages = Math.trunc(this.arrLenght / 5);
-  //   console.log("🚀 ~ hasnextPage ~ totalpages:", totalpages);
-
-  //   if(this.arrLenght %5 ==0){
-  //     return this.currentPage < totalpages-1;
-  //   }
-
-  //   if (this.currentPage < totalpages ) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-  // hasPreviousPage(): boolean {
-  //   return this.currentPage != 0;
-  // }
-  // previous() {
-  //   this.currentPage--;
-  // }
 }

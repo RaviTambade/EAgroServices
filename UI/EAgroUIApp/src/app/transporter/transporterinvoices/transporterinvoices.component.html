@@ -1,0 +1,20 @@
+<button (click)="onClickUnpaid()" [ngClass]="{'active':!paidStatus}"> <a> UnPaid </a></button>
+<button (click)="onClickPaid()" [ngClass]="{'active':paidStatus}"> Paid </button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date </th>
+      <th>Merchant</th>
+      <th>PaymentStatus</th>
+      <th>Freight Charges</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let invoice of transporterInvoices">
+      <tr>
+        <td>{{ invoice.date | date }}</td>
+        <td>{{ invoice.companyName }}</td>
+        <td>{{ invoice.paymentStatus}}</td>
+        <td>{{ invoice.freightCharges |currency :'INR'}}</td>
+      </tr>
+  </tbody>
+</table>

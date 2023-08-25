@@ -5,8 +5,7 @@ export class GoodsCollection {
         public cropId: number,
         public containerType: string,
         public quantity: number,
-        public weight: number,
-        // public collectionDate: string,
-    ){}
-    
+        public weight: number
+    ) { }
+
 }
