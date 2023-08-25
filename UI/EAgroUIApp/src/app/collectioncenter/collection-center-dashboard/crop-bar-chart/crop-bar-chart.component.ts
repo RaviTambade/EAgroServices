@@ -76,10 +76,10 @@ export class CropBarChartComponent {
   };
 
   ngOnInit(): void {
-    this.svc.getYearsForCropRevenues().subscribe((response) => {
-      this.years = response;
-      if (this.years.length > 0) {
-        this.selectedYear = this.years[0];
+      this.svc.getYearsForCropRevenues().subscribe((response) => {
+        this.years = response;
+        if (this.years.length > 0) {
+          this.selectedYear = this.years[0];
         this.fetchRevenuesData();
       }
     });

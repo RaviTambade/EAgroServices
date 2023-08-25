@@ -69,26 +69,34 @@ export class BIService {
     let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/years/" + collectionCenterId
     return this.http.get<any>(url);
   }
-  getCollectionCenterCountByYear(): Observable<Merchantcollectioncount[]> {
+  getCollectionCenterCountByYear(year:number): Observable<Merchantcollectioncount[]> {
     let merchantId = localStorage.getItem("merchantId");
-    let url = "http://localhost:5235/api/merchantBI/count/year/" + merchantId;
+    let url = "http://localhost:5235/api/merchantBI/count/year/" + merchantId+ "/"+year;
     return this.http.get<Merchantcollectioncount[]>(url);
   }
 
-  getCollectionCenterCountByMonth(year:number): Observable<MerchantcollectioncountMonth[]> {
+  getCollectionCenterCountByMonth(year:number,month:string): Observable<MerchantcollectioncountMonth[]> {
     let merchantId = localStorage.getItem("merchantId");
-    let url = "http://localhost:5235/api/merchantBI/count/month/" + merchantId + "/"+year;
+    let url = "http://localhost:5235/api/merchantBI/count/month/" + merchantId + "/"+year + "/" + month ;
+    console.log(url);
     return this.http.get<MerchantcollectioncountMonth[]>(url);
+    
 
   }
-  getCollectionCenterCountByQuarter(year:number): Observable<MerchantcollectioncountQuarter[]> {
+  getCollectionCenterCountByQuarter(year:number,quarter:number): Observable<MerchantcollectioncountQuarter[]> {
     let merchantId = localStorage.getItem("merchantId");
-    let url = "http://localhost:5235/api/merchantBI/count/quarter/" + merchantId + "/"+year;
+    let url = "http://localhost:5235/api/merchantBI/count/quarter/" + merchantId + "/"+ year +"/"+ quarter;
     return this.http.get<MerchantcollectioncountQuarter[]>(url);
   }
-  getCollectionCenterCountByWeek(year:number): Observable<MerchantcollectioncountWeek[]> {
+  // getCollectionCenterCountByWeek(year:number): Observable<MerchantcollectioncountWeek[]> {
+  //   let merchantId = localStorage.getItem("merchantId");
+  //   let url = "http://localhost:5235/api/merchantBI/count/week/" + merchantId + "/"+year;
+  //   return this.http.get<MerchantcollectioncountWeek[]>(url);
+  // }
+  getYearOfCollection():Observable<number[]>{
     let merchantId = localStorage.getItem("merchantId");
-    let url = "http://localhost:5235/api/merchantBI/count/week/" + merchantId + "/"+year;
-    return this.http.get<MerchantcollectioncountWeek[]>(url);
+    let url = "http://localhost:5235/api/merchantBI/year/" + merchantId;
+    return this.http.get<number[]>(url);
+    
   }
 }
