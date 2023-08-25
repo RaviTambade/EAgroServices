@@ -77,6 +77,8 @@ public barChartData: ChartData<'bar'> = {
     this.bisvc.getCollectionCenterCountByYear().subscribe((response)=>{
       this.merchantCollectionCount=response
       console.log(response);
+      this.years=response.map(item => item.year)
+            this.selectedYear= new Date().getFullYear() ;
       let distinctCorporateIds = this.merchantCollectionCount.map(crp => crp.collectionCenterId);
       let crpId = distinctCorporateIds.join(',');
       this.crpSvc.getCorporates(crpId).subscribe((names) => {
@@ -86,6 +88,7 @@ public barChartData: ChartData<'bar'> = {
           let matchingItem = corporationNames.find(element => element.id === item.collectionCenterId  );
           if (matchingItem != undefined)
             item.companyName = matchingItem.name;
+            
 
           this.barChartData.labels = this.merchantCollectionCount.map((revenues) => revenues.companyName);
           console.log(matchingItem)

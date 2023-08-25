@@ -69,8 +69,6 @@ export class BIService {
     let url = "http://localhost:5235/api/CollectionCenterBI/revenue/crop/years/" + collectionCenterId
     return this.http.get<any>(url);
   }
-
-<<<<<<< HEAD
   getCollectionCenterCountByYear(): Observable<Merchantcollectioncount[]> {
     let merchantId = localStorage.getItem("merchantId");
     let url = "http://localhost:5235/api/merchantBI/count/year/" + merchantId;
@@ -94,6 +92,3 @@ export class BIService {
     return this.http.get<MerchantcollectioncountWeek[]>(url);
   }
 }
-=======
-}
->>>>>>> dc230c852014bede1ab14ffca3473c93c69a240c
