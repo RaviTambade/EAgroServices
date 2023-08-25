@@ -112,8 +112,8 @@ export class FarmerdashboardComponent {
           this.lineChartData.datasets[0].data = res.map(item => item.amount);
 
         });
-        break;
-      case "Month":
+          break;
+        case "Month":
         this.svc.getFarmerMonthlyRevenue(this.selectedYear).subscribe((res) => {
           console.log(res)
           this.lineChartData.labels = res.map(item => item.month);

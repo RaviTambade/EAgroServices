@@ -1,54 +1,49 @@
 import { Component } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../Shared/authentication/auth.service';
+import { Role } from '../Models/Enums/role';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+  constructor(private router: Router, private authsvc: AuthService) {}
 
-  constructor(private router: Router) { }
-
+  isroleCollectionManager(): boolean {
+    return this.authsvc.isTokenHaveRequiredRole(Role.collectionmanager);
+  }
   isroleInspector(): boolean {
-    const role = localStorage.getItem("role")
-    return role == 'inspector' || role =='collection manager';
+    return this.authsvc.isTokenHaveRequiredRole(Role.inspector);
   }
 
   isroleTransporter(): boolean {
-    const role = localStorage.getItem("role")
-    return role == 'transporter' ;
+    return this.authsvc.isTokenHaveRequiredRole(Role.transporter);
   }
 
   isroleMerchant(): boolean {
-    const role = localStorage.getItem("role")
-    return role == 'merchant';
+    return this.authsvc.isTokenHaveRequiredRole(Role.merchant);
   }
   isroleFarmer(): boolean {
-    const role = localStorage.getItem("role")
-    return role == 'farmer';
+    return this.authsvc.isTokenHaveRequiredRole(Role.farmer);
   }
 
   openUserProfile() {
     this.router.navigate(['userinfo']);
-}
-
-isUser():boolean{
-  const userId = localStorage.getItem("userId")
-  if (userId != null) {
-    return true;
   }
-  return false;
-}
 
-isLoggedIn():boolean{
-  const jwt =localStorage.getItem("jwt")
-  if (jwt != null) {
-    return false;
+  isLoggedIn(): boolean {
+    return this.authsvc.isAuthenticated();
   }
-  return true;
-}
-loggedOut(){
-  this.router.navigate(['userlogout']);
-}
+
+  loggedOut() {
+    const result = window.confirm('Are you sure you want to log out?');
+    if (result) {
+      this.router.navigate(['auth/login']);
+      localStorage.clear();
+    } else {
+      console.log('logout canceled');
+    }
+  }
 }

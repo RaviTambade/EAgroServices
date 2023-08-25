@@ -11,16 +11,17 @@ import { MerchantShipmentPaymentComponent } from './merchant-shipment-payment/me
 import { MerchantbarchartComponent } from './merchantbarchart/merchantbarchart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MerchantdoughnutchartComponent } from './merchantdoughnutchart/merchantdoughnutchart.component';
+import { MerchantdashboardComponent } from './merchantdashboard/merchantdashboard.component';
 
 
-export const merchantRoutes: Routes = [
+const merchantRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'shipmentlist', component:MerchantShipmentListComponent  },
-  { path: 'shipmentdetails/:shipmentid', component:MerchantShipmentDetailsComponent  },
-  { path: 'invoices', component:MerchantInvoicesComponent  },
-  { path: 'invoicedetails/:invoiceid', component:MerchantInvoiceDetailsComponent  },
-  { path: 'shipment/payment/:shipmentid', component:MerchantShipmentPaymentComponent  },
-  { path: 'dashboard', component:MerchantbarchartComponent  },
+  { path: 'shipmentlist', component: MerchantShipmentListComponent },
+  { path: 'shipmentdetails/:shipmentid', component: MerchantShipmentDetailsComponent },
+  { path: 'invoices', component: MerchantInvoicesComponent },
+  { path: 'invoicedetails/:invoiceid', component: MerchantInvoiceDetailsComponent },
+  { path: 'shipment/payment/:shipmentid', component: MerchantShipmentPaymentComponent },
+  { path: 'dashboard', component: MerchantbarchartComponent },
 
 
 ]
@@ -35,14 +36,15 @@ export const merchantRoutes: Routes = [
     MerchantShipmentPaymentComponent,
     MerchantbarchartComponent,
     MerchantdoughnutchartComponent,
+    MerchantdashboardComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
+    RouterModule.forChild(merchantRoutes),
     NgChartsModule
   ],
-  exports:[
+  exports: [
   ],
 })
 export class MerchantModule { }

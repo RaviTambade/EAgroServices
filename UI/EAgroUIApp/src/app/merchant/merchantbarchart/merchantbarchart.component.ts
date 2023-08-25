@@ -53,7 +53,7 @@ export class MerchantbarchartComponent {
       },
     ],
   };
-
+  
 
   ngOnInit(): void {
     this.merchantId = Number(localStorage.getItem("merchantId"));

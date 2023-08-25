@@ -1,0 +1,22 @@
+<div style="height: 600px;width:600px">
+    <!-- <canvas
+      baseChart
+      class="chart"
+      [datasets]="barChartData.datasets"
+      [labels]="barChartData.labels"  
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [type]="barChartType"
+    >
+    </canvas> -->
+    <div class="line-chart-size" >
+        <canvas baseChart class="chart" [datasets]="barChartData.datasets" [labels]="barChartData.labels"
+            [options]="barChartOptions" [type]="barChartType"></canvas>
+    </div>
+    
+    <div>
+        <label >Select Interval:</label>
+        <select  [(ngModel)]="selectedInterval" (ngModelChange)="fetchRevenueData()">
+            <option *ngFor="let option of chartIntervals" [value]="option">{{ option }}</option>
+        </select>
+    </div>

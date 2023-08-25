@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthenticationRoutingComponent } from './authentication-routing/authentication-routing.component';
 import { UsersModule } from '../users/users.module';
 
-export const authRoutes: Routes = [
+ const authRoutes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'updatepassword',component:UpdatePasswordComponent},
@@ -30,7 +30,8 @@ export const authRoutes: Routes = [
     HttpClientModule,
     RouterModule,
     FormsModule,
-    UsersModule
+    UsersModule,
+    RouterModule.forChild(authRoutes)
   ],
   exports:[AuthenticationRoutingComponent, LoginComponent]
 })

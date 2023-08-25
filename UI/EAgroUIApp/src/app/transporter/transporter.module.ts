@@ -18,7 +18,7 @@ import { UpdatevehicleComponent } from './updatevehicle/updatevehicle.component'
 import { TransporterbankingComponent } from './transporterbanking/transporterbanking.component';
 import { TransporterinvoicesComponent } from './transporterinvoices/transporterinvoices.component';
 
-export const transporterRoutes: Routes = [
+const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
   { path: 'vehicles', component: VehiclesoftransporterComponent },
   { path: 'shipments/:id', component: GetshipmentsofvehicleComponent },
