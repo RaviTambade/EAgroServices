@@ -3,66 +3,100 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DefaultModule } from './default/default.module';
-import { AuthenticationModule, authRoutes } from './Shared/authentication/authentication.module';
-import { MembershipModule, membershipRoutes } from './membership/membership.module';
-import { CollectioncenterModule, collectionCenterRoutes } from './collectioncenter/collectioncenter.module';
-import { MerchantModule, merchantRoutes } from './merchant/merchant.module';
-import { FarmerModule, farmerRoutes } from './farmer/farmer.module';
-import { TransporterModule, transporterRoutes } from './transporter/transporter.module';
-import { UsersModule } from './Shared/users/users.module';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CropModule } from './crop/crop.module';
-import { collectionCenterFilterRoutes } from './collection-center-filters/collection-center-filters.module';
-import { FarmerpiechartComponent } from './farmer/farmerpiechart/farmerpiechart.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AddJwtHeaderIntreceptorInterceptor } from './Interceptor/add-jwt-header-intreceptor.interceptor';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AddJwtHeaderIntreceptorInterceptor } from './Interceptors/add-jwt-header-intreceptor.interceptor';
 import { HomeComponent } from './default/home/home.component';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import {
+  canActivateCollectionCenterRoutes,
+  canActivateFarmerRoutes,
+  canActivateMerchantRoutes,
+  canActivateTransporterRoutes,
+} from './Guards/guards';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'membership', children: membershipRoutes },
-  { path: 'auth', children: authRoutes },
-  { path: 'farmer', children: farmerRoutes },
-  { path: 'merchant', children: merchantRoutes },
-  { path: 'transporter', children: transporterRoutes },
-  { path: 'collectioncenter', children: collectionCenterRoutes },
-  { path: 'collectioncenter/filters', children: collectionCenterFilterRoutes },
-]
+  {
+    path: 'membership',
+    loadChildren: () =>
+      import('./membership/membership.module').then((m) => m.MembershipModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./Shared/authentication/authentication.module').then(
+        (m) => m.AuthenticationModule
+      ),
+  },
+  {
+    path: 'farmer',
+    canMatch: [canActivateFarmerRoutes()],
+    canActivate: [canActivateFarmerRoutes()],
+    loadChildren: () =>
+      import('./farmer/farmer.module').then((m) => m.FarmerModule),
+  },
+  {
+    path: 'merchant',
+    canMatch: [canActivateMerchantRoutes()],
+    canActivate: [canActivateMerchantRoutes()],
+    loadChildren: () =>
+      import('./merchant/merchant.module').then((m) => m.MerchantModule),
+  },
+  {
+    path: 'transporter',
+    canMatch: [canActivateTransporterRoutes()],
+    canActivate: [canActivateTransporterRoutes()],
+    loadChildren: () =>
+      import('./transporter/transporter.module').then(
+        (m) => m.TransporterModule
+      ),
+  },
+  {
+    path: 'collectioncenter',
+    canMatch: [canActivateCollectionCenterRoutes()],
+    canActivate: [canActivateCollectionCenterRoutes()],
+    loadChildren: () =>
+      import('./collectioncenter/collectioncenter.module').then(
+        (m) => m.CollectioncenterModule
+      ),
+  },
+  {
+    path: 'collectioncenter/filters',
+    canMatch: [canActivateCollectionCenterRoutes()],
+    canActivate: [canActivateCollectionCenterRoutes()],
+    loadChildren: () =>
+      import(
+        './collection-center-filters/collection-center-filters.module'
+      ).then((m) => m.CollectionCenterFiltersModule),
+  },
+];
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    // FarmerpiechartComponent,
-  ],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     DefaultModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
-    AuthenticationModule,
-    MembershipModule,
-    CollectioncenterModule,
-    MerchantModule,
-    FarmerModule,
-    CropModule,
-    TransporterModule,
-    UsersModule,
-    // CollectionCenterFiltersModule
   ],
   providers: [
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: AddJwtHeaderIntreceptorInterceptor,
-        multi: true
-      },
-      { provide: JWT_OPTIONS, useValue: {
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddJwtHeaderIntreceptorInterceptor,
+      multi: true,
+    },
+    {
+      provide: JWT_OPTIONS,
+      useValue: {
         tokenGetter: () => {
           return;
         },
         throwNoTokenError: true,
-      } },
-      JwtHelperService
+      },  
+    },
+    JwtHelperService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -8,42 +8,56 @@ import { Collection } from '../Models/collection';
 import { CollectionDetails } from '../Models/collection-details';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CollectionService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getVerifiedCollections(filterRequest: FilterRequest, pageNumber: number): Observable<HttpResponse<CollectionDetails[]>> {
-    const collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5154/api/goodscollections/verified/collectioncenter/" + collectionCenterId;
+  getVerifiedCollections(
+    filterRequest: FilterRequest,
+    pageNumber: number
+  ): Observable<HttpResponse<CollectionDetails[]>> {
+    const collectionCenterId = localStorage.getItem('collectionCenterId');
+    let url =
+      'http://localhost:5154/api/goodscollections/verified/collectioncenter/' +
+      collectionCenterId;
     const params = new HttpParams().set('pageNumber', pageNumber.toString());
-    return this.http.post<any[]>(url, filterRequest, { params: params, observe: 'response' });
+    return this.http.post<any[]>(url, filterRequest, {
+      params: params,
+      observe: 'response',
+    });
   }
 
-
   addCollection(collection: GoodsCollection): Observable<boolean> {
-    let url = "http://localhost:5154/api/goodscollections";
+    let url = 'http://localhost:5154/api/goodscollections';
     return this.http.post<boolean>(url, collection);
   }
 
-  getCollections(filterRequest: FilterRequest, pageNumber: number, type: string): Observable<HttpResponse<Collection[]>> {
-    const collectionCenterId = localStorage.getItem("collectionCenterId");
-    let url = "http://localhost:5154/api/goodscollections/" + collectionCenterId;
-    const params = new HttpParams().set('pageNumber', pageNumber.toString())
-                                   .set('type', type);
+  getCollections(
+    filterRequest: FilterRequest,
+    pageNumber: number,
+    type: string
+  ): Observable<HttpResponse<Collection[]>> {
+    const collectionCenterId = localStorage.getItem('collectionCenterId');
+    let url =
+      'http://localhost:5154/api/goodscollections/' + collectionCenterId;
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('type', type);
 
-    return this.http.post<any>(url, filterRequest, { params: params, observe: 'response' })
+    return this.http.post<any>(url, filterRequest, {
+      params: params,
+      observe: 'response',
+    });
   }
 
   updateCollection(collection: UpdateCollection): Observable<boolean> {
-    let url = "http://localhost:5154/api/goodscollections";
+    let url = 'http://localhost:5154/api/goodscollections';
     return this.http.put<boolean>(url, collection);
   }
 
   removeCollection(collectionId: number): Observable<boolean> {
-    let url = "http://localhost:5154/api/goodscollections/" + collectionId;
+    let url = 'http://localhost:5154/api/goodscollections/' + collectionId;
     return this.http.delete<boolean>(url);
   }
-
 }

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisteruserComponent } from './registeruser/registeruser.component';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { RegisterCorporateComponent } from './register-corporate/register-corporate.component';
 import { FormsModule } from '@angular/forms';
 
-export const membershipRoutes: Routes = [
+const membershipRoutes: Routes = [
   {path:'user/register/:id',component:RegisteruserComponent},
   {path:'corporate/register/:id',component:RegisterCorporateComponent},
 ]
@@ -18,7 +18,8 @@ export const membershipRoutes: Routes = [
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forChild(membershipRoutes)
   ]
 })
 export class MembershipModule { }
