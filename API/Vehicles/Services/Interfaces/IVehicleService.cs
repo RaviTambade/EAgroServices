@@ -1,5 +1,5 @@
-using Vehicles.Repositories.Interfaces;
-namespace Vehicles.Services.Interfaces;
+using Transflower.Vehicles.Repositories.Interfaces;
+namespace Transflower.Vehicles.Services.Interfaces;
 public interface IVehicleService:IVehicleRepository{
     
 }

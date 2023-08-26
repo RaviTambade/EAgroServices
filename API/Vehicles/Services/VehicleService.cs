@@ -1,8 +1,8 @@
-using Vehicles.Models;
-using Vehicles.Repositories.Interfaces;
-using Vehicles.Services.Interfaces;
+using Transflower.Vehicles.Models;
+using Transflower.Vehicles.Repositories.Interfaces;
+using Transflower.Vehicles.Services.Interfaces;
 
-namespace Vehicles.Services;
+namespace Transflower.Vehicles.Services;
 public class VehicleService : IVehicleService
 {
     private readonly IVehicleRepository _repo;

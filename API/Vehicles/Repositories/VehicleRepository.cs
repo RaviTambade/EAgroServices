@@ -1,32 +1,31 @@
-using Vehicles.Models;
-using Vehicles.Repositories.Interfaces;
-using System.Data;
+using Transflower.Vehicles.Models;
+using Transflower.Vehicles.Repositories.Interfaces;
 using MySql.Data.MySqlClient;
 
-namespace Vehicles.Repositories;
+namespace Transflower.Vehicles.Repositories;
 
 public class VehicleRepository : IVehicleRepository
 {
     private readonly IConfiguration _configuration;
-    private readonly string _conString;
+    private readonly string _connectionString;
 
     public VehicleRepository(IConfiguration configuration)
     {
         _configuration = configuration;
-        _conString = this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+        _connectionString = this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
     }
 
     public async Task<List<Vehicle>> GetAll()
     {
         List<Vehicle> vehicles = new List<Vehicle>();
-        MySqlConnection con = new MySqlConnection(_conString);
+        MySqlConnection connection = new MySqlConnection(_connectionString);
         try
         {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT * FROM vehicles";
-            cmd.Connection = con;
-            await con.OpenAsync();
-            MySqlDataReader reader = cmd.ExecuteReader();
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "SELECT * FROM vehicles";
+            command.Connection = connection;
+            await connection.OpenAsync();
+            MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 int id = reader.GetInt32("id");
@@ -50,7 +49,7 @@ public class VehicleRepository : IVehicleRepository
         }
         finally
         {
-            await con.CloseAsync();
+            await connection.CloseAsync();
         }
         return vehicles;
     }
@@ -58,14 +57,14 @@ public class VehicleRepository : IVehicleRepository
     public async Task<List<string>> GetvehicleNumbers()
     {
         List<string> vehicles = new();
-        MySqlConnection con = new MySqlConnection(_conString);
+        MySqlConnection connection = new MySqlConnection(_connectionString);
         try
         {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT rtonumber FROM vehicles";
-            cmd.Connection = con;
-            await con.OpenAsync();
-            MySqlDataReader reader = cmd.ExecuteReader();
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "SELECT rtonumber FROM vehicles";
+            command.Connection = connection;
+            await connection.OpenAsync();
+            MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 vehicles.Add(reader.GetString("rtonumber"));
@@ -78,7 +77,7 @@ public class VehicleRepository : IVehicleRepository
         }
         finally
         {
-            await con.CloseAsync();
+            await connection.CloseAsync();
         }
         return vehicles;
     }
@@ -86,15 +85,15 @@ public class VehicleRepository : IVehicleRepository
     public async Task<Vehicle> GetVehicle(int vehicleId)
     {
         Vehicle vehicle = new Vehicle();
-        MySqlConnection con = new MySqlConnection(_conString);
+        MySqlConnection connection = new MySqlConnection(_connectionString);
         try
         {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT * FROM vehicles WHERE id=@vehicleId";
-            cmd.Parameters.AddWithValue("@vehicleId", vehicleId);
-            cmd.Connection = con;
-            await con.OpenAsync();
-            MySqlDataReader reader = cmd.ExecuteReader();
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "SELECT * FROM vehicles WHERE id=@vehicleId";
+            command.Parameters.AddWithValue("@vehicleId", vehicleId);
+            command.Connection = connection;
+            await connection.OpenAsync();
+            MySqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
                 int id = reader.GetInt32("id");
@@ -117,7 +116,7 @@ public class VehicleRepository : IVehicleRepository
         }
         finally
         {
-            await con.CloseAsync();
+            await connection.CloseAsync();
         }
         return vehicle;
     }
@@ -125,19 +124,19 @@ public class VehicleRepository : IVehicleRepository
     public async Task<bool> Insert(Vehicle vehicle)
     {
         bool status = false;
-        MySqlConnection con = new MySqlConnection(_conString);
+        MySqlConnection connection = new MySqlConnection(_connectionString);
         try
         {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText =
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText =
                 "INSERT INTO vehicles(id,transporterid,vehicletype,rtonumber)VALUES(@id,@transporterId,@vehicleType,@rtoNumber)";
-            cmd.Parameters.AddWithValue("@id", vehicle.Id);
-            cmd.Parameters.AddWithValue("@transporterId", vehicle.TransporterId);
-            cmd.Parameters.AddWithValue("@vehicleType", vehicle.VehicleType);
-            cmd.Parameters.AddWithValue("@rtoNumber", vehicle.RtoNumber);
-            cmd.Connection = con;
-            await con.OpenAsync();
-            int rowsAffected = cmd.ExecuteNonQuery();
+            command.Parameters.AddWithValue("@id", vehicle.Id);
+            command.Parameters.AddWithValue("@transporterId", vehicle.TransporterId);
+            command.Parameters.AddWithValue("@vehicleType", vehicle.VehicleType);
+            command.Parameters.AddWithValue("@rtoNumber", vehicle.RtoNumber);
+            command.Connection = connection;
+            await connection.OpenAsync();
+            int rowsAffected = command.ExecuteNonQuery();
             status = true;
         }
         catch (Exception)
@@ -146,7 +145,7 @@ public class VehicleRepository : IVehicleRepository
         }
         finally
         {
-            await con.CloseAsync();
+            await connection.CloseAsync();
         }
         return status;
     }
@@ -154,19 +153,19 @@ public class VehicleRepository : IVehicleRepository
     public async Task<bool> Update(int vehicleId, Vehicle vehicle)
     {
         bool status = false;
-        MySqlConnection con = new MySqlConnection(_conString);
+        MySqlConnection connection = new MySqlConnection(_connectionString);
         try
         {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText =
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText =
                 "UPDATE vehicles SET transporterid=@transporterId,vehicletype=@vehicleType,rtonumber=@rtoNumber WHERE id=@id";
-            cmd.Connection = con;
-            cmd.Parameters.AddWithValue("@id", vehicleId);
-            cmd.Parameters.AddWithValue("@transporterId", vehicle.TransporterId);
-            cmd.Parameters.AddWithValue("@vehicleType", vehicle.VehicleType);
-            cmd.Parameters.AddWithValue("@rtoNumber", vehicle.RtoNumber);
-            await con.OpenAsync();
-            int rowsAffected = cmd.ExecuteNonQuery();
+            command.Connection = connection;
+            command.Parameters.AddWithValue("@id", vehicleId);
+            command.Parameters.AddWithValue("@transporterId", vehicle.TransporterId);
+            command.Parameters.AddWithValue("@vehicleType", vehicle.VehicleType);
+            command.Parameters.AddWithValue("@rtoNumber", vehicle.RtoNumber);
+            await connection.OpenAsync();
+            int rowsAffected = command.ExecuteNonQuery();
             if (rowsAffected > 0)
             {
                 status = true;
@@ -178,7 +177,7 @@ public class VehicleRepository : IVehicleRepository
         }
         finally
         {
-            await con.CloseAsync();
+            await connection.CloseAsync();
         }
         return status;
     }
@@ -186,15 +185,15 @@ public class VehicleRepository : IVehicleRepository
     public async Task<bool> Delete(int vehicleId)
     {
         bool status = false;
-        MySqlConnection con = new MySqlConnection(_conString);
+        MySqlConnection connection = new MySqlConnection(_connectionString);
         try
         {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "DELETE FROM vehicles WHERE id=@id";
-            cmd.Connection = con;
-            cmd.Parameters.AddWithValue("@id", vehicleId);
-            await con.OpenAsync();
-            int rowsAffected = cmd.ExecuteNonQuery();
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "DELETE FROM vehicles WHERE id=@id";
+            command.Connection = connection;
+            command.Parameters.AddWithValue("@id", vehicleId);
+            await connection.OpenAsync();
+            int rowsAffected = command.ExecuteNonQuery();
             if (rowsAffected > 0)
             {
                 status = true;
@@ -206,7 +205,7 @@ public class VehicleRepository : IVehicleRepository
         }
         finally
         {
-            await con.CloseAsync();
+            await connection.CloseAsync();
         }
         return status;
     }
@@ -214,20 +213,20 @@ public class VehicleRepository : IVehicleRepository
     public async Task<List<VehicleNumber>> GetAvailableVehicleNumbers()
     {
         List<VehicleNumber> vehicleNumbers = new List<VehicleNumber>();
-        MySqlConnection con = new MySqlConnection(_conString);
+        MySqlConnection connection = new MySqlConnection(_connectionString);
         try
         {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText =
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText =
                 @"SELECT DISTINCT vehicles.id, vehicles.rtonumber FROM vehicles
                                 INNER JOIN shipments ON vehicles.id = shipments.vehicleid
                                 WHERE shipments.status = 'delivered'
                                 AND vehicles.id NOT IN (
                                     SELECT vehicleid FROM shipments  WHERE status = 'inprogress'
                                 )";
-            cmd.Connection = con;
-            await con.OpenAsync();
-            MySqlDataReader reader = cmd.ExecuteReader();
+            command.Connection = connection;
+            await connection.OpenAsync();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
                 int id = reader.GetInt32("id");
@@ -242,7 +241,7 @@ public class VehicleRepository : IVehicleRepository
         }
         finally
         {
-            await con.CloseAsync();
+            await connection.CloseAsync();
         }
         return vehicleNumbers;
     }

@@ -1,6 +1,6 @@
 
-using Vehicles.Models;
-namespace Vehicles.Repositories.Interfaces;
+using Transflower.Vehicles.Models;
+namespace Transflower.Vehicles.Repositories.Interfaces;
 public interface IVehicleRepository{
     Task<List<Vehicle>> GetAll();
      Task<List<string>> GetvehicleNumbers();
