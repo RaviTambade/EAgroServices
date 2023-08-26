@@ -1,32 +1,31 @@
-using Crops.Models;
-using Crops.Repositories.Interfaces;
-using Crops.Entities;
-using Crops.Services.Interfaces;
+using Transflower.EAgroServices.Crops.Models;
+using Transflower.EAgroServices.Crops.Repositories.Interfaces;
+using Transflower.EAgroServices.Crops.Entities;
+using Transflower.EAgroServices.Crops.Services.Interfaces;
 
-namespace Crops.Services;
+namespace Transflower.EAgroServices.Crops.Services;
 
 public class CropService : ICropService
 {
-    private readonly ICropRepository _repo;
+    private readonly ICropRepository _repository;
 
-    public CropService(ICropRepository repo)
+    public CropService(ICropRepository repository)
     {
-        this._repo = repo;
+        _repository = repository;
     }
 
-    public async Task<List<Crop>> GetAll() => await _repo.GetAll();
+    public async Task<List<Crop>> GetAll() => await _repository.GetAll();
 
-      public async Task<List<string>> GetCropNames() => await _repo.GetCropNames();
+    public async Task<List<string>> GetCropNames() => await _repository.GetCropNames();
 
+    public async Task<List<CropDetail>> GetCropNamesWithId() =>
+        await _repository.GetCropNamesWithId();
 
-    public async Task<List<CropNameIdDetails>> GetCropNamesWithId() => await _repo.GetCropNamesWithId();
+    public async Task<Crop?> GetById(int cropId) => await _repository.GetById(cropId);
 
-    public async Task<Crop?> GetById(int varietyId) => await _repo.GetById(varietyId);
+    public async Task<bool> Insert(Crop crop) => await _repository.Insert(crop);
 
-    public async Task<bool> Insert(Crop variety) => await _repo.Insert(variety);
+    public async Task<bool> Update(int cropId, Crop crop) => await _repository.Update(cropId, crop);
 
-    public async Task<bool> Update(int varietyId, Crop variety) =>
-        await _repo.Update(varietyId, variety);
-
-    public async Task<bool> Delete(int varietyId) => await _repo.Delete(varietyId);
+    public async Task<bool> Delete(int cropId) => await _repository.Delete(cropId);
 }

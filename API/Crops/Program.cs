@@ -1,15 +1,26 @@
-using Crops.Repositories.Interfaces;
-using Crops.Repositories;
-using Crops.Services.Interfaces;
-using Crops.Services;
+using Transflower.EAgroServices.Crops.Repositories.Interfaces;
+using Transflower.EAgroServices.Crops.Repositories;
+using Transflower.EAgroServices.Crops.Services.Interfaces;
+using Transflower.EAgroServices.Crops.Services;
+using Transflower.EAgroServices.Crops.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddCors();
+builder.Services.AddDbContext<CropContext>(
+    options =>
+        options
+            .UseMySQL(
+                builder.Configuration.GetConnectionString("DefaultConnection")
+                    ?? throw new ArgumentNullException(nameof(options))
+            )
+            .LogTo(Console.WriteLine, LogLevel.Information)
+);
 builder.Services.AddControllers();
-builder.Services.AddTransient<ICropRepository,CropRepository>();
-builder.Services.AddTransient<ICropService,CropService>();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddTransient<ICropRepository, CropRepository>();
+builder.Services.AddTransient<ICropService, CropService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

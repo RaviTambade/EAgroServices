@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using Crops.Models;
-using Crops.Entities;
-using Crops.Services.Interfaces;
+using Transflower.EAgroServices.Crops.Models;
+using Transflower.EAgroServices.Crops.Entities;
+using Transflower.EAgroServices.Crops.Services.Interfaces;
 
-
-namespace Crops.Controller;
+namespace Transflower.EAgroServices.Crops.Controller;
 
 [ApiController]
 [Route("/api/crops")]
@@ -36,21 +35,21 @@ public class CropsController : ControllerBase
     }
 
     [HttpGet("nameswithid")]
-    public async Task<List<CropNameIdDetails>> GetCropNamesWithId()
+    public async Task<List<CropDetail>> GetCropNamesWithId()
     {
         return await _service.GetCropNamesWithId();
     }
 
     [HttpPost]
-    public async Task<bool> Insert([FromBody] Crop variety)
+    public async Task<bool> Insert([FromBody] Crop crop)
     {
-        return await _service.Insert(variety);
+        return await _service.Insert(crop);
     }
 
     [HttpPut("{id}")]
-    public async Task<bool> Update(int id, [FromBody] Crop variety)
+    public async Task<bool> Update(int id, [FromBody] Crop crop)
     {
-        return await _service.Update(id, variety);
+        return await _service.Update(id, crop);
     }
 
     [HttpDelete("{id}")]

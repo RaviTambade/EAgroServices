@@ -1,10 +1,6 @@
+using Transflower.EAgroServices.CollectionCenters.Repositories.Interfaces;
 
-using CollectionCenters.Repositories.Interfaces;
-
-namespace CollectionCenters.Services.Interfaces
+namespace Transflower.EAgroServices.CollectionCenters.Services.Interfaces
 {
-    public interface ICollectionCenterService:ICollectionCenterRepository
-    {
-
-    } 
+    public interface ICollectionCenterService : ICollectionCenterRepository { }
 }

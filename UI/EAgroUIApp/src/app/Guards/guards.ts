@@ -17,9 +17,7 @@ export function canActivateFarmerRoutes(): CanMatchFn | CanActivateFn {
   };
 }
 
-export function canActivateCollectionCenterRoutes():
-  | CanMatchFn
-  | CanActivateFn {
+export function canActivateCollectionCenterRoutes(): CanMatchFn | CanActivateFn {
   return function () {
     const authsvc: AuthService = inject(AuthService);
     if (

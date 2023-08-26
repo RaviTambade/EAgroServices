@@ -1,30 +1,26 @@
-using Crops.Models;
-using Crops.Repositories.Interfaces;
-using Crops.Contexts;
-using Crops.Entities;
-
-
-namespace Crops.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Transflower.EAgroServices.Crops.Contexts;
+using Transflower.EAgroServices.Crops.Entities;
+using Transflower.EAgroServices.Crops.Models;
+using Transflower.EAgroServices.Crops.Repositories.Interfaces;
+
+namespace Transflower.EAgroServices.Crops.Repositories;
 
 public class CropRepository : ICropRepository
 {
-    private readonly IConfiguration _configuration;
+    private readonly CropContext _context;
 
-    public CropRepository(IConfiguration configuration)
+    public CropRepository(CropContext context)
     {
-        _configuration = configuration;
+        _context = context;
     }
 
     public async Task<List<Crop>> GetAll()
     {
         try
         {
-            using (var context = new CropContext(_configuration))
-            {
-                List<Crop> varieties = await context.Crops.ToListAsync();
-                return varieties;
-            }
+            List<Crop> crops = await _context.Crops.ToListAsync();
+            return crops;
         }
         catch (Exception)
         {
@@ -32,35 +28,15 @@ public class CropRepository : ICropRepository
         }
     }
 
-    public async Task<List<CropNameIdDetails>> GetCropNamesWithId()
+    public async Task<List<CropDetail>> GetCropNamesWithId()
     {
         try
         {
-            using (var context = new CropContext(_configuration))
-            {
-                var names = await (from crop in context.Crops 
-                select new CropNameIdDetails(){
-                    Id=crop.Id,
-                    Name=crop.Title
-                }).ToListAsync();
-                return names;
-            }
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-      public async Task<List<string>> GetCropNames()
-    {
-         try
-        {
-            using (var context = new CropContext(_configuration))
-            {
-                var names = await (from crop in context.Crops 
-                select crop.Title).ToListAsync();
-                return names;
-            }
+            List<CropDetail> cropDetails = await (
+                from crop in _context.Crops
+                select new CropDetail() { Id = crop.Id, Name = crop.Title }
+            ).ToListAsync();
+            return cropDetails;
         }
         catch (Exception)
         {
@@ -68,15 +44,15 @@ public class CropRepository : ICropRepository
         }
     }
 
-    public async Task<Crop?> GetById(int varietyId)
+    public async Task<List<string>> GetCropNames()
     {
         try
         {
-            using (var context = new CropContext(_configuration))
-            {
-                var variety = await context.Crops.FindAsync(varietyId);
-                return variety;
-            }
+            List<string> cropNames = await (
+                from crop in _context.Crops
+                select crop.Title
+            ).ToListAsync();
+            return cropNames;
         }
         catch (Exception)
         {
@@ -84,16 +60,46 @@ public class CropRepository : ICropRepository
         }
     }
 
-    public async Task<bool> Insert(Crop variety)
+    public async Task<Crop?> GetById(int cropId)
+    {
+        try
+        {
+            Crop? crop = await _context.Crops.FindAsync(cropId);
+            return crop;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<bool> Insert(Crop crop)
     {
         bool status = false;
         try
         {
-            using (var context = new CropContext(_configuration))
+            await _context.Crops.AddAsync(crop);
+            status = await SaveChanges(_context);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        return status;
+    }
+
+    public async Task<bool> Update(int cropId, Crop crop)
+    {
+        bool status = false;
+        try
+        {
+            Crop? oldVariety = await _context.Crops.FindAsync(cropId);
+            if (oldVariety != null)
             {
-                await context.Crops.AddAsync(variety);
-                await context.SaveChangesAsync();
-                status = true;
+                oldVariety.Title = crop.Title;
+                oldVariety.ImageUrl = crop.ImageUrl;
+                oldVariety.Rate = crop.Rate;
+                status = await SaveChanges(_context);
             }
         }
         catch (Exception)
@@ -103,22 +109,16 @@ public class CropRepository : ICropRepository
         return status;
     }
 
-    public async Task<bool> Update(int varietyId, Crop variety)
+    public async Task<bool> Delete(int cropId)
     {
         bool status = false;
         try
         {
-            using (var context = new CropContext(_configuration))
+            Crop? crop = await _context.Crops.FindAsync(cropId);
+            if (crop is not null)
             {
-                Crop? oldVariety = await context.Crops.FindAsync(varietyId);
-                if (oldVariety != null)
-                {
-                    oldVariety.Title = variety.Title;
-                    oldVariety.ImageUrl = variety.ImageUrl;
-                    oldVariety.Rate = variety.Rate;
-                    await context.SaveChangesAsync();
-                    status = true;
-                }
+                _context.Crops.Remove(crop);
+                status = await SaveChanges(_context);
             }
         }
         catch (Exception)
@@ -128,26 +128,9 @@ public class CropRepository : ICropRepository
         return status;
     }
 
-    public async Task<bool> Delete(int varietyId)
+    private async Task<bool> SaveChanges(CropContext context)
     {
-        bool status = false;
-        try
-        {
-            using (var context = new CropContext(_configuration))
-            {
-                Crop? variety = await context.Crops.FindAsync(varietyId);
-                if (variety != null)
-                {
-                    context.Crops.Remove(variety);
-                    await context.SaveChangesAsync();
-                    return true;
-                }
-            }
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-        return status;
+        int rowsAffected = await context.SaveChangesAsync();
+        return rowsAffected > 0;
     }
 }
