@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
-using VerifiedGoodsCollections.Models;
-using VerifiedGoodsCollections.Services.Interfaces;
+using Transflower.VerifiedGoodsCollections.Models;
+using Transflower.VerifiedGoodsCollections.Services.Interfaces;
 
 namespace VerifiedGoodsCollections.Controller;
 

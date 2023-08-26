@@ -1,5 +1,6 @@
-using VerifiedGoodsCollections.Repositories.Interfaces;
-namespace VerifiedGoodsCollections.Services.Interfaces;
-public interface IVerifiedCollectionService:IVerifiedCollectionRepository{
+using Transflower.VerifiedGoodsCollections.Repositories.Interfaces;
+namespace Transflower.VerifiedGoodsCollections.Services.Interfaces;
+public interface IVerifiedCollectionService : IVerifiedCollectionRepository
+{
 
 }

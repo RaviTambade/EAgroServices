@@ -1,8 +1,8 @@
-using VerifiedGoodsCollections.Models;
-using VerifiedGoodsCollections.Repositories.Interfaces;
-using VerifiedGoodsCollections.Services.Interfaces;
+using Transflower.VerifiedGoodsCollections.Models;
+using Transflower.VerifiedGoodsCollections.Repositories.Interfaces;
+using Transflower.VerifiedGoodsCollections.Services.Interfaces;
 
-namespace VerifiedGoodsCollections.Services;
+namespace Transflower.VerifiedGoodsCollections.Services;
 
 public class VerifiedCollectionService : IVerifiedCollectionService
 {
