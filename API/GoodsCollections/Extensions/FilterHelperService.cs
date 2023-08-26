@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace GoodsCollections.Extensions
+namespace Transflower.EAgroServices.GoodsCollections.Extensions
 {
     public class FilterHelperService<T> : IFilterHelperService<T>
     {

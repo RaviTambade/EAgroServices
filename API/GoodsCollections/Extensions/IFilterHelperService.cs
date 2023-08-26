@@ -1,6 +1,6 @@
 
 
-namespace GoodsCollections.Extensions;
+namespace Transflower.EAgroServices.GoodsCollections.Extensions;
 
 public interface IFilterHelperService<T>
 {

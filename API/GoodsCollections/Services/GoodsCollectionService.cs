@@ -1,67 +1,71 @@
-using GoodsCollections.Services.Interfaces;
-using GoodsCollections.Repositories.Interfaces;
-using GoodsCollections.Models;
-using GoodsCollections.Entities;
-using GoodsCollections.Extensions;
+using Transflower.EAgroServices.GoodsCollections.Services.Interfaces;
+using Transflower.EAgroServices.GoodsCollections.Repositories.Interfaces;
+using Transflower.EAgroServices.GoodsCollections.Models;
+using Transflower.EAgroServices.GoodsCollections.Entities;
+using Transflower.EAgroServices.GoodsCollections.Extensions;
 
-namespace GoodsCollections.Services
+namespace Transflower.EAgroServices.GoodsCollections.Services
 {
     public class GoodsCollectionService : IGoodsCollectionService
     {
-        private readonly IGoodsCollectionRepository _repo;
+        private readonly IGoodsCollectionRepository _repository;
 
-        public GoodsCollectionService(IGoodsCollectionRepository repo)
+        public GoodsCollectionService(IGoodsCollectionRepository repository)
         {
-            _repo = repo;
+            _repository = repository;
         }
 
-        public async Task<PagedList<VerifiedCollectionDetails>> GetVerifiedCollections(
+        public async Task<PagedList<VerifiedCollectionDetail>> GetVerifiedCollections(
             int collectionCenterId,
             FilterRequest request,
             int pageNumber
         )
         {
-            return await _repo.GetVerifiedCollections(collectionCenterId, request, pageNumber);
+            return await _repository.GetVerifiedCollections(
+                collectionCenterId,
+                request,
+                pageNumber
+            );
         }
 
         public async Task<List<string?>> GetContainerTypes()
         {
-            return await _repo.GetContainerTypes();
+            return await _repository.GetContainerTypes();
         }
 
         public async Task<GoodsCollection?> GetById(int collectionId)
         {
-            return await _repo.GetById(collectionId);
+            return await _repository.GetById(collectionId);
         }
 
         public async Task<bool> Insert(GoodsCollection collection)
         {
-            return await _repo.Insert(collection);
+            return await _repository.Insert(collection);
         }
 
         public async Task<bool> Update(GoodsCollection collection)
         {
-            return await _repo.Update(collection);
+            return await _repository.Update(collection);
         }
 
         public async Task<bool> Delete(int collectionId)
         {
-            return await _repo.Delete(collectionId);
+            return await _repository.Delete(collectionId);
         }
 
         public async Task<List<FarmerCollection>> FarmerCollection(int farmerId)
         {
-            return await _repo.FarmerCollection(farmerId);
+            return await _repository.FarmerCollection(farmerId);
         }
 
         public async Task<List<FarmerCollection>> GetVerifiedCollection(int collectionId)
         {
-            return await _repo.GetVerifiedCollection(collectionId);
+            return await _repository.GetVerifiedCollection(collectionId);
         }
 
         public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
         {
-            return await _repo.GetUnverifiedCollectionsOfFarmer(farmerId);
+            return await _repository.GetUnverifiedCollectionsOfFarmer(farmerId);
         }
 
         public async Task<PagedList<Collection>> GetCollections(
@@ -71,7 +75,7 @@ namespace GoodsCollections.Services
             string type
         )
         {
-            return await _repo.GetCollections(collectionCenterId, request, pageNumber, type);
+            return await _repository.GetCollections(collectionCenterId, request, pageNumber, type);
         }
     }
 }

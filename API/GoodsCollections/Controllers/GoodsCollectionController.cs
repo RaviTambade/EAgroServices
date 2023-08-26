@@ -1,97 +1,101 @@
-using GoodsCollections.Models;
-using GoodsCollections.Entities;
-using GoodsCollections.Extensions;
-using GoodsCollections.Services.Interfaces;
+using Transflower.EAgroServices.GoodsCollections.Models;
+using Transflower.EAgroServices.GoodsCollections.Entities;
+using Transflower.EAgroServices.GoodsCollections.Extensions;
+using Transflower.EAgroServices.GoodsCollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GoodsCollections.Controllers
+namespace Transflower.EAgroServices.GoodsCollections.Controllers;
+
+[ApiController]
+[Route("/api/goodscollections")]
+public class GoodsCollectionController : ControllerBase
 {
-    [ApiController]
-    [Route("/api/goodscollections")]
-    public class GoodsCollectionController : ControllerBase
+    private readonly IGoodsCollectionService _service;
+
+    public GoodsCollectionController(IGoodsCollectionService service)
     {
-        private readonly IGoodsCollectionService _srv;
+        _service = service;
+    }
 
-        public GoodsCollectionController(IGoodsCollectionService srv)
-        {
-            _srv = srv;
-        }
+    [HttpPost("{collectionCenterId}")]
+    public async Task<List<Collection>>? GetCollections(
+        int collectionCenterId,
+        [FromBody] FilterRequest request,
+        [FromQuery] int pageNumber,
+        [FromQuery] string type
+    )
+    {
+        var collections = await _service.GetCollections(
+            collectionCenterId,
+            request,
+            pageNumber,
+            type
+        );
+        Response.AddPaginationHeader(collections);
+        return collections;
+    }
 
-        [HttpPost("{collectionCenterId}")]
-        public async Task<List<Collection>>? GetCollections(
-            int collectionCenterId,
-            [FromBody] FilterRequest request,
-            [FromQuery] int pageNumber,
-            [FromQuery] string type="Unverified"
-        )
-        {
-            var collections =  await _srv.GetCollections(collectionCenterId, request, pageNumber,type);
-            Response.AddPaginationHeader(collections);
-            return collections;
-        }
+    [HttpGet("{collectionId}")]
+    public async Task<GoodsCollection?> GetById(int collectionId)
+    {
+        return await _service.GetById(collectionId);
+    }
 
-        [HttpGet("collection/{collectionId}")]
-        public async Task<GoodsCollection?> GetById(int collectionId)
-        {
-            return await _srv.GetById(collectionId);
-        }
+    [HttpGet("verified/{farmerId}")]
+    public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId)
+    {
+        return await _service.GetVerifiedCollection(farmerId);
+    }
 
-        [HttpGet("verified/{farmerId}")]
-        public async Task<List<FarmerCollection>> GetVerifiedCollection(int farmerId)
-        {
-            return await _srv.GetVerifiedCollection(farmerId);
-        }
+    [HttpPost]
+    public async Task<bool> Insert(GoodsCollection collection)
+    {
+        return await _service.Insert(collection);
+    }
 
-        [HttpPost]
-        public async Task<bool> Insert(GoodsCollection collection)
-        {
-            return await _srv.Insert(collection);
-        }
+    [HttpPut]
+    public async Task<bool> Update(GoodsCollection collection)
+    {
+        return await _service.Update(collection);
+    }
 
-        [HttpPut]
-        public async Task<bool> Update(GoodsCollection collection)
-        {
-            return await _srv.Update(collection);
-        }
+    [HttpDelete("{collectionId}")]
+    public async Task<bool> Delete(int collectionId)
+    {
+        return await _service.Delete(collectionId);
+    }
 
-        [HttpDelete("{collectionId}")]
-        public async Task<bool> Delete(int collectionId)
-        {
-            return await _srv.Delete(collectionId);
-        }
+    [HttpGet("farmercollection/{farmerId}")]
+    public async Task<List<FarmerCollection>> FarmerCollections(int farmerId)
+    {
+        return await _service.FarmerCollection(farmerId);
+    }
 
-        [HttpGet("farmercollection/{farmerId}")]
-        public async Task<List<FarmerCollection>> FarmerCollections(int farmerId)
-        {
-            return await _srv.FarmerCollection(farmerId);
-        }
+    [HttpPost("verified/collectioncenter/{collectionCenterId}")]
+    public async Task<List<VerifiedCollectionDetail>>? GetVerifiedCollections(
+        int collectionCenterId,
+        [FromBody] FilterRequest request,
+        [FromQuery] int pageNumber
+    )
+    {
+        var collectionDetails = await _service.GetVerifiedCollections(
+            collectionCenterId,
+            request,
+            pageNumber
+        );
+        Response.AddPaginationHeader(collectionDetails);
+        return collectionDetails;
+    }
 
-        [HttpPost("verified/collectioncenter/{collectionCenterId}")]
-        public async Task<List<VerifiedCollectionDetails>>? GetVerifiedCollections(
-            int collectionCenterId,
-            [FromBody] FilterRequest request,
-            [FromQuery] int pageNumber
-        )
-        {
-            var collectionDetails =  await _srv.GetVerifiedCollections(
-                collectionCenterId,
-                request,
-                pageNumber
-            );
-            Response.AddPaginationHeader(collectionDetails);
-            return collectionDetails;
-        }
+    [HttpGet("containertypes")]
+    public async Task<List<string?>> GetContainerTypes()
+    {
+        return await _service.GetContainerTypes();
+    }
 
-        [HttpGet("containertypes")]
-        public async Task<List<string?>> GetContainerTypes()
-        {
-            return await _srv.GetContainerTypes();
-        }
-
-        [HttpGet("farmerunverifiedcollection/{farmerId}")]
-        public async Task<List<FarmerCollection>> GetVerifiedFarmerCollections(int farmerId)
-        {
-            return await _srv.GetUnverifiedCollectionsOfFarmer(farmerId);
-        }
+    [HttpGet("farmerunverifiedcollection/{farmerId}")]
+    public async Task<List<FarmerCollection>> GetVerifiedFarmerCollections(int farmerId)
+    {
+        return await _service.GetUnverifiedCollectionsOfFarmer(farmerId);
     }
 }

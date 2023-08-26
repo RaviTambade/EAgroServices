@@ -1,7 +1,7 @@
-namespace GoodsCollections.Models;
+namespace Transflower.EAgroServices.GoodsCollections.Models;
+
 public class FarmerCollection
 {
-
     public int Id { get; set; }
     public int CollectionCenterId { get; set; }
     public int CorporateId { get; set; }

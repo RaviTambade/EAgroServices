@@ -1,46 +1,41 @@
-
-using GoodsCollections.Models;
-using GoodsCollections.Extensions;
+using Transflower.EAgroServices.GoodsCollections.Models;
+using Transflower.EAgroServices.GoodsCollections.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
+namespace Transflower.EAgroServices.GoodsCollections.Controllers;
 
-namespace GoodsCollections.Controllers
+[ApiController]
+[Route("/api/collections/filterhelper")]
+public class CollectionsFilterHelperController : ControllerBase
 {
-    [ApiController]
-    [Route("/api/collections/filterhelper")]
-    public class CollectionsFilterHelperController : ControllerBase
+    private readonly IFilterHelperService<Collection> _service;
+
+    public CollectionsFilterHelperController(IFilterHelperService<Collection> service)
     {
-        private readonly IFilterHelperService<Collection> _srv;
+        _service = service;
+    }
 
-        public CollectionsFilterHelperController(IFilterHelperService<Collection> srv)
-        {
-            _srv = srv;
-        }
+    [HttpGet("getpropertynames")]
+    public List<string> GetPropertyNames()
+    {
+        return _service.GetPropertyNames();
+    }
 
-         [HttpGet("getpropertynames")]
-        public List<string> GetPropertyNames()
-        {
-            return _srv.GetPropertyNames();
-        }
+    [HttpGet("getequalproperties")]
+    public List<string> GetEqualProperties()
+    {
+        return _service.GetEqualProperties();
+    }
 
-        [HttpGet("getequalproperties")]
-        public List<string> GetEqualProperties()
-        {
-            return _srv.GetEqualProperties();
-        }
+    [HttpGet("getrangeproperties")]
+    public List<string> GetRangeProperties()
+    {
+        return _service.GetRangeProperties();
+    }
 
-        [HttpGet("getrangeproperties")]
-        public List<string> GetRangeProperties()
-        {
-            return _srv.GetRangeProperties();
-        }
-
-        [HttpGet("getdaterangeproperties")]
-        public List<string> GetDateRangeProperties()
-        {
-            return _srv.GetDateRangeProperties();
-        }
-
-
+    [HttpGet("getdaterangeproperties")]
+    public List<string> GetDateRangeProperties()
+    {
+        return _service.GetDateRangeProperties();
     }
 }

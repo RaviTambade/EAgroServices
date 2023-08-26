@@ -1,6 +1,6 @@
-namespace GoodsCollections.Models
+namespace Transflower.EAgroServices.GoodsCollections.Models
 {
-    public class VerifiedCollectionDetails
+    public class VerifiedCollectionDetail
     {
         public int Id { get; set; }
         public int FarmerId { get; set; }
@@ -8,7 +8,6 @@ namespace GoodsCollections.Models
         public string? ContainerType { get; set; }
         public string? Grade { get; set; }
         public int Quantity { get; set; }
-
         public int ManagerId { get; set; }
         public double TotalWeight { get; set; }
         public double NetWeight { get; set; }

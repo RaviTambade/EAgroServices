@@ -1,19 +1,19 @@
-using GoodsCollections.Models;
-using GoodsCollections.Entities;
-using GoodsCollections.Extensions;
-using GoodsCollections.Repositories.Interfaces;
-using GoodsCollections.Repositories.Contexts;
+using Transflower.EAgroServices.GoodsCollections.Models;
+using Transflower.EAgroServices.GoodsCollections.Entities;
+using Transflower.EAgroServices.GoodsCollections.Extensions;
+using Transflower.EAgroServices.GoodsCollections.Repositories.Interfaces;
+using Transflower.EAgroServices.GoodsCollections.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace GoodsCollections.Repositories;
+namespace Transflower.EAgroServices.GoodsCollections.Repositories;
 
 public class GoodsCollectionRepository : IGoodsCollectionRepository
 {
-    private readonly IConfiguration _configuration;
+    private readonly GoodsCollectionContext _context;
 
-    public GoodsCollectionRepository(IConfiguration configuration)
+    public GoodsCollectionRepository(GoodsCollectionContext context)
     {
-        _configuration = configuration;
+        _context = context;
     }
 
     public async Task<PagedList<Collection>> GetCollections(
@@ -25,49 +25,46 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
     {
         try
         {
-            using (var context = new GoodsCollectionContext(_configuration))
+            IQueryable<Collection> baseQuery =
+                from collection in _context.GoodsCollections
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where collection.CollectionCenterId == collectionCenterId
+                select new Collection()
+                {
+                    CollectionId = collection.Id,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    ContainerType = collection.ContainerType,
+                    Quantity = collection.Quantity,
+                    Weight = collection.Weight,
+                    CollectionDate = collection.CollectionDate
+                };
+
+            IQueryable<Collection> query;
+
+            if (type is CollectionListType.All)
             {
-                IQueryable<Collection> baseQuery =
-                    from collection in context.GoodsCollections
-                    join crop in context.Crops on collection.CropId equals crop.Id
-                    where collection.CollectionCenterId == collectionCenterId
-                    select new Collection()
-                    {
-                        CollectionId = collection.Id,
-                        FarmerId = collection.FarmerId,
-                        CropName = crop.Title,
-                        CropId = crop.Id,
-                        ContainerType = collection.ContainerType,
-                        Quantity = collection.Quantity,
-                        Weight = collection.Weight,
-                        CollectionDate = collection.CollectionDate
-                    };
-
-                IQueryable<Collection> query;
-
-                if (type == "All")
-                {
-                    query = baseQuery;
-                }
-                else if (type == "Unverified")
-                {
-                    query =
-                        from item in baseQuery
-                        join verifiedGoodsCollection in context.VerifiedGoodsCollections
-                            on item.CollectionId equals verifiedGoodsCollection.CollectionId
-                            into gj
-                        from verifiedCollection in gj.DefaultIfEmpty()
-                        where verifiedCollection == null
-                        select item;
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid type parameter.");
-                }
-
-                query = query.ApplyFilters(request);
-                return await PagedList<Collection>.ToPagedList(query, pageNumber);
+                query = baseQuery;
             }
+            else if (type is CollectionListType.UnVerified)
+            {
+                query =
+                    from item in baseQuery
+                    join verifiedGoodsCollection in _context.VerifiedGoodsCollections
+                        on item.CollectionId equals verifiedGoodsCollection.CollectionId
+                        into gj
+                    from verifiedCollection in gj.DefaultIfEmpty()
+                    where verifiedCollection == null
+                    select item;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid type parameter.");
+            }
+
+            query = query.ApplyFilters(request);
+            var collections = await PagedList<Collection>.ToPagedList(query, pageNumber);
+            return collections;
         }
         catch (Exception)
         {
@@ -75,7 +72,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
         }
     }
 
-    public async Task<PagedList<VerifiedCollectionDetails>> GetVerifiedCollections(
+    public async Task<PagedList<VerifiedCollectionDetail>> GetVerifiedCollections(
         int collectionCenterId,
         FilterRequest request,
         int pageNumber
@@ -83,36 +80,36 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
     {
         try
         {
-            using (var context = new GoodsCollectionContext(_configuration))
-            {
-                var query =
-                    from collection in context.GoodsCollections
-                    join crop in context.Crops on collection.CropId equals crop.Id
-                    join verifiedCollection in context.VerifiedGoodsCollections
-                        on collection.Id equals verifiedCollection.CollectionId
-                    join shipmentItem in context.ShipmentItems
-                        on collection.Id equals shipmentItem.CollectionId
-                        into shipmentItemsCollection
-                    from shipmentItem in shipmentItemsCollection.DefaultIfEmpty()
-                    where
-                        shipmentItem == null && collection.CollectionCenterId == collectionCenterId
-                    // select records which are verified but not added for shiping
-                    select new VerifiedCollectionDetails()
-                    {
-                        Id = collection.Id,
-                        FarmerId = collection.FarmerId,
-                        CropName = crop.Title,
-                        ContainerType = collection.ContainerType,
-                        Quantity = collection.Quantity,
-                        Grade = verifiedCollection.Grade,
-                        TotalWeight = collection.Weight,
-                        NetWeight = verifiedCollection.Weight,
-                        ManagerId = verifiedCollection.InspectorId,
-                        CollectionDate = collection.CollectionDate
-                    };
-                query = query.ApplyFilters(request);
-                return await PagedList<VerifiedCollectionDetails>.ToPagedList(query, pageNumber);
-            }
+            var query =
+                from collection in _context.GoodsCollections
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                join verifiedCollection in _context.VerifiedGoodsCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join shipmentItem in _context.ShipmentItems
+                    on collection.Id equals shipmentItem.CollectionId
+                    into shipmentItemsCollection
+                from shipmentItem in shipmentItemsCollection.DefaultIfEmpty()
+                where shipmentItem == null && collection.CollectionCenterId == collectionCenterId
+                // select records which are verified but not added for shiping
+                select new VerifiedCollectionDetail()
+                {
+                    Id = collection.Id,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    ContainerType = collection.ContainerType,
+                    Quantity = collection.Quantity,
+                    Grade = verifiedCollection.Grade,
+                    TotalWeight = collection.Weight,
+                    NetWeight = verifiedCollection.Weight,
+                    ManagerId = verifiedCollection.InspectorId,
+                    CollectionDate = collection.CollectionDate
+                };
+            query = query.ApplyFilters(request);
+            var verifiedCollectionDetails = await PagedList<VerifiedCollectionDetail>.ToPagedList(
+                query,
+                pageNumber
+            );
+            return verifiedCollectionDetails;
         }
         catch (Exception)
         {
@@ -124,11 +121,8 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
     {
         try
         {
-            using (var context = new GoodsCollectionContext(_configuration))
-            {
-                var collection = await context.GoodsCollections.FindAsync(collectionId);
-                return collection;
-            }
+            GoodsCollection? collection = await _context.GoodsCollections.FindAsync(collectionId);
+            return collection;
         }
         catch (Exception)
         {
@@ -138,122 +132,105 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
 
     public async Task<bool> Insert(GoodsCollection collection)
     {
+        bool status = false;
         try
         {
-            bool status = false;
-            using (var context = new GoodsCollectionContext(_configuration))
-            {
-                await context.GoodsCollections.AddAsync(collection);
-                status = await SaveChanges(context);
-                return status;
-            }
+            await _context.GoodsCollections.AddAsync(collection);
+            status = await SaveChanges(_context);
         }
         catch (Exception)
         {
             throw;
         }
+        return status;
     }
 
     public async Task<bool> Update(GoodsCollection collection)
     {
+        bool status = false;
         try
         {
-            bool status = false;
-            using (var context = new GoodsCollectionContext(_configuration))
+            GoodsCollection? oldcollection = await _context.GoodsCollections.FindAsync(
+                collection.Id
+            );
+            if (oldcollection is not null)
             {
-                var oldcollection = await context.GoodsCollections.FindAsync(collection.Id);
-                if (oldcollection is not null)
-                {
-                    oldcollection.FarmerId = collection.FarmerId;
-                    oldcollection.CropId = collection.CropId;
-                    oldcollection.ContainerType = collection.ContainerType;
-                    oldcollection.Quantity = collection.Quantity;
-                    oldcollection.Weight = collection.Weight;
-                    oldcollection.CollectionDate = collection.CollectionDate;
-                    status = await SaveChanges(context);
-                }
-                return status;
+                oldcollection.FarmerId = collection.FarmerId;
+                oldcollection.CropId = collection.CropId;
+                oldcollection.ContainerType = collection.ContainerType;
+                oldcollection.Quantity = collection.Quantity;
+                oldcollection.Weight = collection.Weight;
+                oldcollection.CollectionDate = collection.CollectionDate;
+                status = await SaveChanges(_context);
             }
         }
         catch (Exception)
         {
             throw;
         }
+        return status;
     }
 
     public async Task<bool> Delete(int collectionId)
     {
+        bool status = false;
         try
         {
-            bool status = false;
-            using (var context = new GoodsCollectionContext(_configuration))
+            GoodsCollection? collection = await _context.GoodsCollections.FindAsync(collectionId);
+            if (collection is not null)
             {
-                var collection = await context.GoodsCollections.FindAsync(collectionId);
-                if (collection is not null)
-                {
-                    context.GoodsCollections.Remove(collection);
-                    status = await SaveChanges(context);
-                }
-                return status;
+                _context.GoodsCollections.Remove(collection);
+                status = await SaveChanges(_context);
             }
         }
         catch (Exception)
         {
             throw;
         }
+        return status;
     }
 
-    private async Task<bool> SaveChanges(GoodsCollectionContext context)
+    private async Task<bool> SaveChanges(GoodsCollectionContext _context)
     {
-        int rowsAffected = await context.SaveChangesAsync();
-        if (rowsAffected > 0)
-        {
-            return true;
-        }
-        return false;
+        int rowsAffected = await _context.SaveChangesAsync();
+        return rowsAffected > 0;
     }
 
     public async Task<List<string?>> GetContainerTypes()
     {
-        using (var dbContext = new GoodsCollectionContext(_configuration))
-        {
-            List<string?> containerTypes = await dbContext.GoodsCollections
-                .Select(collection => collection.ContainerType )
-                .Distinct()
-                .ToListAsync();
+        List<string?> containerTypes = await _context.GoodsCollections
+            .Select(collection => collection.ContainerType)
+            .Distinct()
+            .ToListAsync();
 
-            return containerTypes;
-        }
+        return containerTypes;
     }
 
     public async Task<List<FarmerCollection>> FarmerCollection(int farmerId)
     {
         try
         {
-            using (var context = new GoodsCollectionContext(_configuration))
-            {
-                List<FarmerCollection> farmercollections = await (
-                    from collection in context.GoodsCollections
-                    join center in context.CollectionCenters
-                        on collection.CollectionCenterId equals center.Id
-                    join crop in context.Crops on collection.CropId equals crop.Id
-                    where collection.FarmerId == farmerId
-                    select new FarmerCollection()
-                    {
-                        Id = collection.Id,
-                        CropName = crop.Title,
-                        ImageUrl = crop.ImageUrl,
-                        CollectionCenterId = collection.CollectionCenterId,
-                        CorporateId = center.CorporateId,
-                        ManagerId = center.CorporateId,
-                        Quantity = (int)collection.Quantity,
-                        ContainerType = collection.ContainerType,
-                        Weight = collection.Weight,
-                        CollectionDate = collection.CollectionDate
-                    }
-                ).ToListAsync();
-                return farmercollections;
-            }
+            var farmercollections = await (
+                from collection in _context.GoodsCollections
+                join center in _context.CollectionCenters
+                    on collection.CollectionCenterId equals center.Id
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where collection.FarmerId == farmerId
+                select new FarmerCollection()
+                {
+                    Id = collection.Id,
+                    CropName = crop.Title,
+                    ImageUrl = crop.ImageUrl,
+                    CollectionCenterId = collection.CollectionCenterId,
+                    CorporateId = center.CorporateId,
+                    ManagerId = center.CorporateId,
+                    Quantity = collection.Quantity,
+                    ContainerType = collection.ContainerType,
+                    Weight = collection.Weight,
+                    CollectionDate = collection.CollectionDate
+                }
+            ).ToListAsync();
+            return farmercollections;
         }
         catch (Exception)
         {
@@ -265,36 +242,32 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
     {
         try
         {
-            Console.WriteLine(farmerId);
-            using (var context = new GoodsCollectionContext(_configuration))
-            {
-                var verifiedcollection = await (
-                    from collection in context.GoodsCollections
-                    join center in context.CollectionCenters
-                        on collection.CollectionCenterId equals center.Id
-                    join crop in context.Crops on collection.CropId equals crop.Id
-                    join verifiedGoodsCollection in context.VerifiedGoodsCollections
-                        on collection.Id equals verifiedGoodsCollection.CollectionId
-                    where collection.FarmerId == farmerId
-                    select new FarmerCollection()
-                    {
-                        Id = collection.Id,
-                        CropName = crop.Title,
-                        ImageUrl = crop.ImageUrl,
-                        CollectionCenterId = collection.CollectionCenterId,
-                        CorporateId = center.CorporateId,
-                        ManagerId = center.CorporateId,
-                        Quantity = (int)collection.Quantity,
-                        ContainerType = collection.ContainerType,
-                        Weight = collection.Weight,
-                        CollectionDate = collection.CollectionDate,
-                        Grade = verifiedGoodsCollection.Grade,
-                        VerifiedWeight = verifiedGoodsCollection.Weight,
-                        InspectionDate = verifiedGoodsCollection.InspectionDate
-                    }
-                ).ToListAsync();
-                return verifiedcollection;
-            }
+            var verifiedcollection = await (
+                from collection in _context.GoodsCollections
+                join center in _context.CollectionCenters
+                    on collection.CollectionCenterId equals center.Id
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                join verifiedGoodsCollection in _context.VerifiedGoodsCollections
+                    on collection.Id equals verifiedGoodsCollection.CollectionId
+                where collection.FarmerId == farmerId
+                select new FarmerCollection()
+                {
+                    Id = collection.Id,
+                    CropName = crop.Title,
+                    ImageUrl = crop.ImageUrl,
+                    CollectionCenterId = collection.CollectionCenterId,
+                    CorporateId = center.CorporateId,
+                    ManagerId = center.CorporateId,
+                    Quantity = collection.Quantity,
+                    ContainerType = collection.ContainerType,
+                    Weight = collection.Weight,
+                    CollectionDate = collection.CollectionDate,
+                    Grade = verifiedGoodsCollection.Grade,
+                    VerifiedWeight = verifiedGoodsCollection.Weight,
+                    InspectionDate = verifiedGoodsCollection.InspectionDate
+                }
+            ).ToListAsync();
+            return verifiedcollection;
         }
         catch (Exception)
         {
@@ -306,35 +279,32 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
     {
         try
         {
-            using (var context = new GoodsCollectionContext(_configuration))
-            {
-                var collections = await (
-                    from collection in context.GoodsCollections
-                    join center in context.CollectionCenters
-                        on collection.CollectionCenterId equals center.Id
-                    join crop in context.Crops on collection.CropId equals crop.Id
+            var collections = await (
+                from collection in _context.GoodsCollections
+                join center in _context.CollectionCenters
+                    on collection.CollectionCenterId equals center.Id
+                join crop in _context.Crops on collection.CropId equals crop.Id
 
-                    join verifiedGoodsCollection in context.VerifiedGoodsCollections
-                        on collection.Id equals verifiedGoodsCollection.CollectionId
-                        into gj
-                    from verifiedCollection in gj.DefaultIfEmpty()
-                    where verifiedCollection == null && collection.FarmerId == farmerId
-                    select new FarmerCollection()
-                    {
-                        Id = collection.Id,
-                        CropName = crop.Title,
-                        ImageUrl = crop.ImageUrl,
-                        CollectionCenterId = collection.CollectionCenterId,
-                        CorporateId = center.CorporateId,
-                        ManagerId = center.CorporateId,
-                        Quantity = collection.Quantity,
-                        ContainerType = collection.ContainerType,
-                        Weight = collection.Weight,
-                        CollectionDate = collection.CollectionDate
-                    }
-                ).ToListAsync();
-                return collections;
-            }
+                join verifiedGoodsCollection in _context.VerifiedGoodsCollections
+                    on collection.Id equals verifiedGoodsCollection.CollectionId
+                    into gj
+                from verifiedCollection in gj.DefaultIfEmpty()
+                where verifiedCollection == null && collection.FarmerId == farmerId
+                select new FarmerCollection()
+                {
+                    Id = collection.Id,
+                    CropName = crop.Title,
+                    ImageUrl = crop.ImageUrl,
+                    CollectionCenterId = collection.CollectionCenterId,
+                    CorporateId = center.CorporateId,
+                    ManagerId = center.CorporateId,
+                    Quantity = collection.Quantity,
+                    ContainerType = collection.ContainerType,
+                    Weight = collection.Weight,
+                    CollectionDate = collection.CollectionDate
+                }
+            ).ToListAsync();
+            return collections;
         }
         catch (Exception)
         {

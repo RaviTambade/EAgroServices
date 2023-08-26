@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-namespace GoodsCollections.Extensions;
+namespace Transflower.EAgroServices.GoodsCollections.Extensions;
 
 public static class HttpResponseExtensions
 {

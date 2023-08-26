@@ -1,7 +1,7 @@
 using System.Linq.Dynamic.Core;
 using System.Text;
 
-namespace GoodsCollections.Extensions;
+namespace Transflower.EAgroServices.GoodsCollections.Extensions;
 
 public static class QueryableExtensions
 {
