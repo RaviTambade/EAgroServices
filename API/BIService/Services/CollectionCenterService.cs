@@ -1,21 +1,19 @@
-using BIService.Services.Interfaces;
-using BIService.Repositories.Interfaces;
-using BIService.Models;
-
-namespace BIService.Services
+using Transflower.EAgroServices.BIService.Services.Interfaces;
+using Transflower.EAgroServices.BIService.Repositories.Interfaces;
+using Transflower.EAgroServices.BIService.Models;
+namespace Transflower.EAgroServices.BIService.Services
 {
     public class CollectionCenterService : ICollectionCenterService
     {
-        private readonly ICollectionCenterRepository _repo;
-
+        private readonly ICollectionCenterRepository _repository;
         public CollectionCenterService(ICollectionCenterRepository repo)
         {
-            _repo = repo;
+            _repository = repo;
         }
 
         public async Task<List<YearRevenue>> GetRevenuesByYear(int collectionCenterId)
         {
-            return await _repo.GetRevenuesByYear(collectionCenterId);
+            return await _repository.GetRevenuesByYear(collectionCenterId);
         }
 
         public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(
@@ -23,17 +21,17 @@ namespace BIService.Services
             int year        
         )
         {
-            return await _repo.GetRevenuesByQuarter(collectionCenterId, year);
+            return await _repository.GetRevenuesByQuarter(collectionCenterId, year);
         }
 
         public async Task<List<MonthRevenue>> GetRevenuesByMonth(int collectionCenterId, int year)
         {
-            return await _repo.GetRevenuesByMonth(collectionCenterId, year);
+            return await _repository.GetRevenuesByMonth(collectionCenterId, year);
         }
 
         public async Task<List<WeekRevenue>> GetRevenuesByWeek(int collectionCenterId, int year)
         {
-            return await _repo.GetRevenuesByWeek(collectionCenterId, year);
+            return await _repository.GetRevenuesByWeek(collectionCenterId, year);
         }
 
         public async Task<List<CropRevenue>> GetCropRevenuesByMonth(
@@ -42,7 +40,7 @@ namespace BIService.Services
             string monthName
         )
         {
-            return await _repo.GetCropRevenuesByMonth(collectionCenterId, year, monthName);
+            return await _repository.GetCropRevenuesByMonth(collectionCenterId, year, monthName);
         }
 
         public async Task<List<CropRevenue>> GetCropRevenuesByQuarter(
@@ -51,12 +49,12 @@ namespace BIService.Services
             int quarterNumber
         )
         {
-            return await _repo.GetCropRevenuesByQuarter(collectionCenterId, year, quarterNumber);
+            return await _repository.GetCropRevenuesByQuarter(collectionCenterId, year, quarterNumber);
         }
 
         public async Task<List<CropRevenue>> GetCropRevenuesByYear(int collectionCenterId, int year)
         {
-            return await _repo.GetCropRevenuesByYear(collectionCenterId, year);
+            return await _repository.GetCropRevenuesByYear(collectionCenterId, year);
         }
 
         public async Task<List<CropRevenue>> GetCropRevenuesBetweenDates(
@@ -65,12 +63,12 @@ namespace BIService.Services
             string endDate
         )
         {
-            return await _repo.GetCropRevenuesBetweenDates(collectionCenterId, startDate, endDate);
+            return await _repository.GetCropRevenuesBetweenDates(collectionCenterId, startDate, endDate);
         }
 
         public async Task<List<int>> GetYearsForCropRevenues(int collectionCenterId)
         {
-            return await _repo.GetYearsForCropRevenues(collectionCenterId);
+            return await _repository.GetYearsForCropRevenues(collectionCenterId);
         }
 
 

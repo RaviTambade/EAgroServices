@@ -54,8 +54,11 @@ CREATE TABLE
 CREATE TABLE 
    inspectors(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    userid INT NOT NULL,
     collectioncenterid INT NOT NULL,
-    CONSTRAINT fk_collection_center FOREIGN KEY(collectioncenterid) REFERENCES collectioncenters(id) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT fk_collection_center FOREIGN KEY(collectioncenterid) REFERENCES collectioncenters(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT fk_userroles_inspector FOREIGN KEY(userid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
+
    );
 
 CREATE TABLE

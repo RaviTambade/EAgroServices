@@ -1,8 +1,8 @@
-using BIService.Models;
-using BIService.Repositories.Interfaces;
+using Transflower.EAgroServices.BIService.Models;
+using Transflower.EAgroServices.BIService.Repositories.Interfaces;
 using MySql.Data.MySqlClient;
-using BIService.Extensions;
-namespace BIService.Repositories;
+using Transflower.EAgroServices.BIService.Extensions;
+namespace Transflower.EAgroServices.BIService.Repositories;
 public class TransporterRepository : ITransporterRepository
 {
     private readonly IConfiguration _configuration;
@@ -16,7 +16,7 @@ public class TransporterRepository : ITransporterRepository
     }
     public async Task<List<YearlyVehicleRevenue>> GetRevenuesByYear(int transporterId, int year)
     {
-        List<YearlyVehicleRevenue> result = new();
+        List<YearlyVehicleRevenue> vehicleRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -36,10 +36,10 @@ public class TransporterRepository : ITransporterRepository
             command.Parameters.AddWithValue("@transporterId", transporterId);
             command.Parameters.AddWithValue("@year", year);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                vehicleRevenues.Add(
                     new YearlyVehicleRevenue
                     {
                         RtoNumber = reader.GetString("RtoNumber"),
@@ -48,7 +48,6 @@ public class TransporterRepository : ITransporterRepository
                 );
             }
             await reader.CloseAsync();
-            // result = result.AddMissingYears();
         }
         catch (Exception)
         {
@@ -58,12 +57,12 @@ public class TransporterRepository : ITransporterRepository
         {
             connection.Close();
         }
-        return result;
+        return vehicleRevenues;
     }
 
-      public async Task<List<YearRevenue>> GetRevenueByYear(int transporterId)
+    public async Task<List<YearRevenue>> GetRevenueByYear(int transporterId)
     {
-        List<YearRevenue> result = new();
+        List<YearRevenue> yearRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -78,10 +77,10 @@ public class TransporterRepository : ITransporterRepository
             MySqlCommand command = new(query, connection);
             command.Parameters.AddWithValue("@transporterId", transporterId);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                yearRevenues.Add(
                     new YearRevenue
                     {
                         Year = reader.GetInt32("Year"),
@@ -90,7 +89,6 @@ public class TransporterRepository : ITransporterRepository
                 );
             }
             await reader.CloseAsync();
-            // result = result.Add();
         }
         catch (Exception)
         {
@@ -100,9 +98,8 @@ public class TransporterRepository : ITransporterRepository
         {
             connection.Close();
         }
-        return result;
+        return yearRevenues;
     }
-
     public async Task<List<int>> GetYears(int transporterId)
     {
         List<int> years = new();
@@ -138,7 +135,7 @@ public class TransporterRepository : ITransporterRepository
 
     public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId, int year)
     {
-        List<MonthRevenue> result = new();
+        List<MonthRevenue> monthRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -154,10 +151,10 @@ public class TransporterRepository : ITransporterRepository
             command.Parameters.AddWithValue("@transporterId", transporterId);
             command.Parameters.AddWithValue("@year", year);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                monthRevenues.Add(
                     new MonthRevenue
                     {
                         Month = reader.GetString("Month"),
@@ -166,7 +163,7 @@ public class TransporterRepository : ITransporterRepository
                 );
             }
             await reader.CloseAsync();
-            result = result.AddMissingMonths();
+            monthRevenues = monthRevenues.AddMissingMonths();
         }
         catch (Exception)
         {
@@ -176,12 +173,12 @@ public class TransporterRepository : ITransporterRepository
         {
             connection.Close();
         }
-        return result;
+        return monthRevenues;
     }
 
     public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(int transporterId, int year)
     {
-        List<QuarterRevenue> result = new();
+        List<QuarterRevenue> quarterRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -200,7 +197,7 @@ public class TransporterRepository : ITransporterRepository
             using MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                quarterRevenues.Add(
                     new QuarterRevenue
                     {
                         Quarter = reader.GetInt32("Quarter"),
@@ -209,7 +206,7 @@ public class TransporterRepository : ITransporterRepository
                 );
             }
             await reader.CloseAsync();
-            result = result.AddMissingQuarters();
+            quarterRevenues = quarterRevenues.AddMissingQuarters();
         }
         catch (Exception)
         {
@@ -219,14 +216,15 @@ public class TransporterRepository : ITransporterRepository
         {
             connection.Close();
         }
-        return result;
+        return quarterRevenues;
     }
-    public async Task<List<WeekRevenue>> GetRevenuesByWeek(int transporterId,int year ){
-        List<WeekRevenue> result=new();
-        MySqlConnection connection=new(_connectionString);
+    public async Task<List<WeekRevenue>> GetRevenuesByWeek(int transporterId, int year)
+    {
+        List<WeekRevenue> weekRevenues = new();
+        MySqlConnection connection = new(_connectionString);
         try
         {
-              string query = @"SELECT WEEK(shipments.shipmentdate,1) AS WeekNumber,SUM(payments.amount) AS Amount
+            string query = @"SELECT WEEK(shipments.shipmentdate,1) AS WeekNumber,SUM(payments.amount) AS Amount
                              FROM vehicles 
                              INNER JOIN transporters ON vehicles.transporterid=transporters.id
                              INNER JOIN shipments ON vehicles.id = shipments.vehicleid
@@ -241,7 +239,7 @@ public class TransporterRepository : ITransporterRepository
             using MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                weekRevenues.Add(
                     new WeekRevenue
                     {
                         WeekNumber = reader.GetInt32("WeekNumber"),
@@ -250,17 +248,17 @@ public class TransporterRepository : ITransporterRepository
                 );
             }
             await reader.CloseAsync();
-            result = result.AddMissingWeeks();
+            weekRevenues = weekRevenues.AddMissingWeeks();
         }
-        catch (System.Exception)
-        {    
+        catch (Exception)
+        {
             throw;
         }
-          finally
+        finally
         {
             connection.Close();
         }
-        return result;
+        return weekRevenues;
     }
 }
 

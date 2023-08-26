@@ -1,7 +1,5 @@
-using BIService.Models;
-using BIService.Repositories.Interfaces;
-using BIService.Repositories;
-namespace BIService.Services.Interfaces;
+using Transflower.EAgroServices.BIService.Repositories.Interfaces;
+namespace Transflower.EAgroServices.BIService.Services.Interfaces;
 public interface ITransporterService:ITransporterRepository{      
 
 }

@@ -1,4 +1,4 @@
-namespace BIService.Models;
+namespace Transflower.EAgroServices.BIService.Models;
 
 public enum RevenueType
 {

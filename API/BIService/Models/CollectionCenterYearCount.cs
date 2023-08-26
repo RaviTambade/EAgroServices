@@ -1,9 +1,7 @@
-namespace BIService.Models
+namespace Transflower.EAgroServices.BIService.Models;
+public class CollectionCenterYearCount
 {
-    public class CollectionCenterYearCount
-    {
-        public int CollectionCenterId {get;set;}
-        public int Year { get; set; }
-        public int Count { get; set; }
-    }
+    public int CollectionCenterId { get; set; }
+    public int Year { get; set; }
+    public int Count { get; set; }
 }

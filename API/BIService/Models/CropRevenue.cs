@@ -1,8 +1,7 @@
-namespace BIService.Models
+namespace Transflower.EAgroServices.BIService.Models;
+public class CropRevenue
 {
-    public class CropRevenue
-    {
-        public string? CropName { get; set; }
-        public double Amount { get; set; }
-    }
+    public string? CropName { get; set; }
+    public double Amount { get; set; }
 }
+

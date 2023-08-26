@@ -1,10 +1,8 @@
 
-using BIService.Repositories.Interfaces;
+using Transflower.EAgroServices.BIService.Repositories.Interfaces;
 
-namespace BIService.Services.Interfaces
+namespace Transflower.EAgroServices.BIService.Services.Interfaces;
+public interface IMerchantService : IMerchantRepository
 {
-    public interface IMerchantService:IMerchantRepository
-    {
 
-    } 
 }

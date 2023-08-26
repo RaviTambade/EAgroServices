@@ -1,15 +1,12 @@
-using BIService.Models;
-using BIService.Repositories.Interfaces;
+using Transflower.EAgroServices.BIService.Models;
+using Transflower.EAgroServices.BIService.Repositories.Interfaces;
 using MySql.Data.MySqlClient;
-using BIService.Extensions;
-
-namespace BIService.Repositories;
-
+using Transflower.EAgroServices.BIService.Extensions;
+namespace Transflower.EAgroServices.BIService.Repositories;
 public class CollectionCenterRepository : ICollectionCenterRepository
 {
     private readonly IConfiguration _configuration;
     private readonly string _connectionString;
-
     public CollectionCenterRepository(IConfiguration configuration)
     {
         _configuration = configuration;
@@ -17,10 +14,9 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             _configuration.GetConnectionString("DefaultConnection")
             ?? throw new Exception("ConnectionString is not found");
     }
-
     public async Task<List<YearRevenue>> GetRevenuesByYear(int collectionCenterId)
     {
-        List<YearRevenue> result = new();
+        List<YearRevenue> yearRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -35,10 +31,10 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             MySqlCommand command = new(query, connection);
             command.Parameters.AddWithValue("@centerId", collectionCenterId);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                yearRevenues.Add(
                     new YearRevenue
                     {
                         Year = reader.GetInt32("year"),
@@ -47,7 +43,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
                 );
             }
             await reader.CloseAsync();
-            result = result.AddMissingYears();
+            yearRevenues = yearRevenues.AddMissingYears();
         }
         catch (Exception)
         {
@@ -58,12 +54,12 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             connection.Close();
         }
 
-        return result;
+        return yearRevenues;
     }
 
     public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(int collectionCenterId, int year)
     {
-        List<QuarterRevenue> result = new();
+        List<QuarterRevenue> quarterRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -79,10 +75,10 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             command.Parameters.AddWithValue("@centerId", collectionCenterId);
             command.Parameters.AddWithValue("@year", year);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                quarterRevenues.Add(
                     new QuarterRevenue
                     {
                         Quarter = reader.GetInt32("quarter"),
@@ -91,7 +87,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
                 );
             }
             await reader.CloseAsync();
-            result = result.AddMissingQuarters();
+            quarterRevenues = quarterRevenues.AddMissingQuarters();
         }
         catch (Exception)
         {
@@ -102,12 +98,12 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             connection.Close();
         }
 
-        return result;
+        return quarterRevenues;
     }
 
     public async Task<List<MonthRevenue>> GetRevenuesByMonth(int collectionCenterId, int year)
     {
-        List<MonthRevenue> result = new();
+        List<MonthRevenue> monthRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -122,10 +118,10 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             command.Parameters.AddWithValue("@centerId", collectionCenterId);
             command.Parameters.AddWithValue("@year", year);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                monthRevenues.Add(
                     new MonthRevenue
                     {
                         Month = reader.GetString("month"),
@@ -134,7 +130,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
                 );
             }
             await reader.CloseAsync();
-            result = result.AddMissingMonths();
+            monthRevenues = monthRevenues.AddMissingMonths();
         }
         catch (Exception)
         {
@@ -145,12 +141,12 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             connection.Close();
         }
 
-        return result;
+        return monthRevenues;
     }
 
     public async Task<List<WeekRevenue>> GetRevenuesByWeek(int collectionCenterId, int year)
     {
-        List<WeekRevenue> result = new();
+        List<WeekRevenue> weekRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -169,7 +165,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             using MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                weekRevenues.Add(
                     new WeekRevenue
                     {
                         WeekNumber = reader.GetInt32("weeknumber"),
@@ -178,7 +174,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
                 );
             }
             await reader.CloseAsync();
-            result = result.AddMissingWeeks();
+            weekRevenues = weekRevenues.AddMissingWeeks();
         }
         catch (Exception)
         {
@@ -189,7 +185,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             connection.Close();
         }
 
-        return result;
+        return weekRevenues;
     }
 
     public async Task<List<CropRevenue>> GetCropRevenuesByMonth(
@@ -198,7 +194,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
         string monthName
     )
     {
-        List<CropRevenue> result = new();
+        List<CropRevenue> cropRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -214,10 +210,10 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             command.Parameters.AddWithValue("@year", year);
             command.Parameters.AddWithValue("@monthName", monthName);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                cropRevenues.Add(
                     new CropRevenue
                     {
                         CropName = reader.GetString("cropname"),
@@ -235,8 +231,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
         {
             connection.Close();
         }
-
-        return result;
+        return cropRevenues;
     }
 
     public async Task<List<CropRevenue>> GetCropRevenuesByQuarter(
@@ -245,7 +240,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
         int quarterNumber
     )
     {
-        List<CropRevenue> result = new();
+        List<CropRevenue> cropRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -261,10 +256,10 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             command.Parameters.AddWithValue("@year", year);
             command.Parameters.AddWithValue("@quarterNumber", quarterNumber);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                cropRevenues.Add(
                     new CropRevenue
                     {
                         CropName = reader.GetString("cropname"),
@@ -283,12 +278,12 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             connection.Close();
         }
 
-        return result;
+        return cropRevenues;
     }
 
     public async Task<List<CropRevenue>> GetCropRevenuesByYear(int collectionCenterId, int year)
     {
-        List<CropRevenue> result = new();
+        List<CropRevenue> cropRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -303,10 +298,10 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             command.Parameters.AddWithValue("@centerId", collectionCenterId);
             command.Parameters.AddWithValue("@year", year);
             await connection.OpenAsync();
-            using MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                cropRevenues.Add(
                     new CropRevenue
                     {
                         CropName = reader.GetString("cropname"),
@@ -325,7 +320,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             connection.Close();
         }
 
-        return result;
+        return cropRevenues;
     }
 
     public async Task<List<CropRevenue>> GetCropRevenuesBetweenDates(
@@ -334,7 +329,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
         string endDate
     )
     {
-        List<CropRevenue> result = new();
+        List<CropRevenue> cropRevenues = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
@@ -353,7 +348,7 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             using MySqlDataReader reader = command.ExecuteReader();
             while (await reader.ReadAsync())
             {
-                result.Add(
+                cropRevenues.Add(
                     new CropRevenue
                     {
                         CropName = reader.GetString("cropname"),
@@ -372,18 +367,18 @@ public class CollectionCenterRepository : ICollectionCenterRepository
             connection.Close();
         }
 
-        return result;
+        return cropRevenues;
     }
 
 
-public async Task<List<int>> GetYearsForCropRevenues(int collectionCenterId)
+    public async Task<List<int>> GetYearsForCropRevenues(int collectionCenterId)
     {
         List<int> years = new();
         MySqlConnection connection = new(_connectionString);
         try
         {
             string query =
-                @"SELECT DISTINCT  YEAR(payments.Date) as year from goodsservicespayments
+                @"SELECT DISTINCT YEAR(payments.Date) as year from goodsservicespayments
                 INNER join goodscollections ON goodsservicespayments.collectionid =goodscollections.id
                 INNER JOIN payments on goodsservicespayments.paymentid =payments.id 
                 WHERE goodscollections.collectioncenterid=@centerId

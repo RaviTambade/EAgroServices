@@ -1,8 +1,6 @@
-namespace BIService.Models
+namespace Transflower.EAgroServices.BIService.Models;
+public class WeekRevenue
 {
-    public class WeekRevenue 
-    {
-        public int WeekNumber { get; set; }
-        public double Amount { get; set; }
-    }
+    public int WeekNumber { get; set; }
+    public double Amount { get; set; }
 }

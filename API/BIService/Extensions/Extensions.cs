@@ -1,8 +1,6 @@
 using System.Globalization;
-using BIService.Models;
-
-namespace BIService.Extensions;
-
+using Transflower.EAgroServices.BIService.Models;
+namespace Transflower.EAgroServices.BIService.Extensions;
 public static class Extensions
 {
     public static List<T> AddMissingYears<T>(this List<T> inputList)
@@ -29,8 +27,8 @@ public static class Extensions
             .ToList();
     }
 
-     public static List<T> AddMissingQuarters<T>(this List<T> inputList)
-        where T : QuarterRevenue, new()
+    public static List<T> AddMissingQuarters<T>(this List<T> inputList)
+       where T : QuarterRevenue, new()
     {
         if (inputList.Count == 4)
         {
@@ -44,13 +42,11 @@ public static class Extensions
         var missingQuarterRevenues = missingQuarters.Select(
             quarter => new T { Quarter = quarter, Amount = 0 }
         );
-
         return inputList
             .Concat(missingQuarterRevenues)
             .OrderBy(quarterRevenue => quarterRevenue.Quarter)
             .ToList();
     }
-
     public static List<T> AddMissingMonths<T>(this List<T> inputList)
         where T : MonthRevenue, new()
     {
@@ -99,6 +95,4 @@ public static class Extensions
             .OrderBy(weekRevenue => weekRevenue.WeekNumber)
             .ToList();
     }
-
-   
 }

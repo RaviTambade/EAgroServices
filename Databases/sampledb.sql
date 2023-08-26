@@ -17,15 +17,17 @@
     INSERT INTO userroles(userid,roleid)VALUES(10,5);
     INSERT INTO userroles(userid,roleid)VALUES(11,5);
     INSERT INTO userroles(userid,roleid)VALUES(12,5);
+    INSERT INTO userroles(userid,roleid)VALUES(13,3);
+    INSERT INTO userroles(userid,roleid)VALUES(14,3);
+
 
 
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(1,4);
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(2,5);
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(3,6);
 
-    INSERT INTO inspectors(collectioncenterid) VALUES(1);
-    INSERT INTO inspectors(collectioncenterid) VALUES(2);
-    INSERT INTO inspectors(collectioncenterid) VALUES(3);
+    INSERT INTO inspectors(userid,collectioncenterid) VALUES(13,1);
+    INSERT INTO inspectors(userid,collectioncenterid) VALUES(14,2);
 
     INSERT INTO transporters (corporateid,managerid) VALUES(4,7);
     INSERT INTO transporters (corporateid,managerid) VALUES(5,8);

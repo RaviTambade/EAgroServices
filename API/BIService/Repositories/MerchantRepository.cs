@@ -1,14 +1,12 @@
-using BIService.Models;
-using BIService.Repositories.Interfaces;
+using Transflower.EAgroServices.BIService.Models;
+using Transflower.EAgroServices.BIService.Repositories.Interfaces;
 using MySql.Data.MySqlClient;
-
-namespace BIService.Repositories
+namespace Transflower.EAgroServices.BIService.Repositories
 {
     public class MerchantRepository : IMerchantRepository
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
-
         public MerchantRepository(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -17,9 +15,9 @@ namespace BIService.Repositories
                 ?? throw new Exception("ConnectionString is not found");
         }
 
-        public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId,int year)
+        public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId, int year)
         {
-            List<CollectionCenterMonthCount> result = new();
+            List<CollectionCenterMonthCount> collectionCenterMonthCounts = new();
             MySqlConnection connection = new(_connectionString);
             try
             {
@@ -37,20 +35,19 @@ namespace BIService.Repositories
                 command.Parameters.AddWithValue("@merchantId", merchantId);
                 command.Parameters.AddWithValue("@year", year);
                 await connection.OpenAsync();
-                using MySqlDataReader reader = command.ExecuteReader();
+                MySqlDataReader reader = command.ExecuteReader();
                 while (await reader.ReadAsync())
                 {
-                    result.Add(
+                    collectionCenterMonthCounts.Add(
                         new CollectionCenterMonthCount
                         {
-                            collectionCenterId=reader.GetInt32("corporateid"),
+                            collectionCenterId = reader.GetInt32("corporateid"),
                             Month = reader.GetString("month"),
                             Count = reader.GetInt32("count")
                         }
                     );
                 }
                 await reader.CloseAsync();
-                // result = result.();
             }
             catch (Exception)
             {
@@ -60,11 +57,11 @@ namespace BIService.Repositories
             {
                 connection.Close();
             }
-            return result;
+            return collectionCenterMonthCounts;
         }
-         public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantId)
+        public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantId)
         {
-            List<CollectionCenterYearCount> result = new();
+            List<CollectionCenterYearCount> collectionCenterYearCounts = new();
             MySqlConnection connection = new(_connectionString);
             try
             {
@@ -81,20 +78,19 @@ namespace BIService.Repositories
                 MySqlCommand command = new(query, connection);
                 command.Parameters.AddWithValue("@merchantId", merchantId);
                 await connection.OpenAsync();
-                using MySqlDataReader reader = command.ExecuteReader();
+                MySqlDataReader reader = command.ExecuteReader();
                 while (await reader.ReadAsync())
                 {
-                    result.Add(
+                    collectionCenterYearCounts.Add(
                         new CollectionCenterYearCount
                         {
-                            CollectionCenterId=reader.GetInt32("corporateid"),
+                            CollectionCenterId = reader.GetInt32("corporateid"),
                             Year = reader.GetInt32("year"),
                             Count = reader.GetInt32("count")
                         }
                     );
                 }
                 await reader.CloseAsync();
-                // result = result.();
             }
             catch (Exception)
             {
@@ -104,11 +100,11 @@ namespace BIService.Repositories
             {
                 connection.Close();
             }
-            return result;
+            return collectionCenterYearCounts;
         }
-         public async Task<List<CollectionCenterQuarterCount>> GetCollectionCountByQuarter(int merchantId,int year)
+        public async Task<List<CollectionCenterQuarterCount>> GetCollectionCountByQuarter(int merchantId, int year)
         {
-            List<CollectionCenterQuarterCount> result = new();
+            List<CollectionCenterQuarterCount> collectionCenterQuarterCounts = new();
             MySqlConnection connection = new(_connectionString);
             try
             {
@@ -126,20 +122,19 @@ namespace BIService.Repositories
                 command.Parameters.AddWithValue("@merchantId", merchantId);
                 command.Parameters.AddWithValue("@year", year);
                 await connection.OpenAsync();
-                using MySqlDataReader reader = command.ExecuteReader();
+                MySqlDataReader reader = command.ExecuteReader();
                 while (await reader.ReadAsync())
                 {
-                    result.Add(
+                    collectionCenterQuarterCounts.Add(
                         new CollectionCenterQuarterCount
                         {
-                            CollectionCenterId=reader.GetInt32("corporateid"),
+                            CollectionCenterId = reader.GetInt32("corporateid"),
                             Quarter = reader.GetInt32("quarter"),
                             Count = reader.GetInt32("count")
                         }
                     );
                 }
                 await reader.CloseAsync();
-                // result = result.();
             }
             catch (Exception)
             {
@@ -149,12 +144,12 @@ namespace BIService.Repositories
             {
                 connection.Close();
             }
-            return result;
+            return collectionCenterQuarterCounts;
         }
 
-         public async Task<List<CollectionCenterWeekCount>> GetCollectionCountByWeek(int merchantId,int year)
+        public async Task<List<CollectionCenterWeekCount>> GetCollectionCountByWeek(int merchantId, int year)
         {
-            List<CollectionCenterWeekCount> result = new();
+            List<CollectionCenterWeekCount> collectionCenterWeekCounts = new();
             MySqlConnection connection = new(_connectionString);
             try
             {
@@ -172,20 +167,19 @@ namespace BIService.Repositories
                 command.Parameters.AddWithValue("@merchantId", merchantId);
                 command.Parameters.AddWithValue("@year", year);
                 await connection.OpenAsync();
-                using MySqlDataReader reader = command.ExecuteReader();
+                MySqlDataReader reader = command.ExecuteReader();
                 while (await reader.ReadAsync())
                 {
-                    result.Add(
+                    collectionCenterWeekCounts.Add(
                         new CollectionCenterWeekCount
                         {
-                            CollectionCenterId=reader.GetInt32("corporateid"),
+                            CollectionCenterId = reader.GetInt32("corporateid"),
                             Week = reader.GetInt32("week"),
                             Count = reader.GetInt32("count")
                         }
                     );
                 }
                 await reader.CloseAsync();
-                // result = result.();
             }
             catch (Exception)
             {
@@ -195,31 +189,8 @@ namespace BIService.Repositories
             {
                 connection.Close();
             }
-            return result;
+            return collectionCenterWeekCounts;
         }
     }
-    }
+}
 
-
-/* 
- SELECT collectioncenters.id AS CollectionCenterId, 
-       collectioncenters.corporateid AS CorporateId, 
-       COUNT(*) AS Count
-FROM collectioncenters
-INNER JOIN goodscollections ON collectioncenters.id = goodscollections.collectioncenterid
-INNER JOIN shipmentitems ON goodscollections.id = shipmentitems.collectionid
-INNER JOIN shipments ON shipmentitems.shipmentid = shipments.id
-WHERE shipments.merchantid = 3 AND shipments.status='delivered'
-GROUP BY collectioncenters.id;
-*/
-
-/*
-SELECT COUNT(*) AS Count, 
-          crops.title AS CropName
-      FROM crops 
-          INNER JOIN goodscollections ON crops.id = goodscollections.cropid
-          INNER JOIN shipmentitems ON goodscollections.id = shipmentitems.collectionid
-          INNER JOIN shipments ON shipmentitems.shipmentid = shipments.id
-          WHERE shipments.merchantid = 2 AND shipments.status='delivered'
-      GROUP BY crops.id;
-*/
