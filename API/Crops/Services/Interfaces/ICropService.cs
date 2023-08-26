@@ -1,6 +1,6 @@
-using Crops.Repositories.Interfaces;
+using Transflower.EAgroServices.Crops.Repositories.Interfaces;
 
-namespace Crops.Services.Interfaces;
+namespace Transflower.EAgroServices.Crops.Services.Interfaces;
 public interface ICropService : ICropRepository
 {
 }
