@@ -1,9 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 import { User } from '../user';
 import { UserService } from '../user.service';
 import { AuthService } from '../../authentication/auth.service';
-import { LocalStorageKeys } from 'src/app/Models/Enums/local-storage-keys';
 import { Role } from 'src/app/Models/Enums/role';
 import { UUID } from 'angular2-uuid';
 import { HttpClient, HttpEventType } from '@angular/common/http';
@@ -21,7 +19,8 @@ export class UserprofileComponent {
   selectedFile: File | undefined;
   selectedImageUrl: string | undefined;
   editingImage: boolean = false;
-
+  defaultImage: string = 'AkshayTanpure.jpg';
+  imageurl: string | undefined;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   constructor(
@@ -49,6 +48,7 @@ export class UserprofileComponent {
     }
     this.usersvc.getUser(userId).subscribe((response) => {
       this.user = response;
+      this.imageurl = this.url + this.user.imageUrl;
       console.log(response);
     });
   }
@@ -76,14 +76,20 @@ export class UserprofileComponent {
   confirmImage() {
     if (this.selectedFile) {
       const formData = new FormData();
-
+      if (this.user.imageUrl == this.defaultImage) {
+        this.user.imageUrl =
+          UUID.UUID() + '.' + this.selectedFile.name.split('.').pop();
+      }
       formData.append('file', this.selectedFile, this.user.imageUrl);
-
       this.http
-        .post('http://localhost:5102/api/fileupload/'+this.user.imageUrl, formData, {
-          reportProgress: true,
-          observe: 'events',
-        })
+        .post(
+          'http://localhost:5102/api/fileupload/' + this.user.imageUrl,
+          formData,
+          {
+            reportProgress: true,
+            observe: 'events',
+          }
+        )
         .subscribe({
           next: (event) => {
             if (event.type === HttpEventType.UploadProgress && event.total) {
@@ -91,17 +97,16 @@ export class UserprofileComponent {
             }
             if (event.type === HttpEventType.Response) {
               this.message = 'Upload success.';
-             window.location.reload();
+              this.imageurl = this.selectedImageUrl;
             }
           },
         });
 
-      // Reset selectedFile after processing
       this.selectedFile = undefined;
       this.editingImage = false;
     }
   }
-  cancelImage(){
+  cancelImage() {
     this.selectedFile = undefined;
     this.editingImage = false;
   }

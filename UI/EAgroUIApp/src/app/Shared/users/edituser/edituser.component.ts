@@ -48,38 +48,8 @@ export class EdituserComponent {
     });
   }
 
-  uploadFile = (files: any) => {
-    if (files.length === 0) {
-      return;
-    }
+  
 
-    let fileToUpload = <File>files[0];
-    const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
-    console.log(fileToUpload.name.split('.').pop());
-    let filename = UUID.UUID() + '.' + fileToUpload.name.split('.').pop();
-    // this.selectedimage=filename
-    // this.user.imageUrl = filename;
-    this.http
-      .post('http://localhost:5102/api/fileupload/' + filename, formData, {
-        reportProgress: true,
-        observe: 'events',
-      })
-      .subscribe({
-        next: (event) => {
-          if (event.type === HttpEventType.UploadProgress && event.total) {
-            console.log(event);
-            this.progress = Math.round((100 * event.loaded) / event.total);
-          }
-          if (event.type === HttpEventType.Response) {
-            this.message = 'Upload success.';
-            this.url = 'http://localhost:5102/' + filename;
-            this.onUploadFinished.emit(event.body);
-          }
-        },
-        error: (err: HttpErrorResponse) => console.log(err),
-      });
-  };
   updateUser() {
     if (!this.userId) {
       return;

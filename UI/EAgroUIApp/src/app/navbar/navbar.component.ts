@@ -12,21 +12,21 @@ export class NavbarComponent {
   constructor(private router: Router, private authsvc: AuthService) {}
 
   isroleCollectionManager(): boolean {
-    return this.authsvc.isTokenHaveRequiredRole(Role.collectionmanager);
+    return this.authsvc.isTokenHaveRequiredRole(Role.collectionmanager) && this.isLoggedIn();
   }
   isroleInspector(): boolean {
-    return this.authsvc.isTokenHaveRequiredRole(Role.inspector);
+    return this.authsvc.isTokenHaveRequiredRole(Role.inspector)  && this.isLoggedIn() ;
   }
 
   isroleTransporter(): boolean {
-    return this.authsvc.isTokenHaveRequiredRole(Role.transporter);
+    return this.authsvc.isTokenHaveRequiredRole(Role.transporter)  && this.isLoggedIn();
   }
 
   isroleMerchant(): boolean {
-    return this.authsvc.isTokenHaveRequiredRole(Role.merchant);
+    return this.authsvc.isTokenHaveRequiredRole(Role.merchant)  && this.isLoggedIn();
   }
   isroleFarmer(): boolean {
-    return this.authsvc.isTokenHaveRequiredRole(Role.farmer);
+    return this.authsvc.isTokenHaveRequiredRole(Role.farmer)  && this.isLoggedIn();
   }
 
   openUserProfile() {
