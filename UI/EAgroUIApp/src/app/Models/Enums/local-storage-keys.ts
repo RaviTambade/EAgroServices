@@ -3,5 +3,6 @@ export enum LocalStorageKeys {
     farmerId='farmerId',
     merchantId='merchantId',
     transporterId='transporterId',
-    collectionCenterId='collectionCenterId'
+    collectionCenterId='collectionCenterId',
+    inspectorId='inspectorId'
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Collectioncenter } from '../Models/collectioncenter';
 import { Corporate } from '../Models/corporate';
 import { MonthOrderCount } from '../Models/month-order-count';
+import { Inspector } from '../Models/inspector';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class CollectioncenterService {
   getCollectionCenterAndCorporateId(): Observable<Corporate[]> {
     let url =
       'http://localhost:5192/api/collectioncenters/collectioncenterandcorporateid';
-    return this.http.get<any>(url);
+    return this.http.get<Corporate[]>(url);
   }
 
   getCorporateIdByCollectionCenterId(): Observable<number> {
@@ -32,13 +33,12 @@ export class CollectioncenterService {
     let url =
       'http://localhost:5192/api/collectioncenters/corporateid/' +
       collectionCenterId;
-    return this.http.get<any>(url);
+    return this.http.get<number>(url);
   }
-  getMonthOrderCount(): Observable<MonthOrderCount[]> {
-    let collectionCenterId = localStorage.getItem('collectionCenterId');
-    let url =
-      'http://localhost:5192/api/collectioncenters/ordercount/' +
-      collectionCenterId;
-    return this.http.get<MonthOrderCount[]>(url);
+
+  getInspector(userId: number): Observable<Inspector> {
+    let url ='http://localhost:5192/api/inspectors/' + userId;
+    return this.http.get<Inspector>(url);
   }
+
 }

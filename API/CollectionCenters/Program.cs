@@ -21,6 +21,8 @@ builder.Services.AddDbContext<CollectionCenterContext>(
 );
 builder.Services.AddScoped<ICollectionCenterRepository, CollectionCenterRepository>();
 builder.Services.AddScoped<ICollectionCenterService, CollectionCenterService>();
+builder.Services.AddScoped<IInspectorRepository, InspectorRepository>();
+builder.Services.AddScoped<IInspectorService, InspectorService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

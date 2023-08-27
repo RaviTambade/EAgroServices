@@ -5,7 +5,7 @@ import { FiltersService } from 'src/app/Shared/filter/filters.service';
 import { UserService } from 'src/app/Shared/users/user.service';
 import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-center-filter-for';
 import { Subscription } from 'rxjs';
-import { CollectionDetails } from 'src/app/Models/collection-details';
+import { CollectionDetail } from 'src/app/Models/collection-details';
 import { CollectionService } from 'src/app/Services/collection-service.service';
 import { FilterRequest } from 'src/app/Shared/filter/filter-request';
 
@@ -16,7 +16,7 @@ import { FilterRequest } from 'src/app/Shared/filter/filter-request';
   styleUrls: ['./veified-collection-list-filter.component.css']
 })
 export class VeifiedCollectionListFilterComponent implements OnInit, OnDestroy {
-  collections: CollectionDetails[] = [];
+  collections: CollectionDetail[] = [];
   verifiedCollection = CollectionCenterFilterFor.verifiedCollection;
   private filterRequestSubscription: Subscription | undefined;
   private collectionsSubscription: Subscription | undefined;
@@ -39,7 +39,7 @@ export class VeifiedCollectionListFilterComponent implements OnInit, OnDestroy {
 
   getCollections(filterRequest: FilterRequest, pageNumber: number) {
     this.collectionsSubscription = this.collectionsvc.getVerifiedCollections(filterRequest, pageNumber)
-      .subscribe((response: HttpResponse<CollectionDetails[]>) => {
+      .subscribe((response: HttpResponse<CollectionDetail[]>) => {
         console.log('Filter request sent successfully:', response.body);
         this.collections = response.body || [];
         console.table(this.collections)

@@ -16,7 +16,7 @@
             <td>{{ collection.quantity}}</td>
             <td>{{ collection.weight}}</td>
             <ng-container *ngIf="showActions">
-            <td><button (click)="onActionClick('verify', collection.collectionId)"> Verify </button></td>
+            <td *ngIf="isInspector()"><button (click)="onActionClick('verify', collection.collectionId)"> Verify </button></td>
             <td><button (click)="onActionClick('update', collection.collectionId)"> Update </button></td>
             <td><button (click)="onActionClick('remove', collection.collectionId)"> Remove </button></td>
         </ng-container></tr>

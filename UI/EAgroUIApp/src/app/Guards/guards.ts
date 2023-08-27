@@ -1,9 +1,9 @@
-import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
+import { CanActivateChildFn,  CanActivateFn,  CanMatchFn, Router } from '@angular/router';
 import { AuthService } from '../Shared/authentication/auth.service';
 import { inject } from '@angular/core';
 import { Role } from '../Models/Enums/role';
 
-export function canActivateFarmerRoutes(): CanMatchFn | CanActivateFn {
+export function canActivateFarmerRoutes(): CanMatchFn | CanActivateChildFn| CanActivateFn {
   return function () {
     const authsvc: AuthService = inject(AuthService);
     if (
@@ -17,7 +17,7 @@ export function canActivateFarmerRoutes(): CanMatchFn | CanActivateFn {
   };
 }
 
-export function canActivateCollectionCenterRoutes(): CanMatchFn | CanActivateFn {
+export function canActivateCollectionCenterRoutes(): CanMatchFn | CanActivateChildFn |CanActivateFn {
   return function () {
     const authsvc: AuthService = inject(AuthService);
     if (
@@ -31,7 +31,7 @@ export function canActivateCollectionCenterRoutes(): CanMatchFn | CanActivateFn 
   };
 }
 
-export function canActivateTransporterRoutes(): CanMatchFn | CanActivateFn {
+export function canActivateTransporterRoutes(): CanMatchFn | CanActivateChildFn |CanActivateFn {
   return function () {
     const authsvc: AuthService = inject(AuthService);
     if (
@@ -45,7 +45,7 @@ export function canActivateTransporterRoutes(): CanMatchFn | CanActivateFn {
   };
 }
 
-export function canActivateMerchantRoutes(): CanMatchFn | CanActivateFn {
+export function canActivateMerchantRoutes(): CanMatchFn | CanActivateChildFn |CanActivateFn {
   return function () {
     const authsvc: AuthService = inject(AuthService);
     if (
@@ -57,4 +57,18 @@ export function canActivateMerchantRoutes(): CanMatchFn | CanActivateFn {
     const router: Router = inject(Router);
     return router.navigate(['auth/login']);
   };
-}
+};
+
+  export function canActivateInspectorRoutes(): CanMatchFn | CanActivateChildFn |CanActivateFn{
+    return function () {
+      const authsvc: AuthService = inject(AuthService);
+      if (
+        authsvc.isAuthenticated() &&
+        authsvc.isTokenHaveRequiredRole(Role.inspector)
+      ) {
+        return true;
+      }
+      const router: Router = inject(Router);
+      return router.navigate(['auth/login']);
+    };
+  }

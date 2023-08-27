@@ -11,6 +11,7 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import {
   canActivateCollectionCenterRoutes,
   canActivateFarmerRoutes,
+  canActivateInspectorRoutes,
   canActivateMerchantRoutes,
   canActivateTransporterRoutes,
 } from './Guards/guards';
@@ -39,21 +40,21 @@ const routes: Routes = [
   {
     path: 'farmer',
     canMatch: [canActivateFarmerRoutes()],
-    canActivate: [canActivateFarmerRoutes()],
+    canActivateChild: [canActivateFarmerRoutes()],
     loadChildren: () =>
       import('./farmer/farmer.module').then((m) => m.FarmerModule),
   },
   {
     path: 'merchant',
     canMatch: [canActivateMerchantRoutes()],
-    canActivate: [canActivateMerchantRoutes()],
+    canActivateChild: [canActivateMerchantRoutes()],
     loadChildren: () =>
       import('./merchant/merchant.module').then((m) => m.MerchantModule),
   },
   {
     path: 'transporter',
     canMatch: [canActivateTransporterRoutes()],
-    canActivate: [canActivateTransporterRoutes()],
+    canActivateChild: [canActivateTransporterRoutes()],
     loadChildren: () =>
       import('./transporter/transporter.module').then(
         (m) => m.TransporterModule
@@ -62,16 +63,25 @@ const routes: Routes = [
   {
     path: 'collectioncenter',
     canMatch: [canActivateCollectionCenterRoutes()],
-    canActivate: [canActivateCollectionCenterRoutes()],
+    canActivateChild: [canActivateCollectionCenterRoutes()],
     loadChildren: () =>
       import('./collectioncenter/collectioncenter.module').then(
         (m) => m.CollectioncenterModule
       ),
   },
   {
+    path: 'inspector',
+    canMatch: [canActivateInspectorRoutes()],
+    canActivateChild: [canActivateInspectorRoutes()],
+    loadChildren: () =>
+      import('./inspector/inspector.module').then(
+        (m) => m.InspectorModule
+      ),
+  },
+  {
     path: 'collectioncenter/filters',
     canMatch: [canActivateCollectionCenterRoutes()],
-    canActivate: [canActivateCollectionCenterRoutes()],
+    canActivateChild: [canActivateCollectionCenterRoutes()],
     loadChildren: () =>
       import(
         './collection-center-filters/collection-center-filters.module'

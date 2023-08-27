@@ -82,10 +82,10 @@ export class SteppedLineChartComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
 ngOnInit(): void {
-    this.svc.getMonthOrderCount().subscribe((res)=>{
-      this.lineChartData.labels=res.map(monthOrder =>monthOrder.month);
-      this.lineChartData.datasets[0].data=res.map(monthOrder=>monthOrder.orderCount);
-    })
+    // this.svc.getMonthOrderCount().subscribe((res)=>{
+    //   this.lineChartData.labels=res.map(monthOrder =>monthOrder.month);
+    //   this.lineChartData.datasets[0].data=res.map(monthOrder=>monthOrder.orderCount);
+    // })
 }
 
 }

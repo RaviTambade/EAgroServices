@@ -1,7 +1,7 @@
-import { CollectionDetails } from './collection-details';
+import { CollectionDetail } from './collection-details';
 
-describe('CollectionDetails', () => {
+describe('CollectionDetail', () => {
   it('should create an instance', () => {
-    expect(new CollectionDetails()).toBeTruthy();
+    expect(new CollectionDetail()).toBeTruthy();
   });
 });

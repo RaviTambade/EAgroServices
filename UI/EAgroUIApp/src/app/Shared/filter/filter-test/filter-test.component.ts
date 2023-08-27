@@ -77,7 +77,7 @@ export class FilterTestComponent implements OnInit, OnDestroy {
         })
       }
 
-      if (this.rangeProperties.includes("ManagerId")) {
+      if (this.rangeProperties.includes("InspectorId")) {
         this.inspectorsSubscription = this.filterservice.getInspectors().subscribe((res) => {
           this.inspectors = res;
         })
@@ -103,7 +103,6 @@ export class FilterTestComponent implements OnInit, OnDestroy {
       }
     });
 
-    setTimeout(()=>{},2000)
     let prevFilterRequest = sessionStorage.getItem(this.filterFor+"prevFilterRequest");
     console.log(prevFilterRequest);
     console.log(this.filterFor+"prevFilterRequest");
@@ -139,7 +138,7 @@ export class FilterTestComponent implements OnInit, OnDestroy {
       return merchant?.name;
     }
 
-    if (property === 'ManagerId') {
+    if (property === 'InspectorId') {
       let inspector = this.inspectors.find(inspector => inspector.id === minVal);
       return inspector?.name;
     }

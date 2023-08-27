@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VerifiedCollection } from '../../Models/verified-collection';
 import { VerifiedCollectionService } from 'src/app/Services/verified-collection.service';
+import { LocalStorageKeys } from 'src/app/Models/Enums/local-storage-keys';
 
 @Component({
   selector: 'app-verify-collection',
   templateUrl: './verify-collection.component.html',
-  styleUrls: ['./verify-collection.component.css']
+  styleUrls: ['./verify-collection.component.css'],
 })
 export class VerifyCollectionComponent implements OnInit {
   @Input() collectionId: number | undefined;
@@ -16,39 +17,42 @@ export class VerifyCollectionComponent implements OnInit {
 
   constructor(
     private formbuilder: FormBuilder,
-    private verifiedcollectionsvc: VerifiedCollectionService) {
+    private verifiedcollectionsvc: VerifiedCollectionService
+  ) {
     this.collectionForm = this.formbuilder.group({
       grade: ['', Validators.required],
-      weight: ['', [Validators.required, Validators.pattern('[0-9]+')]]
+      weight: ['', [Validators.required, Validators.pattern('[0-9]+')]],
     });
   }
   ngOnInit(): void {
     this.verifiedcollectionsvc.getGrades().subscribe((res) => {
       this.grades = res;
-    })
+    });
   }
 
   OnSubmit() {
     if (this.collectionForm.valid && this.collectionId) {
-      const userId: number = Number(localStorage.getItem("userId"));
+      const inspectorId: number = Number(
+        localStorage.getItem(LocalStorageKeys.inspectorId)
+      );
 
       const collection: VerifiedCollection = {
         collectionId: this.collectionId,
         grade: this.collectionForm.get('grade')?.value,
         weight: this.collectionForm.get('weight')?.value,
-        inspectorId: userId
-      }
+        inspectorId: inspectorId,
+      };
 
-      console.log(collection)
+      console.log(collection);
 
-      this.verifiedcollectionsvc.addVerifiedCollection(collection).subscribe((res) => {
-        if (res) {
-          window.location.reload();
-        }
-      });
-
+      this.verifiedcollectionsvc
+        .addVerifiedCollection(collection)
+        .subscribe((res) => {
+          if (res) {
+            window.location.reload();
+          }
+        });
     }
-
   }
 
   onCancelClick() {

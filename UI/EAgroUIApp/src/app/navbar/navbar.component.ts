@@ -11,21 +11,21 @@ import { Role } from '../Models/Enums/role';
 export class NavbarComponent {
   constructor(private router: Router, private authsvc: AuthService) {}
 
-  isroleCollectionManager(): boolean {
+  isRoleCollectionManager(): boolean {
     return this.authsvc.isTokenHaveRequiredRole(Role.collectionmanager) && this.isLoggedIn();
   }
-  isroleInspector(): boolean {
+  isRoleInspector(): boolean {
     return this.authsvc.isTokenHaveRequiredRole(Role.inspector)  && this.isLoggedIn() ;
   }
 
-  isroleTransporter(): boolean {
+  isRoleTransporter(): boolean {
     return this.authsvc.isTokenHaveRequiredRole(Role.transporter)  && this.isLoggedIn();
   }
 
-  isroleMerchant(): boolean {
+  isRoleMerchant(): boolean {
     return this.authsvc.isTokenHaveRequiredRole(Role.merchant)  && this.isLoggedIn();
   }
-  isroleFarmer(): boolean {
+  isRoleFarmer(): boolean {
     return this.authsvc.isTokenHaveRequiredRole(Role.farmer)  && this.isLoggedIn();
   }
 

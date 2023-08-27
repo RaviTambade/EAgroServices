@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CollectionDetails } from 'src/app/Models/collection-details';
+import { CollectionDetail } from 'src/app/Models/collection-details';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { CollectionDetails } from 'src/app/Models/collection-details';
   styleUrls: ['./collection-list.component.css']
 })
 export class CollectionListComponent {
-  @Input() collections: CollectionDetails[] = [];
+  @Input() collections: CollectionDetail[] = [];
   selectedCollectionId: number | null = null;
 
   onAddToShipment(collectionId: number) {

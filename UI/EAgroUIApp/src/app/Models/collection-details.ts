@@ -1,4 +1,4 @@
-export class CollectionDetails {
+export class CollectionDetail {
     constructor(
         public id: number,
         public farmerId: number,

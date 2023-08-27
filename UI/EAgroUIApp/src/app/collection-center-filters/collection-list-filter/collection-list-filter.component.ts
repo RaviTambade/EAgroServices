@@ -10,8 +10,8 @@ import { FiltersService } from 'src/app/Shared/filter/filters.service';
 import { UserService } from 'src/app/Shared/users/user.service';
 
 enum CollectionListType {
-  Unverified = 'Unverified',
-  All = 'All',
+  Unverified = 'unverified',
+  All = 'all',
 }
 
 @Component({
@@ -39,6 +39,7 @@ export class CollectionListFilterComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log("component called");
     this.filterRequestSubscription = this.filtersvc
       .getCollectionFilterRequest()
       .subscribe((res) => {

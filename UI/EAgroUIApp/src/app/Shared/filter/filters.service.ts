@@ -36,7 +36,7 @@ export class FiltersService {
     { key: 'MerchantCorporateId', value: 'Merchant' },
     { key: 'CollectionCenterCorporateId', value: 'CollectionCenter' },
     { key: 'TransporterCorporateId', value: 'Transporter' },
-    { key: 'ManagerId', value: 'Inspector' },
+    { key: 'InspectorId', value: 'Inspector' },
   ];
 
   constructor(private http: HttpClient, private usrsvc: UserService, private userrolesvc: UserRoleService,

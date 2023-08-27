@@ -20,13 +20,13 @@ import { RevenueLineChartComponent } from './collection-center-dashboard/revenue
 import { CropBarChartComponent } from './collection-center-dashboard/crop-bar-chart/crop-bar-chart.component';
 import { BankingComponent } from './banking/banking.component';
 import { CorporateService } from '../Services/corporate.service';
+import { canActivateCollectionCenterRoutes } from '../Guards/guards';
 
 const collectionCenterRoutes: Routes = [
-  { path: 'dashboard', component: CollectionCenterDashboardComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'addcollection', component: AddCollectionComponent },
-  { path: 'verifycollections', component: CollectionVerificationComponent },
-  { path: 'banking', component: BankingComponent },
+  { path: 'dashboard', component: CollectionCenterDashboardComponent , canActivate: [canActivateCollectionCenterRoutes()], },
+  { path: 'home', component: HomeComponent , canActivate: [canActivateCollectionCenterRoutes()], },
+  { path: 'addcollection', component: AddCollectionComponent , canActivate: [canActivateCollectionCenterRoutes()], },
+  { path: 'banking', component: BankingComponent , canActivate: [canActivateCollectionCenterRoutes()], },
 ]
 
 

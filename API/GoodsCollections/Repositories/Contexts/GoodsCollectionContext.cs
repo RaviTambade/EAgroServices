@@ -11,6 +11,7 @@ public class GoodsCollectionContext : DbContext
     public DbSet<CollectionCenter> CollectionCenters { get; set; }
     public DbSet<VerifiedGoodsCollection> VerifiedGoodsCollections { get; set; }
     public DbSet<Invoice> Invoices { get; set; }
+    public DbSet<Inspector> Inspectors { get; set; }
     public DbSet<ShipmentItem> ShipmentItems { get; set; }
 
     public GoodsCollectionContext(DbContextOptions options)

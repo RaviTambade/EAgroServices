@@ -5,7 +5,7 @@ import { FilterRequest } from '../Shared/filter/filter-request';
 import { GoodsCollection } from '../Models/goods-collection';
 import { UpdateCollection } from '../Models/update-collection';
 import { Collection } from '../Models/collection';
-import { CollectionDetails } from '../Models/collection-details';
+import { CollectionDetail } from '../Models/collection-details';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class CollectionService {
   getVerifiedCollections(
     filterRequest: FilterRequest,
     pageNumber: number
-  ): Observable<HttpResponse<CollectionDetails[]>> {
+  ): Observable<HttpResponse<CollectionDetail[]>> {
     const collectionCenterId = localStorage.getItem('collectionCenterId');
     let url =
       'http://localhost:5154/api/goodscollections/verified/collectioncenter/' +

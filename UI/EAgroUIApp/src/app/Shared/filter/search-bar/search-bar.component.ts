@@ -47,6 +47,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.filterservice.getRangeProperties(this.filterFor).subscribe((response) => {
       this.rangeProperties = response;
+      console.log(this.rangeProperties)
       if (!this.initializationDone) {
         if (!this.doesPreviousRequestContainsRangeProperties(this.filterFor)) {
           this.initializeRangeFilters();
@@ -61,10 +62,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         })
       }
 
-      if (this.rangeProperties.includes("ManagerId")) {
-        this.roles.push("ManagerId");
+      if (this.rangeProperties.includes("InspectorId")) {
+        this.roles.push("InspectorId");
         this.inspectorsSubscription = this.filterservice.getInspectors().subscribe((res) => {
           this.inspectors = res;
+          console.log(this.inspectors)
         })
       }
 
@@ -117,7 +119,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
             collectionCenter.name.toLowerCase().includes(this.searchText.toLowerCase())
           );
           break;
-        case "ManagerId":
+        case "InspectorId":
           this.suggestions = this.inspectors.filter(inspector =>
             inspector.name.toLowerCase().includes(this.searchText.toLowerCase())
           );
@@ -152,7 +154,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   propertyIsPerson(property: string): boolean {
-    return property === 'FarmerId' || property === 'ManagerId'
+    return property === 'FarmerId' || property === 'InspectorId'
   }
 
   propertyIsCorporate(property: string): boolean {

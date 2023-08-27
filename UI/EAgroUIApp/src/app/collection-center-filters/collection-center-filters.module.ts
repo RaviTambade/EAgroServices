@@ -6,12 +6,13 @@ import { FilterModule } from '../Shared/filter/filter.module';
 import { RouterModule, Routes } from '@angular/router';
 import { CollectionShipmentFilterListComponent } from './collection-shipment-filter-list/collection-shipment-filter-list.component';
 import { CollectionPaymentListFilterComponent } from './collection-payment-list-filter/collection-payment-list-filter.component';
+import { canActivateCollectionCenterRoutes } from '../Guards/guards';
 
 const collectionCenterFilterRoutes: Routes = [
-  { path: 'collections', component: CollectionListFilterComponent },
-  { path: 'verifiedcollections', component: VeifiedCollectionListFilterComponent },
-  { path: 'shipments', component: CollectionShipmentFilterListComponent },
-  { path: 'payment', component: CollectionPaymentListFilterComponent },
+  { path: 'collections', component: CollectionListFilterComponent , canActivate: [canActivateCollectionCenterRoutes()],},
+  { path: 'verifiedcollections', component: VeifiedCollectionListFilterComponent , canActivate: [canActivateCollectionCenterRoutes()], },
+  { path: 'shipments', component: CollectionShipmentFilterListComponent, canActivate: [canActivateCollectionCenterRoutes()], },
+  { path: 'payment', component: CollectionPaymentListFilterComponent,  canActivate: [canActivateCollectionCenterRoutes()], },
 ]
 
 
@@ -26,6 +27,9 @@ const collectionCenterFilterRoutes: Routes = [
     CommonModule,
     FilterModule,
     RouterModule.forChild(collectionCenterFilterRoutes)
+  ],
+  exports:[
+    CollectionListFilterComponent
   ]
 })
 export class CollectionCenterFiltersModule { }

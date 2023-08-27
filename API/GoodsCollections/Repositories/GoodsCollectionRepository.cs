@@ -33,6 +33,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 {
                     CollectionId = collection.Id,
                     FarmerId = collection.FarmerId,
+                    CropId = collection.CropId,
                     CropName = crop.Title,
                     ContainerType = collection.ContainerType,
                     Quantity = collection.Quantity,
@@ -85,6 +86,8 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                 join crop in _context.Crops on collection.CropId equals crop.Id
                 join verifiedCollection in _context.VerifiedGoodsCollections
                     on collection.Id equals verifiedCollection.CollectionId
+                join inspector in _context.Inspectors
+                on verifiedCollection.InspectorId equals inspector.Id
                 join shipmentItem in _context.ShipmentItems
                     on collection.Id equals shipmentItem.CollectionId
                     into shipmentItemsCollection
@@ -101,7 +104,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                     Grade = verifiedCollection.Grade,
                     TotalWeight = collection.Weight,
                     NetWeight = verifiedCollection.Weight,
-                    ManagerId = verifiedCollection.InspectorId,
+                    InspectorId = inspector.UserId,
                     CollectionDate = collection.CollectionDate
                 };
             query = query.ApplyFilters(request);
