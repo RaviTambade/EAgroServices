@@ -1,10 +1,10 @@
 
-using Invoices.Repositories.Interfaces;
+using Transflower.Invoices.Repositories.Interfaces;
 
-namespace Invoices.Services.Interfaces
+namespace Transflower.Invoices.Services.Interfaces
 {
-    public interface IInvoiceService:IInvoiceRepository
+    public interface IInvoiceService : IInvoiceRepository
     {
 
-    } 
+    }
 }

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Invoices.Entities
-{
+namespace Transflower.Invoices.Entities;
+
     public class GoodsCosting
     {
         [Column("id")]
@@ -19,4 +19,4 @@ namespace Invoices.Entities
         [Column("servicecharges")]
         public double ServiceCharges { get; set; }
     }
-}
+

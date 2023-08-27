@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 
-namespace Invoices.Models
-{
+namespace Transflower.Invoices.Models;
+
     public class InvoiceDetails
     {
         public int Id { get; set; }
@@ -14,4 +14,4 @@ namespace Invoices.Models
         public string? PaymentStatus { get; set; }
         public DateTime InvoiceDate { get; set; }
     }
-}
+

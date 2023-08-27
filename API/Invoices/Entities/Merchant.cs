@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Invoices.Entities
-{
+namespace Transflower.Invoices.Entities;
     public class Merchant
     {
         [Column("id")]
@@ -13,4 +12,4 @@ namespace Invoices.Entities
         [Column("managerid")]
         public int ManagerId { get; set; }
     }
-}
+

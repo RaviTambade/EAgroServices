@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Invoices.Extensions;
+namespace Transflower.Invoices.Extensions;
 
 public class PagedList<T> : List<T>
 {

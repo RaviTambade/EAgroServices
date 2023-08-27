@@ -1,6 +1,6 @@
 
 
-namespace Invoices.Extensions;
+namespace Transflower.Invoices.Extensions;
 
 public interface IFilterHelperService<T>
 {

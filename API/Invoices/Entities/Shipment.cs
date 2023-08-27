@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Invoices.Entities
-{
+namespace Transflower.Invoices.Entities;
+
     public class Shipment
     {
         [Column("id")]
@@ -27,4 +27,4 @@ namespace Invoices.Entities
             ShipmentDate = DateTime.Now;
         }
     }
-}
+

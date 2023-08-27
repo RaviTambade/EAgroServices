@@ -1,7 +1,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Invoices.Extensions;
+namespace Transflower.Invoices.Extensions;
 
 public class FilterRequest
 {
