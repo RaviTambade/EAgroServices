@@ -1,8 +1,8 @@
-using Farmers.Models;
-using Farmers.Services.Interfaces;
+using Transflower.EAgroServices.Farmers.Models;
+using Transflower.EAgroServices.Farmers.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Farmers.Controllers
+namespace Transflower.EAgroServices.Farmers.Controllers
 {
     [ApiController]
     [Route("/api/farmerscollections")]

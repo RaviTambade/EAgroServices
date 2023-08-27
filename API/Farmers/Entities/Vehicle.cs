@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Farmers.Entities;
+namespace Transflower.EAgroServices.Farmers.Entities;
+[Table("vehicles")]
 public class Vehicle
 {
+    [Key]
     [Column("id")]
     public int Id { get; set; }
 
