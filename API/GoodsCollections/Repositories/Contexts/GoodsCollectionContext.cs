@@ -23,5 +23,6 @@ public class GoodsCollectionContext : DbContext
         VerifiedGoodsCollections = Set<VerifiedGoodsCollection>();
         Invoices = Set<Invoice>();
         ShipmentItems = Set<ShipmentItem>();
+        Inspectors= Set<Inspector>();
     }
 }

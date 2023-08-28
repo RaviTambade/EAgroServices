@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ShipmentService } from '../../Services/shipment.service';
 import { MerchantShipment } from 'src/app/Models/merchant-shipment';
 
-
 @Component({
   selector: 'merchant-shipment-list',
   templateUrl: './merchant-shipment-list.component.html',
-  styleUrls: ['./merchant-shipment-list.component.css']
+  styleUrls: ['./merchant-shipment-list.component.css'],
 })
 export class MerchantShipmentListComponent implements OnInit {
   paidDeliveredStatus: boolean = false;
@@ -15,8 +14,8 @@ export class MerchantShipmentListComponent implements OnInit {
 
   selectedDetailsShipmentId: number | null = null;
   selectedPaymentShipmentId: number | null = null;
-
-  constructor(private svc: ShipmentService) { }
+  isLoading: boolean = false;
+  constructor(private svc: ShipmentService) {}
   ngOnInit(): void {
     this.onClickInprogress();
   }
@@ -24,11 +23,9 @@ export class MerchantShipmentListComponent implements OnInit {
   onClickShipmentDetails(shipmentId: number) {
     if (this.selectedDetailsShipmentId === shipmentId) {
       this.selectedDetailsShipmentId = null;
-
     } else {
       this.selectedDetailsShipmentId = shipmentId;
       this.selectedPaymentShipmentId = null;
-
     }
   }
 
@@ -44,25 +41,42 @@ export class MerchantShipmentListComponent implements OnInit {
   onClickUnpaidDelivered() {
     this.unpaidDeliveredStatus = true;
     this.paidDeliveredStatus = false;
-    this.svc.getDeliveredShipmentByMerchant("UnPaid").subscribe((res) => {
+    this.isLoading = true;
+    this.svc.getDeliveredShipmentByMerchant('UnPaid').subscribe((res) => {
       this.merchantShipments = res;
+      this.isLoading = false;
     });
   }
   onClickPaidDelivered() {
     this.paidDeliveredStatus = true;
     this.unpaidDeliveredStatus = false;
-    this.svc.getDeliveredShipmentByMerchant("Paid").subscribe((res) => {
+    this.isLoading = true;
+    this.svc.getDeliveredShipmentByMerchant('Paid').subscribe((res) => {
       this.merchantShipments = res;
+      this.isLoading = false;
     });
   }
 
   onClickInprogress() {
     this.paidDeliveredStatus = false;
     this.unpaidDeliveredStatus = false;
-        this.svc.getInprogressShipmentsByMerchant().subscribe((res) => {
-      this.merchantShipments = res;
-    });
+    this.isLoading = true;
+    console.log(this.merchantShipments?.length);
+    setTimeout(()=>{
+      this.svc.getInprogressShipmentsByMerchant().subscribe((res) => {
+        this.merchantShipments = res;
+        console.log(this.merchantShipments);
+        this.isLoading = false;
+      });
+    },4000)
+    
   }
 
-  
+  isDataLoaded() {
+    if (!this.merchantShipments?.length && this.isLoading == false) {
+      return false;
+    }
+    console.log((!this.merchantShipments?.length && this.isLoading == false))
+    return true;
+  }
 }
