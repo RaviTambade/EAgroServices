@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Invoices.Entities
-{
+namespace Transflower.Invoices.Entities;
+
     public class GoodsCollection
     {
         [Column("id")]
@@ -29,4 +29,4 @@ namespace Invoices.Entities
         public DateTime CollectionDate { get; set; }
 
     }
-}
+

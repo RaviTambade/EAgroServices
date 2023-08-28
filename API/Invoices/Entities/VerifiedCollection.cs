@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Invoices.Entities;
+namespace Transflower.Invoices.Entities;
 
 public class VerifiedCollection
 {

@@ -1,5 +1,4 @@
-namespace Farmers.Models
-{
+namespace Transflower.EAgroServices.Farmers.Models;
     public class InvoiceChargesDetails
     {
         public int Id { get; set; }
@@ -18,9 +17,8 @@ namespace Farmers.Models
         public double LabourCharges { get; set; }
         public double ServiceCharges { get; set; }
         public string? PaymentStatus { get; set; }
-
         public double RatePerKg { get; set; }
         public double TotalAmount { get; set; } 
         public DateTime InvoiceDate { get; set; }
     }
-}
+

@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-namespace Invoices.Extensions;
+namespace Transflower.Invoices.Extensions;
 
 public static class HttpResponseExtensions
 {

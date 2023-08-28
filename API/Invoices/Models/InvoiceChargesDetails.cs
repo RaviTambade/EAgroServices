@@ -1,5 +1,5 @@
-namespace Invoices.Models
-{
+namespace Transflower.Invoices.Models;
+
     public class InvoiceChargesDetails
     {
         public int Id { get; set; }
@@ -22,4 +22,4 @@ namespace Invoices.Models
         public double FarmerAmount { get; set; }
         public DateTime InvoiceDate { get; set; }
     }
-}
+

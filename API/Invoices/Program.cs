@@ -1,16 +1,28 @@
 
-using Invoices.Services.Interfaces;
-using Invoices.Repositories.Interfaces;
-using Invoices.Services;
-using Invoices.Repositories;
-using Invoices.Extensions;
-using Invoices.Models;
+using Transflower.Invoices.Services.Interfaces;
+using Transflower.Invoices.Repositories.Interfaces;
+using Transflower.Invoices.Services;
+using Transflower.Invoices.Repositories;
+using Transflower.Invoices.Extensions;
+using Transflower.Invoices.Models;
+using Transflower.Invoices.Repositories.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddCors();
 builder.Services.AddControllers();
+builder.Services.AddDbContext<InvoiceContext>(
+    options =>
+        options
+            .UseMySQL(
+                builder.Configuration.GetConnectionString("DefaultConnection")
+                    ?? throw new ArgumentNullException(nameof(options))
+            )
+            .LogTo(Console.WriteLine, LogLevel.Information)
+);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();

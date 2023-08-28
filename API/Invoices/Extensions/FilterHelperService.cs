@@ -1,7 +1,7 @@
 using System.Linq;
 
-namespace Invoices.Extensions
-{
+namespace Transflower.Invoices.Extensions;
+
     public class FilterHelperService<T> : IFilterHelperService<T>
     {
         public List<string> GetPropertyNames()
@@ -56,4 +56,4 @@ namespace Invoices.Extensions
             return propertyNames;
         }
     }
-}
+

@@ -1,366 +1,354 @@
-using Invoices.Models;
-using Invoices.Entities;
-using Invoices.Repositories.Interfaces;
-using Invoices.Repositories.Contexts;
+using Transflower.Invoices.Models;
+using Transflower.Invoices.Entities;
+using Transflower.Invoices.Repositories.Interfaces;
+using Transflower.Invoices.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Invoices.Extensions;
+using Transflower.Invoices.Extensions;
 
-namespace Invoices.Repositories
+namespace Transflower.Invoices.Repositories;
+
+public class InvoiceRepository : IInvoiceRepository
 {
-    public class InvoiceRepository : IInvoiceRepository
+    private readonly InvoiceContext _context;
+
+    public InvoiceRepository(InvoiceContext context)
     {
-        private readonly IConfiguration _configuration;
+        _context = context;
+    }
 
-        public InvoiceRepository(IConfiguration configuration)
+    public async Task<List<InvoiceDetails>> GetAll(int merchantId, string paymentStatus)
+    {
+        try
         {
-            _configuration = configuration;
-        }
 
-        public async Task<List<InvoiceDetails>> GetAll(int merchantId, string paymentStatus)
-        {
-            try
-            {
-                using (var context = new InvoiceContext(_configuration))
+            var invoices = await (
+                from invoice in _context.Invoices
+                join shipmentItem in _context.ShipmentItems
+                    on invoice.ShipmentItemId equals shipmentItem.Id
+                join charges in _context.GoodsCostings
+                    on shipmentItem.Id equals charges.ShipmentItemId
+                join shipment in _context.Shipments
+                    on shipmentItem.ShipmentId equals shipment.Id
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where
+                    shipment.MerchantId == merchantId
+                    && invoice.PaymentStatus == paymentStatus
+                select new InvoiceDetails()
                 {
-                    var invoices = await (
-                        from invoice in context.Invoices
-                        join shipmentItem in context.ShipmentItems
-                            on invoice.ShipmentItemId equals shipmentItem.Id
-                        join charges in context.Costing
-                            on shipmentItem.Id equals charges.ShipmentItemId
-                        join shipment in context.Shipments
-                            on shipmentItem.ShipmentId equals shipment.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join verifiedCollection in context.VerifiedCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        join crop in context.Crops on collection.CropId equals crop.Id
-                        where
-                            shipment.MerchantId == merchantId
-                            && invoice.PaymentStatus == paymentStatus
-                        select new InvoiceDetails()
-                        {
-                            Id = invoice.Id,
-                            FarmerId = collection.FarmerId,
-                            CropName = crop.Title,
-                            Quantity = collection.Quantity,
-                            Weight = verifiedCollection.Weight,
-                            RatePerKg = invoice.RatePerKg,
-                            PaymentStatus = invoice.PaymentStatus,
-                            TotalAmount = invoice.TotalAmount+charges.LabourCharges+charges.ServiceCharges,
-                            InvoiceDate = invoice.InvoiceDate
-                        }
-                    ).ToListAsync();
-                    return invoices;
+                    Id = invoice.Id,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    Quantity = collection.Quantity,
+                    Weight = verifiedCollection.Weight,
+                    RatePerKg = invoice.RatePerKg,
+                    PaymentStatus = invoice.PaymentStatus,
+                    TotalAmount = invoice.TotalAmount + charges.LabourCharges + charges.ServiceCharges,
+                    InvoiceDate = invoice.InvoiceDate
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+            ).ToListAsync();
+            return invoices;
 
-        public async Task<PagedList<CollectionCenterInvoice>> GetCollectionCenterInvoices(
-            int collectionCenterId,
-            string status,
-            FilterRequest request,
-            int pageNumber
-        )
+        }
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new InvoiceContext(_configuration))
+            throw;
+        }
+    }
+
+    public async Task<PagedList<CollectionCenterInvoice>> GetCollectionCenterInvoices(
+        int collectionCenterId,
+        string status,
+        FilterRequest request,
+        int pageNumber
+    )
+    {
+        try
+        {
+            var query =
+                from invoice in _context.Invoices
+                join shipmentItem in _context.ShipmentItems
+                    on invoice.ShipmentItemId equals shipmentItem.Id
+                join shipment in _context.Shipments
+                    on shipmentItem.ShipmentId equals shipment.Id
+                join charges in _context.GoodsCostings
+                    on shipmentItem.Id equals charges.ShipmentItemId
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where
+                    collection.CollectionCenterId == collectionCenterId
+                    && invoice.PaymentStatus == status
+                orderby invoice.InvoiceDate descending
+                select new CollectionCenterInvoice()
                 {
-                    var query =
-                        from invoice in context.Invoices
-                        join shipmentItem in context.ShipmentItems
-                            on invoice.ShipmentItemId equals shipmentItem.Id
-                        join shipment in context.Shipments
-                            on shipmentItem.ShipmentId equals shipment.Id
-                        join charges in context.Costing
-                            on shipmentItem.Id equals charges.ShipmentItemId
-                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join verifiedCollection in context.VerifiedCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        join crop in context.Crops on collection.CropId equals crop.Id
-                        where
-                            collection.CollectionCenterId == collectionCenterId
-                            && invoice.PaymentStatus == status
-                        orderby invoice.InvoiceDate descending
-                        select new CollectionCenterInvoice()
-                        {
-                            Id = invoice.Id,
-                            MerchantCorporateId = merchant.CorporateId,
-                            FarmerId = collection.FarmerId,
-                            CropName = crop.Title,
-                            Quantity = collection.Quantity,
-                            Weight = verifiedCollection.Weight,
-                            RatePerKg = invoice.RatePerKg,
-                            TotalAmount = charges.ServiceCharges + charges.LabourCharges,
-                            InvoiceDate = invoice.InvoiceDate
-                        };
-                    query = query.ApplyFilters(request);
-                    return await PagedList<CollectionCenterInvoice>.ToPagedList(query, pageNumber);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+                    Id = invoice.Id,
+                    MerchantCorporateId = merchant.CorporateId,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    Quantity = collection.Quantity,
+                    Weight = verifiedCollection.Weight,
+                    RatePerKg = invoice.RatePerKg,
+                    TotalAmount = charges.ServiceCharges + charges.LabourCharges,
+                    InvoiceDate = invoice.InvoiceDate
+                };
+            query = query.ApplyFilters(request);
+            return await PagedList<CollectionCenterInvoice>.ToPagedList(query, pageNumber);
 
-        public async Task<InvoiceChargesDetails?> GetById(int invoiceId)
+        }
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new InvoiceContext(_configuration))
+            throw;
+        }
+    }
+
+    public async Task<InvoiceChargesDetails?> GetById(int invoiceId)
+    {
+        try
+        {
+            var invoiceDetails = await (
+  from invoice in _context.Invoices
+  join shipmentItem in _context.ShipmentItems
+      on invoice.ShipmentItemId equals shipmentItem.Id
+  join charges in _context.GoodsCostings
+      on shipmentItem.Id equals charges.ShipmentItemId
+  join shipment in _context.Shipments
+      on shipmentItem.ShipmentId equals shipment.Id
+  join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+  join transporter in _context.Transporters
+      on vehicle.TransporterId equals transporter.Id
+  join collection in _context.GoodsCollections
+      on shipmentItem.CollectionId equals collection.Id
+  join collectionCenter in _context.CollectionCenters
+      on collection.CollectionCenterId equals collectionCenter.Id
+  join verifiedCollection in _context.VerifiedCollections
+      on collection.Id equals verifiedCollection.CollectionId
+  join crop in _context.Crops on collection.CropId equals crop.Id
+  where invoice.Id == invoiceId
+  select new InvoiceChargesDetails()
+  {
+      Id = invoice.Id,
+      FarmerId = collection.FarmerId,
+      CollectionId = collection.Id,
+      CollectionCenterCorporateId = collectionCenter.CorporateId,
+      TransporterCorporateId = transporter.CorporateId,
+      VehicleNumber = vehicle.RtoNumber,
+      CropName = crop.Title,
+      Grade = verifiedCollection.Grade,
+      ContainerType = collection.ContainerType,
+      Quantity = collection.Quantity,
+      TotalWeight = collection.Weight,
+      NetWeight = verifiedCollection.Weight,
+      FreightCharges = charges.FreightCharges,
+      LabourCharges = charges.LabourCharges,
+      PaymentStatus = invoice.PaymentStatus,
+      ServiceCharges = charges.ServiceCharges,
+      RatePerKg = invoice.RatePerKg,
+      FarmerAmount = invoice.TotalAmount,
+      InvoiceDate = invoice.InvoiceDate
+  }
+).FirstOrDefaultAsync();
+
+            return invoiceDetails;
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<FarmerInvoice?> GetInvoice(int collectionId)
+    {
+        try
+        {
+            var invoiceDetails = await (
+                from invoice in _context.Invoices
+                join shipmentItem in _context.ShipmentItems
+                    on invoice.ShipmentItemId equals shipmentItem.Id
+                join charges in _context.GoodsCostings
+                    on shipmentItem.Id equals charges.ShipmentItemId
+                join shipment in _context.Shipments
+                    on shipmentItem.ShipmentId equals shipment.Id
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                join transporter in _context.Transporters
+                    on vehicle.TransporterId equals transporter.Id
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join collectionCenter in _context.CollectionCenters
+                    on collection.CollectionCenterId equals collectionCenter.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                where shipmentItem.CollectionId == collectionId
+                select new FarmerInvoice()
                 {
-                    var invoiceDetails = await (
-                        from invoice in context.Invoices
-                        join shipmentItem in context.ShipmentItems
-                            on invoice.ShipmentItemId equals shipmentItem.Id
-                        join charges in context.Costing
-                            on shipmentItem.Id equals charges.ShipmentItemId
-                        join shipment in context.Shipments
-                            on shipmentItem.ShipmentId equals shipment.Id
-                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        join transporter in context.Transporters
-                            on vehicle.TransporterId equals transporter.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join collectionCenter in context.CollectionCenters
-                            on collection.CollectionCenterId equals collectionCenter.Id
-                        join verifiedCollection in context.VerifiedCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        join crop in context.Crops on collection.CropId equals crop.Id
-                        where invoice.Id == invoiceId
-                        select new InvoiceChargesDetails()
-                        {
-                            Id = invoice.Id,
-                            FarmerId = collection.FarmerId,
-                            CollectionId = collection.Id,
-                            CollectionCenterCorporateId = collectionCenter.CorporateId,
-                            TransporterCorporateId = transporter.CorporateId,
-                            VehicleNumber = vehicle.RtoNumber,
-                            CropName = crop.Title,
-                            Grade = verifiedCollection.Grade,
-                            ContainerType = collection.ContainerType,
-                            Quantity = collection.Quantity,
-                            TotalWeight = collection.Weight,
-                            NetWeight = verifiedCollection.Weight,
-                            FreightCharges = charges.FreightCharges,
-                            LabourCharges = charges.LabourCharges,
-                            PaymentStatus = invoice.PaymentStatus,
-                            ServiceCharges = charges.ServiceCharges,
-                            RatePerKg = invoice.RatePerKg,
-                            FarmerAmount = invoice.TotalAmount,
-                            InvoiceDate = invoice.InvoiceDate
-                        }
-                    ).FirstOrDefaultAsync();
-
-                    return invoiceDetails;
+                    MerchantCorporateId = merchant.CorporateId,
+                    CollectionCenterCorporateId = collectionCenter.CorporateId,
+                    TransporterCorporateId = transporter.CorporateId,
+                    VehicleNumber = vehicle.RtoNumber,
+                    CropName = crop.Title,
+                    Grade = verifiedCollection.Grade,
+                    ContainerType = collection.ContainerType,
+                    Quantity = collection.Quantity,
+                    TotalWeight = collection.Weight,
+                    NetWeight = verifiedCollection.Weight,
+                    FreightCharges = charges.FreightCharges,
+                    LabourCharges = charges.LabourCharges,
+                    PaymentStatus = invoice.PaymentStatus,
+                    ServiceCharges = charges.ServiceCharges,
+                    RatePerKg = invoice.RatePerKg,
+                    FarmerAmount = invoice.TotalAmount,
+                    InvoiceDate = invoice.InvoiceDate
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+            ).FirstOrDefaultAsync();
+            return invoiceDetails;
 
-        public async Task<FarmerInvoice?> GetInvoice(int collectionId)
+        }
+        catch (Exception)
         {
-            try
+            throw;
+        }
+    }
+
+    public async Task<bool> Insert(Invoice invoice)
+    {
+        try
+        {
+            bool status = false;
+
+            await _context.Invoices.AddAsync(invoice);
+            status = await SaveChanges(_context);
+            return status;
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<bool> Update(int invoiceId, UpdateRate rate)
+    {
+        try
+        {
+            bool status = false;
+
+            var oldInvoice = await _context.Invoices.FindAsync(invoiceId);
+            if (oldInvoice is not null)
             {
-                using (var context = new InvoiceContext(_configuration))
+                oldInvoice.RatePerKg = rate.RatePerKg;
+                status = await SaveChanges(_context);
+            }
+            if (status)
+                _context.Database.ExecuteSqlRaw(
+                    "CALL calculate_total_amount(@p0)",
+                    invoiceId
+                );
+            return status;
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<bool> Delete(int invoiceId)
+    {
+        try
+        {
+            bool status = false;
+
+            var invoice = await _context.Invoices.FindAsync(invoiceId);
+            if (invoice is not null)
+            {
+                _context.Invoices.Remove(invoice);
+                status = await SaveChanges(_context);
+            }
+            return status;
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    private async Task<bool> SaveChanges(InvoiceContext context)
+    {
+        int rowsAffected = await context.SaveChangesAsync();
+        if (rowsAffected > 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<CollectionCenterInvoiceDetails?> GetCollectionCenterInvoiceDetails(
+        int collectionCenterId,
+        int invoiceId
+    )
+    {
+        try
+        {
+            var invoiceDetails = await (
+                from invoice in _context.Invoices
+                join shipmentItem in _context.ShipmentItems
+                    on invoice.ShipmentItemId equals shipmentItem.Id
+                join charges in _context.GoodsCostings
+                    on shipmentItem.Id equals charges.ShipmentItemId
+                join shipment in _context.Shipments
+                    on shipmentItem.ShipmentId equals shipment.Id
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                join transporter in _context.Transporters
+                    on vehicle.TransporterId equals transporter.Id
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join collectionCenter in _context.CollectionCenters
+                    on collection.CollectionCenterId equals collectionCenter.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where
+                    invoice.Id == invoiceId
+                    && collection.CollectionCenterId == collectionCenterId
+                select new CollectionCenterInvoiceDetails()
                 {
-                    var invoiceDetails = await (
-                        from invoice in context.Invoices
-                        join shipmentItem in context.ShipmentItems
-                            on invoice.ShipmentItemId equals shipmentItem.Id
-                        join charges in context.Costing
-                            on shipmentItem.Id equals charges.ShipmentItemId
-                        join shipment in context.Shipments
-                            on shipmentItem.ShipmentId equals shipment.Id
-                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        join transporter in context.Transporters
-                            on vehicle.TransporterId equals transporter.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join collectionCenter in context.CollectionCenters
-                            on collection.CollectionCenterId equals collectionCenter.Id
-                        join verifiedCollection in context.VerifiedCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        join crop in context.Crops on collection.CropId equals crop.Id
-                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
-                        where shipmentItem.CollectionId == collectionId
-                        select new FarmerInvoice()
-                        {
-                            MerchantCorporateId=merchant.CorporateId,
-                            CollectionCenterCorporateId = collectionCenter.CorporateId,
-                            TransporterCorporateId = transporter.CorporateId,
-                            VehicleNumber = vehicle.RtoNumber,
-                            CropName = crop.Title,
-                            Grade = verifiedCollection.Grade,
-                            ContainerType = collection.ContainerType,
-                            Quantity = collection.Quantity,
-                            TotalWeight = collection.Weight,
-                            NetWeight = verifiedCollection.Weight,
-                            FreightCharges = charges.FreightCharges,
-                            LabourCharges = charges.LabourCharges,
-                            PaymentStatus = invoice.PaymentStatus,
-                            ServiceCharges = charges.ServiceCharges,
-                            RatePerKg = invoice.RatePerKg,
-                            FarmerAmount = invoice.TotalAmount,
-                            InvoiceDate = invoice.InvoiceDate
-                        }
-                    ).FirstOrDefaultAsync();
-                    return invoiceDetails;
+                    FarmerId = collection.FarmerId,
+                    MerchantCorporateId = merchant.CorporateId,
+                    TransporterCorporateId = transporter.CorporateId,
+                    VehicleNumber = vehicle.RtoNumber,
+                    CropName = crop.Title,
+                    Grade = verifiedCollection.Grade,
+                    ContainerType = collection.ContainerType,
+                    Quantity = collection.Quantity,
+                    TotalWeight = collection.Weight,
+                    NetWeight = verifiedCollection.Weight,
+                    FreightCharges = charges.FreightCharges,
+                    LabourCharges = charges.LabourCharges,
+                    ServiceCharges = charges.ServiceCharges,
+                    RatePerKg = invoice.RatePerKg,
+                    FarmerAmount = invoice.TotalAmount,
+                    InvoiceDate = invoice.InvoiceDate
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            ).FirstOrDefaultAsync();
+
+            return invoiceDetails;
+
         }
-
-        public async Task<bool> Insert(Invoice invoice)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new InvoiceContext(_configuration))
-                {
-                    await context.Invoices.AddAsync(invoice);
-                    status = await SaveChanges(context);
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task<bool> Update(int invoiceId, UpdateRate rate)
-        {
-            try
-            {
-                bool status = false;
-                using (var context = new InvoiceContext(_configuration))
-                {
-                    var oldInvoice = await context.Invoices.FindAsync(invoiceId);
-                    if (oldInvoice is not null)
-                    {
-                        oldInvoice.RatePerKg = rate.RatePerKg;
-                        status = await SaveChanges(context);
-                    }
-                    if (status)
-                        context.Database.ExecuteSqlRaw(
-                            "CALL calculate_total_amount(@p0)",
-                            invoiceId
-                        );
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task<bool> Delete(int invoiceId)
-        {
-            try
-            {
-                bool status = false;
-                using (var context = new InvoiceContext(_configuration))
-                {
-                    var invoice = await context.Invoices.FindAsync(invoiceId);
-                    if (invoice is not null)
-                    {
-                        context.Invoices.Remove(invoice);
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        private async Task<bool> SaveChanges(InvoiceContext context)
-        {
-            int rowsAffected = await context.SaveChangesAsync();
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public async Task<CollectionCenterInvoiceDetails?> GetCollectionCenterInvoiceDetails(
-            int collectionCenterId,
-            int invoiceId
-        )
-        {
-            try
-            {
-                using (var context = new InvoiceContext(_configuration))
-                {
-                    var invoiceDetails = await (
-                        from invoice in context.Invoices
-                        join shipmentItem in context.ShipmentItems
-                            on invoice.ShipmentItemId equals shipmentItem.Id
-                        join charges in context.Costing
-                            on shipmentItem.Id equals charges.ShipmentItemId
-                        join shipment in context.Shipments
-                            on shipmentItem.ShipmentId equals shipment.Id
-                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
-                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        join transporter in context.Transporters
-                            on vehicle.TransporterId equals transporter.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join collectionCenter in context.CollectionCenters
-                            on collection.CollectionCenterId equals collectionCenter.Id
-                        join verifiedCollection in context.VerifiedCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        join crop in context.Crops on collection.CropId equals crop.Id
-                        where
-                            invoice.Id == invoiceId
-                            && collection.CollectionCenterId == collectionCenterId
-                        select new CollectionCenterInvoiceDetails()
-                        {
-                            FarmerId = collection.FarmerId,
-                            MerchantCorporateId = merchant.CorporateId,
-                            TransporterCorporateId = transporter.CorporateId,
-                            VehicleNumber = vehicle.RtoNumber,
-                            CropName = crop.Title,
-                            Grade = verifiedCollection.Grade,
-                            ContainerType = collection.ContainerType,
-                            Quantity = collection.Quantity,
-                            TotalWeight = collection.Weight,
-                            NetWeight = verifiedCollection.Weight,
-                            FreightCharges = charges.FreightCharges,
-                            LabourCharges = charges.LabourCharges,
-                            ServiceCharges = charges.ServiceCharges,
-                            RatePerKg = invoice.RatePerKg,
-                            FarmerAmount = invoice.TotalAmount,
-                            InvoiceDate = invoice.InvoiceDate
-                        }
-                    ).FirstOrDefaultAsync();
-
-                    return invoiceDetails;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
     }
 }
+

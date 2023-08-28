@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Farmers.Models
-;
+namespace Transflower.EAgroServices.Farmers.Models;
 public class FarmerCollection
 {
-
     public int Id { get; set; }
     public int CollectionCenterId { get; set; }
     public int CorporateId { get; set; }
@@ -16,8 +14,6 @@ public class FarmerCollection
     public DateTime CollectionDate { get; set; }
     public string? Grade { get; set; }
     public string? PaymentStatus {get; set;}
-
     public double VerifiedWeight { get; set; }
-
     public DateTime InspectionDate { get; set; }
 }

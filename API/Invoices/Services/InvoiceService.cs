@@ -1,11 +1,10 @@
-using Invoices.Services.Interfaces;
-using Invoices.Repositories.Interfaces;
-using Invoices.Models;
-using ZstdNet;
-using Invoices.Extensions;
-using Invoices.Entities;
+using Transflower.Invoices.Services.Interfaces;
+using Transflower.Invoices.Repositories.Interfaces;
+using Transflower.Invoices.Models;
+using Transflower.Invoices.Extensions;
+using Transflower.Invoices.Entities;
 
-namespace Invoices.Services
+namespace Transflower.Invoices.Services
 {
     public class InvoiceService : IInvoiceService
     {

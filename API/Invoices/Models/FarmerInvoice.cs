@@ -1,4 +1,4 @@
-namespace Invoices.Models;
+namespace Transflower.Invoices.Models;
 
 public class FarmerInvoice{
         public int MerchantCorporateId{ get; set; }
