@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Shipments.Extensions;
+namespace Transflower.EAgroServices.Shipments.Extensions;
 
 public class PagedList<T> : List<T>
 {

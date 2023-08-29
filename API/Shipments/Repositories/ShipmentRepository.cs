@@ -1,569 +1,447 @@
-using Shipments.Models;
-using Shipments.Entities;
-using Shipments.Repositories.Interfaces;
-using Shipments.Repositories.Contexts;
+using Transflower.EAgroServices.Shipments.Models;
+using Transflower.EAgroServices.Shipments.Entities;
+using Transflower.EAgroServices.Shipments.Repositories.Interfaces;
+using Transflower.EAgroServices.Shipments.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Shipments.Extensions;
+using Transflower.EAgroServices.Shipments.Extensions;
 
-namespace Shipments.Repositories
+namespace Transflower.EAgroServices.Shipments.Repositories;
+
+public class ShipmentRepository : IShipmentRepository
 {
-    public class ShipmentRepository : IShipmentRepository
+    private readonly ShipmentContext _context;
+
+    public ShipmentRepository(ShipmentContext context)
     {
-        private readonly IConfiguration _configuration;
+        _context = context;
+    }
 
-        public ShipmentRepository(IConfiguration configuration)
+    public async Task<List<Shipment>> GetAll()
+    {
+        try
         {
-            _configuration = configuration;
+            var shipments = await _context.Shipments.ToListAsync();
+            return shipments;
         }
-
-        public async Task<List<Shipment>> GetAll()
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipments = await context.Shipments.ToListAsync();
-                    return shipments;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId)
+    public async Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId)
+    {
+        try
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
+            var merchantShipments = await (
+                from shipment in _context.Shipments
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                where
+                    shipment.MerchantId == merchantId
+                    && shipment.Status == ShipmentStatus.Inprogress
+                select new MerchantShipment()
                 {
-                    var shipments = await (
-                        from shipment in context.Shipments
-                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        where
-                            shipment.MerchantId == merchantId
-                            && shipment.Status == ShipmentStatus.Inprogress
-                        select new MerchantShipment()
-                        {
-                            Id = shipment.Id,
-                            VehicleNumber = vehicle.RtoNumber,
-                            Kilometers = shipment.Kilometers,
-                            DeliveryStatus = shipment.Status,
-                            PaymentStatus = PaymentStatus.UnPaid,
-                            ShipmentDate = shipment.ShipmentDate,
-                            FreightCharges = context.TotalFreightCharges(shipment.Id)
-                        }
-                    ).ToListAsync();
-                    return shipments;
+                    Id = shipment.Id,
+                    VehicleNumber = vehicle.RtoNumber,
+                    Kilometers = shipment.Kilometers,
+                    DeliveryStatus = shipment.Status,
+                    PaymentStatus = PaymentStatus.UnPaid,
+                    ShipmentDate = shipment.ShipmentDate,
+                    FreightCharges = _context.TotalFreightCharges(shipment.Id)
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            ).ToListAsync();
+            return merchantShipments;
         }
-
-        public async Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
-            int merchantId,
-            string paymentStatus
-        )
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipments = await (
-                        from shipment in context.Shipments
-                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        where
-                            shipment.MerchantId == merchantId
-                            && shipment.Status == ShipmentStatus.Delivered
-                        let calculatedPaymentStatus = context.TransporterPayments.Any(
-                            tp => tp.ShipmentId == shipment.Id
-                        )
-                            ? PaymentStatus.Paid
-                            : PaymentStatus.UnPaid
-                        where calculatedPaymentStatus == paymentStatus
-                        select new MerchantShipment()
-                        {
-                            Id = shipment.Id,
-                            VehicleNumber = vehicle.RtoNumber,
-                            Kilometers = shipment.Kilometers,
-                            DeliveryStatus = shipment.Status,
-                            PaymentStatus = calculatedPaymentStatus,
-                            ShipmentDate = shipment.ShipmentDate,
-                            FreightCharges = context.TotalFreightCharges(shipment.Id)
-                        }
-                    ).ToListAsync();
-
-                    return shipments;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<List<InprogressShipment>> GetInprogressShipments()
+    public async Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
+        int merchantId,
+        string paymentStatus
+    )
+    {
+        try
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
+            var merchantShipments = await (
+                from shipment in _context.Shipments
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                where
+                    shipment.MerchantId == merchantId && shipment.Status == ShipmentStatus.Delivered
+                let calculatedPaymentStatus = _context.TransporterPayments.Any(
+                    tp => tp.ShipmentId == shipment.Id
+                )
+                    ? PaymentStatus.Paid
+                    : PaymentStatus.UnPaid
+                where calculatedPaymentStatus == paymentStatus
+                select new MerchantShipment()
                 {
-                    var shipments = await (
-                        from shipment in context.Shipments
-                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
-                        where shipment.Status == ShipmentStatus.Inprogress
-                        select new InprogressShipment()
-                        {
-                            Id = shipment.Id,
-                            MerchantCorporateId = merchant.CorporateId,
-                            VehicleNumber = vehicle.RtoNumber
-                        }
-                    ).ToListAsync();
-                    return shipments;
+                    Id = shipment.Id,
+                    VehicleNumber = vehicle.RtoNumber,
+                    Kilometers = shipment.Kilometers,
+                    DeliveryStatus = shipment.Status,
+                    PaymentStatus = calculatedPaymentStatus,
+                    ShipmentDate = shipment.ShipmentDate,
+                    FreightCharges = _context.TotalFreightCharges(shipment.Id)
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            ).ToListAsync();
+
+            return merchantShipments;
         }
-
-        public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipmentItems = await (
-                        from shipmentItem in context.ShipmentItems
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join collectionCenter in context.CollectionCenters
-                            on collection.CollectionCenterId equals collectionCenter.Id
-                        join verifiedCollection in context.VerifiedCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        join crop in context.Crops on collection.CropId equals crop.Id
-                        where shipmentItem.ShipmentId == shipmentId
-                        select new ShipmentItemDetails()
-                        {
-                            Id = shipmentItem.Id,
-                            CollectionCenterCorporaterId = collectionCenter.CorporateId,
-                            FarmerId = collection.FarmerId,
-                            CropName = crop.Title,
-                            Grade = verifiedCollection.Grade,
-                            ContainerType = collection.ContainerType,
-                            Quantity = collection.Quantity,
-                            TotalWeight = collection.Weight,
-                            NetWeight = verifiedCollection.Weight,
-                            CollectionDate = collection.CollectionDate
-                        }
-                    ).ToListAsync();
-                    return shipmentItems;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<Shipment?> GetById(int shipmentId)
+    public async Task<List<InprogressShipment>> GetInprogressShipments()
+    {
+        try
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
+            var inprogressShipments = await (
+                from shipment in _context.Shipments
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                where shipment.Status == ShipmentStatus.Inprogress
+                select new InprogressShipment()
                 {
-                    var shipment = await context.Shipments.FindAsync(shipmentId);
-                    return shipment;
+                    Id = shipment.Id,
+                    MerchantCorporateId = merchant.CorporateId,
+                    VehicleNumber = vehicle.RtoNumber
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            ).ToListAsync();
+            return inprogressShipments;
         }
-
-        public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var transporterAmount = await (
-                        from shipment in context.Shipments
-                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        where shipment.Id == shipmentId
-                        select new TransporterAmount()
-                        {
-                            TransporterId = vehicle.TransporterId,
-                            PaymentStatus = context.TransporterPayments.Any(
-                                tp => tp.ShipmentId == shipment.Id
-                            )
-                                ? "paid"
-                                : "unpaid",
-                            Amount = context.TotalFreightCharges(shipment.Id)
-                        }
-                    ).FirstOrDefaultAsync();
-                    return transporterAmount;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<bool> Insert(Shipment shipment)
+    public async Task<List<ShipmentItemDetail>> GetShipmentItemsById(int shipmentId)
+    {
+        try
         {
-            try
-            {
-                bool status = false;
-                if (await IsShipmentAlredyInprogress(shipment))
+            var shipmentItemDetails = await (
+                from shipmentItem in _context.ShipmentItems
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join collectionCenter in _context.CollectionCenters
+                    on collection.CollectionCenterId equals collectionCenter.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where shipmentItem.ShipmentId == shipmentId
+                select new ShipmentItemDetail()
                 {
-                    return status;
+                    Id = shipmentItem.Id,
+                    CollectionCenterCorporaterId = collectionCenter.CorporateId,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    Grade = verifiedCollection.Grade,
+                    ContainerType = collection.ContainerType,
+                    Quantity = collection.Quantity,
+                    TotalWeight = collection.Weight,
+                    NetWeight = verifiedCollection.Weight,
+                    CollectionDate = collection.CollectionDate
                 }
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    await context.Shipments.AddAsync(shipment);
-                    status = await SaveChanges(context);
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            ).ToListAsync();
+            return shipmentItemDetails;
         }
-
-        private async Task<bool> IsShipmentAlredyInprogress(Shipment shipment)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new ShipmentContext(_configuration))
+            throw;
+        }
+    }
+
+    public async Task<Shipment?> GetById(int shipmentId)
+    {
+        try
+        {
+            var shipment = await _context.Shipments.FindAsync(shipmentId);
+            return shipment;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
+    {
+        try
+        {
+            var transporterAmount = await (
+                from shipment in _context.Shipments
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                where shipment.Id == shipmentId
+                select new TransporterAmount()
                 {
-                    status = await context.Shipments.AnyAsync(
-                        s =>
-                            s.VehicleId == shipment.VehicleId
-                            && s.Status == ShipmentStatus.Inprogress
-                    );
-                    return status;
+                    TransporterId = vehicle.TransporterId,
+                    PaymentStatus = _context.TransporterPayments.Any(
+                        tp => tp.ShipmentId == shipment.Id
+                    )
+                        ? "paid"
+                        : "unpaid",
+                    Amount = _context.TotalFreightCharges(shipment.Id)
                 }
-            }
-            catch (Exception)
+            ).FirstOrDefaultAsync();
+            return transporterAmount;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<bool> Insert(Shipment shipment)
+    {
+        bool status = false;
+        try
+        {
+            if (await IsShipmentAlredyInprogress(shipment))
             {
-                throw;
+                return status;
+            }
+
+            await _context.Shipments.AddAsync(shipment);
+            status = await SaveChanges(_context);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        return status;
+    }
+
+    private async Task<bool> IsShipmentAlredyInprogress(Shipment shipment)
+    {
+        bool status = false;
+        try
+        {
+            status = await _context.Shipments.AnyAsync(
+                s => s.VehicleId == shipment.VehicleId && s.Status == ShipmentStatus.Inprogress
+            );
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        return status;
+    }
+
+    public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
+    {
+        bool status = false;
+        try
+        {
+            var shipmentStatus = await _context.Shipments
+                .Where(shipment => shipment.Id == shipmentId)
+                .Select(shipment => shipment.Status)
+                .FirstOrDefaultAsync();
+
+            if (shipmentStatus is ShipmentStatus.Delivered)
+            {
+                status = true;
             }
         }
-
-        public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipmentStatus = await context.Shipments
-                        .Where(shipment => shipment.Id == shipmentId)
-                        .Select(shipment => shipment.Status)
-                        .FirstOrDefaultAsync();
+            throw;
+        }
+        return status;
+    }
 
-                    if (shipmentStatus is ShipmentStatus.Delivered)
-                    {
-                        status = true;
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
+    public async Task<bool> UpdateStatus(int shipmentId, UpdateStatus statusObject)
+    {
+        bool status = false;
+        try
+        {
+            var shipment = await _context.Shipments.FindAsync(shipmentId);
+
+            if (shipment == null)
             {
-                throw;
+                return false;
+            }
+            shipment.Status = statusObject.Status;
+            status = await SaveChanges(_context);
+
+            if (status && statusObject.Status == ShipmentStatus.Delivered)
+            {
+                _context.Database.ExecuteSqlRaw(
+                    "CALL call_procedures_after_shipment_status_delivered(@p0)",
+                    shipmentId
+                );
             }
         }
-
-        public async Task<bool> UpdateStatus(int shipmentId, UpdateStatus statusObject)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipment = await context.Shipments.FindAsync(shipmentId);
+            throw;
+        }
+        return status;
+    }
 
-                    if (shipment == null)
-                    {
-                        return false;
-                    }
-                    shipment.Status = statusObject.Status;
-                    status = await SaveChanges(context);
-
-                    if (status && statusObject.Status == ShipmentStatus.Delivered)
-                    {
-                        context.Database.ExecuteSqlRaw(
-                            "CALL call_procedures_after_shipment_status_delivered(@p0)",
-                            shipmentId
-                        );
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
+    public async Task<bool> Update(Shipment shipment)
+    {
+        bool status = false;
+        try
+        {
+            var oldshipment = await _context.Shipments.FindAsync(shipment.Id);
+            if (oldshipment is not null)
             {
-                throw;
+                oldshipment.VehicleId = shipment.VehicleId;
+                oldshipment.MerchantId = shipment.MerchantId;
+                oldshipment.Kilometers = shipment.Kilometers;
+                oldshipment.Status = shipment.Status;
+                oldshipment.ShipmentDate = shipment.ShipmentDate;
+                status = await SaveChanges(_context);
             }
         }
-
-        public async Task<bool> Update(Shipment shipment)
+        catch (Exception)
         {
-            try
+            throw;
+        }
+        return status;
+    }
+
+    public async Task<bool> Delete(int shipmentId)
+    {
+        bool status = false;
+        try
+        {
+            var shipment = await _context.Shipments.FindAsync(shipmentId);
+            if (shipment is not null)
             {
-                bool status = false;
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var oldshipment = await context.Shipments.FindAsync(shipment.Id);
-                    if (oldshipment is not null)
-                    {
-                        oldshipment.VehicleId = shipment.VehicleId;
-                        oldshipment.MerchantId = shipment.MerchantId;
-                        oldshipment.Kilometers = shipment.Kilometers;
-                        oldshipment.Status = shipment.Status;
-                        oldshipment.ShipmentDate = shipment.ShipmentDate;
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                _context.Shipments.Remove(shipment);
+                status = await SaveChanges(_context);
             }
         }
-
-        public async Task<bool> Delete(int shipmentId)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipment = await context.Shipments.FindAsync(shipmentId);
-                    if (shipment is not null)
-                    {
-                        context.Shipments.Remove(shipment);
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+        return status;
+    }
 
-        private async Task<bool> SaveChanges(ShipmentContext context)
-        {
-            int rowsAffected = await context.SaveChangesAsync();
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
+    private async Task<bool> SaveChanges(ShipmentContext _context)
+    {
+        int rowsAffected = await _context.SaveChangesAsync();
+        return rowsAffected > 0;
+    }
 
-        public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId)
+    public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId)
+    {
+        try
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
+            var corporateShipments = await (
+                from merchant in _context.Merchants
+                join shipment in _context.Shipments on merchant.Id equals shipment.MerchantId
+                where shipment.VehicleId == vehicleId
+                select new CorporateShipment()
                 {
-                    var shipments = await (
-                        from merchant in context.Merchants
-                        join shipment in context.Shipments on merchant.Id equals shipment.MerchantId
-                        where shipment.VehicleId == vehicleId
-                        select new CorporateShipment()
-                        {
-                            CorporateId = merchant.CorporateId,
-                            Id = shipment.Id,
-                            VehicleId = shipment.VehicleId,
-                            MerchantId = shipment.MerchantId,
-                            Kilometers = shipment.Kilometers,
-                            Status = shipment.Status,
-                            ShipmentDate = shipment.ShipmentDate
-                        }
-                    ).ToListAsync();
-                    return shipments;
+                    CorporateId = merchant.CorporateId,
+                    Id = shipment.Id,
+                    VehicleId = shipment.VehicleId,
+                    MerchantId = shipment.MerchantId,
+                    Kilometers = shipment.Kilometers,
+                    Status = shipment.Status,
+                    ShipmentDate = shipment.ShipmentDate
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            ).ToListAsync();
+            return corporateShipments;
         }
-
-        public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(
-            int transporterId
-        )
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipments = await (
-                        from transporter in context.Transporters
-                        join vehicle in context.Vehicles
-                            on transporter.Id equals vehicle.TransporterId
-                        join shipment in context.Shipments on vehicle.Id equals shipment.VehicleId
-                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
-                        where transporter.Id == transporterId
-                        select new VehicleCorporateShipment()
-                        {
-                            ShipmentId = shipment.Id,
-                            VehicleId = shipment.VehicleId,
-                            CorporateId = merchant.CorporateId,
-                            VehicleType = vehicle.VehicleType,
-                            RtoNumber = vehicle.RtoNumber,
-                            Kilometers = shipment.Kilometers,
-                            Status = shipment.Status,
-                            ShipmentDate = shipment.ShipmentDate
-                        }
-                    ).ToListAsync();
-                    return shipments;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<PagedList<ShippedCollection>> GetShippedCollections(
-            int collectionCenterId,
-            string shipmentStatus,
-            FilterRequest request,
-            int pageNumber
-        )
+    public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId)
+    {
+        try
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
+            var vehicleCorporateShipments = await (
+                from transporter in _context.Transporters
+                join vehicle in _context.Vehicles on transporter.Id equals vehicle.TransporterId
+                join shipment in _context.Shipments on vehicle.Id equals shipment.VehicleId
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                where transporter.Id == transporterId
+                select new VehicleCorporateShipment()
                 {
-                    var query =
-                        from shipment in context.Shipments
-                        join shipmentItem in context.ShipmentItems
-                            on shipment.Id equals shipmentItem.ShipmentId
-                        join merchant in context.Merchants on shipment.MerchantId equals merchant.Id
-                        join vehicle in context.Vehicles on shipment.VehicleId equals vehicle.Id
-                        join transporter in context.Transporters
-                            on vehicle.TransporterId equals transporter.Id
-                        join collection in context.GoodsCollections
-                            on shipmentItem.CollectionId equals collection.Id
-                        join collectionCenter in context.CollectionCenters
-                            on collection.CollectionCenterId equals collectionCenter.Id
-                        join verifiedCollection in context.VerifiedCollections
-                            on collection.Id equals verifiedCollection.CollectionId
-                        join crop in context.Crops on collection.CropId equals crop.Id
-                        where
-                            collection.CollectionCenterId == collectionCenterId
-                            && shipment.Status == shipmentStatus
-                        select new ShippedCollection()
-                        {
-                            CollectionId = collection.Id,
-                            CollectionCenterCorporateId = collectionCenter.CorporateId,
-                            MerchantCorporateId = merchant.CorporateId,
-                            TransporterCorporateId = transporter.CorporateId,
-                            FarmerId = collection.FarmerId,
-                            CropName = crop.Title,
-                            VehicleNumber = vehicle.RtoNumber,
-                            Grade = verifiedCollection.Grade,
-                            ContainerType = collection.ContainerType,
-                            Quantity = collection.Quantity,
-                            TotalWeight = collection.Weight,
-                            NetWeight = verifiedCollection.Weight,
-                            CollectionDate = collection.CollectionDate,
-                            ShipmentDate = shipment.ShipmentDate
-                        };
-                    query = query.ApplyFilters(request);
-                    return await PagedList<ShippedCollection>.ToPagedList(query, pageNumber);
+                    ShipmentId = shipment.Id,
+                    VehicleId = shipment.VehicleId,
+                    CorporateId = merchant.CorporateId,
+                    VehicleType = vehicle.VehicleType,
+                    RtoNumber = vehicle.RtoNumber,
+                    Kilometers = shipment.Kilometers,
+                    Status = shipment.Status,
+                    ShipmentDate = shipment.ShipmentDate
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            ).ToListAsync();
+            return vehicleCorporateShipments;
         }
-
-        public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var collectionCounts = await (
-                        from collectioncenter in context.CollectionCenters
-                        join goodscollection in context.GoodsCollections
-                            on collectioncenter.Id equals goodscollection.CollectionCenterId
-                        join shipmentitem in context.ShipmentItems
-                            on goodscollection.Id equals shipmentitem.CollectionId
-                        join shipment in context.Shipments
-                            on shipmentitem.ShipmentId equals shipment.Id
-                        where shipment.MerchantId == merchantId
-                        group new
-                        {
-                            goodscollection,
-                            collectioncenter
-                        } by collectioncenter.Id into c
-                        select new CollectionCount()
-                        {
-                            CollectionCenterId = c.Key,
-                            CorporateId = c.Select(item => item.collectioncenter.CorporateId)
-                                .FirstOrDefault(),
-                            Count = c.Count()
-                        }
-                    ).ToListAsync();
-                    return collectionCounts;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<List<CropCount>> GetCropCounts(int merchantId)
+    public async Task<PagedList<ShippedCollection>> GetShippedCollections(
+        int collectionCenterId,
+        string shipmentStatus,
+        FilterRequest request,
+        int pageNumber
+    )
+    {
+        try
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
+            var query =
+                from shipment in _context.Shipments
+                join shipmentItem in _context.ShipmentItems
+                    on shipment.Id equals shipmentItem.ShipmentId
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                join transporter in _context.Transporters
+                    on vehicle.TransporterId equals transporter.Id
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join collectionCenter in _context.CollectionCenters
+                    on collection.CollectionCenterId equals collectionCenter.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where
+                    collection.CollectionCenterId == collectionCenterId
+                    && shipment.Status == shipmentStatus
+                select new ShippedCollection()
                 {
-                    var cropCounts = await (
-                        from crop in context.Crops
-                        join goodscollection in context.GoodsCollections
-                            on crop.Id equals goodscollection.CropId
-                        join shipmentitem in context.ShipmentItems
-                            on goodscollection.Id equals shipmentitem.CollectionId
-                        join shipment in context.Shipments
-                            on shipmentitem.ShipmentId equals shipment.Id
-                        where shipment.MerchantId == merchantId
-                        group new { crop, goodscollection } by goodscollection.CropId into c
-                        select new CropCount()
-                        {
-                            Count = c.Count(),
-                            CropName = c.Select(item => item.crop.Title).FirstOrDefault()
-                        }
-                    ).ToListAsync();
-                    return cropCounts;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                    CollectionId = collection.Id,
+                    CollectionCenterCorporateId = collectionCenter.CorporateId,
+                    MerchantCorporateId = merchant.CorporateId,
+                    TransporterCorporateId = transporter.CorporateId,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    VehicleNumber = vehicle.RtoNumber,
+                    Grade = verifiedCollection.Grade,
+                    ContainerType = collection.ContainerType,
+                    Quantity = collection.Quantity,
+                    TotalWeight = collection.Weight,
+                    NetWeight = verifiedCollection.Weight,
+                    CollectionDate = collection.CollectionDate,
+                    ShipmentDate = shipment.ShipmentDate
+                };
+            query = query.ApplyFilters(request);
+            var shippedCollections = await PagedList<ShippedCollection>.ToPagedList(
+                query,
+                pageNumber
+            );
+            return shippedCollections;
+        }
+        catch (Exception)
+        {
+            throw;
         }
     }
 }

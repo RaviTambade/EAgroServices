@@ -1,33 +1,33 @@
-using Shipments.Services.Interfaces;
-using Shipments.Repositories.Interfaces;
-using Shipments.Models;
-using Shipments.Extensions;
-using Shipments.Entities;
+using Transflower.EAgroServices.Shipments.Services.Interfaces;
+using Transflower.EAgroServices.Shipments.Repositories.Interfaces;
+using Transflower.EAgroServices.Shipments.Models;
+using Transflower.EAgroServices.Shipments.Extensions;
+using Transflower.EAgroServices.Shipments.Entities;
 
-namespace Shipments.Services;
+namespace Transflower.EAgroServices.Shipments.Services;
 
 public class ShipmentService : IShipmentService
 {
-    private readonly IShipmentRepository _repo;
+    private readonly IShipmentRepository _repository;
 
-    public ShipmentService(IShipmentRepository repo)
+    public ShipmentService(IShipmentRepository repository)
     {
-        _repo = repo;
+        _repository = repository;
     }
 
     public async Task<List<Shipment>> GetAll()
     {
-        return await _repo.GetAll();
+        return await _repository.GetAll();
     }
 
     public async Task<Shipment?> GetById(int shipmentId)
     {
-        return await _repo.GetById(shipmentId);
+        return await _repository.GetById(shipmentId);
     }
 
     public async Task<List<InprogressShipment>> GetInprogressShipments()
     {
-        return await _repo.GetInprogressShipments();
+        return await _repository.GetInprogressShipments();
     }
 
     public async Task<PagedList<ShippedCollection>> GetShippedCollections(
@@ -37,7 +37,7 @@ public class ShipmentService : IShipmentService
         int pageNumber
     )
     {
-        return await _repo.GetShippedCollections(
+        return await _repository.GetShippedCollections(
             collectionCenterId,
             shipmentStatus,
             request,
@@ -45,64 +45,54 @@ public class ShipmentService : IShipmentService
         );
     }
 
-    public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
+    public async Task<List<ShipmentItemDetail>> GetShipmentItemsById(int shipmentId)
     {
-        return await _repo.GetShipmentItemsById(shipmentId);
+        return await _repository.GetShipmentItemsById(shipmentId);
     }
 
     public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
     {
-        return await _repo.GetTransporterAmountByShipmentId(shipmentId);
+        return await _repository.GetTransporterAmountByShipmentId(shipmentId);
     }
 
     public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
     {
-        return await _repo.IsShipmentStatusDelivered(shipmentId);
+        return await _repository.IsShipmentStatusDelivered(shipmentId);
     }
 
     public async Task<bool> UpdateStatus(int shipmentId, UpdateStatus statusObject)
     {
-        return await _repo.UpdateStatus(shipmentId, statusObject);
+        return await _repository.UpdateStatus(shipmentId, statusObject);
     }
 
     public async Task<bool> Insert(Shipment shipment)
     {
-        return await _repo.Insert(shipment);
+        return await _repository.Insert(shipment);
     }
 
     public async Task<bool> Update(Shipment shipment)
     {
-        return await _repo.Update(shipment);
+        return await _repository.Update(shipment);
     }
 
     public async Task<bool> Delete(int shipmentId)
     {
-        return await _repo.Delete(shipmentId);
+        return await _repository.Delete(shipmentId);
     }
 
     public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId)
     {
-        return await _repo.GetShipmentByVehicleId(vehicleId);
+        return await _repository.GetShipmentByVehicleId(vehicleId);
     }
 
     public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId)
     {
-        return await _repo.GetShipmentofTransporter(transporterId);
-    }
-
-    public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
-    {
-        return await _repo.GetCollectionCounts(merchantId);
-    }
-
-    public async Task<List<CropCount>> GetCropCounts(int merchantId)
-    {
-        return await _repo.GetCropCounts(merchantId);
+        return await _repository.GetShipmentofTransporter(transporterId);
     }
 
     public async Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId)
     {
-        return await _repo.GetInprogressShipmentsByMerchant(merchantId);
+        return await _repository.GetInprogressShipmentsByMerchant(merchantId);
     }
 
     public async Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
@@ -110,6 +100,6 @@ public class ShipmentService : IShipmentService
         string paymentStatus
     )
     {
-        return await _repo.GetDeliveredShipmentsByMerchant(merchantId, paymentStatus);
+        return await _repository.GetDeliveredShipmentsByMerchant(merchantId, paymentStatus);
     }
 }

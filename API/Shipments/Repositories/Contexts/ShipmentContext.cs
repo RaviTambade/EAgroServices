@@ -1,142 +1,49 @@
-using Shipments.Entities;
+using Transflower.EAgroServices.Shipments.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
-namespace Shipments.Repositories.Contexts
+namespace Transflower.EAgroServices.Shipments.Repositories.Contexts;
+
+public class ShipmentContext : DbContext
 {
-    public class ShipmentContext : DbContext
+    public DbSet<Shipment> Shipments { get; set; }
+    public DbSet<ShipmentItem> ShipmentItems { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<GoodsCollection> GoodsCollections { get; set; }
+    public DbSet<VerifiedCollection> VerifiedCollections { get; set; }
+    public DbSet<Crop> Crops { get; set; }
+    public DbSet<Merchant> Merchants { get; set; }
+    public DbSet<CollectionCenter> CollectionCenters { get; set; }
+    public DbSet<TransporterPayment> TransporterPayments { get; set; }
+    public DbSet<Transporter> Transporters { get; set; }
+
+    public ShipmentContext(DbContextOptions options)
+        : base(options)
     {
-        private readonly IConfiguration _configuration;
-        private readonly string? _conString;
+        Shipments = Set<Shipment>();
+        ShipmentItems = Set<ShipmentItem>();
+        Vehicles = Set<Vehicle>();
+        GoodsCollections = Set<GoodsCollection>();
+        VerifiedCollections = Set<VerifiedCollection>();
+        Crops = Set<Crop>();
+        Merchants = Set<Merchant>();
+        CollectionCenters = Set<CollectionCenter>();
+        TransporterPayments = Set<TransporterPayment>();
+        Transporters = Set<Transporter>();
+    }
 
-        public ShipmentContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _conString = _configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
-        }
+    public double TotalFreightCharges(int shipmentId) => throw new NotSupportedException();
 
-        public DbSet<Shipment> Shipments { get; set; }
-        public DbSet<ShipmentItem> ShipmentItems { get; set; }
-        public DbSet<Vehicle> Vehicles { get; set; }
-        public DbSet<GoodsCollection> GoodsCollections { get; set; }
-        public DbSet<VerifiedCollection> VerifiedCollections { get; set; }
-        public DbSet<Crop> Crops { get; set; }
-        public DbSet<Merchant> Merchants { get; set; }
-        public DbSet<CollectionCenter> CollectionCenters { get; set; }
-        public DbSet<TransporterPayment> TransporterPayments { get; set; }
-        public DbSet<Transporter> Transporters { get; set; }
-
-        public double TotalFreightCharges(int shipmentId) => throw new NotSupportedException();
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySQL(
-                _conString ?? throw new InvalidOperationException("Connection string is null.")
-            );
-            optionsBuilder
-                .LogTo(Console.WriteLine, LogLevel.Information)
-                .EnableSensitiveDataLogging()
-                .EnableDetailedErrors();
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder //Database function registration
-                .HasDbFunction(
-                    typeof(ShipmentContext).GetMethod(
-                        nameof(TotalFreightCharges),
-                        new[] { typeof(int) }
-                    )
-                )
-                .HasName("apply_total_freight_charges");
-            modelBuilder.Entity<Shipment>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.VehicleId);
-                entity.Property(e => e.MerchantId);
-                entity.Property(e => e.Kilometers);
-                entity.Property(e => e.Status);
-                entity.Property(e => e.ShipmentDate);
-                modelBuilder.Entity<Shipment>().ToTable("shipments");
-            });
-            modelBuilder.Entity<Merchant>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.CorporateId);
-                entity.Property(e => e.ManagerId);
-                modelBuilder.Entity<Merchant>().ToTable("merchants");
-            });
-            modelBuilder.Entity<Transporter>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.CorporateId);
-                entity.Property(e => e.ManagerId);
-                modelBuilder.Entity<Transporter>().ToTable("transporters");
-            });
-
-            modelBuilder.Entity<ShipmentItem>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.ShipmentId);
-                entity.Property(e => e.CollectionId);
-                modelBuilder.Entity<ShipmentItem>().ToTable("shipmentitems");
-            });
-
-            modelBuilder.Entity<Vehicle>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.TransporterId);
-                entity.Property(e => e.VehicleType);
-                entity.Property(e => e.RtoNumber);
-                modelBuilder.Entity<Vehicle>().ToTable("vehicles");
-            });
-            modelBuilder.Entity<GoodsCollection>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.CollectionCenterId);
-                entity.Property(e => e.FarmerId);
-                entity.Property(e => e.CropId);
-                entity.Property(e => e.ContainerType);
-                entity.Property(e => e.Quantity);
-                entity.Property(e => e.Weight);
-                entity.Property(e => e.CollectionDate);
-                modelBuilder.Entity<GoodsCollection>().ToTable("goodscollections");
-            });
-
-            modelBuilder.Entity<VerifiedCollection>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.CollectionId);
-                entity.Property(e => e.Grade);
-                entity.Property(e => e.Weight);
-                entity.Property(e => e.InspectorId);
-                entity.Property(e => e.InspectionDate);
-                modelBuilder.Entity<VerifiedCollection>().ToTable("verifiedgoodscollection");
-            });
-
-            modelBuilder.Entity<Crop>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Title);
-                entity.Property(e => e.ImageUrl);
-                entity.Property(e => e.Rate);
-                modelBuilder.Entity<Crop>().ToTable("crops");
-            });
-
-            modelBuilder.Entity<TransporterPayment>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.ShipmentId);
-                entity.Property(e => e.PaymentId);
-                modelBuilder.Entity<TransporterPayment>().ToTable("transporterpayments");
-            });
-            modelBuilder.Entity<CollectionCenter>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.CorporateId);
-                entity.Property(e => e.ManagerId);
-                modelBuilder.Entity<CollectionCenter>().ToTable("collectioncenters");
-            });
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder
+            .HasDbFunction(
+                typeof(ShipmentContext).GetMethod(
+                    nameof(TotalFreightCharges),
+                    new[] { typeof(int) }
+                )!
+            )
+            .HasName("apply_total_freight_charges");
     }
 }

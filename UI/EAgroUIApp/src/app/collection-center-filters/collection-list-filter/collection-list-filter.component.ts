@@ -39,7 +39,7 @@ export class CollectionListFilterComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log("component called");
+    console.log('component called');
     this.filterRequestSubscription = this.filtersvc
       .getCollectionFilterRequest()
       .subscribe((res) => {
@@ -76,42 +76,52 @@ export class CollectionListFilterComponent implements OnInit, OnDestroy {
   ) {
     this.collectionsSubscription = this.collectionsvc
       .getCollections(filterRequest, pageNumber, type)
-      .subscribe((response: HttpResponse<Collection[]>) => {
-        console.log('Filter request sent successfully:', response.body);
-        this.collections = response.body || [];
+      .subscribe({
+        next: (response: HttpResponse<Collection[]>) => {
+          console.log('Filter request sent successfully:', response.body);
+          this.collections = response.body || [];
 
-        if (!this.collections.length) {
-          return;
-        }
-        console.table(this.collections);
-        const paginationHeader = response.headers.get('X-Pagination');
-        if (paginationHeader) {
-          const paginationData = JSON.parse(paginationHeader);
-          console.log('Total Pages:', paginationData.TotalPages);
-          let totalPages = paginationData.TotalPages;
-          this.filtersvc.sendTotalPages(totalPages);
-        }
+          if (!this.collections.length) {
+            return;
+          }
+          console.table(this.collections);
+          const paginationHeader = response.headers.get('X-Pagination');
+          if (paginationHeader) {
+            const paginationData = JSON.parse(paginationHeader);
+            console.log('Total Pages:', paginationData.TotalPages);
+            let totalPages = paginationData.TotalPages;
+            this.filtersvc.sendTotalPages(totalPages);
+          }
 
-        let distinctfarmerIds = this.collections
-          .map((item) => item.farmerId)
-          .filter((number, index, array) => array.indexOf(number) === index);
+          let distinctfarmerIds = this.collections
+            .map((item) => item.farmerId)
+            .filter((number, index, array) => array.indexOf(number) === index);
 
-        let farmerIdString = distinctfarmerIds.join(',');
+          let farmerIdString = distinctfarmerIds.join(',');
 
-        this.userNamesSubscription = this.usrsvc
-          .getUserNamesWithId(farmerIdString)
-          .subscribe((names) => {
-            let farmerNames = names;
-            this.collections.forEach((item) => {
-              let matchingItem = farmerNames.find(
-                (element) => element.id === item.farmerId
-              );
-              if (matchingItem != undefined) {
-                item.farmerName = matchingItem.name;
-              }
+          this.userNamesSubscription = this.usrsvc
+            .getUserNamesWithId(farmerIdString)
+            .subscribe((names) => {
+              let farmerNames = names;
+              this.collections.forEach((item) => {
+                let matchingItem = farmerNames.find(
+                  (element) => element.id === item.farmerId
+                );
+                if (matchingItem != undefined) {
+                  item.farmerName = matchingItem.name;
+                }
+              });
             });
-          });
-      });
+        },
+        error:(err)=>{
+          console.log(err);
+        },
+        complete:()=>{
+          console.log('completed');
+        }
+      }
+
+      );
   }
 
   ngOnDestroy(): void {

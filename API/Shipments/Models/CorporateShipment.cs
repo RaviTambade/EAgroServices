@@ -1,6 +1,8 @@
-using Shipments.Entities;
+using Transflower.EAgroServices.Shipments.Entities;
 
-namespace Shipments.Models;
-public class CorporateShipment:Shipment{
-    public int CorporateId{get;set;}
+namespace Transflower.EAgroServices.Shipments.Models;
+
+public class CorporateShipment : Shipment
+{
+    public int CorporateId { get; set; }
 }

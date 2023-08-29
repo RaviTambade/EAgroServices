@@ -1,10 +1,5 @@
+using Transflower.EAgroServices.Shipments.Repositories.Interfaces;
 
-using Shipments.Repositories.Interfaces;
+namespace Transflower.EAgroServices.Shipments.Services.Interfaces;
 
-namespace Shipments.Services.Interfaces
-{
-    public interface IShipmentService:IShipmentRepository
-    {
-
-    } 
-}
+public interface IShipmentService : IShipmentRepository { }

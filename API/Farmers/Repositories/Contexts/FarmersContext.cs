@@ -13,19 +13,19 @@ public class FarmerContext : DbContext
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Shipment> Shipments { get; set; }
     public DbSet<GoodsCosting> Costing { get; set; }
-    public FarmerContext(DbContextOptions options)
-   : base(options)
-    {
-        CollectionCenters = Set<CollectionCenter>();
-        GoodsCollections = Set<GoodsCollection>();
-        VerifiedGoodsCollections = Set<VerifiedGoodsCollection>();
-        Crops = Set<Crop>();
-        Invoices = Set<Invoice>();
-        ShipmentItems = Set<ShipmentItem>();
-        Transporters = Set<Transporter>();
-        Vehicles = Set<Vehicle>();
-        Shipments = Set<Shipment>();
-        Costing = Set<GoodsCosting>();
-    }
+        public FarmerContext(DbContextOptions options)
+    : base(options)
+        {
+            CollectionCenters = Set<CollectionCenter>();
+            GoodsCollections = Set<GoodsCollection>();
+            VerifiedGoodsCollections = Set<VerifiedGoodsCollection>();
+            Crops = Set<Crop>();
+            Invoices = Set<Invoice>();
+            ShipmentItems = Set<ShipmentItem>();
+            Transporters = Set<Transporter>();
+            Vehicles = Set<Vehicle>();
+            Shipments = Set<Shipment>();
+            Costing = Set<GoodsCosting>();
+        }
 }
 

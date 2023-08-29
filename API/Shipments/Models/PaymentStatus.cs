@@ -1,10 +1,7 @@
+namespace Transflower.EAgroServices.Shipments.Models;
 
-namespace Shipments.Models
+public class PaymentStatus
 {
-    public class PaymentStatus
-    {
-      
-      public  const string UnPaid="UnPaid";
-      public const string Paid="Paid";
-    }
+    public const string UnPaid = "UnPaid";
+    public const string Paid = "Paid";
 }

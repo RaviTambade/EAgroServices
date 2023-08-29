@@ -1,202 +1,172 @@
-using Merchants.Models;
-using Merchants.Repositories.Interfaces;
-using Merchants.Repositories.Contexts;
+using Transflower.EAgroServices.Merchants.Models;
+using Transflower.EAgroServices.Merchants.Repositories.Interfaces;
+using Transflower.EAgroServices.Merchants.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Merchants.Entities;
-
-namespace Merchants.Repositories
+using Transflower.EAgroServices.Merchants.Entities;
+namespace Transflower.EAgroServices.Merchants.Repositories;
+public class MerchantRepository : IMerchantRepository
 {
-    public class MerchantRepository : IMerchantRepository
+    private readonly MerchantContext _merchantContext;
+
+    public MerchantRepository(MerchantContext merchantContext)
     {
-        private readonly IConfiguration _configuration;
+        _merchantContext = merchantContext;
+    }
 
-        public MerchantRepository(IConfiguration configuration)
+    public async Task<List<Merchant>> GetAll()
+    {
+        try
         {
-            _configuration = configuration;
+            var merchants = await _merchantContext.Merchants.ToListAsync();
+            return merchants;
         }
-
-        public async Task<List<Merchant>> GetAll()
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new MerchantContext(_configuration))
-                {
-                    var merchants = await context.Merchants.ToListAsync();
-                    return merchants;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<Merchant?> GetById(int merchantId)
+    public async Task<Merchant?> GetById(int merchantId)
+    {
+        try
         {
-            try
-            {
-                using (var context = new MerchantContext(_configuration))
-                {
-                    var merchant = await context.Merchants.FindAsync(merchantId);
-                    return merchant;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var merchant = await _merchantContext.Merchants.FindAsync(merchantId);
+            return merchant;
         }
-
-        public async Task<bool> Insert(Merchant merchant)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new MerchantContext(_configuration))
-                {
-                    await context.Merchants.AddAsync(merchant);
-                    status = await SaveChanges(context);
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<bool> Update(Merchant merchant)
+    public async Task<bool> Insert(Merchant merchant)
+    {
+        try
         {
-            try
-            {
-                bool status = false;
-                using (var context = new MerchantContext(_configuration))
-                {
-                    var oldMerchant = await context.Merchants.FindAsync(merchant.Id);
-                    if (oldMerchant is not null)
-                    {
-                        oldMerchant.CorporateId = merchant.CorporateId;
-                        oldMerchant.ManagerId = merchant.ManagerId;
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            bool status = false;
+            await _merchantContext.Merchants.AddAsync(merchant);
+            status = await SaveChanges(_merchantContext);
+            return status;
         }
-
-        public async Task<bool> Delete(int merchantId)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new MerchantContext(_configuration))
-                {
-                    var merchant = await context.Merchants.FindAsync(merchantId);
-                    if (merchant is not null)
-                    {
-                        context.Merchants.Remove(merchant);
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        private async Task<bool> SaveChanges(MerchantContext context)
+    public async Task<bool> Update(Merchant merchant)
+    {
+        try
         {
-            int rowsAffected = await context.SaveChangesAsync();
-            if (rowsAffected > 0)
+            bool status = false;
+            var oldMerchant = await _merchantContext.Merchants.FindAsync(merchant.Id);
+            if (oldMerchant is not null)
             {
-                return true;
+                oldMerchant.CorporateId = merchant.CorporateId;
+                oldMerchant.ManagerId = merchant.ManagerId;
+                status = await SaveChanges(_merchantContext);
             }
-            return false;
+            return status;
         }
-
-        public async Task<int> GetCorporateId(int merchantId)
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new MerchantContext(_configuration))
-                {
-                    int corporateId = await (
-                        from merchant in context.Merchants
-                        join shipment in context.Shipments on merchant.Id equals shipment.MerchantId
-                        where merchant.Id == merchantId
-                        select merchant.CorporateId
-                    ).FirstOrDefaultAsync();
-                    return corporateId;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<int> GetMerchantId(int managerId)
+    public async Task<bool> Delete(int merchantId)
+    {
+        try
         {
-            try
+            bool status = false;
+            var merchant = await _merchantContext.Merchants.FindAsync(merchantId);
+            if (merchant is not null)
             {
-                using (var context = new MerchantContext(_configuration))
-                {
-                    int merchantId = await (
-                        from merchant in context.Merchants
-                        where merchant.ManagerId == managerId
-                        select merchant.Id
-                    ).FirstOrDefaultAsync();
-                    return merchantId;
-                }
+                _merchantContext.Merchants.Remove(merchant);
+                status = await SaveChanges(_merchantContext);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            return status;
         }
-
-        public async Task<int> GetId(int corporateId)
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new MerchantContext(_configuration))
-                {
-                    int id = await context.Merchants
-                        .Where(m => m.CorporateId == corporateId)
-                        .Select(m => m.Id)
-                        .FirstOrDefaultAsync();
-                    return id;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<List<MerchantCorporate>> GetMerchantAndCorporateId()
+    private async Task<bool> SaveChanges(MerchantContext context)
+    {
+        int rowsAffected = await context.SaveChangesAsync();
+        if (rowsAffected > 0)
         {
-            try
-            {
-                using (var context = new MerchantContext(_configuration))
-                {
-                    return await context.Merchants
-                        .Select(
-                            m => new MerchantCorporate() { Id = m.Id, CorporateId = m.CorporateId }
-                        )
-                        .ToListAsync();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<int> GetCorporateId(int merchantId)
+    {
+        try
+        {
+            int corporateId = await (
+                from merchant in _merchantContext.Merchants
+                join shipment in _merchantContext.Shipments on merchant.Id equals shipment.MerchantId
+                where merchant.Id == merchantId
+                select merchant.CorporateId
+            ).FirstOrDefaultAsync();
+            return corporateId;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<int> GetMerchantId(int managerId)
+    {
+        try
+        {
+            int merchantId = await (
+                from merchant in _merchantContext.Merchants
+                where merchant.ManagerId == managerId
+                select merchant.Id
+            ).FirstOrDefaultAsync();
+            return merchantId;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<int> GetId(int corporateId)
+    {
+        try
+        {
+            int id = await _merchantContext.Merchants
+                .Where(m => m.CorporateId == corporateId)
+                .Select(m => m.Id)
+                .FirstOrDefaultAsync();
+            return id;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<List<MerchantCorporate>> GetMerchantAndCorporateId()
+    {
+        try
+        {
+            return await _merchantContext.Merchants
+                .Select(
+                    m => new MerchantCorporate() { Id = m.Id, CorporateId = m.CorporateId }
+                )
+                .ToListAsync();
+        }
+        catch (Exception)
+        {
+            throw;
         }
     }
 }

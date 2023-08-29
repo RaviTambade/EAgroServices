@@ -1,52 +1,16 @@
-using Merchants.Entities;
+using Transflower.EAgroServices.Merchants.Entities;
 using Microsoft.EntityFrameworkCore;
-
-namespace Merchants.Repositories.Contexts
+namespace Transflower.EAgroServices.Merchants.Repositories.Contexts;
+public class MerchantContext : DbContext
 {
-    public class MerchantContext : DbContext
+
+    public DbSet<Merchant> Merchants { get; set; }
+    public DbSet<Shipment> Shipments { get; set; }
+
+    public MerchantContext(DbContextOptions options)
+: base(options)
     {
-        private readonly IConfiguration _configuration;
-        private readonly string? _conString;
-
-        public MerchantContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _conString =
-                this._configuration.GetConnectionString("DefaultConnection")
-                ?? throw new ArgumentNullException(nameof(configuration));
-        }
-
-        public DbSet<Merchant> Merchants { get; set; }
-        public DbSet<Shipment> Shipments{get;set;}
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySQL(
-                _conString ?? throw new InvalidOperationException("Connection string is null.")
-            );
-            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Merchant>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.CorporateId);
-                entity.Property(e => e.ManagerId);
-                modelBuilder.Entity<Merchant>().ToTable("merchants");
-            });
-             modelBuilder.Entity<Shipment>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.VehicleId);
-                entity.Property(e => e.MerchantId);
-                entity.Property(e => e.Kilometers);
-                entity.Property(e => e.Status);
-                entity.Property(e => e.ShipmentDate);
-                modelBuilder.Entity<Shipment>().ToTable("shipments");
-            });
-        }
+        Shipments = Set<Shipment>();
+        Merchants = Set<Merchant>();
     }
 }

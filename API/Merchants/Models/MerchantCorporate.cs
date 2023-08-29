@@ -1,8 +1,7 @@
-namespace Merchants.Models
+namespace Transflower.EAgroServices.Merchants.Models;
+public class MerchantCorporate
 {
-    public class MerchantCorporate
-    {
-        public int Id { get; set; }
-        public int CorporateId { get; set; }
-    }
+    public int Id { get; set; }
+    public int CorporateId { get; set; }
 }
+
