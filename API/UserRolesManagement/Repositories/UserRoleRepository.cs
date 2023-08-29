@@ -1,28 +1,25 @@
-using UserRolesManagement.Entities;
-using UserRolesManagement.Repositories.Interfaces;
-using UserRolesManagement.Repositories.Contexts;
+using Transflower.EAgroServices.UserRolesManagement.Entities;
+using Transflower.EAgroServices.UserRolesManagement.Repositories.Interfaces;
+using Transflower.EAgroServices.UserRolesManagement.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace UserRolesManagement.Repositories
+namespace Transflower.EAgroServices.UserRolesManagement.Repositories
 {
     public class UserRoleRepository : IUserRoleRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly UserRoleContext _context;
 
-        public UserRoleRepository(IConfiguration configuration)
+        public UserRoleRepository(UserRoleContext context)
         {
-            _configuration = configuration;
+            _context = context;
         }
 
         public async Task<List<UserRole>> GetAll()
         {
             try
             {
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var userRoles = await context.UserRoles.ToListAsync();
-                    return userRoles;
-                }
+                var userRoles = await _context.UserRoles.ToListAsync();
+                return userRoles;
             }
             catch (Exception)
             {
@@ -34,11 +31,8 @@ namespace UserRolesManagement.Repositories
         {
             try
             {
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var userRole = await context.UserRoles.FindAsync(userRoleId);
-                    return userRole;
-                }
+                var userRole = await _context.UserRoles.FindAsync(userRoleId);
+                return userRole;
             }
             catch (Exception)
             {
@@ -50,16 +44,13 @@ namespace UserRolesManagement.Repositories
         {
             try
             {
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var roles = await (
-                        from role in context.Roles
-                        join userRoles in context.UserRoles on role.Id equals userRoles.RoleId
-                        where userRoles.UserId == userId
-                        select role.Name
-                    ).ToListAsync();
-                    return roles;
-                }
+                var roles = await (
+                    from role in _context.Roles
+                    join userRoles in _context.UserRoles on role.Id equals userRoles.RoleId
+                    where userRoles.UserId == userId
+                    select role.Name
+                ).ToListAsync();
+                return roles;
             }
             catch (Exception)
             {
@@ -71,18 +62,16 @@ namespace UserRolesManagement.Repositories
         {
             try
             {
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var Ids = await (
-                        from role in context.Roles
-                        join userRoles in context.UserRoles on role.Id equals userRoles.RoleId
-                        where role.Name == roleName
-                        select userRoles.UserId
-                    ).ToListAsync();
-                    string farmerIdsString = string.Join(",", Ids);
-                    List<string> farmersIds = new List<string> { farmerIdsString };
-                    return farmersIds;
-                }
+                List<int> userIds = await (
+                    from role in _context.Roles
+                    join userRoles in _context.UserRoles on role.Id equals userRoles.RoleId
+                    where role.Name == roleName
+                    select userRoles.UserId
+                ).ToListAsync();
+
+                string userIdString = string.Join(",", userIds);
+                List<string> userIdStringList = new List<string> { userIdString };
+                return userIdStringList;
             }
             catch (Exception)
             {
@@ -92,75 +81,62 @@ namespace UserRolesManagement.Repositories
 
         public async Task<bool> Insert(UserRole userRole)
         {
+            bool status = false;
             try
             {
-                bool status = false;
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    await context.UserRoles.AddAsync(userRole);
-                    status = await SaveChanges(context);
-                    return status;
-                }
+                await _context.UserRoles.AddAsync(userRole);
+                status = await SaveChanges(_context);
             }
             catch (Exception)
             {
                 throw;
             }
+            return status;
         }
 
         public async Task<bool> Update(UserRole userRole)
         {
+            bool status = false;
             try
             {
-                bool status = false;
-                using (var context = new UserRoleContext(_configuration))
+                var oldMerchant = await _context.UserRoles.FindAsync(userRole.Id);
+                if (oldMerchant is not null)
                 {
-                    var oldMerchant = await context.UserRoles.FindAsync(userRole.Id);
-                    if (oldMerchant is not null)
-                    {
-                        oldMerchant.UserId = userRole.UserId;
-                        oldMerchant.RoleId = userRole.RoleId;
-                        status = await SaveChanges(context);
-                    }
-                    return status;
+                    oldMerchant.UserId = userRole.UserId;
+                    oldMerchant.RoleId = userRole.RoleId;
+                    status = await SaveChanges(_context);
                 }
             }
             catch (Exception)
             {
                 throw;
             }
+            return status;
         }
 
         public async Task<bool> Delete(int userRoleId)
         {
+            bool status = false;
             try
             {
-                bool status = false;
-                using (var context = new UserRoleContext(_configuration))
+                var userRole = await _context.UserRoles.FindAsync(userRoleId);
+                if (userRole is not null)
                 {
-                    var userRole = await context.UserRoles.FindAsync(userRoleId);
-                    if (userRole is not null)
-                    {
-                        context.UserRoles.Remove(userRole);
-                        status = await SaveChanges(context);
-                    }
-                    return status;
+                    _context.UserRoles.Remove(userRole);
+                    status = await SaveChanges(_context);
                 }
             }
             catch (Exception)
             {
                 throw;
             }
+            return status;
         }
 
-        private async Task<bool> SaveChanges(UserRoleContext context)
+        private async Task<bool> SaveChanges(UserRoleContext _context)
         {
-            int rowsAffected = await context.SaveChangesAsync();
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
+            int rowsAffected = await _context.SaveChangesAsync();
+            return rowsAffected > 0;
         }
     }
 }

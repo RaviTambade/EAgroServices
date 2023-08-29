@@ -2,7 +2,7 @@ using Transflower.EAgroServices.Shipments.Entities;
 using Transflower.EAgroServices.Shipments.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Shipments.Controllers;
+namespace  Transflower.EAgroServices.Shipments.Controllers;
 
 [ApiController]
 [Route("/api/shipmentitems")]

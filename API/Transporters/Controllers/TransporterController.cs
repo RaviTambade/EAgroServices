@@ -3,7 +3,7 @@ using Transflower.EAgroServices.Transporters.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Transflower.EAgroServices.Transporters.Entities;
 
-namespace Transporters.Controllers;
+namespace  Transflower.EAgroServices.Transporters.Controllers;
 
 [ApiController]
 [Route("/api/transporters")]

@@ -1,60 +1,59 @@
-using UserRolesManagement.Entities;
-using UserRolesManagement.Services.Interfaces;
+using Transflower.EAgroServices.UserRolesManagement.Entities;
+using Transflower.EAgroServices.UserRolesManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace UserRolesManagement.Controllers
+namespace Transflower.EAgroServices.UserRolesManagement.Controllers;
+
+[ApiController]
+[Route("/api/userroles/")]
+public class UserRoleController : ControllerBase
 {
-    [ApiController]
-    [Route("/api/userroles/")]
-    public class UserRoleController : ControllerBase
+    private readonly IUserRoleService _service;
+
+    public UserRoleController(IUserRoleService service)
     {
-        private readonly IUserRoleService _srv;
+        _service = service;
+    }
 
-        public UserRoleController(IUserRoleService srv)
-        {
-            _srv = srv;
-        }
+    [HttpGet]
+    public async Task<List<UserRole>> GetAll()
+    {
+        return await _service.GetAll();
+    }
 
-        [HttpGet]
-        public async Task<List<UserRole>> GetAll()
-        {
-            return await _srv.GetAll();
-        }
+    [HttpGet("{userRoleId}")]
+    public async Task<UserRole?> GetById(int userRoleId)
+    {
+        return await _service.GetById(userRoleId);
+    }
 
-        [HttpGet("{userRoleId}")]
-        public async Task<UserRole?> GetById(int userRoleId)
-        {
-            return await _srv.GetById(userRoleId);
-        }
+    [HttpGet("roles/{userId}")]
+    public async Task<List<string>> GetRolesByUserId(int userId)
+    {
+        return await _service.GetRolesByUserId(userId);
+    }
 
-        [HttpGet("roles/{userId}")]
-        public async Task<List<string>> GetRolesByUserId(int userId)
-        {
-            return await _srv.GetRolesByUserId(userId);
-        }
+    [HttpPost]
+    public async Task<bool> Insert(UserRole userRole)
+    {
+        return await _service.Insert(userRole);
+    }
 
-        [HttpPost]
-        public async Task<bool> Insert(UserRole userRole)
-        {
-            return await _srv.Insert(userRole);
-        }
+    [HttpGet("usersid/{role}")]
+    public async Task<List<string>> GetUsersId(string role)
+    {
+        return await _service.GetUsersId(role);
+    }
 
-        [HttpGet("usersid/{role}")]
-        public async Task<List<string>> GetUsersId(string role)
-        {
-            return await _srv.GetUsersId(role);
-        }
+    [HttpPut]
+    public async Task<bool> Update(UserRole userRole)
+    {
+        return await _service.Update(userRole);
+    }
 
-        [HttpPut]
-        public async Task<bool> Update(UserRole userRole)
-        {
-            return await _srv.Update(userRole);
-        }
-
-        [HttpDelete("{userRoleId}")]
-        public async Task<bool> Delete(int userRoleId)
-        {
-            return await _srv.Delete(userRoleId);
-        }
+    [HttpDelete("{userRoleId}")]
+    public async Task<bool> Delete(int userRoleId)
+    {
+        return await _service.Delete(userRoleId);
     }
 }
