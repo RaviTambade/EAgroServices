@@ -2,50 +2,49 @@ using Transflower.EAgroServices.UserRolesManagement.Services.Interfaces;
 using Transflower.EAgroServices.UserRolesManagement.Repositories.Interfaces;
 using Transflower.EAgroServices.UserRolesManagement.Entities;
 
-namespace Transflower.EAgroServices.UserRolesManagement.Services
+namespace Transflower.EAgroServices.UserRolesManagement.Services;
+
+public class UserRoleService : IUserRoleService
 {
-    public class UserRoleService : IUserRoleService
+    private readonly IUserRoleRepository _repository;
+
+    public UserRoleService(IUserRoleRepository repository)
     {
-        private readonly IUserRoleRepository _repository;
+        _repository = repository;
+    }
 
-        public UserRoleService(IUserRoleRepository repository)
-        {
-            _repository = repository;
-        }
+    public async Task<List<UserRole>> GetAll()
+    {
+        return await _repository.GetAll();
+    }
 
-        public async Task<List<UserRole>> GetAll()
-        {
-            return await _repository.GetAll();
-        }
+    public async Task<UserRole?> GetById(int userRoleId)
+    {
+        return await _repository.GetById(userRoleId);
+    }
 
-        public async Task<UserRole?> GetById(int userRoleId)
-        {
-            return await _repository.GetById(userRoleId);
-        }
+    public async Task<List<string>> GetRolesByUserId(int userId)
+    {
+        return await _repository.GetRolesByUserId(userId);
+    }
 
-        public async Task<List<string>> GetRolesByUserId(int userId)
-        {
-            return await _repository.GetRolesByUserId(userId);
-        }
+    public async Task<List<string>> GetUsersId(string role)
+    {
+        return await _repository.GetUsersId(role);
+    }
 
-        public async Task<List<string>> GetUsersId(string role)
-        {
-            return await _repository.GetUsersId(role);
-        }
+    public async Task<bool> Insert(UserRole userRole)
+    {
+        return await _repository.Insert(userRole);
+    }
 
-        public async Task<bool> Insert(UserRole userRole)
-        {
-            return await _repository.Insert(userRole);
-        }
+    public async Task<bool> Update(UserRole userRole)
+    {
+        return await _repository.Update(userRole);
+    }
 
-        public async Task<bool> Update(UserRole userRole)
-        {
-            return await _repository.Update(userRole);
-        }
-
-        public async Task<bool> Delete(int userRoleId)
-        {
-            return await _repository.Delete(userRoleId);
-        }   
+    public async Task<bool> Delete(int userRoleId)
+    {
+        return await _repository.Delete(userRoleId);
     }
 }
