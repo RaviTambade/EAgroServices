@@ -16,7 +16,7 @@ public class InvoiceRepository : IInvoiceRepository
         _context = context;
     }
 
-    public async Task<List<InvoiceDetails>> GetAll(int merchantId, string paymentStatus)
+    public async Task<List<InvoiceDetail>> GetAll(int merchantId, string paymentStatus)
     {
         try
         {
@@ -37,7 +37,7 @@ public class InvoiceRepository : IInvoiceRepository
                 where
                     shipment.MerchantId == merchantId
                     && invoice.PaymentStatus == paymentStatus
-                select new InvoiceDetails()
+                select new InvoiceDetail()
                 {
                     Id = invoice.Id,
                     FarmerId = collection.FarmerId,
@@ -108,11 +108,11 @@ public class InvoiceRepository : IInvoiceRepository
         }
     }
 
-    public async Task<InvoiceChargesDetails?> GetById(int invoiceId)
+    public async Task<InvoiceChargesDetail?> GetById(int invoiceId)
     {
         try
         {
-            var invoiceDetails = await (
+            var invoiceDetail = await (
   from invoice in _context.Invoices
   join shipmentItem in _context.ShipmentItems
       on invoice.ShipmentItemId equals shipmentItem.Id
@@ -131,7 +131,7 @@ public class InvoiceRepository : IInvoiceRepository
       on collection.Id equals verifiedCollection.CollectionId
   join crop in _context.Crops on collection.CropId equals crop.Id
   where invoice.Id == invoiceId
-  select new InvoiceChargesDetails()
+  select new InvoiceChargesDetail()
   {
       Id = invoice.Id,
       FarmerId = collection.FarmerId,
@@ -155,7 +155,7 @@ public class InvoiceRepository : IInvoiceRepository
   }
 ).FirstOrDefaultAsync();
 
-            return invoiceDetails;
+            return invoiceDetail;
 
         }
         catch (Exception)
@@ -168,7 +168,7 @@ public class InvoiceRepository : IInvoiceRepository
     {
         try
         {
-            var invoiceDetails = await (
+            var invoiceDetail = await (
                 from invoice in _context.Invoices
                 join shipmentItem in _context.ShipmentItems
                     on invoice.ShipmentItemId equals shipmentItem.Id
@@ -209,7 +209,7 @@ public class InvoiceRepository : IInvoiceRepository
                     InvoiceDate = invoice.InvoiceDate
                 }
             ).FirstOrDefaultAsync();
-            return invoiceDetails;
+            return invoiceDetail;
 
         }
         catch (Exception)
@@ -292,14 +292,14 @@ public class InvoiceRepository : IInvoiceRepository
         return false;
     }
 
-    public async Task<CollectionCenterInvoiceDetails?> GetCollectionCenterInvoiceDetails(
+    public async Task<CollectionCenterInvoiceDetail?> GetCollectionCenterInvoiceDetails(
         int collectionCenterId,
         int invoiceId
     )
     {
         try
         {
-            var invoiceDetails = await (
+            var invoiceDetail = await (
                 from invoice in _context.Invoices
                 join shipmentItem in _context.ShipmentItems
                     on invoice.ShipmentItemId equals shipmentItem.Id
@@ -321,7 +321,7 @@ public class InvoiceRepository : IInvoiceRepository
                 where
                     invoice.Id == invoiceId
                     && collection.CollectionCenterId == collectionCenterId
-                select new CollectionCenterInvoiceDetails()
+                select new CollectionCenterInvoiceDetail()
                 {
                     FarmerId = collection.FarmerId,
                     MerchantCorporateId = merchant.CorporateId,
@@ -342,7 +342,7 @@ public class InvoiceRepository : IInvoiceRepository
                 }
             ).FirstOrDefaultAsync();
 
-            return invoiceDetails;
+            return invoiceDetail;
 
         }
         catch (Exception)

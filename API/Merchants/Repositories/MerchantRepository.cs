@@ -142,11 +142,11 @@ public class MerchantRepository : IMerchantRepository
     {
         try
         {
-            int id = await _merchantContext.Merchants
+            int merchantId= await _merchantContext.Merchants
                 .Where(m => m.CorporateId == corporateId)
                 .Select(m => m.Id)
                 .FirstOrDefaultAsync();
-            return id;
+            return merchantId;
         }
         catch (Exception)
         {

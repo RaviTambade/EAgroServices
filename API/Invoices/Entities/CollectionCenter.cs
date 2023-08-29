@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Transflower.Invoices.Entities;
+[Table("collectioncenters")]
 
     public class CollectionCenter
     {
