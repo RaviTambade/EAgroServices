@@ -10,30 +10,30 @@ namespace Transflower.Invoices.Controllers
     [Route("/api/invoices")]
     public class InvoiceController : ControllerBase
     {
-        private readonly IInvoiceService _srv;
+        private readonly IInvoiceService _service;
 
-        public InvoiceController(IInvoiceService srv)
+        public InvoiceController(IInvoiceService service)
         {
-            _srv = srv;
+            _service = service;
         }
 
         [HttpGet("merchant/{merchantId}/status/{paymentStatus}")]
-        public async Task<List<InvoiceDetails>> GetAll(int merchantId, string paymentStatus)
+        public async Task<List<InvoiceDetail>> GetAll(int merchantId, string paymentStatus)
         {
-            return await _srv.GetAll(merchantId, paymentStatus);
+            return await _service.GetAll(merchantId, paymentStatus);
         }
 
         [HttpGet("collectioninvoice/{collectionId}")]
 
         public async Task<FarmerInvoice?> GetInvoice(int collectionId)
         {
-            return await _srv.GetInvoice(collectionId);
+            return await _service.GetInvoice(collectionId);
         }
 
         [HttpGet("details/{invoiceId}")]
-        public async Task<InvoiceChargesDetails?> GetById(int invoiceId)
+        public async Task<InvoiceChargesDetail?> GetById(int invoiceId)
         {
-            return await _srv.GetById(invoiceId);
+            return await _service.GetById(invoiceId);
         }
 
         [HttpPost("collectionCenter/{collectionCenterId}/status/{status}")]
@@ -44,7 +44,7 @@ namespace Transflower.Invoices.Controllers
             [FromQuery] int pageNumber
         )
         {
-            var invoices = await _srv.GetCollectionCenterInvoices(
+            var invoices = await _service.GetCollectionCenterInvoices(
                 collectionCenterId,
                 status,
                 request,
@@ -57,7 +57,7 @@ namespace Transflower.Invoices.Controllers
         [HttpPost]
         public async Task<bool> Insert(Invoice invoice)
         {
-            return await _srv.Insert(invoice);
+            return await _service.Insert(invoice);
         }
 
         [HttpPatch("rate/{invoiceId}")]
@@ -65,22 +65,22 @@ namespace Transflower.Invoices.Controllers
         {
             if (rate.RatePerKg < 0)
                 return false;
-            return await _srv.Update(invoiceId, rate);
+            return await _service.Update(invoiceId, rate);
         }
 
         [HttpDelete("{invoiceId}")]
         public async Task<bool> Delete(int invoiceId)
         {
-            return await _srv.Delete(invoiceId);
+            return await _service.Delete(invoiceId);
         }
 
         [HttpGet("collectionCenter/{collectionCenterId}/invoice/{invoiceId}")]
-        public async Task<CollectionCenterInvoiceDetails?> GetCollectionCenterInvoiceDetails(
+        public async Task<CollectionCenterInvoiceDetail?> GetCollectionCenterInvoiceDetails(
             int collectionCenterId,
             int invoiceId
         )
         {
-            return await _srv.GetCollectionCenterInvoiceDetails(collectionCenterId, invoiceId);
+            return await _service.GetCollectionCenterInvoiceDetails(collectionCenterId, invoiceId);
         }
     }
 }

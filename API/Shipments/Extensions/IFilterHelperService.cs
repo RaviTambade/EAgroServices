@@ -1,6 +1,6 @@
 
 
-namespace Shipments.Extensions;
+namespace Transflower.EAgroServices.Shipments.Extensions;
 public interface IFilterHelperService<T>
 {
     List<string> GetPropertyNames();

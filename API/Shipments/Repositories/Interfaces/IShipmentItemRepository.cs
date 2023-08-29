@@ -1,14 +1,12 @@
+using Transflower.EAgroServices.Shipments.Entities;
 
-using Shipments.Entities;
+namespace Transflower.EAgroServices.Shipments.Repositories.Interfaces;
 
-namespace Shipments.Repositories.Interfaces
+public interface IShipmentItemRepository
 {
-    public interface IShipmentItemRepository
-    {
-        Task<List<ShipmentItem>> GetAll();
-        Task<ShipmentItem?> GetById(int shipmentItemId);
-        Task<bool> Insert(ShipmentItem shipmentItem);
-        Task<bool> Update(ShipmentItem shipmentItem);
-        Task<bool> Delete(int shipmentItemId);
-    }
+    Task<List<ShipmentItem>> GetAll();
+    Task<ShipmentItem?> GetById(int shipmentItemId);
+    Task<bool> Insert(ShipmentItem shipmentItem);
+    Task<bool> Update(ShipmentItem shipmentItem);
+    Task<bool> Delete(int shipmentItemId);
 }

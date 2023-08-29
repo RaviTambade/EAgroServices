@@ -1,140 +1,125 @@
-using Shipments.Models;
-using Shipments.Entities;
-using Shipments.Services.Interfaces;
+using Transflower.EAgroServices.Shipments.Models;
+using Transflower.EAgroServices.Shipments.Entities;
+using Transflower.EAgroServices.Shipments.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Shipments.Extensions;
+using Transflower.EAgroServices.Shipments.Extensions;
 
-namespace Shipments.Controllers
+namespace Shipments.Controllers;
+
+[ApiController]
+[Route("/api/shipments")]
+public class ShipmentController : ControllerBase
 {
-    [ApiController]
-    [Route("/api/shipments")]
-    public class ShipmentController : ControllerBase
+    private readonly IShipmentService _service;
+
+    public ShipmentController(IShipmentService service)
     {
-        private readonly IShipmentService _srv;
+        _service = service;
+    }
 
-        public ShipmentController(IShipmentService srv)
-        {
-            _srv = srv;
-        }
+    [HttpGet]
+    public async Task<List<Shipment>> GetAll()
+    {
+        return await _service.GetAll();
+    }
 
-        [HttpGet]
-        public async Task<List<Shipment>> GetAll()
-        {
-            return await _srv.GetAll();
-        }
+    [HttpGet("inprogress/merchant/{merchantId}")]
+    public async Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId)
+    {
+        return await _service.GetInprogressShipmentsByMerchant(merchantId);
+    }
 
-        [HttpGet("inprogress/merchant/{merchantId}")]
-        public async Task<List<MerchantShipment>?> GetInprogressShipmentsByMerchant(int merchantId)
-        {
-            return await _srv.GetInprogressShipmentsByMerchant(merchantId);
-        }
+    [HttpGet("delivered/merchant/{merchantId}/{paymentStatus}")]
+    public async Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
+        int merchantId,
+        string paymentStatus
+    )
+    {
+        return await _service.GetDeliveredShipmentsByMerchant(merchantId, paymentStatus);
+    }
 
-        [HttpGet("delivered/merchant/{merchantId}/{paymentStatus}")]
-        public async Task<List<MerchantShipment>?> GetDeliveredShipmentsByMerchant(
-            int merchantId,
-            string paymentStatus
-        )
-        {
-            return await _srv.GetDeliveredShipmentsByMerchant(merchantId, paymentStatus);
-        }
+    [HttpGet("shipmentitems/{shipmentId}")]
+    public async Task<List<ShipmentItemDetail>> GetShipmentItemsById(int shipmentId)
+    {
+        return await _service.GetShipmentItemsById(shipmentId);
+    }
 
-        [HttpGet("shipmentitems/{shipmentId}")]
-        public async Task<List<ShipmentItemDetails>> GetShipmentItemsById(int shipmentId)
-        {
-            return await _srv.GetShipmentItemsById(shipmentId);
-        }
+    [HttpGet("transporteramount/{shipmentId}")]
+    public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
+    {
+        return await _service.GetTransporterAmountByShipmentId(shipmentId);
+    }
 
-        [HttpGet("transporteramount/{shipmentId}")]
-        public async Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId)
-        {
-            return await _srv.GetTransporterAmountByShipmentId(shipmentId);
-        }
+    [HttpGet("{shipmentId}")]
+    public async Task<Shipment?> GetById(int shipmentId)
+    {
+        return await _service.GetById(shipmentId);
+    }
 
-        [HttpGet("{shipmentId}")]
-        public async Task<Shipment?> GetById(int shipmentId)
-        {
-            return await _srv.GetById(shipmentId);
-        }
+    [HttpGet("status/{shipmentId}")]
+    public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
+    {
+        return await _service.IsShipmentStatusDelivered(shipmentId);
+    }
 
-        [HttpGet("status/{shipmentId}")]
-        public async Task<bool> IsShipmentStatusDelivered(int shipmentId)
-        {
-            return await _srv.IsShipmentStatusDelivered(shipmentId);
-        }
+    [HttpGet("vehicles/{vehicleId}")]
+    public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId)
+    {
+        return await _service.GetShipmentByVehicleId(vehicleId);
+    }
 
-        [HttpGet("vehicles/{vehicleId}")]
-        public async Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId)
-        {
-            return await _srv.GetShipmentByVehicleId(vehicleId);
-        }
+    [HttpGet("inprogress")]
+    public async Task<List<InprogressShipment>> GetInprogressShipments()
+    {
+        return await _service.GetInprogressShipments();
+    }
 
-        [HttpGet("inprogress")]
-        public async Task<List<InprogressShipment>> GetInprogressShipments()
-        {
-            return await _srv.GetInprogressShipments();
-        }
+    [HttpPatch("status/{shipmentId}")]
+    public async Task<bool> UpdateStatus(int shipmentId, [FromBody] UpdateStatus statusObject)
+    {
+        return await _service.UpdateStatus(shipmentId, statusObject);
+    }
 
-        [HttpPatch("status/{shipmentId}")]
-        public async Task<bool> UpdateStatus(int shipmentId, [FromBody] UpdateStatus statusObject)
-        {
-            return await _srv.UpdateStatus(shipmentId, statusObject);
-        }
+    [HttpPost]
+    public async Task<bool> Insert(Shipment shipment)
+    {
+        return await _service.Insert(shipment);
+    }
 
-        [HttpPost]
-        public async Task<bool> Insert(Shipment shipment)
-        {
-            return await _srv.Insert(shipment);
-        }
+    [HttpPut]
+    public async Task<bool> Update(Shipment shipment)
+    {
+        return await _service.Update(shipment);
+    }
 
-        [HttpPut]
-        public async Task<bool> Update(Shipment shipment)
-        {
-            return await _srv.Update(shipment);
-        }
+    [HttpDelete("{shipmentId}")]
+    public async Task<bool> Delete(int shipmentId)
+    {
+        return await _service.Delete(shipmentId);
+    }
 
-        [HttpDelete("{shipmentId}")]
-        public async Task<bool> Delete(int shipmentId)
-        {
-            return await _srv.Delete(shipmentId);
-        }
+    [HttpGet("transporter/{transporterId}")]
+    public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId)
+    {
+        return await _service.GetShipmentofTransporter(transporterId);
+    }
 
-        [HttpGet("transporter/{transporterId}")]
-        public async Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(
-            int transporterId
-        )
-        {
-            return await _srv.GetShipmentofTransporter(transporterId);
-        }
+    [HttpPost("collections/{collectionCenterId}/status/{shipmentStatus}")]
+    public async Task<List<ShippedCollection>> GetShippedCollections(
+        int collectionCenterId,
+        string shipmentStatus,
+        [FromBody] FilterRequest request,
+        [FromQuery] int pageNumber
+    )
+    {
+        var shippedCollections = await _service.GetShippedCollections(
+            collectionCenterId,
+            shipmentStatus,
+            request,
+            pageNumber
+        );
+        Response.AddPaginationHeader(shippedCollections);
 
-        [HttpPost("collections/{collectionCenterId}/status/{shipmentStatus}")]
-        public async Task<List<ShippedCollection>> GetShippedCollections(
-            int collectionCenterId,
-            string shipmentStatus,
-            [FromBody] FilterRequest request,
-            [FromQuery] int pageNumber
-        )
-        {
-            var shippedCollections = await _srv.GetShippedCollections(
-                collectionCenterId,
-                shipmentStatus,
-                request,
-                pageNumber
-            );
-            Response.AddPaginationHeader(shippedCollections);
-
-            return shippedCollections;
-        }
-
-        [HttpGet("{merchantId}/collectioncount")]
-        public async Task<List<CollectionCount>> GetCollectionCounts(int merchantId)
-        {
-            return await _srv.GetCollectionCounts(merchantId);
-        }
-
-        [HttpGet("{merchantId}/cropcount")]
-        public async Task<List<CropCount>> GetCropCounts(int merchantId)
-        {
-            return await _srv.GetCropCounts(merchantId);
-        }
+        return shippedCollections;
     }
 }

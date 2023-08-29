@@ -1,16 +1,18 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Shipments.Entities
+namespace Transflower.EAgroServices.Shipments.Entities;
+
+[Table("shipmentitems")]
+public class ShipmentItem
 {
-    public class ShipmentItem
-    {
-        [Column("id")]
-        public int Id { get; set; }
+    [Key]
+    [Column("id")]
+    public int Id { get; set; }
 
-        [Column("shipmentid")]
-        public int ShipmentId { get; set; }
+    [Column("shipmentid")]
+    public int ShipmentId { get; set; }
 
-        [Column("collectionid")]
-        public int CollectionId { get; set; }
-    }
+    [Column("collectionid")]
+    public int CollectionId { get; set; }
 }

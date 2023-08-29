@@ -1,7 +1,6 @@
-namespace Shipments.Models
+namespace Transflower.EAgroServices.Shipments.Models;
+
+public class UpdateStatus
 {
-    public class UpdateStatus
-    {
-        public string? Status { get; set; }
-    }
+    public string? Status { get; set; }
 }

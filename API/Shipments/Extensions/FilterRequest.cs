@@ -1,7 +1,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Shipments.Extensions;
+namespace Transflower.EAgroServices.Shipments.Extensions;
 public class FilterRequest
 {
     public List<EqualFilter>? EqualFilters { get; set; }

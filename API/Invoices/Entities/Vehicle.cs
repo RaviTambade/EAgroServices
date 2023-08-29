@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Transflower.Invoices.Entities;
+[Table("vehicles")]
+
 public class Vehicle
 {
     [Column("id")]
