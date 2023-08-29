@@ -1,73 +1,70 @@
-using Merchants.Entities;
-using Merchants.Models;
-using Merchants.Services.Interfaces;
+using Transflower.EAgroServices.Merchants.Entities;
+using Transflower.EAgroServices.Merchants.Models;
+using Transflower.EAgroServices.Merchants.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
-namespace Merchants.Controllers
+namespace Transflower.EAgroServices.Merchants.Controllers;
+[ApiController]
+[Route("/api/merchants")]
+public class MerchantController : ControllerBase
 {
-    [ApiController]
-    [Route("/api/merchants")]
-    public class MerchantController : ControllerBase
+    private readonly IMerchantService _srv;
+
+    public MerchantController(IMerchantService srv)
     {
-        private readonly IMerchantService _srv;
+        _srv = srv;
+    }
 
-        public MerchantController(IMerchantService srv)
-        {
-            _srv = srv;
-        }
+    [HttpGet]
+    public async Task<List<Merchant>> GetAll()
+    {
+        return await _srv.GetAll();
+    }
 
-        [HttpGet]
-        public async Task<List<Merchant>> GetAll()
-        {
-            return await _srv.GetAll();
-        }
+    [HttpGet("{merchantId}")]
+    public async Task<Merchant?> GetById(int merchantId)
+    {
+        return await _srv.GetById(merchantId);
+    }
 
-        [HttpGet("{merchantId}")]
-        public async Task<Merchant?> GetById(int merchantId)
-        {
-            return await _srv.GetById(merchantId);
-        }
+    [HttpPost]
+    public async Task<bool> Insert(Merchant merchant)
+    {
+        return await _srv.Insert(merchant);
+    }
 
-        [HttpPost]
-        public async Task<bool> Insert(Merchant merchant)
-        {
-            return await _srv.Insert(merchant);
-        }
+    [HttpPut]
+    public async Task<bool> Update(Merchant merchant)
+    {
+        return await _srv.Update(merchant);
+    }
 
-        [HttpPut]
-        public async Task<bool> Update(Merchant merchant)
-        {
-            return await _srv.Update(merchant);
-        }
+    [HttpDelete("{merchantId}")]
+    public async Task<bool> Delete(int merchantId)
+    {
+        return await _srv.Delete(merchantId);
+    }
 
-        [HttpDelete("{merchantId}")]
-        public async Task<bool> Delete(int merchantId)
-        {
-            return await _srv.Delete(merchantId);
-        }
+    [HttpGet("{merchantId}/getcorporate")]
+    public async Task<int> GetCorporateId(int merchantId)
+    {
+        return await _srv.GetCorporateId(merchantId);
+    }
 
-        [HttpGet("{merchantId}/getcorporate")]
-        public async Task<int> GetCorporateId(int merchantId)
-        {
-            return await _srv.GetCorporateId(merchantId);
-        }
+    [HttpGet("manager/{managerId}")]
+    public async Task<int> GetMerchantId(int managerId)
+    {
+        return await _srv.GetMerchantId(managerId);
+    }
 
-        [HttpGet("manager/{managerId}")]
-        public async Task<int> GetMerchantId(int managerId)
-        {
-            return await _srv.GetMerchantId(managerId);
-        }
+    [HttpGet("id/{corporateId}")]
+    public async Task<int> GetId(int corporateId)
+    {
+        return await _srv.GetId(corporateId);
+    }
 
-        [HttpGet("id/{corporateId}")]
-        public async Task<int> GetId(int corporateId)
-        {
-            return await _srv.GetId(corporateId);
-        }
-
-        [HttpGet("merchantandcorporateid")]
-        public async Task<List<MerchantCorporate>> GetMerchantAndCorporateId()
-        {
-            return await _srv.GetMerchantAndCorporateId();
-        }
+    [HttpGet("merchantandcorporateid")]
+    public async Task<List<MerchantCorporate>> GetMerchantAndCorporateId()
+    {
+        return await _srv.GetMerchantAndCorporateId();
     }
 }
