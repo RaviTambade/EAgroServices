@@ -1,26 +1,23 @@
-using Payments.Services.Interfaces;
-using Payments.Repositories.Interfaces;
-using Payments.Models;
-
-namespace Payments.Services
-{
+using Transflower.EAgroServices.Payments.Services.Interfaces;
+using Transflower.EAgroServices.Payments.Repositories.Interfaces;
+using Transflower.EAgroServices.Payments.Models;
+namespace Transflower.EAgroServices.Payments.Services;
     public class TransporterPaymentService : ITransporterPaymentService
     {
-        private readonly ITransporterPaymentRepository _repo;
+        private readonly ITransporterPaymentRepository _repository;
 
-        public TransporterPaymentService(ITransporterPaymentRepository repo)
+        public TransporterPaymentService(ITransporterPaymentRepository repository)
         {
-            _repo = repo;
+            _repository = repository;
         }
 
-        public async Task<bool> isShipmentPaymentPaid(int shipmentId)
+        public async Task<bool> IsShipmentPaymentPaid(int shipmentId)
         {
-            return await _repo.isShipmentPaymentPaid(shipmentId);
+            return await _repository.IsShipmentPaymentPaid(shipmentId);
         }
 
-          public async Task<bool> Add(TransporterPayment payment)
+          public async Task<bool> TransporterPayment(TransporterPayment payment)
         {
-            return await _repo.Add(payment);
+            return await _repository.TransporterPayment(payment);
         }
     }
-}

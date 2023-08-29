@@ -1,10 +1,6 @@
-
-using Payments.Repositories.Interfaces;
-
-namespace Payments.Services.Interfaces
+using Transflower.EAgroServices.Payments.Repositories.Interfaces;
+namespace Transflower.EAgroServices.Payments.Services.Interfaces;
+public interface IPaymentService : IPaymentRepository
 {
-    public interface IPaymentService:IPaymentRepository
-    {
 
-    } 
 }

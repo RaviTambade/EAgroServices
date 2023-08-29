@@ -1,73 +1,70 @@
-using Payments.Models;
-using Payments.Repositories.Interfaces;
+using Transflower.EAgroServices.Payments.Models;
+using Transflower.EAgroServices.Payments.Repositories.Interfaces;
 using MySql.Data.MySqlClient;
 using System.Data;
-
-namespace Payments.Repositories
+namespace Transflower.EAgroServices.Payments.Repositories;
+public class TransporterPaymentRepository : ITransporterPaymentRepository
 {
-    public class TransporterPaymentRepository : ITransporterPaymentRepository
+    private readonly IConfiguration _configuration;
+    private readonly string _connectionString;
+
+    public TransporterPaymentRepository(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
-        private readonly string _conString;
+        _configuration = configuration;
+        _connectionString = this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+    }
 
-        public TransporterPaymentRepository(IConfiguration configuration)
+    public async Task<bool> IsShipmentPaymentPaid(int shipmentId)
+    {
+        bool status = false;
+        MySqlConnection connection = new MySqlConnection(_connectionString);
+        try
         {
-            _configuration = configuration;
-            _conString = this._configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+            string query =
+                "SELECT EXISTS (SELECT shipmentid FROM transporterpayments WHERE shipmentid = @shipmentId)";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@shipmentId", shipmentId);
+            await connection.OpenAsync();
+            long existsValue =(long)command.ExecuteScalar();
+            status = existsValue == 1;
         }
+        catch (Exception)
+        {
+            throw;
+        }
+        finally
+        {
+            await connection.CloseAsync();
+        }
+        return status;
+    }
 
-        public async Task<bool> isShipmentPaymentPaid(int shipmentId)
+    public async Task<bool> TransporterPayment(TransporterPayment payment)
+    {
+        bool status = false;
+        MySqlConnection connection = new MySqlConnection(_connectionString);
+        try
         {
-            bool status = false;
-            MySqlConnection con = new MySqlConnection(_conString);
-            try
+            MySqlCommand command = new MySqlCommand("transporter_payment", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@shipment_id", payment.ShipmentId);
+            command.Parameters.AddWithValue("@transaction_id", payment.TransactionId);
+            command.Parameters.AddWithValue("@amount", payment.Amount);
+            await connection.OpenAsync();
+            int rowsAffected = await command.ExecuteNonQueryAsync();
+            if (rowsAffected > 0)
             {
-                string query =
-                    "SELECT EXISTS (SELECT shipmentid FROM transporterpayments WHERE shipmentid = @shipmentId)";
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@shipmentId", shipmentId);
-                await con.OpenAsync();
-                int existsValue = (int)cmd.ExecuteScalar();
-                status = existsValue == 1;
+                status = true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                await con.CloseAsync();
-            }
-            return status;
         }
-
-        public async Task<bool> Add(TransporterPayment payment)
+        catch (Exception)
         {
-            bool status = false;
-            MySqlConnection con = new MySqlConnection(_conString);
-            try
-            {
-                MySqlCommand cmd = new MySqlCommand("transporter_payment", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@shipment_id", payment.ShipmentId);
-                cmd.Parameters.AddWithValue("@transaction_id", payment.TransactionId);
-                cmd.Parameters.AddWithValue("@amount", payment.Amount);
-                await con.OpenAsync();
-                int rowsAffected = await cmd.ExecuteNonQueryAsync();
-                if (rowsAffected > 0)
-                {
-                    status = true;
-                }
-            }
-            catch (Exception)
-            {
-                throw ;
-            }
-            finally
-            {
-                await con.CloseAsync();
-            }
-            return status;
+            throw;
         }
+        finally
+        {
+            await connection.CloseAsync();
+        }
+        return status;
     }
 }

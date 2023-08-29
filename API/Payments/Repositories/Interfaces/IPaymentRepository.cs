@@ -1,10 +1,6 @@
-
-using Payments.Models;
-
-namespace Payments.Repositories.Interfaces
+using Transflower.EAgroServices.Payments.Models;
+namespace Transflower.EAgroServices.Payments.Repositories.Interfaces;
+public interface IPaymentRepository
 {
-    public interface IPaymentRepository
-    {
-        Task<bool> Add(FarmerServicePayment payment);
-    }
+    Task<bool> AddPayment(FarmerServicePayment payment);
 }

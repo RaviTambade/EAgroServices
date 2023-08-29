@@ -1,31 +1,28 @@
 
-using Payments.Models;
-using Payments.Services.Interfaces;
+using Transflower.EAgroServices.Payments.Models;
+using Transflower.EAgroServices.Payments.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
-namespace Payments.Controllers
+namespace Transflower.EAgroServices.Payments.Controllers;
+[ApiController]
+[Route("/api/transporter/payments")]
+public class TransporterPaymentController : ControllerBase
 {
-    [ApiController]
-    [Route("/api/transporter/payments")]
-    public class TransporterPaymentController : ControllerBase
+    private readonly ITransporterPaymentService _service;
+
+    public TransporterPaymentController(ITransporterPaymentService service)
     {
-        private readonly ITransporterPaymentService _srv;
-
-        public TransporterPaymentController(ITransporterPaymentService srv)
-        {
-            _srv = srv;
-        }
-        [HttpGet("ispaid/{shipmentId}")]
-         public async Task<bool> isShipmentPaymentPaid(int shipmentId)
-        {
-            return await _srv.isShipmentPaymentPaid(shipmentId);
-        }
-
-        [HttpPost]
-         public async Task<bool> Add(TransporterPayment payment)
-        {
-            return await _srv.Add(payment);
-        }
-
+        _service = service;
     }
+    [HttpGet("ispaid/{shipmentId}")]
+    public async Task<bool> IsShipmentPaymentPaid(int shipmentId)
+    {
+        return await _service.IsShipmentPaymentPaid(shipmentId);
+    }
+
+    [HttpPost]
+    public async Task<bool> TransporterPayment(TransporterPayment payment)
+    {
+        return await _service.TransporterPayment(payment);
+    }
+
 }

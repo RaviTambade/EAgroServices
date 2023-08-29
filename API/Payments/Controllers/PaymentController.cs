@@ -1,24 +1,21 @@
-using Payments.Models;
-using Payments.Services.Interfaces;
+using Transflower.EAgroServices.Payments.Models;
+using Transflower.EAgroServices.Payments.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
-namespace Payments.Controllers
+namespace Transflower.EAgroServices.Payments.Controllers;
+[ApiController]
+[Route("/api/[controller]")]
+public class PaymentController : ControllerBase
 {
-    [ApiController]
-    [Route("/api/[controller]")]
-    public class PaymentController : ControllerBase
+    private readonly IPaymentService _service;
+
+    public PaymentController(IPaymentService service)
     {
-        private readonly IPaymentService _srv;
+        _service = service;
+    }
 
-        public PaymentController(IPaymentService srv)
-        {
-            _srv = srv;
-        }
-
-        [HttpPost]
-        public async Task<bool> Add(FarmerServicePayment payment)
-        {
-            return await _srv.Add(payment);
-        }
+    [HttpPost]
+    public async Task<bool> AddPayment(FarmerServicePayment payment)
+    {
+        return await _service.AddPayment(payment);
     }
 }

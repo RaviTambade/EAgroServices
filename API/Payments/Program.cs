@@ -1,7 +1,7 @@
-using Payments.Repositories.Interfaces;
-using Payments.Services.Interfaces;
-using Payments.Repositories;
-using Payments.Services;
+using Transflower.EAgroServices.Payments.Repositories.Interfaces;
+using Transflower.EAgroServices.Payments.Services.Interfaces;
+using Transflower.EAgroServices.Payments.Repositories;
+using Transflower.EAgroServices.Payments.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
