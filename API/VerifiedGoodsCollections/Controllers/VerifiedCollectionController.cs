@@ -9,18 +9,17 @@ namespace VerifiedGoodsCollections.Controller;
 [Route("/api/verifiedcollections")]
 public class VerifiedCollectionsController : ControllerBase
 {
-    private readonly IVerifiedCollectionService _svc;
+    private readonly IVerifiedCollectionService _service;
 
-    public VerifiedCollectionsController(IVerifiedCollectionService svc)
+    public VerifiedCollectionsController(IVerifiedCollectionService service)
     {
-        _svc = svc;
+        _service = service;
     }
 
     [HttpGet]
-    [Route("")]
     public async Task<List<VerifiedCollection>> GetAll()
     {
-        List<VerifiedCollection> verifiedCollections = await _svc.GetAll();
+        List<VerifiedCollection> verifiedCollections = await _service.GetAll();
         return verifiedCollections;
     }
 
@@ -28,27 +27,26 @@ public class VerifiedCollectionsController : ControllerBase
     [Route("{id}")]
     public async Task<VerifiedCollection> GetVerifiedCollection(int id)
     {
-        VerifiedCollection verifiedCollection = await _svc.GetVerifiedCollection(id);
+        VerifiedCollection verifiedCollection = await _service.GetVerifiedCollection(id);
         return verifiedCollection;
     }
 
     [HttpGet("grades")]
     public async Task<List<string>> GetGrades()
     {
-        return await _svc.GetGrades();
+        return await _service.GetGrades();
     }
 
     [HttpGet("containertypes")]
     public async Task<List<string>> GetContinerTypes()
     {
-        return await _svc.GetContinerTypes();
+        return await _service.GetContinerTypes();
     }
 
     [HttpPost]
-    [Route("")]
     public async Task<bool> Insert(VerifiedCollection verifiedCollection)
     {
-        bool status = await _svc.Insert(verifiedCollection);
+        bool status = await _service.Insert(verifiedCollection);
         return status;
     }
 
@@ -56,7 +54,7 @@ public class VerifiedCollectionsController : ControllerBase
     [Route("{id}")]
     public async Task<bool> Update(int id, VerifiedCollection verifiedCollection)
     {
-        bool status = await _svc.Update(id, verifiedCollection);
+        bool status = await _service.Update(id, verifiedCollection);
         return status;
     }
 
@@ -64,7 +62,7 @@ public class VerifiedCollectionsController : ControllerBase
     [Route("{id}")]
     public async Task<bool> Delete(int id)
     {
-        bool status = await _svc.Delete(id);
+        bool status = await _service.Delete(id);
         return status;
     }
 }
