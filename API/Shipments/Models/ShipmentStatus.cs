@@ -1,10 +1,7 @@
+namespace Transflower.EAgroServices.Shipments.Models;
 
-namespace Shipments.Models
+public static class ShipmentStatus
 {
-    public static class 
-    ShipmentStatus
-    {
-      public  const string Delivered="delivered";
-      public const string Inprogress="inprogress";
-    }
+    public const string Delivered = "delivered";
+    public const string Inprogress = "inprogress";
 }

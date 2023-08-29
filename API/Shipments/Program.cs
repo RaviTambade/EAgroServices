@@ -1,13 +1,26 @@
-using Shipments.Services.Interfaces;
-using Shipments.Repositories.Interfaces;
-using Shipments.Services;
-using Shipments.Repositories;
-using Shipments.Models;
-using Shipments.Extensions;
+using Transflower.EAgroServices.Shipments.Services.Interfaces;
+using Transflower.EAgroServices.Shipments.Repositories.Interfaces;
+using Transflower.EAgroServices.Shipments.Services;
+using Transflower.EAgroServices.Shipments.Repositories;
+using Transflower.EAgroServices.Shipments.Models;
+using Transflower.EAgroServices.Shipments.Extensions;
+using Transflower.EAgroServices.Shipments.Repositories.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+builder.Services.AddDbContext<ShipmentContext>(
+    options =>
+        options
+            .UseMySQL(
+                builder.Configuration.GetConnectionString("DefaultConnection")
+                    ?? throw new ArgumentNullException(nameof(options))
+            )
+            .LogTo(Console.WriteLine, LogLevel.Information)
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors()
+);
 
 builder.Services.AddCors();
 builder.Services.AddControllers();
@@ -15,7 +28,10 @@ builder.Services.AddScoped<IShipmentService, ShipmentService>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentItemService, ShipmentItemService>();
 builder.Services.AddScoped<IShipmentItemRepository, ShipmentItemRepository>();
-builder.Services.AddScoped<IFilterHelperService<ShippedCollection>,FilterHelperService<ShippedCollection>>();
+builder.Services.AddScoped<
+    IFilterHelperService<ShippedCollection>,
+    FilterHelperService<ShippedCollection>
+>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,9 +46,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders(
-                       new string[] {"X-Pagination"}
-                    ));
+app.UseCors(
+    x =>
+        x.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithExposedHeaders(new string[] { "X-Pagination" })
+);
 
 app.UseAuthorization();
 

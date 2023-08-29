@@ -1,42 +1,41 @@
-using Shipments.Services.Interfaces;
-using Shipments.Repositories.Interfaces;
-using Shipments.Models;
-using Shipments.Entities;
+using Transflower.EAgroServices.Shipments.Services.Interfaces;
+using Transflower.EAgroServices.Shipments.Repositories.Interfaces;
+using Transflower.EAgroServices.Shipments.Entities;
 
-namespace Shipments.Services
+namespace Transflower.EAgroServices.Shipments.Services
 {
     public class ShipmentItemService : IShipmentItemService
     {
-        private readonly IShipmentItemRepository _repo;
+        private readonly IShipmentItemRepository _repository;
 
-        public ShipmentItemService(IShipmentItemRepository repo)
+        public ShipmentItemService(IShipmentItemRepository repository)
         {
-            _repo = repo;
+            _repository = repository;
         }
 
         public async Task<List<ShipmentItem>> GetAll()
         {
-            return await _repo.GetAll();
+            return await _repository.GetAll();
         }
 
         public async Task<ShipmentItem?> GetById(int shipmentItemId)
         {
-            return await _repo.GetById(shipmentItemId);
+            return await _repository.GetById(shipmentItemId);
         }
 
         public async Task<bool> Insert(ShipmentItem shipmentItem)
         {
-            return await _repo.Insert(shipmentItem);
+            return await _repository.Insert(shipmentItem);
         }
 
         public async Task<bool> Update(ShipmentItem shipmentItem)
         {
-            return await _repo.Update(shipmentItem);
+            return await _repository.Update(shipmentItem);
         }
 
         public async Task<bool> Delete(int shipmentItemId)
         {
-            return await _repo.Delete(shipmentItemId);
+            return await _repository.Delete(shipmentItemId);
         }
     }
 }

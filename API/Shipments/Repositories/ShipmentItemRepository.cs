@@ -1,122 +1,102 @@
-using Shipments.Repositories.Interfaces;
-using Shipments.Repositories.Contexts;
+using Transflower.EAgroServices.Shipments.Repositories.Interfaces;
+using Transflower.EAgroServices.Shipments.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Shipments.Entities;
+using Transflower.EAgroServices.Shipments.Entities;
 
-namespace Shipments.Repositories
+namespace Transflower.EAgroServices.Shipments.Repositories;
+
+public class ShipmentItemRepository : IShipmentItemRepository
 {
-    public class ShipmentItemRepository : IShipmentItemRepository
-    { 
-        private readonly IConfiguration _configuration;
+    private readonly ShipmentContext _context;
 
-        public ShipmentItemRepository(IConfiguration configuration)
+    public ShipmentItemRepository(ShipmentContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<List<ShipmentItem>> GetAll()
+    {
+        try
         {
-            _configuration = configuration;
+            var shipmentItems = await _context.ShipmentItems.ToListAsync();
+            return shipmentItems;
         }
-
-          public async Task<List<ShipmentItem>> GetAll()
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipmentItems = await context.ShipmentItems.ToListAsync();
-                    return shipmentItems;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<ShipmentItem?> GetById(int ShipmentItemId)
+    public async Task<ShipmentItem?> GetById(int ShipmentItemId)
+    {
+        try
         {
-            try
-            {
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipmentItem = await context.ShipmentItems.FindAsync(ShipmentItemId);
-                    return shipmentItem;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var shipmentItem = await _context.ShipmentItems.FindAsync(ShipmentItemId);
+            return shipmentItem;
         }
-
-        public async Task<bool> Insert(ShipmentItem shipmentItem)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    await context.ShipmentItems.AddAsync(shipmentItem);
-                    status = await SaveChanges(context);
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<bool> Update(ShipmentItem shipmentItem)
+    public async Task<bool> Insert(ShipmentItem shipmentItem)
+    {
+        bool status = false;
+        try
         {
-            try
+            await _context.ShipmentItems.AddAsync(shipmentItem);
+            status = await SaveChanges(_context);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        return status;
+    }
+
+    public async Task<bool> Update(ShipmentItem shipmentItem)
+    {
+        bool status = false;
+        try
+        {
+            var oldShipmentItem = await _context.ShipmentItems.FindAsync(shipmentItem.Id);
+            if (oldShipmentItem is not null)
             {
-                bool status = false;
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var oldShipmentItem = await context.ShipmentItems.FindAsync(shipmentItem.Id);
-                    if (oldShipmentItem is not null)
-                    {
-                        oldShipmentItem.ShipmentId = shipmentItem.ShipmentId;
-                        oldShipmentItem.CollectionId = shipmentItem.CollectionId;
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                oldShipmentItem.ShipmentId = shipmentItem.ShipmentId;
+                oldShipmentItem.CollectionId = shipmentItem.CollectionId;
+                status = await SaveChanges(_context);
             }
         }
-
-        public async Task<bool> Delete(int ShipmentItemId)
+        catch (Exception)
         {
-            try
+            throw;
+        }
+        return status;
+    }
+
+    public async Task<bool> Delete(int ShipmentItemId)
+    {
+        bool status = false;
+        try
+        {
+            var shipmentItem = await _context.ShipmentItems.FindAsync(ShipmentItemId);
+            if (shipmentItem is not null)
             {
-                bool status = false;
-                using (var context = new ShipmentContext(_configuration))
-                {
-                    var shipmentItem = await context.ShipmentItems.FindAsync(ShipmentItemId);
-                    if (shipmentItem is not null)
-                    {
-                        context.ShipmentItems.Remove(shipmentItem);
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                _context.ShipmentItems.Remove(shipmentItem);
+                status = await SaveChanges(_context);
             }
         }
-
-        private async Task<bool> SaveChanges(ShipmentContext context)
+        catch (Exception)
         {
-            int rowsAffected = await context.SaveChangesAsync();
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
+            throw;
         }
+        return status;
+    }
+
+    private async Task<bool> SaveChanges(ShipmentContext _context)
+    {
+        int rowsAffected = await _context.SaveChangesAsync();
+        return rowsAffected > 0;
     }
 }
