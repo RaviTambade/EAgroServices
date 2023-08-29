@@ -10,35 +10,35 @@ namespace Transflower.Invoices.Controllers;
 [Route("/api/collectioncenterinvoice/filterhelper")]
 public class CollectionCenterInvoiceHelperController : ControllerBase
 {
-    private readonly IFilterHelperService<CollectionCenterInvoice> _srv;
+    private readonly IFilterHelperService<CollectionCenterInvoice> _service;
 
-    public CollectionCenterInvoiceHelperController(IFilterHelperService<CollectionCenterInvoice> srv)
+    public CollectionCenterInvoiceHelperController(IFilterHelperService<CollectionCenterInvoice> service)
     {
-        _srv = srv;
+        _service = service;
     }
 
     [HttpGet("getpropertynames")]
     public List<string> GetPropertyNames()
     {
-        return _srv.GetPropertyNames();
+        return _service.GetPropertyNames();
     }
 
     [HttpGet("getequalproperties")]
     public List<string> GetEqualProperties()
     {
-        return _srv.GetEqualProperties();
+        return _service.GetEqualProperties();
     }
 
     [HttpGet("getrangeproperties")]
     public List<string> GetRangeProperties()
     {
-        return _srv.GetRangeProperties();
+        return _service.GetRangeProperties();
     }
 
     [HttpGet("getdaterangeproperties")]
     public List<string> GetDateRangeProperties()
     {
-        return _srv.GetDateRangeProperties();
+        return _service.GetDateRangeProperties();
     }
 
 

@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Transflower.Invoices.Models;
 
-    public class InvoiceDetails
+    public class InvoiceDetail
     {
         public int Id { get; set; }
         public int FarmerId { get; set; }
