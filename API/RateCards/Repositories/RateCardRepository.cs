@@ -1,116 +1,96 @@
-using RateCards.Entities;
-using RateCards.Repositories.Interfaces;
-using RateCards.Repositories.Contexts;
+using Transflower.EAgroServices.RateCards.Entities;
+using Transflower.EAgroServices.RateCards.Repositories.Interfaces;
+using Transflower.EAgroServices.RateCards.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
-
-namespace RateCards.Repositories
+namespace Transflower.EAgroServices.RateCards.Repositories;
+public class RateCardRepository : IRateCardRepository
 {
-    public class RateCardRepository : IRateCardRepository
+    private readonly RateCardContext _rateCardContext;
+    public RateCardRepository(RateCardContext rateCardContext)
     {
-        private readonly IConfiguration _configuration;
-
-        public RateCardRepository(IConfiguration configuration)
+        _rateCardContext = rateCardContext;
+    }
+    public async Task<List<RateCard>> GetAll()
+    {
+        try
         {
-            _configuration = configuration;
+            List<RateCard> ratecards = await _rateCardContext.RateCards.ToListAsync();
+            return ratecards;
         }
-
-        public async Task<List<RateCard>> GetAll()
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new RateCardContext(_configuration))
-                {
-                    List<RateCard> ratecard = await context.RateCards.ToListAsync();
-                    return ratecard;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<RateCard?> GetById(int ratecardId)
+    public async Task<RateCard?> GetById(int ratecardId)
+    {
+        try
         {
-            try
-            {
-                using (var context = new RateCardContext(_configuration))
-                {
-                    RateCard? ratecard = await context.RateCards.FindAsync(ratecardId);
-                    return ratecard;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            RateCard? ratecard = await _rateCardContext.RateCards.FindAsync(ratecardId);
+            return ratecard;
         }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 
-        public async Task<bool> Insert(RateCard ratecard)
+    public async Task<bool> Insert(RateCard ratecard)
+    {
+        bool status = false;
+        try
         {
-            bool status = false;
-            try
-            {
-                using (var context = new RateCardContext(_configuration))
-                {
-                    await context.RateCards.AddAsync(ratecard);
-                    await context.SaveChangesAsync();
-                    status = true;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return status;
+            await _rateCardContext.RateCards.AddAsync(ratecard);
+            await _rateCardContext.SaveChangesAsync();
+            status = true;
         }
+        catch (Exception)
+        {
+            throw;
+        }
+        return status;
+    }
 
-        public async Task<bool> Update(int ratecardId, RateCard ratecard)
+    public async Task<bool> Update(int ratecardId, RateCard ratecard)
+    {
+        bool status = false;
+        try
         {
-            bool status = false;
-            try
+            RateCard? oldratecard = await _rateCardContext.RateCards.FindAsync(ratecardId);
+            if (oldratecard != null)
             {
-                using (var context = new RateCardContext(_configuration))
-                {
-                    RateCard? oldratecard = await context.RateCards.FindAsync(ratecardId);
-                    if (oldratecard != null)
-                    {
-                        oldratecard.Title = ratecard.Title;
-                        oldratecard.Description = ratecard.Description;
-                        oldratecard.Amount = ratecard.Amount;
-                        await context.SaveChangesAsync();
-                        status = true;
-                    }
-                }
+                oldratecard.Title = ratecard.Title;
+                oldratecard.Description = ratecard.Description;
+                oldratecard.Amount = ratecard.Amount;
+                await _rateCardContext.SaveChangesAsync();
+                status = true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return status;
         }
+        catch (Exception)
+        {
+            throw;
+        }
+        return status;
+    }
 
-        public async Task<bool> Delete(int ratecardId)
+    public async Task<bool> Delete(int ratecardId)
+    {
+        bool status = false;
+        try
         {
-            bool status = false;
-            try
+            RateCard? ratecard = await _rateCardContext.RateCards.FindAsync(ratecardId);
+            if (ratecard != null)
             {
-                using (var context = new RateCardContext(_configuration))
-                {
-                    RateCard? ratecard = await context.RateCards.FindAsync(ratecardId);
-                    if (ratecard != null)
-                    {
-                        context.RateCards.Remove(ratecard);
-                        await context.SaveChangesAsync();
-                        return true;
-                    }
-                }
+                _rateCardContext.RateCards.Remove(ratecard);
+                await _rateCardContext.SaveChangesAsync();
+                return true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return status;
         }
+        catch (Exception)
+        {
+            throw;
+        }
+        return status;
     }
 }

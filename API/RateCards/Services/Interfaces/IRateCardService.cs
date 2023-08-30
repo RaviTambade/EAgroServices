@@ -1,10 +1,6 @@
-
-using RateCards.Repositories.Interfaces;
-
-namespace RateCards.Services.Interfaces
+using Transflower.EAgroServices.RateCards.Repositories.Interfaces;
+namespace Transflower.EAgroServices.RateCards.Services.Interfaces;
+public interface IRateCardService : IRateCardRepository
 {
-    public interface IRateCardService:IRateCardRepository
-    {
 
-    } 
 }
