@@ -2,7 +2,7 @@ using Transflower.EAgroServices.Shipments.Models;
 using Transflower.EAgroServices.Shipments.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Shipments.Controllers;
+namespace  Transflower.EAgroServices.Shipments.Controllers;
 
 [ApiController]
 [Route("/api/shippedcollections/filterhelper")]

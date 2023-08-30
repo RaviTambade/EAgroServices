@@ -1,166 +1,141 @@
-using UserRolesManagement.Entities;
-using UserRolesManagement.Repositories.Interfaces;
-using UserRolesManagement.Repositories.Contexts;
+using Transflower.EAgroServices.UserRolesManagement.Entities;
+using Transflower.EAgroServices.UserRolesManagement.Repositories.Interfaces;
+using Transflower.EAgroServices.UserRolesManagement.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace UserRolesManagement.Repositories
+namespace Transflower.EAgroServices.UserRolesManagement.Repositories;
+
+public class UserRoleRepository : IUserRoleRepository
 {
-    public class UserRoleRepository : IUserRoleRepository
+    private readonly UserRoleContext _context;
+
+    public UserRoleRepository(UserRoleContext context)
     {
-        private readonly IConfiguration _configuration;
+        _context = context;
+    }
 
-        public UserRoleRepository(IConfiguration configuration)
+    public async Task<List<UserRole>> GetAll()
+    {
+        try
         {
-            _configuration = configuration;
+            var userRoles = await _context.UserRoles.ToListAsync();
+            return userRoles;
         }
-
-        public async Task<List<UserRole>> GetAll()
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var userRoles = await context.UserRoles.ToListAsync();
-                    return userRoles;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<UserRole?> GetById(int userRoleId)
+    public async Task<UserRole?> GetById(int userRoleId)
+    {
+        try
         {
-            try
-            {
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var userRole = await context.UserRoles.FindAsync(userRoleId);
-                    return userRole;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var userRole = await _context.UserRoles.FindAsync(userRoleId);
+            return userRole;
         }
-
-        public async Task<List<string>> GetRolesByUserId(int userId)
+        catch (Exception)
         {
-            try
-            {
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var roles = await (
-                        from role in context.Roles
-                        join userRoles in context.UserRoles on role.Id equals userRoles.RoleId
-                        where userRoles.UserId == userId
-                        select role.Name
-                    ).ToListAsync();
-                    return roles;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<List<string>> GetUsersId(string roleName)
+    public async Task<List<string>> GetRolesByUserId(int userId)
+    {
+        try
         {
-            try
-            {
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var Ids = await (
-                        from role in context.Roles
-                        join userRoles in context.UserRoles on role.Id equals userRoles.RoleId
-                        where role.Name == roleName
-                        select userRoles.UserId
-                    ).ToListAsync();
-                    string farmerIdsString = string.Join(",", Ids);
-                    List<string> farmersIds = new List<string> { farmerIdsString };
-                    return farmersIds;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var roles = await (
+                from role in _context.Roles
+                join userRoles in _context.UserRoles on role.Id equals userRoles.RoleId
+                where userRoles.UserId == userId
+                select role.Name
+            ).ToListAsync();
+            return roles;
         }
-
-        public async Task<bool> Insert(UserRole userRole)
+        catch (Exception)
         {
-            try
+            throw;
+        }
+    }
+
+    public async Task<List<string>> GetUsersId(string roleName)
+    {
+        try
+        {
+            List<int> userIds = await (
+                from role in _context.Roles
+                join userRoles in _context.UserRoles on role.Id equals userRoles.RoleId
+                where role.Name == roleName
+                select userRoles.UserId
+            ).ToListAsync();
+
+            string userIdString = string.Join(",", userIds);
+            List<string> userIdStringList = new List<string> { userIdString };
+            return userIdStringList;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<bool> Insert(UserRole userRole)
+    {
+        bool status = false;
+        try
+        {
+            await _context.UserRoles.AddAsync(userRole);
+            status = await SaveChanges(_context);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        return status;
+    }
+
+    public async Task<bool> Update(UserRole userRole)
+    {
+        bool status = false;
+        try
+        {
+            var oldMerchant = await _context.UserRoles.FindAsync(userRole.Id);
+            if (oldMerchant is not null)
             {
-                bool status = false;
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    await context.UserRoles.AddAsync(userRole);
-                    status = await SaveChanges(context);
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                oldMerchant.UserId = userRole.UserId;
+                oldMerchant.RoleId = userRole.RoleId;
+                status = await SaveChanges(_context);
             }
         }
-
-        public async Task<bool> Update(UserRole userRole)
+        catch (Exception)
         {
-            try
+            throw;
+        }
+        return status;
+    }
+
+    public async Task<bool> Delete(int userRoleId)
+    {
+        bool status = false;
+        try
+        {
+            var userRole = await _context.UserRoles.FindAsync(userRoleId);
+            if (userRole is not null)
             {
-                bool status = false;
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var oldMerchant = await context.UserRoles.FindAsync(userRole.Id);
-                    if (oldMerchant is not null)
-                    {
-                        oldMerchant.UserId = userRole.UserId;
-                        oldMerchant.RoleId = userRole.RoleId;
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                _context.UserRoles.Remove(userRole);
+                status = await SaveChanges(_context);
             }
         }
-
-        public async Task<bool> Delete(int userRoleId)
+        catch (Exception)
         {
-            try
-            {
-                bool status = false;
-                using (var context = new UserRoleContext(_configuration))
-                {
-                    var userRole = await context.UserRoles.FindAsync(userRoleId);
-                    if (userRole is not null)
-                    {
-                        context.UserRoles.Remove(userRole);
-                        status = await SaveChanges(context);
-                    }
-                    return status;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+        return status;
+    }
 
-        private async Task<bool> SaveChanges(UserRoleContext context)
-        {
-            int rowsAffected = await context.SaveChangesAsync();
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
+    private async Task<bool> SaveChanges(UserRoleContext _context)
+    {
+        int rowsAffected = await _context.SaveChangesAsync();
+        return rowsAffected > 0;
     }
 }

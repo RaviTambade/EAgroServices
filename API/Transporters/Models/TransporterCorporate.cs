@@ -1,8 +1,7 @@
-namespace Transporters.Models
+namespace Transflower.EAgroServices.Transporters.Models;
+
+public class TransporterCorporate
 {
-    public class TransporterCorporate
-    {
-        public int Id { get; set; }
-        public int CorporateId { get; set; }
-    }
+    public int Id { get; set; }
+    public int CorporateId { get; set; }
 }

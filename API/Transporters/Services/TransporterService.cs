@@ -1,77 +1,69 @@
-using Transporters.Services.Interfaces;
-using Transporters.Repositories.Interfaces;
-using Transporters.Models;
+using Transflower.EAgroServices.Transporters.Services.Interfaces;
+using Transflower.EAgroServices.Transporters.Repositories.Interfaces;
+using Transflower.EAgroServices.Transporters.Models;
+using Transflower.EAgroServices.Transporters.Entities;
 
-namespace Transporters.Services
+namespace Transflower.EAgroServices.Transporters.Services;
+
+public class TransporterService : ITransporterService
 {
-    public class TransporterService : ITransporterService
+    private readonly ITransporterRepository _repository;
+
+    public TransporterService(ITransporterRepository repository)
     {
-        private readonly ITransporterRepository _repo;
+        _repository = repository;
+    }
 
-        public TransporterService(ITransporterRepository repo)
-        {
-            _repo = repo;
-        }
+    public async Task<List<Transporter>> GetAll()
+    {
+        return await _repository.GetAll();
+    }
 
-        public async Task<List<Transporter>> GetAll()
-        {
-            return await _repo.GetAll();
-        }
+    public async Task<Transporter?> GetById(int transporterId)
+    {
+        return await _repository.GetById(transporterId);
+    }
 
-        public async Task<Transporter> GetById(int transporterId)
-        {
-            return await _repo.GetById(transporterId);
-        }
+    public async Task<bool> Insert(Transporter transporter)
+    {
+        return await _repository.Insert(transporter);
+    }
 
-        public async Task<bool> Insert(Transporter transporter)
-        {
-            return await _repo.Insert(transporter);
-        }
+    public async Task<bool> Update(Transporter transporter)
+    {
+        return await _repository.Update(transporter);
+    }
 
-        public async Task<bool> Update(Transporter transporter)
-        {
-            return await _repo.Update(transporter);
-        }
+    public async Task<bool> Delete(int transporterId)
+    {
+        return await _repository.Delete(transporterId);
+    }
 
-        public async Task<bool> Delete(int transporterId)
-        {
-            return await _repo.Delete(transporterId);
-        }
-         public async Task<List<Vehicle>> GetTransportersVehicles(int transporterId)
-        {
-            return await _repo.GetTransportersVehicles(transporterId);
-        }
+    public async Task<List<Vehicle>> GetTransportersVehicles(int transporterId)
+    {
+        return await _repository.GetTransportersVehicles(transporterId);
+    }
 
-        public async Task<int> GetTransporterId(int managerId)
-        {
-            return await _repo.GetTransporterId(managerId);
-        }
-         public async Task<List<TransporterCorporate>> GetTransporterAndCorporateId()
-        {
-            return await _repo.GetTransporterAndCorporateId();
-        }
+    public async Task<int> GetTransporterId(int managerId)
+    {
+        return await _repository.GetTransporterId(managerId);
+    }
 
-        public async Task<int> GetCorporateIdOfTransporter(int transporterId)
-        {
-            return await _repo.GetCorporateIdOfTransporter(transporterId);
-        }
-        public async Task<List<VehicleRevenue>> GetVehicleRevenues(int transporterId)
-        {
-            return await _repo.GetVehicleRevenues(transporterId);
-        }
-        public async Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId)
-        {
-            return await _repo.GetTransporterRevenues(transporterId);
-        }
+    public async Task<List<TransporterCorporate>> GetTransporterAndCorporateId()
+    {
+        return await _repository.GetTransporterAndCorporateId();
+    }
 
-        public Task<List<ShipmentCount>> GetShipmentCounts(int transporterId)
-        {
-            return _repo.GetShipmentCounts(transporterId);
-        }
+    public async Task<int> GetCorporateIdOfTransporter(int transporterId)
+    {
+        return await _repository.GetCorporateIdOfTransporter(transporterId);
+    }
 
-        public Task<List<TransporterInvoice>> GetTransporterInvoices(int transporterId,string paymentStatus)
-        {
-           return _repo.GetTransporterInvoices(transporterId, paymentStatus);
-        }
+    public Task<List<TransporterInvoice>> GetTransporterInvoices(
+        int transporterId,
+        string paymentStatus
+    )
+    {
+        return _repository.GetTransporterInvoices(transporterId, paymentStatus);
     }
 }

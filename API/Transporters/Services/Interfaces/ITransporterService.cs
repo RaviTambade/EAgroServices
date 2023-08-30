@@ -1,7 +1,7 @@
 
-using Transporters.Repositories.Interfaces;
+using Transflower.EAgroServices.Transporters.Repositories.Interfaces;
 
-namespace Transporters.Services.Interfaces
+namespace Transflower.EAgroServices.Transporters.Services.Interfaces
 {
     public interface ITransporterService:ITransporterRepository
     {

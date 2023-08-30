@@ -1,6 +1,7 @@
-using Transporters.Models;
+using Transflower.EAgroServices.Transporters.Entities;
+using Transflower.EAgroServices.Transporters.Models;
 
-namespace Transporters.Repositories.Interfaces
+namespace Transflower.EAgroServices.Transporters.Repositories.Interfaces
 {
     public interface ITransporterRepository
     {
@@ -8,14 +9,14 @@ namespace Transporters.Repositories.Interfaces
         Task<Transporter?> GetById(int transporterId);
         Task<int> GetTransporterId(int managerId);
         Task<int> GetCorporateIdOfTransporter(int transporterId);
-        Task<List<VehicleRevenue>> GetVehicleRevenues(int transporterId);
-        Task<List<TransporterRevenue>> GetTransporterRevenues(int transporterId);
-        Task<List<ShipmentCount>> GetShipmentCounts(int transporterId);
         Task<bool> Insert(Transporter transporter);
         Task<bool> Update(Transporter transporter);
         Task<bool> Delete(int transporterId);
         Task<List<TransporterCorporate>> GetTransporterAndCorporateId();
         Task<List<Vehicle>> GetTransportersVehicles(int transporterId);
-        Task<List<TransporterInvoice>> GetTransporterInvoices(int transporterId,string paymentStatus);
+        Task<List<TransporterInvoice>> GetTransporterInvoices(
+            int transporterId,
+            string paymentStatus
+        );
     }
 }

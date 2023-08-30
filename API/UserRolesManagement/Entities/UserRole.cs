@@ -1,16 +1,18 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace UserRolesManagement.Entities
+namespace Transflower.EAgroServices.UserRolesManagement.Entities;
+
+[Table("userroles")]
+public class UserRole
 {
-    public class UserRole
-    {
-        [Column("id")]
-        public int Id { get; set; }
+    [Key]
+    [Column("id")]
+    public int Id { get; set; }
 
-        [Column("userid")]
-        public int UserId { get; set; }
+    [Column("userid")]
+    public int UserId { get; set; }
 
-        [Column("roleid")]
-        public int RoleId { get; set; }
-    }
+    [Column("roleid")]
+    public int RoleId { get; set; }
 }
