@@ -3,7 +3,7 @@ using Transflower.EAgroServices.BIService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace Transflower.EAgroServices.BIService.Controllers;
 [ApiController]
-[Route("/api/[controller]")]
+[Route("/api/transporterbi")]
 public class TransporterBIController : ControllerBase
 {
   private readonly ITransporterService _srv;

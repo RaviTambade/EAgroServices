@@ -3,7 +3,7 @@ using Transflower.EAgroServices.BIService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace Transflower.EAgroServices.BIService.Controllers;
 [ApiController]
-[Route("/api/[controller]")]
+[Route("/api/collectioncenterbi")]
 public class CollectionCenterBIController : ControllerBase
 {
     private readonly ICollectionCenterService _srv;

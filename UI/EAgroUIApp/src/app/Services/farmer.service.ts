@@ -50,17 +50,17 @@ export class FarmerService {
   }
   getFarmerYearlyRevenue(): Observable<YearRevenue[]> {
     let farmerId = localStorage.getItem("farmerId");
-    let url = "http://localhost:5235/api/Farmer/revenue/year/" + farmerId;
+    let url = "http://localhost:5235/api/farmer/revenue/year/" + farmerId;
     return this.http.get<any>(url);
   }
   getFarmerQuarterlyRevenue(year: number): Observable<QuarterRevenue[]> {
     let farmerId = localStorage.getItem("farmerId");
-    let url = "http://localhost:5235/api/Farmer/revenue/quarter/" + farmerId + "/" + year;
+    let url = "http://localhost:5235/api/farmer/revenue/quarter/" + farmerId + "/" + year;
     return this.http.get<any>(url);
   }
   getFarmerMonthlyRevenue(year: number): Observable<MonthRevenue[]> {
     let farmerId = localStorage.getItem("farmerId");
-    let url = "http://localhost:5235/api/Farmer/revenue/month/" + farmerId + "/" + year;
+    let url = "http://localhost:5235/api/farmer/revenue/month/" + farmerId + "/" + year;
     return this.http.get<any>(url);
   }
   getFarmerWeeklyRevenue(year: number): Observable<WeekRevenue[]> {

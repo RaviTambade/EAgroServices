@@ -3,7 +3,7 @@ using Transflower.EAgroServices.BIService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace Transflower.EAgroServices.BIService.Controllers;
 [ApiController]
-[Route("/api/[controller]")]
+[Route("/api/merchantbi")]
 public class MerchantBIController : ControllerBase
 {
     private readonly IMerchantService _srv;
