@@ -17,13 +17,32 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let vehicle of vehicles">
+      <ng-container *ngFor="let vehicle of vehicles" >
+      <tr>
         <td>{{ vehicle.id }}</td>
         <td>{{ vehicle.vehicleType }}</td>
         <td>{{ vehicle.rtoNumber }}</td>
-        <td><button (click)="OnUpdate(vehicle.id)">Update</button></td>
-        <td><button (click)="OnSelectGetShipment(vehicle.id)">GetShipmentDetails</button></td>
+        <ng-container *ngIf="showActions">
+        <td><button (click)="onActionClick('update',vehicle.id)">Update</button></td>
+        <td><button (click)="onActionClick('shipment',vehicle.id)">GetShipmentDetails</button></td>
+      </ng-container>
+    </tr>
+        <tr *ngIf="activeAction === 'update' && selectedVehicleId === vehicle.id">
+          <td colspan="8">
+              <div>
+                  <app-updatevehicle [vehicle]="vehicle"></app-updatevehicle>
+              </div>
+          </td>
       </tr>
+      <tr *ngIf="activeAction === 'shipment' && selectedVehicleId === vehicle.id"> 
+        <td colspan="8">
+          <div>
+            <app-getshipmentsofvehicle></app-getshipmentsofvehicle>
+          </div>
+        </td>
+
+      </tr>
+      </ng-container>
     </tbody>
   </table>
 </div>

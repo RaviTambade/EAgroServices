@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Shipment } from 'src/app/Models/shipment';
@@ -14,9 +14,9 @@ import { TransporterService } from 'src/app/Services/transporter.service';
 })
 export class GetshipmentsofvehicleComponent implements OnInit {
   shipments: Shipment[];
-  vehicleId: number | any;
+  // vehicleId: number | any;
   subscription: Subscription;
-  shipmentmerchant: Shipmentsmerchant = {
+ @Input() shipmentmerchant: Shipmentsmerchant = {
     corporateId: 0,
     id: '',
     vehicleId: 0,
@@ -38,11 +38,11 @@ export class GetshipmentsofvehicleComponent implements OnInit {
   }
   ngOnInit(): void {
     this.transporterId = Number(localStorage.getItem("transporterId"));
-    this.route.paramMap.subscribe((params) => {
-        this.shipmentmerchant.vehicleId = this.vehicleId
-        this.vehicleId = Number(params.get('id'));
+    // this.route.paramMap.subscribe((params) => {
+    //     this.shipmentmerchant.vehicleId = this.vehicleId
+    //     this.vehicleId = Number(params.get('id'));
 
-        this.subscription = this.svc.getShipmentsOfVehicle(this.vehicleId).subscribe((response) => {
+        this.subscription = this.svc.getShipmentsOfVehicle(this.shipmentmerchant.vehicleId).subscribe((response) => {
           this.shipmentmerchants = response;
           let distinctmerchantIds = this.shipmentmerchants.map(item => item.merchantId)
             .filter((number, index, array) => array.indexOf(number) === index);
@@ -59,7 +59,7 @@ export class GetshipmentsofvehicleComponent implements OnInit {
             });
           });
         });
-      })
+      // })
     }
   
   onClickShipmentDetails(shipment: Shipmentsmerchant) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TransporterService } from '../../Services/transporter.service';
 import { ActivatedRoute, Route } from '@angular/router';
 import { Vehicle } from 'src/app/Models/vehicle';
@@ -10,23 +10,20 @@ import { Vehicle } from 'src/app/Models/vehicle';
 })
 export class UpdatevehicleComponent implements OnInit {
   vehicleId: string |any
-  vehicle: Vehicle = {
+ @Input() vehicle: Vehicle = {
     id: 0,
     transporterId: 0,
     vehicleType: '',
     rtoNumber: ''
   }
+  UpdateStatus: boolean = true;
   constructor(
     private svc: TransporterService,
-    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-        this.vehicleId =params.get('id')
-    });
-    this.svc.getVehicle(this.vehicleId).subscribe((res) => {
+    this.svc.getVehicle(this.vehicle.id).subscribe((res) => {
       this.vehicle = res
       console.log(res)
 
@@ -35,7 +32,7 @@ export class UpdatevehicleComponent implements OnInit {
 
   updateVehicle() {
     if(this.vehicleId)
-    this.svc.updateVehicle(this.vehicleId, this.vehicle).subscribe(
+    this.svc.updateVehicle(this.vehicle.id, this.vehicle).subscribe(
       (res) => {
         console.log(res);
       },

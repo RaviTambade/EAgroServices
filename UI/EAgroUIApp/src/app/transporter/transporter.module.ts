@@ -22,7 +22,7 @@ const transporterRoutes: Routes = [
   { path: 'home/:id', component: HomeComponent },
   { path: 'vehicles', component: VehiclesoftransporterComponent },
   { path: 'shipments/:id', component: GetshipmentsofvehicleComponent },
-  { path: 'update/:id', component: UpdatevehicleComponent },
+  // { path: 'update', component: UpdatevehicleComponent },
   { path: 'addvehicle', component: AddnewvehicleComponent },
   { path: 'shipmentdetails/:id', component: GetvehicleshipmentitemsComponent },
   { path: 'allshipments', component: GetallshipmentsComponent },
@@ -63,7 +63,8 @@ const transporterRoutes: Routes = [
     GetshipmentsofvehicleComponent,
     AddnewvehicleComponent,
     GetallshipmentsComponent,
-    TransporterbankingComponent
+    TransporterbankingComponent,
+    UpdatevehicleComponent,
   ],
   providers: [
   ]

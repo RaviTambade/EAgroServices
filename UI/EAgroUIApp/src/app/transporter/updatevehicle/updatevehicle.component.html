@@ -1,4 +1,4 @@
-<div class="update-vehicle-container">
+<div class="update-vehicle-container" *ngIf="UpdateStatus">
     <h2>Update Vehicle</h2>
     <form (ngSubmit)="updateVehicle()">
       <label for="vehicleType">Vehicle Type:</label>
