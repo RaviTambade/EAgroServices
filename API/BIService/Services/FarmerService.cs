@@ -5,9 +5,9 @@ namespace Transflower.EAgroServices.BIService.Services;
 public class FarmerService : IFarmerService
 {
     private readonly IFarmerRepository _repository;
-    public FarmerService(IFarmerRepository repo)
+    public FarmerService(IFarmerRepository repository)
     {
-        _repository = repo;
+        _repository = repository;
     }
     public async Task<List<YearRevenue>> GetRevenuesByYear(int farmerId)
     {
