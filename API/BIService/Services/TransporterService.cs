@@ -4,21 +4,21 @@ using Transflower.EAgroServices.BIService.Services.Interfaces;
 namespace Transflower.EAgroServices.BIService.Services;
 public class TransporterService : ITransporterService
 {
-    public readonly ITransporterRepository _repo;
-    public TransporterService(ITransporterRepository repo)
+    public readonly ITransporterRepository _repository;
+    public TransporterService(ITransporterRepository repository)
     {
-        _repo = repo;
+        _repository = repository;
     }
     public async Task<List<YearlyVehicleRevenue>> GetRevenuesByYear(int transporterId, int year) =>
-    await _repo.GetRevenuesByYear(transporterId, year);
+    await _repository.GetRevenuesByYear(transporterId, year);
     public async Task<List<int>> GetYears(int transporterId) => await _repo.GetYears(transporterId);
     public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId, int year) =>
-    await _repo.GetMonthlyRevenue(transporterId, year);
+    await _repository.GetMonthlyRevenue(transporterId, year);
     public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(int transporterId, int year) =>
-    await _repo.GetRevenuesByQuarter(transporterId, year);
+    await _repository.GetRevenuesByQuarter(transporterId, year);
     public async Task<List<WeekRevenue>> GetRevenuesByWeek(int transporterId, int year) =>
-    await _repo.GetRevenuesByWeek(transporterId, year);
+    await _repository.GetRevenuesByWeek(transporterId, year);
     public async Task<List<YearRevenue>> GetRevenueByYear(int transporterId) =>
-    await _repo.GetRevenueByYear(transporterId);
+    await _repository.GetRevenueByYear(transporterId);
 }
 
