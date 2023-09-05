@@ -6,9 +6,9 @@ namespace Transflower.EAgroServices.BIService.Services
     public class CollectionCenterService : ICollectionCenterService
     {
         private readonly ICollectionCenterRepository _repository;
-        public CollectionCenterService(ICollectionCenterRepository repo)
+        public CollectionCenterService(ICollectionCenterRepository repository)
         {
-            _repository = repo;
+            _repository = repository;
         }
 
         public async Task<List<YearRevenue>> GetRevenuesByYear(int collectionCenterId)
