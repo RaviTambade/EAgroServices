@@ -4,25 +4,25 @@ using Transflower.EAgroServices.BIService.Models;
 namespace Transflower.EAgroServices.BIService.Services;
 public class MerchantService : IMerchantService
 {
-    private readonly IMerchantRepository _repo;
-    public MerchantService(IMerchantRepository repo)
+    private readonly IMerchantRepository _repository;
+    public MerchantService(IMerchantRepository repository)
     {
-        _repo = repo;
+        _repository = repository;
     }
     public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantid, int year)
     {
-        return await _repo.GetCollectionCountByMonth(merchantid, year);
+        return await _repository.GetCollectionCountByMonth(merchantid, year);
     }
     public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantid)
     {
-        return await _repo.GetCollectionCountByYear(merchantid);
+        return await _repository.GetCollectionCountByYear(merchantid);
     }
     public async Task<List<CollectionCenterQuarterCount>> GetCollectionCountByQuarter(int merchantid, int year)
     {
-        return await _repo.GetCollectionCountByQuarter(merchantid, year);
+        return await _repository.GetCollectionCountByQuarter(merchantid, year);
     }
     public async Task<List<CollectionCenterWeekCount>> GetCollectionCountByWeek(int merchantid, int year)
     {
-        return await _repo.GetCollectionCountByWeek(merchantid, year);
+        return await _repository.GetCollectionCountByWeek(merchantid, year);
     }
 }
