@@ -11,7 +11,7 @@ public class TransporterService : ITransporterService
     }
     public async Task<List<YearlyVehicleRevenue>> GetRevenuesByYear(int transporterId, int year) =>
     await _repository.GetRevenuesByYear(transporterId, year);
-    public async Task<List<int>> GetYears(int transporterId) => await _repo.GetYears(transporterId);
+    public async Task<List<int>> GetYears(int transporterId) => await _repository.GetYears(transporterId);
     public async Task<List<MonthRevenue>> GetMonthlyRevenue(int transporterId, int year) =>
     await _repository.GetMonthlyRevenue(transporterId, year);
     public async Task<List<QuarterRevenue>> GetRevenuesByQuarter(int transporterId, int year) =>

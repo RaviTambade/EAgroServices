@@ -6,9 +6,9 @@ namespace Transflower.EAgroServices.BIService.Controllers;
 [Route("/api/collectioncenterbi")]
 public class CollectionCenterBIController : ControllerBase
 {
-    private readonly ICollectionCenterService service;
+    private readonly ICollectionCenterService _service;
 
-    public CollectionCenterBIController(ICollectionCenterService _service)
+    public CollectionCenterBIController(ICollectionCenterService service)
     {
         _service = service;
     }
@@ -60,7 +60,7 @@ public class CollectionCenterBIController : ControllerBase
     [HttpGet("revenue/crop/year/{collectionCenterId:int}/{year:int}")]
     public async Task<List<CropRevenue>> GetCropRevenuesByYear(int collectionCenterId, int year)
     {
-        return await _service_service.GetCropRevenuesByYear(collectionCenterId, year);
+        return await _service.GetCropRevenuesByYear(collectionCenterId, year);
     }
 
     [HttpGet("revenue/crop/dates/{collectionCenterId:int}/{startDate}/{endDate}")]
