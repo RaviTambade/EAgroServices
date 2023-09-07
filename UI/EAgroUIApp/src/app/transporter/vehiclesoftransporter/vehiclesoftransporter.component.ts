@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TransporterService } from '../../Services/transporter.service';
@@ -12,10 +12,7 @@ import { Vehicle } from 'src/app/Models/vehicle';
 export class VehiclesoftransporterComponent implements OnInit {
   transporterId: number | undefined;
   vehicles: Vehicle[];
-  selectedVehicleId:number |null=null
-  activeAction: 'update' |'shipment' | null = null;
   subscription: Subscription;
-  showActions: boolean = true;
   constructor(private svc: TransporterService,
     private router: Router) {
     this.vehicles = [];
@@ -36,16 +33,7 @@ export class VehiclesoftransporterComponent implements OnInit {
   onAddNewVehicle() {
     this.router.navigate(['transporter/addvehicle']);
   }
-
-  onActionClick(action:'update' | 'shipment',vehicleId:number){
-    if (
-      this.activeAction === action &&
-      this.selectedVehicleId === vehicleId
-    ) {
-      this.activeAction = null;
-      this.selectedVehicleId = null;
-    } else {
-      this.activeAction = action;
-      this.selectedVehicleId = vehicleId;
-    }  }
+  OnUpdate(vehicleId: number) {
+    this.router.navigate(['/transporter/update', vehicleId])
+  }
 }

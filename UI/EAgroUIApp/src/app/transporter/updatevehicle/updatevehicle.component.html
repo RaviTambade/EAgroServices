@@ -1,13 +1,12 @@
-<div class="update-vehicle-container" *ngIf="UpdateStatus">
-    <h2>Update Vehicle</h2>
-    <form (ngSubmit)="updateVehicle()">
-      <label for="vehicleType">Vehicle Type:</label>
-      <input type="text" id="vehicleType" name="vehicleType"  [(ngModel)]="vehicle.vehicleType" required>
-  
-      <label for="rtoNumber">RTO Number:</label>
-      <input type="text" id="rtoNumber" name="rtoNumber"   [(ngModel)]="vehicle.rtoNumber" required>
-  
-      <button type="submit">Update</button>
-    </form>
-  </div>
-  
+<div class="update-vehicle-container">
+  <h2>Update Vehicle</h2>
+  <form (ngSubmit)="updateVehicle()">
+    <label for="vehicleType">Vehicle Type:</label>
+    <input type="text" id="vehicleType" name="vehicleType"  [(ngModel)]="vehicle.vehicleType" required>
+
+    <label for="rtoNumber">RTO Number:</label>
+    <input type="text" id="rtoNumber" name="rtoNumber"   [(ngModel)]="vehicle.rtoNumber" required>
+
+    <button type="submit">Update</button>
+  </form>
+</div>
