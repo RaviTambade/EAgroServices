@@ -21,7 +21,7 @@ const merchantRoutes: Routes = [
   { path: 'invoices', component: MerchantInvoicesComponent },
   { path: 'invoicedetails/:invoiceid', component: MerchantInvoiceDetailsComponent },
   { path: 'shipment/payment/:shipmentid', component: MerchantShipmentPaymentComponent },
-  { path: 'dashboard', component: MerchantbarchartComponent },
+  { path: 'dashboard', component: MerchantdashboardComponent },
 
 
 ]

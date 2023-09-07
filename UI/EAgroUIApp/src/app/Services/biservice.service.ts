@@ -97,6 +97,6 @@ export class BIService {
     let merchantId = localStorage.getItem("merchantId");
     let url = "http://localhost:5235/api/merchantbi/count/year/" + merchantId;
     return this.http.get<number[]>(url);
-    
+              
   }
 }

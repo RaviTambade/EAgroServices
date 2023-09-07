@@ -73,7 +73,7 @@ export class LoginComponent {
     switch (role) {
       case Role.farmer:
         localStorage.setItem(LocalStorageKeys.farmerId, userId.toString());
-        this.router.navigate(['/farmer/home']);
+        this.router.navigate(['/farmer/dashboard']);
         break;
 
       case Role.merchant:
