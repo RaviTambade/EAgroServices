@@ -15,7 +15,7 @@ namespace Transflower.EAgroServices.BIService.Repositories
                 ?? throw new Exception("ConnectionString is not found");
         }
 
-        public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId, int year)
+        public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantId, int year,string monthName)
         {
             List<CollectionCenterMonthCount> collectionCenterMonthCounts = new();
             MySqlConnection connection = new(_connectionString);
@@ -29,11 +29,12 @@ namespace Transflower.EAgroServices.BIService.Repositories
                     INNER JOIN goodscollections ON collectioncenters.id = goodscollections.collectioncenterid
                     INNER JOIN shipmentitems ON goodscollections.id = shipmentitems.collectionid
                     INNER JOIN shipments ON shipmentitems.shipmentid = shipments.id
-                    WHERE shipments.merchantid =@merchantId AND shipments.status='delivered' AND YEAR(shipments.shipmentdate)=@year
+                    WHERE shipments.merchantid =@merchantId AND shipments.status='delivered' AND YEAR(shipments.shipmentdate)=@year AND MONTHNAME(shipments.shipmentdate)=@monthName
                    GROUP BY collectioncenters.corporateid,MONTHNAME(shipments.shipmentdate) ORDER BY MONTHNAME(shipments.shipmentdate) ASC ";
                 MySqlCommand command = new(query, connection);
                 command.Parameters.AddWithValue("@merchantId", merchantId);
                 command.Parameters.AddWithValue("@year", year);
+                command.Parameters.AddWithValue("@monthName", monthName);
                 await connection.OpenAsync();
                 MySqlDataReader reader = command.ExecuteReader();
                 while (await reader.ReadAsync())
@@ -59,7 +60,7 @@ namespace Transflower.EAgroServices.BIService.Repositories
             }
             return collectionCenterMonthCounts;
         }
-        public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantId)
+        public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantId,int year)
         {
             List<CollectionCenterYearCount> collectionCenterYearCounts = new();
             MySqlConnection connection = new(_connectionString);
@@ -73,10 +74,11 @@ namespace Transflower.EAgroServices.BIService.Repositories
                     INNER JOIN goodscollections ON collectioncenters.id = goodscollections.collectioncenterid
                     INNER JOIN shipmentitems ON goodscollections.id = shipmentitems.collectionid
                     INNER JOIN shipments ON shipmentitems.shipmentid = shipments.id
-                    WHERE shipments.merchantid =@merchantId AND shipments.status='delivered'
+                    WHERE shipments.merchantid =@merchantId AND shipments.status='delivered' AND YEAR(shipments.shipmentdate)=@year
                    GROUP BY collectioncenters.corporateid,YEAR(shipments.shipmentdate) ORDER BY YEAR(shipments.shipmentdate) ASC ";
                 MySqlCommand command = new(query, connection);
                 command.Parameters.AddWithValue("@merchantId", merchantId);
+                command.Parameters.AddWithValue("@year", year);
                 await connection.OpenAsync();
                 MySqlDataReader reader = command.ExecuteReader();
                 while (await reader.ReadAsync())
@@ -191,6 +193,45 @@ namespace Transflower.EAgroServices.BIService.Repositories
             }
             return collectionCenterWeekCounts;
         }
-    }
-}
+     public async Task<List<int>> GetYear(int merchantId)
+        {
+            List<int> years = new();
+            MySqlConnection connection = new(_connectionString);
+            try
+            {
+                string query =
+                    @" SELECT  YEAR(shipments.shipmentdate) AS year                       
+                    FROM collectioncenters
+                    INNER JOIN goodscollections ON collectioncenters.id = goodscollections.collectioncenterid
+                    INNER JOIN shipmentitems ON goodscollections.id = shipmentitems.collectionid
+                    INNER JOIN shipments ON shipmentitems.shipmentid = shipments.id
+                    WHERE shipments.merchantid =@merchantId AND shipments.status='delivered'
+                   GROUP BY YEAR(shipments.shipmentdate) ORDER BY YEAR(shipments.shipmentdate) ASC ";
+                MySqlCommand command = new(query, connection);
+                command.Parameters.AddWithValue("@merchantId", merchantId);
+                await connection.OpenAsync();
+                MySqlDataReader reader = command.ExecuteReader();
+                while (await reader.ReadAsync())
+                {
+                    years.Add(
+                         reader.GetInt32("year")
+                        
+                    );
+                }
+                await reader.CloseAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return years;
+        }
 
+       
+    }
+
+}

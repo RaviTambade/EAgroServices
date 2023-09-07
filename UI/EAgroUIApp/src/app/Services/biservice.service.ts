@@ -95,7 +95,7 @@ export class BIService {
   // }
   getYearOfCollection():Observable<number[]>{
     let merchantId = localStorage.getItem("merchantId");
-    let url = "http://localhost:5235/api/merchantbi/count/year/" + merchantId;
+    let url = "http://localhost:5235/api/merchantbi/year/" + merchantId;
     return this.http.get<number[]>(url);
               
   }

@@ -9,13 +9,13 @@ public class MerchantService : IMerchantService
     {
         _repository = repository;
     }
-    public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantid, int year)
+    public async Task<List<CollectionCenterMonthCount>> GetCollectionCountByMonth(int merchantid, int year,string monthName)
     {
-        return await _repository.GetCollectionCountByMonth(merchantid, year);
+        return await _repository.GetCollectionCountByMonth(merchantid, year,monthName);
     }
-    public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantid)
+    public async Task<List<CollectionCenterYearCount>> GetCollectionCountByYear(int merchantid,int year)
     {
-        return await _repository.GetCollectionCountByYear(merchantid);
+        return await _repository.GetCollectionCountByYear(merchantid, year);
     }
     public async Task<List<CollectionCenterQuarterCount>> GetCollectionCountByQuarter(int merchantid, int year)
     {
@@ -24,5 +24,10 @@ public class MerchantService : IMerchantService
     public async Task<List<CollectionCenterWeekCount>> GetCollectionCountByWeek(int merchantid, int year)
     {
         return await _repository.GetCollectionCountByWeek(merchantid, year);
+    }
+
+    public async Task<List<int>> GetYear(int merchantId)
+    {
+        return await _repository.GetYear(merchantId);
     }
 }

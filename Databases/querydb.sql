@@ -1,4 +1,4 @@
--- Active: 1676969830187@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
@@ -378,3 +378,13 @@ WHERE transporters.id=1 ;
 select apply_total_freight_charges(1);
 
 SELECT * FROM goodscollectionpayments;
+
+  SELECT  MONTHNAME(shipments.shipmentdate) AS month,
+                        collectioncenters.corporateid AS corporateid, 
+                        COUNT(*) AS count
+                    FROM collectioncenters
+                    INNER JOIN goodscollections ON collectioncenters.id = goodscollections.collectioncenterid
+                    INNER JOIN shipmentitems ON goodscollections.id = shipmentitems.collectionid
+                    INNER JOIN shipments ON shipmentitems.shipmentid = shipments.id
+                    WHERE shipments.merchantid =2 AND shipments.status='delivered' AND YEAR(shipments.shipmentdate)=2023 AND MONTHNAME(shipments.shipmentdate)='January'
+                   GROUP BY collectioncenters.corporateid,MONTHNAME(shipments.shipmentdate) ORDER BY MONTHNAME(shipments.shipmentdate) ASC
