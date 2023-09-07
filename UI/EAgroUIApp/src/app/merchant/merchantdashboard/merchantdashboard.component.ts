@@ -80,8 +80,9 @@ public barChartData: ChartData<'bar'> = {
     ngOnInit(): void {
       this.bisvc.getYearOfCollection().subscribe((response) => {
         this.years = response;
+        console.log(response)
         if (this.years.length > 0) {
-          this.selectedYear = this.years[0];
+            this.selectedYear = this.years[0];
       this.fetchRevenueData();
         }
     })
