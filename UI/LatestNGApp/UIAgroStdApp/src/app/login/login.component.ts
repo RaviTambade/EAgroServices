@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
 export class LoginComponent {
   public currentCount = 0;
 
-  public incrementCounter() {
-    this.currentCount++;
+
+  public onSignIn() {
+    console.log("Validating user");
+    
   }
 }
