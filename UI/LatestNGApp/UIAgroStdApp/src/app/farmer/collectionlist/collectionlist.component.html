@@ -1,0 +1,10 @@
+<p>collectionlist works!</p>
+<p>collections works!</p>
+<li>
+    <ol>
+        <div *ngFor="let collection of collections">
+        {{collection.Date}}-{{collection.Crop}}-{{collection.Weight}}
+        <button (click)="details(collection.id)">Details</button>
+    </div>
+    </ol>
+</li>

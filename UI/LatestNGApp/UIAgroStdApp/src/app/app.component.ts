@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  isLoggedIn(): boolean {
+    let jwt = localStorage.getItem("JWT")
+    return jwt != null;
+  }
 }

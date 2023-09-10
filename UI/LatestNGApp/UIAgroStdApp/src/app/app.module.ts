@@ -16,6 +16,7 @@ import { transporterRoutes } from './transporter/transporter.module';
 import { farmerRoutes } from './farmer/farmer.module';
 import { merchantRoutes } from './merchant/merchant.module';
 import { collectionmanagerRoutes } from './collectionmanager/collectionmanager.module';
+import { MenubarComponent } from './menubar/menubar.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,8 @@ import { collectionmanagerRoutes } from './collectionmanager/collectionmanager.m
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
+    MenubarComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

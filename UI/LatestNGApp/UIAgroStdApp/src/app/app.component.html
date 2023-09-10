@@ -1,6 +1,8 @@
 <body>
   <app-nav-menu></app-nav-menu>
+  <app-menubar *ngIf="isLoggedIn()"></app-menubar>
   <main class="container">
     <router-outlet></router-outlet>
   </main>
 </body>
+
