@@ -9,4 +9,5 @@ public interface IFarmersCollectionRepository
     Task<List<Revenue>> MonthlyRevenue(int farmerId);
     Task<List<Revenue>> YearRevenue(int farmerId);
     Task<List<CropRevenue>> CropRevenue(int farmerId);
+    Task<List<CollectionList>> CollectionList(int farmerId);
 }

@@ -262,4 +262,34 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
             throw;
         }
     }
+
+
+ public async Task<List<CollectionList>> CollectionList(int farmerId)
+    {
+        try
+        {
+              List<CollectionList> collectionsList = await (
+                from collection in _farmerContext.GoodsCollections
+                join center in _farmerContext.CollectionCenters
+                on collection.CollectionCenterId equals center.Id
+                join crop in _farmerContext.Crops on collection.CropId equals crop.Id
+                where collection.FarmerId == farmerId
+                select new CollectionList()
+                {
+                    Id = collection.Id,
+                    CropName = crop.Title,
+                    Quantity = collection.Quantity,
+                    CollectionDate = collection.CollectionDate
+                }
+            ).ToListAsync();
+            return collectionsList;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+
+
 }

@@ -48,5 +48,11 @@ public class GoodsCollectionService : IGoodsCollectionService
     {
         return await _repo.CropRevenue(farmerId);
     }
+
+      public async Task<List<CollectionList>> CollectionList(int farmerId)
+    {
+        return await _repo.CollectionList(farmerId);
+    }
+
 }
 
