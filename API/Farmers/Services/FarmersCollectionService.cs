@@ -4,16 +4,16 @@ using Transflower.EAgroServices.Farmers.Models;
 namespace Transflower.EAgroServices.Farmers.Services;
 public class GoodsCollectionService : IGoodsCollectionService
 {
-    private readonly IFarmersCollectionRepository _repo;
+    private readonly IFarmersCollectionRepository _repository;
 
-    public GoodsCollectionService(IFarmersCollectionRepository repo)
+    public GoodsCollectionService(IFarmersCollectionRepository repository)
     {
-        _repo = repo;
+        _repository = repository;
     }
 
     public async Task<List<FarmerCollection>> FarmerCollection(int farmerId)
     {
-        return await _repo.FarmerCollection(farmerId);
+        return await _repository.FarmerCollection(farmerId);
     }
 
     public async Task<List<FarmerCollection>> GetVerifiedCollection(
@@ -21,38 +21,42 @@ public class GoodsCollectionService : IGoodsCollectionService
         string paymentStatus
     )
     {
-        return await _repo.GetVerifiedCollection(farmerId, paymentStatus);
+        return await _repository.GetVerifiedCollection(farmerId, paymentStatus);
     }
 
     public async Task<List<FarmerCollection>> VerifiedCollection(int farmerId)
     {
-        return await _repo.VerifiedCollection(farmerId);
+        return await _repository.VerifiedCollection(farmerId);
     }
 
     public async Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId)
     {
-        return await _repo.GetUnverifiedCollectionsOfFarmer(farmerId);
+        return await _repository.GetUnverifiedCollectionsOfFarmer(farmerId);
     }
 
     public async Task<List<Revenue>> MonthlyRevenue(int farmerId)
     {
-        return await _repo.MonthlyRevenue(farmerId);
+        return await _repository.MonthlyRevenue(farmerId);
     }
 
     public async Task<List<Revenue>> YearRevenue(int farmerId)
     {
-        return await _repo.YearRevenue(farmerId);
+        return await _repository.YearRevenue(farmerId);
     }
 
     public async Task<List<CropRevenue>> CropRevenue(int farmerId)
     {
-        return await _repo.CropRevenue(farmerId);
+        return await _repository.CropRevenue(farmerId);
     }
 
       public async Task<List<CollectionList>> CollectionList(int farmerId)
     {
-        return await _repo.CollectionList(farmerId);
+        return await _repository.CollectionList(farmerId);
     }
 
+    public async Task<List<FarmerCollection>> CollectionDetails(int collectionId)
+    {
+        return await _repository.CollectionDetails(collectionId);
+    }
 }
 

@@ -290,6 +290,36 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
         }
     }
 
-
-
+    public async Task<List<FarmerCollection>> CollectionDetails(int collectionId)
+    {
+        try
+        {
+        List<FarmerCollection> collectiondetail = await (
+                from collection in _farmerContext.GoodsCollections
+                join center in _farmerContext.CollectionCenters
+                    on collection.CollectionCenterId equals center.Id
+                join crop in _farmerContext.Crops on collection.CropId equals crop.Id
+                where collection.FarmerId == collectionId
+                select new FarmerCollection()
+                {
+                    Id = collection.Id,
+                    CropName = crop.Title,
+                    ImageUrl = crop.ImageUrl,
+                    CollectionCenterId = collection.CollectionCenterId,
+                    CorporateId = center.CorporateId,
+                    ManagerId = center.CorporateId,
+                    Quantity = collection.Quantity,
+                    ContainerType = collection.ContainerType,
+                    Weight = collection.Weight,
+                    CollectionDate = collection.CollectionDate
+                }
+            ).ToListAsync();
+            return collectiondetail;
+    }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    
 }

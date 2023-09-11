@@ -43,6 +43,11 @@ namespace Transflower.EAgroServices.Farmers.Controllers
         {
             return await _srv.CollectionList(farmerId);
         }
+         [HttpGet("collectiondetails/{collectionId}")]
+        public async Task<List<FarmerCollection>> CollectionsDetails(int collectionId)
+        {
+            return await _srv.CollectionDetails(collectionId);
+        }
 
         [HttpGet("unverifiedcollection/{farmerId}")]
         public async Task<List<FarmerCollection>> UnVerifiedCollections(int farmerId)
