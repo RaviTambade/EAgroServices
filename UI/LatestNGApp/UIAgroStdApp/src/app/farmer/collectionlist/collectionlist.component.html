@@ -2,9 +2,21 @@
 <p>collections works!</p>
 <li>
     <ol>
-        <div *ngFor="let collection of collectionslist">
+            <div class="container mt-4">
+                    <table class="table table-bordered">
+                <thead>
+                    <th>CollectionDate</th>
+                    <th>Crop</th>
+                    <th>Quantity</th>
+                </thead>
+                <tbody *ngFor="let collections of collectionslist">
+                    <td>{{collections.collectionDate}}</td>
+                    <td>{{collections.cropName}}</td>
+                    <td>{{collections.quantity}}</td>
+                </tbody>
+            </table>
+        </div>
         
         <!-- <button (click)="details(collection.id)">Details</button> -->
-    </div>
     </ol>
 </li>

@@ -20,8 +20,9 @@ export class FarmerService {
     return this.collectionDetails.find(collectionDetails => collectionDetails.id === id);
              
   }
-  collectionList(farmerId:number):Observable<CollectionList[]>{
-    let url ='http://localhost:5192/api/farmerscollections/collectionlist/' + farmerId;
+  collectionList():Observable<CollectionList[]>{
+    let farmerId=Number(localStorage.getItem("farmerId"));
+    let url ='http://localhost:5051/api/farmerscollections/collectionlist/' + farmerId;
     return this.httpClient.get<CollectionList[]>(url);
     
   }
