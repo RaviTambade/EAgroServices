@@ -1,7 +1,4 @@
-<p>collectionlist works!</p>
-<p>collections works!</p>
-<li>
-    <ol>
+
             <div class="container mt-4">
                     <table class="table table-bordered">
                 <thead>
@@ -13,10 +10,15 @@
                     <td>{{collections.collectionDate}}</td>
                     <td>{{collections.cropName}}</td>
                     <td>{{collections.quantity}}</td>
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- <button (click)="details(collection.id)">Details</button> -->
-    </ol>
-</li>
+     <button (click)="setSelectedCollection(collections.id)">Details</button> 
+               
+        <tr *ngIf="selectedCollectionId === collections.id">
+            <td colspan="8">
+              <div class="content-container">
+                <app-collectiondetails [collectionId]="collections.id">
+                </app-collectiondetails>
+              </div>
+            </td>
+        </tr>  
+</tbody>
+</table>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CollectionDetails } from 'src/app/Models/collectiondetails';
 import { FarmerService } from 'src/app/Services/farmer.service';
 
 @Component({
@@ -6,10 +7,19 @@ import { FarmerService } from 'src/app/Services/farmer.service';
   templateUrl: './collectiondetails.component.html',
   styleUrls: ['./collectiondetails.component.css']
 })
-export class CollectiondetailsComponent {
-  collectionDetails:any|undefined
+export class CollectiondetailsComponent implements OnInit {
+  collectionDetails:CollectionDetails[]|undefined
+  @Input() collectionId!: number;
+
 constructor(private farmerSvc:FarmerService){}
-  details(id:number){
-    this.collectionDetails=this.farmerSvc.collectionDetail(id);
+  ngOnInit(): void {
+    this.collectionDetail()
+  }
+collectionDetail(){
+    this.farmerSvc.collectionDetail(this.collectionId).subscribe((response)=>{
+      console.log(this.collectionId);
+      this.collectionDetails=response;
+      console.log(response)
+    })
   }
 }

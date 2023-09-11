@@ -1,4 +1,31 @@
-<p>collectiondetails works!</p>
-<div *ngFor="let collection of collectionDetails">
-    {{collection.Date}}-{{collection.Crop}}-{{collection.Weight}}
+
+<!-- <br>
+<br>
+<button type="button" class="btn btn-primary" (click)="onClickUnverified()">UnverifiedCollection</button>
+<button type="button" class="btn btn-primary" (click)="onClickVerified()">VerifiedCollection</button> -->
+
+    <div class="container mt-4">
+        <div *ngIf="collectionDetails">
+            <table class="table table-bordered">
+        <thead>
+            <th>CollectionCenterName</th>
+            <th>CollectionDate</th>
+            <th>Crop</th>
+            <th>ContainerType</th>
+            <th>Quantity</th>
+            <th>Weight</th>
+        </thead>
+        <tbody *ngFor="let farmerCollection of collectionDetails">
+            <td>{{farmerCollection.collectionCenterName}}</td>
+            <td>{{farmerCollection.collectionDate}}</td>
+            <td>{{farmerCollection.cropName}}</td>
+            <div class="crop-info" class="rounded-image">
+                <img [src]="farmerCollection.imageUrl" class="crop-image"/>
+                <div class="crop-name">{{farmerCollection.cropName}}</div>
+            </div>
+            <td>{{farmerCollection.containerType}}</td>
+            <td>{{farmerCollection.quantity}}</td>
+            <td>{{farmerCollection.weight}}</td>
+        </tbody>
+    </table>
 </div>

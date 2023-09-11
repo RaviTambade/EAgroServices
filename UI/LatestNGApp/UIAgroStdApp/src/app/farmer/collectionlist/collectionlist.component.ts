@@ -9,7 +9,7 @@ import { FarmerService } from 'src/app/Services/farmer.service';
 })
 export class CollectionlistComponent implements OnInit {
 constructor(private farmersvc:FarmerService){}
-  
+selectedCollectionId: number | null = null
   collectionDetails:any|undefined
   collectionslist:CollectionList[]|undefined
 
@@ -17,17 +17,20 @@ constructor(private farmersvc:FarmerService){}
     this.farmersvc.collectionList().subscribe((response)=>{
       this.collectionslist=response;
       console.log(response);
-
     })
   }
  
-
-
-  // collectionList(){
-  //   this.farmersvc.collectionList(farmerId).subscribe((response)=>{
-  //     this.collectionslist=response;
-  //     console.log(response);
-
+  onClickDetails(collectionId: number) {
+    if (this.selectedCollectionId === collectionId) {
+      this.selectedCollectionId = null;
+    } else {
+      this.selectedCollectionId = collectionId;
+    }
+  }
+  setSelectedCollection(collectionId: number): void {
+    this.selectedCollectionId = collectionId;
+    console.log(collectionId);
+  }
     }
 
   
