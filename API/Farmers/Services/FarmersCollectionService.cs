@@ -54,7 +54,7 @@ public class GoodsCollectionService : IGoodsCollectionService
         return await _repository.CollectionList(farmerId);
     }
 
-    public async Task<List<FarmerCollection>> CollectionDetails(int collectionId)
+    public async Task<FarmerCollection> CollectionDetails(int collectionId)
     {
         return await _repository.CollectionDetails(collectionId);
     }
