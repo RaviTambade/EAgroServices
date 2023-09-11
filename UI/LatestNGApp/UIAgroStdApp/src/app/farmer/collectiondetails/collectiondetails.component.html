@@ -4,7 +4,7 @@
 <button type="button" class="btn btn-primary" (click)="onClickUnverified()">UnverifiedCollection</button>
 <button type="button" class="btn btn-primary" (click)="onClickVerified()">VerifiedCollection</button> -->
 
-    <div class="container mt-4">
+    <!-- <div class="container mt-4">
         <div *ngIf="collectionDetails">
             <table class="table table-bordered">
         <thead>
@@ -28,4 +28,37 @@
             <td>{{farmerCollection.weight}}</td>
         </tbody>
     </table>
-</div>
+</div> -->
+
+
+<div class="container mt-4">
+    <div class="row">
+      <div *ngIf="collectionDetails" class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Collection Details
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div *ngFor="let farmerCollection of collectionDetails" class="col-md-4 mb-3">
+                <div class="card">
+                  <img [src]="farmerCollection.imageUrl" class="card-img-top" alt="{{ farmerCollection.cropName }}">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ farmerCollection.cropName }}</h5>
+                    <p class="card-text">
+                      <strong>Collection Center Name:</strong> {{ farmerCollection.collectionCenterName }}<br>
+                      <strong>Collection Date:</strong> {{ farmerCollection.collectionDate }}<br>
+                      <strong>Container Type:</strong> {{ farmerCollection.containerType }}<br>
+                      <strong>Quantity:</strong> {{ farmerCollection.quantity }}<br>
+                      <strong>Weight:</strong> {{ farmerCollection.weight }}<br>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

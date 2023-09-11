@@ -1,4 +1,4 @@
-
+<!-- 
             <div class="container mt-4">
                     <table class="table table-bordered">
                 <thead>
@@ -21,4 +21,48 @@
             </td>
         </tr>  
 </tbody>
-</table>
+</table> -->
+<div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="card">
+            <div class="card-body text-center">
+
+          <!-- <div class="card-body"> -->
+
+            <table class="table table-bordered">
+
+              <thead>
+                <tr>
+                  <th>Collection Date</th>
+                  <th>Crop</th>
+                  <th>Quantity</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let collections of collectionslist">
+                <tr>
+                  <td>{{ collections.collectionDate }}</td>
+                  <td>{{ collections.cropName }}</td>
+                  <td>{{ collections.quantity }}</td>
+                  <td>
+                    <button class="btn btn-primary" (click)="setSelectedCollection(collections.id)">Details</button>
+                  </td>
+                </tr>
+                <tr *ngIf="selectedCollectionId === collections.id">
+                  <td colspan="4">
+                    <div class="content-container">
+                      <app-collectiondetails [collectionId]="collections.id"></app-collectiondetails>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+          
+        </div>
+      </div>
+      
+      </div>
+  

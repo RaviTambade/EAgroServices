@@ -276,7 +276,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                 where collection.FarmerId == farmerId
                 select new CollectionList()
                 {
-                    Id = collection.Id,
+                    CollectionId = collection.Id,
                     CropName = crop.Title,
                     Quantity = collection.Quantity,
                     CollectionDate = collection.CollectionDate
