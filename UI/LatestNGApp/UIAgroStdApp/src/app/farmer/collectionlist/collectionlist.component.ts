@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CollectionList } from 'src/app/Models/collectionlist';
 import { FarmerService } from 'src/app/Services/farmer.service';
 
 @Component({
@@ -9,15 +10,23 @@ import { FarmerService } from 'src/app/Services/farmer.service';
 export class CollectionlistComponent {
 constructor(private farmersvc:FarmerService){}
   collectionDetails:any|undefined
-  collections:any[] =[
-                      {id:1,Date:'12-3-2023',Crop:'potato',Weight:'100kg'},
-                      {id:2,Date:'12-3-2023',Crop:'cabage',Weight:'125kg'},
-                      {id:3,Date:'12-3-2023',Crop:'beetroot',Weight:'156kg'},
-                      {id:4,Date:'12-3-2023',Crop:'potato',Weight:'108kg'},
-                      {id:5,Date:'12-3-2023',Crop:'tomato',Weight:'150kg'},
-                    ];
+  collectionslist:CollectionList[]|undefined
 
   details(id:number){
     this.collectionDetails=this.farmersvc.collectionDetail(id);
   }
+
+
+  collectionList(farmerId:number){
+    this.farmersvc.collectionList(farmerId).subscribe((response)=>{
+      this.collectionslist=response;
+      console.log(response);
+
+    })
+
+  }
 }
+
+
+
+

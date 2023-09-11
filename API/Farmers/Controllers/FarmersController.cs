@@ -38,7 +38,7 @@ namespace Transflower.EAgroServices.Farmers.Controllers
             return await _srv.FarmerCollection(farmerId);
         }
 
-           [HttpGet("collectionlist/{farmerId}")]
+        [HttpGet("collectionlist/{farmerId}")]
         public async Task<List<CollectionList>> CollectionsList(int farmerId)
         {
             return await _srv.CollectionList(farmerId);

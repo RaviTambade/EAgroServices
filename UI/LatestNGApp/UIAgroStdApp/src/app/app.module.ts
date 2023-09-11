@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './authentication/login/login.component';
@@ -23,7 +22,6 @@ import { MenubarComponent } from './menubar/menubar.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
     FetchDataComponent,
     MenubarComponent
 
@@ -36,7 +34,6 @@ import { MenubarComponent } from './menubar/menubar.component';
 
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       { path: 'login', component: LoginComponent },
       { path: 'dashboard', component: DashboardComponent},
       {path:'transporter',children:transporterRoutes},
