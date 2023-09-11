@@ -21,15 +21,9 @@ selectedCollectionId: number | null = null
   }
  
   onClickDetails(collectionId: number) {
-    if (this.selectedCollectionId === collectionId) {
-      this.selectedCollectionId = null;
-    } else {
-      this.selectedCollectionId = collectionId;
-    }
-  }
-  setSelectedCollection(collectionId: number): void {
-    this.selectedCollectionId = collectionId;
-    console.log(collectionId);
+   
+     this.farmersvc.setSelectedCollectionId(collectionId);
+     console.log(collectionId);
   }
     }
 

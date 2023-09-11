@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CollectionList } from '../Models/collectionlist';
 import { CollectionDetails } from '../Models/collectiondetails';
 
@@ -10,7 +10,13 @@ import { CollectionDetails } from '../Models/collectiondetails';
 export class FarmerService {
 
   constructor(private httpClient:HttpClient) { }
+  private selectedCollectionIdSubject = new BehaviorSubject<any>(null);
+  selectedCollectionId$ = this.selectedCollectionIdSubject.asObservable();
 
+  setSelectedCollectionId(collectionId: number) {
+    this.selectedCollectionIdSubject.next(collectionId);
+    console.log(collectionId);
+  }
   
   collectionList():Observable<CollectionList[]>{
     let farmerId=Number(localStorage.getItem("farmerId"));

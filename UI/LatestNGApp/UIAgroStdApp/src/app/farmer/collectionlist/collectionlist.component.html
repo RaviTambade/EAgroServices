@@ -1,68 +1,33 @@
-<!-- 
-            <div class="container mt-4">
-                    <table class="table table-bordered">
-                <thead>
-                    <th>CollectionDate</th>
-                    <th>Crop</th>
-                    <th>Quantity</th>
-                </thead>
-                <tbody *ngFor="let collections of collectionslist">
-                    <td>{{collections.collectionDate}}</td>
-                    <td>{{collections.cropName}}</td>
-                    <td>{{collections.quantity}}</td>
-     <button (click)="setSelectedCollection(collections.id)">Details</button> 
-               
-        <tr *ngIf="selectedCollectionId === collections.id">
-            <td colspan="8">
-              <div class="content-container">
-                <app-collectiondetails [collectionId]="collections.id">
-                </app-collectiondetails>
-              </div>
-            </td>
-        </tr>  
-</tbody>
-</table> -->
 <div class="container">
-    <div class="row">
-      <div class="col-md-7">
-        <div class="card">
-            <div class="card-body text-center">
 
-          <!-- <div class="card-body"> -->
-
-            <table class="table table-bordered">
-
-              <thead>
-                <tr>
-                  <th>Collection Date</th>
-                  <th>Crop</th>
-                  <th>Quantity</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody *ngFor="let collections of collectionslist">
-                <tr>
-                  <td>{{ collections.collectionDate }}</td>
-                  <td>{{ collections.cropName }}</td>
-                  <td>{{ collections.quantity }}</td>
-                  <td>
-                    <button class="btn btn-primary" (click)="setSelectedCollection(collections.id)">Details</button>
-                  </td>
-                </tr>
-                <tr *ngIf="selectedCollectionId === collections.id">
-                  <td colspan="4">
-                    <div class="content-container">
-                      <app-collectiondetails [collectionId]="collections.id"></app-collectiondetails>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+  <div class="row">
+    <div class="col-12 col-md-12 overflow-auto">
+      <div class="card">
+        <div class="card-header" style="background-color: #001f3f; color: #fff;">
+          Collection List
         </div>
+        <div class="card-body text-center">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Collection Date</th>
+                <th>Crop</th>
+                <th>Quantity</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let collections of collectionslist">
+              <tr>
+                <td>{{ collections.collectionDate|date }}</td>
+                <td>{{ collections.cropName }}</td>
+                <td>{{ collections.quantity }}</td>
+                <td>
+                  <button class="btn btn-primary" (click)="onClickDetails(collections.collectionId)">Details</button>
+                </td>
+              </tr>
+          </table>
+        </div>
+      </div>
     </div>
-          
-        </div>
-      </div>
-      
-      </div>
-  
+  </div>
+</div>

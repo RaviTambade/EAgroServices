@@ -1,58 +1,35 @@
-
-<!-- <br>
-<br>
-<button type="button" class="btn btn-primary" (click)="onClickUnverified()">UnverifiedCollection</button>
-<button type="button" class="btn btn-primary" (click)="onClickVerified()">VerifiedCollection</button> -->
-
-    <!-- <div class="container mt-4">
-        <div *ngIf="collectionDetails">
-            <table class="table table-bordered">
-        <thead>
-            <th>CollectionCenterName</th>
-            <th>CollectionDate</th>
-            <th>Crop</th>
-            <th>ContainerType</th>
-            <th>Quantity</th>
-            <th>Weight</th>
-        </thead>
-        <tbody *ngFor="let farmerCollection of collectionDetails">
-            <td>{{farmerCollection.collectionCenterName}}</td>
-            <td>{{farmerCollection.collectionDate}}</td>
-            <td>{{farmerCollection.cropName}}</td>
-            <div class="crop-info" class="rounded-image">
-                <img [src]="farmerCollection.imageUrl" class="crop-image"/>
-                <div class="crop-name">{{farmerCollection.cropName}}</div>
-            </div>
-            <td>{{farmerCollection.containerType}}</td>
-            <td>{{farmerCollection.quantity}}</td>
-            <td>{{farmerCollection.weight}}</td>
-        </tbody>
-    </table>
-</div> -->
-
-
 <div class="container mt-4">
-    <div class="row">
-      <div *ngIf="collectionDetails" class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            Collection Details
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div *ngFor="let farmerCollection of collectionDetails" class="col-md-4 mb-3">
-                <div class="card">
-                  <img [src]="farmerCollection.imageUrl" class="card-img-top" alt="{{ farmerCollection.cropName }}">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ farmerCollection.cropName }}</h5>
-                    <p class="card-text">
-                      <strong>Collection Center Name:</strong> {{ farmerCollection.collectionCenterName }}<br>
-                      <strong>Collection Date:</strong> {{ farmerCollection.collectionDate }}<br>
-                      <strong>Container Type:</strong> {{ farmerCollection.containerType }}<br>
-                      <strong>Quantity:</strong> {{ farmerCollection.quantity }}<br>
-                      <strong>Weight:</strong> {{ farmerCollection.weight }}<br>
-                    </p>
-                  </div>
+  <div class="row">
+    <div *ngIf="collectionDetails" class="col-md-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #042e59; color: #fff;">
+          Collection Details
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div *ngIf="collectionDetails" class="col-md-11 mb-5">
+              <div class="card">
+                <img [src]="collectionDetails.imageUrl" class="card-img-top"
+                  style="max-height: 300px; width: 100%; object-fit: cover;" alt="{{ collectionDetails.cropName }}">
+                <div class="card-body">
+                  <h5 class="card-title">{{ collectionDetails.cropName }}</h5>
+                  <ul class="list-unstyled">
+                    <li>
+                      <strong>Collection Center Name:</strong> {{ corporateName }}
+                    </li>
+                    <li>
+                      <strong>Collection Date:</strong> {{ collectionDetails.collectionDate | date }}
+                    </li>
+                    <li>
+                      <strong>Container Type:</strong> {{ collectionDetails.containerType }}
+                    </li>
+                    <li>
+                      <strong>Quantity:</strong> {{ collectionDetails.quantity }}
+                    </li>
+                    <li>
+                      <strong>Weight:</strong> {{ collectionDetails.weight }}
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -61,4 +38,4 @@
       </div>
     </div>
   </div>
-  
+</div>

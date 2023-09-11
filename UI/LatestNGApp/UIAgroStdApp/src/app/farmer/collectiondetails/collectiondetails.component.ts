@@ -10,30 +10,34 @@ import { FarmerService } from 'src/app/Services/farmer.service';
   styleUrls: ['./collectiondetails.component.css']
 })
 export class CollectiondetailsComponent implements OnInit {
-  collectionDetails:CollectionDetails[]|undefined
-  @Input() collectionId!: number;
+  @Input() selectedCollectionId: number| null = null;
+  collectionDetails:CollectionDetails|undefined
   corporateName:CollectionCenter[]|any
   corporateId:any;
+  requestDetails: any; 
+  details:boolean=false;
+  collectionId:number|any;
 constructor(private farmerSvc:FarmerService,private commonSvc:CommonService){}
   ngOnInit(): void {
-    this.collectionDetail()
-    // this.collectionCenterName()
-  }
-collectionDetail(){
-    this.farmerSvc.collectionDetail(this.collectionId).subscribe((response)=>{
-      console.log(this.collectionId);
-      // this.collectionDetails=response;
-      // this.corporateId=Number(corporateId);
-      console.log(this.corporateId);
-      this.commonSvc.getCollectionCenterName(response.corporateId).subscribe((response)=> {
+    if(this.selectedCollectionId!==null){
+      this.collectionId =this.selectedCollectionId;
+      console.log(this.collectionId)
+    }
+    
+    this.farmerSvc.selectedCollectionId$.subscribe((collectionId) => {
+      this.collectionId = collectionId;
+      if(this.collectionId)
+      this.farmerSvc.collectionDetail(this.collectionId).subscribe((response)=>{
+        console.log(this.collectionId)
         console.log(this.corporateId);
-        this.corporateName=response[0].name
-        console.log(response);
+        this.collectionDetails=response;
+        this.commonSvc.getCollectionCenterName(response.corporateId).subscribe((response)=> {
+          console.log(this.corporateId);
+          this.corporateName=response[0].name
+          console.log(response);
+        })
+        console.log(this.corporateId)
       })
-      console.log(this.corporateId)
-    })
+    }); 
   }
-  // collectionCenterName(){
-  
-  // }
   }
