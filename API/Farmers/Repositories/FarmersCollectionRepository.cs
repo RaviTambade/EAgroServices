@@ -299,7 +299,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                 join center in _farmerContext.CollectionCenters
                     on collection.CollectionCenterId equals center.Id
                 join crop in _farmerContext.Crops on collection.CropId equals crop.Id
-                where collection.FarmerId == collectionId
+                where collection.Id == collectionId
                 select new FarmerCollection()
                 {
                     Id = collection.Id,
