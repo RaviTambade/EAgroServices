@@ -10,5 +10,5 @@ public interface IFarmersCollectionRepository
     Task<List<Revenue>> YearRevenue(int farmerId);
     Task<List<CropRevenue>> CropRevenue(int farmerId);
     Task<List<CollectionList>> CollectionList(int farmerId);
-    Task<List<FarmerCollection>> CollectionDetails(int collectionId);
+    Task<FarmerCollection> CollectionDetails(int collectionId);
 }

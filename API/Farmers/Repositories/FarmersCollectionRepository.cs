@@ -290,11 +290,11 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
         }
     }
 
-    public async Task<List<FarmerCollection>> CollectionDetails(int collectionId)
+    public async Task<FarmerCollection> CollectionDetails(int collectionId)
     {
         try
         {
-        List<FarmerCollection> collectiondetail = await (
+             var collectiondetail = await (
                 from collection in _farmerContext.GoodsCollections
                 join center in _farmerContext.CollectionCenters
                     on collection.CollectionCenterId equals center.Id
@@ -313,7 +313,7 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                     Weight = collection.Weight,
                     CollectionDate = collection.CollectionDate
                 }
-            ).ToListAsync();
+            ).FirstOrDefaultAsync();
             return collectiondetail;
     }
         catch (Exception)
