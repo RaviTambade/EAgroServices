@@ -9,6 +9,7 @@ import { InvioceComponent } from './invioce/invioce.component';
 import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollection.component';
 import { UnverifiedcollectionComponent } from './unverifiedcollection/unverifiedcollection.component';
 import { FormsModule } from '@angular/forms';
+import { InvoicelistComponent } from './invoicelist/invoicelist.component';
 
 export const farmerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
@@ -28,7 +29,8 @@ export const farmerRoutes:Routes=[
     CollectionlistComponent,
     InvioceComponent,
     VerifiedcollectionComponent,
-    UnverifiedcollectionComponent
+    UnverifiedcollectionComponent,
+    InvoicelistComponent
   ],
   imports: [
     CommonModule,
