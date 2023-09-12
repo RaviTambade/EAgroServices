@@ -6,11 +6,16 @@ import { CollectionsComponent } from './collections/collections.component';
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
 import { CollectionlistComponent } from './collectionlist/collectionlist.component';
 import { InvioceComponent } from './invioce/invioce.component';
+import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollection.component';
+import { UnverifiedcollectionComponent } from './unverifiedcollection/unverifiedcollection.component';
+import { FormsModule } from '@angular/forms';
 
 export const farmerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
   {path:'collections',component:CollectionsComponent},
   {path:'invoice',component:InvioceComponent},
+  {path:'verified',component:VerifiedcollectionComponent},
+  {path:'unverified',component:UnverifiedcollectionComponent},
 
 ]
 
@@ -21,11 +26,14 @@ export const farmerRoutes:Routes=[
     CollectionsComponent,
     CollectiondetailsComponent,
     CollectionlistComponent,
-    InvioceComponent
+    InvioceComponent,
+    VerifiedcollectionComponent,
+    UnverifiedcollectionComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(farmerRoutes)
+    RouterModule.forChild(farmerRoutes),
+    FormsModule,
   ]
 })
 export class FarmerModule { }

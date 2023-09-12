@@ -10,7 +10,7 @@ export class CommonService {
 
   constructor(private httpClient:HttpClient) { }
 
-  getCollectionCenterName(corporateId:number):Observable<CollectionCenter[]> {
+  getCorporates(corporateId:number):Observable<CollectionCenter[]> {
     let url ='http://localhost:5041/api/corporates/names/'+ corporateId;
     console.log(corporateId);
     return this.httpClient.get<CollectionCenter[]>(url);

@@ -11,12 +11,31 @@ export class CollectionlistComponent implements OnInit {
 constructor(private farmersvc:FarmerService){}
 selectedCollectionId: number | null = null
   collectionDetails:any|undefined
-  collectionslist:CollectionList[]|undefined
+  collectionslist:CollectionList[]|any
+  // collectionslist: any[] = []; // Replace with your actual data
+  showVerified: boolean = true;
+  showUnverified: boolean = false;
+
+  get filteredCollections() {
+    return this.collectionslist.filter((collection: { status: string; }) => {
+      if (this.showVerified && this.showUnverified) {
+        return true; // Show all collections when both checkboxes are selected
+      } else if (this.showVerified) {
+        return collection.status === 'Verified';
+      } else if (this.showUnverified) {
+        return collection.status === 'Unverified';
+      } else {
+        return false; // Hide all collections when both checkboxes are deselected
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.farmersvc.collectionList().subscribe((response)=>{
       this.collectionslist=response;
       console.log(response);
+     this.farmersvc.setSelectedCollectionId(response[0].collectionId);
+
     })
   }
  

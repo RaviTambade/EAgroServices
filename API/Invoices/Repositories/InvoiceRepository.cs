@@ -217,6 +217,46 @@ public class InvoiceRepository : IInvoiceRepository
             throw;
         }
     }
+    public async Task<List<FarmerInvoiceList?>> GetInvoiceList(int farmerId)
+    {
+        try
+        {
+            List<FarmerInvoiceList> invoiceList = await(
+                from invoice in _context.Invoices
+                join shipmentItem in _context.ShipmentItems
+                    on invoice.ShipmentItemId equals shipmentItem.Id
+                join charges in _context.GoodsCostings
+                    on shipmentItem.Id equals charges.ShipmentItemId
+                join shipment in _context.Shipments
+                    on shipmentItem.ShipmentId equals shipment.Id
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                join transporter in _context.Transporters
+                    on vehicle.TransporterId equals transporter.Id
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join collectionCenter in _context.CollectionCenters
+                    on collection.CollectionCenterId equals collectionCenter.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                where collection.FarmerId == farmerId
+                select new FarmerInvoiceList()
+                {
+                    CollectionDate=collection.CollectionDate,
+                    CropName = crop.Title,
+                    PaymentStatus = invoice.PaymentStatus,
+                    InvoiceDate = invoice.InvoiceDate
+                }
+            ).ToListAsync();
+            return invoiceList;
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 
     public async Task<bool> Insert(Invoice invoice)
     {

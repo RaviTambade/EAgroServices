@@ -279,7 +279,8 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
                     CollectionId = collection.Id,
                     CropName = crop.Title,
                     Quantity = collection.Quantity,
-                    CollectionDate = collection.CollectionDate
+                    CollectionDate = collection.CollectionDate,
+                    Status=_farmerContext.VerifiedGoodsCollections.Any(vc=> vc.CollectionId ==collection.Id)?"Verified":"Unverified"
                 }
             ).ToListAsync();
             return collectionsList;

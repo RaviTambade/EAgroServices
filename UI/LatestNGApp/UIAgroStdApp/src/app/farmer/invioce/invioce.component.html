@@ -1,1 +1,80 @@
-<p>invioce works!</p>
+<div *ngIf="invoice">
+<div class="container mt-4">
+    <!-- <div class="row justify-content-center"> -->
+        <div class="col-md-11">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Invoice Details</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td><strong>Invoice Date</strong></td>
+                            <td>{{ invoice.invoiceDate | date}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Collection Center Name:</strong></td>
+                            <td>{{collectionCenterName }}</td>
+                        </tr>   
+                        <tr>
+                            <td><strong>Vehicle Number:</strong></td>
+                            <td>{{ invoice.vehicleNumber }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Crop Name:</strong></td>
+                            <td>{{ invoice.cropName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grade:</strong></td>
+                            <td>{{ invoice.grade }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Container Type:</strong></td>
+                            <td>{{ invoice.containerType }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quantity:</strong></td>
+                            <td>{{ invoice.quantity }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Weight:</strong></td>
+                            <td>{{ invoice.totalWeight |number }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Net Weight:</strong></td>
+                            <td>{{ invoice.netWeight |number }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Freight Charges:</strong></td>
+                            <td>{{ invoice.freightCharges |number: '1.2-2' }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Labour Charges:</strong></td>
+                            <td>{{ invoice.labourCharges |number }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Service Charges:</strong></td>
+                            <td>{{ invoice.serviceCharges |number }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rate Per Kg:</strong></td>
+                            <td>    {{ invoice.ratePerKg |number }}
+                                </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Farmer Amount:</strong></td>
+                            <td>{{ invoice.farmerAmount |number }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payment Status:</strong></td>
+                            <span class="badge {{ invoice.paymentStatus === 'paid' ? 'badge-danger' : 'badge-success' }}">
+                            <td>{{ invoice.paymentStatus }}</td>
+                            </span>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -29,6 +29,12 @@ namespace Transflower.Invoices.Controllers
         {
             return await _service.GetInvoice(collectionId);
         }
+        [HttpGet("farmerinvoicelist/{farmerId}")]
+
+        public async Task<List<FarmerInvoiceList?>> GetInvoiceList(int farmerId)
+        {
+            return await _service.GetInvoiceList(farmerId);
+        }
 
         [HttpGet("details/{invoiceId}")]
         public async Task<InvoiceChargesDetail?> GetById(int invoiceId)

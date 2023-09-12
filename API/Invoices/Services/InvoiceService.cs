@@ -24,6 +24,10 @@ namespace Transflower.Invoices.Services
         {
             return await _repository.GetInvoice(collectionId);
         }
+        public async Task<List<FarmerInvoiceList?>> GetInvoiceList(int farmerId)
+        {
+            return await _repository.GetInvoiceList(farmerId);
+        }
 
         public async Task<InvoiceChargesDetail?> GetById(int invoiceId)
         {

@@ -9,6 +9,7 @@ public interface IInvoiceRepository
 {
     Task<List<InvoiceDetail>> GetAll(int merchantId, string paymentStatus);
     Task<FarmerInvoice?> GetInvoice(int collectionId);
+    Task<List<FarmerInvoiceList?>> GetInvoiceList(int farmerId);
     Task<InvoiceChargesDetail?> GetById(int invoiceId);
     Task<PagedList<CollectionCenterInvoice>> GetCollectionCenterInvoices(int collectionCenterId, string status, FilterRequest request, int pageNumber);
     Task<CollectionCenterInvoiceDetail?> GetCollectionCenterInvoiceDetails(int collectionCenterId, int invoiceId);
