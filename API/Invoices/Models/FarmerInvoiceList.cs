@@ -6,5 +6,6 @@ public class FarmerInvoiceList
     public DateTime InvoiceDate { get; set; }
     public string CropName { get; set; }
     public string PaymentStatus { get; set; }
+    public int InvoiceId { get; set; }
 
 }

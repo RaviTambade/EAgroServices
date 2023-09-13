@@ -15,7 +15,7 @@ export class InvoiceService {
     return this.httpClient.get<Farmerinvoice>(url);
   }
   getInvoicelist():Observable<Invoicelist[]>{
-    let farmerId=localStorage.getItem("FarmerId");
+    let farmerId=localStorage.getItem("farmerId");
     let url = "http://localhost:5197/api/invoices/farmerinvoicelist/" + farmerId;
     return this.httpClient.get<Invoicelist[]>(url);
   }

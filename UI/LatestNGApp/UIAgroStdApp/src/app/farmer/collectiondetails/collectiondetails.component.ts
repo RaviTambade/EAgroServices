@@ -45,6 +45,8 @@ constructor(private farmerSvc:FarmerService,private commonSvc:CommonService){}
   } else {
     this.selectedCollectionId = id;
   }
-  console.log(this.selectedCollectionId)
+  if (this.selectedCollectionId === null) {
+    alert(" This collection is not Verified !!!");
 }
 } 
+}

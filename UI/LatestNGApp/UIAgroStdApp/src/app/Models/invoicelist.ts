@@ -3,7 +3,8 @@ export class Invoicelist {
         public collectionDate:string,
         public invoiceDate:string,
         public cropName:string,
-        public paymentStatus:string
+        public paymentStatus:string,
+        public invoiceId:number
         ){}
     
 }

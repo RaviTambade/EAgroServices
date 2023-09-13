@@ -15,6 +15,7 @@ export const farmerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
   {path:'collections',component:CollectionsComponent},
   {path:'invoice',component:InvioceComponent},
+  {path:'invoicelist',component:InvoicelistComponent},
   {path:'verified',component:VerifiedcollectionComponent},
   {path:'unverified',component:UnverifiedcollectionComponent},
 

@@ -1,1 +1,83 @@
-<p>invoicelist works!</p>
+<!-- <div class="container mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>Invoice Details</h4>
+            </div>
+            <div *ngFor="let invoice  of invoicelist">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td><strong>Collection Date:</strong></td>
+                            <td>{{invoice.collectionDate }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Invoice Date</strong></td>
+                            <td>{{ invoice.invoiceDate | date}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Crop Name:</strong></td>
+                            <td>{{invoice.cropName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payment Status:</strong></td>
+                            <td>{{invoice.paymentStatus }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container">
+    <div class="row">
+      <div class="col-12 col-md-12 overflow-auto">
+        <div class="card">
+          <div class="card-header" style="background-color: #001f3f; color: #fff;">
+            Invoice List
+          </div>
+          <div class="card-body text-left">
+            <!-- Checkboxes for filtering -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="paidCheckbox" [(ngModel)]="showPaid">
+              <label class="form-check-label" for="paidCheckbox">Paid</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="unpaidCheckbox" [(ngModel)]="showUnpaid">
+              <label class="form-check-label" for="unpaidCheckbox">Unpaid</label>
+            </div>
+            
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Collection Date</th>
+                  <th>Invoice Date</th>
+                  <th>Crop Name</th>
+                  <th>Payment Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let invoice  of invoicelist">
+                
+                <tr>
+                  <td>{{ invoice.collectionDate | date }}</td>
+                  <td>{{ invoice.invoiceDate | date }}</td>
+                  <td>{{ invoice.cropName }}</td>
+                  <td>
+                    <span *ngIf="invoice.paymentStatus === 'paid'" class="bi bi-check-circle text-info"> paid
+                    </span>
+                    <span *ngIf="invoice.paymentStatus === 'unpaid'" class="bi bi-clock text-warning"> unpaid
+                    </span>
+                  </td>
+                  <td>
+                    <!-- <button class="btn btn-primary" (click)="onClickDetails(invoice.invoiceId)">Details</button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  

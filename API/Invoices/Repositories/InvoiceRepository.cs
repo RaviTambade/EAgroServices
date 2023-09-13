@@ -246,7 +246,8 @@ public class InvoiceRepository : IInvoiceRepository
                     CollectionDate=collection.CollectionDate,
                     CropName = crop.Title,
                     PaymentStatus = invoice.PaymentStatus,
-                    InvoiceDate = invoice.InvoiceDate
+                    InvoiceDate = invoice.InvoiceDate,
+                    InvoiceId=invoice.Id
                 }
             ).ToListAsync();
             return invoiceList;
