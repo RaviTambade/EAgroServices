@@ -57,7 +57,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody *ngFor="let invoice  of invoicelist">
+              <tbody *ngFor="let invoice  of filteredInvoice">
                 
                 <tr>
                   <td>{{ invoice.collectionDate | date }}</td>
@@ -68,6 +68,9 @@
                     </span>
                     <span *ngIf="invoice.paymentStatus === 'unpaid'" class="bi bi-clock text-warning"> unpaid
                     </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary" (click)="onClickDetails(invoice.invoiceId)">Details</button>
                   </td>
                   <td>
                     <!-- <button class="btn btn-primary" (click)="onClickDetails(invoice.invoiceId)">Details</button> -->

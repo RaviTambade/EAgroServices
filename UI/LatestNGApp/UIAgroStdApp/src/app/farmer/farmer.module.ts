@@ -10,12 +10,14 @@ import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollec
 import { UnverifiedcollectionComponent } from './unverifiedcollection/unverifiedcollection.component';
 import { FormsModule } from '@angular/forms';
 import { InvoicelistComponent } from './invoicelist/invoicelist.component';
+import { InvoicedetailsComponent } from './invoicedetails/invoicedetails.component';
+import { TotalinvoiceComponent } from './totalinvoice/totalinvoice.component';
 
 export const farmerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
   {path:'collections',component:CollectionsComponent},
   {path:'invoice',component:InvioceComponent},
-  {path:'invoicelist',component:InvoicelistComponent},
+  {path:'invoicelist',component:TotalinvoiceComponent},
   {path:'verified',component:VerifiedcollectionComponent},
   {path:'unverified',component:UnverifiedcollectionComponent},
 
@@ -31,7 +33,9 @@ export const farmerRoutes:Routes=[
     InvioceComponent,
     VerifiedcollectionComponent,
     UnverifiedcollectionComponent,
-    InvoicelistComponent
+    InvoicelistComponent,
+    InvoicedetailsComponent,
+    TotalinvoiceComponent
   ],
   imports: [
     CommonModule,

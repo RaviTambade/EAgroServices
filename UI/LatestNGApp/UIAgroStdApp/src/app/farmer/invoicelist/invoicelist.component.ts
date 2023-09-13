@@ -8,7 +8,9 @@ import { InvoiceService } from 'src/app/Services/invoice.service';
   styleUrls: ['./invoicelist.component.css']
 })
 export class InvoicelistComponent {
-  invoicelist: Invoicelist[]|any
+  SelectedInvoiceId: number | null = null
+  invoiceDetails:any|undefined
+  invoicelist: Invoicelist[]=[]
 constructor(private invoicesvc:InvoiceService){}
 showPaid: boolean = true;
 showUnpaid: boolean = false;
@@ -31,7 +33,11 @@ get filteredInvoice() {
     this.invoicesvc.getInvoicelist().subscribe((response)=>{
       this.invoicelist=response;
       console.log(response);
-
+      this.invoicesvc.setSelectedInvoiceId(response[0].invoiceId);
     })
+}
+onClickDetails(invoiceId: number) {
+   this.invoicesvc.setSelectedInvoiceId(invoiceId);
+   console.log(invoiceId);
 }
 }
