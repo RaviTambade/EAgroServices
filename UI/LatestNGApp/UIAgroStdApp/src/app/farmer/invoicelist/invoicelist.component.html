@@ -51,7 +51,7 @@
               <thead>
                 <tr>
                   <th>Collection Date</th>
-                  <th>Invoice Date</th>
+                  <!-- <th>Invoice Date</th> -->
                   <th>Crop Name</th>
                   <th>Payment Status</th>
                   <th>Action</th>
@@ -61,7 +61,7 @@
                 
                 <tr>
                   <td>{{ invoice.collectionDate | date }}</td>
-                  <td>{{ invoice.invoiceDate | date }}</td>
+                  <!-- <td>{{ invoice.invoiceDate | date }}</td> -->
                   <td>{{ invoice.cropName }}</td>
                   <td>
                     <span *ngIf="invoice.paymentStatus === 'paid'" class="bi bi-check-circle text-info"> paid
@@ -71,9 +71,6 @@
                   </td>
                   <td>
                     <button class="btn btn-primary" (click)="onClickDetails(invoice.invoiceId)">Details</button>
-                  </td>
-                  <td>
-                    <!-- <button class="btn btn-primary" (click)="onClickDetails(invoice.invoiceId)">Details</button> -->
                   </td>
                 </tr>
               </tbody>

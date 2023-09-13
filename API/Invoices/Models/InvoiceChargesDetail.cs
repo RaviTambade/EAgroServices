@@ -9,6 +9,7 @@ namespace Transflower.Invoices.Models;
         public int CollectionId { get; set; }
         public string? VehicleNumber { get; set; }
         public string? CropName { get; set; }
+        public string? ImageUrl { get; set; }
         public string? Grade { get; set; }
         public string? ContainerType { get; set; }
         public int Quantity { get; set; }

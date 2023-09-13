@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CollectionDetails } from 'src/app/Models/collectiondetails';
 import { Invoicedetails } from 'src/app/Models/invoicedetails';
 import { CommonService } from 'src/app/Services/Common.service';
 import { InvoiceService } from 'src/app/Services/invoice.service';
@@ -22,8 +23,10 @@ export class InvoicedetailsComponent implements OnInit {
        if(this.invoiceId)
        this.invoiceSvc.getInvoiceDetails(this.invoiceId).subscribe((response)=>{
          console.log(this.invoiceId)
-         console.log(this.invoiceId);
          this.invoiceDetails=response;
+         console.log(this.invoiceId);
+         
+
          })
        });
    }

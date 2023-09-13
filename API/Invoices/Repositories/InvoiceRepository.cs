@@ -140,6 +140,7 @@ public class InvoiceRepository : IInvoiceRepository
       TransporterCorporateId = transporter.CorporateId,
       VehicleNumber = vehicle.RtoNumber,
       CropName = crop.Title,
+      ImageUrl=crop.ImageUrl,
       Grade = verifiedCollection.Grade,
       ContainerType = collection.ContainerType,
       Quantity = collection.Quantity,
