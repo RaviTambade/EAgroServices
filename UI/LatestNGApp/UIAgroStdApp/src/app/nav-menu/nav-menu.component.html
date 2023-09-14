@@ -22,8 +22,9 @@
             <a class="nav-link text-dark">Home</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn()">
-            <a class="nav-link text-dark">{{name}}</a>
-          </li>
+            <i class="fa fa-user-circle"></i>
+            <a class="nav-link text-dark"class="user-profile-icon" (click)="openUserProfile()">{{name}}</a>
+          <!-- </li> -->
         <li class="nav-item" *ngIf="isLoggedIn()">
           <a class="nav-link text-dark" (click)="logOut()">LogOut</a>
         </li>

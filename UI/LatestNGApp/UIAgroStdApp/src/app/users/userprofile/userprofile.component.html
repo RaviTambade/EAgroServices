@@ -1,4 +1,4 @@
-<!-- <div class="profile-container">
+<div class="profile-container">
     <div class="profile-info">
   
       <div class="profile-image" *ngIf="!editingImage">
@@ -19,7 +19,7 @@
   
       <div class="profile-details">
         <h2>{{ user.firstName }} {{ user.lastName }}</h2>
-        <p><strong>Birth Date:</strong> {{ user.birthDate | date }}</p>
+        <!-- <p><strong>Birth Date:</strong> {{ user.birthDate | date }}</p> -->
         <p><strong>Gender:</strong> {{ user.gender }}</p>
         <p><strong>AadharId:</strong> {{ user.aadharId }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
@@ -30,9 +30,10 @@
         </div>
       </div>
       <div *ngIf="isCorporate()">
-        <app-corporatedetails></app-corporatedetails>
+        <!-- <app-corporatedetails></app-corporatedetails>
+         -->
       </div>
       
     </div>
   </div>
-   -->
+  

@@ -20,4 +20,10 @@ export class UserService {
     let url="http://localhost:5031/api/userroles/roles/" + userId;
     return this.httpClient.get<string[]>(url);
   }
+
+  getUser(id: number): Observable<any> {
+    let url = "http://localhost:5102/api/users/" + id
+    return this.httpClient.get<any>(url)
+  }
+
 }
