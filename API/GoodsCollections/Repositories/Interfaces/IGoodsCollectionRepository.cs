@@ -17,6 +17,12 @@ public interface IGoodsCollectionRepository
         int pageNumber,
         string type
     );
+     Task<List<CollectionList>> GetCollectionList(
+        int collectionCenterId,
+        // FilterRequest request,
+        // int pageNumber,
+         string type
+    );
     Task<GoodsCollection?> GetById(int collectionId);
     Task<bool> Insert(GoodsCollection collection);
     Task<List<string?>> GetContainerTypes();

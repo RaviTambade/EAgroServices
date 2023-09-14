@@ -77,5 +77,14 @@ namespace Transflower.EAgroServices.GoodsCollections.Services
         {
             return await _repository.GetCollections(collectionCenterId, request, pageNumber, type);
         }
+        public async Task<List<CollectionList>> GetCollectionList(
+            int collectionCenterId,
+            // FilterRequest request,
+            // int pageNumber,
+             string type
+        )
+        {
+            return await _repository.GetCollectionList(collectionCenterId,type);
+        }
     }
 }
