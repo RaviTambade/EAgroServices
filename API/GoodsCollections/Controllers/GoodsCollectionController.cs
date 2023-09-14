@@ -34,6 +34,23 @@ public class GoodsCollectionController : ControllerBase
         Response.AddPaginationHeader(collections);
         return collections;
     }
+    [HttpGet("collectionlist/{collectionCenterId}")]
+    public async Task<List<CollectionList>>? GetCollectionList(
+        int collectionCenterId,
+        // [FromBody] FilterRequest request,
+        // [FromQuery] int pageNumber,
+         [FromQuery] string type
+     )
+     {
+    //     var collections = await _service.GetCollections(
+    //         collectionCenterId,
+    //         request,
+    //         pageNumber,
+    //         type
+    //     );
+    //     Response.AddPaginationHeader(collections);
+         return await _service.GetCollectionList(collectionCenterId,type);
+    }
 
     [HttpGet("{collectionId}")]
     public async Task<GoodsCollection?> GetById(int collectionId)
