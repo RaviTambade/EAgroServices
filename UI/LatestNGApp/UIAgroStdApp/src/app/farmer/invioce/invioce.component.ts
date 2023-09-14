@@ -10,27 +10,27 @@ import { InvoiceService } from 'src/app/Services/invoice.service';
 })
 export class InvioceComponent {
   @Input() collectionId!: number;
-  invoice:Farmerinvoice | undefined;
+  invoice: Farmerinvoice | undefined;
   collectionCenterCorporateId: any;
   collectionCenterName: string | undefined;
-constructor(private svc:InvoiceService,private commonSvc:CommonService){}
-ngOnInit() {
-  console.log(this.collectionId)
-  this.svc.getCollectionInvoice(this.collectionId).subscribe((response)=>{
-    this.invoice=response;
-    console.table(this.collectionId);
-    this.commonSvc.getCorporates(response.collectionCenterCorporateId).subscribe((response)=> {
-      console.log(this.collectionCenterCorporateId);
-      this.collectionCenterName=response[0].name
-      console.log(response);
+  constructor(private svc: InvoiceService, private commonSvc: CommonService) { }
+  ngOnInit() {
+    console.log(this.collectionId)
+    this.svc.getCollectionInvoice(this.collectionId).subscribe((response) => {
+      this.invoice = response;
+      console.table(this.collectionId);
+      this.commonSvc.getCorporates(response.collectionCenterCorporateId).subscribe((response) => {
+        console.log(this.collectionCenterCorporateId);
+        this.collectionCenterName = response[0].name
+        console.log(response);
+      })
     })
-   })
   }
 }
-  
-  
- 
-        
+
+
+
+
 
 
 

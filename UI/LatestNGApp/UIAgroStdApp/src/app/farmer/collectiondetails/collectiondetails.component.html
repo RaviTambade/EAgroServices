@@ -33,11 +33,12 @@
                       </li>
                     </ul>
                   </div>
-                  <td><button class="btn btn-info" style="margin: 20px;"(click)="onClickInvoiceDetails(collectionDetails.id)"> Invoice </button></td>
+                  <td><button class="btn btn-info" style="margin: 20px;"
+                      (click)="onClickInvoiceDetails(collectionDetails.id)"> Invoice </button></td>
                   <tr *ngIf="selectedCollectionId === collectionDetails.id">
-                    
-                        <app-invioce [collectionId]="collectionDetails.id"></app-invioce>
-                     
+
+                    <app-invioce [collectionId]="collectionDetails.id"></app-invioce>
+
                   </tr>
                 </div>
               </div>

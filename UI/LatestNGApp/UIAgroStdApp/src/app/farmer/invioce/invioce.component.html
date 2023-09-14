@@ -1,6 +1,6 @@
 <div *ngIf="invoice">
-<div class="container mt-4">
-    <!-- <div class="row justify-content-center"> -->
+    <div class="container mt-4">
+        <!-- <div class="row justify-content-center"> -->
         <div class="col-md-11">
             <div class="card">
                 <div class="card-header">
@@ -15,7 +15,7 @@
                         <tr>
                             <td><strong> Center:</strong></td>
                             <td>{{collectionCenterName }}</td>
-                        </tr>   
+                        </tr>
                         <tr>
                             <td><strong>Vehicle Number:</strong></td>
                             <td>{{ invoice.vehicleNumber }}</td>
@@ -58,8 +58,8 @@
                         </tr>
                         <tr>
                             <td><strong>Rate Per Kg:</strong></td>
-                            <td>    {{ invoice.ratePerKg |number }}
-                                </td>
+                            <td> {{ invoice.ratePerKg |number }}
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Amount:</strong></td>
@@ -67,8 +67,9 @@
                         </tr>
                         <tr>
                             <td><strong>Payment Status:</strong></td>
-                            <span class="badge {{ invoice.paymentStatus === 'paid' ? 'badge-danger' : 'badge-success' }}">
-                            <td>{{ invoice.paymentStatus }}</td>
+                            <span
+                                class="badge {{ invoice.paymentStatus === 'paid' ? 'badge-danger' : 'badge-success' }}">
+                                <td>{{ invoice.paymentStatus }}</td>
                             </span>
                         </tr>
                     </table>
@@ -77,4 +78,3 @@
         </div>
     </div>
 </div>
-
