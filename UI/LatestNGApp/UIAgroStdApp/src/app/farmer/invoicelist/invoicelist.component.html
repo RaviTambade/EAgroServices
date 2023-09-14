@@ -64,7 +64,7 @@
                   <!-- <td>{{ invoice.invoiceDate | date }}</td> -->
                   <td>{{ invoice.cropName }}</td>
                   <td>
-                    <span *ngIf="invoice.paymentStatus === 'paid'" class="bi bi-check-circle text-info"> paid
+                    <span *ngIf="invoice.paymentStatus === 'paid'" class="text-success">paid
                     </span>
                     <span *ngIf="invoice.paymentStatus === 'unpaid'" class="bi bi-clock text-warning"> unpaid
                     </span>

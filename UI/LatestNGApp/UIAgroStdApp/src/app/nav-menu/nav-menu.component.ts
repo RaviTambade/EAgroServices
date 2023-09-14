@@ -50,4 +50,9 @@ export class NavMenuComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  
+  openUserProfile() {
+    this.router.navigate(['user/userinfo']);
+  }
+
 }

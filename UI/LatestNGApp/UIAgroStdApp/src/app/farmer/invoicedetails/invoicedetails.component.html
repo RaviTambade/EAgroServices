@@ -15,9 +15,7 @@
                     <div class="card-body"> -->
             <!-- <h5 class="card-title">Inovice Details</h5> -->
             <ul class="list-unstyled">
-              <li>
-                <strong>Date:</strong> {{ invoiceDetails.invoiceDate | date }}
-              </li>
+              
               <li>
                 <!-- <div class="justify-content-center"> -->
                 <!-- <div class="card" style="margin-left: 30px;"> -->
@@ -31,11 +29,14 @@
                             </div> -->
               </li>
               <li>
+                <strong>Date:</strong> {{ invoiceDetails.invoiceDate | date }}
+              </li>
+              <li>
                 <strong>Amount:</strong> {{ invoiceDetails.farmerAmount |number}}
               </li>
               <li>
                 <strong>Payment Status:</strong>
-                <span *ngIf="invoiceDetails.paymentStatus === 'paid'" class="text-info"> Paid
+                <span *ngIf="invoiceDetails.paymentStatus === 'paid'" class="text-success"> Paid
                 </span>
                 <span *ngIf="invoiceDetails.paymentStatus === 'unpaid'" class="text-warning"> Unpaid
                 </span>
@@ -44,9 +45,9 @@
               <li>
                 <strong>Quantity:</strong> {{ invoiceDetails.quantity}}
               </li>
-              <li>
+              <!-- <li>
                 <strong>Weight:</strong> {{ invoiceDetails.weight }}
-              </li>
+              </li> -->
               <li>
                 <strong>Rate/kg:</strong> {{ invoiceDetails.ratePerKg}}
               </li>
