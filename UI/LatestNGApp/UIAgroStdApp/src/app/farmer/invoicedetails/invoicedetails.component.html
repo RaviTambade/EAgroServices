@@ -1,67 +1,63 @@
-
 <div class="container mt-4">
-    <div class="row">
-      <div *ngIf="invoiceDetails" class="col-md-11">
-        <div class="card">
-          <div class="justify-content-center">
-            <div class="card-header" style="background-color: #042e59; color: #fff;">
-              Invoice Details
-            </div> 
-            <div class="card-body">
-              <!-- <div class="row"> -->
-              <!-- <div *ngIf="invoiceDetails" class="col-md-11 mb-8">
+  <div class="row">
+    <div *ngIf="invoiceDetails" class="col-md-11">
+      <div class="card">
+        <div class="justify-content-center">
+          <div class="card-header" style="background-color: #042e59; color: #fff;">
+            Invoice Details
+          </div>
+          <div class="card-body">
+            <!-- <div class="row"> -->
+            <!-- <div *ngIf="invoiceDetails" class="col-md-11 mb-8">
                 <div class="justify-content-center"> -->
-                  <!-- <div class="card" style="margin-left: 30px;"
+            <!-- <div class="card" style="margin-left: 30px;"
                       style="max-height: 250px; width: 100%; object-fit: cover;" >
                     <div class="card-body"> -->
-                      <!-- <h5 class="card-title">Inovice Details</h5> -->
-                      <ul class="list-unstyled">
-                        <li>
-                          <strong>Date:</strong> {{ invoiceDetails.invoiceDate | date }}
-                        </li>
-                        <li>
-                          <!-- <div class="justify-content-center"> -->
-                            <!-- <div class="card" style="margin-left: 30px;"> -->
-                              <img [src]="invoiceDetails.imageUrl" class="card-img-top"
-                                style="max-height: 200px; width: 200px; object-fit: cover;" alt="{{ invoiceDetails.cropName }}">
-                              <!-- <div class="card-body"> -->
-                                <h5 class="card-title">{{ invoiceDetails.cropName }}</h5>
-                            <!-- <strong>Crop:</strong> {{ invoiceDetails.cropName }} -->
-                            <!-- </div>
+            <!-- <h5 class="card-title">Inovice Details</h5> -->
+            <ul class="list-unstyled">
+              <li>
+                <strong>Date:</strong> {{ invoiceDetails.invoiceDate | date }}
+              </li>
+              <li>
+                <!-- <div class="justify-content-center"> -->
+                <!-- <div class="card" style="margin-left: 30px;"> -->
+                <img [src]="invoiceDetails.imageUrl" class="card-img-top"
+                  style="max-height: 200px; width: 200px; object-fit: cover;" alt="{{ invoiceDetails.cropName }}">
+                <!-- <div class="card-body"> -->
+                <h5 class="card-title">{{ invoiceDetails.cropName }}</h5>
+                <!-- <strong>Crop:</strong> {{ invoiceDetails.cropName }} -->
+                <!-- </div>
                             </div>
                             </div> -->
-                        </li>
-                        <li>
-                          <strong>Quantity:</strong> {{ invoiceDetails.quantity}}
-                        </li>
-                        <li>
-                          <strong>Weight:</strong> {{ invoiceDetails.weight }}
-                        </li>
-                       
-                        <li>
-                          <strong>Rate/kg:</strong> {{ invoiceDetails.ratePerKg}}
-                        </li>
-                        <li>
-                            <strong>Amount:</strong> {{ invoiceDetails.farmerAmount |number}}
-                          </li>
-                          <li>
-                            <strong>Payment Status:</strong>
-                            <span  *ngIf="invoiceDetails.paymentStatus === 'paid'" class="text-info"> Paid
-                            </span>
-                            <span *ngIf="invoiceDetails.paymentStatus === 'unpaid'" class="text-warning"> Unpaid
-                            </span>
-                            <!-- <strong>Payment Status:</strong> {{ invoiceDetails.paymentStatus }} -->
-                          </li>
-                         
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </li>
+              <li>
+                <strong>Amount:</strong> {{ invoiceDetails.farmerAmount |number}}
+              </li>
+              <li>
+                <strong>Payment Status:</strong>
+                <span *ngIf="invoiceDetails.paymentStatus === 'paid'" class="text-info"> Paid
+                </span>
+                <span *ngIf="invoiceDetails.paymentStatus === 'unpaid'" class="text-warning"> Unpaid
+                </span>
+                <!-- <strong>Payment Status:</strong> {{ invoiceDetails.paymentStatus }} -->
+              </li>
+              <li>
+                <strong>Quantity:</strong> {{ invoiceDetails.quantity}}
+              </li>
+              <li>
+                <strong>Weight:</strong> {{ invoiceDetails.weight }}
+              </li>
+              <li>
+                <strong>Rate/kg:</strong> {{ invoiceDetails.ratePerKg}}
+              </li>
+            </ul>
           </div>
-        <!-- </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div>
       </div> -->
-    <!-- </div>
+<!-- </div>
     </div> -->
-    

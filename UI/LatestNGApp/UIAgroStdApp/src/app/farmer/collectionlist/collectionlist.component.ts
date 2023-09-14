@@ -8,10 +8,10 @@ import { FarmerService } from 'src/app/Services/farmer.service';
   styleUrls: ['./collectionlist.component.css']
 })
 export class CollectionlistComponent implements OnInit {
-constructor(private farmersvc:FarmerService){}
-selectedCollectionId: number | null = null
-  collectionDetails:any|undefined
-  collectionslist:CollectionList[]|any
+  constructor(private farmersvc: FarmerService) { }
+  selectedCollectionId: number | null = null
+  collectionDetails: any | undefined
+  collectionslist: CollectionList[] | any
   // collectionslist: any[] = []; // Replace with your actual data
   showVerified: boolean = true;
   showUnverified: boolean = false;
@@ -31,22 +31,20 @@ selectedCollectionId: number | null = null
   }
 
   ngOnInit(): void {
-    this.farmersvc.collectionList().subscribe((response)=>{
-      this.collectionslist=response;
+    this.farmersvc.collectionList().subscribe((response) => {
+      this.collectionslist = response;
       console.log(response);
-     this.farmersvc.setSelectedCollectionId(response[0].collectionId);
-
+      this.farmersvc.setSelectedCollectionId(response[0].collectionId);
     })
   }
- 
-  onClickDetails(collectionId: number) {
-   
-     this.farmersvc.setSelectedCollectionId(collectionId);
-     console.log(collectionId);
-  }
-    }
 
-  
+  onClickDetails(collectionId: number) {
+    this.farmersvc.setSelectedCollectionId(collectionId);
+    console.log(collectionId);
+  }
+}
+
+
 
 
 
