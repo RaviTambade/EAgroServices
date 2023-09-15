@@ -16,3 +16,10 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+
+  .welcome-text {
+    color: rgb(2, 79, 6);
+    font-size: 0.8rem;
+  }
+

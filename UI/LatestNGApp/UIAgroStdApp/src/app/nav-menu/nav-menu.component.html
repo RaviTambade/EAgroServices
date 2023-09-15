@@ -1,40 +1,39 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand">EAgro App</a>
-      <button class="navbar-toggler" type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-      >
-        <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item">
-            <a class="nav-link text-dark">Home</a>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="home" routerLinkActive="router-link-active">Home</a>
+          </li>
+
+          <!-- Logged In User Profile and Logout -->
+          <li class="nav-item" *ngIf="isLoggedIn()">
+            <a class="nav-link text-dark" (click)="openUserProfile()">
+              <i class="fa fa-user-circle"></i> 
+              <span class="welcome-text">Welcome</span> {{name}}
+            </a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn()">
-            <i class="fa fa-user-circle"></i>
-            <a class="nav-link text-dark"class="user-profile-icon" (click)="openUserProfile()">{{name}}</a>
-          <!-- </li> -->
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <a class="nav-link text-dark" (click)="logOut()">LogOut</a>
-        </li>
+            <a class="nav-link text-danger" (click)="logOut()">
+              <i class="fa fa-sign-out-alt"></i> Logout
+            </a>
+          </li>
+
+          <!-- Login Link -->
           <li class="nav-item" *ngIf="!isLoggedIn()">
-            <a class="nav-link text-dark"  [routerLink]="['/login']">Login</a>
+            <a class="nav-link text-dark" routerLink="/login" routerLinkActive="router-link-active">
+              <i class="fa fa-sign-in-alt"></i> Login
+            </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </header>
-
 
