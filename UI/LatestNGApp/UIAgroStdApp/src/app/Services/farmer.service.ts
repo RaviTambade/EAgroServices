@@ -19,14 +19,13 @@ export class FarmerService {
   }
   
   collectionList():Observable<CollectionList[]>{
-    let farmerId=Number(localStorage.getItem("farmerId"));
+    let farmerId=Number(localStorage.getItem("userId"));
     let url ='http://localhost:5051/api/farmerscollections/collectionlist/' + farmerId;
     return this.httpClient.get<CollectionList[]>(url);
     
   }
 
   collectionDetail(collectionId:number): Observable<CollectionDetails> {
-      // let farmerId=Number(localStorage.getItem("farmerId"));
       let url ='http://localhost:5051/api/farmerscollections/collectiondetails/' + collectionId;
       return this.httpClient.get<CollectionDetails>(url);
   }

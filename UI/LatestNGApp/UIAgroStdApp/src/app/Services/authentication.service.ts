@@ -51,13 +51,13 @@ export class AuthenticationService {
     return !this.jwtHelper.isTokenExpired(token);
   }
   
-  getUserIdFromToken(): number | null {
-    const token = localStorage.getItem(LocalStorageKeys.jwt);
-    if (token) {
-      const decodedToken = this.jwtHelper.decodeToken(token);
-      return decodedToken.userId;
-    }
-    return null;
+  getUserIdFromToken(): number{
+     const userId = Number(localStorage.getItem("userId"));
+    // if (token) {
+    //   const decodedToken = this.jwtHelper.decodeToken(token);
+    //   return decodedToken.userId;
+    // }
+     return userId;
   }
 
   redirectToLogin() {

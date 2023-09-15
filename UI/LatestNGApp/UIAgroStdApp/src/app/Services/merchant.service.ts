@@ -15,7 +15,7 @@ export class MerchantService {
   }
 
   getMerchantCorporateId(): Observable<any> {
-    const merchantId = localStorage.getItem("merchantId");
+    const merchantId = localStorage.getItem("userId");
     let url = "http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
     return this.http.get<any>(url)
   }

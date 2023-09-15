@@ -12,7 +12,7 @@ export class TransporterService {
   constructor(public httpClient: HttpClient) { }
 
   getCorporateIdOfTransporter(): Observable<number> {
-    let transporterId=localStorage.getItem("transporterId")
+    let transporterId=localStorage.getItem("userId")
     let url = "http://localhost:5025/api/transporters/corporateid/" + transporterId;
     return this.httpClient.get<number>(url);
   }

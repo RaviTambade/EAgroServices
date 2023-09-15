@@ -17,6 +17,7 @@ import { merchantRoutes } from './merchant/merchant.module';
 import { collectionmanagerRoutes } from './collectionmanager/collectionmanager.module';
 import { MenubarComponent } from './menubar/menubar.component';
 import { UserprofileComponent } from './users/userprofile/userprofile.component';
+import { userRoutes } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { UserprofileComponent } from './users/userprofile/userprofile.component'
       {path:'farmer',children:farmerRoutes},
       {path:'merchant',children:merchantRoutes},
       {path:'collectionmanager',children:collectionmanagerRoutes},
-      {path:'userinfo',component:UserprofileComponent},
+      {path:'user',children:userRoutes},
 
 
     ])
