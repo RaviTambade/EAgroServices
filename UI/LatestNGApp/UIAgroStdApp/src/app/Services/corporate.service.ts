@@ -21,7 +21,8 @@ export class CorporateService {
     return this.http.post<any>(url, body);
   }
 
-  getCorporateIdByPersonId(personId: number): Observable<number> {
+  getCorporateIdByPersonId(): Observable<number> {
+    const personId=localStorage.getItem("userId");
     let url = 'http://localhost:5041/api/corporates/person/' + personId;
     return this.http.get<number>(url);
   }

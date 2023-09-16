@@ -21,8 +21,9 @@ export class UserService {
     return this.httpClient.get<string[]>(url);
   }
 
-  getUser(id: number): Observable<any> {
-    let url = "http://localhost:5102/api/users/" + id
+  getUser(): Observable<any> {
+    const userId=localStorage.getItem("userId");
+    let url = "http://localhost:5102/api/users/" + userId
     return this.httpClient.get<any>(url)
   }
 

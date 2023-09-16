@@ -1,4 +1,4 @@
-
+<!-- 
 
 <header>
     <nav
@@ -24,4 +24,55 @@
   </header>
   
   
-  
+   -->
+
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+        <ul class="navbar-nav flex-grow">
+          <ul class="nav-links">
+
+            <div *ngIf="isRoleFarmer()" style="display: flex; justify-content: space-between;">
+              <a class="nav-link text-dark" [routerLink]="['/farmer/collections']">Collections</a>
+              <a class="nav-link text-dark" [routerLink]="['/farmer/invoicelist']">Invoices</a>
+              <a a class="nav-link text-dark" [routerLink]="['farmer/bankstatement']">Bank Statements</a>
+            </div>
+
+            <div *ngIf="isRoleMerchant()"style="display: flex; justify-content: space-between;">
+              <a class="nav-link text-dark" routerLink="transporter/dashboard" >Dashboard</a>
+              <a class="nav-link text-dark" routerLink="transporter/vehicles" >Vehicles</a>
+              <a class="nav-link text-dark" routerLink="transporter/allshipments" >All Shipments</a>
+              <a class="nav-link text-dark" routerLink="transporter/invoices" >Invoices</a>
+              <a class="nav-link text-dark" routerLink="transporter/banking" >Bankstatement</a>
+            </div>
+
+            <div *ngIf="isRoleCollectionManager()"style="display: flex; justify-content: space-between;">
+              <a class="nav-link text-dark" routerLink="collectioncenter/dashboard">Dashboard</a>
+              <a class="nav-link text-dark" routerLink="collectioncenter/addcollection">add collection</a>
+              <a class="nav-link text-dark" routerLink="collectioncenter/filters/collections" > collections List</a>
+              <a class="nav-link text-dark" routerLink="collectioncenter/filters/verifiedcollections" >verified collections</a>
+              <a class="nav-link text-dark" routerLink="collectioncenter/filters/shipments" >Shipment List</a>
+              <a class="nav-link text-dark" routerLink="collectioncenter/filters/payment" >Invoices List</a>
+              <a class="nav-link text-dark" routerLink="collectioncenter/banking">banking</a>
+            </div>
+
+            <div *ngIf="isRoleInspector()"style="display: flex; justify-content: space-between;">
+              <a class="nav-link text-dark" routerLink="inspector/verify" >verify collections </a>
+            </div>
+
+
+            <div *ngIf="isRoleMerchant()"style="display: flex; justify-content: space-between;">
+              <a class="nav-link text-dark" routerLink="merchant/dashboard" >dashboard</a>
+              <a class="nav-link text-dark" routerLink="merchant/shipmentlist">Shipments</a>
+              <a class="nav-link text-dark" routerLink="merchant/invoices">Invoices</a>
+            </div>
+
+           
+          </ul>
+        </ul>
+      </div>
+    </div>
+
+  </nav>
+</header>

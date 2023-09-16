@@ -1,26 +1,26 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-md-10"> <!-- This wraps the card around both left and right sides -->
-        <div class="card"> <!-- Start of card div -->
+      <div class="col-md-10">  This wraps the card around both left and right sides
+        <div class="card">  Start of card div 
           <div class="card-body">
             <div class="row">
   
-              <!-- Left side: User's image and name -->
+               Left side: User's image and name 
               <div class="col-md-4 text-center border-right">
-                <!-- Current Profile Image -->
+                 Current Profile Image 
                 <div *ngIf="!editingImage">
                   <img [src]="imageurl" alt="{{ user.firstName }} {{ user.lastName }}" class="img-fluid rounded-circle mb-3" style="width: 260px; height: 260px;">
                 </div>
   
-                <!-- Image Preview when editing -->
+                Image Preview when editing
                 <div class="image-preview" *ngIf="selectedImageUrl && editingImage">
                   <img [src]="selectedImageUrl" alt="Preview Image" class="img-fluid rounded-circle mb-3" style="width: 260px; height: 260px;">
                 </div>
   
-                <!-- User's name -->
+                User's name
                 <h3 class="mt-2">{{ user.firstName }} {{ user.lastName }}</h3>
   
-                <!-- Buttons -->
+                Buttons
                 <div class="mt-2 d-flex justify-content-start flex-wrap">
                   <a routerLink="changeprofile" routerLinkActive="router-link-active" class="btn btn-info mb-2 mr-2 btn-gap">Update Profile</a>
                   <a routerLink="/auth/updatepassword" routerLinkActive="router-link-active" class="btn btn-warning mb-2 mr-2 btn-gap">Update Password</a>
@@ -31,20 +31,63 @@
                 </div>
               </div>
   
-              <!-- Right side: User's details -->
+              Right side: User's details
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><i class="fa fa-transgender mr-2"></i><strong>Gender:</strong> {{ user.gender }}</li>
-                  <li class="mt-3"><i class="fa fa-id-card mr-2"></i><strong>AadharId:</strong> {{ user.aadharId }}</li>
                   <li class="mt-3"><i class="fa fa-envelope mr-2"></i><strong>Email:</strong> {{ user.email }}</li>
+                  <li class="mt-3"><i class="fa fa-id-card mr-2"></i><strong>AadharId:</strong> {{ user.aadharId }}</li>
+                  <li class="mt-3" ><i class="fa fa-transgender mr-2"></i><strong>Gender:</strong> {{ user.gender }}</li>
                   <li class="mt-3"><i class="fa fa-phone mr-2"></i><strong>Contact Number:</strong> {{ user.contactNumber }}</li>
                 </ul>
               </div>
   
             </div>
           </div>
-        </div> <!-- End of card div -->
+        </div> End of card div
       </div>
+    </div>
+  </div>
+  
+
+
+   -->
+
+   <div class="profile-container">
+    <div class="profile-info">
+  
+      <div class="profile-image" *ngIf="!editingImage">
+        <img style="height:auto; border-radius: 250px;" [src]=imageurl width="260" height="260">
+        <br>
+        <button (click)="editImage()">
+          <i class="fa fa-pencil"></i> Edit
+        </button>
+        <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
+      </div>
+      <div class="image-preview" *ngIf="selectedImageUrl && editingImage">
+        <img style="height:auto; border-radius: 250px;" [src]="selectedImageUrl" alt="Preview Image" width="260"
+          height="260">
+        <br>
+        <button (click)="confirmImage()">Confirm</button>
+        <button (click)="cancelImage()">Cancel</button>
+      </div>
+  
+      <div class="profile-details" style="margin-left: 50px; margin-top: 40px;" >
+        <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+        <p><strong>Birth Date:</strong> {{ user.birthDate | date }}</p>
+        <p><strong>Gender:</strong> {{ user.gender }}</p>
+        <p><strong>AadharId:</strong> {{ user.aadharId }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Contact Number:</strong> {{ user.contactNumber }}</p>
+        <div *ngIf="isCorporate()"> 
+          <app-corporatedetails></app-corporatedetails>
+        </div>
+        <div class="edit-link">
+          <a routerLink="changeprofile" routerLinkActive="router-link-active">Update Profile</a>
+          <span style="margin-left: 15px;">
+          <a routerLink="/auth/updatepassword" routerLinkActive="router-link-active">Update Password</a>
+        </span>
+        </div>
+    </div>
     </div>
   </div>
   

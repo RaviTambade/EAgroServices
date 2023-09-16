@@ -13,7 +13,7 @@ export class BankstatementComponent implements OnInit {
     bankStatement:BankStatement[]=[];
     constructor(private bsvc:CommonService){}
     ngOnInit(): void {
-      this.farmerId=Number(localStorage.getItem("farmerId"));
+      this.farmerId=Number(localStorage.getItem("userId"));
       this.bsvc.getFarmerAccountInfo(this.farmerId).subscribe((response)=>{
         console.log(this.farmerId);
         console.log(response);

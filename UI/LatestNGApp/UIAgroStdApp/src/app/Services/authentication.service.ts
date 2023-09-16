@@ -31,42 +31,42 @@ export class AuthenticationService {
 
 
   
-  getRolesFromToken(): string[] {
-    const token = localStorage.getItem(LocalStorageKeys.jwt);
-    if (token) {
-      const decodedToken = this.jwtHelper.decodeToken(token);
-      const roles = decodedToken.role;
+  // getRolesFromToken(): string[] {
+  //   const token = localStorage.getItem(LocalStorageKeys.jwt);
+  //   if (token) {
+  //     const decodedToken = this.jwtHelper.decodeToken(token);
+  //     const roles = decodedToken.role;
 
-      if (Array.isArray(roles)) {
-        return roles;
-      } else if (typeof roles === 'string') {
-        return [roles];
-      }
-    }
-    return [];
-  }
+  //     if (Array.isArray(roles)) {
+  //       return roles;
+  //     } else if (typeof roles === 'string') {
+  //       return [roles];
+  //     }
+  //   }
+  //   return [];
+  // }
 
-  isAuthenticated(): boolean {
+   isAuthenticated(): boolean {
     const token = localStorage.getItem(LocalStorageKeys.jwt);
     return !this.jwtHelper.isTokenExpired(token);
-  }
+   }
   
-  getUserIdFromToken(): number{
-     const userId = Number(localStorage.getItem("userId"));
-    // if (token) {
-    //   const decodedToken = this.jwtHelper.decodeToken(token);
-    //   return decodedToken.userId;
-    // }
-     return userId;
-  }
+  // getUserIdFromToken(): number{
+  //    const userId = Number(localStorage.getItem("userId"));
+  //   // if (token) {
+  //   //   const decodedToken = this.jwtHelper.decodeToken(token);
+  //   //   return decodedToken.userId;
+  //   // }
+  //    return userId;
+  // }
 
   redirectToLogin() {
     return this.router.navigateByUrl('/auth/login');
   }
 
-  isTokenHaveRequiredRole(role: string): boolean {
-    const roles = this.getRolesFromToken();
-    return roles.includes(role);
-  }
+  // isTokenHaveRequiredRole(role: string): boolean {
+  //   const roles = this.getRolesFromToken();
+  //   return roles.includes(role);
+  // }
 
 }

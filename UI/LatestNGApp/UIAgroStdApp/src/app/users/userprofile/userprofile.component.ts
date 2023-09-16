@@ -22,7 +22,9 @@ import { UserProfile } from 'src/app/Models/userprofile';
   defaultImage: string = 'AkshayTanpure.jpg';
   imageurl: string | undefined;
 
+  roles: string[]=[];
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  userId: number | undefined;
   constructor(
     private usersvc: UserService,
     private authsvc: AuthenticationService,
@@ -42,22 +44,21 @@ import { UserProfile } from 'src/app/Models/userprofile';
   }
 
   ngOnInit(): void {
-    const userId = this.authsvc.getUserIdFromToken();
-    if (!userId) {
-      return;
-    }
-    this.usersvc.getUser(userId).subscribe((response) => {
+
+    this.usersvc.getUser().subscribe((response) => {
       this.user = response;
       this.imageurl = this.url + this.user.imageUrl;
       console.log(response);
     });
+    this.userId= Number(localStorage.getItem("userId"));
+    this.usersvc.getUserRole(this.userId).subscribe((res)=>{
+      this.roles=res
+    });
   }
-  isCorporate(): boolean {
-    return (
-      this.authsvc.isTokenHaveRequiredRole(Role.collectionmanager) ||
-      this.authsvc.isTokenHaveRequiredRole(Role.transporter) ||
-      this.authsvc.isTokenHaveRequiredRole(Role.merchant)
-    );
+
+  isCorporate():boolean{
+        return this.roles.includes("collection manager"||"merchant"||"transporter")
+
   }
 
   editImage() {

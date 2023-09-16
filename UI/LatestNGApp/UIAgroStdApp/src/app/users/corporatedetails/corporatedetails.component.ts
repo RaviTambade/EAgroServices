@@ -6,6 +6,7 @@ import { CollectioncenterService } from 'src/app/Services/collectioncenter.servi
 import { CorporateService } from 'src/app/Services/corporate.service';
 import { MerchantService } from 'src/app/Services/merchant.service';
 import { TransporterService } from 'src/app/Services/transporter.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-corporatedetails',
@@ -21,49 +22,70 @@ export class CorporatedetailsComponent implements OnInit {
     email: '',
     personId: 0,
   };
-  roles: string[] = [];
+  roles: string[]=[];
+  userId: number | undefined;
   constructor(
     private transportersvc: TransporterService,
     private collectioncentersvc: CollectioncenterService,
     private corporatesvc: CorporateService,
     private merchantsvc: MerchantService,
-    private authsvc: AuthenticationService
+    private authsvc: AuthenticationService,
+    private usersvc:UserService
   ) {}
   ngOnInit(): void {
-    this.roles = this.authsvc.getRolesFromToken();
 
-    if (this.authsvc.isTokenHaveRequiredRole(Role.collectionmanager)) {
-      this.collectioncentersvc
-        .getCorporateIdByCollectionCenterId()
-        .subscribe((res) => {
-          this.corporateId = res;
-          this.corporatesvc
-            .getCorporateDetails(this.corporateId)
-            .subscribe((res) => {
-              this.corporation = res;
-              console.log(res);
-            });
-        });
-    } else if (this.authsvc.isTokenHaveRequiredRole(Role.transporter)) {
-      this.transportersvc.getCorporateIdOfTransporter().subscribe((res) => {
-        this.corporateId = res;
-        this.corporatesvc
-          .getCorporateDetails(this.corporateId)
-          .subscribe((res) => {
-            this.corporation = res;
-            console.log(res);
-          });
-      });
-    } else if (this.authsvc.isTokenHaveRequiredRole(Role.merchant)) {
-      this.merchantsvc.getMerchantCorporateId().subscribe((res) => {
-        this.corporateId = res;
-        this.corporatesvc
-          .getCorporateDetails(this.corporateId)
-          .subscribe((res) => {
-            this.corporation = res;
-            console.log(res);
-          });
-      });
+    this.userId= Number(localStorage.getItem("userId"));
+    console.log(this.userId);
+    this.usersvc.getUserRole(this.userId).subscribe((res)=>{
+      this.roles=res;
+
+     let isExit:boolean= this.roles.includes("collection manager"||"merchant"||"transporter");
+           })
+       this.corporatesvc.getCorporateIdByPersonId().subscribe((corporateId)=>{
+        
+         this.corporatesvc.getCorporateDetails(corporateId).subscribe((response)=>{
+          this.corporation=response
+         })
+       })   
+
+    // this.roles = this.authsvc.getRolesFromToken();
+
+    // if (this.authsvc.isTokenHaveRequiredRole(Role.collectionmanager)) {
+    //   this.collectioncentersvc
+    //     .getCorporateIdByCollectionCenterId()
+    //     .subscribe((res) => {
+    //       this.corporateId = res;
+    //       this.corporatesvc
+    //         .getCorporateDetails(this.corporateId)
+    //         .subscribe((res) => {
+    //           this.corporation = res;
+    //           console.log(res);
+    //         });
+    //     });
+    // } else if (this.authsvc.isTokenHaveRequiredRole(Role.transporter)) {
+    //   this.transportersvc.getCorporateIdOfTransporter().subscribe((res) => {
+    //     this.corporateId = res;
+    //     this.corporatesvc
+    //       .getCorporateDetails(this.corporateId)
+    //       .subscribe((res) => {
+    //         this.corporation = res;
+    //         console.log(res);
+    //       });
+    //   });
+    // } else if (this.authsvc.isTokenHaveRequiredRole(Role.merchant)) {
+    //   this.merchantsvc.getMerchantCorporateId().subscribe((res) => {
+    //     this.corporateId = res;
+    //     this.corporatesvc
+    //       .getCorporateDetails(this.corporateId)
+    //       .subscribe((res) => {
+    //         this.corporation = res;
+    //         console.log(res);
+    //       });
+    //   });
+
+    
+
+    
     }
   }
-}
+
