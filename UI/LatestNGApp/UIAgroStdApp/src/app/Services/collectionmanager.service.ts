@@ -24,4 +24,8 @@ export class CollectionmanagerService {
       params: params,
     });
   }
+  getFarmer(farmerId:number): Observable<any> {
+    let url = "http://localhost:5102/api/users/" + farmerId
+    return this.httpClient.get<any>(url)
+  }
 }

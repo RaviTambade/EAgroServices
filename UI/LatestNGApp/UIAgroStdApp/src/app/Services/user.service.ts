@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../Models/user';
+import { UserProfile } from '../Models/userprofile';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,11 @@ export class UserService {
     const userId=localStorage.getItem("userId");
     let url = "http://localhost:5102/api/users/" + userId
     return this.httpClient.get<any>(url)
+  }
+  
+  updateUser(id: number, user: UserProfile): Observable<any> {
+    let url = "http://localhost:5102/api/users/" + id
+    return this.httpClient.put<any>(url, user)
   }
 
 }

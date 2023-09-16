@@ -18,6 +18,7 @@ import { collectionmanagerRoutes } from './collectionmanager/collectionmanager.m
 import { MenubarComponent } from './menubar/menubar.component';
 import { UserprofileComponent } from './users/userprofile/userprofile.component';
 import { userRoutes } from './users/users.module';
+import { EdituserComponent } from './users/edituser/edituser.component';
 
 @NgModule({
   declarations: [

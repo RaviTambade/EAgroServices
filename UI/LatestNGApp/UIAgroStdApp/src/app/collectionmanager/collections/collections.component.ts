@@ -45,13 +45,18 @@ farmerName:undefined;
     this.managersvc.getCollectionCenterId().subscribe((collectionCenterId)=>{
       this.managersvc.getCollectionList(this.type, collectionCenterId).subscribe((collectionList)=>{
        this.collectionList=collectionList;
-       this.usersvc.getUser().subscribe((response)=>{
-         this.farmerName=response.name;
-         console.log(response);
+      //  this.managersvc.getFarmer(collectionList.farmerId).subscribe((response)=>{
+      //    this.farmerName=response.name;
+      //    console.log(response);
+      for (const collection of this.collectionList) {
+        this.managersvc.getFarmer(collection.farmerId).subscribe((response) => {
+          this.farmerName = response.name;
+          console.log(response);
 
 })
-})
+}
     })
-  }
+  })
 }
 
+}
