@@ -10,15 +10,18 @@ export class CollectionmanagerService {
 
   constructor(private httpClient:HttpClient) { }
 
-  getCollectionCenterId(userId: number): Observable<number> {
+  getCollectionCenterId(): Observable<number> {
+    const userId=localStorage.getItem("userId");
     let url ='http://localhost:5192/api/collectioncenters/managerId/' + userId;
     return this.httpClient.get<number>(url);
   }
-  getCollectionList(type:string):Observable<AllCollectionList>{
-    const collectionId=localStorage.getItem("collectionId")
-    let url ='http://localhost:5154/api/goodscollection/collectionlist/'+collectionId
-    const params = new HttpParams()
-    .set('type', type);
-    return this.httpClient.get<AllCollectionList>(url);
+  getCollectionList(type:string,collectionCenterId:number):Observable<AllCollectionList[]>{
+    let url ='http://localhost:5154/api/goodscollections/collectionlist/'+collectionCenterId
+    const params = new HttpParams().set('type', type);
+    console.log(url)
+    return this.httpClient.get<AllCollectionList[]>(url,
+    {
+      params: params,
+    });
   }
 }

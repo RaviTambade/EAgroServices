@@ -48,13 +48,13 @@
             </div>
 
             <div *ngIf="isRoleCollectionManager()"style="display: flex; justify-content: space-between;">
-              <a class="nav-link text-dark" routerLink="collectioncenter/dashboard">Dashboard</a>
-              <a class="nav-link text-dark" routerLink="collectioncenter/addcollection">add collection</a>
-              <a class="nav-link text-dark" routerLink="collectioncenter/filters/collections" > collections List</a>
-              <a class="nav-link text-dark" routerLink="collectioncenter/filters/verifiedcollections" >verified collections</a>
-              <a class="nav-link text-dark" routerLink="collectioncenter/filters/shipments" >Shipment List</a>
-              <a class="nav-link text-dark" routerLink="collectioncenter/filters/payment" >Invoices List</a>
-              <a class="nav-link text-dark" routerLink="collectioncenter/banking">banking</a>
+              <a class="nav-link text-dark" routerLink="collectionmanager/dashboard">Dashboard</a>
+              <a class="nav-link text-dark" routerLink="collectionmanager/collectionlist" > collections List</a>
+              <a class="nav-link text-dark" routerLink="collectionmanager/addcollection">add collection</a>
+              <a class="nav-link text-dark" routerLink="collectionmanager/filters/verifiedcollections" >verified collections</a>
+              <a class="nav-link text-dark" routerLink="collectionmanager/filters/shipments" >Shipment List</a>
+              <a class="nav-link text-dark" routerLink="collectionmanager/filters/payment" >Invoices List</a>
+              <a class="nav-link text-dark" routerLink="collectionmanager/banking">banking</a>
             </div>
 
             <div *ngIf="isRoleInspector()"style="display: flex; justify-content: space-between;">

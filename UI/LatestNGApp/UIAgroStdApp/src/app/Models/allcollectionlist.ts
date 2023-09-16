@@ -1,9 +1,9 @@
 export class AllCollectionList
 {
     constructor(
-    public  CollectionId:number ,
-    public  FarmerId:number, 
-    public  CropName:string,
-    public CollectionDate:string
+    public  collectionId:number ,
+    public  farmerId:number, 
+    public  cropName:string,
+    public collectionDate:string
     ){}
 }
