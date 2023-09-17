@@ -79,7 +79,7 @@
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>Contact Number:</strong> {{ user.contactNumber }}</p>
         <div *ngIf="isCorporate()"> 
-          <app-corporatedetails></app-corporatedetails>
+          <app-corporatedetails> </app-corporatedetails>
         </div>
         <div class="edit-link">
           <a routerLink="changeprofile" routerLinkActive="router-link-active">Update Profile</a>
