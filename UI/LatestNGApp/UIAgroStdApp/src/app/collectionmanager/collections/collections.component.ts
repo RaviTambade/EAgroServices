@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AllCollectionList } from 'src/app/Models/allcollectionlist';
 import { CollectionmanagerService } from 'src/app/Services/collectionmanager.service';
+import { FarmerService } from 'src/app/Services/farmer.service';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class CollectionsComponent implements OnInit {
   collectionList:AllCollectionList[]=[] ;
-constructor(private managersvc:CollectionmanagerService,private usersvc:UserService){}
+constructor(private managersvc:CollectionmanagerService,private usersvc:UserService,private farmersvc:FarmerService){}
 allType = true;
 verifiedType = false;
 unverifiedType = false;
@@ -58,5 +59,8 @@ farmerName:undefined;
     })
   })
 }
-
+onClickDetails(collectionId: number) {
+  this.farmersvc.setSelectedCollectionId(collectionId);
+  console.log(collectionId);
+}
 }
