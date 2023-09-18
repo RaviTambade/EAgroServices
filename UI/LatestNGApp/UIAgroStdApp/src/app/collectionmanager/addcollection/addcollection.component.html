@@ -1,0 +1,74 @@
+<!-- <form [formGroup]="collectionForm" (ngSubmit)="OnSubmit()">
+    <label for="farmerId">Farmer Name:</label>
+    <select id="farmerId" formControlName="farmerId">
+      <option *ngFor="let farmer of farmers" [value]="farmer.id">{{ farmer.name }}</option>
+    </select>
+
+    <br>
+  
+    <label for="cropId">Crop Name:</label>
+    <select id="cropId" formControlName="cropId">
+      <option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</option>
+    </select>
+    <br>
+  
+    <label for="containerType">Container Type:</label>
+    <div *ngFor="let type of containerTypes">
+      <input type="radio" [id]="type" [value]="type" formControlName="containerType">
+      <label [for]="type">{{ type }}</label>
+    </div>
+    <br>
+  
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" formControlName="quantity">
+    <br>
+  
+    <label for="weight">Weight:</label>
+    <input type="number" id="weight" formControlName="weight">
+    <br>
+  
+    <button type="submit" [disabled]="!collectionForm.valid" >Submit</button>
+  </form>
+   -->
+   <div class="container mt-4">
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <form [formGroup]="collectionForm" (ngSubmit)="OnSubmit()">
+          <div class="form-group">
+            <label for="farmerId">Farmer Name:</label>
+            <select id="farmerId" formControlName="farmerId" class="form-control" placeholder="Enter Farmer Name">
+              <option *ngFor="let farmer of farmers" [value]="farmer.id">{{ farmer.name }}</option>
+            </select>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="cropId">Crop Name:</label>
+            <select id="cropId" formControlName="cropId" class="form-control" placeholder="Enter Crop Name">
+              <option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</option>
+            </select>
+          </div>
+          <br>
+          <label for="containerType">Container Type:</label>
+          <div *ngFor="let type of containerTypes">
+            <input type="radio" [id]="type" [value]="type" formControlName="containerType">
+            <label [for]="type">{{ type }}</label>
+          </div>
+          <br>
+          <br>
+          <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" formControlName="quantity" class="form-control"
+              placeholder="Enter quantity">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="weight">Weight:</label>
+            <input type="number" id="weight" formControlName="weight" class="form-control" placeholder="Enter weight">
+          </div>
+          <br>
+          <button type="submit" [disabled]="!collectionForm.valid" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

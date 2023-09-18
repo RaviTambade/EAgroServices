@@ -2,6 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AllCollectionList } from '../Models/allcollectionlist';
+import { User } from '../Models/user';
+import { Collection } from '../Models/collection';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +26,16 @@ export class CollectionmanagerService {
       params: params,
     });
   }
-  getFarmer(farmerId:number): Observable<any> {
-    let url = "http://localhost:5102/api/users/" + farmerId
-    return this.httpClient.get<any>(url)
+  getFarmer(farmerId:string): Observable<User[]> {
+    let url = "http://localhost:5102/api/users/name/" + farmerId
+    return this.httpClient.get<User[]>(url)
+  }
+  addCollection(collection:Collection): Observable<boolean> {
+    let url = 'http://localhost:5154/api/goodscollections';
+    return this.httpClient.post<boolean>(url, collection);
+  }
+  getContainerTypes(): Observable<string[]> {
+    let url = "http://localhost:5239/api/verifiedcollections/containertypes";
+    return this.httpClient.get<string[]>(url);
   }
 }

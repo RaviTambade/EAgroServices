@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ROUTES, RouterModule, Routes, provideRouter } from '@angular/router';
 import { CollectionsComponent } from './collections/collections.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
+import { CollectionviewComponent } from './collectionview/collectionview.component';
+import { AddcollectionComponent } from './addcollection/addcollection.component';
 
 export const collectionmanagerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
-  {path:'collectionlist',component:CollectionsComponent},
+  {path:'collection',component:CollectionviewComponent},
+  {path:'addcollection',component:AddcollectionComponent},
 
 ]
 
@@ -16,12 +19,15 @@ export const collectionmanagerRoutes:Routes=[
   declarations: [
     DashboardComponent,
     CollectionsComponent,
-    CollectiondetailsComponent
+    CollectiondetailsComponent,
+    CollectionviewComponent,
+    AddcollectionComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(collectionmanagerRoutes),
     FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class CollectionmanagerModule { }
