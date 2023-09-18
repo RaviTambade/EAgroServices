@@ -5,6 +5,7 @@ import { Credential } from '../Models/credential';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '../Models/local-storage-keys';
+import { UpdatePassword } from '../authentication/Models/update-password';
 
 
 @Injectable({
@@ -29,7 +30,11 @@ export class AuthenticationService {
     return null;
   }
 
+  updatePassword(credential: UpdatePassword): Observable<boolean> {
+    let url = 'http://localhost:5077/api/authentication/update/password';
 
+    return this.httpClient.put<any>(url, credential);
+  }
   
   // getRolesFromToken(): string[] {
   //   const token = localStorage.getItem(LocalStorageKeys.jwt);
