@@ -19,6 +19,8 @@ import { MenubarComponent } from './menubar/menubar.component';
 import { UserprofileComponent } from './users/userprofile/userprofile.component';
 import { userRoutes } from './users/users.module';
 import { EdituserComponent } from './users/edituser/edituser.component';
+import { UpdatePassword } from './authentication/Models/update-password';
+import { UpdatepasswordComponent } from './authentication/updatepassword/updatepassword.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,7 @@ import { EdituserComponent } from './users/edituser/edituser.component';
       {path:'merchant',children:merchantRoutes},
       {path:'collectionmanager',children:collectionmanagerRoutes},
       {path:'user',children:userRoutes},
-
+      {path:'updatepassword',component:UpdatepasswordComponent},
 
     ])
   ],
