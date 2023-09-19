@@ -11,5 +11,6 @@ public class CollectionDetails
     public double TotalWeight { get; set; }
     public double NetWeight { get; set; }
     public DateTime CollectionDate { get; set; }
+    public string collection status {get;set;}
 }
 
