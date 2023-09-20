@@ -11,12 +11,15 @@
           <li class="nav-item">
             <a class="nav-link text-dark" routerLink="home" routerLinkActive="router-link-active">Home</a>
           </li>
-
+          <li class="nav-item" *ngIf="isCorporate()">
+            <div class="nav-link text-dark"  *ngIf="corporateName.length == 0">{{getCorporate()}}</div>
+             {{corporateName}}
+          </li>
           <!-- Logged In User Profile and Logout -->
           <li class="nav-item" *ngIf="isLoggedIn()">
             <a class="nav-link text-dark" (click)="openUserProfile()">
               <i class="fa fa-user-circle"></i> 
-              <span class="welcome-text">Welcome</span> {{name}}
+               {{name}}
             </a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn()">

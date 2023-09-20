@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../Services/user.service';
 import { AuthenticationService } from '../Services/authentication.service';
+import { CorporateService } from '../Services/corporate.service';
+import { NameId } from '../Models/name-id';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,7 +13,11 @@ import { AuthenticationService } from '../Services/authentication.service';
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
   name: string | undefined
-  constructor(private router: Router, private userService: UserService,private authService:AuthenticationService) { }
+  corporateName:string='';
+  userId: number | undefined;
+  roles: string[]=[];
+
+  constructor(private router: Router, private userService: UserService,private authService:AuthenticationService,private corporateService:CorporateService) { }
   ngOnInit(): void {
      let contactNumber =  this.authService.getContactNumberFromToken()
     if (contactNumber != null) {
@@ -20,6 +26,7 @@ export class NavMenuComponent implements OnInit {
         this.name = response.name;
       })    
     }
+    this.getRole();
   }
 
   collapse() {
@@ -44,6 +51,25 @@ export class NavMenuComponent implements OnInit {
     }
 
   }
+getCorporate(){
+  this.corporateService.getCorporateIdByPersonId().subscribe((corporateId)=>{
+    this.corporateService.getCorporates(corporateId).subscribe((response)=>{
+      this.corporateName=response[0].name
+    })
+  })
+}
+
+getRole(){
+this.userId= Number(localStorage.getItem("userId"));
+this.userService.getUserRole(this.userId).subscribe((res)=>{
+  this.roles=res
+});
+}
+
+isCorporate():boolean{
+    return this.roles.includes("collection manager"||"merchant"||"transporter")
+}
+
 
   logOut() {
     localStorage.clear();
