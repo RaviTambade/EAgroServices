@@ -7,11 +7,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
 import { CollectionviewComponent } from './collectionview/collectionview.component';
 import { AddcollectionComponent } from './addcollection/addcollection.component';
+import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollection.component';
+import { VerifiedcollectiondetailsComponent } from './verifiedcollectiondetails/verifiedcollectiondetails.component';
+import { VerifiedComponent } from './verified/verified.component';
 
 export const collectionmanagerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
   {path:'collection',component:CollectionviewComponent},
   {path:'addcollection',component:AddcollectionComponent},
+  {path:'verifiedcollection',component:VerifiedcollectionComponent},
 
 ]
 
@@ -21,7 +25,10 @@ export const collectionmanagerRoutes:Routes=[
     CollectionsComponent,
     CollectiondetailsComponent,
     CollectionviewComponent,
-    AddcollectionComponent
+    AddcollectionComponent,
+    VerifiedcollectionComponent,
+    VerifiedcollectiondetailsComponent,
+    VerifiedComponent
   ],
   imports: [
     CommonModule,
