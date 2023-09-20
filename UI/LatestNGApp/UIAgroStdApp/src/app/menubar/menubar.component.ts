@@ -20,28 +20,22 @@ export class MenubarComponent implements OnInit {
 }
   isRoleCollectionManager():boolean{
     return this.roles.includes("collection manager")
-
 }
   
   isRoleInspector(): boolean {
     return this.roles.includes("inspector")
-
   }
 
   isRoleTransporter(): boolean {
     return this.roles.includes("transporter")
-
   }
 
   isRoleMerchant(): boolean {
-    return this.roles.includes("merchant")
-    
+    return this.roles.includes("merchant")   
   }
   isRoleFarmer(): boolean {
     return this.roles.includes("farmer")
-
   }
- 
   }
 
 

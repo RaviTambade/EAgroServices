@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -27,7 +26,6 @@ import { UpdatepasswordComponent } from './authentication/updatepassword/updatep
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    FetchDataComponent,
     MenubarComponent
 
   ],
