@@ -115,4 +115,9 @@ public class GoodsCollectionController : ControllerBase
     {
         return await _service.GetUnverifiedCollectionsOfFarmer(farmerId);
     }
+    [HttpGet("verifiedcollectiondetail/{collectionId}")]
+    public async Task<VerifiedCollectionDetail> GetVerifiedCollections(int collectionId)
+    {
+        return await _service.GetVerifiedCollectionDetail(collectionId);
+    }
 }

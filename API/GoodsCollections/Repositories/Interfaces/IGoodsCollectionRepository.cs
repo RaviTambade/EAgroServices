@@ -33,4 +33,5 @@ public interface IGoodsCollectionRepository
     Task<bool> Delete(int collectionId);
     Task<List<FarmerCollection>> FarmerCollection(int farmerId);
     Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId);
+    Task<VerifiedCollectionDetail> GetVerifiedCollectionDetail(int collectionId);
 }

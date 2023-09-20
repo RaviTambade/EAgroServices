@@ -86,5 +86,10 @@ namespace Transflower.EAgroServices.GoodsCollections.Services
         {
             return await _repository.GetCollectionList(collectionCenterId,type);
         }
+
+        public async Task<VerifiedCollectionDetail> GetVerifiedCollectionDetail(int collectionId)
+        {
+            return await _repository.GetVerifiedCollectionDetail(collectionId);
+        }
     }
 }

@@ -1,0 +1,50 @@
+<div class="container mt-4">
+    <div class="row">
+      <div *ngIf="collectionDetails" class="col-md-12">
+        <div class="card">
+          <div class="justify-content-center">
+            <div class="card-header" style="background-color: #042e59; color: #fff;">
+              Collection Details
+            </div>
+            <div class="card-body">
+              <!-- <div class ="row"> -->
+              <div *ngIf="collectionDetails" class="col-md-11 mb-8">
+                <div class="justify-content-center">
+                  <div class="card" style="margin-left: 30px;">
+                    <!-- <img [src]="collectionDetails.imageUrl" class="card-img-top" -->
+                      style="max-height: 250px; width: 100%; object-fit: cover;" alt="{{ collectionDetails.cropName }}">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ collectionDetails.cropName }}</h5>
+                      <ul class="list-unstyled">
+                        <!-- <li>
+                          <strong> Center:</strong> {{ corporateName }}
+                        </li> -->
+                        <li>
+                          <strong> Date:</strong> {{ collectionDetails.collectionDate | date }}
+                        </li>
+                        <li>
+                          <strong>Container:</strong> {{ collectionDetails.containerType }}
+                        </li>
+                        <li>
+                          <strong>Quantity:</strong> {{ collectionDetails.quantity }}
+                        </li>
+                        <!-- <li>
+                          <strong>Weight:</strong> {{ collectionDetails.weight }}
+                        </li> -->
+                      </ul>
+                    </div>
+                    <!-- <td><button class="btn btn-info" style="margin: 20px;"
+                        (click)="onClickInvoiceDetails(collectionDetails.id)"> Invoice </button></td>
+                    <tr *ngIf="selectedCollectionId === collectionDetails.id">
+  
+                      <app-invioce [collectionId]="collectionDetails.id"></app-invioce>
+   -->
+                    <!-- </tr> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
