@@ -23,6 +23,7 @@ export class VerifiedcollectiondetailsComponent implements OnInit {
     this.colmsvc.selectedCollectionId$.subscribe((collectionId) => {
       this.collectionId = collectionId;
       if (this.collectionId)
+<<<<<<< HEAD
         this.colmsvc.collectionDetail(collectionId).subscribe((response) => {
           this.collectionDetails = response
           this.colmsvc.getUser(response.farmerId.toString()).subscribe((response)=>{
@@ -33,6 +34,10 @@ export class VerifiedcollectiondetailsComponent implements OnInit {
               this.inspectorName=response[0].name
             })
 
+=======
+        this.farsvc.collectionDetail(collectionId).subscribe((response) => {
+          // this.collectionDetails = response
+>>>>>>> 12eb579032d65cc021a472a714eac2919f8381f7
         })
 
     })
