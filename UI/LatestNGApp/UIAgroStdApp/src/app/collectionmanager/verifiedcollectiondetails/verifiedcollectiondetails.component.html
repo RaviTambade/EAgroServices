@@ -7,7 +7,6 @@
               Collection Details
             </div>
             <div class="card-body">
-              <!-- <div class ="row"> -->
               <div *ngIf="collectionDetails" class="col-md-11 mb-8">
                 <div class="justify-content-center">
                   <div class="card" style="margin-left: 30px;">
@@ -17,10 +16,10 @@
                       <h5 class="card-title">{{ collectionDetails.cropName }}</h5>
                       <ul class="list-unstyled">
                         <li>
-                          <strong> Center:</strong> {{ corporateName }}
+                          <strong> Date:</strong> {{ collectionDetails.collectionDate | date }}
                         </li>
                         <li>
-                          <strong> Date:</strong> {{ collectionDetails.collectionDate | date }}
+                          <strong> Farmer:</strong> {{ farmerName }}
                         </li>
                         <li>
                           <strong>Container:</strong> {{ collectionDetails.containerType }}
@@ -29,17 +28,16 @@
                           <strong>Quantity:</strong> {{ collectionDetails.quantity }}
                         </li>
                         <li>
-                          <strong>Weight:</strong> {{ collectionDetails.weight }}
+                          <strong>Total Weight:</strong> {{ collectionDetails.totalWeight }}
+                        </li>
+                        <li>
+                          <strong>Weight:</strong> {{ collectionDetails.netWeight }}
+                        </li>
+                        <li>
+                          <strong>Inspector</strong> {{ inspectorName}}
                         </li>
                       </ul>
                     </div>
-                    <!-- <td><button class="btn btn-info" style="margin: 20px;"
-                        (click)="onClickInvoiceDetails(collectionDetails.id)"> Invoice </button></td>
-                    <tr *ngIf="selectedCollectionId === collectionDetails.id">
-  
-                      <app-invioce [collectionId]="collectionDetails.id"></app-invioce>
-   -->
-                    <!-- </tr> -->
                   </div>
                 </div>
               </div>

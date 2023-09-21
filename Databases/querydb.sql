@@ -360,6 +360,7 @@ AS `VehicleNumber`, `c0`.`title` AS `CropName`, `v0`.`grade` AS `Grade`, `g0`.`c
 SELECT * FROM userroles;
 
 SELECT * FROM shipments;
+SELECT * FROM shipmentitems;
 SELECT * FROM transporters;
 SELECT * FROM collectioncenters;
 SELECT * FROM merchants;
@@ -388,3 +389,16 @@ SELECT * FROM goodscollectionpayments;
                     INNER JOIN shipments ON shipmentitems.shipmentid = shipments.id
                     WHERE shipments.merchantid =2 AND shipments.status='delivered' AND YEAR(shipments.shipmentdate)=2023 AND MONTHNAME(shipments.shipmentdate)='January'
                    GROUP BY collectioncenters.corporateid,MONTHNAME(shipments.shipmentdate) ORDER BY MONTHNAME(shipments.shipmentdate) ASC
+
+
+
+     SELECT `g`.`id` AS `Id`, `g`.`farmerid` AS `FarmerId`, `c`.`title` AS `CropName`, `g`.`containertype` AS `ContainerType`, `g`.`quantity` AS `Quantity`, `v`.`grade` AS `Grade`, `g`.`weight` AS `TotalWeight`, `v`.`weight` AS `NetWeight`, `i`.`userid` AS `InspectorId`, `g`.`collectiondate` AS `CollectionDate`     
+      FROM `goodscollections` AS `g`
+      INNER JOIN `crops` AS `c` ON `g`.`cropid` = `c`.`id`
+      INNER JOIN `verifiedgoodscollection` AS `v` ON `g`.`id` = `v`.`collectionid`
+      INNER JOIN `inspectors` AS `i` ON `v`.`inspectorid` = `i`.`id`
+      LEFT JOIN `shipmentitems` AS `s` ON `g`.`id` = `s`.`collectionid`
+      WHERE `s`.`id` IS NULL AND (`v`.`collectionid` = 65)
+
+
+      SELECT * FROM verifiedgoodscollection ;

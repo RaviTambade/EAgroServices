@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectionDetails } from 'src/app/Models/collectiondetails';
-import { Verifieddcollectiondetails } from 'src/app/Models/verifieddcollectiondetails';
+import { Verifiedcollectiondetails } from 'src/app/Models/verifieddcollectiondetails';
 import { CollectionmanagerService } from 'src/app/Services/collectionmanager.service';
 import { FarmerService } from 'src/app/Services/farmer.service';
 
@@ -12,8 +11,10 @@ import { FarmerService } from 'src/app/Services/farmer.service';
 export class VerifiedcollectiondetailsComponent implements OnInit {
   selectedCollectionId: null | undefined;
   collectionId: any;
+  farmerName: string='';
+  inspectorName: string='';
   constructor(private colmsvc: CollectionmanagerService, private farsvc: FarmerService) { }
-  collectionDetails: Verifieddcollectiondetails | undefined;
+  collectionDetails: Verifiedcollectiondetails | undefined;
   ngOnInit(): void {
     if (this.selectedCollectionId !== null) {
       this.collectionId = this.selectedCollectionId;
@@ -22,8 +23,16 @@ export class VerifiedcollectiondetailsComponent implements OnInit {
     this.colmsvc.selectedCollectionId$.subscribe((collectionId) => {
       this.collectionId = collectionId;
       if (this.collectionId)
-        this.farsvc.collectionDetail(collectionId).subscribe((response) => {
+        this.colmsvc.collectionDetail(collectionId).subscribe((response) => {
           this.collectionDetails = response
+          this.colmsvc.getUser(response.farmerId.toString()).subscribe((response)=>{
+            this.farmerName=response[0].name
+          })
+          
+            this.colmsvc.getUser(response.inspectorId.toString()).subscribe((response)=>{
+              this.inspectorName=response[0].name
+            })
+
         })
 
     })

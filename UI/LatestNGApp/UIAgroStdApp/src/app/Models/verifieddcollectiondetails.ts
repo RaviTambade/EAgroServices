@@ -1,7 +1,8 @@
-export class Verifieddcollectiondetails {
+export class Verifiedcollectiondetails {
 constructor(
     public farmerId:number,
     public cropName:string,
+    public imageUrl: string,
     public containerType:string,
     public Grade:string,
     public quantity:number,

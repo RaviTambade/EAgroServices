@@ -34,4 +34,5 @@ public interface IGoodsCollectionRepository
     Task<List<FarmerCollection>> FarmerCollection(int farmerId);
     Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId);
     Task<VerifiedCollectionDetail> GetVerifiedCollectionDetail(int collectionId);
+    Task<List<CollectionList>> GetVerifiedCollectionList(int collectionCenterId);
 }

@@ -47,7 +47,7 @@ export class CollectionsComponent implements OnInit {
 
         let farmerIdString = distinctFarmerIds.join(',');
 
-        this.managersvc.getFarmer(farmerIdString).subscribe((names) => {
+        this.managersvc.getUser(farmerIdString).subscribe((names) => {
           let farmerName = names
           this.collectionList.forEach(item => {
             let matchingItem = farmerName.find(element => element.id === item.farmerId);

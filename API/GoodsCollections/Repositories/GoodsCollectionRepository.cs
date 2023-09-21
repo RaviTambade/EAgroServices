@@ -224,6 +224,38 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
             throw;
         }
     }
+     public async Task<List<CollectionList>> GetVerifiedCollectionList(
+        int collectionCenterId)
+    {
+        try
+        {
+            var verifiedCollectionList =await(
+                from collection in _context.GoodsCollections
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                join verifiedCollection in _context.VerifiedGoodsCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join inspector in _context.Inspectors
+                on verifiedCollection.InspectorId equals inspector.Id
+                join shipmentItem in _context.ShipmentItems
+                    on collection.Id equals shipmentItem.CollectionId
+                    into shipmentItemsCollection
+                from shipmentItem in shipmentItemsCollection.DefaultIfEmpty()
+                where shipmentItem == null && collection.CollectionCenterId == collectionCenterId
+                // select records which are verified but not added for shiping
+                select new CollectionList()
+                {
+                    CollectionId=verifiedCollection.CollectionId,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    CollectionDate = collection.CollectionDate
+                }).ToListAsync();
+            return verifiedCollectionList;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 
 
     public async Task<GoodsCollection?> GetById(int collectionId)

@@ -6,6 +6,7 @@ import { User } from '../Models/user';
 import { Collection } from '../Models/collection';
 import { VerifiedCollection } from '../Models/verifiedCollection';
 import { CollectionDetails } from '../Models/collectiondetails';
+import { Verifiedcollectiondetails } from '../Models/verifieddcollectiondetails';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +37,8 @@ export class CollectionmanagerService {
       params: params,
     });
   }
-  getFarmer(farmerId:string): Observable<User[]> {
-    let url = "http://localhost:5102/api/users/name/" + farmerId
+  getUser(id:string): Observable<User[]> {
+    let url = "http://localhost:5102/api/users/name/" + id
     return this.httpClient.get<User[]>(url)
   }
   addCollection(collection:Collection): Observable<boolean> {
@@ -49,13 +50,16 @@ export class CollectionmanagerService {
     return this.httpClient.get<string[]>(url);
   }
   getVerifiedCollection(collectionCenterId:number):Observable<VerifiedCollection[]>{
-    let url = "http://localhost:5154/api/goodscollections/verified/collectioncenter/"+collectionCenterId;
+    let url = "http://localhost:5154/api/goodscollections/verifiedcollectionlist/"+collectionCenterId;
     return this.httpClient.get<VerifiedCollection[]>(url);
   }
   // getVerifiedCollectionDetails(collectionCenterId:number):Observable<CollectionDetails[]>{
   //   let url = "http://localhost:5154/api/goodscollections/verified/collectioncenter/"+collectionCenterId;
   //   return this.httpClient.get<CollectionDetails[]>(url);
   // }
-
+  collectionDetail(collectionId:number): Observable<Verifiedcollectiondetails> {
+    let url ='http://localhost:5051/api/farmerscollections/collectiondetails/' + collectionId;
+    return this.httpClient.get<Verifiedcollectiondetails>(url);
+}
  
 }
