@@ -53,10 +53,10 @@ export class CollectionmanagerService {
     let url = "http://localhost:5154/api/goodscollections/verifiedcollectionlist/"+collectionCenterId;
     return this.httpClient.get<VerifiedCollection[]>(url);
   }
-  // getVerifiedCollectionDetails(collectionCenterId:number):Observable<CollectionDetails[]>{
-  //   let url = "http://localhost:5154/api/goodscollections/verified/collectioncenter/"+collectionCenterId;
-  //   return this.httpClient.get<CollectionDetails[]>(url);
-  // }
+  getVerifiedCollectionDetails(collectionId:number):Observable<Verifiedcollectiondetails>{
+    let url = "http://localhost:5154/api/goodscollections/verifiedcollectiondetail/"+collectionId;
+    return this.httpClient.get<Verifiedcollectiondetails>(url);
+  }
   collectionDetail(collectionId:number): Observable<Verifiedcollectiondetails> {
     let url ='http://localhost:5051/api/farmerscollections/collectiondetails/' + collectionId;
     return this.httpClient.get<Verifiedcollectiondetails>(url);

@@ -5,6 +5,7 @@ namespace Transflower.EAgroServices.GoodsCollections.Models
         public int Id { get; set; }
         public int FarmerId { get; set; }
         public string? CropName { get; set; }
+        public string ImageUrl { get; set; }
         public string? ContainerType { get; set; }
         public string? Grade { get; set; }
         public int Quantity { get; set; }

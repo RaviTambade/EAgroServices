@@ -1,27 +1,36 @@
-<h2>Shipment Details</h2>
-
-<div *ngIf="shipmentmerchants.length > 0">
-  <table class="shipment-table">
-    <thead>
-      <tr>
-        <th>Merchant</th>
-        <th>Kilometers</th>
-        <th>Status</th>
-        <th>Shipment Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let shipment of shipmentmerchants">
-        <td appCorporatedetails>{{shipment.companyName}}</td>
-        <td>{{ shipment.kilometers }}</td>
-        <td>{{ shipment.status }}</td>
-        <td>{{ shipment.shipmentDate |date }}</td>
-        <td><button (click)="onClickShipmentDetails(shipment)"> Details </button></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container mt-4">
+  <div class="row">
+      <div *ngIf="shipmentmerchants && shipmentmerchants.length > 0" class="col-md-12">
+          <div class="card">
+              <div class="card-header" style="background-color: #042e59; color: #fff;">
+                  Shipments
+              </div>
+              <div class="card-body">
+                  <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th>Merchant</th>
+                              <th>Kilometers</th>
+                              <th>Status</th>
+                              <th>Shipment Date</th>
+                              <th>Action</th> <!-- I've added an Action header for the Details button -->
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let shipment of shipmentmerchants">
+                              <td appCorporatedetails>{{shipment.companyName}}</td>
+                              <td>{{ shipment.kilometers }}</td>
+                              <td>{{ shipment.status }}</td>
+                              <td>{{ shipment.shipmentDate | date }}</td>
+                              <td>
+                                  <button class="btn btn-primary" (click)="onClickShipmentDetails(shipment)">Details</button>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+  <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>
-<!-- <div *ngIf="shipments.length === 0">
-  No shipments found for the selected vehicle.
-</div> -->

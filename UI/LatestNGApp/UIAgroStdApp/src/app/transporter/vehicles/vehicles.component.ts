@@ -10,6 +10,7 @@ import { TransporterService } from 'src/app/Services/transporter.service';
   styleUrls: ['./vehicles.component.css']
 })
 export class VehiclesComponent implements OnInit {
+  selectedVehicleId: string | null = null; 
   vehicles: Vehicle[]=[];
   subscription: Subscription;
   constructor(private transportersvc: TransporterService,
@@ -32,12 +33,9 @@ export class VehiclesComponent implements OnInit {
   // OnSelectGetShipment(vehicleId: number) {
   //   this.router.navigate(['transporter/getshipmentofvehicle', vehicleId]);
   // }
-  onAddNewVehicle() {
-    this.router.navigate(['transporter/addvehicle']);
-  }
-  OnUpdate(vehicleId: number) {
-    this.router.navigate(['/transporter/update', vehicleId])
-  }
+
+  
+  
   OnSelectGetShipment(vehicleId: number) {
     this.transportersvc.setSelectedvehicleId(vehicleId);
     console.log(vehicleId);

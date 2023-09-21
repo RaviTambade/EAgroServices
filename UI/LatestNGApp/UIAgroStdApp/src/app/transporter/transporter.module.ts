@@ -6,14 +6,15 @@ import { HomeComponent } from './home/home.component';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { GetshipmentofvehicleComponent } from './getshipmentofvehicle/getshipmentofvehicle.component';
 import { TransporterviewComponent } from './transporterview/transporterview.component';
+import { GetvehicleshipmentitemsComponent } from './getvehicleshipmentitems/getvehicleshipmentitems.component';
 
 
 export const transporterRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
   {path:'transporterview',component:TransporterviewComponent},
   {path:'dashboard',component:DashboardComponent},
-  { path: 'getshipmentofvehicle/:vehicleId', component: GetshipmentofvehicleComponent }
-
+  { path: 'getshipmentofvehicle/:vehicleId', component: GetshipmentofvehicleComponent },
+  { path: 'shipmentdetails/:id', component: GetvehicleshipmentitemsComponent },
 ]
 
 @NgModule({
@@ -22,7 +23,8 @@ export const transporterRoutes:Routes=[
     HomeComponent,
     VehiclesComponent,
     GetshipmentofvehicleComponent,
-    TransporterviewComponent
+    TransporterviewComponent,
+    GetvehicleshipmentitemsComponent
   ],
   imports: [
     CommonModule,

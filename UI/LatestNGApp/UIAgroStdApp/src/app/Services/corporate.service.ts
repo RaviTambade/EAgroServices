@@ -10,7 +10,7 @@ import { NameId } from '../Models/name-id';
 export class CorporateService {
   constructor(private http: HttpClient) {}
 
-  getCorporates(id: number): Observable<NameId[]> {
+  getCorporates(id:string): Observable<NameId[]> {
     let url = 'http://localhost:5041/api/corporates/names/' + id;
     console.log(url);
     return this.http.get<NameId[]>(url);

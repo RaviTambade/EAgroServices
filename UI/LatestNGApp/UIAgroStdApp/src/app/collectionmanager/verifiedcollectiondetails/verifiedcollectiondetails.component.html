@@ -10,9 +10,10 @@
               <div *ngIf="collectionDetails" class="col-md-11 mb-8">
                 <div class="justify-content-center">
                   <div class="card" style="margin-left: 30px;">
-                    <!-- <img [src]="collectionDetails.imageUrl" class="card-img-top" -->
+                    <img [src]="collectionDetails.imageUrl" class="card-img-top"
                       style="max-height: 250px; width: 100%; object-fit: cover;" alt="{{ collectionDetails.cropName }}">
                     <div class="card-body">
+                      
                       <h5 class="card-title">{{ collectionDetails.cropName }}</h5>
                       <ul class="list-unstyled">
                         <li>
@@ -28,13 +29,13 @@
                           <strong>Quantity:</strong> {{ collectionDetails.quantity }}
                         </li>
                         <li>
-                          <strong>Total Weight:</strong> {{ collectionDetails.totalWeight }}
+                          <strong>Total Weight:</strong> {{ collectionDetails.totalWeight}}
                         </li>
                         <li>
                           <strong>Weight:</strong> {{ collectionDetails.netWeight }}
                         </li>
                         <li>
-                          <strong>Inspector</strong> {{ inspectorName}}
+                          <strong>Inspector:</strong> {{ inspectorName}}
                         </li>
                       </ul>
                     </div>

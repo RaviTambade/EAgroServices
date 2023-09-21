@@ -26,12 +26,12 @@ export class GetshipmentofvehicleComponent implements OnInit {
     shipmentDate: '',
     companyName: ''
   }
-  shipmentmerchants: Shipmentsmerchant[];
+  shipmentmerchants: Shipmentsmerchant[]=[];
   transporterId: number | any;
   constructor(private svc: TransporterService,
     private router: Router,
-    private crpSvc: CorporateService,
-    private route: ActivatedRoute) {
+    private crpSvc: CorporateService
+   ) {
     this.shipments = [],
       this.subscription = new Subscription();
     this.shipmentmerchants = []
@@ -41,10 +41,13 @@ export class GetshipmentofvehicleComponent implements OnInit {
       this.vehicleId = this.selectedVehicleId;
       console.log(this.vehicleId)
     }
-    this.transporterId = Number(localStorage.getItem("transporterId"));
-    this.route.paramMap.subscribe((params) => {
-        this.shipmentmerchant.vehicleId = this.vehicleId
-        this.vehicleId = Number(params.get('vehicleId'));
+    this.svc.selectedVehicleId$.subscribe((vehicleId) => {
+      this.vehicleId = vehicleId;
+      if (this.vehicleId)
+    // this.transporterId = Number(localStorage.getItem("transporterId"));
+    // this.route.paramMap.subscribe((params) => {
+    //     this.shipmentmerchant.vehicleId = this.vehicleId
+    //     this.vehicleId = Number(params.get('vehicleId'));
 
         this.subscription = this.svc.getShipmentsOfVehicle(this.vehicleId).subscribe((response) => {
           this.shipmentmerchants = response;
@@ -53,7 +56,7 @@ export class GetshipmentofvehicleComponent implements OnInit {
           let corporateIds = this.shipmentmerchants.map(item => item.corporateId)
             .filter((number, index, array) => array.indexOf(number) === index);
           let merchantIdString = distinctmerchantIds.join(',');
-          let crpId = Number(corporateIds.join(','));
+          let crpId = (corporateIds.join(','));
           this.crpSvc.getCorporates(crpId).subscribe((names) => {
             let corporationNames = names
             this.shipmentmerchants.forEach(item => {
@@ -64,7 +67,7 @@ export class GetshipmentofvehicleComponent implements OnInit {
           });
         });
       })
-    }
+  }
   
   onClickShipmentDetails(shipment: Shipmentsmerchant) {
     localStorage.setItem('selectedShipment', JSON.stringify(shipment));

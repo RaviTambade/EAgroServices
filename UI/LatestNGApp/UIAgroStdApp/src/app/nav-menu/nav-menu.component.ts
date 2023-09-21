@@ -24,9 +24,11 @@ export class NavMenuComponent implements OnInit {
       this.userService.getUserByContact(contactNumber).subscribe((response) => {
         console.log(response);
         this.name = response.name;
+
       })    
     }
     this.getRole();
+    this.getCorporate();
   }
 
   collapse() {
@@ -53,7 +55,7 @@ export class NavMenuComponent implements OnInit {
   }
 getCorporate(){
   this.corporateService.getCorporateIdByPersonId().subscribe((corporateId)=>{
-    this.corporateService.getCorporates(corporateId).subscribe((response)=>{
+    this.corporateService.getCorporates(corporateId.toString()).subscribe((response)=>{
       this.corporateName=response[0].name
     })
   })
@@ -68,6 +70,7 @@ this.userService.getUserRole(this.userId).subscribe((res)=>{
 
 isCorporate():boolean{
     return this.roles.includes("collection manager"||"merchant"||"transporter")
+    
 }
 
 

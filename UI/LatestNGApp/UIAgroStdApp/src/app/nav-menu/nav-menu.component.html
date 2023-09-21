@@ -12,8 +12,8 @@
             <a class="nav-link text-dark" routerLink="home" routerLinkActive="router-link-active">Home</a>
           </li>
           <li class="nav-item" *ngIf="isCorporate()">
-             <div class="nav-link text-dark" *ngIf="corporateName.length == 0"> 
-              {{getCorporate()}}</div>
+             <!-- <div class="nav-link text-dark" *ngIf="corporateName.length == 0"> 
+              {{getCorporate()}}</div> -->
              {{corporateName}}
           </li>
           <!-- Logged In User Profile and Logout -->

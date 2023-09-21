@@ -209,6 +209,7 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
                     Id = collection.Id,
                     FarmerId = collection.FarmerId,
                     CropName = crop.Title,
+                    ImageUrl = crop.ImageUrl,
                     ContainerType = collection.ContainerType,
                     Quantity = collection.Quantity,
                     Grade = verifiedCollection.Grade,

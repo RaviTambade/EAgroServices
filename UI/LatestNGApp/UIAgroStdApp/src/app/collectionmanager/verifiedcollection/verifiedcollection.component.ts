@@ -9,14 +9,30 @@ import { FarmerService } from 'src/app/Services/farmer.service';
   styleUrls: ['./verifiedcollection.component.css']
 })
 export class VerifiedcollectionComponent implements OnInit{
-  verifiedCollection:VerifiedCollection[]=[];
+  verifiedCollections:VerifiedCollection[]=[];
+  farmerName: string='';
   constructor(private colmsvc:CollectionmanagerService){}
   ngOnInit(): void {
     this.colmsvc.getCollectionCenterId().subscribe((collectionCenterId)=>{
    this.colmsvc.getVerifiedCollection(collectionCenterId).subscribe((response)=>{
-    this.verifiedCollection=response;
+    this.verifiedCollections=response;
+
+    let distinctFarmerIds = this.verifiedCollections.map(item => item.farmerId)
+          .filter((number, index, array) => array.indexOf(number) === index);
+
+        let farmerIdString = distinctFarmerIds.join(',');
+
+        this.colmsvc.getUser(farmerIdString).subscribe((names) => {
+          let farmerName = names
+          this.verifiedCollections.forEach(item => {
+            let matchingItem = farmerName.find(element => element.id === item.farmerId);
+            if (matchingItem != undefined)
+              item.farmerName = matchingItem.name;
+          });
+        });
+   
+    }) 
    })
-  })
   }
   onClickDetails(collectionId: number) {
     this.colmsvc.setSelectedCollectionId(collectionId);

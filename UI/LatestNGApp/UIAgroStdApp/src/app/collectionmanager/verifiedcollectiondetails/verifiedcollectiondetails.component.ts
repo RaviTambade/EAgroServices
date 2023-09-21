@@ -16,15 +16,19 @@ export class VerifiedcollectiondetailsComponent implements OnInit {
   constructor(private colmsvc: CollectionmanagerService, private farsvc: FarmerService) { }
   collectionDetails: Verifiedcollectiondetails | undefined;
   ngOnInit(): void {
-    if (this.selectedCollectionId !== null) {
-      this.collectionId = this.selectedCollectionId;
-      console.log(this.collectionId)
-    }
+    // if (this.selectedCollectionId !== null) {
+    //   this.collectionId = this.selectedCollectionId;
+    //   console.log(this.collectionId)
+    // }
+   
     this.colmsvc.selectedCollectionId$.subscribe((collectionId) => {
       this.collectionId = collectionId;
+      console.log(collectionId);
       if (this.collectionId)
-        this.colmsvc.collectionDetail(collectionId).subscribe((response) => {
+        this.colmsvc.getVerifiedCollectionDetails(collectionId).subscribe((response) => {
           this.collectionDetails = response
+          console.log(response)
+          console.log(response.farmerId);
           this.colmsvc.getUser(response.farmerId.toString()).subscribe((response)=>{
             this.farmerName=response[0].name
           })

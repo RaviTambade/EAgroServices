@@ -15,7 +15,7 @@ export const collectionmanagerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
   {path:'collection',component:CollectionviewComponent},
   {path:'addcollection',component:AddcollectionComponent},
-  {path:'verifiedcollection',component:VerifiedcollectionComponent},
+  {path:'verifiedcollection',component:VerifiedComponent},
 
 ]
 
