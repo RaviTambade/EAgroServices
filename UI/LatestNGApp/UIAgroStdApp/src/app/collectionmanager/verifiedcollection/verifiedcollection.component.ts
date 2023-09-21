@@ -38,4 +38,8 @@ export class VerifiedcollectionComponent implements OnInit{
     this.colmsvc.setSelectedCollectionId(collectionId);
     console.log(collectionId);
   }
+  addToShipment(collectionId:number){
+    
+  }
+  
 }
