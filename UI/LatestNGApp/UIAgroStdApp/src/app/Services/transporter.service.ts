@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Vehicle } from '../Models/vehicle';
 import { Shipmentsmerchant } from '../Models/shipmentsmerchant';
+import { VehicleCorporateShipment } from '../Models/vehicle-corporate-shipment';
+import { Transporterinvoice } from '../Models/transporterinvoices';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,14 @@ export class TransporterService {
     console.log(vehicleId);
   }
   
+
+  private selectedShipmentIdSubject = new BehaviorSubject<any>(null);
+  selectedShipmentId$ = this.selectedShipmentIdSubject.asObservable();
+
+  setSelectedShipmentId(shipmentId: number) {
+    this.selectedShipmentIdSubject.next(shipmentId);
+    console.log("Details ", shipmentId);
+  }
 
 
   getVehiclesOfTransporter(transporterId:number): Observable<Vehicle[]> {
@@ -36,6 +46,7 @@ export class TransporterService {
     let userId=localStorage.getItem("userId")
     let url = "http://localhost:5025/api/transporters/manager/" + userId;
     return this.httpClient.get<number>(url);
+    
   }
 
   getShipmentsOfVehicle(vehicleId: number): Observable<Shipmentsmerchant[]> {
@@ -43,4 +54,15 @@ export class TransporterService {
     return this.httpClient.get<Shipmentsmerchant[]>(url)
       
     }
+    getAllShipmentsOfTransporter(transporterId: number): Observable<VehicleCorporateShipment[]> {
+      let url = "http://localhost:5067/api/shipments/transporter/" + transporterId
+      return this.httpClient.get<VehicleCorporateShipment[]>(url)
+    }
+
+    getTransporterInvoices(paymentStatus:string):Observable<Transporterinvoice[]>{
+      let transporterId = Number(localStorage.getItem("transporterId"));
+      let url="http://localhost:5025/api/transporters/" + transporterId + "/invoices/" +paymentStatus
+      return this.httpClient.get<Transporterinvoice[]>(url);
+    }
   }
+  
