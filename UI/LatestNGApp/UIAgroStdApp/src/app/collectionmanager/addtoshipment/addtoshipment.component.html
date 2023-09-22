@@ -1,0 +1,18 @@
+<div *ngIf="!newShipmentStatus && componentViewStatus">
+    <form [formGroup]="shipmentItemForm" (ngSubmit)="OnSubmit()">
+      <label for="shipmentId">Vehicle Number:</label>
+      <select id="shipmentId" formControlName="shipmentId">
+        <option *ngFor="let shipmentVehicle of shipmentVehicleList" [value]="shipmentVehicle.id">{{
+          shipmentVehicle.vehicleNumber}} -{{ shipmentVehicle.merchantName}}</option>
+      </select>
+      <br>
+      <button type="submit" [disabled]="!shipmentItemForm.valid">Submit</button>
+    </form>
+    <button (click)="componentViewStatus=false">Cancel</button>
+    <button (click)="onClicknewShipment()">Create New Shipment</button>
+  </div>
+  <!-- <div *ngIf="newShipmentStatus">
+    <app-create-shipment></app-create-shipment>
+    <button (click)="onClicknewShipment()">Cancel</button> -->
+  
+  <!-- </div> -->

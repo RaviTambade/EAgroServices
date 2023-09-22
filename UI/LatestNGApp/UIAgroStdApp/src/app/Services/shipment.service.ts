@@ -1,16 +1,11 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
-// import { MerchantShipment } from '../Models/merchant-shipment';
 import { ShipmentItemDetails } from '../Models/shipment-item-details';
-// import { TransporterAmount } from '../Models/transporter-amount';
-// import { InprogressVehicle } from '../Models/inprogress-vehicle';
-// import { ShipmentItem } from '../Models/shipment-item';
-// import { FilterRequest } from '../Shared/filter/filter-request';
-// import { ShipmentStatus } from '../Models/Enums/shipment-status';
-// import { ShippedCollection } from '../Models/shipped-collection';
 import { CorporateService } from './corporate.service';
 import { UserService } from './user.service';
+import { InprogressVehicle } from '../Models/inprogress-vehicle';
+import { ShipmentItem } from '../Models/shipment-item';
 
 @Injectable({
   providedIn: 'root',
@@ -85,6 +80,15 @@ export class ShipmentService {
   addShipment(shipment: any): Observable<boolean> {
     let url = 'http://localhost:5067/api/shipments';
     return this.http.post<boolean>(url, shipment);
+  }
+  getInprogressShipments(): Observable<InprogressVehicle[]> {
+    let url = 'http://localhost:5067/api/shipments/inprogress';
+    return this.http.get<any>(url);
+  }
+
+  addShipmentItem(shipmentItem: ShipmentItem): Observable<boolean> {
+    let url = 'http://localhost:5067/api/shipmentitems';
+    return this.http.post<boolean>(url, shipmentItem);
   }
 
  
