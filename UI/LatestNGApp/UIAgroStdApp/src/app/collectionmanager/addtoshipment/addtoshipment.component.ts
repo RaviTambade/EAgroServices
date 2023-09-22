@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { InprogressVehicle } from 'src/app/Models/inprogress-vehicle';
 import { ShipmentItem } from 'src/app/Models/shipment-item';
+import { CollectionmanagerService } from 'src/app/Services/collectionmanager.service';
 import { CorporateService } from 'src/app/Services/corporate.service';
 import { ShipmentService } from 'src/app/Services/shipment.service';
 
@@ -12,19 +13,23 @@ import { ShipmentService } from 'src/app/Services/shipment.service';
 })
 export class AddtoshipmentComponent implements OnInit {
   formbuilder: any;
+  collectionId: any;
   constructor(
     private shipmentsvc:ShipmentService,
-    private corporatesvc:CorporateService){
+    private corporatesvc:CorporateService,
+    private managersvc:CollectionmanagerService){
        this.shipmentItemForm = this.formbuilder.group({
     shipmentId: ['', Validators.required],
   })
 }
-  @Input() CollectionId: number | undefined;
+  // @Input() CollectionId: number | undefined;
   shipmentItemForm: FormGroup;
   newShipmentStatus: boolean = false;
   componentViewStatus: boolean = true;
   shipmentVehicleList:InprogressVehicle[]=[];
   ngOnInit(): void {
+    this.managersvc.selectedCollectionIdShipment$.subscribe((collectionId) => {
+      this.collectionId = collectionId;
   this.shipmentsvc.getInprogressShipments().subscribe((res) => {
     this.shipmentVehicleList = res;
 
@@ -39,18 +44,19 @@ export class AddtoshipmentComponent implements OnInit {
           item.merchantName = matchingItem.name;
       });
     });
+  })
 
   })
 
 }
 
 OnSubmit() {
-  if (!this.CollectionId) {
+  if (!this.collectionId) {
     return
   }
   const shipmentItem: ShipmentItem = {
     shipmentId: this.shipmentItemForm.get('shipmentId')?.value,
-    collectionId: this.CollectionId
+    collectionId: this.collectionId
   }
   this.shipmentsvc.addShipmentItem(shipmentItem).subscribe((res) => {
     console.log(res)

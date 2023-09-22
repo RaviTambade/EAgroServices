@@ -11,6 +11,7 @@ import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollec
 import { VerifiedcollectiondetailsComponent } from './verifiedcollectiondetails/verifiedcollectiondetails.component';
 import { VerifiedComponent } from './verified/verified.component';
 import { AddtoshipmentComponent } from './addtoshipment/addtoshipment.component';
+import { CreateshipmentComponent } from './createshipment/createshipment.component';
 
 export const collectionmanagerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
@@ -30,7 +31,8 @@ export const collectionmanagerRoutes:Routes=[
     VerifiedcollectionComponent,
     VerifiedcollectiondetailsComponent,
     VerifiedComponent,
-    AddtoshipmentComponent
+    AddtoshipmentComponent,
+    CreateshipmentComponent
   ],
   imports: [
     CommonModule,

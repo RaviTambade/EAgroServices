@@ -22,6 +22,13 @@ export class CollectionmanagerService {
     this.selectedCollectionIdSubject.next(collectionId);
     console.log(collectionId);
   }
+  private selectedCollectionIdShipmentSubject = new BehaviorSubject<any>(null);
+  selectedCollectionIdShipment$ = this.selectedCollectionIdSubject.asObservable();
+
+  setSelectedCollectionIdForShipment(collectionId: number) {
+    this.selectedCollectionIdShipmentSubject.next(collectionId);
+    console.log(collectionId);
+  }
 
   getCollectionCenterId(): Observable<number> {
     const userId=localStorage.getItem("userId");

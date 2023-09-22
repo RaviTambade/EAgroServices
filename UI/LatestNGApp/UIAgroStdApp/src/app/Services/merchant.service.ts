@@ -24,4 +24,8 @@ export class MerchantService {
     let url = "http://localhost:5025/api/transporters/corporateid/" + transporterId;
     return this.http.get<number>(url);
   }
+  getIdOfMerchant(corporateId: number): Observable<number> {
+    let url = "http://localhost:5276/api/merchants/id/" + corporateId
+    return this.http.get<number>(url)
+  }
 }

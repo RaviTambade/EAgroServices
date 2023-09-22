@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Vehicle } from '../Models/vehicle';
 import { Shipmentsmerchant } from '../Models/shipmentsmerchant';
+import { VehicleNumberId } from '../Models/vehiclenumberid';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,10 @@ export class TransporterService {
     this.selectedVehicleIdSubject.next(vehicleId);
     console.log(vehicleId);
   }
-  
-
+  getVehicleNumbers(): Observable<VehicleNumberId[]> {
+    let url = "http://localhost:5261/api/vehicles/availabelvehicles"
+    return this.httpClient.get<VehicleNumberId[]>(url)
+  }
 
   getVehiclesOfTransporter(transporterId:number): Observable<Vehicle[]> {
     let url = " http://localhost:5025/api/transporters/" + transporterId + "/vehicles"
