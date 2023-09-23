@@ -6,37 +6,27 @@
                     Vehicles of Transporter
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <!-- You can add a column for image if you have it for each vehicle -->
-                                <!-- <th>Image</th> -->
-                                <th>Vehicle Type</th>
-                                <th>RTO Number</th>
-                                <th> Action </th>
-                                <!-- Add headers for any other vehicle details you'd like to show here -->
-                                <!-- <th>Action</th> --> <!-- This is for the commented out action button -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let vehicle of vehicles">
-                                <!-- Uncomment if you have an image for each vehicle -->
-                                <!-- <td><img [src]="vehicle.imageUrl" class="img-fluid"
-                                    style="max-height: 100px; object-fit: cover;" alt="{{ vehicle.vehicleType }}"></td> -->
-                                <td>{{ vehicle.vehicleType }}</td>
-                                <td>{{ vehicle.rtoNumber }}</td>
-                                <td>
-                                    <button class="btn btn-primary" (click)="OnSelectGetShipment(vehicle.id)">Details</button>
-                                </td>
-                                <!-- Uncomment and modify this if you have specific actions for each vehicle -->
-                                <!-- <td><button class="btn btn-info" (click)="yourVehicleAction(vehicle.id)">Action Name</button></td> -->
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Type</th>
+                                    <th>RTO Number</th>
+                                    <th> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let vehicle of vehicles">
+                                    <td>{{ vehicle.vehicleType }}</td>
+                                    <td>{{ vehicle.rtoNumber }}</td>
+                                    <td><button class="btn btn-primary"(click)="OnSelectGetShipment(vehicle.id)">Details</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        
         <div *ngIf="!vehicles || vehicles.length === 0" class="col-md-12">
             <div class="alert alert-warning">
                 No vehicles found for the transporter.

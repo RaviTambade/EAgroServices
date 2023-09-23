@@ -135,4 +135,5 @@ export class TransporterService {
     let url="http://localhost:5025/api/transporters/" + transporterId + "/invoices/" +paymentStatus
     return this.httpClient.get<Transporterinvoice[]>(url);
   }
+  
 }

@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <div class="row">
+      <div *ngIf="vehicleCorporateshipments && vehicleCorporateshipments.length > 0" class="col-md-12">
+          <div class="card">
+              <div class="card-header" style="background-color: #042e59; color: #fff;">
+                  Corporate Shipments
+              </div>
+              <div class="card-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                <table class="table table-bordered">
+                  <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th>Corporate Merchant Name</th>
+                              <th>Vehicle Type</th>
+                              <th>RTO Number</th>
+                              <th>Kilometers</th>
+                              <th>Status</th>
+                              <th>Shipment Date</th>
+                              <th>Action</th>
+                              <!-- Uncomment below line if you want to add a button in the future -->
+                              <!-- <th>Action</th> -->
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let shipment of vehicleCorporateshipments">
+                              <td>{{ shipment.companyName }}</td>
+                              <td>{{ shipment.vehicleType }}</td>
+                              <td>{{ shipment.rtoNumber }}</td>
+                              <td>{{ shipment.kilometers }}</td>
+                              <td>{{ shipment.status }}</td>
+                              <td>{{ shipment.shipmentDate | date }}</td>
+                          
+                              <td>
+                                  <button class="btn btn-primary" (click)="setSelectedShipmentId(shipment.shipmentId)">Details</button>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                </table>
+            </div>
+        </div>
+   
+     </div>
+          </div>
+      </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

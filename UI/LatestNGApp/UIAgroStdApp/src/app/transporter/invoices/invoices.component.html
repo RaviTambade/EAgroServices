@@ -1,0 +1,41 @@
+<button (click)="onClickPaid()" [ngClass]="{'active':paidStatus}" style="margin-right: 15px;"> Paid </button>
+<button (click)="onClickUnpaid()" [ngClass]="{'active':!paidStatus}"> <a> UnPaid </a></button>
+<table class="table mt-4" *ngIf="showTable">
+        <div *ngIf="showTable" class="col-md-12">
+            <div class="card">
+                <div class="card-header" style="background-color: #042e59; color: #fff;">
+                    Invoice Details
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Merchant</th>
+                                <th>PaymentStatus</th>
+                                <th>Freight Charges</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let invoice of transporterInvoices">
+                            <tr>
+                                <td>{{ invoice.date | date }}</td>
+                                <td>{{ invoice.companyName }}</td>
+                                <td [ngClass]="{ 'paid': invoice.paymentStatus === 'paid', 'unpaid': invoice.paymentStatus !== 'paid' }">
+                                  {{ invoice.paymentStatus }}
+                                </td>
+                                <td>{{ invoice.freightCharges |currency :'INR'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Display a message if there are no invoices -->
+        <div *ngIf="!showTable" class="col-md-12">
+            <div class="alert alert-warning">
+                No invoices were found.
+            </div>
+        </div>
+
