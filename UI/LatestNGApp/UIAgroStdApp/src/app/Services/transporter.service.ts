@@ -36,8 +36,7 @@ export class TransporterService {
    return this.httpClient.get<Vehicle[]>(url);
   }
 
-  getCorporateIdOfTransporter(): Observable<number> {
-    let transporterId=localStorage.getItem("userId")
+  getCorporateIdOfTransporter(transporterId:number): Observable<number> {
     let url = "http://localhost:5025/api/transporters/corporateid/" + transporterId;
     return this.httpClient.get<number>(url);
   }
@@ -59,8 +58,7 @@ export class TransporterService {
       return this.httpClient.get<VehicleCorporateShipment[]>(url)
     }
 
-    getTransporterInvoices(paymentStatus:string):Observable<Transporterinvoice[]>{
-      let transporterId = Number(localStorage.getItem("transporterId"));
+    getTransporterInvoices(paymentStatus:string,transporterId:number):Observable<Transporterinvoice[]>{
       let url="http://localhost:5025/api/transporters/" + transporterId + "/invoices/" +paymentStatus
       return this.httpClient.get<Transporterinvoice[]>(url);
     }

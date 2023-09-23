@@ -1,0 +1,60 @@
+/* Table Styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;  /* Striped rows */
+}
+
+.table tbody tr:hover {
+    background-color: #e6e6e6;  /* Hover effect */
+}
+
+/* Button Styles */
+button {
+    background-color: #e6e6e6;
+    border: none;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #d4d4d4;  /* Hover effect */
+}
+
+button.active {
+    background-color: #0c2d5c;  /* Active button color */
+    color: white;
+}
+
+/* Link within the button */
+button a {
+    text-decoration: none;
+    color: inherit;  /* takes color from parent button */
+}
+
+.spacing-right {
+    margin-right: 15px; /* Adjust the value as required */
+}
+
+.paid {
+    color: green;
+}
+
+.unpaid {
+    color: red;
+}
+

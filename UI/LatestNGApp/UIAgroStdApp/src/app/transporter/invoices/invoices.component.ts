@@ -9,16 +9,24 @@ import { TransporterService } from 'src/app/Services/transporter.service';
   styleUrls: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit {
-  transporterInvoices: Transporterinvoice[] = [];
-  paidStatus: boolean = false;
+   transporterInvoices: Transporterinvoice[] = [];
+  paidStatus: boolean = true;
+  unpaidStatus: boolean = false;
+  showTable = false;
+  allInvoices = [];
+// transporterInvoices = this.allInvoices.filter(invoice => invoice.paymentStatus === 'Paid');
+
   companyName: string | undefined;
   constructor(
     private transportSvc: TransporterService,
     private crpSvc: CorporateService
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  this.onClickPaid()
+  }
   fetchData(status: string) {
-    this.transportSvc.getTransporterInvoices(status).subscribe((res) => {
+    this.transportSvc.gettransporterIdByUserId().subscribe((transporterId)=>{
+    this.transportSvc.getTransporterInvoices(status,transporterId).subscribe((res) => {
       this.transporterInvoices = res;
       console.log(res);
       if (this.transporterInvoices.length != 0) {
@@ -40,16 +48,21 @@ export class InvoicesComponent implements OnInit {
           });
         });
       }
-    });
-  }
+      })
+    })
+  
+}
   onClickPaid() {
     this.paidStatus = true;
+    this.showTable = true;
     this.fetchData('paid');
   }
 
   onClickUnpaid() {
     this.paidStatus = false;
+    this.showTable = true;
     this.fetchData('unpaid');
   }
-}
 
+
+}

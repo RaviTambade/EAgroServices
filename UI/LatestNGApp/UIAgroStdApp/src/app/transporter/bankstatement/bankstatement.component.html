@@ -1,0 +1,29 @@
+<div class="container">
+    <div class ="row">
+      <div class="col-11 col-md-11 overflow-auto">
+        <div class="card">
+          <div class="card-header" style="background-color: #001f3f; color: #fff;">
+            Bank Statement
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+              <thead>
+    <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Mode</th>
+        <th>Desciption</th>
+        <th>balance</th>
+    </tr>
+    <ng-container *ngFor="let statement of statements">
+        <tr>
+            <td>{{statement.date | date }}</td>
+            <td>{{statement.amount |currency:"INR"}}</td>
+            <td>{{statement.mode}}</td>
+            <td>{{statement.description}}</td>
+              <td class="text-success">{{ statement.balance | currency:"INR" }}</td>
+        </tr>
+    </ng-container>
+              </thead>
+</table>    

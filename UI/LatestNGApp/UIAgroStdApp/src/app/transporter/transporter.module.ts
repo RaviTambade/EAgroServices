@@ -10,6 +10,7 @@ import { GetvehicleshipmentitemsComponent } from './getvehicleshipmentitems/getv
 import { GetallshipmentsComponent } from './getallshipments/getallshipments.component';
 import { ShipmentsComponent } from './shipments/shipments.component';
 import { InvoicesComponent } from './invoices/invoices.component';
+import { BankstatementComponent } from './bankstatement/bankstatement.component';
 
 
 export const transporterRoutes:Routes=[
@@ -20,7 +21,8 @@ export const transporterRoutes:Routes=[
   { path: 'shipmentdetails/:id', component: GetvehicleshipmentitemsComponent },
   {path:'shipments', component:ShipmentsComponent},
   {path:'allshipments',component:GetallshipmentsComponent},
-  {path:'invoices',component:InvoicesComponent}
+  {path:'invoices',component:InvoicesComponent},
+  {path:'bankstatement',component:BankstatementComponent}
 
 ]
 
@@ -34,7 +36,8 @@ export const transporterRoutes:Routes=[
     GetvehicleshipmentitemsComponent,
     GetallshipmentsComponent,
     ShipmentsComponent,
-    InvoicesComponent
+    InvoicesComponent,
+    BankstatementComponent
   ],
   imports: [
     CommonModule,
