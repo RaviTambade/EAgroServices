@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Vehicle } from '../Models/vehicle';
 import { Shipmentsmerchant } from '../Models/shipmentsmerchant';
 import { VehicleNumberId } from '../Models/vehiclenumberid';
+import { Corporate } from '../Models/corporate';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +30,10 @@ export class TransporterService {
    return this.httpClient.get<Vehicle[]>(url);
   }
 
-  getCorporateIdOfTransporter(): Observable<number> {
+  getCorporateIdOfTransporter(): Observable<Corporate[]> {
     let transporterId=localStorage.getItem("userId")
     let url = "http://localhost:5025/api/transporters/corporateid/" + transporterId;
-    return this.httpClient.get<number>(url);
+    return this.httpClient.get<Corporate[]>(url);
   }
 
   gettransporterIdByUserId(): Observable<number> {

@@ -1,0 +1,64 @@
+<div class="property-container">
+  <div class="property-names-card">
+    <div class="property-names">
+      <div *ngFor="let property of equalProperties; let i = index">
+        <div class="filter-container">
+          <div class="property-name" [ngClass]="{'selected': isPropertySelected(i)}" (click)="toggleProperty(i)">{{
+            property.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="expanded-properties-card">
+    <div class="expanded-properties">
+      <ng-container *ngFor="let property of equalProperties;let i=index">
+        <div *ngIf="isPropertyExpanded(property)" class="expanded-content">
+          <div *ngIf="property.name === 'CropName'" class="property-values-card">
+            <input type="text" [(ngModel)]="searchText" placeholder="Search...">
+            <div *ngFor="let crop of applySearchFilter(searchText, crops)">
+              <label>
+                <input type="checkbox" [checked]="filterRequest.equalFilters[i].propertyValues.includes(crop)"
+                  (change)="onCheckboxChange(crop, i)" />
+                {{ crop }}
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="property.name === 'Grade'" class="property-values-card">
+            <input type="text" [(ngModel)]="searchText" placeholder="Search...">
+            <div *ngFor="let grade of applySearchFilter(searchText, grades)">
+              <label>
+                <input type="checkbox" [checked]="filterRequest.equalFilters[i].propertyValues.includes(grade)"
+                  (change)="onCheckboxChange(grade, i)" />
+                {{ grade }}
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="property.name === 'ContainerType'" class="property-values-card">
+            <input type="text" [(ngModel)]="searchText" placeholder="Search...">
+            <div *ngFor="let containerType of applySearchFilter(searchText,containerTypes)">
+              <label>
+                <input type="checkbox" [checked]="filterRequest.equalFilters[i].propertyValues.includes(containerType)"
+                  (change)="onCheckboxChange(containerType, i)" />
+                {{ containerType }}
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="property.name === 'VehicleNumber'" class="property-values-card">
+            <input type="text" [(ngModel)]="searchText" placeholder="Search...">
+            <div *ngFor="let vehicle of applySearchFilter(searchText,vehicles)">
+              <label>
+                <input type="checkbox" [checked]="filterRequest.equalFilters[i].propertyValues.includes(vehicle)"
+                  (change)="onCheckboxChange(vehicle, i)" />
+                {{ vehicle }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

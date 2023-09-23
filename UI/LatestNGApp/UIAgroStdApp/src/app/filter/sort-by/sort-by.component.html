@@ -1,0 +1,11 @@
+<div class="container">
+  <div *ngIf="filterRequest" class="input-container">
+    <label>Sort By:</label>
+    <select [(ngModel)]="filterRequest.sortBy" (ngModelChange)="onChange()" class="input-field">
+      <option *ngFor="let property of sortByProperties" [value]="property">{{ property }}</option>
+    </select>
+    <label>Sort Ascending:</label>
+    <input type="checkbox" [(ngModel)]="filterRequest.sortAscending" (ngModelChange)="onChange()"
+      class="input-checkbox">
+  </div>
+</div>

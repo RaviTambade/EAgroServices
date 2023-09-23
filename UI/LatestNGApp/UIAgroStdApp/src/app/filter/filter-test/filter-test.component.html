@@ -1,0 +1,107 @@
+<div >
+  <div class="filter-container">
+    <div class="card" style="height: auto; min-height: 650px;">
+      <h3 (click)="onClickFilter(filterModes.Equal)">Equal Filters:</h3>
+      <h3 (click)="onClickFilter(filterModes.Date)">Date Filters:</h3>
+      <h3 (click)="onClickFilter(filterModes.Range)">Range Filters:</h3>
+      <button class="button" (click)="getCollections(filterFor)">Send Filters</button>
+      <button class="button" (click)="clearFilters()">Clear Filters</button>
+
+      <div style="margin: top 20px; "> Active Filters</div>
+
+      <div *ngFor="let property of filterRequest.equalFilters; let i = index">
+        <div *ngIf="filterRequest.equalFilters[i].propertyValues.length>0">
+          <div *ngFor="let value of filterRequest.equalFilters[i].propertyValues; let z=index">
+            <div class="cbtn" (click)="removeEqualFilterProperty(i, z)">
+              <div class="cbtn1">&#x2716;</div>
+              <div class="cbtn2"> {{filterRequest.equalFilters[i].propertyName}} : {{ value }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngFor="let property of filterRequest.dateRangeFilters; let i = index">
+        <div
+          *ngIf="filterRequest.dateRangeFilters[i].fromDate !== '' || filterRequest.dateRangeFilters[i].toDate !== '' ">
+          <div class="cbtn" (click)="removeFilterProperty('dateRange', i)">
+            <div class="cbtn1">&#x2716;</div>
+            <div class="cbtn2">
+              {{ filterRequest.dateRangeFilters[i].propertyName }}
+              {{ filterRequest.dateRangeFilters[i].fromDate ? ' from '+ filterRequest.dateRangeFilters[i].fromDate :
+              ''}}
+              {{ filterRequest.dateRangeFilters[i].toDate ? ' to '+ filterRequest.dateRangeFilters[i].toDate : '' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngFor="let property of filterRequest.rangeFilters; let i = index">
+        <div
+          *ngIf="filterRequest.rangeFilters[i].minValue !== undefined || filterRequest.rangeFilters[i].maxValue !== undefined ">
+          <div
+            *ngIf=" filterRequest.rangeFilters[i].minValue !== null || filterRequest.rangeFilters[i].maxValue !== null">
+            <div class="cbtn" (click)="removeFilterProperty('range', i)">
+              <div class="cbtn1">&#x2716;</div>
+              <div class="cbtn2">
+                {{ displayPropertyName(filterRequest.rangeFilters[i].propertyName) }} :
+                {{getDisplayValue( filterRequest.rangeFilters[i].minValue ,
+                filterRequest.rangeFilters[i].maxValue,filterRequest.rangeFilters[i].propertyName)}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collections-container">
+    <div class="card" style="width: auto; border: none;">
+      <div class="searchandsort" >
+        <app-search-bar [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-search-bar>
+
+        <app-sort-by [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-sort-by>
+      </div>
+      <div *ngIf="isFilterActive(filterModes.Equal)" class="filter-content-top">
+        <app-equal-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-equal-filter>
+      </div>
+      <div *ngIf="isFilterActive(filterModes.Date)" class="filter-content-top">
+        <app-date-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-date-filter>
+      </div>
+      <div *ngIf="isFilterActive(filterModes.Range)" class="filter-content-top">
+        <app-range-filter [filterRequest]="filterRequest" [filterFor]="filterFor"
+          (filterChange)="getCollections(filterFor)"></app-range-filter>
+      </div>
+
+    
+      <!-- <div *ngIf="filterFor == collection">
+        <app-collection-verification [collections]="collections"></app-collection-verification>
+        -->
+      <!-- <div *ngIf="filterFor == verifiedCollection">
+        <collectioncenter-verified-collection-list
+          [collections]="collections"></collectioncenter-verified-collection-list>
+      </div> -->
+
+      <!-- <div *ngIf="filterFor == shippedCollection">
+        <app-collection-shipment-list [collections]="collections"></app-collection-shipment-list>
+      </div> -->
+
+      <!-- <div *ngIf="filterFor == collectionPayments">
+        <collectioncenter-collection-payment-list [invoices]="collections"></collectioncenter-collection-payment-list>
+      </div> -->
+
+
+      <div class="page-numbers-container">
+        <button *ngFor="let pageNumber of pageNumbers" (click)="onPageClick(pageNumber)"
+          [ngClass]="{'current-page':currentPage===pageNumber}">
+          {{ pageNumber}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

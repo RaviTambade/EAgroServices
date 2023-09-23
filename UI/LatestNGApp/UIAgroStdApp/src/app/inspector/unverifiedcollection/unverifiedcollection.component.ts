@@ -1,27 +1,27 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Collection } from 'src/app/Models/collection';
-import { CollectionService } from 'src/app/Services/collection-service.service';
+import { CollectionListType } from 'src/app/Models/Enum/CollectionListType';
+import { Collections } from 'src/app/Models/collections';
+import { CollectionService } from 'src/app/Services/collection.service';
+import { CollectionmanagerService } from 'src/app/Services/collectionmanager.service';
 import { ShowButtonService } from 'src/app/Services/show-button-service.service';
-import { CollectionCenterFilterFor } from 'src/app/Shared/filter/collection-center-filter-for';
-import { FilterRequest } from 'src/app/Shared/filter/filter-request';
-import { FiltersService } from 'src/app/Shared/filter/filters.service';
-import { UserService } from 'src/app/Shared/users/user.service';
+import { UserService } from 'src/app/Services/user.service';
+import { CollectionCenterFilterFor } from 'src/app/filter/collection-center-filter-for';
+import { FilterRequest } from 'src/app/filter/filter-request';
+import { FiltersService } from 'src/app/filter/filters.service';
 
-enum CollectionListType {
-  Unverified = 'unverified',
-  All = 'all',
-}
+
 
 @Component({
-  selector: 'app-collection-list-filter',
-  templateUrl: './collection-list-filter.component.html',
-  styleUrls: ['./collection-list-filter.component.css'],
+  selector: 'app-unverifiedcollection',
+  templateUrl: './unverifiedcollection.component.html',
+  styleUrls: ['./unverifiedcollection.component.css']
 })
-export class CollectionListFilterComponent implements OnInit, OnDestroy {
+export class UnverifiedcollectionComponent {
+
   collectionListType = CollectionListType;
-  collections: Collection[] = [];
+  collections: Collections[] = [];
   filterRequest: FilterRequest | undefined;
   pageNumber: number = 1;
   collection = CollectionCenterFilterFor.collection;
@@ -34,6 +34,7 @@ export class CollectionListFilterComponent implements OnInit, OnDestroy {
   constructor(
     private filtersvc: FiltersService,
     private collectionsvc: CollectionService,
+    private Collectionmanager:CollectionmanagerService,
     private usrsvc: UserService,
     private btnsvc: ShowButtonService
   ) {}
@@ -74,17 +75,19 @@ export class CollectionListFilterComponent implements OnInit, OnDestroy {
     pageNumber: number,
     type: string
   ) {
-    this.collectionsSubscription = this.collectionsvc
-      .getCollections(filterRequest, pageNumber, type)
+    this.collectionsSubscription =
+    this.Collectionmanager.getCollectionCenterId().subscribe((collectionCenterId)=>{ 
+      console.log(collectionCenterId)
+      this.collectionsvc.getCollections(1,filterRequest, pageNumber, type)
       .subscribe({
-        next: (response: HttpResponse<Collection[]>) => {
-          console.log('Filter request sent successfully:', response.body);
-          this.collections = response.body || [];
+        next: (response) => {
+          // console.log('Filter request sent successfully:', response.body);
+          // this.collections = response.body || [];
 
-          if (!this.collections.length) {
-            return;
-          }
-          console.table(this.collections);
+          // if (!this.collections.length) {
+          //   return;
+          // }
+          console.table(response);
           const paginationHeader = response.headers.get('X-Pagination');
           if (paginationHeader) {
             const paginationData = JSON.parse(paginationHeader);
@@ -110,21 +113,27 @@ export class CollectionListFilterComponent implements OnInit, OnDestroy {
                 if (matchingItem != undefined) {
                   item.farmerName = matchingItem.name;
                 }
-              });
-            });
-        },
-        error:(err)=>{
-          console.log(err);
-        },
+              })
+            })
+      
+    },
+    error:(err)=>{
+      console.log(err);
+    },
         complete:()=>{
           console.log('completed');
         }
-      });
-  }
-
+        
+        })
+      })
+      }
+         
   ngOnDestroy(): void {
     this.filterRequestSubscription?.unsubscribe();
     this.collectionsSubscription?.unsubscribe();
     this.userNamesSubscription?.unsubscribe();
   }
 }
+
+
+

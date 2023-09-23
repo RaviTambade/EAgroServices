@@ -7,6 +7,7 @@ import { Collection } from '../Models/collection';
 import { VerifiedCollection } from '../Models/verifiedCollection';
 import { CollectionDetails } from '../Models/collectiondetails';
 import { Verifiedcollectiondetails } from '../Models/verifieddcollectiondetails';
+import { Corporate } from '../Models/corporate';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,9 @@ export class CollectionmanagerService {
     let url ='http://localhost:5051/api/farmerscollections/collectiondetails/' + collectionId;
     return this.httpClient.get<Verifiedcollectiondetails>(url);
 }
- 
+getCollectionCenterAndCorporateId(): Observable<Corporate[]> {
+  let url =
+    'http://localhost:5192/api/collectioncenters/collectioncenterandcorporateid';
+  return this.httpClient.get<Corporate[]>(url);
+}
 }
