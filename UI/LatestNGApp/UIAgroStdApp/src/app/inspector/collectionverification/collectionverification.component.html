@@ -1,1 +1,104 @@
-<app-unverifiedcollection></app-unverifiedcollection>
+<!-- 
+
+<div class="container">
+    <div class="row">
+      <div class="col-12 col-md-12 overflow-auto">
+        <div class="card">
+          <div class="card-header" style="background-color: #001f3f; color: #fff;">
+            Collection List
+          </div>
+          <div class="card-body text-left">
+            
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="allCheckbox" [(ngModel)]="allType" (change)="setType('all')">
+                <label class="form-check-label" for="allCheckbox">All</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="verifiedCheckbox" [(ngModel)]="verifiedType" (change)="setType('verified')">
+                <label class="form-check-label" for="verifiedCheckbox">Verified</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="unverifiedCheckbox" [(ngModel)]="unverifiedType" (change)="setType('unverified')">
+                <label class="form-check-label" for="unverifiedCheckbox">Unverified</label>
+              </div>
+              
+  
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Crop</th>
+                  <th>Farmer Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let collectionsList of collectionList ">
+                <tr>
+                  <td>{{ collectionsList.collectionDate | date }}</td>
+                  <td>{{ collectionsList.cropName }}</td>
+                  <td>{{ collectionsList.farmerName }}</td>
+                  <td>
+                    <button class="btn btn-primary" (click)="onClickDetails(collectionsList.collectionId)">Details</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-12 overflow-auto">
+        <div class="card">
+          <div class="card-header" style="background-color: #001f3f; color: #fff;">
+            Collection List
+          </div>
+          <div class="card-body text-left">
+            
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="allCheckbox" [(ngModel)]="allType" (change)="setType('all')">
+              <label class="form-check-label" for="allCheckbox">All</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="verifiedCheckbox" [(ngModel)]="verifiedType" (change)="setType('verified')">
+              <label class="form-check-label" for="verifiedCheckbox">Verified</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="unverifiedCheckbox" [(ngModel)]="unverifiedType" (change)="setType('unverified')">
+              <label class="form-check-label" for="unverifiedCheckbox">Unverified</label>
+            </div>
+            
+  
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Crop</th>
+                  <th>Farmer Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let collectionsList of collectionList ">
+                <tr>
+                  <td>{{ collectionsList.collectionDate | date }}</td>
+                  <td>{{ collectionsList.cropName }}</td>
+                  <td>{{ collectionsList.farmerName }}</td>
+                  <td>
+                    <div class="btn-group">
+                    <button class="btn btn-primary" (click)="onClickDetails(collectionsList.collectionId)">Details</button>
+                
+                    <button class="btn btn-primary" *ngIf ="unverifiedType" (click)="onClickVerify(collectionsList.collectionId)">Verify</button>
+        
+            </div>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

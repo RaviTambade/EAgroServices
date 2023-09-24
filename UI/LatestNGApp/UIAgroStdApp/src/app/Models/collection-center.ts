@@ -1,5 +1,5 @@
 export class CollectionCenterId {
-   constructor(public collectionCenterId:number,public managerId:number,
+   constructor(public id:number,public collectionCenterId:number,public managerId:number,
     public corporateId:number){}
 
 }

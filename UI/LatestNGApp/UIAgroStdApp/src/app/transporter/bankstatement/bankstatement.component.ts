@@ -20,8 +20,8 @@ export class BankstatementComponent implements OnInit {
   ngOnInit(): void {
     this.transportersvc.gettransporterIdByUserId().subscribe((res)=>{
       this.transporterId=res
-    this.transportersvc.getCorporateIdOfTransporter(this.transporterId).subscribe((res) => {
-      this.corporateId=res
+    // this.transportersvc.getCorporateIdOfTransporter(this.transporterId).subscribe((res) => {
+    //   this.corporateId=res
         this.banksvc.getCorporateAccountInfo(this.corporateId).subscribe((res) => {
           this.accountNumber = res.accountNumber;
           this.banksvc.getBankStatement(this.accountNumber).subscribe((statement) => {
@@ -30,6 +30,6 @@ export class BankstatementComponent implements OnInit {
             });
           })
         });
-      });
+     // });
   }
 }

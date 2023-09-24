@@ -1,0 +1,49 @@
+<!-- <div *ngIf="verifyStatus">
+    <form [formGroup]="collectionForm" (ngSubmit)="OnSubmit()">
+        <label for="containerType">Grade:</label>
+        <label *ngFor="let grade of grades">
+            <input type="radio" [id]="grade" [value]="grade" formControlName="grade">
+            <label [for]="grade">{{ grade }}</label>
+        </label>
+
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" formControlName="weight">
+
+        <button type="submit" [disabled]="!collectionForm.valid">Submit</button>
+    </form>
+    <button (click)="onCancelClick()">Cancel</button>
+</div> -->
+<div *ngIf="verifyStatus" class="custom-container">
+    <div class="custom-card">
+      <div class="custom-card-header">
+        Form Header
+      </div>
+      <div class="custom-card-body">
+        <form [formGroup]="collectionForm" (ngSubmit)="OnSubmit()">
+          <div class="custom-form-group">
+            <label for="grade" class="custom-label">Grade:</label>
+            <div class="custom-radio-row">
+              <div *ngFor="let grade of grades" class="custom-radio">
+                <input type="radio" [id]="grade" [value]="grade" formControlName="grade" class="custom-radio-input">
+                <label [for]="grade" class="custom-radio-label">{{ grade }}</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="custom-form-group">
+            <label for="weight" class="custom-label">Weight:</label>
+            <input type="number" id="weight" formControlName="weight" class="custom-input">
+          </div>
+  
+          <div class="text-center">
+            <button type="submit" [disabled]="!collectionForm.valid" class="custom-button">Submit</button>
+            <button type="button" (click)="onCancelClick()" class="custom-button custom-secondary-button">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
