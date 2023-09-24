@@ -12,12 +12,12 @@
                   <table class="table table-bordered">
                       <thead>
                           <tr>
+                              <th>Shipment Date</th>
                               <th>Corporate Merchant Name</th>
                               <th>Vehicle Type</th>
                               <th>RTO Number</th>
                               <th>Kilometers</th>
                               <th>Status</th>
-                              <th>Shipment Date</th>
                               <th>Action</th>
                               <!-- Uncomment below line if you want to add a button in the future -->
                               <!-- <th>Action</th> -->
@@ -25,12 +25,13 @@
                       </thead>
                       <tbody>
                           <tr *ngFor="let shipment of vehicleCorporateshipments">
+                             <td>{{ shipment.shipmentDate | date }}</td>
                               <td>{{ shipment.companyName }}</td>
                               <td>{{ shipment.vehicleType }}</td>
                               <td>{{ shipment.rtoNumber }}</td>
                               <td>{{ shipment.kilometers }}</td>
-                              <td>{{ shipment.status }}</td>
-                              <td>{{ shipment.shipmentDate | date }}</td>
+                              <td [ngClass]="{ 'paid': shipment.status === 'delivered', 'inprogress': shipment.status !== 'delivered' }">{{ shipment.status }}</td>
+                              
                           
                               <td>
                                   <button class="btn btn-primary" (click)="setSelectedShipmentId(shipment.shipmentId)">Details</button>

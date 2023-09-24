@@ -39,13 +39,6 @@
               <a a class="nav-link text-dark" [routerLink]="['farmer/bankstatement']">Bank Statements</a>
             </div>
 
-            <div *ngIf="isRoleMerchant()"style="display: flex; justify-content: space-between;">
-              <a class="nav-link text-dark" routerLink="transporter/dashboard" >Dashboard</a>
-              <a class="nav-link text-dark" routerLink="transporter/vehicles" >Vehicles</a>
-              <a class="nav-link text-dark" routerLink="transporter/allshipments" >All Shipments</a>
-              <a class="nav-link text-dark" routerLink="transporter/invoices" >Invoices</a>
-              <a class="nav-link text-dark" routerLink="transporter/banking" >Bankstatement</a>
-            </div>
 
             <div *ngIf="isRoleCollectionManager()"style="display: flex; justify-content: space-between;">
               <a class="nav-link text-dark" routerLink="collectionmanager/dashboard">Dashboard</a>

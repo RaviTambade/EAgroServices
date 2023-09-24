@@ -10,19 +10,20 @@
                     <table class="table table-bordered">
                       <thead>
                           <tr>
+                             <th>Shipment Date</th>
                               <th>Merchant</th>
                               <th>Kilometers</th>
                               <th>Status</th>
-                              <th>Shipment Date</th>
+                            
                               <th>Action</th> <!-- I've added an Action header for the Details button -->
                           </tr>
                       </thead>
                       <tbody>
                           <tr *ngFor="let shipment of shipmentmerchants">
+                              <td>{{ shipment.shipmentDate | date }}</td>
                               <td appCorporatedetails>{{shipment.companyName}}</td>
                               <td>{{ shipment.kilometers }}</td>
-                              <td>{{ shipment.status }}</td>
-                              <td>{{ shipment.shipmentDate | date }}</td>
+                              <td [ngClass]="{ 'paid': shipment.status === 'delivered', 'inprogress': shipment.status !== 'delivered' }">{{ shipment.status }}</td>
                               <td>
                                   <button class="btn btn-primary" (click)="onClickShipmentDetails(shipment)">Details</button>
                               </td>
