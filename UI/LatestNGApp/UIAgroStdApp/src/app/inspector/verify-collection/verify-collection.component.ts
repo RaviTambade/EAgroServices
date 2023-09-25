@@ -58,6 +58,7 @@ console.log(res);
         .addVerifiedCollection(collection)
         .subscribe((res) => {
           if (res) {
+            alert("Crop Verified Succesfully")
             window.location.reload();
           }
         });
