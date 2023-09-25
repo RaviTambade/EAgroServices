@@ -12,12 +12,16 @@ import { VerifiedcollectiondetailsComponent } from './verifiedcollectiondetails/
 import { VerifiedComponent } from './verified/verified.component';
 import { AddtoshipmentComponent } from './addtoshipment/addtoshipment.component';
 import { CreateshipmentComponent } from './createshipment/createshipment.component';
+import { CollectionShipmentListComponent } from './collection-shipment-list/collection-shipment-list.component';
+import { CollectionPaymentListComponent } from './collection-payment-list/collection-payment-list.component';
+import { CollectionPaymentDetailsComponent } from './collection-payment-details/collection-payment-details.component';
 
 export const collectionmanagerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
   {path:'collection',component:CollectionviewComponent},
   {path:'addcollection',component:AddcollectionComponent},
   {path:'verifiedcollection',component:VerifiedComponent},
+  {path:'shipmentlist',component:CollectionShipmentListComponent},
 
 ]
 
@@ -32,7 +36,9 @@ export const collectionmanagerRoutes:Routes=[
     VerifiedcollectiondetailsComponent,
     VerifiedComponent,
     AddtoshipmentComponent,
-    CreateshipmentComponent
+    CreateshipmentComponent,
+    CollectionShipmentListComponent,
+    CollectionPaymentListComponent,
   ],
   imports: [
     CommonModule,
