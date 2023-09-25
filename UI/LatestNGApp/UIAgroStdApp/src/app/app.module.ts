@@ -15,11 +15,9 @@ import { farmerRoutes } from './farmer/farmer.module';
 import { merchantRoutes } from './merchant/merchant.module';
 import { collectionmanagerRoutes } from './collectionmanager/collectionmanager.module';
 import { MenubarComponent } from './menubar/menubar.component';
-import { UserprofileComponent } from './users/userprofile/userprofile.component';
 import { userRoutes } from './users/users.module';
-import { EdituserComponent } from './users/edituser/edituser.component';
-import { UpdatePassword } from './authentication/Models/update-password';
 import { UpdatepasswordComponent } from './authentication/updatepassword/updatepassword.component';
+import { inspectorsRoutes } from './inspector/inspector.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +41,7 @@ import { UpdatepasswordComponent } from './authentication/updatepassword/updatep
       {path:'farmer',children:farmerRoutes},
       {path:'merchant',children:merchantRoutes},
       {path:'collectionmanager',children:collectionmanagerRoutes},
+      {path:'inspector',children:inspectorsRoutes},
       {path:'user',children:userRoutes},
       {path:'updatepassword',component:UpdatepasswordComponent},
 

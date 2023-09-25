@@ -15,6 +15,7 @@
              <div class="nav-link text-dark" *ngIf="corporateName.length == 0"> 
               {{getCorporate()}}</div>
              {{corporateName}}
+
           </li> -->
 
           <li class="nav-item" *ngIf="isCorporate()">
@@ -22,6 +23,9 @@
                 {{corporateName}}
             </div>
         </li>
+          <li class="nav-item" *ngIf="isInspector()">
+           <a class="nav-link text-dark"> {{collectionCenterName}} </a>
+          </li>
           <!-- Logged In User Profile and Logout -->
           <li class="nav-item" *ngIf="isLoggedIn()">
             <a class="nav-link text-dark" (click)="openUserProfile()">

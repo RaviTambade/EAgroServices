@@ -1,4 +1,4 @@
--- Active: 1694098175290@@127.0.0.1@3306
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
@@ -84,7 +84,7 @@ WHERE merchants.id = 1;
 
 SELECT * FROM vehicles;
 
-SELECT * FROM payments;
+SELECT * FROM inspectors;
 
 SELECT * FROM verifiedgoodscollection;
 
@@ -401,4 +401,8 @@ SELECT * FROM goodscollectionpayments;
       WHERE `s`.`id` IS NULL AND (`v`.`collectionid` = 65)
 
 
-      SELECT * FROM verifiedgoodscollection ;
+      SELECT * FROM goodscollections;
+      SELECT * FROM verifiedgoodscollection;
+      SELECT *FROM goodscollections
+LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
+WHERE verifiedgoodscollection.collectionid IS NULL;

@@ -1,0 +1,74 @@
+/* Custom CSS for the card */
+.custom-container {
+    margin-top: 20px;
+  }
+  
+  .custom-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .custom-card-header {
+    background-color: #162536;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .custom-card-body {
+    padding: 20px;
+  }
+  
+  /* Custom CSS for form elements */
+  .custom-form-group {
+    margin-bottom: 20px;
+  }
+  
+  .custom-label {
+    font-weight: bold;
+  }
+  
+  .custom-radio-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .custom-radio {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .custom-radio-input {
+    margin-right: 5px;
+  }
+  
+  .custom-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .custom-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .custom-secondary-button {
+    background-color: #6c757d;
+    margin-left: 10px;
+  }
+  

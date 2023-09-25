@@ -119,9 +119,7 @@ export class CollectionListFilterComponent implements OnInit, OnDestroy {
         complete:()=>{
           console.log('completed');
         }
-      }
-
-      );
+      });
   }
 
   ngOnDestroy(): void {

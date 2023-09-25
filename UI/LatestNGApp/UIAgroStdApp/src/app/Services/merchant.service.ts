@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Corporate } from '../Models/corporate';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,10 @@ export class MerchantService {
     return this.http.get<number>(url);
   }
 
-  getMerchantCorporateId(): Observable<any> {
+  getMerchantCorporateId(): Observable<Corporate[]> {
     const merchantId = localStorage.getItem("userId");
     let url = "http://localhost:5276/api/merchants/" + merchantId + "/getcorporate"
-    return this.http.get<any>(url)
+    return this.http.get<Corporate[]>(url)
   }
 
   getCorporateIdOfTransporter(transporterId:number): Observable<number> {

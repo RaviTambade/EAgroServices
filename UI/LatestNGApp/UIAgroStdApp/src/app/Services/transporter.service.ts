@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Vehicle } from '../Models/vehicle';
 import { Shipmentsmerchant } from '../Models/shipmentsmerchant';
+import { VehicleNumberId } from '../Models/vehiclenumberid';
+import { Corporate } from '../Models/corporate';
 import { VehicleCorporateShipment } from '../Models/vehicle-corporate-shipment';
 import { Transporterinvoice } from '../Models/transporterinvoices';
 

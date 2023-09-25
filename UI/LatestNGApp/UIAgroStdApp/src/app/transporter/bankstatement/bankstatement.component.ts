@@ -30,6 +30,6 @@ export class BankstatementComponent implements OnInit {
             });
           })
         });
-      });
+  })
   }
 }

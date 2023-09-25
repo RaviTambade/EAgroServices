@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../Services/user.service';
 import { AuthenticationService } from '../Services/authentication.service';
 import { CorporateService } from '../Services/corporate.service';
-import { NameId } from '../Models/name-id';
+import { InspectorService } from '../Services/inspector.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,23 +13,26 @@ import { NameId } from '../Models/name-id';
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
   name: string | undefined
-  corporateName:string='';
+  corporateName: string = '';
   userId: number | undefined;
-  roles: string[]=[];
+  roles: string[] = [];
+  collectionCenterName: string = '';
 
-  constructor(private router: Router, private userService: UserService,private authService:AuthenticationService,private corporateService:CorporateService) { }
+  constructor(private router: Router, private userService: UserService,
+    private authService: AuthenticationService, private corporateService: CorporateService,
+    private inspectorsvc: InspectorService) { }
   ngOnInit(): void {
-     let contactNumber =  this.authService.getContactNumberFromToken()
+    let contactNumber = this.authService.getContactNumberFromToken()
     if (contactNumber != null) {
       this.userService.getUserByContact(contactNumber).subscribe((response) => {
         console.log(response);
         this.name = response.name;
         this.getCorporate();
 
-      })    
+      })
     }
     this.getRole();
-    this.getCorporate();
+
   }
 
   collapse() {
@@ -45,42 +48,73 @@ export class NavMenuComponent implements OnInit {
   }
 
   getUserName() {
-    let contactNumber =  this.authService.getContactNumberFromToken()
+    let contactNumber = this.authService.getContactNumberFromToken()
     if (contactNumber != null) {
       this.userService.getUserByContact(contactNumber).subscribe((response) => {
         console.log(response);
         this.name = response.name;
-      })    
+      })
     }
 
   }
-getCorporate(){
-  this.corporateService.getCorporateIdByPersonId().subscribe((corporateId)=>{
-    this.corporateService.getCorporates(corporateId.toString()).subscribe((response)=>{
-      this.corporateName=response[0].name
-      console.log("corporateCheck: ",response);
-    })
-  })
-}
+  getCorporate() {
+    if (this.isCorporate())
+      this.corporateService.getCorporateIdByPersonId().subscribe((corporateId) => {
+        this.corporateService.getCorporates(corporateId.toString()).subscribe((response) => {
+          this.corporateName = response[0].name
+        })
+      })
+  }
+  getCollectionCenter() {
+    if (this.isInspector())
+      this.inspectorsvc.getcollectionCenterId().subscribe((res) => {
+        this.inspectorsvc.getcollectionCenterCorporateId(res.corporateId).subscribe((res) => {
+          this.corporateService.getCorporates(res.corporateId.toString()).subscribe((response) => {
+            this.collectionCenterName = response[0].name
+          })
+        })
 
-getRole(){
-this.userId= Number(localStorage.getItem("userId"));
-this.userService.getUserRole(this.userId).subscribe((res)=>{
-  this.roles=res
-});
-}
-isCorporate(): boolean {
-  return this.roles.includes("collection manager") || 
-         this.roles.includes("merchant") || 
-         this.roles.includes("transporter");
-}
+      })
+  }
+
+  getRole() {
+    this.userId = Number(localStorage.getItem("userId"));
+    this.userService.getUserRole(this.userId).subscribe((res) => {
+      this.roles = res
+      if (this.isCorporate())
+        this.corporateService.getCorporateIdByPersonId().subscribe((corporateId) => {
+          this.corporateService.getCorporates(corporateId.toString()).subscribe((response) => {
+            this.corporateName = response[0].name
+          })
+        })
+      if (this.isInspector())
+        this.inspectorsvc.getcollectionCenterId().subscribe((res) => {
+      console.log(res)
+          this.inspectorsvc.getcollectionCenterCorporateId(res.collectionCenterId).subscribe((res) => {
+            this.corporateService.getCorporates(res.corporateId.toString()).subscribe((response) => {
+              this.collectionCenterName = response[0].name
+              console.log(this.collectionCenterName);
+            })
+          })
+
+        })
+    });
+  }
+
+  isCorporate(): boolean {
+    return this.roles.includes("collection manager" || "merchant" || "transporter")
+
+  }
+  isInspector(): boolean {
+    return this.roles.includes("inspector")
+  }
 
   logOut() {
     localStorage.clear();
     this.router.navigate(['login']);
   }
 
-  
+
   openUserProfile() {
     this.router.navigate(['user/userinfo']);
   }

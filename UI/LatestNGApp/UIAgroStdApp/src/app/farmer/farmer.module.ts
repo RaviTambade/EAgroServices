@@ -6,7 +6,6 @@ import { CollectionsComponent } from './collections/collections.component';
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
 import { CollectionlistComponent } from './collectionlist/collectionlist.component';
 import { InvioceComponent } from './invioce/invioce.component';
-import { VerifiedcollectionComponent } from './verifiedcollection/verifiedcollection.component';
 import { UnverifiedcollectionComponent } from './unverifiedcollection/unverifiedcollection.component';
 import { FormsModule } from '@angular/forms';
 import { InvoicelistComponent } from './invoicelist/invoicelist.component';
@@ -19,7 +18,6 @@ export const farmerRoutes:Routes=[
   {path:'collections',component:CollectionsComponent},
   {path:'invoice',component:InvioceComponent},
   {path:'invoicelist',component:TotalinvoiceComponent},
-  {path:'verified',component:VerifiedcollectionComponent},
   {path:'unverified',component:UnverifiedcollectionComponent},
   {path:'bankstatement',component:BankstatementComponent},
 
@@ -33,7 +31,6 @@ export const farmerRoutes:Routes=[
     CollectiondetailsComponent,
     CollectionlistComponent,
     InvioceComponent,
-    VerifiedcollectionComponent,
     UnverifiedcollectionComponent,
     InvoicelistComponent,
     InvoicedetailsComponent,

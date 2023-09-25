@@ -6,6 +6,8 @@ import { CorporateService } from './corporate.service';
 import { UserService } from './user.service';
 import { InprogressVehicle } from '../Models/inprogress-vehicle';
 import { ShipmentItem } from '../Models/shipment-item';
+import { FilterRequest } from '../filter/filter-request';
+import { ShippedCollection } from '../Models/shipped-collection';
 
 @Injectable({
   providedIn: 'root',
@@ -90,6 +92,23 @@ export class ShipmentService {
     let url = 'http://localhost:5067/api/shipmentitems';
     return this.http.post<boolean>(url, shipmentItem);
   }
+  getShippedCollections(
+    filterRequest: FilterRequest,
+    pageNumber: number,
+    staus: string
+  ): Observable<HttpResponse<ShippedCollection[]>> {
+    let collectionCenterId = localStorage.getItem('collectionCenterId');
+    let url =
+      'http://localhost:5067/api/shipments/collections/' +
+      collectionCenterId +
+      '/status/' +
+      staus;
+    let params = new HttpParams().set('pageNumber', pageNumber.toString());
+    return this.http.post<ShippedCollection[]>(url, filterRequest, {
+      params: params,
+      observe: 'response',
+    });
 
  
+}
 }
