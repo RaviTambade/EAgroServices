@@ -15,6 +15,8 @@ import { CreateshipmentComponent } from './createshipment/createshipment.compone
 import { CollectionShipmentListComponent } from './collection-shipment-list/collection-shipment-list.component';
 import { CollectionPaymentListComponent } from './collection-payment-list/collection-payment-list.component';
 import { CollectionPaymentDetailsComponent } from './collection-payment-details/collection-payment-details.component';
+import { BankingComponent } from './banking/banking.component';
+import { isNgContainer } from '@angular/compiler';
 
 export const collectionmanagerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
@@ -22,6 +24,7 @@ export const collectionmanagerRoutes:Routes=[
   {path:'addcollection',component:AddcollectionComponent},
   {path:'verifiedcollection',component:VerifiedComponent},
   {path:'shipmentlist',component:CollectionShipmentListComponent},
+  {path:'banking',component:BankingComponent},
 
 ]
 

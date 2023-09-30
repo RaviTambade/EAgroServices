@@ -25,9 +25,10 @@ export class BankingService {
   getCorporateAccountInfo(corporateId: number): Observable<AccountInfo> {
     let url = "http://localhost:5053/api/accounts/details";
     let body = {
-      "Usertype": "corporation",
-      "DependencyId": corporateId
+      "usertype": "corporation",
+      "dependencyId": corporateId
     }
+    console.log(body);
     return this.http.post<AccountInfo>(url, body);
   }
 
@@ -37,6 +38,7 @@ export class BankingService {
   }
   getBankStatement(acctNumber: string): Observable<BankStatement[]> {
     let url = "http://localhost:5053/api/banking/accounts/" + acctNumber + "/statement";
+    console.log(url);
     return this.http.get<BankStatement[]>(url);
   }
 }

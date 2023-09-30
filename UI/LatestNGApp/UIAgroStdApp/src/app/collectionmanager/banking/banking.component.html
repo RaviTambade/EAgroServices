@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Mode</th>
+        <th>Desciption</th>
+        <th>balance</th>
+    </tr>
+</thead>
+    <tbody>
+        <tr *ngFor="let st of statement">
+            <td>{{st.date}}</td>
+            <td>{{st.amount}}</td>
+            <td>{{st.mode}}</td>
+            <td>{{st.description}}</td>
+            <td>{{st.balance}}</td>
+        </tr>
+    </tbody>
+</table>

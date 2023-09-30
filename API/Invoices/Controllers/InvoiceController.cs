@@ -88,5 +88,12 @@ namespace Transflower.Invoices.Controllers
         {
             return await _service.GetCollectionCenterInvoiceDetails(collectionCenterId, invoiceId);
         }
+
+        //   [HttpPost("collectionCenter/{collectionCenterId}")]
+        // public async Task<List<CollectionCenterInvoice>> CollectionCenterInvoices(int collectionCenterId)
+        //  {
+        //     return await _service.CollectionCenterInvoices(collectionCenterId);
+        // }
+       
     }
 }
