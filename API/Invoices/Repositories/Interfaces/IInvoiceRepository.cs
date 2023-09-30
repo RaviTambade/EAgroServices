@@ -16,5 +16,6 @@ public interface IInvoiceRepository
     Task<bool> Insert(Invoice invoice);
     Task<bool> Update(int invoiceId, UpdateRate rate);
     Task<bool> Delete(int invoiceId);
+    Task<List<CollectionCenterInvoice>> CollectionCenterInvoices(int collectionCenterId);
 }
 

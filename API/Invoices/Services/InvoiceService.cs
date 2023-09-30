@@ -56,6 +56,11 @@ namespace Transflower.Invoices.Services
         {
             return await _repository.GetCollectionCenterInvoiceDetails(collectionCenterId, invoiceId);
         }
+        public async Task<List<CollectionCenterInvoice>>CollectionCenterInvoices(
+            int collectionCenterId)
+        {
+            return await _repository.CollectionCenterInvoices(collectionCenterId);
+        }
 
         public async Task<PagedList<CollectionCenterInvoice>> GetCollectionCenterInvoices(
             int collectionCenterId,

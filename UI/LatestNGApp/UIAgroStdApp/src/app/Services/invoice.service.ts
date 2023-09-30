@@ -78,23 +78,11 @@ export class InvoiceService {
     return this.httpClient.patch<boolean>(url, body);
   }
 
-  getCollectionCenterInvoices(
-    filterRequest: FilterRequest,
-    pageNumber: number,
-    status: string
-  ): Observable<HttpResponse<Invoice[]>> {
-    const collectionCenterId = localStorage.getItem('collectionCenterId');
+  getCollectionCenterInvoices(collectionCenterId:number): Observable<Invoice[]> {
     let url =
-      'http://localhost:5197/api/invoices/collectionCenter/' +
-      collectionCenterId +
-      '/status/' +
-      status;
-    const params = new HttpParams().set('pageNumber', pageNumber.toString());
-    return this.httpClient.post<Invoice[]>(url, filterRequest, {
-      params: params,
-      observe: 'response',
-    });
-  }
+      'http://localhost:5197/api/invoices/collectionCenter/farmers/' + collectionCenterId;
+    return this.httpClient.get<Invoice[]>(url);
+    }
 
   getCollectionCenterInvoicDetails(
     invoiceId: number

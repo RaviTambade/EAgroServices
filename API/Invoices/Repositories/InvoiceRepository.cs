@@ -392,5 +392,49 @@ public class InvoiceRepository : IInvoiceRepository
             throw;
         }
     }
+
+    public async Task<List<CollectionCenterInvoice>> CollectionCenterInvoices(int collectionCenterId)
+       {
+        try
+        {
+            var invoices = await(
+                from invoice in _context.Invoices
+                join shipmentItem in _context.ShipmentItems
+                    on invoice.ShipmentItemId equals shipmentItem.Id
+                join shipment in _context.Shipments
+                    on shipmentItem.ShipmentId equals shipment.Id
+                join charges in _context.GoodsCostings
+                    on shipmentItem.Id equals charges.ShipmentItemId
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where
+                    collection.CollectionCenterId == collectionCenterId
+                orderby invoice.InvoiceDate descending
+                select new CollectionCenterInvoice()
+                {
+                    Id = invoice.Id,
+                    MerchantCorporateId = merchant.CorporateId,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    Quantity = collection.Quantity,
+                    Weight = verifiedCollection.Weight,
+                    RatePerKg = invoice.RatePerKg,
+                    TotalAmount = charges.ServiceCharges + charges.LabourCharges,
+                    InvoiceDate = invoice.InvoiceDate
+                }).ToListAsync();
+
+            return invoices;
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
+
 

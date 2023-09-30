@@ -17,6 +17,7 @@ import { CollectionPaymentListComponent } from './collection-payment-list/collec
 import { CollectionPaymentDetailsComponent } from './collection-payment-details/collection-payment-details.component';
 import { BankingComponent } from './banking/banking.component';
 import { isNgContainer } from '@angular/compiler';
+import { InvoicelistComponent } from './invoicelist/invoicelist.component';
 
 export const collectionmanagerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
@@ -42,6 +43,7 @@ export const collectionmanagerRoutes:Routes=[
     CreateshipmentComponent,
     CollectionShipmentListComponent,
     CollectionPaymentListComponent,
+    InvoicelistComponent,
   ],
   imports: [
     CommonModule,
