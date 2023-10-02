@@ -37,6 +37,11 @@
                         <li>
                           <strong>Inspector:</strong> {{ inspectorName}}
                         </li>
+                        <li>
+                    <button class="btn btn-primary" (click)="addToShipment(collectionId)">Add To Shipment</button>
+                        </li>
+                        <app-addtoshipment *ngIf="isAddToShipment" ></app-addtoshipment>
+
                       </ul>
                     </div>
                   </div>

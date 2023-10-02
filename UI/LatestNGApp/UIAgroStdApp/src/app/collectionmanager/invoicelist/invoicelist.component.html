@@ -1,1 +1,53 @@
-<p>invoicelist works!</p>
+<div class="container mt-4">
+    <!-- <div class="row justify-content-center"> -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Invoices</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered" *ngFor="let invoices of invoice">
+                    <tr>
+                        <td><strong>Invoice Date</strong></td>
+                        <td>{{ invoices.invoiceDate | date}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Farmer Name</strong></td>
+                        <td>{{invoices.farmerName}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Merchant Name</strong></td>
+                        <td>{{invoices.merchantName}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Crop Name:</strong></td>
+                        <td>{{ invoices.cropName }}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Quantity:</strong></td>
+                        <td>{{ invoices.quantity }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Net Weight:</strong></td>
+                        <td>{{ invoices.weight |number }}</td>
+                    </tr>
+                    <!-- <tr>
+                        <td><strong>Rate Per Kg:</strong></td>
+                        <td> {{ invoices.ratePerKg |number }}
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td><strong>Farmer Amount:</strong></td>
+                        <td>{{ invoices.totalAmount |number }}</td>
+                    </tr> 
+                    <!--<tr>
+                      <td><button class="btn btn-info"
+                        (click)="onClickInvoiceDetails()"> Invoice Details </button></td>
+                    </tr> -->
+                <hr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InprogressVehicle } from 'src/app/Models/inprogress-vehicle';
 import { ShipmentItem } from 'src/app/Models/shipment-item';
 import { CollectionmanagerService } from 'src/app/Services/collectionmanager.service';
@@ -12,9 +12,10 @@ import { ShipmentService } from 'src/app/Services/shipment.service';
   styleUrls: ['./addtoshipment.component.css']
 })
 export class AddtoshipmentComponent implements OnInit {
-  formbuilder: any;
+  
   collectionId: any;
   constructor(
+     private formbuilder: FormBuilder,
     private shipmentsvc:ShipmentService,
     private corporatesvc:CorporateService,
     private managersvc:CollectionmanagerService){

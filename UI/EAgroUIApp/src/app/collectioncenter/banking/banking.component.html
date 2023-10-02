@@ -6,13 +6,15 @@
         <th>Desciption</th>
         <th>balance</th>
     </tr>
-    <ng-container *ngFor="let st of statement">
-        <tr>
+    <tr>
+    <div *ngFor='let st of statement'>
+        
             <td>{{st.date | date }}</td>
             <td>{{st.amount |currency:"INR"}}</td>
             <td>{{st.mode}}</td>
             <td>{{st.description}}</td>
             <td>{{st.balance |currency:"INR"}}</td>
-        </tr>
-    </ng-container>
+        
+    </div>
+</tr>
 </table>

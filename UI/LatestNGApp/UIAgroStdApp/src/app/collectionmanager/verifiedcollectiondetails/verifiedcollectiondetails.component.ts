@@ -9,6 +9,7 @@ import { FarmerService } from 'src/app/Services/farmer.service';
   styleUrls: ['./verifiedcollectiondetails.component.css']
 })
 export class VerifiedcollectiondetailsComponent implements OnInit {
+  isAddToShipment:boolean =false
   selectedCollectionId: null | undefined;
   collectionId: any;
   farmerName: string = '';
@@ -32,6 +33,12 @@ export class VerifiedcollectiondetailsComponent implements OnInit {
           })
         })
     })
+  }
+  addToShipment(collectionId:number){
+    this.colmsvc.setSelectedCollectionIdForShipment(collectionId);
+    console.log(collectionId);
+    this.isAddToShipment=true
+    
   }
 
 }

@@ -25,6 +25,7 @@ export const collectionmanagerRoutes:Routes=[
   {path:'addcollection',component:AddcollectionComponent},
   {path:'verifiedcollection',component:VerifiedComponent},
   {path:'shipmentlist',component:CollectionShipmentListComponent},
+  {path:'invoices',component:InvoicelistComponent},
   {path:'banking',component:BankingComponent},
 
 ]
