@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="input-container">
+        <select [(ngModel)]="selectedRole" class="input-field" (ngModelChange)="onSearchInput()">
+            <option *ngFor="let role of roles" [value]="role">{{ displayPropertyName(role) }}</option>
+        </select>
+
+        <input type="text" [(ngModel)]="searchText" (input)="onSearchInput()" class="input-field"
+            placeholder="Search...">
+    </div>
+
+    <ul class="suggestions" *ngIf="showSuggestions">
+        <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">{{ suggestion.name }}</li>
+    </ul>
+</div>
