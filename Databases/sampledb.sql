@@ -61,6 +61,8 @@
     INSERT INTO ratecard (title,description,amount) VALUES ('tata1109','freight charge per km',17);
     INSERT INTO ratecard (title,description,amount) VALUES ('LP','freight charge per km',20);
     INSERT INTO ratecard (title,description,amount) VALUES ('servicecharges','service charges per kg',1);
+
+    
     INSERT INTO crops(title,imageurl,rate)VALUES('Potato','/assets/images/potato.jpeg',32);
     INSERT INTO crops(title,imageurl,rate)VALUES('Tomato','/assets/images/tomato.jpeg',12);
     INSERT INTO crops(title,imageurl,rate)VALUES('Cabbage','/assets/images/cabbage.jpeg',21);
@@ -248,3 +250,12 @@
 
 
    
+
+
+
+
+
+
+
+
+
