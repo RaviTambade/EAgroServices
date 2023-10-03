@@ -1,4 +1,4 @@
-<div *ngIf="!newShipmentStatus && componentViewStatus">
+<!-- <div *ngIf="!newShipmentStatus && componentViewStatus">
     <form [formGroup]="shipmentItemForm" (ngSubmit)="OnSubmit()">
       <label for="shipmentId">Vehicle Number:</label>
       <select id="shipmentId" formControlName="shipmentId">
@@ -8,11 +8,31 @@
       <br>
       <button type="submit" [disabled]="!shipmentItemForm.valid">Submit</button>
     </form>
-    <!-- <button (click)="componentViewStatus=false">Cancel</button> -->
+     <button (click)="componentViewStatus=false">Cancel</button>
     <button (click)="onClicknewShipment()">Create New Shipment</button>
-  </div>
+  </div> -->
   <!-- <div *ngIf="newShipmentStatus">
     <app-create-shipment></app-create-shipment>
     <button (click)="onClicknewShipment()">Cancel</button> -->
   
   <!-- </div> -->
+  <div *ngIf="!newShipmentStatus && componentViewStatus" class="container mt-4 custom-background">
+    <form [formGroup]="shipmentItemForm" (ngSubmit)="OnSubmit()">
+      <div class="form-group">
+        <label for="shipmentId">Vehicle Number:</label>
+        <select id="shipmentId" formControlName="shipmentId" class="form-control custom-select">
+          <option *ngFor="let shipmentVehicle of shipmentVehicleList" [value]="shipmentVehicle.id">{{ shipmentVehicle.vehicleNumber }} - {{ shipmentVehicle.merchantName }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary custom-button" [disabled]="!shipmentItemForm.valid">Submit</button>
+      </div>
+    </form>
+    <button class="btn btn-secondary custom-button" (click)="componentViewStatus=false">Cancel</button>
+    <button class="btn btn-success custom-button" (click)="onClicknewShipment()">Create New Shipment</button>
+  </div>
+  <div *ngIf="newShipmentStatus" class="container mt-4 custom-background">
+    <app-createshipment></app-createshipment>
+    <button class="btn btn-danger custom-button" (click)="onClicknewShipment()">Cancel</button>
+  </div>
+  

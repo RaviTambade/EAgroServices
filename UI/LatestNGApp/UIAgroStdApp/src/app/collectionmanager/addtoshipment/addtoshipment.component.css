@@ -1,0 +1,25 @@
+/* styles.css */
+/* Apply custom styles */
+
+/* Example: Change the background color of a specific element */
+.custom-background {
+  background-color: #f0f0f0;
+}
+
+/* Example: Change button styles */
+.custom-button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Example: Override Bootstrap styles for a specific element */
+.custom-select {
+  /* Override Bootstrap styles for select elements */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 4px;
+}
