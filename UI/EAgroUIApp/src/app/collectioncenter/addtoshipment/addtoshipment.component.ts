@@ -30,7 +30,7 @@ export class AddtoshipmentComponent implements OnInit {
   ngOnInit(): void {
     this.shipmentsvc.getInprogressShipments().subscribe((res) => {
       this.shipmentVehicleList = res;
-
+console.log(res);
       let distinctmerchantIds = this.shipmentVehicleList.map(item => item.merchantCorporateId)
         .filter((number, index, array) => array.indexOf(number) === index);
       let merchantIdString = distinctmerchantIds.join(',')

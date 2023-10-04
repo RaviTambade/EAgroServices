@@ -1,4 +1,4 @@
-<div *ngIf="showForm">
+<!-- <div *ngIf="showForm">
     <form [formGroup]="shipmentForm" (ngSubmit)="OnSubmit()">
     
         <label for="merchantId">Merchant Name:</label>
@@ -19,4 +19,29 @@
     
         <button type="submit" [disabled]="!shipmentForm.valid" >Submit</button>
       </form>
+    </div> -->
+
+    <div *ngIf="showForm" class="container mt-4">
+      <form [formGroup]="shipmentForm" (ngSubmit)="OnSubmit()">
+        <div class="form-group">
+          <label for="merchantId">Merchant Name:</label>
+          <select id="merchantId" formControlName="merchantId" class="form-control">
+            <option *ngFor="let merchant of merchants" [value]="merchant.corporateId">{{ merchant.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="vehicleId">Vehicle Number:</label>
+          <select id="vehicleId" formControlName="vehicleId" class="form-control">
+            <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.rtoNumber }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="kilometers">Kilometers:</label>
+          <input type="text" formControlName="kilometers" class="form-control">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!shipmentForm.valid">Submit</button>
+        </div>
+      </form>
     </div>
+    

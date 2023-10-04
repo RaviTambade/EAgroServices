@@ -403,6 +403,8 @@ SELECT * FROM goodscollectionpayments;
 
       SELECT * FROM goodscollections;
       SELECT * FROM verifiedgoodscollection;
+      SELECT * FROM shipments;
+      SELECT * FROM shipmentitems;
       SELECT *FROM goodscollections
 LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
 WHERE verifiedgoodscollection.collectionid IS NULL;

@@ -48,10 +48,10 @@ export class CreateshipmentComponent {
       });
     });
 
-    // this.trnsportersvc.getVehicleNumbers().subscribe((vehicles) => {
-    //   console.log(vehicles)
-    //   this.vehicles = vehicles
-    // })
+    this.trnsportersvc.getVehicleNumbers().subscribe((vehicles) => {
+      console.log(vehicles)
+      this.vehicles = vehicles
+    })
   }
 
   OnSubmit() {
