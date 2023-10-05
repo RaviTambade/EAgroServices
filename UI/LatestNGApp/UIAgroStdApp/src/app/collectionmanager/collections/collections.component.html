@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="row">
-      <div class="col-12 col-md-12 overflow-auto">
-        <div class="card">
+      <div class="col-md-12 col-md-12 ">
+        <div class="card overflow-auto" style="height:400px">
           <div class="card-header" style="background-color: #001f3f; color: #fff;">
             Collection List
           </div>
@@ -32,7 +32,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody *ngFor="let collectionsList of collectionList ">
+              <tbody  *ngFor="let collectionsList of collectionList">
                 <tr>
                   <td>{{ collectionsList.collectionDate | date }}</td>
                   <td>{{ collectionsList.cropName }}</td>

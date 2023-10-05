@@ -284,6 +284,7 @@ INSERT INTO verifiedgoodscollection(collectionid,grade,
     (37,'C',1100,1,'2023-10-07 13:30:00'),
     (38,'D',120,1,'2023-10-08 13:30:00'),
     (39,'A',4600,1,'2023-10-09 13:30:00'),
+
     (40,'B',4600,1,'2023-10-10 13:30:00'),
     (41,'C',17000,1,'2023-10-11 13:30:00'),
     (42,'D',625,1,'2023-10-12 13:30:00'),
@@ -559,11 +560,12 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (16,118);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (17,119);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (17,120);
 
-   
-   
-   
 
+CALL call_all_procedures_for_charges(18);
    
+SELECT * FROM invoices;
+
+   SELECT * FROM userroles;
 
 
    
