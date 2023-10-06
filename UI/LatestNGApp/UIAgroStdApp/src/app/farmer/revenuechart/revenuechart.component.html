@@ -1,0 +1,14 @@
+<div class="container">
+    <h2>Select a Month</h2>
+    <form>
+      <div class="form-group">
+        <label for="monthSelect">Select a Month:</label>
+        <select class="form-control" id="monthSelect" [(ngModel)]="selectedMonth" name="selectedMonth">
+          <option value="" disabled>Select a month</option>
+          <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="calculateDates()">Calculate Dates</button>
+    </form>
+  </div>
+  

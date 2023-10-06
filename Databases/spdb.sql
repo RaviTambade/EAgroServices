@@ -1,4 +1,4 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1696576841746@@127.0.0.1@3306@eagroservicesdb
 
 
 CREATE PROCEDURE apply_labour_charges(IN shipment_id INT)
@@ -148,3 +148,45 @@ BEGIN
     SET i = i + 1;
   END WHILE;
 END;
+
+
+
+SELECT SUM(invoices.totalamount) AS Amount
+                FROM invoices 
+                JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+                JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+                WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =1 AND  collectiondate >= '2023-09-02'
+  AND  collectiondate <= '2023-10-02' 
+                GROUP BY year(invoices. invoicedate)
+                ORDER BY year(invoices. invoicedate) ASC
+                
+-- Create PROCEDURE collection_deta_analysis (
+--   IN mode varchar(50),
+--   IN year int,
+--   in farmerId int
+-- )
+-- BEGIN 
+-- IF mode = 'monthName' THEN
+
+--    SELECT year(invoices. invoicedate) AS Year, SUM(invoices.totalamount) AS Amount
+--                 FROM invoices 
+--                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+--                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+--                 WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =@farmerId 
+--                 GROUP BY year(invoices. invoicedate)
+--                 ORDER BY year(invoices. invoicedate) ASC
+-- -- CREATE PROCEDURE insertpayment(
+-- --     IN mode VARCHAR(255),
+-- --     IN paymentstatus VARCHAR(255),
+-- --     IN transactionid INT,
+-- --     IN orderid INT
+-- -- )
+-- -- BEGIN
+-- --     IF mode = 'cash on delivery' THEN
+-- --         INSERT INTO payments ( mode, paymentstatus, orderid)
+-- --         VALUES ( mode, paymentstatus, orderid);
+-- --     ELSEIF mode = 'net banking' THEN
+-- --         INSERT INTO payments ( mode, paymentstatus, transactionid, orderid)
+-- --         VALUES ( mode,paymentstatus,transactionid,orderid);
+-- --     END IF;
+-- -- END;
