@@ -3,12 +3,28 @@
     <form>
       <div class="form-group">
         <label for="monthSelect">Select a Month:</label>
-        <select class="form-control" id="monthSelect" [(ngModel)]="selectedMonth" name="selectedMonth">
+        <select class="form-control" id="monthSelect" [(ngModel)]="selectedMonth" name="selectedMonth" (ngModelChange)="calculateDates()">
           <option value="" disabled>Select a month</option>
-          <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+          <option *ngFor="let month of months; let i = index" [value]="month" [disabled]="i >= currentMonthIndex">{{ month }}</option>
         </select>
       </div>
-      <button type="button" class="btn btn-primary" (click)="calculateDates()">Calculate Dates</button>
     </form>
   </div>
+  
+
+  <div class="container">
+    <h2>Select a Quarter</h2>
+    <form>
+      <div class="form-group">
+        <label for="quarterSelect">Select a Quarter:</label>
+        <select class="form-control" id="quarterSelect" [(ngModel)]="selectedQuarter" name="selectedQuarter" (change)="onQuarterChange()">
+          <option value="" disabled>Select a quarter</option>
+          <option *ngFor="let quarter of quarters; let i = index" [value]="quarter" [disabled]="i > currentQuarterIndex">{{ quarter }}</option>
+        </select>
+      </div>
+    </form>
+    <p>Start Date: {{ startDate }}</p>
+    <p>End Date: {{ endDate }}</p>
+  </div>
+  
   

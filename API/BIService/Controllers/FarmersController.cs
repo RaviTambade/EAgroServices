@@ -34,5 +34,6 @@ public class FarmerController : ControllerBase
     {
         return await _service.GetRevenuesByWeek(farmerId, year);
     }
+    
 
 }
