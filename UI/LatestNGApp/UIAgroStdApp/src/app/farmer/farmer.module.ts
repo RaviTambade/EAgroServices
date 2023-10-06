@@ -12,6 +12,7 @@ import { InvoicelistComponent } from './invoicelist/invoicelist.component';
 import { InvoicedetailsComponent } from './invoicedetails/invoicedetails.component';
 import { TotalinvoiceComponent } from './totalinvoice/totalinvoice.component';
 import { BankstatementComponent } from './bankstatement/bankstatement.component';
+import { RevenuechartComponent } from './revenuechart/revenuechart.component';
 
 export const farmerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
@@ -35,7 +36,8 @@ export const farmerRoutes:Routes=[
     InvoicelistComponent,
     InvoicedetailsComponent,
     TotalinvoiceComponent,
-    BankstatementComponent
+    BankstatementComponent,
+    RevenuechartComponent
   ],
   imports: [
     CommonModule,
