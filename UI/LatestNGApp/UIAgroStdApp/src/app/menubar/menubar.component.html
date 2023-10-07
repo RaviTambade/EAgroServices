@@ -34,6 +34,7 @@
           <ul class="nav-links">
 
             <div *ngIf="isRoleFarmer()" style="display: flex; justify-content: space-between;">
+              <a class="nav-link text-dark" [routerLink]="['/farmer/dashboard']">Dashboard</a>
               <a class="nav-link text-dark" [routerLink]="['/farmer/collections']">Collections</a>
               <a class="nav-link text-dark" [routerLink]="['/farmer/invoicelist']">Invoices</a>
               <a a class="nav-link text-dark" [routerLink]="['farmer/bankstatement']">Bank Statements</a>

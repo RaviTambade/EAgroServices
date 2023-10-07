@@ -94,12 +94,15 @@ export class RevenuechartComponent implements OnInit {
     // If the selected quarter is the current quarter, set the end date to the current date
     if (quarterIndex === this.currentQuarterIndex) {
       this.endDate = `${currentDate.getFullYear()}-${(endMonth + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
-      this.selectedMonth = this.months[startMonth]; // Update selected month
+      this.selectedMonth = this.months[startMonth];
+      console.log(this.startDate,this,this.endDate);
+       // Update selected month
     } else {
       // Calculate the end date for other quarters
       const lastDay = new Date(currentYear, endMonth + 1, 0).getDate();
       this.endDate = `${currentYear}-${(endMonth + 1).toString().padStart(2, '0')}-${lastDay.toString().padStart(2, '0')}`;
       this.selectedMonth = this.months[startMonth]; // Update selected month
+      console.log(this.startDate,this,this.endDate);
     }
   }
 
