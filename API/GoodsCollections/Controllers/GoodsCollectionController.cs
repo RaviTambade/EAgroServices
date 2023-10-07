@@ -125,4 +125,21 @@ public class GoodsCollectionController : ControllerBase
     {
         return await _service.GetVerifiedCollectionList(collectionCenterId);
     }
+
+
+
+ [HttpGet("collections/{farmerid}")]
+    public async Task<List<CollectionList>>? GetCollections(
+        int farmerid,
+         [FromQuery] string type
+     )
+     {
+ 
+         return await _service.GetCollectionList(farmerid,type);
+     }
+
+
+
+
+    
 }

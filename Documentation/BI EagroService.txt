@@ -1,0 +1,70 @@
+#Farmer -
+
+1- Total revenue of farmer
+             - daily
+             - monthly
+             - quarterly
+             - yearly.
+
+2- Total revenue by crop 
+             - daily
+             - monthly
+             - quarterly
+             - yearly.
+
+3- Goods collection cropwise count 
+
+4- total goodscollection count 
+             
+
+
+
+# Merchant -
+
+1 - Total revenue by each collection center
+             - daily
+             - monthly
+             - quarterly
+             - yearly.
+
+2- Current top Selling Crop-
+            
+
+
+
+# Collection Manager -
+
+1- Total Collection revenue
+             - daily
+             - monthly
+             - quarterly
+             - yearly.
+
+2- Collection revenue by each crop
+             - daily
+             - monthly
+             - quarterly
+             - yearly.
+
+3 Todays collectin count-
+            
+4- Cropwise collection count-
+
+
+# Transporter
+
+1- Total Transporter revenue
+            - daily
+            - monthly
+            - quarterly
+            - yearly.
+
+2- Total Transporter revenue from each shipment
+            - daily
+            - monthly
+            - quarterly
+            - yearly.
+
+3-total shipment count from each vehicle-
+
+

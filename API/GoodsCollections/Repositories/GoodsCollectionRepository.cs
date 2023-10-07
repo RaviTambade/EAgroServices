@@ -454,4 +454,73 @@ public class GoodsCollectionRepository : IGoodsCollectionRepository
             throw;
         }
     }
+
+
+
+//new 
+
+
+
+
+public async Task<List<CollectionList>> GetCollections(
+        int farmerid,
+         string type
+    )
+    {
+        try
+        {
+              IQueryable<CollectionList> baseQuery = 
+                from collection in _context.GoodsCollections
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where collection.FarmerId == farmerid
+                select new CollectionList()
+                {
+                    CollectionId = collection.Id,
+                    FarmerId = collection.FarmerId,
+                    // CropId = collection.CropId,
+                    CropName = crop.Title,
+                   
+                }; 
+                IQueryable<CollectionList> query;
+
+            if (type is CollectionListType.All)
+            {
+                query = baseQuery;
+            }
+            else if (type is CollectionListType.UnVerified)
+            {
+                query =
+                    from item in baseQuery
+                    join verifiedGoodsCollection in _context.VerifiedGoodsCollections
+                        on item.CollectionId equals verifiedGoodsCollection.CollectionId
+                        into gj
+                    from verifiedCollection in gj.DefaultIfEmpty()
+                    where verifiedCollection == null
+                    select item;
+            }
+            else if (type is CollectionListType.Verified)
+            {
+                query=
+                from item in baseQuery
+                    join verifiedGoodsCollection in _context.VerifiedGoodsCollections
+                        on item.CollectionId equals verifiedGoodsCollection.CollectionId
+                                 into gj
+                    from verifiedCollection in gj.DefaultIfEmpty()
+                where verifiedCollection != null
+                    select item;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid type parameter.");
+            }
+            return await query.ToListAsync();
+        }
+                catch(Exception)
+        {
+            throw;
+        }
+    }
+
+
+
 }

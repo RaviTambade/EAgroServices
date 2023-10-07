@@ -35,4 +35,12 @@ public interface IGoodsCollectionRepository
     Task<List<FarmerCollection>> GetUnverifiedCollectionsOfFarmer(int farmerId);
     Task<VerifiedCollectionDetail> GetVerifiedCollectionDetail(int collectionId);
     Task<List<CollectionList>> GetVerifiedCollectionList(int collectionCenterId);
+
+
+  Task<List<CollectionList>> GetCollections(
+        int farmerid,
+        string type
+    );
+
+    
 }

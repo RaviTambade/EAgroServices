@@ -95,5 +95,15 @@ namespace Transflower.EAgroServices.GoodsCollections.Services
         {
             return await _repository.GetVerifiedCollectionList(collectionCenterId);
         }
+
+
+   public async Task<List<CollectionList>> GetCollections(
+            int farmerid,
+             string type
+        )
+        {
+            return await _repository.GetCollectionList(farmerid,type);
+        }
+
     }
 }
