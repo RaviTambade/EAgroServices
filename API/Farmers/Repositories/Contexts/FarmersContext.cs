@@ -12,6 +12,7 @@ public class FarmerContext : DbContext
     public DbSet<Transporter> Transporters { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Shipment> Shipments { get; set; }
+    
     public DbSet<GoodsCosting> Costing { get; set; }
         public FarmerContext(DbContextOptions options)
     : base(options)

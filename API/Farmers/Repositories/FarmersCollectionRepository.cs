@@ -263,7 +263,6 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
         }
     }
 
-
  public async Task<List<CollectionList>> CollectionList(int farmerId)
     {
         try
@@ -322,5 +321,8 @@ public class FarmersCollectionRepository : IFarmersCollectionRepository
             throw;
         }
     }
+
+
+    
     
 }
