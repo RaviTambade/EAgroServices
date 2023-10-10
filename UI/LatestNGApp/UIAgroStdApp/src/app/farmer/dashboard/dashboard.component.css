@@ -1,0 +1,5 @@
+/* Add this to your component's CSS file or a global stylesheet */
+.dropdown-menu-above {
+    z-index: 1000; /* Adjust the z-index as needed to make the dropdowns appear above other elements */
+  }
+  

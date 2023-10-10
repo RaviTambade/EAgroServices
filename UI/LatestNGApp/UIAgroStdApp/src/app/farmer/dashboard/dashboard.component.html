@@ -1,51 +1,95 @@
-<!-- <p>farmer dashboard!</p>
-<app-revenuechart></app-revenuechart> -->
-<div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Today's Collection Count</h5>
-            <p class="card-text">100</p>
-          </div>
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Today's Collection Count</h5>
+          <p class="card-text">100</p>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Total Collection</h5>
-            <p class="card-text">$5000</p>
-          </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Collection</h5>
+          <p class="card-text">$5000</p>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Today's Rate</h5>
-            <p class="card-text">Crop Rate: ${{ getCurrentCrop().rate }}</p>
-            <img [src]="getCurrentCrop().image" alt="Crop Image" class="img-fluid">
-          </div>
+    </div>
+     <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Today's Rate</h5>
+          <p class="card-text">Crop Rate: ${{ getCurrentCrop().rate }}</p>
+          <img [src]="getCurrentCrop().image" alt="Crop Image" class="img-fluid">
         </div>
       </div>
-    <div class="row mt-4">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Farmer Revenue</h5>
-            <div class="btn-group">
-              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-                Select Interval
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Week</a>
-                <a class="dropdown-item" href="#">Month</a>
-                <a class="dropdown-item" href="#">Year</a>
-              </div>
-            </div>
-            <canvas id="revenueChart"></canvas>
+    </div> 
+   </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Farmer Revenue</h5>
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary">Week</button>
+            <button type="button" class="btn btn-secondary">Month</button>
+            <button type="button" class="btn btn-secondary">Year</button>
           </div>
+          <canvas id="revenueChart"></canvas>
         </div>
       </div>
     </div>
   </div>
-  
+</div> -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <!-- ... (Existing code for Today's Collection Count and Total Collection) ... -->
+    </div>
+    <div class="col-md-4">
+      <!-- ... (Existing code for Today's Rate) ... -->
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Farmer Revenue</h5>
+          <!-- Button group for "Week" -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" (click)="updateChart('Week')">Week</button>
+          </div>
+          <!-- Dropdown for "Month" -->
+         <!-- Dropdown for "Month" -->
+<div class="btn-group dropdown-menu-above">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+    Month
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" (click)="updateChart('Month', 'January')">January</a>
+    <a class="dropdown-item" href="#" (click)="updateChart('Month', 'February')">February</a>
+    <a class="dropdown-item" href="#" (click)="updateChart('Month', 'March')">March</a>
+    <!-- Add more months here -->
+  </div>
+</div>
+<!-- Dropdown for "Year" -->
+<div class="btn-group dropdown-menu-above">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+    Year
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" (click)="updateChart('Year', '2022')">2022</a>
+    <a class="dropdown-item" href="#" (click)="updateChart('Year', '2021')">2021</a>
+    <a class="dropdown-item" href="#" (click)="updateChart('Year', '2020')">2020</a>
+    <!-- Add more years here -->
+  </div>
+</div>
+
+          <!-- Chart canvas -->
+          <canvas id="revenueChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
