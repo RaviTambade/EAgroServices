@@ -411,7 +411,7 @@ WHERE verifiedgoodscollection.collectionid IS NULL;
 
 
 
-
+SELECT COUNT(id) FROM goodscollections WHERE farmerid=1 AND date(collectiondate)='2023-09-01';
 
 
 

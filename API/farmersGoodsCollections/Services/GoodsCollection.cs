@@ -17,13 +17,13 @@ public class GoodsCollectionService : IGoodsCollectionService
         return  GoodsCollections;
     }
 
-    public async Task<int> GetTotalEntriesForFarmerOnSpecificDate(int id, DateTime collectionDate)
+    public async Task<int> GetTotalEntriesForFarmerOnSpecificDate(int id, string collectionDate)
     {
            var GoodsCollections =await _repo.GetTotalEntriesForFarmerOnSpecificDate(id,collectionDate);
         return  GoodsCollections;
     }
 
-   public async Task<int> GetTotalEntriesBeetweenDates(int id, DateTime startDate, DateTime endDate){
+   public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, DateOnly endDate){
      var GoodsCollections =await _repo.GetTotalEntriesBeetweenDates(id,startDate,endDate);
         return  GoodsCollections;
 

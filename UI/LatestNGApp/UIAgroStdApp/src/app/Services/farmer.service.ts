@@ -29,4 +29,19 @@ export class FarmerService {
       let url ='http://localhost:5051/api/farmerscollections/collectiondetails/' + collectionId;
       return this.httpClient.get<CollectionDetails>(url);
   }
+  collectionCount(): Observable<number> {
+    let farmerId=Number(localStorage.getItem("userId"));
+    let url ='http://localhost:5168/api/farmersgoodscollections/' + farmerId;
+    return this.httpClient.get<number>(url);
+}
+todayCollectionCount(): Observable<number> {
+  let farmerId=Number(localStorage.getItem("userId"));
+  const collectionDate = new Date().toISOString().split('T')[0];
+  let url ='http://localhost:5168/api/farmersgoodscollections/' + farmerId+'/'+collectionDate;
+  console.log(url);
+  return this.httpClient.get<number>(url);
+
+}
+
+
 }

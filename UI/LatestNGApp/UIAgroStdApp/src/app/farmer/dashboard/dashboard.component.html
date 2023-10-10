@@ -1,10 +1,10 @@
-<!-- <div class="container">
+ <div class="container">
   <div class="row">
     <div class="col-md-4">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Today's Collection Count</h5>
-          <p class="card-text">100</p>
+          <p class="card-text">{{todaysCount}}</p>
         </div>
       </div>
     </div>
@@ -12,21 +12,24 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Total Collection</h5>
-          <p class="card-text">$5000</p>
+          <p class="card-text">{{totalCollectionCount}}</p>
         </div>
       </div>
     </div>
-     <div class="col-md-4">
-      <div class="card">
+    <div class="col-md-4">
+      <div class="card" style="height: 150px; width: 300px;">
         <div class="card-body">
-          <h5 class="card-title">Today's Rate</h5>
-          <p class="card-text">Crop Rate: ${{ getCurrentCrop().rate }}</p>
-          <img [src]="getCurrentCrop().image" alt="Crop Image" class="img-fluid">
+          <!-- <h5 class="card-title">Today's Rate</h5> -->
+          <!-- Display the rate and image of the currently selected crop -->
+          <div class="crop-image">
+            <p class="card-text">Crop Rate: ${{ getCurrentCrop().rate }}</p>
+            <img [src]="getCurrentCrop().imageUrl" alt="Crop Image" class="img-fluid" style="height:130px;">
+          </div>
         </div>
       </div>
-    </div> 
-   </div>
-  <div class="row mt-4">
+    </div>
+    
+  <!-- <div class="row mt-4">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
@@ -60,8 +63,15 @@
           <div class="btn-group">
             <button type="button" class="btn btn-secondary" (click)="updateChart('Week')">Week</button>
           </div>
-          <!-- Dropdown for "Month" -->
-         <!-- Dropdown for "Month" -->
+          <div class="btn-group dropdown-menu-above">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+              {{months}}
+            </button>
+            <!-- <select id="month">
+              <option>{{months}}</option>
+            </select> -->
+          </div>
+    
 <div class="btn-group dropdown-menu-above">
   <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
     Month

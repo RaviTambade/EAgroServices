@@ -16,7 +16,6 @@ public class farmersGoodsCollectionsController : ControllerBase
         _service = service;
     }
     
-    // httpGet : http://localhost:5290/api/assignedtask/assignedtask
     //[Authorize]
     [HttpGet]
     [Route ("{id}")]
@@ -27,8 +26,8 @@ public class farmersGoodsCollectionsController : ControllerBase
 }
 
   [HttpGet]
-[Route("{id}/{collectiondate:datetime}")]
-public async Task<int> GetTotalEntriesForFarmerOnSpecificDate(int id, DateTime collectiondate)
+[Route("{id}/{collectiondate}")]
+public async Task<int> GetTotalEntriesForFarmerOnSpecificDate(int id, string collectiondate)
 {
     int goodsCollectionsCount = await _service.GetTotalEntriesForFarmerOnSpecificDate(id, collectiondate);
     return goodsCollectionsCount;
@@ -36,7 +35,7 @@ public async Task<int> GetTotalEntriesForFarmerOnSpecificDate(int id, DateTime c
 
 [HttpGet]
 [Route("{id}/{startDate:datetime}/{endDate:datetime}")]
-public async Task<int> GetTotalEntriesBeetweenDates(int id, DateTime startDate, DateTime endDate)
+public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, DateOnly endDate)
 {
     int goodsCollectionsCount = await _service.GetTotalEntriesBeetweenDates(id, startDate, endDate);
     return goodsCollectionsCount;

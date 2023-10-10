@@ -1,5 +1,27 @@
-/* Add this to your component's CSS file or a global stylesheet */
-.dropdown-menu-above {
-    z-index: 1000; /* Adjust the z-index as needed to make the dropdowns appear above other elements */
-  }
-  
+.crop-image {
+  position: relative;
+}
+
+.crop-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This property ensures the image covers the entire container, potentially cropping parts of it. */
+}
+
+.crop-image p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: rgb(255, 255, 255); Add a semi-transparent background for text readability */
+  margin: 0;
+  /* padding: 10px; */
+  color: #000; /* Adjust the text color as needed */
+  font-weight: bold;
+  text-align:left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1; /* Ensure the text is on top of the image */
+}

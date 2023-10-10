@@ -40,17 +40,16 @@ namespace Transflower.EAgroservice.Repositories{
     return totalEntries;
     }
     
-public async Task<int> GetTotalEntriesForFarmerOnSpecificDate(int id, DateTime collectionDate)
+public async Task<int> GetTotalEntriesForFarmerOnSpecificDate(int id,string collectionDate)
 {
     int totalEntries = 0;
     using (MySqlConnection connection = new MySqlConnection(_connectionString))
     {
         MySqlCommand command = new MySqlCommand();
-        command.CommandText = "SELECT COUNT(*) FROM goodscollections WHERE farmerid=@farmerid && collectiondate=@collectiondate";
+        command.CommandText = "SELECT COUNT(id) FROM goodscollections WHERE farmerid=@farmerid AND date(collectiondate)=@collectiondate";
         command.Parameters.AddWithValue("@farmerid", id);
         command.Parameters.AddWithValue("@collectiondate", collectionDate);
         command.Connection = connection;
-
         try
         {
             await connection.OpenAsync();
@@ -70,12 +69,12 @@ public async Task<int> GetTotalEntriesForFarmerOnSpecificDate(int id, DateTime c
     return totalEntries;
 }
 
-public async Task<int> GetTotalEntriesBeetweenDates(int id, DateTime startDate, DateTime endDate)
+public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, DateOnly endDate)
 {
     using (MySqlConnection connection = new MySqlConnection(_connectionString))
     {
         MySqlCommand command = new MySqlCommand();
-        command.CommandText = "SELECT COUNT(*) FROM goodscollections WHERE farmerid=@farmerid AND collectiondate BETWEEN @startDate AND @endDate";
+        command.CommandText = "SELECT COUNT(*) FROM goodscollections WHERE farmerid=@farmerid AND date(collectiondate) BETWEEN @startDate AND @endDate";
         command.Parameters.AddWithValue("@farmerid", id);
         command.Parameters.AddWithValue("@startDate", startDate);
         command.Parameters.AddWithValue("@endDate", endDate);
