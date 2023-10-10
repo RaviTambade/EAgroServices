@@ -1,2 +1,51 @@
-<p>farmer dashboard!</p>
-<app-revenuechart></app-revenuechart>
+<!-- <p>farmer dashboard!</p>
+<app-revenuechart></app-revenuechart> -->
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Today's Collection Count</h5>
+            <p class="card-text">100</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Total Collection</h5>
+            <p class="card-text">$5000</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Today's Rate</h5>
+            <p class="card-text">Crop Rate: ${{ getCurrentCrop().rate }}</p>
+            <img [src]="getCurrentCrop().image" alt="Crop Image" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Farmer Revenue</h5>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                Select Interval
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Week</a>
+                <a class="dropdown-item" href="#">Month</a>
+                <a class="dropdown-item" href="#">Year</a>
+              </div>
+            </div>
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

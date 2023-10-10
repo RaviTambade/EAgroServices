@@ -13,6 +13,7 @@ import { InvoicedetailsComponent } from './invoicedetails/invoicedetails.compone
 import { TotalinvoiceComponent } from './totalinvoice/totalinvoice.component';
 import { BankstatementComponent } from './bankstatement/bankstatement.component';
 import { RevenuechartComponent } from './revenuechart/revenuechart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 export const farmerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
@@ -43,6 +44,7 @@ export const farmerRoutes:Routes=[
     CommonModule,
     RouterModule.forChild(farmerRoutes),
     FormsModule,
+    NgChartsModule
   ]
 })
 export class FarmerModule { }

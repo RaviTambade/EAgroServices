@@ -255,7 +255,7 @@
     (2,16, 2, 'crates', 25, 610, '2023-11-02 13:30:00'),
     (3,16,1, 'bags',35,3110, '2023-11-02 13:30:00'),
     (1,3, 2, 'crates', 12, 310, '2023-11-03 13:30:00'),
-    (2,3,10, 'bags', 18,1610, '2023-11-03 13:30:00'),
+    (2,3,10, 'bags', 18,1610, '2023-11-03 13:30:00');
 
 
 
@@ -578,11 +578,4 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (17,120);
 
 
 CALL call_all_procedures_for_charges(18);
-   
-SELECT * FROM invoices;
-
-   SELECT * FROM userroles;
-
-
-   
    

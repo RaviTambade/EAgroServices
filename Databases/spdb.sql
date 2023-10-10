@@ -1,4 +1,4 @@
--- Active: 1696576841746@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1696576841746@@127.0.0.1@3306
 
 
 CREATE PROCEDURE apply_labour_charges(IN shipment_id INT)
@@ -151,28 +151,28 @@ END;
 
 
 
-SELECT SUM(invoices.totalamount) AS Amount
-                FROM invoices 
-                JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
-                JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
-                WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =3 AND  collectiondate >= '2023-09-02'
-  AND  collectiondate <= '2023-10-02' 
-                GROUP BY year(invoices. invoicedate)
-                ORDER BY year(invoices. invoicedate) ASC
-      SELECT QUARTER(invoices. invoicedate) AS Quarter, SUM(invoices.totalamount) AS Amount
-                FROM invoices 
-                JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
-                JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
-                WHERE  invoices.paymentstatus = 'paid' AND goodscollections. farmerid =@farmerId AND YEAR(invoices.invoicedate) = @year
-                GROUP BY QUARTER(invoices. invoicedate)
-                ORDER BY QUARTER(invoices. invoicedate) ASC
+-- SELECT SUM(invoices.totalamount) AS Amount
+--                 FROM invoices 
+--                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+--                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+--                 WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =3 AND  collectiondate >= '2023-09-02'
+--   AND  collectiondate <= '2023-10-02' 
+--                 GROUP BY year(invoices. invoicedate)
+--                 ORDER BY year(invoices. invoicedate) ASC;
+--       SELECT QUARTER(invoices. invoicedate) AS Quarter, SUM(invoices.totalamount) AS Amount
+--                 FROM invoices 
+--                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+--                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+--                 WHERE  invoices.paymentstatus = 'paid' AND goodscollections. farmerid =@farmerId AND YEAR(invoices.invoicedate) = @year
+--                 GROUP BY QUARTER(invoices. invoicedate)
+--                 ORDER BY QUARTER(invoices. invoicedate) ASC;
 
-                SELECT  MONTHNAME(invoices. invoicedate) AS Month, SUM(invoices.totalamount) AS Amount
-                FROM invoices 
-                JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
-                JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
-                WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =@farmerId AND YEAR(invoices. invoicedate) = @year
-                 GROUP BY  MONTHNAME(invoices. invoicedate) ORDER BY MONTHNAME(invoices. invoicedate) ASC           
+--                 SELECT  MONTHNAME(invoices. invoicedate) AS Month, SUM(invoices.totalamount) AS Amount
+--                 FROM invoices 
+--                 JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+--                 JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+--                 WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =@farmerId AND YEAR(invoices. invoicedate) = @year
+--                  GROUP BY  MONTHNAME(invoices. invoicedate) ORDER BY MONTHNAME(invoices. invoicedate) ASC  ;         
 -- Create PROCEDURE collection_deta_analysis (
 --   IN mode varchar(50),
 --   IN year int,
@@ -204,15 +204,63 @@ SELECT SUM(invoices.totalamount) AS Amount
 -- --     END IF;
 -- -- END;
 -- Create the stored procedure
-DELIMITER //
 
-DELIMITER //
+
+-- CREATE PROCEDURE CalculateInvoiceAmounts(
+--     IN farmerId INT,
+--     IN year INT
+-- )
+-- BEGIN
+--     -- Calculate the sum of invoice amounts by year
+--     SELECT YEAR(invoices.invoicedate) AS Year, SUM(invoices.totalamount) AS Amount
+--     FROM invoices 
+--     JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+--     JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
+--     WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid = farmerId
+--     AND YEAR(invoices.invoicedate) = year
+--     GROUP BY YEAR(invoices.invoicedate)
+--     ORDER BY Year ASC;
+
+--     -- Calculate the sum of invoice amounts by quarter
+--     SELECT QUARTER(invoices.invoicedate) AS Quarter, SUM(invoices.totalamount) AS Amount, YEAR(invoices.invoicedate) AS Year
+--     FROM invoices 
+--     JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+--     JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
+--     WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid = farmerId
+--     AND YEAR(invoices.invoicedate) = year
+--     GROUP BY YEAR(invoices.invoicedate), Quarter
+--     ORDER BY Year ASC, Quarter ASC;
+
+--     -- Calculate the sum of invoice amounts by month
+--     SELECT MONTHNAME(invoices.invoicedate) AS Month, SUM(invoices.totalamount) AS Amount, YEAR(invoices.invoicedate) AS Year
+--     FROM invoices 
+--     JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+--     JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
+--     WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid = farmerId
+--     AND YEAR(invoices.invoicedate) = year
+--     GROUP BY YEAR(invoices.invoicedate), MONTHNAME(invoices.invoicedate)
+--     ORDER BY Year ASC, MONTH(invoices.invoicedate) ASC;
+
+--     -- Calculate the sum of invoice amounts by week
+--     SELECT YEAR(invoices.invoicedate) AS Year, WEEK(invoices.invoicedate) AS WeekNumber, SUM(invoices.totalamount) AS Amount
+--     FROM invoices 
+--     JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+--     JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
+--     WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid = farmerId
+--     AND YEAR(invoices.invoicedate) = year
+--     GROUP BY YEAR(invoices.invoicedate), WeekNumber
+--     ORDER BY Year ASC, WeekNumber ASC;
+-- END;
+CALL CalculateInvoiceAmounts(1,2023,'month');
+DROP Procedure CalculateInvoiceAmounts;
 
 CREATE PROCEDURE CalculateInvoiceAmounts(
     IN farmerId INT,
-    IN year INT
+    IN year INT,
+    IN mode VARCHAR(10)
 )
 BEGIN
+IF mode = 'year' THEN
     -- Calculate the sum of invoice amounts by year
     SELECT YEAR(invoices.invoicedate) AS Year, SUM(invoices.totalamount) AS Amount
     FROM invoices 
@@ -222,7 +270,7 @@ BEGIN
     AND YEAR(invoices.invoicedate) = year
     GROUP BY YEAR(invoices.invoicedate)
     ORDER BY Year ASC;
-
+ELSEIF mode='quarter' THEN
     -- Calculate the sum of invoice amounts by quarter
     SELECT QUARTER(invoices.invoicedate) AS Quarter, SUM(invoices.totalamount) AS Amount, YEAR(invoices.invoicedate) AS Year
     FROM invoices 
@@ -232,9 +280,9 @@ BEGIN
     AND YEAR(invoices.invoicedate) = year
     GROUP BY YEAR(invoices.invoicedate), Quarter
     ORDER BY Year ASC, Quarter ASC;
-
+ELSEIF mode ='month' THEN
     -- Calculate the sum of invoice amounts by month
-    SELECT MONTHNAME(invoices.invoicedate) AS Month, SUM(invoices.totalamount) AS Amount, YEAR(invoices.invoicedate) AS Year
+    SELECT MONTH(invoices.invoicedate) AS Month, SUM(invoices.totalamount) AS Amount, YEAR(invoices.invoicedate) AS Year
     FROM invoices 
     JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
     JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
@@ -242,9 +290,9 @@ BEGIN
     AND YEAR(invoices.invoicedate) = year
     GROUP BY YEAR(invoices.invoicedate), MONTHNAME(invoices.invoicedate)
     ORDER BY Year ASC, MONTH(invoices.invoicedate) ASC;
-
+ELSEIF mode='week' THEN
     -- Calculate the sum of invoice amounts by week
-    SELECT YEAR(invoices.invoicedate) AS Year, DATEPART(WEEK, invoices.invoicedate) AS WeekNumber, SUM(invoices.totalamount) AS Amount
+    SELECT YEAR(invoices.invoicedate) AS Year, WEEK(invoices.invoicedate) AS WeekNumber, SUM(invoices.totalamount) AS Amount
     FROM invoices 
     JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
     JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
@@ -252,60 +300,7 @@ BEGIN
     AND YEAR(invoices.invoicedate) = year
     GROUP BY YEAR(invoices.invoicedate), WeekNumber
     ORDER BY Year ASC, WeekNumber ASC;
-END//
-
-DELIMITER ;
-
-CALL CalculateInvoiceAmounts(1, 2023);
-drop Procedure CalculateInvoiceAmounts;
+END IF;
+End;
 
 
-DELIMITER //
-
-CREATE PROCEDURE CalculateInvoiceAmounts(
-    IN farmerId INT,
-    IN year INT
-)
-BEGIN
-    -- Calculate the sum of invoice amounts by year
-    SELECT YEAR(invoices.invoicedate) AS Year, SUM(invoices.totalamount) AS Amount
-    FROM invoices 
-    JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
-    JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
-    WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid = farmerId
-    AND YEAR(invoices.invoicedate) = year
-    GROUP BY YEAR(invoices.invoicedate)
-    ORDER BY Year ASC;
-
-    -- Calculate the sum of invoice amounts by quarter
-    SELECT QUARTER(invoices.invoicedate) AS Quarter, SUM(invoices.totalamount) AS Amount, YEAR(invoices.invoicedate) AS Year
-    FROM invoices 
-    JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
-    JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
-    WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid = farmerId
-    AND YEAR(invoices.invoicedate) = year
-    GROUP BY YEAR(invoices.invoicedate), Quarter
-    ORDER BY Year ASC, Quarter ASC;
-
-    -- Calculate the sum of invoice amounts by month
-    SELECT MONTHNAME(invoices.invoicedate) AS Month, SUM(invoices.totalamount) AS Amount, YEAR(invoices.invoicedate) AS Year
-    FROM invoices 
-    JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
-    JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
-    WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid = farmerId
-    AND YEAR(invoices.invoicedate) = year
-    GROUP BY YEAR(invoices.invoicedate), MONTHNAME(invoices.invoicedate)
-    ORDER BY Year ASC, MONTH(invoices.invoicedate) ASC;
-
-    -- Calculate the sum of invoice amounts by week
-    SELECT YEAR(invoices.invoicedate) AS Year, DATEPART(WEEK, invoices.invoicedate) AS WeekNumber, SUM(invoices.totalamount) AS Amount
-    FROM invoices 
-    JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
-    JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
-    WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid = farmerId
-    AND YEAR(invoices.invoicedate) = year
-    GROUP BY YEAR(invoices.invoicedate), WeekNumber
-    ORDER BY Year ASC, WeekNumber ASC;
-END//
-
-DELIMITER ;
