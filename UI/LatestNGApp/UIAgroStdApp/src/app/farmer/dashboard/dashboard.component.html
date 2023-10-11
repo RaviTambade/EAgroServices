@@ -1,105 +1,83 @@
- <div class="container">
+<div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Today's Collection Count</h5>
-          <p class="card-text">{{todaysCount}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Total Collection</h5>
-          <p class="card-text">{{totalCollectionCount}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card" style="height: 150px; width: 300px;">
-        <div class="card-body">
-          <!-- <h5 class="card-title">Today's Rate</h5> -->
-          <!-- Display the rate and image of the currently selected crop -->
-          <div class="crop-image">
-            <p class="card-text">Crop Rate: ${{ getCurrentCrop().rate }}</p>
-            <img [src]="getCurrentCrop().imageUrl" alt="Crop Image" class="img-fluid" style="height:130px;">
+      <div class="col-md-4 col-xl-3">
+          <div class="card bg-c-blue order-card">
+              <div class="card-block">
+                  <h6 class="m-b-20">Today's Collections</h6>
+                  <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{todaysCount}}</span></h2>
+                  <p class="m-b-0">"From Farm to Center, Confidentially Delivered."</p>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
-    
-  <!-- <div class="row mt-4">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Farmer Revenue</h5>
-          <div class="btn-group">
-            <button type="button" class="btn btn-secondary">Week</button>
-            <button type="button" class="btn btn-secondary">Month</button>
-            <button type="button" class="btn btn-secondary">Year</button>
+      
+      <div class="col-md-4 col-xl-3">
+          <div class="card bg-c-green order-card">
+              <div class="card-block">
+                  <h6 class="m-b-20">Total Collections</h6>
+                  <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{totalCollectionCount}}</span></h2>
+                  <p class="m-b-0">"Confidentiality from Field to Collection."</p>
+              </div>
           </div>
+      </div>
+      
+      <div class="col-md-4 col-xl-3">
+          <div class="card bg-c-yellow order-card">
+              <div class="card-block">
+                  <h6 class="m-b-20">Total Revenue</h6>
+                  <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>48600</span></h2>
+                  <p class="m-b-0">"Your Fields, Your Wealth, Our Expertise."</p>
+              </div>
+          </div>
+      </div>
+      
+      <div class="col-md-4 col-xl-3">
+          <div class="card bg-c-pink order-card">
+              <div class="card-block">
+                  <h6 class="m-b-20">Todays Rate:{{getCurrentCrop().title}}:{{ getCurrentCrop().rate|currency:"INR"}}</h6>
+                  <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span> <img [src]="getCurrentCrop().imageUrl" alt="Crop Image" class="img-fluid" style="height: 104px ;width:280px; border-radius: 10px;"></span></h2>
+                  <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+              </div>
+          </div>
+      </div>
+</div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card farmer-dashboard-card">
+        <div class="card-body">
+
+
+<div>
+  <label >Select Interval:</label>
+  <select  [(ngModel)]="selectedInterval" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let option of chartIntervals" [value]="option">{{ option }}</option>
+  </select>
+</div>
+
+<div *ngIf="selectedInterval!= 'Year'">
+  <label >Select Year:</label>
+  <select  [(ngModel)]="selectedYear" (ngModelChange)="fetchRevenueData()">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+  </select>
+</div>
           <canvas id="revenueChart"></canvas>
-        </div>
       </div>
-    </div>
-  </div>
-</div> -->
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <!-- ... (Existing code for Today's Collection Count and Total Collection) ... -->
     </div>
     <div class="col-md-4">
-      <!-- ... (Existing code for Today's Rate) ... -->
     </div>
   </div>
-  <div class="row mt-4">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Farmer Revenue</h5>
-          <!-- Button group for "Week" -->
-          <div class="btn-group">
-            <button type="button" class="btn btn-secondary" (click)="updateChart('Week')">Week</button>
-          </div>
-          <div class="btn-group dropdown-menu-above">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-              {{months}}
-            </button>
-            <!-- <select id="month">
-              <option>{{months}}</option>
-            </select> -->
-          </div>
-    
-<div class="btn-group dropdown-menu-above">
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-    Month
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" (click)="updateChart('Month', 'January')">January</a>
-    <a class="dropdown-item" href="#" (click)="updateChart('Month', 'February')">February</a>
-    <a class="dropdown-item" href="#" (click)="updateChart('Month', 'March')">March</a>
-    <!-- Add more months here -->
+  <div class="line-chart-size" >
+    <canvas baseChart class="chart" [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
+        [options]="lineChartOptions" [type]="lineChartType"></canvas>
   </div>
 </div>
-<!-- Dropdown for "Year" -->
-<div class="btn-group dropdown-menu-above">
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-    Year
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" (click)="updateChart('Year', '2022')">2022</a>
-    <a class="dropdown-item" href="#" (click)="updateChart('Year', '2021')">2021</a>
-    <a class="dropdown-item" href="#" (click)="updateChart('Year', '2020')">2020</a>
-    <!-- Add more years here -->
+</div>
+    </div>
   </div>
 </div>
 
-          <!-- Chart canvas -->
-          <canvas id="revenueChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  

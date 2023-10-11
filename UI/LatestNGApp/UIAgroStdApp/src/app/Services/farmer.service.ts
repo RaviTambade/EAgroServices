@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CollectionList } from '../Models/collectionlist';
 import { CollectionDetails } from '../Models/collectiondetails';
+import { YearRevenue } from '../Models/year-revenue';
+import { QuarterRevenue } from '../Models/quarter-revenue';
+import { MonthRevenue } from '../Models/month-revenue';
+import { WeekRevenue } from '../Models/week-revenue';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +47,25 @@ todayCollectionCount(): Observable<number> {
 
 }
 
+getFarmerYearlyRevenue(): Observable<YearRevenue[]> {
+  let farmerId = localStorage.getItem("userId");
+  let url = "http://localhost:5235/api/farmer/revenue/year/" + farmerId;
+  return this.httpClient.get<any>(url);
+}
+getFarmerQuarterlyRevenue(year: number): Observable<QuarterRevenue[]> {
+  let farmerId = localStorage.getItem("userId");
+  let url = "http://localhost:5235/api/farmer/revenue/quarter/" + farmerId + "/" + year;
+  return this.httpClient.get<any>(url);
+}
+getFarmerMonthlyRevenue(year: number): Observable<MonthRevenue[]> {
+  let farmerId = localStorage.getItem("userId");
+  let url = "http://localhost:5235/api/farmer/revenue/month/" + farmerId + "/" + year;
+  return this.httpClient.get<any>(url);
+}
+getFarmerWeeklyRevenue(year: number): Observable<WeekRevenue[]> {
+  let farmerId = localStorage.getItem("userId");
+  let url = "http://localhost:5235/api/Farmer/revenue/week/" + farmerId + "/" + year;
+  return this.httpClient.get<any>(url);
+}
 
 }

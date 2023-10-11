@@ -27,6 +27,11 @@ public class GoodsCollectionService : IGoodsCollectionService
      var GoodsCollections =await _repo.GetTotalEntriesBeetweenDates(id,startDate,endDate);
         return  GoodsCollections;
 
-   }
+  //  }
+  //    public async Task<int> RevenueChart(int id,int year, string mode){
+  //    return await _repo.RevenueChart(id,year,mode);
+        
+
+    }
 
 }

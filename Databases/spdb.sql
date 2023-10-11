@@ -1,4 +1,4 @@
--- Active: 1696576841746@@127.0.0.1@3306
+-- Active: 1696576841746@@127.0.0.1@3306@eagroservicesdb
 
 
 CREATE PROCEDURE apply_labour_charges(IN shipment_id INT)
@@ -149,7 +149,7 @@ BEGIN
   END WHILE;
 END;
 
-CALL CalculateInvoiceAmounts(1,2023,'month');
+CALL CalculateInvoiceAmounts(1,2023,'year');
 DROP Procedure CalculateInvoiceAmounts;
 
 CREATE PROCEDURE CalculateInvoiceAmounts(
@@ -200,5 +200,4 @@ ELSEIF mode='week' THEN
     ORDER BY Year ASC, WeekNumber ASC;
 END IF;
 End;
-
 

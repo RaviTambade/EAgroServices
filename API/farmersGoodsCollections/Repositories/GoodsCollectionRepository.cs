@@ -1,3 +1,4 @@
+using System.Data;
 using MySql.Data.MySqlClient;
 using Transflower.EAgroservice.Models;
 using Transflower.EAgroservice.Repositories.Interface;
@@ -86,5 +87,31 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
     }
 }
 
-    }
-}
+    //     public async Task<int> RevenueChart(int id, int year, string mode)
+    //     {
+    //         using (MySqlConnection connection = new MySqlConnection(_connectionString))
+    //         try
+    //         {
+    //             MySqlCommand command = new MySqlCommand("CalculateInvoiceAmounts", connection);
+    //             command.CommandType = CommandType.StoredProcedure;
+    //             command.Parameters.AddWithValue("@ id",id);
+    //             command.Parameters.AddWithValue("@year",year);
+    //             command.Parameters.AddWithValue("@mode",mode);
+    //             await   connection.OpenAsync();
+                
+    //         }
+    //         catch (Exception )
+    //         {
+    //             throw ;
+    //         }
+    //         finally
+    //         {
+    //           await  connection.CloseAsync();
+    //         }
+    //         return ;
+    //     }
+     }
+
+        }
+    
+

@@ -41,4 +41,12 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
     return goodsCollectionsCount;
 }
 
+// [HttpGet]
+// [Route("{id}/{year}/{mode}")]
+// public async Task<int> RevenueChart(int id, int year, string mode)
+// {
+//    return  await _service.RevenueChart(id, year, mode);
+
+// }
+
 }
