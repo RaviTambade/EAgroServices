@@ -160,8 +160,75 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
     }
 }
 
+        public async Task<int> GetTotalFarmerRevenue(int id)
+        {   
+             int totalrevenue = 0;
+             using (MySqlConnection connection = new MySqlConnection(_connectionString))
+             {
+           MySqlCommand command = new MySqlCommand();
+
+        command.CommandText = " SELECT SUM(invoices.totalamount) AS Amount FROM invoices JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id   WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid =@id";
+        command.Parameters.AddWithValue("@id", id);
+         command.Connection = connection;
+
+         try
+        {
+            await connection.OpenAsync();
+            object result = await command.ExecuteScalarAsync();
+            totalrevenue = Convert.ToInt32(result);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            if (connection.State == System.Data.ConnectionState.Open)
+                connection.Close();
+        }
+    }
+    return totalrevenue;
         }
 
+        public async Task<List<TotalCropQuantity>> TotalCropsQuantity(int collectionCenterId,string currentDate)
+{
+    List<TotalCropQuantity> cropQuantities = new List<TotalCropQuantity>();
+
+    using (MySqlConnection connection = new MySqlConnection(_connectionString))
+    {
+        await connection.OpenAsync();
+
+        MySqlCommand command = new MySqlCommand();
+        command.Connection = connection;
+        command.CommandText = "SELECT crops.title, SUM(goodscollections.weight) as totalWeight " +
+                            "FROM goodscollections " +
+                            "JOIN crops ON crops.id = goodscollections.cropid " +
+                            "WHERE goodscollections.collectioncenterid = @id AND date(goodscollections.collectiondate)=@currentDate " +
+                            "GROUP BY crops.title";
+        command.Parameters.AddWithValue("@id", collectionCenterId);
+        command.Parameters.AddWithValue("@currentDate", currentDate);
+
+        using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
+        {
+            while (await reader.ReadAsync())
+            {
+                TotalCropQuantity cropQuantity = new TotalCropQuantity
+                {
+                    CropName = reader.GetString("title"),
+                    TotalWeight = (double)reader.GetDecimal("totalWeight")
+                };
+
+                cropQuantities.Add(cropQuantity);
+            }
+        }
+    }
+
+    return cropQuantities;
+}
+
+    }
+    
+}
 
         //     public async Task<int> RevenueChart(int id, int year, string mode)
         //     {
@@ -186,9 +253,9 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
         //         }
         //         return ;
         //     }
-    }
-
     
+
+
 //   public async Task<int> GetTotalEntriesForCollectionCenter(int id){
 //                 int totalEntries = 0;
 //         //  List<GoodsCollection> goodscollectionlist =new List<GoodsCollection>();

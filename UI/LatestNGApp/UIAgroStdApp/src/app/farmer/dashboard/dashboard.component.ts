@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   selectedYear: number = 0;
   totalCollectionCount: number = 0;
   todaysCount: number = 0;
+  revenue: number=0;
 
   constructor(private farmersvc: FarmerService, private cropsvc: CropService) {
     Chart.register(Annotation);
@@ -40,6 +41,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.cropsvc.todaysRate().subscribe((res: Crop[]) => {
       this.crops = res;
       console.log(res);
+    });
+    this.farmersvc.totalRevenue().subscribe((totalrevenue)=>{
+      this.revenue=totalrevenue;
     });
     this.initCropTimer();
   }

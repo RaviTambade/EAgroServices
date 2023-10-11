@@ -1,45 +1,46 @@
 <div class="container">
   <div class="row">
-      <div class="col-md-4 col-xl-3">
-          <div class="card bg-c-blue order-card">
-              <div class="card-block">
-                  <h6 class="m-b-20">Today's Collections</h6>
-                  <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{todaysCount}}</span></h2>
-                  <p class="m-b-0">"From Farm to Center, Confidentially Delivered."</p>
-              </div>
-          </div>
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-blue order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Today's Collections</h6>
+          <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{todaysCount}}</span></h2>
+          <p class="m-b-0">"From Farm to Center, Confidentially Delivered."</p>
+        </div>
       </div>
-      
-      <div class="col-md-4 col-xl-3">
-          <div class="card bg-c-green order-card">
-              <div class="card-block">
-                  <h6 class="m-b-20">Total Collections</h6>
-                  <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{totalCollectionCount}}</span></h2>
-                  <p class="m-b-0">"Confidentiality from Field to Collection."</p>
-              </div>
-          </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-green order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Total Collections</h6>
+          <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{totalCollectionCount}}</span></h2>
+          <p class="m-b-0">"Confidentiality from Field to Collection."</p>
+        </div>
       </div>
-      
-      <div class="col-md-4 col-xl-3">
-          <div class="card bg-c-yellow order-card">
-              <div class="card-block">
-                  <h6 class="m-b-20">Total Revenue</h6>
-                  <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>48600</span></h2>
-                  <p class="m-b-0">"Your Fields, Your Wealth, Our Expertise."</p>
-              </div>
-          </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-yellow order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Total Revenue</h6>
+          <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>{{revenue}}</span></h2>
+          <p class="m-b-0">"Your Fields, Your Wealth, Our Expertise."</p>
+        </div>
       </div>
-      
-      <div class="col-md-4 col-xl-3">
-          <div class="card bg-c-pink order-card">
-              <div class="card-block">
-                  <h6 class="m-b-20">Todays Rate:{{getCurrentCrop().title}}:{{ getCurrentCrop().rate|currency:"INR"}}</h6>
-                  <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span> <img [src]="getCurrentCrop().imageUrl" alt="Crop Image" class="img-fluid" style="height: 104px ;width:280px; border-radius: 10px;"></span></h2>
-                  <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
-              </div>
-          </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-pink order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Todays Rate:{{getCurrentCrop().title}}:{{ getCurrentCrop().rate|currency:"INR"}}</h6>
+          <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span> <img [src]="getCurrentCrop().imageUrl"
+                alt="Crop Image" class="img-fluid" style="height: 104px ;width:280px; border-radius: 10px;"></span></h2>
+          <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+        </div>
       </div>
-</div>
+    </div>
+  </div>
 </div>
 <div class="container">
   <div class="row">
@@ -48,36 +49,34 @@
         <div class="card-body">
 
 
-<div>
-  <label >Select Interval:</label>
-  <select  [(ngModel)]="selectedInterval" (ngModelChange)="fetchRevenueData()">
-      <option *ngFor="let option of chartIntervals" [value]="option">{{ option }}</option>
-  </select>
-</div>
+          <div>
+            <label>Select Interval:</label>
+            <select [(ngModel)]="selectedInterval" (ngModelChange)="fetchRevenueData()">
+              <option *ngFor="let option of chartIntervals" [value]="option">{{ option }}</option>
+            </select>
+          </div>
 
-<div *ngIf="selectedInterval!= 'Year'">
-  <label >Select Year:</label>
-  <select  [(ngModel)]="selectedYear" (ngModelChange)="fetchRevenueData()">
-      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-  </select>
-</div>
+          <div *ngIf="selectedInterval!= 'Year'">
+            <label>Select Year:</label>
+            <select [(ngModel)]="selectedYear" (ngModelChange)="fetchRevenueData()">
+              <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+          </div>
           <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>
+          </div>
+          <div class="line-chart-size">
+            <canvas baseChart class="chart" [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
+              [options]="lineChartOptions" [type]="lineChartType"></canvas>
+          </div>
+        </div>
       </div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-    </div>
-  </div>
-  <div class="line-chart-size" >
-    <canvas baseChart class="chart" [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
-        [options]="lineChartOptions" [type]="lineChartType"></canvas>
-  </div>
-</div>
-</div>
     </div>
   </div>
 </div>
-
-  

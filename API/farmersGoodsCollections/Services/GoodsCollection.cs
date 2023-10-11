@@ -50,4 +50,14 @@ public class GoodsCollectionService : IGoodsCollectionService
         return  GoodsCollections;
 
    }
+
+    public async  Task<int> GetTotalFarmerRevenue(int id)
+    {
+       return await _repo.GetTotalFarmerRevenue(id);
+    }
+
+    public async Task<List<TotalCropQuantity>> TotalCropsQuantity(int collectionCenterId,string currentDate)
+    {
+       return await _repo.TotalCropsQuantity(collectionCenterId,currentDate);
+    }
 }

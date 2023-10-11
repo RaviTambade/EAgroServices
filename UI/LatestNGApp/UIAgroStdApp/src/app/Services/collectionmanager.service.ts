@@ -8,6 +8,7 @@ import { VerifiedCollection } from '../Models/verifiedCollection';
 import { CollectionDetails } from '../Models/collectiondetails';
 import { Verifiedcollectiondetails } from '../Models/verifieddcollectiondetails';
 import { Corporate } from '../Models/corporate';
+import { CropQuantity } from '../Models/cropquantity';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +75,23 @@ getCollectionCenterAndCorporateId(): Observable<Corporate[]> {
   let url =
     'http://localhost:5192/api/collectioncenters/collectioncenterandcorporateid';
   return this.httpClient.get<Corporate[]>(url);
+}
+collectionCount(collectionCenterId:number): Observable<number> {
+let url ='http://localhost:5168/api/farmersgoodscollections/collectioncenter/' + collectionCenterId;
+return this.httpClient.get<number>(url);
+}
+todayCollectionCount(collectionCenterId:number): Observable<number> {
+const collectionDate = new Date().toISOString().split('T')[0];
+let url ='http://localhost:5168/api/farmersgoodscollections/collectioncenter/' + collectionCenterId+'/'+collectionDate;
+console.log(url);
+console.log(collectionCenterId);
+return this.httpClient.get<number>(url);
+}
+totalCropQuantity(collectionCenterId:number): Observable<CropQuantity[]> {
+  const collectionDate = new Date().toISOString().split('T')[0];
+let url ='http://localhost:5168/api/farmersgoodscollections/cropquantity/' + collectionCenterId+'/'+collectionDate;
+console.log(url);
+return this.httpClient.get<CropQuantity[]>(url);
+
 }
 }

@@ -62,11 +62,9 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
 [Route("collectioncenter/{id}/{collectioncenterdate}")]
 public async Task<int> GetTotalEntriesForCollectiionOnSpecificDate(int id, string collectioncenterdate)
 {
-    int goodsCollectionsCount = await _service.GetTotalEntriesForFarmerOnSpecificDate(id, collectioncenterdate);
+    int goodsCollectionsCount = await _service.GetTotalEntriesForCollectiionOnSpecificDate(id, collectioncenterdate);
     return goodsCollectionsCount;
 } 
-
-
 
 [HttpGet]
 [Route("collectioncenter/{id}/{startDate:datetime}/{endDate:datetime}")]
@@ -74,5 +72,21 @@ public async Task<int> GetTotalEntriesForCollectiionBeetweenDate(int id, DateOnl
 {
     int goodsCollectionsCount = await _service.GetTotalEntriesForCollectiionBeetweenDate(id, startDate, endDate);
     return goodsCollectionsCount;
+}
+
+[HttpGet]
+[Route("revenue/{id}")]
+public async Task<int> GetTotalFarmerRevenue(int id)
+{
+    return await _service.GetTotalFarmerRevenue(id);
+    
+}
+
+[HttpGet]
+[Route("cropquantity/{collectionCenterId}/{currentDate}")]
+public async Task<List<TotalCropQuantity>> GetTotalCropQuantity(int collectionCenterId, string currentDate)
+{
+    return await _service.TotalCropsQuantity(collectionCenterId,currentDate);
+    
 }
 }
