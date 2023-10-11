@@ -71,12 +71,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       }
 
 
-      if (this.rangeProperties.includes("MerchantCorporateId")) {
-        this.roles.push("MerchantCorporateId");
-        this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
-          this.merchants = res
-        })
-      }
+      // if (this.rangeProperties.includes("MerchantCorporateId")) {
+      //   this.roles.push("MerchantCorporateId");
+      //   this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
+      //     this.merchants = res
+      //   })
+      // }
 
       if (this.rangeProperties.includes("CollectionCenterCorporateId")) {
         this.roles.push("CollectionCenterCorporateId");
