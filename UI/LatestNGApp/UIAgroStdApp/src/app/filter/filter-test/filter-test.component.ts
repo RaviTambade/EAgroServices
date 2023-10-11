@@ -84,11 +84,11 @@ export class FilterTestComponent implements OnInit, OnDestroy {
       }
 
 
-      if (this.rangeProperties.includes("MerchantCorporateId")) {
-        this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
-          this.merchants = res
-        })
-      }
+      // if (this.rangeProperties.includes("MerchantCorporateId")) {
+      //   this.merchantsSubscription = this.filterservice.getMerchants().subscribe((res) => {
+      //     this.merchants = res
+      //   })
+      // }
 
       if (this.rangeProperties.includes("CollectionCenterCorporateId")) {
         this.collectionCentersSubscription = this.filterservice.getCollectionCenters().subscribe((res) => {

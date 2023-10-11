@@ -1,1 +1,121 @@
-<p>invoicedetails works!</p>
+<div *ngIf="invoiceDetails">
+    <table class="table">
+        <tr>
+            <td>Invoice Date:</td>
+            <td>{{ invoiceDetails.invoiceDate | date}}</td>
+        </tr>
+        <tr>
+            <td>Farmer Name:</td>
+            <td>{{ invoiceDetails.farmerName }}</td>
+        </tr>
+        <tr>
+            <td>Collection Center Name:</td>
+            <td>{{ invoiceDetails.collectionCenterName }}</td>
+        </tr>
+        <tr>
+            <td>Transporter Name:</td>
+            <td>{{ invoiceDetails.transporterName }}</td>
+        </tr>
+        <tr>
+            <td>Vehicle Number:</td>
+            <td>{{ invoiceDetails.vehicleNumber }}</td>
+        </tr>
+        <tr>
+            <td>Crop Name:</td>
+            <td>{{ invoiceDetails.cropName }}</td>
+        </tr>
+        <tr>
+            <td>Grade:</td>
+            <td>{{ invoiceDetails.grade }}</td>
+        </tr>
+        <tr>
+            <td>Container Type:</td>
+            <td>{{ invoiceDetails.containerType }}</td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td>{{ invoiceDetails.quantity }}</td>
+        </tr>
+        <tr>
+            <td>Total Weight:</td>
+            <td>{{ invoiceDetails.totalWeight |number }}</td>
+        </tr>
+        <tr>
+            <td>Net Weight:</td>
+            <td>{{ invoiceDetails.netWeight |number }}</td>
+        </tr>
+        <tr>
+            <td>Freight Charges:</td>
+            <td>{{ invoiceDetails.freightCharges |currency:"INR" }}</td>
+        </tr>
+        <tr>
+            <td>Labour Charges:</td>
+            <td>{{ invoiceDetails.labourCharges |currency:"INR" }}</td>
+        </tr>
+        <tr>
+            <td>Service Charges:</td>
+            <td>{{ invoiceDetails.serviceCharges |currency:"INR" }}</td>
+        </tr>
+        <tr>
+            <td>Rate Per Kg:</td>
+            <ng-container *ngIf="invoiceDetails.paymentStatus != 'unpaid' ; else editableRate">
+                {{ invoiceDetails.ratePerKg |number }}
+            </ng-container>
+            <ng-template #editableRate>
+                <input type="number" [(ngModel)]="invoiceDetails.ratePerKg" pattern="[0-9]+" />
+                <button (click)="updateRate(invoiceDetails.id)" [disabled]="!invoiceDetails.ratePerKg">update</button>
+            </ng-template>
+        </tr>
+        <tr>
+            <td>Farmer Amount:</td>
+            <td>{{ invoiceDetails.farmerAmount |currency:"INR" }}</td>
+        </tr>
+
+    </table>
+
+
+    <div *ngIf="invoiceDetails.farmerAmount > 0">
+        <button (click)="onClickPaymentDetails()">Payment Details</button>
+        <div *ngIf="showPayment">
+            <table>
+                <tr>
+                    <td>FarmerName</td>
+                    <td>Account Number</td>
+                    <td>IFSC </td>
+                    <td>Amount</td>
+                </tr>
+                <tr>
+                    <td>{{ invoiceDetails.farmerName }}</td>
+                    <td>{{farmerAccountInfo.accountNumber}}</td>
+                    <td>{{farmerAccountInfo.ifscCode}}</td>
+                    <td>{{ invoiceDetails.farmerAmount |currency:"INR" }}</td>
+
+                </tr>
+            </table>
+            <br>
+            <table>
+                <tr>
+                    <td>Collection Center</td>
+                    <td>Account Number</td>
+                    <td>IFSC </td>
+                    <td>Amount</td>
+                </tr>
+                <tr>
+                    <td>{{ invoiceDetails.collectionCenterName }}</td>
+                    <td>{{collectionCenterAccountInfo.accountNumber}}</td>
+                    <td>{{collectionCenterAccountInfo.ifscCode}}</td>
+                    <td>{{ invoiceDetails.labourCharges + invoiceDetails.serviceCharges |number }} </td>
+                </tr>
+            </table>
+            <h6>Total Amount {{ invoiceDetails.farmerAmount + invoiceDetails.labourCharges +
+                invoiceDetails.serviceCharges |currency:"INR" }} </h6>
+
+            <h6>Payment : {{invoiceDetails.paymentStatus}}</h6>
+            <div *ngIf="invoiceDetails.paymentStatus == 'unpaid' ">
+                <h6>Your Account Number is {{merchantAccountInfo.accountNumber}}</h6>
+                <h6>IFSC {{merchantAccountInfo.ifscCode}}</h6>
+                <br><button (click)="onClickPay()" [disabled]="ispaymentButtonDisabled"> Pay </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -208,29 +208,29 @@ export class FiltersService {
     );
   }
 
-  getMerchants(): Observable<Corporate[]> {
-    return this.merchantsvc.getMerchantCorporateId().pipe(
-      switchMap((res) => {
-        let merchants = res;
-        let distinctmerchantIds = merchants.map(item => item.corporateId)
-          .filter((number, index, array) => array.indexOf(number) === index);
-        let merchantIdString = distinctmerchantIds.join(',');
+  // getMerchants(): Observable<Corporate[]> {
+  //   return this.merchantsvc.getMerchantCorporateId().pipe(
+  //     switchMap((res) => {
+  //       let merchants = res;
+  //       let distinctmerchantIds = merchants.map(item => item.corporateId)
+  //         .filter((number, index, array) => array.indexOf(number) === index);
+  //       let merchantIdString = distinctmerchantIds.join(',');
 
-        return this.corpsvc.getCorporates(merchantIdString).pipe(
-          map((names) => {
-            let corporationNames = names;
-            merchants.forEach(item => {
-              let matchingItem = corporationNames.find(element => element.id === item.corporateId);
-              if (matchingItem != undefined) {
-                item.name = matchingItem.name;
-              }
-            });
-            return merchants;
-          })
-        );
-      })
-    );
-  }
+  //       return this.corpsvc.getCorporates(merchantIdString).pipe(
+  //         map((names) => {
+  //           let corporationNames = names;
+  //           merchants.forEach(item => {
+  //             let matchingItem = corporationNames.find(element => element.id === item.corporateId);
+  //             if (matchingItem != undefined) {
+  //               item.name = matchingItem.name;
+  //             }
+  //           });
+  //           return merchants;
+  //         })
+  //       );
+  //     })
+  //   );
+  // }
 
   getCollectionCenters(): Observable<Corporate[]> {
 

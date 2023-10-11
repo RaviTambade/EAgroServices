@@ -1,1 +1,36 @@
-<p>invoices works!</p>
+<button (click)="onClickUnpaid()" [ngClass]="{'active':!paidStatus}"> <a> UnPaid </a></button>
+<button (click)="onClickPaid()" [ngClass]="{'active':paidStatus}"> Paid </button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date </th>
+      <th>FarmerName</th>
+      <th>CropName</th>
+      <th>Quantity</th>
+      <th>Weight</th>
+      <th>Rate Per Kg</th>
+      <th>Total Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let invoice of invoices">
+      <tr>
+        <td>{{ invoice.invoiceDate | date }}</td>
+        <td>{{ invoice.farmerName }}</td>
+        <td>{{ invoice.cropName}}</td>
+        <td>{{ invoice.quantity}}</td>
+        <td>{{ invoice.weight}}</td>
+        <td>{{ invoice.ratePerKg}}</td>
+        <td>{{ invoice.totalAmount |number}}</td>
+        <td><button (click)="onClickInvoiceDetails(invoice.id)"> Details </button></td>
+      </tr>
+      <tr *ngIf="selectedInvoiceId == invoice.id">
+        <td colspan="8">
+          <div>
+            <app-invoicedetails [invoiceId]="invoice.id" (refetchData)="onClickUnpaid()"></app-invoicedetails>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

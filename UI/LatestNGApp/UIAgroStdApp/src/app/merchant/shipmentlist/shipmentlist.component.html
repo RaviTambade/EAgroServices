@@ -1,0 +1,53 @@
+<button (click)="onClickInprogress()"
+  [ngClass]="{'active': !unpaidDeliveredStatus && !paidDeliveredStatus}">Inprogress</button> |
+<button (click)="onClickUnpaidDelivered()" [ngClass]="{'active': unpaidDeliveredStatus}"> UnPaid Delivered</button> |
+<button (click)="onClickPaidDelivered()" [ngClass]="{'active': paidDeliveredStatus}"> Paid Delivered</button> |
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date </th>
+      <th>Vehicle Number </th>
+      <th>Kilometers</th>
+      <th>Charges</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="isDataLoaded(); else noRecords">
+    <ng-container *ngFor="let shipment of merchantShipments">
+      <tr>
+        <td>{{ shipment.shipmentDate | date }}</td>
+        <td>{{ shipment.vehicleNumber }}</td>
+        <td>{{ shipment.kilometers }}</td>
+        <td>{{ shipment.freightCharges}}</td>
+
+        <td><button (click)="onClickShipmentDetails(shipment.id)"> Details </button></td>
+        <td *ngIf="paidDeliveredStatus || unpaidDeliveredStatus"><button (click)="onClickpaymentDetails(shipment.id)">
+            paymentDetails </button></td>
+      </tr>
+      <tr *ngIf="selectedDetailsShipmentId === shipment.id">
+        <td colspan="8">
+          <div class="content-container">
+            <app-shipmentdetails [shipmentId]="shipment.id"
+              (refetchData)="onClickInprogress()"></app-shipmentdetails>
+          </div>
+        </td>
+      </tr>
+
+      <tr *ngIf="selectedPaymentShipmentId === shipment.id">
+        <td colspan="8">
+          <div class="content-container">
+            <app-shipmentpayment [shipmentId]="shipment.id"
+              (refetchData)="onClickUnpaidDelivered()"></app-shipmentpayment>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+
+  </tbody>
+</table>
+<ng-template #noRecords>
+  <p>No records to show</p>
+</ng-template>
+<div *ngIf="isLoading">
+  <p>Loading...</p>
+</div>
