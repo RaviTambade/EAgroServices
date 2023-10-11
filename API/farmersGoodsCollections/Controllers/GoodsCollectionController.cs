@@ -40,7 +40,6 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
     int goodsCollectionsCount = await _service.GetTotalEntriesBeetweenDates(id, startDate, endDate);
     return goodsCollectionsCount;
 }
-
 // [HttpGet]
 // [Route("{id}/{year}/{mode}")]
 // public async Task<int> RevenueChart(int id, int year, string mode)
@@ -49,4 +48,31 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
 
 // }
 
+
+
+ [HttpGet]
+ [Route ("collectioncenter/{id}")]
+ public async Task<int> GetTotalEntriesForCollectionCenter(int id)
+{
+    int goodsCollectionsCount = await _service.GetTotalEntriesForCollectionCenter(id);
+    return goodsCollectionsCount;
+}
+
+  [HttpGet]
+[Route("collectioncenter/{id}/{collectioncenterdate}")]
+public async Task<int> GetTotalEntriesForCollectiionOnSpecificDate(int id, string collectioncenterdate)
+{
+    int goodsCollectionsCount = await _service.GetTotalEntriesForFarmerOnSpecificDate(id, collectioncenterdate);
+    return goodsCollectionsCount;
+} 
+
+
+
+[HttpGet]
+[Route("collectioncenter/{id}/{startDate:datetime}/{endDate:datetime}")]
+public async Task<int> GetTotalEntriesForCollectiionBeetweenDate(int id, DateOnly startDate, DateOnly endDate)
+{
+    int goodsCollectionsCount = await _service.GetTotalEntriesForCollectiionBeetweenDate(id, startDate, endDate);
+    return goodsCollectionsCount;
+}
 }

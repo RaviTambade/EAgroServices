@@ -11,5 +11,11 @@ namespace Transflower.EAgroservice.Repositories.Interface
     
        public Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, DateOnly endDate);
       // public Task<int> RevenueChart(int id, int year,string mode);
+       public Task<int> GetTotalEntriesForCollectionCenter(int id);
+
+       public  Task<int> GetTotalEntriesForCollectiionOnSpecificDate(int id,string collectionDate);
+
+       public Task<int> GetTotalEntriesForCollectiionBeetweenDate(int id, DateOnly startDate, DateOnly endDate);
+
     }
 }

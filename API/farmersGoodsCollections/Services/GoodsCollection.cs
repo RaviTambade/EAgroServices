@@ -34,4 +34,20 @@ public class GoodsCollectionService : IGoodsCollectionService
 
     }
 
+     public async Task<int> GetTotalEntriesForCollectionCenter(int id){
+         var GoodsCollections =await _repo.GetTotalEntriesForCollectionCenter(id);
+        return  GoodsCollections;
+    }
+
+    public async Task<int> GetTotalEntriesForCollectiionOnSpecificDate(int id,string collectionDate)
+     {
+           var GoodsCollections1 =await _repo.GetTotalEntriesForCollectiionOnSpecificDate(id,collectionDate);
+        return  GoodsCollections1;
+    }
+
+     public async Task<int> GetTotalEntriesForCollectiionBeetweenDate(int id, DateOnly startDate, DateOnly endDate){
+     var GoodsCollections =await _repo.GetTotalEntriesForCollectiionBeetweenDate(id,startDate,endDate);
+        return  GoodsCollections;
+
+   }
 }
