@@ -160,7 +160,7 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
     }
 }
 
-        }
+
 
 
         //     public async Task<int> RevenueChart(int id, int year, string mode)
@@ -186,7 +186,7 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
         //         }
         //         return ;
         //     }
-    }
+    
 
     
 //   public async Task<int> GetTotalEntriesForCollectionCenter(int id){
@@ -262,6 +262,37 @@ public async Task<int> GetTotalEntriesBeetweenDates(int id, DateOnly startDate, 
 //         return Convert.ToInt32(result);
 //     }
 // }
+
+
+
+        public  Task<int> GetTotalShipmentByVehicleRTONumber(string rtoNumber)
+        {
+            int totalEntries = 0;
+        MySqlConnection connection =new MySqlConnection(_connectionString);
+        try{
+            MySqlCommand command =new MySqlCommand();
+            command.CommandText="SELECT COUNT(s.id) AS shipment_count FROM shipments s JOIN vehicles v ON s.vehicleid = v.id WHERE v.rtonumber = @rtonumber";
+            command.Parameters.AddWithValue("@rtonumber", rtonumber);
+            command.Connection=connection;
+            connection.Open();
+           object result =  command.ExecuteScalar();
+        totalEntries = Convert.ToInt32(result);
+        }
+          catch (Exception e)
+    {
+        throw e;
+    }
+    finally
+    {
+        connection.Close();
+    }
+    return totalEntries;
+        }
+    }
+
+   }
+
+
 
 
 // }

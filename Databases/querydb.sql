@@ -440,3 +440,42 @@ FROM goodscollections
 JOIN crops ON goodscollections.cropid = crops.id
 WHERE farmerid = 1 
 AND collectiondate BETWEEN '2023-09-01 13:30:00' AND '2023-09-30 13:30:00';
+
+
+
+
+
+
+
+
+SELECT 
+    COUNT(s.id) AS shipment_count
+FROM 
+    shipments s
+JOIN 
+    vehicles v ON s.vehicleid = v.id
+WHERE 
+     s.status = 'INPROGRESS' AND
+     v.rtonumber = 'MH 14 AB 2022';
+
+
+
+SELECT 
+    COUNT(s.id) AS shipment_count
+FROM 
+    shipments s
+JOIN 
+    vehicles v ON s.vehicleid = v.id
+WHERE 
+    v.rtonumber = 'MH 14 AB 2022';
+
+
+
+SELECT 
+    COUNT(s.id) AS shipment_count
+FROM 
+    shipments s
+WHERE 
+    s.status = 'INPROGRESS';
+    
+    

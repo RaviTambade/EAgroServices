@@ -17,5 +17,10 @@ namespace Transflower.EAgroservice.Repositories.Interface
 
        public Task<int> GetTotalEntriesForCollectiionBeetweenDate(int id, DateOnly startDate, DateOnly endDate);
 
+        public  Task<int> GetTotalShipmentByVehicleRTONumber(string rtoNumber);
+
+
     }
+
+    
 }
