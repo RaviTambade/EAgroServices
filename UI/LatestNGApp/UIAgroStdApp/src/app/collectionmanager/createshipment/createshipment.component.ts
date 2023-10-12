@@ -33,7 +33,8 @@ export class CreateshipmentComponent {
     })
   }
   ngOnInit(): void {
-    this.merchantsvc.getMerchantCorporateId().subscribe((res) => {
+    this.shipmentsvc.getmerchantIdByUserId().subscribe((merchantId)=>{
+    this.merchantsvc.getMerchantCorporateId(merchantId).subscribe((res) => {
       this.merchants = res;
       let distinctmerchantIds = this.merchants.map(item => item.corporateId)
         .filter((number, index, array) => array.indexOf(number) === index);
@@ -46,6 +47,7 @@ export class CreateshipmentComponent {
             item.name = matchingItem.name;
         });
       });
+    })
     });
 
     this.trnsportersvc.getVehicleNumbers().subscribe((vehicles) => {

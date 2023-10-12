@@ -32,7 +32,8 @@ export class InvoicesComponent implements OnInit {
   }
 
   fetchData(status: string) {
-    this.invoicesvc.getInvoices(status).subscribe((response) => {
+    this.invoicesvc.getmerchantIdByUserId().subscribe((merchantId)=>{
+    this.invoicesvc.getInvoices(merchantId,status).subscribe((response) => {
       this.invoices = response;
 
       if (this.invoices.length != 0) {
@@ -52,6 +53,7 @@ export class InvoicesComponent implements OnInit {
         });
       }
     });
+  })
   }
 
   onClickPaid() {

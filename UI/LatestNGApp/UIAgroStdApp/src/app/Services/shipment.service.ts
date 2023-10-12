@@ -23,7 +23,8 @@ export class ShipmentService {
   ) {}
 
 
-  getmerchantIdByUserId(userId: number): Observable<number> {
+  getmerchantIdByUserId(): Observable<number> {
+    const userId = localStorage.getItem('userId');
     let url = "http://localhost:5276/api/merchants/manager/ " + userId;
     return this.http.get<number>(url);
   }
@@ -33,10 +34,8 @@ export class ShipmentService {
     return this.http.get<number>(url)
   }
 
-  getInprogressShipmentsByMerchant(): Observable<MerchantShipment[]> {
-    const merchantId = localStorage.getItem('merchantId');
-    let url =
-      'http://localhost:5067/api/shipments/inprogress/merchant/' + merchantId;
+  getInprogressShipmentsByMerchant(merchantId:number): Observable<MerchantShipment[]> {
+    let url ='http://localhost:5067/api/shipments/inprogress/merchant/' + merchantId;
     return this.http.get<MerchantShipment[]>(url);
   }
 
@@ -45,9 +44,9 @@ export class ShipmentService {
 
 
   getDeliveredShipmentByMerchant(
+    merchantId:number,
     paymentStatus: string
   ): Observable<MerchantShipment[]> {
-    const merchantId = localStorage.getItem('merchantId');
     let url =
       'http://localhost:5067/api/shipments/delivered/merchant/' +
       merchantId +

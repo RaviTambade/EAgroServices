@@ -37,31 +37,40 @@ export class ShipmentpaymentComponent implements OnInit {
     private banksvc: BankingService, private merchantsvc: MerchantService) { }
   ngOnInit(): void {
     this.fetchShipmentPaymentInfo();
-    
+
   }
 
   fetchShipmentPaymentInfo() {
+    console.log(this.shipmentId);
     this.shipmentsvc.getShipmentTransporterAmount(this.shipmentId).subscribe((transporterAmount) => {
       this.amount = transporterAmount.amount;
       this.paymentStatus = transporterAmount.paymentStatus;
+      console.log(transporterAmount);
       this.merchantsvc.getCorporateIdOfTransporter(transporterAmount.transporterId).subscribe((corporateId) => {
+        console.log(corporateId)
         this.corpsvc.getCorporates(corporateId.toString()).subscribe((res) => {
           this.transporterName = res[0].name
           console.log((res[0].id))
+          console.log((res))
           this.banksvc.getCorporateAccountInfo(res[0].id).subscribe((transporterAccount) => {
             console.log(transporterAccount)
             this.transporterAccountInfo.accountNumber = transporterAccount.accountNumber;
             this.transporterAccountInfo.ifscCode = transporterAccount.ifscCode;
+
+
+            this.merchantsvc.getmerchantIdByUserId().subscribe((merchantId) => {
+              console.log(merchantId)
+              this.merchantsvc.getMerchantCorporatesId(merchantId).subscribe((corpId) => {
+                console.log(corpId)
+                this.banksvc.getCorporateAccountInfo(corpId).subscribe((merchantAccount) => {
+                  console.log(merchantAccount)
+                  this.merchantAccountInfo.accountNumber = merchantAccount.accountNumber;
+                  this.merchantAccountInfo.ifscCode = merchantAccount.ifscCode;
+                });
+              });
+            })
           });
         });
-      });
-    });
-  
-    this.merchantsvc.getMerchantCorporatesId().subscribe((corpId) => {
-      console.log("corporate id", corpId);
-      this.banksvc.getCorporateAccountInfo(corpId).subscribe((merchantAccount) => {
-        this.merchantAccountInfo.accountNumber = merchantAccount.accountNumber;
-        this.merchantAccountInfo.ifscCode = merchantAccount.ifscCode;
       });
     });
   }
