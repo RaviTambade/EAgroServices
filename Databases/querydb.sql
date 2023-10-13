@@ -461,3 +461,47 @@ SELECT * FROM goodscollections;
                             JOIN crops ON crops.id = goodscollections.cropid
                             WHERE goodscollections.collectioncenterid =2 AND date(goodscollections.collectiondate)='2023-10-11'
                             GROUP BY crops.title;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT 
+    COUNT(s.id) AS shipment_count
+FROM 
+    shipments s
+JOIN 
+    vehicles v ON s.vehicleid = v.id
+WHERE 
+     s.status = 'INPROGRESS' AND
+     v.rtonumber = 'MH 14 AB 2022';
+
+
+
+SELECT 
+    COUNT(s.id) AS shipment_count
+FROM 
+    shipments s
+JOIN 
+    vehicles v ON s.vehicleid = v.id
+WHERE 
+    v.rtonumber = 'MH 14 AB 2022';
+
+
+
+SELECT 
+    COUNT(s.id) AS shipment_count
+FROM 
+    shipments s
+WHERE 
+    s.status = 'INPROGRESS';
+    
