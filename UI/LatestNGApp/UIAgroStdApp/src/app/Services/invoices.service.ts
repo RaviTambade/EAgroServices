@@ -17,12 +17,12 @@ export class InvoicesService {
     private corporatesvc: CorporateService,
     private usersvc: UserService
   ) {}
-  getmerchantIdByUserId(userId: number): Observable<number> {
+  getmerchantIdByUserId(): Observable<number> {
+    const userId = localStorage.getItem('userId');
     let url = "http://localhost:5276/api/merchants/manager/ " + userId;
     return this.http.get<number>(url);
   }
-  getInvoices(status: string): Observable<Invoice[]> {
-    let merchantId = localStorage.getItem('merchantId');
+  getInvoices( merchantId:number,status: string): Observable<Invoice[]> {
     let url =
       'http://localhost:5197/api/invoices/merchant/' +
       merchantId +

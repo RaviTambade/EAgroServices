@@ -18,6 +18,8 @@ import { CollectionPaymentDetailsComponent } from './collection-payment-details/
 import { BankingComponent } from './banking/banking.component';
 import { isNgContainer } from '@angular/compiler';
 import { InvoicelistComponent } from './invoicelist/invoicelist.component';
+import { NgChartsModule } from 'ng2-charts';
+import { BrowserModule } from '@angular/platform-browser';
 
 export const collectionmanagerRoutes:Routes=[
   {path:'dashboard',component:DashboardComponent},
@@ -51,6 +53,8 @@ export const collectionmanagerRoutes:Routes=[
     RouterModule.forChild(collectionmanagerRoutes),
     FormsModule,
     ReactiveFormsModule,
+    NgChartsModule,
+    BrowserModule
   ]
 })
 export class CollectionmanagerModule { }

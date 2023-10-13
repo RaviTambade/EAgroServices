@@ -96,14 +96,14 @@ export class InvoicedetailsComponent implements OnInit {
         this.collectionCenterAccountInfo.accountNumber = res.accountNumber;
         this.collectionCenterAccountInfo.ifscCode = res.ifscCode;
       });
-
-    this.merchantsvc.getMerchantCorporatesId().subscribe((corpId) => {
+    this.merchantsvc.getmerchantIdByUserId().subscribe((merchantId)=>{
+    this.merchantsvc.getMerchantCorporatesId(merchantId).subscribe((corpId) => {
       this.banksvc.getCorporateAccountInfo(corpId).subscribe((res) => {
         this.merchantAccountInfo.accountNumber = res.accountNumber;
         this.merchantAccountInfo.ifscCode = res.ifscCode;
       });
     });
-
+  })
     this.showPayment = true;
   }
 

@@ -46,6 +46,14 @@ todayCollectionCount(): Observable<number> {
   return this.httpClient.get<number>(url);
 
 }
+totalRevenue(): Observable<number> {
+  let farmerId=Number(localStorage.getItem("userId"));
+  const collectionDate = new Date().toISOString().split('T')[0];
+  let url ='http://localhost:5168/api/farmersgoodscollections/revenue/' + farmerId;
+  console.log(url);
+  return this.httpClient.get<number>(url);
+
+}
 
 getFarmerYearlyRevenue(): Observable<YearRevenue[]> {
   let farmerId = localStorage.getItem("userId");

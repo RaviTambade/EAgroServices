@@ -1,6 +1,5 @@
 -- Active: 1696576841746@@127.0.0.1@3306@eagroservicesdb
     
-
     INSERT INTO roles(name)VALUES('collection manager');
     INSERT INTO roles(name)VALUES ('farmer');
     INSERT INTO roles(name)VALUES('inspector');
@@ -25,8 +24,6 @@
     INSERT INTO userroles(userid,roleid)VALUES(15,2);
     INSERT INTO userroles(userid,roleid)VALUES(16,2);
 
-
-
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(1,4);
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(2,5);
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(3,6);
@@ -40,8 +37,6 @@
     INSERT INTO merchants (corporateid,managerid) VALUES(7,10);
     INSERT INTO merchants (corporateid,managerid) VALUES(8,11);
     INSERT INTO merchants (corporateid,managerid) VALUES(9,12);
-
-
 
     INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"jito","MH 14 AB 2022");
     INSERT INTO vehicles (transporterid,vehicletype,rtonumber) VALUES(1,"pickup","MH 14 XY 2222");
@@ -79,18 +74,15 @@
     INSERT INTO crops(title,imageurl,rate)VALUES('pea','/assets/images/pea.jpeg',50);
     INSERT INTO crops(title,imageurl,rate)VALUES('soyabean','/assets/images/soyabean.jpg',60);
 
-
-
-
     INSERT INTO goodscollections (collectioncenterid,farmerid, cropid, containertype, quantity, weight, collectiondate) VALUES
      (1,1, 2, 'crates', 25, 550, '2023-09-01 13:30:00'),
      (1,2, 4, 'bags',200,  11200, '2023-09-02 13:30:00'),
      (1,1, 2, 'crates', 30,  660, '2023-09-03 13:30:00'),
      (1,3, 1, 'bags', 150,  8700,  '2023-09-04 13:30:00'),
      (1,1, 2, 'crates', 40,  880, '2023-09-05 13:30:00'),
-      (1,1, 3, 'polythene bags', 40,  400, '2023-09-06 13:30:00'),
-      (1,1, 2, 'crates', 45,  990, '2023-09-07 13:30:00'),
-      (1,1,4,'polythene bags',75, 4125,'2023-09-08 13:30:00'),
+     (1,1, 3, 'polythene bags', 40,  400, '2023-09-06 13:30:00'),
+     (1,1, 2, 'crates', 45,  990, '2023-09-07 13:30:00'),
+     (1,1,4,'polythene bags',75, 4125,'2023-09-08 13:30:00'),
      (1,1, 2, 'crates', 55,  1210, '2023-09-09 13:30:00'),
      (1,15, 1, 'bags', 200,  11600, '2023-09-10 13:30:00'),
      (1,1, 2, 'crates', 60,  1320, '2023-09-11 13:30:00'),
@@ -98,7 +90,7 @@
      (1,1, 2, 'crates', 45,990, '2023-09-13 13:30:00'),
      (1,16, 1, 'bags',300,17400, '2023-09-14 13:30:00'),
      (1,1, 2, 'crates', 35,  770, '2023-09-15 13:30:00'),
-    (1,1, 2, 'crates', 35,  770, '2023-09-16 13:30:00'),
+     (1,1, 2, 'crates', 35,  770, '2023-09-16 13:30:00'),
      (1,16, 4, 'bags', 400,  22000,  '2023-09-17 13:30:00'),
      (1,1, 2, 'crates', 18,  396, '2023-09-18 13:30:00'),
      (1,1, 1, 'bags', 300,16500, '2023-09-19 13:30:00'),
@@ -490,8 +482,6 @@ INSERT INTO verifiedgoodscollection(collectionid,grade,
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (18,38);
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (18,39);
 
-
-
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (13,40);
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (14,41);
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (14,42);
@@ -575,7 +565,6 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (16,117);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (16,118);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (17,119);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (17,120);
-
 
 CALL call_all_procedures_for_charges(18);
    

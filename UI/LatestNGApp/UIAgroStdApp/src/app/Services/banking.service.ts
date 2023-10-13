@@ -29,6 +29,7 @@ export class BankingService {
       "dependencyId": corporateId
     }
     console.log(body);
+    console.log(url);
     return this.http.post<AccountInfo>(url, body);
   }
 

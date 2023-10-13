@@ -42,18 +42,22 @@ export class ShipmentlistComponent implements OnInit {
     this.unpaidDeliveredStatus = true;
     this.paidDeliveredStatus = false;
     this.isLoading = true;
-    this.shipmentsvc.getDeliveredShipmentByMerchant('UnPaid').subscribe((res) => {
+    this.shipmentsvc.getmerchantIdByUserId().subscribe((merchantId)=>{
+    this.shipmentsvc.getDeliveredShipmentByMerchant(merchantId,'UnPaid').subscribe((res) => {
       this.merchantShipments = res;
       this.isLoading = false;
     });
+  })
   }
   onClickPaidDelivered() {
     this.paidDeliveredStatus = true;
     this.unpaidDeliveredStatus = false;
     this.isLoading = true;
-    this.shipmentsvc.getDeliveredShipmentByMerchant('Paid').subscribe((res) => {
+    this.shipmentsvc.getmerchantIdByUserId().subscribe((merchantId)=>{
+    this.shipmentsvc.getDeliveredShipmentByMerchant(merchantId,'Paid').subscribe((res) => {
       this.merchantShipments = res;
       this.isLoading = false;
+    });
     });
   }
 
@@ -63,12 +67,13 @@ export class ShipmentlistComponent implements OnInit {
     this.isLoading = true;
     console.log(this.merchantShipments?.length);
     setTimeout(()=>{
-  
-      this.shipmentsvc.getInprogressShipmentsByMerchant().subscribe((res) => {
+  this.shipmentsvc.getmerchantIdByUserId().subscribe((merchantId)=>{
+      this.shipmentsvc.getInprogressShipmentsByMerchant(merchantId).subscribe((res) => {
         this.merchantShipments = res;
         console.log(this.merchantShipments);
         this.isLoading = false;
       });
+    })
     },4000)
     
   }
