@@ -33,10 +33,12 @@ export class AddtoshipmentComponent implements OnInit {
       this.collectionId = collectionId;
   this.shipmentsvc.getInprogressShipments().subscribe((res) => {
     this.shipmentVehicleList = res;
+    console.log(this.shipmentVehicleList)
 
     let distinctmerchantIds = this.shipmentVehicleList.map(item => item.merchantCorporateId)
       .filter((number, index, array) => array.indexOf(number) === index);
     let merchantIdString = distinctmerchantIds.join(',')
+    console.log(merchantIdString)
     this.corporatesvc.getCorporates(merchantIdString).subscribe((names) => {
       let corporationNames = names
       this.shipmentVehicleList.forEach(item => {
