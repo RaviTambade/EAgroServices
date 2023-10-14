@@ -441,33 +441,6 @@ JOIN crops ON goodscollections.cropid = crops.id
 WHERE farmerid = 1 
 AND collectiondate BETWEEN '2023-09-01 13:30:00' AND '2023-09-30 13:30:00';
 
-SELECT * FROM goodscollections;
-SELECT COUNT(id) FROM goodscollections WHERE collectioncenterid=2 AND date(collectiondate)='2023-10-11';
-
-SELECT * FROM goodscollections;
-    SELECT SUM(invoices.totalamount) AS Amount
-    FROM invoices 
-    JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
-    JOIN goodscollections ON shipmentitems.collectionid = goodscollections.id
-    WHERE invoices.paymentstatus = 'paid' AND goodscollections.farmerid =1;
-
-    SELECT crops.title, SUM(goodscollections.weight)as totalWeight
-    FROM goodscollections join crops on crops.id= goodscollections.cropid
-     WHERE  goodscollections.collectioncenterid = 1
-    GROUP BY(crops.title) ;
-
-    SELECT crops.title, SUM(goodscollections.weight) as totalWeight 
-                            FROM goodscollections
-                            JOIN crops ON crops.id = goodscollections.cropid
-                            WHERE goodscollections.collectioncenterid =2 AND date(goodscollections.collectiondate)='2023-10-11'
-                            GROUP BY crops.title;
-
-
-
-
-
-
-
 
 
 
@@ -504,4 +477,5 @@ FROM
     shipments s
 WHERE 
     s.status = 'INPROGRESS';
+    
     

@@ -60,4 +60,12 @@ public class GoodsCollectionService : IGoodsCollectionService
     {
        return await _repo.TotalCropsQuantity(collectionCenterId,currentDate);
     }
+
+
+  public  Task<int> GetTotalShipmentByVehicleRTONumber(string rtoNumber)
+     {
+           var GoodsCollections = _repo.GetTotalShipmentByVehicleRTONumber(rtoNumber);
+        return  GoodsCollections;
+    }
+
 }

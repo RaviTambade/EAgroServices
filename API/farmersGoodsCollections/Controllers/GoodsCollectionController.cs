@@ -89,4 +89,16 @@ public async Task<List<TotalCropQuantity>> GetTotalCropQuantity(int collectionCe
     return await _service.TotalCropsQuantity(collectionCenterId,currentDate);
     
 }
+
+
+  [HttpGet]
+[Route("rtoNumber")]
+public async Task<int> GetTotalShipmentByVehicleRTONumber( string rtoNumber)
+{
+    int goodsCollectionsCount = await _service.GetTotalShipmentByVehicleRTONumber(rtoNumber);
+    return goodsCollectionsCount;
+} 
+
+
+
 }

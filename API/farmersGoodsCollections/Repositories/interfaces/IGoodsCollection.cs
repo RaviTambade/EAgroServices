@@ -19,5 +19,10 @@ namespace Transflower.EAgroservice.Repositories.Interface
        public Task<int> GetTotalFarmerRevenue(int id);
        public Task<List<TotalCropQuantity>>TotalCropsQuantity(int collectionCenterId,string currentDate);
 
+        public  Task<int> GetTotalShipmentByVehicleRTONumber(string rtoNumber);
+
+
     }
+
+    
 }
