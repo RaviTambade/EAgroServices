@@ -43,6 +43,7 @@ export class CollectionverificationComponent implements OnInit {
       this.managersvc.getCollectionList(this.type,res.collectionCenterId).subscribe((collectionList) => {
         console.log(collectionList);
         this.collectionList = collectionList;
+        this.onClickDetails(this.collectionList[0].collectionId,this.type)
         let distinctFarmerIds = this.collectionList.map(item => item.farmerId)
           .filter((number, index, array) => array.indexOf(number) === index);
 
@@ -63,9 +64,9 @@ export class CollectionverificationComponent implements OnInit {
     })
   }
 
-  onClickDetails(collectionId: number) {
-    this.farmersvc.setSelectedCollectionId(collectionId);
-    console.log(collectionId);
+  onClickDetails(collectionId: number,type:string) {
+    this.farmersvc.setSelectedCollectionId(collectionId,type);
+    console.log(collectionId,type);
   }
   onClickVerify(collectionId:number){
     this.inspectorsvc.setVerifiedCollectionId(collectionId);

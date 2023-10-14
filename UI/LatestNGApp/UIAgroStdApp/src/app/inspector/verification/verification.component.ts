@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-verification',
+  selector: 'onClickVerify',
   templateUrl: './verification.component.html',
   styleUrls: ['./verification.component.css']
 })

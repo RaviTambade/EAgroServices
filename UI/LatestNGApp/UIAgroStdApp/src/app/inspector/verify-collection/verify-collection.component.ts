@@ -31,7 +31,6 @@ export class VerifyCollectionComponent implements OnInit {
   ngOnInit(): void {
     this.inspectorsvc.verifiedCollectionId$.subscribe((collectionId) => {
       this.collectionId = collectionId;
-      if (this.collectionId)
     this.verifiedcollectionsvc.getGrades().subscribe((res) => {
       this.grades = res;
     });

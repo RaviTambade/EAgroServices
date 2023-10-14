@@ -61,7 +61,7 @@ export class CollectionsComponent implements OnInit {
   }
 
   onClickDetails(collectionId: number) {
-    this.farmersvc.setSelectedCollectionId(collectionId);
+    this.farmersvc.setSelectedCollectionId(collectionId,this.type);
     console.log(collectionId);
   }
 }

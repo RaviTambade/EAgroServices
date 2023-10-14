@@ -17,8 +17,8 @@ export class FarmerService {
   private selectedCollectionIdSubject = new BehaviorSubject<any>(null);
   selectedCollectionId$ = this.selectedCollectionIdSubject.asObservable();
 
-  setSelectedCollectionId(collectionId: number) {
-    this.selectedCollectionIdSubject.next(collectionId);
+  setSelectedCollectionId(collectionId: number,type:string) {
+    this.selectedCollectionIdSubject.next({collectionId,type});
     console.log(collectionId);
   }
   

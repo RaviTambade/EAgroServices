@@ -33,13 +33,13 @@
                         </li>
                       </ul>
                     </div>
-                    <!-- <td><button class="btn btn-info" style="margin: 20px;"
-                        (click)="onClickInvoiceDetails(collectionDetails.id)"> Invoice </button></td>
-                    <tr *ngIf="selectedCollectionId === collectionDetails.id">
+                    <td *ngIf="collectiontype=='unverified'"><button class="btn btn-info" style="margin: 20px;"
+                        (click)="onClickVerify(collectionDetails.id)"> Verify </button></td>
+                    <tr *ngIf="status && collectiontype=='unverified'">
+                        <app-verify-collection></app-verify-collection>
+                        
   
-                      <app-invioce [collectionId]="collectionDetails.id"></app-invioce>
-   -->
-                    <!-- </tr> -->
+                    </tr>
                   </div>
                 </div>
               </div>

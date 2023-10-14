@@ -34,12 +34,12 @@ export class CollectionlistComponent implements OnInit {
     this.farmersvc.collectionList().subscribe((response) => {
       this.collectionslist = response;
       console.log(response);
-      this.farmersvc.setSelectedCollectionId(response[0].collectionId);
+      this.farmersvc.setSelectedCollectionId(response[0].collectionId,"");
     })
   }
 
   onClickDetails(collectionId: number) {
-    this.farmersvc.setSelectedCollectionId(collectionId);
+    this.farmersvc.setSelectedCollectionId(collectionId,'');
     console.log(collectionId);
   }
 }
