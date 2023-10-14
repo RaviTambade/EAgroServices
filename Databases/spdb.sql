@@ -159,7 +159,7 @@ CREATE PROCEDURE CalculateInvoiceAmounts(
 )
 BEGIN
 IF mode = 'year' THEN
-    -- Calculate the sum of invoice amounts by year
+   
     SELECT YEAR(invoices.invoicedate) AS Year, SUM(invoices.totalamount) AS Amount
     FROM invoices 
     JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
@@ -169,7 +169,7 @@ IF mode = 'year' THEN
     GROUP BY YEAR(invoices.invoicedate)
     ORDER BY Year ASC;
 ELSEIF mode='quarter' THEN
-    -- Calculate the sum of invoice amounts by quarter
+    
     SELECT QUARTER(invoices.invoicedate) AS Quarter, SUM(invoices.totalamount) AS Amount, YEAR(invoices.invoicedate) AS Year
     FROM invoices 
     JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
