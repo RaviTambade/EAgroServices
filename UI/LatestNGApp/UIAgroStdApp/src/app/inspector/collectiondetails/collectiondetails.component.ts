@@ -11,7 +11,7 @@ import { InspectorService } from 'src/app/Services/inspector.service';
   styleUrls: ['./collectiondetails.component.css']
 })
 export class CollectiondetailsComponent {
-  collectiontype:string='';
+  collectiontype: string = '';
   selectedCollectionId: number | null = null;
   collectionDetails: CollectionDetails | any
   corporateName: CollectionCenter[] | any
@@ -19,8 +19,8 @@ export class CollectiondetailsComponent {
   requestDetails: any;
   details: boolean = false;
   collectionId: number | any;
-  status:boolean=false;
-  constructor(private farmerSvc: FarmerService, private commonSvc: CommonService,private inspectorsvc:InspectorService) { }
+  status: boolean = false;
+  constructor(private farmerSvc: FarmerService, private commonSvc: CommonService, private inspectorsvc: InspectorService) { }
   ngOnInit(): void {
     if (this.selectedCollectionId !== null) {
       this.collectionId = this.selectedCollectionId;
@@ -28,7 +28,7 @@ export class CollectiondetailsComponent {
     }
     this.farmerSvc.selectedCollectionId$.subscribe((res) => {
       this.collectionId = res.collectionId;
-      this.collectiontype=res.type;
+      this.collectiontype = res.type;
       if (this.collectionId)
         this.farmerSvc.collectionDetail(this.collectionId).subscribe((response) => {
           console.log(this.collectionId)
@@ -44,8 +44,8 @@ export class CollectiondetailsComponent {
     });
   }
 
-  onClickVerify(id:number){
-    this.status=true
+  onClickVerify(id: number) {
+    this.status = true
     this.inspectorsvc.setVerifiedCollectionId(id)
   }
 
