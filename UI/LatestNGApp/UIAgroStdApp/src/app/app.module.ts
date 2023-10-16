@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
@@ -36,7 +35,7 @@ import { inspectorsRoutes } from './inspector/inspector.module';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
-      { path: 'dashboard', component: DashboardComponent},
+      // { path: 'dashboard', component: DashboardComponent},
       {path:'transporter',children:transporterRoutes},
       {path:'farmer',children:farmerRoutes},
       {path:'merchant',children:merchantRoutes},

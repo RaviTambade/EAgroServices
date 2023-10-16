@@ -470,7 +470,7 @@ WHERE
     v.rtonumber = 'MH 14 AB 2022';
 
 
-
+SELECT * FROM invoices;
 SELECT 
     COUNT(s.id) AS shipment_count
 FROM 

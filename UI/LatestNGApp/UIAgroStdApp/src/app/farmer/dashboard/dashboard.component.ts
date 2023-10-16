@@ -124,6 +124,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         ],
       },
     },
+    elements: {
+      line: {
+        tension: 0.4, // Set the tension for the curve (0.0 for no interpolation, 1.0 for maximum interpolation)
+      },
+    },
   };
   
 

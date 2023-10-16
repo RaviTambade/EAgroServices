@@ -4,15 +4,16 @@ import { CollectionverificationComponent } from './collectionverification/collec
 import { UnverifiedcollectionComponent } from './unverifiedcollection/unverifiedcollection.component';
 import { FilterModule } from '../filter/filter.module';
 import { Routes } from '@angular/router';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VerificationComponent } from './verification/verification.component';
 import { VerifyCollectionComponent } from './verify-collection/verify-collection.component';
 import { CollectiondetailsComponent } from './collectiondetails/collectiondetails.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
 
 export const inspectorsRoutes:Routes=[
-  {path:'dashboard',component:DashboardComponent},
   {path:'collections',component:VerificationComponent},
+  {path:'dashboard',component:DashboardComponent},
 
 ]
 @NgModule({
@@ -29,7 +30,8 @@ export const inspectorsRoutes:Routes=[
     CommonModule,
     FilterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ],
   exports:[
     CollectionverificationComponent,

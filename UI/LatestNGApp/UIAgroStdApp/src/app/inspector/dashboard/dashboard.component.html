@@ -1,1 +1,51 @@
-<p>dashboard works!</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Today's Collections</h6>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{todaysCollection}}</span></h2>
+                    <p class="m-b-0">"From Farm to Center, Confidentially Delivered."</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Collections</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{totalCollection}}</span></h2>
+                    <p class="m-b-0">"Confidentiality from Field to Collection."</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Revenue</h6>
+                    <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>48600</span></h2>
+                    <p class="m-b-0">"Your Fields, Your Wealth, Our Expertise."</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block" style=" height: 158px;">
+                      <h6 class="m-b-20">Total Collection in KG</h6>
+                      <div style="display: block; width: 230px; height: 350px;">
+                            <canvas baseChart
+                                    [datasets]="lineChartData"
+                                    [labels]="lineChartLabels"
+                                    [options]="lineChartOptions"
+                                    [type]="lineChartType"
+                                    [legend]="lineChartLegend">
+                            </canvas>
+                          </div>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+  </div>
+  </div>
