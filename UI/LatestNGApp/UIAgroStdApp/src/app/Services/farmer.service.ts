@@ -21,6 +21,9 @@ export class FarmerService {
     this.selectedCollectionIdSubject.next({collectionId,type});
     console.log(collectionId);
   }
+  selectedCollectionId(collectionId:number){
+   this.selectedCollectionIdSubject.next(collectionId);
+  }
   
   collectionList():Observable<CollectionList[]>{
     let farmerId=Number(localStorage.getItem("userId"));

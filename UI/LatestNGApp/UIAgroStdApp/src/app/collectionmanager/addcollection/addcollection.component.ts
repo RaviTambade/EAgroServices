@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Collection } from 'src/app/Models/collection';
+import { CollectionCenter } from 'src/app/Models/collectioncenter';
 import { NameId } from 'src/app/Models/name-id';
 import { Role } from 'src/app/Models/role';
 import { CollectionmanagerService } from 'src/app/Services/collectionmanager.service';
@@ -24,6 +25,7 @@ export class AddcollectionComponent {
   private usersSubscription: Subscription | undefined;
   private cropsSubscription: Subscription | undefined;
   private containerTypesSubscription: Subscription | undefined;
+  collectionCenterId: number=0;
 
   constructor(
     private formbuilder: FormBuilder,
@@ -55,6 +57,9 @@ export class AddcollectionComponent {
     this.containerTypesSubscription = this.colmsvc.getContainerTypes().subscribe((res) => {
       this.containerTypes = res;
     });
+    this.colmsvc.getCollectionCenterId().subscribe((collectionCenterId)=>{
+      this.collectionCenterId=collectionCenterId;
+    })
   }
 
   OnSubmit() {
@@ -66,7 +71,7 @@ export class AddcollectionComponent {
         containerType: this.collectionForm.get('containerType')?.value,
         quantity: this.collectionForm.get('quantity')?.value,
         weight: this.collectionForm.get('weight')?.value,
-        collectionCenterId: Number(localStorage.getItem("collectionCenterId")),
+        collectionCenterId:this.collectionCenterId,
       }
       console.log(collection);
 
