@@ -22,9 +22,8 @@ namespace Transflower.EAgroservice.Repositories.Interface
        public  Task<int> GetCollectionCenterShipment(int collectionCenterId);
 
 
-
+    }
 
     }
 
     
-}

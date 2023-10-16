@@ -68,4 +68,8 @@ public class GoodsCollectionService : IGoodsCollectionService
         return  GoodsCollections;
     }
 
+    public Task<int> GetCollectionCenterShipment(int collectionCenterId)
+    {
+        throw new NotImplementedException();
+    }
 }
