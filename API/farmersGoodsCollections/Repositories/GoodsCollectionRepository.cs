@@ -239,40 +239,8 @@ public async Task<List<TotalCropQuantity>> TotalCropsQuantity(int collectionCent
             throw new NotImplementedException();
         }
 
-        //   public async Task<int> GetCollectionCenterShipmentint (int collectionCenterId)
-        // {
-        //     List<CenterShipment> collectioncentershipments = new List<CenterShipment>();
-
-        //     using (MySqlConnection connection = new MySqlConnection(_connectionString))
-        //     {
-        //         await connection.OpenAsync();
-
-        //         MySqlCommand command = new MySqlCommand();
-        //         command.Connection = connection;
-        //         command.CommandText = "SELECT cc.id AS collectioncenter_id,s.id AS shipment_id,s.vehicleid, COUNT(si.id) AS total_shipment_items,GROUP_CONCAT(c.title ORDER BY c.title ASC) AS shipment_item_crop_names FROM collectioncenters cc JOIN goodscollections gc ON cc.id = gc.collectioncenterid JOIN crops c ON gc.cropid = c.id  JOIN shipmentitems si ON gc.id = si.collectionid JOIN shipments s ON si.shipmentid = s.id JOIN vehicles v ON  s.vehicleid =v.id WHERE cc.id=@collectionCenterId  GROUP BY cc.collectionCenterId ORDER BY cc.id";
-
-        //         command.Parameters.AddWithValue("@collectionCenterId", collectionCenterId);
-
-
-        //         using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
-        //         {
-        //             while (await reader.ReadAsync())
-        //             {
-        //                 CenterShipment centershipment = new CenterShipment
-        //                 {
-        //                     ShipmentItemCropNames = reader.GetString("title"),
-        //                     TotalShipmentItems = (double)reader.GetDecimal("totalWeight")
-        //                 };
-
-        //                 collectioncentershipments.Add(centershipment);
-        //             }
-        //         }
-        //     }
-
-        //     return cropQuantities;
-        // }
-
-
+    }
+}
 
 
 
@@ -428,6 +396,40 @@ public async Task<List<TotalCropQuantity>> TotalCropsQuantity(int collectionCent
         // return totalEntries;
         //     }
 
-    }
-}
+
+
+
+        //   public async Task<int> GetCollectionCenterShipmentint (int collectionCenterId)
+        // {
+        //     List<CenterShipment> collectioncentershipments = new List<CenterShipment>();
+
+        //     using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        //     {
+        //         await connection.OpenAsync();
+
+        //         MySqlCommand command = new MySqlCommand();
+        //         command.Connection = connection;
+        //         command.CommandText = "SELECT cc.id AS collectioncenter_id,s.id AS shipment_id,s.vehicleid, COUNT(si.id) AS total_shipment_items,GROUP_CONCAT(c.title ORDER BY c.title ASC) AS shipment_item_crop_names FROM collectioncenters cc JOIN goodscollections gc ON cc.id = gc.collectioncenterid JOIN crops c ON gc.cropid = c.id  JOIN shipmentitems si ON gc.id = si.collectionid JOIN shipments s ON si.shipmentid = s.id JOIN vehicles v ON  s.vehicleid =v.id WHERE cc.id=@collectionCenterId  GROUP BY cc.collectionCenterId ORDER BY cc.id";
+
+        //         command.Parameters.AddWithValue("@collectionCenterId", collectionCenterId);
+
+
+        //         using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
+        //         {
+        //             while (await reader.ReadAsync())
+        //             {
+        //                 CenterShipment centershipment = new CenterShipment
+        //                 {
+        //                     ShipmentItemCropNames = reader.GetString("title"),
+        //                     TotalShipmentItems = (double)reader.GetDecimal("totalWeight")
+        //                 };
+
+        //                 collectioncentershipments.Add(centershipment);
+        //             }
+        //         }
+        //     }
+
+        //     return cropQuantities;
+        // }
+
 
