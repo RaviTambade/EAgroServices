@@ -243,33 +243,6 @@ public async Task<List<TotalCropQuantity>> TotalCropsQuantity(int collectionCent
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //     public async Task<int> RevenueChart(int id, int year, string mode)
         //     {
         //         using (MySqlConnection connection = new MySqlConnection(_connectionString))

@@ -1,0 +1,118 @@
+Module - Authentication
+
+Component- login component.
+
+           this component is use for login process here user can fill credential details and login to application 
+
+Component- Update component. 
+           this component is use for change credential data 
+
+
+
+Module - Farmer Module
+1-component :- dashboard
+                                  In this componenet we can see farmer dashboard  
+
+1-component :- Collectionlist 
+                                  Show total collections of farmer.
+2-component :- Collection details
+                                  Show perticular details of every collection
+3-component :- Collection 
+                                this component consist both componenet (collection list and collection details)
+4-component :- invoice 
+                                  Shows invoice details of perticular collection
+5-component :- invoice list
+                                  Shows total invoice of farmer 
+6-component :- invoice details
+                                  Shows invoice details of farmer
+7-component :- total invoice
+                                  it consist both component invoice list componenet  and  invoice details component of farmer                                
+
+8-component :- revenue chart
+                                 this componenet shows total revenue of farmer 
+
+
+
+Module - Collection Manager -  
+
+1-component :- dashboard
+                             In this componenet we can see collection manager dashboard 
+2-component :- collections
+                             Show total collections of collection manager 
+3-component :- collections details
+                              Shows details of perticular collection
+4-component :- Add collections 
+                             we can add new collection to collection list
+5-component :- collection payment list
+                              Shows payment list collections
+6-component :- collection payment details
+                                 Shows payment details of perticular collection
+7-component :- collections shipment list
+                                 Shows total collection shipment list
+8-component :- verified collection list
+                                 In this componenet we can see verified collection from total collection list
+9-component :- verified collection details
+                                 In this componenet we can see perticular verified details from verified collection list
+10-component :- Banking
+                                 In this componenet we can see transection 
+
+
+Module - Inspector
+
+1-component :- dashboard
+                             In this componenet we can see inspector dashboard 
+
+2-component :- unverified collection list
+                                 In this componenet we can see unverified collection list 
+3-component :- unverified collection details
+                                 In this componenet we can see perticular collection unverified detials 
+4-component :- verified collection 
+                                 In this componenet we can verified perticular collection 
+5-component :- verification
+                                 In this componenet we consist two component left componenet (collection verification) and right componenet(collection details)
+
+
+
+Module - transporter
+
+1-component :- dashboard
+                             In this componenet we can see transporter dashboard 
+2-component :- vehicles
+                             Show total vehicle list of that transporter
+3-component :- get shipments of vehicle
+                             in this componenet we can see total shipment list of that perticular vehicle 
+4-component :- transporter view
+                                 consist two componenet (vehicles and get shipment of vehicle)
+5-component :- get all shipment
+                             In this component we can see total shipment list
+6-component :- get shipment vehicle item 
+                             in this component we can see shipment details of that perticular vehicle 
+7-component :- shipments
+                             consist two componenet (get all shipment and get shipment vehicle item )
+
+8-component :- invoices
+                             we can see paid and unpaid invoices list
+9-component :- Banking
+                                 In this componenet we can see transection details of transporter 
+
+
+Module - merchant
+
+1-component :- dashboard
+                             In this componenet we can see merchant dashboard 
+2-component :- invoices
+                            total invoices of merchant
+                            paid and unpaid 
+3-component :- invoices details
+                            invoice details of perticular invoice
+4-component :-shipment list
+                                 total shipment list of merchant
+                                 paid and unpaid list
+                                 
+5-component :- shipment details
+                         perticular shipment details
+                         and we can set shipmet status as delivered
+ 
+7-component :- shipments payment
+                             we can see perticular shipment payment also we can pay here
+

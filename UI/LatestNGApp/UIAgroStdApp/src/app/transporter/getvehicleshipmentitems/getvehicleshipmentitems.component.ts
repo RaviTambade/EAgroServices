@@ -22,7 +22,7 @@ export class GetvehicleshipmentitemsComponent implements OnInit {
   subscription: Subscription | undefined;
   shipment: Shipmentsmerchant = {
     corporateId: 0,
-    companyName: '',
+    companyName:'',
     id: '',
     vehicleId: 0,
     merchantId: 0,
@@ -45,7 +45,7 @@ export class GetvehicleshipmentitemsComponent implements OnInit {
       this.shipmentId = shipmentId;
       if (this.shipmentId)
       this.subscription = this.svc.getShipmentItems(this.shipmentId).subscribe((response) => {
-          console.log(response);
+          console.log("check:",response);
           this.shipmentItemsDetails = response;
           let distinctcollectioncenterIds = this.shipmentItemsDetails.map(item => item.collectionCenterCorporaterId)
             .filter((number, index, array) => array.indexOf(number) === index);
