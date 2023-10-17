@@ -1,84 +1,280 @@
-<h3 align="center">AdminAPI </h3>
+<h3 align="center">FarmerAPI </h3>
 
 
 URL
 
 ```console
- http://localhost:5051/api/admins
+ http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
 ```
 
 Method = GET
 
-Description = Get the all Admins
+Description = Get the all verifiedcollections with paymentstatus
 
 Body = None
+
+Response = 
+
+```console
+[
+  {
+    "id": 1,
+    "collectionCenterId": 1,
+    "corporateId": 1,
+    "managerId": 1,
+    "cropName": "Tomato",
+    "imageUrl": "/assets/images/tomato.jpeg",
+    "containerType": "crates",
+    "quantity": 25,
+    "weight": 550,
+    "collectionDate": "2023-09-01T13:30:00",
+    "grade": "A",
+    "paymentStatus": "paid",
+    "verifiedWeight": 520,
+    "inspectionDate": "2023-09-01T13:30:00"
+  }
+]
+```
+
+Token requird = No
 
 <hr>
 
 URL
 
 ```console
- http://localhost:5051/api/admins/{id}
+ http://localhost:5051/api/farmerscollections/verifiedcollection/{farmerId}
 ```
 
-Id = adminId
 
 Method = GET
 
-Description = Gets the Admin by its Admin id
+Description = Gets the all verified Collection
 
 Body = None
+
+Response = 
+
+```console
+ [
+  {
+    "id": 1,
+    "collectionCenterId": 1,
+    "corporateId": 1,
+    "managerId": 1,
+    "cropName": "Tomato",
+    "imageUrl": "/assets/images/tomato.jpeg",
+    "containerType": "crates",
+    "quantity": 25,
+    "weight": 550,
+    "collectionDate": "2023-09-01T13:30:00",
+    "grade": "A",
+    "paymentStatus": "paid",
+    "verifiedWeight": 520,
+    "inspectionDate": "2023-09-01T13:30:00"
+  },
+]
+```
+
+Token requird = No
+
 
 <hr>
 
 URL
 
 ```console
-http://localhost:5051/api/admins
+ http://localhost:5051/api/farmerscollections/{farmerId}"
 ```
 
-Method = POST
+Method = Get
 
-Description = Insert the New Admin
+Description = Get all collections of farmers
 
-Body
+Body = None
+
+Response = 
 
 ```console
-
-
+  [
+  {
+    "id": 1,
+    "collectionCenterId": 1,
+    "corporateId": 1,
+    "managerId": 1,
+    "cropName": "Tomato",
+    "imageUrl": "/assets/images/tomato.jpeg",
+    "containerType": "crates",
+    "quantity": 25,
+    "weight": 550,
+    "collectionDate": "2023-09-01T13:30:00",
+    "grade": null,
+    "paymentStatus": null,
+    "verifiedWeight": 0,
+    "inspectionDate": "0001-01-01T00:00:00"
+  },
+]
 ```
+
+Token requird = No
+
+
 <hr>
 
 URL 
 ```console
-http://localhost:5051/api/admins/admins/{id}
+http://localhost:5051/api/farmerscollections/collectionlist/{farmerId}
 ```
-Id  =  adminI
-Method = Put
+Method = GET
 
-Description =  Update an existing Admin details
+Description =  collectionlist 
 
-Body
+Body = None
+
+Response = 
+
 ```console
-{
-    "firstName": "Ashok",
-    "lastName": "Chakkar",
-    "location": "Bhavadi"
-}
+  [
+  {
+    "collectionId": 1,
+    "cropName": "Tomato",
+    "status": "Verified",
+    "quantity": 25,
+    "collectionDate": "2023-09-01T13:30:00"
+  }
+]
 ```
+
+Token requird = No
+
 <hr>
 
 URL
 ```console
-http://localhost:5051/api/admins/admins/{id}
+http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
 ```
-Id = adminId
 
-Method = Delete
+Method = GET
 
-Description = Delete An existing Admin.
+Description = collection Details of each farmer Collection
 
 Body = None
+Response = 
+
+```console
+ {
+  "id": 4,
+  "collectionCenterId": 1,
+  "corporateId": 1,
+  "managerId": 1,
+  "cropName": "Potato",
+  "imageUrl": "/assets/images/potato.jpeg",
+  "containerType": "bags",
+  "quantity": 150,
+  "weight": 8700,
+  "collectionDate": "2023-09-04T13:30:00",
+  "grade": null,
+  "paymentStatus": null,
+  "verifiedWeight": 0,
+  "inspectionDate": "0001-01-01T00:00:00"
+}
+```
+
+Token requird = No
+
+<hr>
+
+URL
+```console
+http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
+```
+
+Method = GET
+
+Description = unverified collection of farmers
+
+Body = None
+Response = 
+
+```console
+ [
+  {
+    "id": 126,
+    "collectionCenterId": 1,
+    "corporateId": 1,
+    "managerId": 1,
+    "cropName": "Beans",
+    "imageUrl": "/assets/images/beans.jpeg",
+    "containerType": "polythene bags",
+    "quantity": 35,
+    "weight": 2110,
+    "collectionDate": "2023-11-01T13:30:00",
+    "grade": null,
+    "paymentStatus": null,
+    "verifiedWeight": 0,
+    "inspectionDate": "0001-01-01T00:00:00"
+  }
+ ]
+```
+
+Token requird = No
+
+<hr>
+
+
+URL
+```console
+http://localhost:5051/api/farmerscollections/croprevenue/{farmerId}
+```
+
+Method = GET
+
+Description = crop wise revenue of farmer
+
+Body = None
+
+Response = 
+
+```console
+ 
+ [
+    {
+    "cropName": "Beans",
+    "totalAmount": 0
+  },
+  {
+    "cropName": "Brinjal",
+    "totalAmount": 0
+  },
+  {
+    "cropName": "Cabbage",
+    "totalAmount": 0
+  },
+  {
+    "cropName": "Onion",
+    "totalAmount": 5000
+  },
+  {
+    "cropName": "Potato",
+    "totalAmount": 0
+  },
+  {
+    "cropName": "soyabean",
+    "totalAmount": 0
+  },
+  {
+    "cropName": "Tomato",
+    "totalAmount": 17050
+  },
+  {
+    "cropName": "wheat",
+    "totalAmount": 0
+  }
+ ]
+```
+
+Token requird = No
+
 <hr>
 
 <h3 align="center">EmployeesAPI </h3>
