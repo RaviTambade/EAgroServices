@@ -5,6 +5,7 @@ URL
 
 ```console
  http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
+ api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
 ```
 
 Method = GET
