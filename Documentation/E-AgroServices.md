@@ -1,8 +1,8 @@
 <h3 align="center">FarmerAPI </h3>
 
+## REST API EndPoints
 
--URL
-  - http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
+  - URL : http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
   - api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
   - Method = GET
   - Description = Get the all verfied collections belong to farmerid  and paymentstatus is paid or unpaid
