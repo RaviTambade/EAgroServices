@@ -9,7 +9,7 @@
   - <b>Description</b>: Get the all verfied collections belong to farmerid  and paymentstatus is paid or unpaid
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
-  - <b>Response</b> = 
+  - <b>Response</b> :
     ```console
     [
       {
@@ -31,414 +31,282 @@
     ]
     ```
 
+  - <b>URL</b> : api/farmerscollections/verifiedcollection/{farmerId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get the all verified Collection of farmer belongs to farmerId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+      ```console
+      [
+        {
+          "id": 1,
+          "collectionCenterId": 1,
+          "corporateId": 1,
+          "managerId": 1,
+          "cropName": "Tomato",
+          "imageUrl": "/assets/images/tomato.jpeg",
+          "containerType": "crates",
+          "quantity": 25,
+          "weight": 550,
+          "collectionDate": "2023-09-01T13:30:00",
+          "grade": "A",
+          "paymentStatus": "paid",
+          "verifiedWeight": 520,
+          "inspectionDate": "2023-09-01T13:30:00"
+        },
+      ]
+      ```
 
-URL
+  - <b>URL</b> : /api/farmerscollections/{farmerId}"
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get the all Collection of farmer belongs to farmerId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+        ```console
+          [
+          {
+            "id": 1,
+            "collectionCenterId": 1,
+            "corporateId": 1,
+            "managerId": 1,
+            "cropName": "Tomato",
+            "imageUrl": "/assets/images/tomato.jpeg",
+            "containerType": "crates",
+            "quantity": 25,
+            "weight": 550,
+            "collectionDate": "2023-09-01T13:30:00",
+            "grade": null,
+            "paymentStatus": null,
+            "verifiedWeight": 0,
+            "inspectionDate": "0001-01-01T00:00:00"
+          },
+        ]
+        ```
 
-```console
- http://localhost:5051/api/farmerscollections/verifiedcollection/{farmerId}
-```
+  - <b>URL</b> :/api/farmerscollections/collectionlist/{farmerId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get the CollectionList of farmer belongs to farmerId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+        ```console
+          [
+          {
+            "collectionId": 1,
+            "cropName": "Tomato",
+            "status": "Verified",
+            "quantity": 25,
+            "collectionDate": "2023-09-01T13:30:00"
+          }
+        ]
+        ```
+  - <b>URL</b> :/api/farmerscollections/collectiondetails/{collectionId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get the Collection Details of farmer belongs to collectionId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+        ```console
+        {
+          "id": 4,
+          "collectionCenterId": 1,
+          "corporateId": 1,
+          "managerId": 1,
+          "cropName": "Potato",
+          "imageUrl": "/assets/images/potato.jpeg",
+          "containerType": "bags",
+          "quantity": 150,
+          "weight": 8700,
+          "collectionDate": "2023-09-04T13:30:00",
+          "grade": null,
+          "paymentStatus": null,
+          "verifiedWeight": 0,
+          "inspectionDate": "0001-01-01T00:00:00"
+        }
+       
+  - <b>URL</b> :/api/farmerscollections/unverifiedcollection/{farmerId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get the unverified Collections of farmer belongs to farmerId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
+            ```console
+          [
+            {
+              "id": 126,
+              "collectionCenterId": 1,
+              "corporateId": 1,
+              "managerId": 1,
+              "cropName": "Beans",
+              "imageUrl": "/assets/images/beans.jpeg",
+              "containerType": "polythene bags",
+              "quantity": 35,
+              "weight": 2110,
+              "collectionDate": "2023-11-01T13:30:00",
+              "grade": null,
+              "paymentStatus": null,
+              "verifiedWeight": 0,
+              "inspectionDate": "0001-01-01T00:00:00"
+            }
+          ]
+          ```
 
+- <b>URL</b> :/api/farmerscollections/croprevenue/{farmerId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get the crop wise revenue of farmer belongs to farmerId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
-Method = GET
+            ```console
+            
+            [
+                {
+                "cropName": "Beans",
+                "totalAmount": 0
+              },
+              {
+                "cropName": "Brinjal",
+                "totalAmount": 0
+              },
+              {
+                "cropName": "Cabbage",
+                "totalAmount": 0
+              },
+              {
+                "cropName": "Onion",
+                "totalAmount": 5000
+              },
+              {
+                "cropName": "Potato",
+                "totalAmount": 0
+              },
+              {
+                "cropName": "soyabean",
+                "totalAmount": 0
+              },
+              {
+                "cropName": "Tomato",
+                "totalAmount": 17050
+              },
+              {
+                "cropName": "wheat",
+                "totalAmount": 0
+              }
+            ]
+            ```
 
-Description = Gets the all verified Collection
+### Merchant API
 
-Body = None
+ - <b>URL</b> :http://localhost:5276/api/merchants
+  - <b>Method</b>: GET
+  - <b>Description</b>: Gets the all Merchants
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
+      ```console
+      [
+        {
+          "id": 1,
+          "corporateId": 7,
+          "managerId": 10
+        },
+        {
+          "id": 2,
+          "corporateId": 8,
+          "managerId": 11
+        },
+        {
+          "id": 3,
+          "corporateId": 9,
+          "managerId": 12
+        }
+      ]
+      ```
 
-Response = 
+- <b>URL</b> : http://localhost:5276/api/merchants/{merchantid}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get merchant by its id belongs to merchantId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
-```console
- [
-  {
-    "id": 1,
-    "collectionCenterId": 1,
-    "corporateId": 1,
-    "managerId": 1,
-    "cropName": "Tomato",
-    "imageUrl": "/assets/images/tomato.jpeg",
-    "containerType": "crates",
-    "quantity": 25,
-    "weight": 550,
-    "collectionDate": "2023-09-01T13:30:00",
-    "grade": "A",
-    "paymentStatus": "paid",
-    "verifiedWeight": 520,
-    "inspectionDate": "2023-09-01T13:30:00"
-  },
-]
-```
+        ```console
+          {
+            "id": 1,
+            "corporateId": 7,
+            "managerId": 10
+          }
+        ```
 
-Token requird = No
+<hr>
+- <b>URL</b> :http://localhost:5276/api/merchants
+  - <b>Method</b>: POST
+  - <b>Description</b>: Add new Merchant
+  - <b>Body</b>: 
+          ```console
+        {
+            "id": 1,
+            "corporateId": 7,
+            "managerId": 10
+          }
+        ```
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 200 Ok
 
 
 <hr>
-
-URL
-
-```console
- http://localhost:5051/api/farmerscollections/{farmerId}"
-```
-
-Method = Get
-
-Description = Get all collections of farmers
-
-Body = None
-
-Response = 
-
-```console
-  [
-  {
-    "id": 1,
-    "collectionCenterId": 1,
-    "corporateId": 1,
-    "managerId": 1,
-    "cropName": "Tomato",
-    "imageUrl": "/assets/images/tomato.jpeg",
-    "containerType": "crates",
-    "quantity": 25,
-    "weight": 550,
-    "collectionDate": "2023-09-01T13:30:00",
-    "grade": null,
-    "paymentStatus": null,
-    "verifiedWeight": 0,
-    "inspectionDate": "0001-01-01T00:00:00"
-  },
-]
-```
-
-Token requird = No
+- <b>URL</b> :http://localhost:5276/api/merchants/{merchantId}
+  - <b>Method</b>: PUT
+  - <b>Description</b>:  Update an existing Merchant Data belongs to merchantId
+        - <b>Body</b>: Not requried
+        ```console
+      {
+          "id": 1,
+          "corporateId": 7,
+          "managerId": 10
+        }
+      ``
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 200 ok
 
 
 <hr>
-
-URL 
-```console
-http://localhost:5051/api/farmerscollections/collectionlist/{farmerId}
-```
-Method = GET
-
-Description =  collectionlist 
-
-Body = None
-
-Response = 
-
-```console
-  [
-  {
-    "collectionId": 1,
-    "cropName": "Tomato",
-    "status": "Verified",
-    "quantity": 25,
-    "collectionDate": "2023-09-01T13:30:00"
-  }
-]
-```
-
-Token requird = No
-
-<hr>
-
-URL
-```console
-http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
-```
-
-Method = GET
-
-Description = collection Details of each farmer Collection
-
-Body = None
-Response = 
-
-```console
- {
-  "id": 4,
-  "collectionCenterId": 1,
-  "corporateId": 1,
-  "managerId": 1,
-  "cropName": "Potato",
-  "imageUrl": "/assets/images/potato.jpeg",
-  "containerType": "bags",
-  "quantity": 150,
-  "weight": 8700,
-  "collectionDate": "2023-09-04T13:30:00",
-  "grade": null,
-  "paymentStatus": null,
-  "verifiedWeight": 0,
-  "inspectionDate": "0001-01-01T00:00:00"
-}
-```
-
-Token requird = No
-
-<hr>
-
-URL
-```console
-http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
-```
-
-Method = GET
-
-Description = unverified collection of farmers
-
-Body = None
-Response = 
-
-```console
- [
-  {
-    "id": 126,
-    "collectionCenterId": 1,
-    "corporateId": 1,
-    "managerId": 1,
-    "cropName": "Beans",
-    "imageUrl": "/assets/images/beans.jpeg",
-    "containerType": "polythene bags",
-    "quantity": 35,
-    "weight": 2110,
-    "collectionDate": "2023-11-01T13:30:00",
-    "grade": null,
-    "paymentStatus": null,
-    "verifiedWeight": 0,
-    "inspectionDate": "0001-01-01T00:00:00"
-  }
- ]
-```
-
-Token requird = No
-
-<hr>
-
-
-URL
-```console
-http://localhost:5051/api/farmerscollections/croprevenue/{farmerId}
-```
-
-Method = GET
-
-Description = crop wise revenue of farmer
-
-Body = None
-
-Response = 
-
-```console
- 
- [
-    {
-    "cropName": "Beans",
-    "totalAmount": 0
-  },
-  {
-    "cropName": "Brinjal",
-    "totalAmount": 0
-  },
-  {
-    "cropName": "Cabbage",
-    "totalAmount": 0
-  },
-  {
-    "cropName": "Onion",
-    "totalAmount": 5000
-  },
-  {
-    "cropName": "Potato",
-    "totalAmount": 0
-  },
-  {
-    "cropName": "soyabean",
-    "totalAmount": 0
-  },
-  {
-    "cropName": "Tomato",
-    "totalAmount": 17050
-  },
-  {
-    "cropName": "wheat",
-    "totalAmount": 0
-  }
- ]
-```
-
-Token requird = No
-
-<hr>
-
-
-<h3 align="center">MerchantsAPI </h3>
-
-
-URL
-```console
-http://localhost:5276/api/merchants
-```
-Method = GET
-
-Description = Gets the all Merchants
-
-Body = None
-
-Response = 
-
-```console
-[
-  {
-    "id": 1,
-    "corporateId": 7,
-    "managerId": 10
-  },
-  {
-    "id": 2,
-    "corporateId": 8,
-    "managerId": 11
-  },
-  {
-    "id": 3,
-    "corporateId": 9,
-    "managerId": 12
-  }
-]
-```
-
-Token requird = No
+  - <b>URL</b> : http://localhost:5276/api/merchants/merchants/{merchantId}
+  - <b>Method</b>:DELETE
+  - <b>Description</b>: Delete an existing Merchant Data belongs to farmerId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
 
 <hr>
+- <b>URL</b> :http://localhost:5276/api/merchants/{merchantId}/getcorporate
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get Corporate Id by merchant Id
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
-URL
-```console
- http://localhost:5276/api/merchants/{merchantid}
-```
 
-Method = GET
-
-Description = Get merchant by its id
-
-Body = None
-
-Response = 
-
-```console
-  {
-    "id": 1,
-    "corporateId": 7,
-    "managerId": 10
-  }
-```
-
-Token requird = No
 
 <hr>
-
-URL
-```console
-http://localhost:5276/api/merchants
-```
-Method = POST
-Description = Insert new Merchant
-
-Body
-```console
- {
-    "id": 1,
-    "corporateId": 7,
-    "managerId": 10
-  }
-```
-Token requird = No
-
-<hr>
-
-URL
-```console
-http://localhost:5276/api/merchants/{id}
-```
-Id = merchantId
-
-Method = PUT
-
-Description = Update an existing Merchant Data
-
-Body
-```console
- {
-    "id": 1,
-    "corporateId": 7,
-    "managerId": 10
-  }
-```
-Token requird = No
-
-<hr>
-
-URL
-```console
- http://localhost:5276/api/merchants/merchants/{id}
-```
-
-Method = DELETE
-
-Description = Delete an existing Merchant Data
-
-Body =  None
-
-Token requird = No
-
-<hr>
+- <b>URL</b> : http://localhost:5276/api/merchants/manager/{managerId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get merchant Id by managerId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
 
-URL
-```console
- http://localhost:5276/api/merchants/{merchantId}/getcorporate
-```
-
-Method = GET
-
-Description = Get Corporate Id by merchant Id
-
-Body =  None
-
-responce = 7
-
-
-Token requird = No
-
-<hr>
-
-
-URL
-```console
- http://localhost:5276/api/merchants/manager/{managerId}
-```
-
-Method = GET
-
-Description = Get merchant Id by managerId
-
-Body =  None
-
-Token requird = No
-
-<hr>
-
-
-URL
-```console
- http://localhost:5276/api/merchants/merchantandcorporateid
-```
-
-Method = GET
-
-Description = Get Corporate Id of all merchants
-
-Body =  None
-
-responce = 
+- <b>URL</b> : http://localhost:5276/api/merchants/merchantandcorporateid
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get Corporate Id of all merchants
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
 ```console
 [
@@ -456,28 +324,17 @@ responce =
   }
 ]
 ```
-Token requird = No
 
 <hr>
 
+- <b>URL</b> : http://localhost:5276/api/merchants/id/{corporateId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: get merchant Id by corporateId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
-URL
-```console
- http://localhost:5276/api/merchants/id/{corporateId}
-```
-
-Method = get 
-
-Description =  get merchant Id by corporateId
-
-Body =  None
-
-Token requird = No
-
-<hr>
-
-
-<h3 align="center">TransportAPI </h3>
+### Merchant API
 
 URL
 
