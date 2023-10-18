@@ -3,34 +3,33 @@
 ## REST API EndPoints
 ### FarmerAPI
 
-  - URL : http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
+  - <b>URL</b> : http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
   - api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
-  - Method = GET
-  - Description = Get the all verfied collections belong to farmerid  and paymentstatus is paid or unpaid
-  - Body = None
-  - Token requird = No
+  - <b>Method</b>: GET
+  - Description: Get the all verfied collections belong to farmerid  and paymentstatus is paid or unpaid
+  - Body: Not requried
+  - JWTToken Header: Not required
   - Response = 
-
-```console
-[
-  {
-    "id": 1,
-    "collectionCenterId": 1,
-    "corporateId": 1,
-    "managerId": 1,
-    "cropName": "Tomato",
-    "imageUrl": "/assets/images/tomato.jpeg",
-    "containerType": "crates",
-    "quantity": 25,
-    "weight": 550,
-    "collectionDate": "2023-09-01T13:30:00",
-    "grade": "A",
-    "paymentStatus": "paid",
-    "verifiedWeight": 520,
-    "inspectionDate": "2023-09-01T13:30:00"
-  }
-]
-```
+    ```console
+    [
+      {
+        "id": 1,
+        "collectionCenterId": 1,
+        "corporateId": 1,
+        "managerId": 1,
+        "cropName": "Tomato",
+        "imageUrl": "/assets/images/tomato.jpeg",
+        "containerType": "crates",
+        "quantity": 25,
+        "weight": 550,
+        "collectionDate": "2023-09-01T13:30:00",
+        "grade": "A",
+        "paymentStatus": "paid",
+        "verifiedWeight": 520,
+        "inspectionDate": "2023-09-01T13:30:00"
+      }
+    ]
+    ```
 
 
 URL
