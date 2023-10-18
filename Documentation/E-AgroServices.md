@@ -1,6 +1,7 @@
-<h3 align="center">FarmerAPI </h3>
+
 
 ## REST API EndPoints
+### FarmerAPI
 
   - URL : http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
   - api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
@@ -31,8 +32,6 @@
 ]
 ```
 
-
-<hr>
 
 URL
 
