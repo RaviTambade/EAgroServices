@@ -91,7 +91,7 @@
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> :
-          ```console
+   ```console
             [
             {
               "collectionId": 1,
@@ -102,6 +102,7 @@
             }
           ]
         ```
+         
 
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
   - <b>Method</b>: GET
@@ -109,7 +110,7 @@
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> :
-              ```console
+   ```console
             {
               "id": 4,
               "collectionCenterId": 1,
@@ -127,7 +128,6 @@
               "inspectionDate": "0001-01-01T00:00:00"
             }
           ```
-
 
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
   - <b>Method</b>: GET
@@ -155,6 +155,7 @@
             }
           ]
          ```
+             
 
 - <b>URL</b> :http://localhost:5051/api/farmerscollections/croprevenue/{farmerId}
   - <b>Method</b>: GET
