@@ -1,20 +1,14 @@
 <h3 align="center">FarmerAPI </h3>
 
 
-URL
-
-```console
- http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
- api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
-```
-
-Method = GET
-
-Description = Get the all verifiedcollections with paymentstatus
-
-Body = None
-
-Response = 
+-URL
+  - http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
+  - api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
+  - Method = GET
+  - Description = Get the all verfied collections belong to farmerid  and paymentstatus is paid or unpaid
+  - Body = None
+  - Token requird = No
+  - Response = 
 
 ```console
 [
@@ -37,7 +31,6 @@ Response =
 ]
 ```
 
-Token requird = No
 
 <hr>
 
