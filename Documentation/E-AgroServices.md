@@ -6,10 +6,10 @@
   - <b>URL</b> : http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
   - api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
   - <b>Method</b>: GET
-  - Description: Get the all verfied collections belong to farmerid  and paymentstatus is paid or unpaid
-  - Body: Not requried
-  - JWTToken Header: Not required
-  - Response = 
+  - <b>Description</b>: Get the all verfied collections belong to farmerid  and paymentstatus is paid or unpaid
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> = 
     ```console
     [
       {
