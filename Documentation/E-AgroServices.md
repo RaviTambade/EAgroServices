@@ -333,93 +333,146 @@
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> : 
+  
+### Transport API
 
-### Merchant API
+  - <b>URL</b> : http://localhost:5240/api/transports
+  - <b>Method</b>: GET
+  - <b>Description</b>: get all transports
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+      ```console
+      [
+      {
+        "id": 1,
+        "corporateId": 4,
+        "managerId": 7
+      },
+      {
+        "id": 2,
+        "corporateId": 5,
+        "managerId": 8
+      },
+      {
+        "id": 3,
+        "corporateId": 6,
+        "managerId": 9
+      }
+    ]
+``
 
-URL
-
+  - <b>URL</b> : http://localhost:5240/api/transports/transports/{transportId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: get Transports by transportId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 ```console
-http://localhost:5240/api/transports/transports
-```
-Method = GET
+  {
+    "id": 1,
+    "corporateId": 4,
+    "managerId": 7
+  }
+  ```
 
-Description = Gets the all Transportors
+  - <b>URL</b> : http://localhost:5240/api/transports/transports
+  - <b>Method</b>: POST
+  - <b>Description</b>: Add new Transport
+  - <b>Body</b>: 
+  ```console
+  {
+    "id": 1,
+    "corporateId": 4,
+    "managerId": 7
+  }
+  ```
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
-Body = None
+  - <b>URL</b> :http://localhost:5240/api/Transports/transports/{transportId}
+  - <b>Method</b>: PUT
+  - <b>Description</b>: Update an existing Transportor Data
+  - <b>Body</b>:
+    ```console
+  {
+    "id": 1,
+    "corporateId": 4,
+    "managerId": 7
+  }
+  ```
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
-<hr>
 
-URL
+  - <b>URL</b> : http://localhost:5240/api/Transports/transports/{transportId}
+  - <b>Method</b>: DELETE
+  - <b>Description</b>: Delete an existing Transport Data
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> : 
 
-```console
-http://localhost:5240/api/transports/transports/{id}
-```
-Id = transportId
+  - <b>URL</b> : http://localhost:5240/api/Transports/{transporterId}/vehicles
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get vhehicles of transporter wich is belongs to given transportId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+  ```console
+      [
+   {
+    "id": 7,
+    "transporterId": 2,
+    "vehicleType": "tata1109",
+    "rtoNumber": "MH 14 JD 9593"
+  },
+  {
+    "id": 8,
+    "transporterId": 2,
+    "vehicleType": "LP",
+    "rtoNumber": "MH 14 JD 1122"
+  }
+      ]
+      ```
 
-Method = GET
+- <b>URL</b> : http://localhost:5240/api/Transports/corporateid/{transporterId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get CorporateId by transporterId
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+  ```console
+  4
+  ```
 
-Description = Get Transportor by its id
-
-Body = None
-
-<hr>
-
-URL
-```console
-http://localhost:5240/api/transports/transports
-```
-Method = POST
-
-Description = Insert new Transport
-
-Body
-```console
-{
-    "Transport": {
-        "officeName": "Shubham Transport",
-        "firstName": "Shubham",
-        "lastName": "Teli",
-        "location": "Chas"
-    },
-    "user": {
-        "contactNumber": "7448025854",
-        "password": "password"
-    },
-    "userRole": {
-        "roleId": 1
-    }
-}
-```
-URL
-```console
-http://localhost:5240/api/Transports/transports/{id}
-```
-Id = transportId
-
-Method = PUT
-
-Description = Update an existing Transportor Data
-
-Body
-```console
- {
-        "officeName": "Shubham Transport",
-        "firstName": "Shubham",
-        "lastName": "Teli",
-        "location": "Chas"
-    }
-```
-URL
-```console
-http://localhost:5240/api/Transports/transports/{id}
-```
-Id = transportId
-
-Method = DELETE
-
-Description = Delete an existing Transport Data
-
-<hr>
+- <b>URL</b> : http://localhost:5240/api/Transports/{transporterId}/invoices/{paymentStatus}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get invoice details of transporter belongs to the transportId and paymentStatus
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+  ```console
+ [
+  {
+    "corporateId": 7,
+    "date": "2023-10-09T20:57:04",
+    "paymentStatus": "unpaid",
+    "freightCharges": 1400
+  },
+  {
+    "corporateId": 7,
+    "date": "2023-10-09T20:57:04",
+    "paymentStatus": "unpaid",
+    "freightCharges": 1400
+  },
+  {
+    "corporateId": 7,
+    "date": "2023-10-09T20:57:04",
+    "paymentStatus": "unpaid",
+    "freightCharges": 1400
+  },
+ ]
+ ``
 
 <h3 align="center">CropAPI </h3>
 
