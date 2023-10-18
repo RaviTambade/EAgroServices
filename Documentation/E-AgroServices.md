@@ -102,7 +102,6 @@
             }
           ]
       ```
-         
 
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
   - <b>Method</b>: GET
@@ -128,7 +127,7 @@
               "inspectionDate": "0001-01-01T00:00:00"
             }
       ```
-      
+
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the unverified Collections of farmer belongs to farmerId
@@ -155,7 +154,6 @@
             }
           ]
          ```
-             
 
 - <b>URL</b> :http://localhost:5051/api/farmerscollections/croprevenue/{farmerId}
   - <b>Method</b>: GET
@@ -234,7 +232,6 @@
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> : 
-
         ```console
           {
             "id": 1,
@@ -243,7 +240,6 @@
           }
         ```
 
-<hr>
 - <b>URL</b> :http://localhost:5276/api/merchants
   - <b>Method</b>: POST
   - <b>Description</b>: Add new Merchant
@@ -263,7 +259,7 @@
 - <b>URL</b> :http://localhost:5276/api/merchants/{merchantId}
   - <b>Method</b>: PUT
   - <b>Description</b>:  Update an existing Merchant Data belongs to merchantId
-        - <b>Body</b>: Not requried
+        - <b>Body</b>:
         ```console
       {
           "id": 1,
@@ -309,7 +305,6 @@
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> : 
-
 ```console
 [
   {
@@ -326,8 +321,6 @@
   }
 ]
 ```
-
-<hr>
 
 - <b>URL</b> : http://localhost:5276/api/merchants/id/{corporateId}
   - <b>Method</b>: GET
