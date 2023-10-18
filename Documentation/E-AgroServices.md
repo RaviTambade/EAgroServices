@@ -101,7 +101,7 @@
               "collectionDate": "2023-09-01T13:30:00"
             }
           ]
-        ```
+      ```
          
 
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
@@ -127,8 +127,8 @@
               "verifiedWeight": 0,
               "inspectionDate": "0001-01-01T00:00:00"
             }
-          ```
-
+      ```
+      
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the unverified Collections of farmer belongs to farmerId
