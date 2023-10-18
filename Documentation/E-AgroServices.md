@@ -277,206 +277,51 @@ Token requird = No
 
 <hr>
 
-<h3 align="center">EmployeesAPI </h3>
-
-
-URL
-```console
- http://localhost:5265/api/employees
- ```
-Method = GET
-
-Description = Gets the all Employees
-
-Body = None
-<hr>
-
-URL
-```console
- http://localhost:5265/api/employees/{id}
- ```
-Id = adminId
-
-Method = GET
-
-Description = Gets the Employees By Its Id
-
-Body = None
-<hr>
-
-URL
-```console
-http://localhost:5265/api/employees
-```
-Method = Post
-
-Description = Insert new Employees
-
-Body
-```console
-{
-    "employee": {
-        "firstName": "Abhay",
-        "lastName": "Navale",
-        "location": "Bhavadi",
-        "salary": "15000"
-    },
-    "user": {
-        "contactNumber": "12457896312",
-        "password": "123456"
-    },
-    "userRole": {
-        "roleId": 3
-    }
-}
-```
-<hr>
-
-URL
-```console
-http://localhost:5265/api/employees/{id}
-```
-Id = employeeId
-
-Method = PUT
-
-Description = Update An Existing Employees
-
-Body
-```console
-{
-    "firstName": "Abhay",
-    "lastName": "Navale",
-    "location": "Bhavadi",
-    "salary": "15000"
-}
-```
-<hr>
-
- URL
-```console
-  http://localhost:5265/api/employees/{id}
-```
-Id =  employeeId
-
-Method = DELETE
-
-Description = Delete An Existing Employees
-
-Body = None
-
-<hr>
-<hr>
-
-<h3 align="center">FarmerAPI </h3>
-
-
-URL
-```console
- http://localhost:5141/api/farmers
-```
-Method = GET
-
-Description = Gets the all Farmers
-
-Body = None
-<hr>
-
-URL
-```console
-http://localhost:5141/api/farmers/{id}
-```
-Id = farmerId
-
-Method = GET
-
-Description = Gets the Farmers By its Id
-
-Body = None
-<hr>
-
- URL
-```console
- http://localhost:5141/api/farmers
-```
-Method = POST
-
-Description = Insert New Farmers
-
-Body
-```console
-{
-    "farmer": {
-        "firstName": "Rohit",
-        "lastName": "Gore",
-        "location": "Peth"
-    },
-    "user": {
-        "contactNumber": "12457896312",
-        "password": "123456"
-    },
-    "userRole": {
-        "roleId": 3
-    }
-}
-```
-<hr>
-
-URL
-```console
- http://localhost:5141/api/farmers/{id}
-```
-Id = farmerId
-
-Method = PUT
-
-Description = Update An existing Farmers Data
-
-Body
-```console
-{
-    "firstName": "Rohit",
-    "lastName": "Gore",
-    "location": "Peth"
-}
-```
-
-<hr>
-
-URL
-```console
- http://localhost:5141/api/farmers/{id}
-```
-Id = farmerId
-
-Method = DELETE
-
-Description = Delete an existing account
-
-Body = None
-<hr>
-<hr>
 
 <h3 align="center">MerchantsAPI </h3>
 
 
 URL
 ```console
-http://localhost:5188/api/merchants
+http://localhost:5276/api/merchants
 ```
 Method = GET
 
-Description = Gets the all Farmers
+Description = Gets the all Merchants
 
 Body = None
+
+Response = 
+
+```console
+[
+  {
+    "id": 1,
+    "corporateId": 7,
+    "managerId": 10
+  },
+  {
+    "id": 2,
+    "corporateId": 8,
+    "managerId": 11
+  },
+  {
+    "id": 3,
+    "corporateId": 9,
+    "managerId": 12
+  }
+]
+```
+
+Token requird = No
+
 
 <hr>
 
 URL
 ```console
- http://localhost:5188/api/merchants/{id}
+ http://localhost:5276/api/merchants/{merchantid}
 ```
-Id = merchantId
 
 Method = GET
 
@@ -484,38 +329,42 @@ Description = Get merchant by its id
 
 Body = None
 
+Response = 
+
+```console
+  {
+    "id": 1,
+    "corporateId": 7,
+    "managerId": 10
+  }
+```
+
+Token requird = No
+
 <hr>
 
 URL
 ```console
-http://localhost:5188/api/merchants
+http://localhost:5276/api/merchants
 ```
 Method = POST
 Description = Insert new Merchant
+
 Body
 ```console
-{
-    "merchant": {
-        "firstName": "Ramesh",
-        "lastName": "Gawade",
-        "companyName": "Zatka Company",
-        "location": "Manchar"
-    },
-    "user": {
-        "contactNumber": "12457896312",
-        "password": "123456"
-    },
-    "userRole": {
-        "roleId": 3
-    }
-}
+ {
+    "id": 1,
+    "corporateId": 7,
+    "managerId": 10
+  }
 ```
-<hr>
+Token requird = No
 
+<hr>
 
 URL
 ```console
-http://localhost:5188/api/merchants/{id}
+http://localhost:5276/api/merchants/{id}
 ```
 Id = merchantId
 
@@ -525,27 +374,116 @@ Description = Update an existing Merchant Data
 
 Body
 ```console
-{
-    "firstName": "Ramesh",
-    "lastName": "Gawade",
-    "companyName": "Zatka Company",
-    "location": "Manchar"
-}
+ {
+    "id": 1,
+    "corporateId": 7,
+    "managerId": 10
+  }
 ```
+Token requird = No
+
 <hr>
 
 URL
 ```console
- http://localhost:5188/api/merchants/merchants/{id}
+ http://localhost:5276/api/merchants/merchants/{id}
 ```
-Id = merchantId
 
 Method = DELETE
 
 Description = Delete an existing Merchant Data
 
 Body =  None
+
+Token requird = No
+
 <hr>
+
+
+URL
+```console
+ http://localhost:5276/api/merchants/{merchantId}/getcorporate
+```
+
+Method = GET
+
+Description = Get Corporate Id by merchant Id
+
+Body =  None
+
+responce = 7
+
+
+Token requird = No
+
+<hr>
+
+
+URL
+```console
+ http://localhost:5276/api/merchants/manager/{managerId}
+```
+
+Method = GET
+
+Description = Get merchant Id by managerId
+
+Body =  None
+
+Token requird = No
+
+<hr>
+
+
+URL
+```console
+ http://localhost:5276/api/merchants/merchantandcorporateid
+```
+
+Method = GET
+
+Description = Get Corporate Id of all merchants
+
+Body =  None
+
+responce = 
+
+```console
+[
+  {
+    "id": 1,
+    "corporateId": 7
+  },
+  {
+    "id": 2,
+    "corporateId": 8
+  },
+  {
+    "id": 3,
+    "corporateId": 9
+  }
+]
+```
+Token requird = No
+
+<hr>
+
+
+URL
+```console
+ http://localhost:5276/api/merchants/id/{corporateId}
+```
+
+Method = get 
+
+Description =  get merchant Id by corporateId
+
+Body =  None
+
+Token requird = No
+
+<hr>
+
 
 <h3 align="center">TransportAPI </h3>
 
