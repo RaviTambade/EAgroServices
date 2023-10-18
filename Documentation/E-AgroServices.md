@@ -101,7 +101,8 @@
             "collectionDate": "2023-09-01T13:30:00"
           }
         ]
-        ```
+       ```
+
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the Collection Details of farmer belongs to collectionId
@@ -125,7 +126,8 @@
           "verifiedWeight": 0,
           "inspectionDate": "0001-01-01T00:00:00"
         }
-       
+       ```
+
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the unverified Collections of farmer belongs to farmerId
@@ -151,7 +153,7 @@
               "inspectionDate": "0001-01-01T00:00:00"
             }
           ]
-          ```
+         ```
 
 - <b>URL</b> :http://localhost:5051/api/farmerscollections/croprevenue/{farmerId}
   - <b>Method</b>: GET
@@ -159,9 +161,7 @@
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> : 
-
             ```console
-            
             [
                 {
                 "cropName": "Beans",
@@ -196,7 +196,7 @@
                 "totalAmount": 0
               }
             ]
-            ```
+           ```
 
 ### Merchant API
 
@@ -224,7 +224,7 @@
           "managerId": 12
         }
       ]
-      ```
+     ```
 
 - <b>URL</b> : http://localhost:5276/api/merchants/{merchantid}
   - <b>Method</b>: GET
@@ -268,7 +268,7 @@
           "corporateId": 7,
           "managerId": 10
         }
-      ``
+      ```
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> : 200 ok
 
