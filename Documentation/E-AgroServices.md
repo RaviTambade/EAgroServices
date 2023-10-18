@@ -31,7 +31,7 @@
     ]
     ```
 
-  - <b>URL</b> : api/farmerscollections/verifiedcollection/{farmerId}
+  - <b>URL</b> : http://localhost:5051/api/farmerscollections/verifiedcollection/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the all verified Collection of farmer belongs to farmerId
   - <b>Body</b>: Not requried
@@ -58,14 +58,14 @@
       ]
       ```
 
-  - <b>URL</b> : /api/farmerscollections/{farmerId}"
+  - <b>URL</b> : http://localhost:5051/api/farmerscollections/{farmerId}"
   - <b>Method</b>: GET
   - <b>Description</b>: Get the all Collection of farmer belongs to farmerId
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> :
         ```console
-          [
+       [
           {
             "id": 1,
             "collectionCenterId": 1,
@@ -85,7 +85,7 @@
         ]
         ```
 
-  - <b>URL</b> :/api/farmerscollections/collectionlist/{farmerId}
+  - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectionlist/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the CollectionList of farmer belongs to farmerId
   - <b>Body</b>: Not requried
@@ -102,7 +102,7 @@
           }
         ]
         ```
-  - <b>URL</b> :/api/farmerscollections/collectiondetails/{collectionId}
+  - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the Collection Details of farmer belongs to collectionId
   - <b>Body</b>: Not requried
@@ -126,7 +126,7 @@
           "inspectionDate": "0001-01-01T00:00:00"
         }
        
-  - <b>URL</b> :/api/farmerscollections/unverifiedcollection/{farmerId}
+  - <b>URL</b> :http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the unverified Collections of farmer belongs to farmerId
   - <b>Body</b>: Not requried
@@ -153,7 +153,7 @@
           ]
           ```
 
-- <b>URL</b> :/api/farmerscollections/croprevenue/{farmerId}
+- <b>URL</b> :http://localhost:5051/api/farmerscollections/croprevenue/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the crop wise revenue of farmer belongs to farmerId
   - <b>Body</b>: Not requried
