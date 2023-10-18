@@ -469,272 +469,115 @@
  ]
  ``
 
-<h3 align="center">CropAPI </h3>
+### Crop API
 
-URL
-```console
-http://localhost:5224/api/crop
-```
-Method = GET
+- <b>URL</b> : http://localhost:5250/api/crop
+  - <b>Method</b>: GET
+  - <b>Description</b>: Gets the all Varieties
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+  ```console
+  [
+  {
+    "id": 1,
+    "title": "Potato",
+    "imageUrl": "/assets/images/potato.jpeg",
+    "rate": 32
+  },
+  {
+    "id": 2,
+    "title": "Tomato",
+    "imageUrl": "/assets/images/tomato.jpeg",
+    "rate": 12
+  }
+  ]
+``
 
-Description = Gets the all Varieties
+- <b>URL</b> : http://localhost:5250/api/crops/{cropId}
+  - <b>Method</b>: GET
+  - <b>Description</b>: Gets the  Varieties belongs to given Id
+  - <b>Body</b>: Not requried
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+  ```console
+  {
+    "id": 1,
+    "title": "Potato",
+    "imageUrl": "/assets/images/potato.jpeg",
+    "rate": 32
+  }
+``
 
-Body = None
-
-<hr>
-
-URL
-```console
-http://localhost:5224/api/crop{id}
-```
-Id = varietyId
-
-Method = GET
-
-Description = Get variety by its id
-
-Body = None
-<hr>
-
-URL
-```console
-http://localhost:5224/api/crop
-```
-Method = POST
-Description = Insert new Variety
-Body
+- <b>URL</b> : http://localhost:5250/api/crop
+  - <b>Method</b>: POST
+  - <b>Description</b>: 
+  - <b>Body</b>:
 ```console
   {
         "varietyName": "potato"
     }
 ```
-URL
+ - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+
+
+- <b>URL</b> : http://localhost:5250/api/crops/{cropId}
+  - <b>Method</b>: PUT
+  - <b>Description</b>: Gets the  Varieties belongs to given Id
+  - <b>Body</b>:
 ```console
-http://localhost:5224/api/crop/{id}
-```
-Id = cropId
-
-Method = PUT
-
-Description = Update an existing Variety Data
-
-Body
-```console
-{
+  {
         "varietyName": "potato"
     }
 ```
-URL
-```console
-http://localhost:5224/api/variety/variety/{id}
-```
-Id = varietyId
+ - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
 
-Method = DELETE
+  - <b>URL</b> : http://localhost:5250/api/crops/{cropId}
+  - <b>Method</b>: Delete
+  - <b>Description</b>: Gets the  Varieties belongs to given Id
+  - <b>Body</b>:Not Require
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
 
-Description = Delete an existing Variety Data
 
-<hr>
-
- <h3 align="center">PurchaseAPI </h3>
-
-URL
-```console
-http://localhost:5171/api/purchase/purchase
-```
-Method = GET
-
-Description = Gets the all PurchaseItems
-
-Body = None
-
-<hr>
-
-URL
-
-```console
- http://localhost:5171/api/purchase/purchase/{id}
-```
-Id = purchaseId
-
-Method = GET
-
-Description = Get purchase Details  by its purchaseid
-
-Body = None
-
-<hr>
-
-URL
-```console
- http://localhost:5171/api/purchase/purchase
-```
-Method = POST
-
-Description = Insert new purchasedetails
-
-Body
-
-```console
+  - <b>URL</b> : http://localhost:5250/api/crops/nameswithid
+  - <b>Method</b>: GET
+  - <b>Description</b>: Gets the crop Name and Id
+  - <b>Body</b>:Not Require
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+  ```console
+[
   {
-    "purchaseItem": {
-        
-        "farmerId": 1,
-        "varietyId": 1,
-        "containerType": "bags",
-        "quantity": 50,
-        "grade": "A",
-        "totalWeight": 2500,
-        "tareWeight": 25,
-        "ratePerKg": 30,
-        
-    }
+    "id": 6,
+    "name": "Beans"
+  },
+  {
+    "id": 5,
+    "name": "Bitroot"
   }
-  ```
-
-URL
-
-```console
-http://localhost:5224/api/purchase/purchase/{id}
+]
 ```
-Id = purchaseId
 
-Method = PUT
-
-Description = Update an existing purchase Data
-
-Body
-```console
-  {
-    "purchaseItem": {
-        
-        "containerType": "bags",
-        "quantity": 50,
-        "grade": "A",
-        "totalWeight": 2500,
-        "tareWeight": 25,
-        "ratePerKg": 30,
-        
-    }
-  }
-  ```
-
-URL
-```console
-http://localhost:5224/api/purchase/{id}
+  - <b>URL</b> : http://localhost:5250/api/crops/name
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get all crop Names of the crops
+  - <b>Body</b>:Not Require
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
+  ```console
+[
+  "Beans",
+  "Bitroot",
+  "Brinjal",
+  "Cabbage",
+  "Onion",
+  "pea",
+  "Potato",
+  "soyabean",
+  "Tomato",
+  "wheat"
+]
 ```
-Id = purchaseId
-
-Method = DELETE
-
-Description = Delete an existing purchase Data
-
-<hr>
-
- <h3 align="center">SellsAPI </h3>
-
-URL
-```console
-http://localhost:5182/api/sells
-```
-Method = GET
-
-Description = Gets the all Sells Details
-
-Body = None
-
-<hr>
-
-URL
-
-```console
- http://localhost:5182/api/sells/{id}
-```
-Id = sellId
-
-Method = GET
-
-Description = Get Sell Details  by its sellid
-
-Body = None
-
-<hr>
-
-URL
-```console
-http://localhost:5182/api/sells
-```
-Method = POST
-
-Description = Insert new Sell details
-
-Body
-
-```console
- 
-    {
-        "sell": {
-            
-            " collectionId": 4,
-            "merchantId": 2,
-            "truckId": 1,
-            "netWeight": 1000,
-            "ratePerKg": 20,
-            "totalAmount": 20000,
-            "date": "2023-05-05T10:48:38"
-        },
-        "freightRate": {
-            "fromDestination": "Bhavadi",
-            "toDestination": "Pune",
-            "kilometers": 100,
-            "ratePerKm": 40,
-            "billId": 1
-        }
-    }
-
-  ```
-
-URL
-
-```console
-http://localhost:5182/api/sells/{id}
-```
-Id = sellId
-
-Method = PUT
-
-Description = Update an existing sell Data
-
-Body
-```console
-  {
-        "sell": {
-            
-            "collectionId": 4,
-            "merchantId": 2,
-            "truckId": 1,
-            "ratePerKg": 20,
-            "date": "2023-05-05T10:48:38"
-        },
-        "freightRate": {
-            "fromDestination": "Bhavadi",
-            "toDestination": "Pune",
-            "kilometers": 100,
-            "ratePerKm": 40,
-            "billId": 1
-        }
-    }
-
-  ```
-
-URL
-```console
-http://localhost:5182/api/sells{id}
-```
-Id = sellId
-
-Method = DELETE
-
-Description = Delete an existing sell Data
-
-<hr>
