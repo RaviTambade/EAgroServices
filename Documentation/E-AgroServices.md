@@ -1,7 +1,7 @@
 
 
 ## REST API EndPoints
-### FarmerAPI
+### Collection API
 
   - <b>URL</b> : http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
   - api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
