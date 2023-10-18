@@ -3,8 +3,8 @@
 ## REST API EndPoints
 ### Collection API
 
-  - <b>URL</b> : http://localhost:5051/api/farmerscollections/verified/{farmerId}/{paymentStatus}
-  - api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
+  - <b>URL</b> : /api/farmerscollections/verified/{farmerId}/{paymentStatus}
+  - /api/collections/farmers/{farmerId}/verifiedstatus/{paymentStatus}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the all verfied collections belong to farmerid  and paymentstatus is paid or unpaid
   - <b>Body</b>: Not requried
@@ -31,7 +31,8 @@
     ]
     ```
 
-  - <b>URL</b> : http://localhost:5051/api/farmerscollections/verifiedcollection/{farmerId}
+  - <b>URL</b> : /api/farmerscollections/verifiedcollection/{farmerId}
+  - /api/farmerscollections/verifiedcollection/{farmerId} 
   - <b>Method</b>: GET
   - <b>Description</b>: Get the all verified Collection of farmer belongs to farmerId
   - <b>Body</b>: Not requried
@@ -58,7 +59,8 @@
       ]
       ```
 
-  - <b>URL</b> : http://localhost:5051/api/farmerscollections/{farmerId}"
+  - <b>URL</b> : /api/farmerscollections/{farmerId}"
+  - /api/farmerscollections/{farmerId}"
   - <b>Method</b>: GET
   - <b>Description</b>: Get the all Collection of farmer belongs to farmerId
   - <b>Body</b>: Not requried
@@ -85,7 +87,8 @@
             ]
             ```
         
-  - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectionlist/{farmerId}
+  - <b>URL</b> :/api/farmerscollections/collectionlist/{farmerId}
+  - /api/farmerscollections/collectionlist/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the CollectionList of farmer belongs to farmerId
   - <b>Body</b>: Not requried
@@ -103,7 +106,8 @@
           ]
       ```
 
-  - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
+  - <b>URL</b> :/api/farmerscollections/collectiondetails/{collectionId}
+  - /api/farmerscollections/collectiondetails/{collectionId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the Collection Details of farmer belongs to collectionId
   - <b>Body</b>: Not requried
@@ -128,7 +132,8 @@
             }
       ```
 
-  - <b>URL</b> :http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
+  - <b>URL</b> :/api/farmerscollections/unverifiedcollection/{farmerId}
+  - /api/farmerscollections/unverifiedcollection/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the unverified Collections of farmer belongs to farmerId
   - <b>Body</b>: Not requried
@@ -155,7 +160,8 @@
           ]
          ```
 
-- <b>URL</b> :http://localhost:5051/api/farmerscollections/croprevenue/{farmerId}
+- <b>URL</b> :/api/farmerscollections/croprevenue/{farmerId}
+- /api/farmerscollections/croprevenue/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the crop wise revenue of farmer belongs to farmerId
   - <b>Body</b>: Not requried
@@ -200,7 +206,8 @@
 
 ### Merchant API
 
- - <b>URL</b> :http://localhost:5276/api/merchants
+ - <b>URL</b> :/api/merchants/getallmerchants
+ - /api/merchants/getallmerchants
   - <b>Method</b>: GET
   - <b>Description</b>: Gets the all Merchants
   - <b>Body</b>: Not requried
@@ -226,7 +233,8 @@
       ]
      ```
 
-- <b>URL</b> : http://localhost:5276/api/merchants/{merchantid}
+- <b>URL</b> : /api/merchants/getmerchant/{merchantid}
+- /api/merchants/getmerchant/{merchantid}
   - <b>Method</b>: GET
   - <b>Description</b>: Get merchant by its id belongs to merchantId
   - <b>Body</b>: Not requried
@@ -240,7 +248,8 @@
           }
         ```
 
-- <b>URL</b> :http://localhost:5276/api/merchants
+- <b>URL</b> :/api/merchants/ register
+- /api/merchants/ register
   - <b>Method</b>: POST
   - <b>Description</b>: Add new Merchant
   - <b>Body</b>: 
@@ -256,7 +265,8 @@
 
 
 <hr>
-- <b>URL</b> :http://localhost:5276/api/merchants/{merchantId}
+- <b>URL</b> :/api/merchants/{merchantId}
+- /api/merchants/{merchantId}
   - <b>Method</b>: PUT
   - <b>Description</b>:  Update an existing Merchant Data belongs to merchantId
         - <b>Body</b>:
@@ -272,7 +282,7 @@
 
 
 <hr>
-  - <b>URL</b> : http://localhost:5276/api/merchants/merchants/{merchantId}
+  - <b>URL</b> : /api/merchants/merchants/{merchantId}
   - <b>Method</b>:DELETE
   - <b>Description</b>: Delete an existing Merchant Data belongs to farmerId
   - <b>Body</b>: Not requried
@@ -281,7 +291,7 @@
 
 
 <hr>
-- <b>URL</b> :http://localhost:5276/api/merchants/{merchantId}/getcorporate
+- <b>URL</b> :/api/merchants/getcorporateId/{merchantId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get Corporate Id by merchant Id
   - <b>Body</b>: Not requried
@@ -291,7 +301,8 @@
 
 
 <hr>
-- <b>URL</b> : http://localhost:5276/api/merchants/manager/{managerId}
+- <b>URL</b> : /api/merchants/manager/{managerId}
+- /api/merchants/manager/{managerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get merchant Id by managerId
   - <b>Body</b>: Not requried
@@ -299,7 +310,8 @@
   - <b>Response</b> : 
 
 
-- <b>URL</b> : http://localhost:5276/api/merchants/merchantandcorporateid
+- <b>URL</b> : /api/merchants/merchantandcorporateid
+- /api/merchants/merchantandcorporateid
   - <b>Method</b>: GET
   - <b>Description</b>: Get Corporate Id of all merchants
   - <b>Body</b>: Not requried
@@ -322,7 +334,8 @@
 ]
 ```
 
-- <b>URL</b> : http://localhost:5276/api/merchants/id/{corporateId}
+- <b>URL</b> : /api/merchants/id/{corporateId}
+- /api/merchants/id/{corporateId}
   - <b>Method</b>: GET
   - <b>Description</b>: get merchant Id by corporateId
   - <b>Body</b>: Not requried
@@ -331,7 +344,8 @@
   
 ### Transport API
 
-  - <b>URL</b> : http://localhost:5240/api/transports
+  - <b>URL</b> : /api/transports/getalltransporter
+  - /api/transports/getalltransporter
   - <b>Method</b>: GET
   - <b>Description</b>: get all transports
   - <b>Body</b>: Not requried
@@ -357,7 +371,8 @@
     ]
 ``
 
-  - <b>URL</b> : http://localhost:5240/api/transports/transports/{transportId}
+  - <b>URL</b> : /api/transports/getAllTransports/{transportId}
+  -  /api/transports/getAllTransports/{transportId}
   - <b>Method</b>: GET
   - <b>Description</b>: get Transports by transportId
   - <b>Body</b>: Not requried
@@ -371,7 +386,8 @@
   }
   ```
 
-  - <b>URL</b> : http://localhost:5240/api/transports/transports
+  - <b>URL</b> : /api/transports/registerTransporter
+  -  /api/transports/registerTransporter
   - <b>Method</b>: POST
   - <b>Description</b>: Add new Transport
   - <b>Body</b>: 
@@ -385,7 +401,8 @@
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> : 
 
-  - <b>URL</b> :http://localhost:5240/api/Transports/transports/{transportId}
+  - <b>URL</b> :/api/Transports/updateTransports/{transportId}
+  - /api/Transports/updateTransports/{transportId}
   - <b>Method</b>: PUT
   - <b>Description</b>: Update an existing Transportor Data
   - <b>Body</b>:
@@ -400,14 +417,16 @@
   - <b>Response</b> : 
 
 
-  - <b>URL</b> : http://localhost:5240/api/Transports/transports/{transportId}
+  - <b>URL</b> : /api/Transports/removeTransports/{transportId}
+  -  /api/Transports/removeTransports/{transportId}
   - <b>Method</b>: DELETE
   - <b>Description</b>: Delete an existing Transport Data
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> : 
 
-  - <b>URL</b> : http://localhost:5240/api/Transports/{transporterId}/vehicles
+  - <b>URL</b> :/api/Transports/vehicles/{transporterId}
+  - /api/Transports/vehicles/{transporterId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get vhehicles of transporter wich is belongs to given transportId
   - <b>Body</b>: Not requried
@@ -430,7 +449,8 @@
       ]
       ```
 
-- <b>URL</b> : http://localhost:5240/api/Transports/corporateid/{transporterId}
+- <b>URL</b> : /api/Transports/corporateid/{transporterId}
+- /api/Transports/corporateid/{transporterId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get CorporateId by transporterId
   - <b>Body</b>: Not requried
@@ -473,8 +493,9 @@
 
 URL
 ```console
-http://localhost:5224/api/crop
+/api/crop/getcrops
 ```
+- /api/crop/getcrops
 Method = GET
 
 Description = Gets the all Varieties
