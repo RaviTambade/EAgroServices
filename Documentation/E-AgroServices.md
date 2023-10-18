@@ -54,7 +54,7 @@
           "paymentStatus": "paid",
           "verifiedWeight": 520,
           "inspectionDate": "2023-09-01T13:30:00"
-        },
+        }
       ]
       ```
 
@@ -64,44 +64,44 @@
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> :
-        ```console
-       [
-          {
-            "id": 1,
-            "collectionCenterId": 1,
-            "corporateId": 1,
-            "managerId": 1,
-            "cropName": "Tomato",
-            "imageUrl": "/assets/images/tomato.jpeg",
-            "containerType": "crates",
-            "quantity": 25,
-            "weight": 550,
-            "collectionDate": "2023-09-01T13:30:00",
-            "grade": null,
-            "paymentStatus": null,
-            "verifiedWeight": 0,
-            "inspectionDate": "0001-01-01T00:00:00"
-          },
-        ]
-        ```
-
+      ```console
+          [
+              {
+                "id": 1,
+                "collectionCenterId": 1,
+                "corporateId": 1,
+                "managerId": 1,
+                "cropName": "Tomato",
+                "imageUrl": "/assets/images/tomato.jpeg",
+                "containerType": "crates",
+                "quantity": 25,
+                "weight": 550,
+                "collectionDate": "2023-09-01T13:30:00",
+                "grade": null,
+                "paymentStatus": null,
+                "verifiedWeight": 0,
+                "inspectionDate": "0001-01-01T00:00:00"
+              }
+            ]
+            ```
+        
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectionlist/{farmerId}
   - <b>Method</b>: GET
   - <b>Description</b>: Get the CollectionList of farmer belongs to farmerId
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> :
-        ```console
-          [
-          {
-            "collectionId": 1,
-            "cropName": "Tomato",
-            "status": "Verified",
-            "quantity": 25,
-            "collectionDate": "2023-09-01T13:30:00"
-          }
-        ]
-       ```
+          ```console
+            [
+            {
+              "collectionId": 1,
+              "cropName": "Tomato",
+              "status": "Verified",
+              "quantity": 25,
+              "collectionDate": "2023-09-01T13:30:00"
+            }
+          ]
+        ```
 
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/collectiondetails/{collectionId}
   - <b>Method</b>: GET
@@ -109,24 +109,25 @@
   - <b>Body</b>: Not requried
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> :
-        ```console
-        {
-          "id": 4,
-          "collectionCenterId": 1,
-          "corporateId": 1,
-          "managerId": 1,
-          "cropName": "Potato",
-          "imageUrl": "/assets/images/potato.jpeg",
-          "containerType": "bags",
-          "quantity": 150,
-          "weight": 8700,
-          "collectionDate": "2023-09-04T13:30:00",
-          "grade": null,
-          "paymentStatus": null,
-          "verifiedWeight": 0,
-          "inspectionDate": "0001-01-01T00:00:00"
-        }
-       ```
+              ```console
+            {
+              "id": 4,
+              "collectionCenterId": 1,
+              "corporateId": 1,
+              "managerId": 1,
+              "cropName": "Potato",
+              "imageUrl": "/assets/images/potato.jpeg",
+              "containerType": "bags",
+              "quantity": 150,
+              "weight": 8700,
+              "collectionDate": "2023-09-04T13:30:00",
+              "grade": null,
+              "paymentStatus": null,
+              "verifiedWeight": 0,
+              "inspectionDate": "0001-01-01T00:00:00"
+            }
+          ```
+
 
   - <b>URL</b> :http://localhost:5051/api/farmerscollections/unverifiedcollection/{farmerId}
   - <b>Method</b>: GET
