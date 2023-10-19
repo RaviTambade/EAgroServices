@@ -425,6 +425,7 @@
   - <b>JWTToken Header</b>: Not required
   - <b>Response</b> : 
 
+
   - <b>URL</b> :/api/Transports/vehicles/{transporterId}
   - /api/Transports/vehicles/{transporterId}
   - <b>Method</b>: GET
@@ -514,7 +515,6 @@
   ]
 ``
 
-
 - <b>URL</b> : http://localhost:5250/api/crops/{cropId}
   - <b>Method</b>: GET
   - <b>Description</b>: Gets the  Varieties belongs to given Id
@@ -601,4 +601,13 @@
   "Tomato",
   "wheat"
 ]
-```
+``
+
+### Rate Card API
+
+  - <b>URL</b> : http://localhost:5167/api/RateCard
+  - <b>Method</b>: GET
+  - <b>Description</b>: Get all crop Names of the crops
+  - <b>Body</b>:Not Require
+  - <b>JWTToken Header</b>: Not required
+  - <b>Response</b> :
