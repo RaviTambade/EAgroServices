@@ -93,4 +93,3 @@ The scope of the project is to develop a web-based application that helps agro s
 
 ---
 
-This Markdown document provides a structured overview of the E-Agro Services project and its requirements. You can further enhance the visual appeal by using Markdown to HTML converters or by applying CSS styles when rendering it as a web page or PDF.
