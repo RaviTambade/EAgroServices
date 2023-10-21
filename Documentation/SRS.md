@@ -6,7 +6,7 @@ This system will help and allow the owner of the agro service or a trader of the
 ## Scope
 The scope of the project is to develop a web-based application that helps agro service owners and vegetable traders maintain their business records. The application will provide functionalities to register farmers, collection managers, and transport agencies, manage collections, billing records, and generate graphical and tabular reports for the users.
 
-<div style="float: right; margin: 0 10px 0 10px;">
+<div style="float: right; margin: 0 10px 0 10px; height:300px; width:1000px">
 <img src="./md.png" alt="E-Agro Services">
 
 </div>
