@@ -19,7 +19,7 @@ The scope of the project is to develop a web-based application that helps agro s
 
 #### Collection Manager
 - Collection Manager can register with the collection center details.
-- The owner of the collection manager can log in as a collection manager.
+- The owner of the collection Centre can log in as a collection manager.
 - Dashboard will provide information using graphs, indicators, as well as grid data presentation.
 
 #### Farmer
