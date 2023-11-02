@@ -1,4 +1,4 @@
--- Active: 1696576841746@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
 
 
 CREATE PROCEDURE apply_labour_charges(IN shipment_id INT)
@@ -45,7 +45,7 @@ BEGIN
     FROM verifiedgoodscollection
     INNER JOIN shipmentitems ON verifiedgoodscollection.collectionid = shipmentitems.collectionid
     WHERE shipmentitems.shipmentid = shipment_id;
-    
+
     SET freight_rate_per_kg = totalfreightcharges / total_collections_weight;
     
     UPDATE goodscosting
@@ -149,8 +149,7 @@ BEGIN
   END WHILE;
 END;
 
-CALL CalculateInvoiceAmounts(1,2023,'year');
-DROP Procedure CalculateInvoiceAmounts;
+
 
 CREATE PROCEDURE CalculateInvoiceAmounts(
     IN farmerId INT,

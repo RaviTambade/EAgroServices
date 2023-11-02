@@ -16,15 +16,15 @@ export class CollectiondetailsComponent {
   corporateId: any;
   requestDetails: any;
   details: boolean = false;
-  collectionId: number | any;
+  collectionId: number =0;
   constructor(private farmerSvc: FarmerService, private commonSvc: CommonService) { }
   ngOnInit(): void {
     if (this.selectedCollectionId !== null) {
       this.collectionId = this.selectedCollectionId;
       console.log(this.collectionId)
     }
-    this.farmerSvc.selectedCollectionId$.subscribe((collectionId) => {
-      this.collectionId = collectionId;
+    this.farmerSvc.selectedCollectionId$.subscribe((res) => {
+      this.collectionId = res.collectionId;
       if (this.collectionId)
         this.farmerSvc.collectionDetail(this.collectionId).subscribe((response) => {
           console.log(this.collectionId)
