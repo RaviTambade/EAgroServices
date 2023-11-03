@@ -5,8 +5,7 @@ It is a web-based application that helps agro service owners and vegetable trade
 <div style="height:300px; width:1000px">
 <img src="./Documentation/md.png" alt="E-Agro Services">
 
-</div>
-
+<hr/>
 - This system will be accessible for registered users and corporate agencies.
 - This system will provide role-wise dashboard navigations.
 - The users will be accessible for viewing their personal data and business data.
@@ -56,10 +55,6 @@ It is a web-based application that helps agro service owners and vegetable trade
 - The system will be designed and developed using reusable, independent or dependent business scenarios in the form of modules.
 - These modules will be loosely coupled and highly cohesive.
 - The system will contain CRM, Billing, membership, and Roles management modules.
-
-#### Scalability
 - The system will provide a consistent user experience to users irrespective of load.
-
-#### Safety
 - The users' login page will be secure from malicious attacks and phishing.
 - Separate environments will be maintained for the system for isolation in production, testing, and development.
