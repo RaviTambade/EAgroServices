@@ -4,7 +4,7 @@ It is a web-based application that helps agro service owners and vegetable trade
 
 <div style="height:300px; width:1000px">
 <img src="./Documentation/md.png" alt="E-Agro Services">
-
+</div>
 <hr/>
 - This system will be accessible for registered users and corporate agencies.
 - This system will provide role-wise dashboard navigations.
