@@ -1,4 +1,4 @@
--- Active: 1696576841746@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1678339848098@@127.0.0.1@3306@eagroservicesdb
 
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
@@ -479,3 +479,16 @@ WHERE
     s.status = 'INPROGRESS';
     
     
+   SELECT `v`.`collectionid` AS `CollectionId`, `g`.`farmerid` AS `FarmerId`, `c`.`title` AS `CropName`, `g`.`collectiondate` AS `CollectionDate`
+      FROM `goodscollections` AS `g`
+      INNER JOIN `crops` AS `c` ON `g`.`cropid` = `c`.`id`
+      INNER JOIN `verifiedgoodscollection` AS `v` ON `g`.`id` = `v`.`collectionid`
+      INNER JOIN `inspectors` AS `i` ON `v`.`inspectorid` = `i`.`id`
+      LEFT JOIN `shipmentitems` AS `s` ON `g`.`id` = `s`.`collectionid`
+      WHERE `s`.`id` IS NULL AND (`g`.`collectioncenterid` = 1);
+
+
+SELECT * FROM verifiedgoodscollection;
+SELECT * FROM shipmentitems;
+SELECT * FROM shipments;
+SELECT * FROM goodscollections;

@@ -49,7 +49,7 @@ public class GoodsCollectionController : ControllerBase
     //         type
     //     );
     //     Response.AddPaginationHeader(collections);
-         return await _service.GetCollectionList(collectionCenterId,type);
+         return await _service.GetCollectionList(1,"verified");
     }
 
     [HttpGet("{collectionId}")]
@@ -125,8 +125,6 @@ public class GoodsCollectionController : ControllerBase
     {
         return await _service.GetVerifiedCollectionList(collectionCenterId);
     }
-
-
 
  [HttpGet("collections/{farmerid}")]
     public async Task<List<CollectionList>>? GetCollections(

@@ -1,28 +1,28 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1678339848098@@127.0.0.1@3306@eagroservicesdb
     
-    INSERT INTO roles(name)VALUES('collection manager');
-    INSERT INTO roles(name)VALUES ('farmer');
-    INSERT INTO roles(name)VALUES('inspector');
-    INSERT INTO roles(name)VALUES('transporter');
-    INSERT INTO roles(name)VALUES('merchant');
+    -- INSERT INTO roles(name)VALUES('collection manager');
+    -- INSERT INTO roles(name)VALUES ('farmer');
+    -- INSERT INTO roles(name)VALUES('inspector');
+    -- INSERT INTO roles(name)VALUES('transporter');
+    -- INSERT INTO roles(name)VALUES('merchant');
     
-    INSERT INTO userroles(userid,roleid)VALUES(1,2);
-    INSERT INTO userroles(userid,roleid)VALUES(2,2);
-    INSERT INTO userroles(userid,roleid)VALUES(3,2);
+    -- INSERT INTO userroles(userid,roleid)VALUES(1,2);
+    -- INSERT INTO userroles(userid,roleid)VALUES(2,2);
+    -- INSERT INTO userroles(userid,roleid)VALUES(3,2);
 
-    INSERT INTO userroles(userid,roleid)VALUES(4,1);
-    INSERT INTO userroles(userid,roleid)VALUES(5,1);
-    INSERT INTO userroles(userid,roleid)VALUES(6,1);
-    INSERT INTO userroles(userid,roleid)VALUES(7,4);
-    INSERT INTO userroles(userid,roleid)VALUES(8,4);
-    INSERT INTO userroles(userid,roleid)VALUES(9,4);
-    INSERT INTO userroles(userid,roleid)VALUES(10,5);
-    INSERT INTO userroles(userid,roleid)VALUES(11,5);
-    INSERT INTO userroles(userid,roleid)VALUES(12,5);
-    INSERT INTO userroles(userid,roleid)VALUES(13,3);
-    INSERT INTO userroles(userid,roleid)VALUES(14,3);
-    INSERT INTO userroles(userid,roleid)VALUES(15,2);
-    INSERT INTO userroles(userid,roleid)VALUES(16,2);
+    -- INSERT INTO userroles(userid,roleid)VALUES(4,1);
+    -- INSERT INTO userroles(userid,roleid)VALUES(5,1);
+    -- INSERT INTO userroles(userid,roleid)VALUES(6,1);
+    -- INSERT INTO userroles(userid,roleid)VALUES(7,4);
+    -- INSERT INTO userroles(userid,roleid)VALUES(8,4);
+    -- INSERT INTO userroles(userid,roleid)VALUES(9,4);
+    -- INSERT INTO userroles(userid,roleid)VALUES(10,5);
+    -- INSERT INTO userroles(userid,roleid)VALUES(11,5);
+    -- INSERT INTO userroles(userid,roleid)VALUES(12,5);
+    -- INSERT INTO userroles(userid,roleid)VALUES(13,3);
+    -- INSERT INTO userroles(userid,roleid)VALUES(14,3);
+    -- INSERT INTO userroles(userid,roleid)VALUES(15,2);
+    -- INSERT INTO userroles(userid,roleid)VALUES(16,2);
 
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(1,4);
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(2,5);
@@ -488,34 +488,34 @@ INSERT INTO verifiedgoodscollection(collectionid,grade,
     (5,3,105,'2023-10-30 13:30:00'),
     (6,3,17,'2023-10-31 13:30:00');
 
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,1);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,3);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (3,5);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (3,6);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (4,7);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (4,8);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (5,9);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (5,10);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (6,11);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (6,12);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (7,13);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (7,14);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (7,15);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (8,16);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (8,17);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (9,18);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,1);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (1,2);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,3);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (2,4);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (3,5);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (3,6);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (4,7);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (4,8);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (5,9);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (5,10);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (6,11);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (6,12);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (7,13);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (7,14);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (7,15);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (8,16);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (8,17);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (9,18);
 
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (9,19);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (10,20);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (10,21);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (11,22);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (11,23);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (12,24);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (12,25);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (13,26);
-    INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (13,27);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (9,19);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (10,20);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (10,21);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (11,22);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (11,23);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (12,24);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (12,25);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (13,26);
+    -- INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (13,27);
 
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (13,28);
     INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (14,29);
@@ -614,5 +614,5 @@ INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (16,118);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (17,119);
 INSERT INTO shipmentItems(shipmentid,collectionid) VALUES (17,120);
 
-CALL call_all_procedures_for_charges(18);
+-- CALL call_all_procedures_for_charges(18);
    

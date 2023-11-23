@@ -1,31 +1,31 @@
--- Active: 1677341008727@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1678339848098@@127.0.0.1@3306@eagroservicesdb
 
 
 Drop DATABASE IF EXISTS eagroservicesdb;
 CREATE DATABASE eagroservicesdb;
 USE eagroservicesdb;
 
-CREATE TABLE
-    roles(
-        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        name varchar(20)
-    );
+-- CREATE TABLE
+--     roles(
+--         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--         name varchar(20)
+--     );
 
-CREATE TABLE
-    userroles(
-        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        userid INT NOT NULL ,
-        roleid INT NOT NULL,
-        CONSTRAINT uc_userroles UNIQUE (userid, roleid),
-        CONSTRAINT fk_userroles FOREIGN KEY(roleid) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
+-- CREATE TABLE
+--     userroles(
+--         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--         userid INT NOT NULL ,
+--         roleid INT NOT NULL,
+--         CONSTRAINT uc_userroles UNIQUE (userid, roleid),
+--         CONSTRAINT fk_userroles FOREIGN KEY(roleid) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE
+--     );
 
 CREATE TABLE
     transporters(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         corporateid INT NOT NULL ,
-        managerid INT NOT NULL UNIQUE,
-        CONSTRAINT fk_manageruser FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
+        managerid INT NOT NULL UNIQUE
+        -- CONSTRAINT fk_manageruser FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -49,25 +49,24 @@ CREATE TABLE
     collectioncenters(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         corporateid INT NOT NULL ,
-        managerid INT NOT NULL UNIQUE,
-        CONSTRAINT fk_collection_manager FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
+        managerid INT NOT NULL UNIQUE
+        -- CONSTRAINT fk_collection_manager FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
     );
 CREATE TABLE 
    inspectors(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userid INT NOT NULL,
     collectioncenterid INT NOT NULL,
-    CONSTRAINT fk_collection_center FOREIGN KEY(collectioncenterid) REFERENCES collectioncenters(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_userroles_inspector FOREIGN KEY(userid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
-
+    CONSTRAINT fk_collection_center FOREIGN KEY(collectioncenterid) REFERENCES collectioncenters(id) ON UPDATE CASCADE ON DELETE CASCADE
+    -- CONSTRAINT fk_userroles_inspector FOREIGN KEY(userid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
    );
 
 CREATE TABLE
     merchants(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         corporateid INT NOT NULL ,
-        managerid INT NOT NULL UNIQUE,
-        CONSTRAINT fk_manager_users FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
+        managerid INT NOT NULL UNIQUE
+        -- CONSTRAINT fk_manager_users FOREIGN KEY(managerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE
     );
     
 CREATE TABLE
@@ -80,7 +79,7 @@ CREATE TABLE
         quantity INT NOT NULL,
         weight DOUBLE NOT NULL,
         collectiondate DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
-        CONSTRAINT fk_farmer_users FOREIGN KEY (farmerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE,
+        -- CONSTRAINT fk_farmer_users FOREIGN KEY (farmerid) REFERENCES userroles(userid) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_goodscollection_crops FOREIGN KEY (cropid) REFERENCES crops(id) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT fk_goodscollection_collectioncenter FOREIGN KEY(collectioncenterid) REFERENCES collectioncenters(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
