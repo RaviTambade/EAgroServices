@@ -443,6 +443,10 @@ AND collectiondate BETWEEN '2023-09-01 13:30:00' AND '2023-09-30 13:30:00';
 
 
 
+SELECT * FROM verifiedgoodscollection;
+SELECT * FROM shipmentitems;
+SELECT * FROM shipments;
+SELECT * FROM goodscollections;
 
 
 
@@ -487,8 +491,3 @@ WHERE
       LEFT JOIN `shipmentitems` AS `s` ON `g`.`id` = `s`.`collectionid`
       WHERE `s`.`id` IS NULL AND (`g`.`collectioncenterid` = 1);
 
-
-SELECT * FROM verifiedgoodscollection;
-SELECT * FROM shipmentitems;
-SELECT * FROM shipments;
-SELECT * FROM goodscollections;
