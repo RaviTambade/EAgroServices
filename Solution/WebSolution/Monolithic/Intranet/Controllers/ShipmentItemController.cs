@@ -18,36 +18,36 @@ public class ShipmentItemController : ControllerBase
     [HttpGet]
     public async Task<IEnumerable<ShipmentItem>> GetShipmentItems()
     {
-        IEnumerable<ShipmentItem> shipments = await _shipmentService.FindAll();
-        return shipments;
+        IEnumerable<ShipmentItem> shipmentItems = await _shipmentItemService.FindAll();
+        return shipmentItems;
     }
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<Shipment> GetShipmentById(int id)
+    public async Task<ShipmentItem> GetShipmentItemById(int id)
     {
-        Shipment shipment = await _shipmentService.FindById(id);
-        return shipment;
+        ShipmentItem shipmentItem = await _shipmentItemService.FindById(id);
+        return shipmentItem;
     }
 
     [HttpPost]
     [Route("Add")]
-    public async Task Add(Shipment shipment)
+    public async Task Add(ShipmentItem shipmentItem)
     {
-        await _shipmentService.Add(shipment);
+        await _shipmentItemService.Add(shipmentItem);
     }
 
     [HttpPut]
     [Route("Update")]
-    public async Task Update(Shipment shipment)
+    public async Task Update(ShipmentItem shipmentItem)
     {
-        await _shipmentService.Update(shipment);
+        await _shipmentItemService.Update(shipmentItem);
     }
 
     [HttpDelete]
     [Route("Delete")]
     public async Task Delete(int id)
     {
-        await _shipmentService.Delete(id);
+        await _shipmentItemService.Delete(id);
     }
 }
