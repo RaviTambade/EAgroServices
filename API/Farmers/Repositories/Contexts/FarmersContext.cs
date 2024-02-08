@@ -1,4 +1,4 @@
-using Transflower.EAgroServices.Farmers.Entities;
+using Intranet.Entities;
 using Microsoft.EntityFrameworkCore;
 namespace Transflower.EAgroServices.Farmers.Contexts;
 public class FarmerContext : DbContext

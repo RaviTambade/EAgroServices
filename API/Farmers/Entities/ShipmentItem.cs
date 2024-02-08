@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Transflower.EAgroServices.Farmers.Entities;
+namespace Intranet.Entities;
 [Table("shipmentitems")]
 public class ShipmentItem
 {
