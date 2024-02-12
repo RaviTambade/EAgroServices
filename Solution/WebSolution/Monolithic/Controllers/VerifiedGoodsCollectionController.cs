@@ -15,38 +15,87 @@ public class VerifiedGoodsCollectionController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<VerifiedGoodsCollection>> GetVerifiedGoodsCollections()
+    public async Task<IActionResult> GetVerifiedGoodsCollections()
     {
+        try
+        {
         IEnumerable<VerifiedGoodsCollection> verifiedGoodsCollections = await _verifiedGoodsCollectionService.FindAll();
-        return verifiedGoodsCollections;
+            if (verifiedGoodsCollections == null)
+            {
+                return NoContent();
+            }
+            return Ok(verifiedGoodsCollections);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<VerifiedGoodsCollection> GetVerifiedGoodsCollectionById(int id)
+    public async Task<IActionResult> GetVerifiedGoodsCollectionById(int id)
     {
+        try
+        {
         VerifiedGoodsCollection verifiedGoodsCollection = await _verifiedGoodsCollectionService.FindById(id);
-        return verifiedGoodsCollection;
+             if (verifiedGoodsCollection == null)
+            {
+                return NoContent();
+            }
+            return Ok(verifiedGoodsCollection);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpPost]
     [Route("Add")]
-    public async Task Add(VerifiedGoodsCollection verifiedGoodsCollection)
+    public async Task<IActionResult> Add(VerifiedGoodsCollection verifiedGoodsCollection)
     {
+        try{
         await _verifiedGoodsCollectionService.Add(verifiedGoodsCollection);
+               return CreatedAtAction(
+                nameof(GetVerifiedGoodsCollectionById),
+                new { id = verifiedGoodsCollection.Id },
+                verifiedGoodsCollection
+            );
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpPut]
     [Route("Update")]
-    public async Task Update(VerifiedGoodsCollection verifiedGoodsCollection)
+    public async Task<IActionResult> Update(VerifiedGoodsCollection verifiedGoodsCollection)
     {
+        try
+        {
         await _verifiedGoodsCollectionService.Update(verifiedGoodsCollection);
+                  return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpDelete]
     [Route("Delete")]
-    public async Task Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
+        try
+        {
         await _verifiedGoodsCollectionService.Delete(id);
+                  return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 }

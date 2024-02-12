@@ -59,7 +59,7 @@ public class CropController : ControllerBase
         try
         {
             await _cropService.Add(crop);
-            return CreatedAtAction(nameof(GetCropById), new { id = crop.Id },crop);
+            return CreatedAtAction(nameof(GetCropById), new { id = crop.Id }, crop);
         }
         catch (Exception ex)
         {

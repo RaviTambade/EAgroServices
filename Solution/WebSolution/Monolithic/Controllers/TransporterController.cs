@@ -16,38 +16,88 @@ public class TransporterController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Transporter>> GetTransporters()
+    public async Task<IActionResult> GetTransporters()
     {
-        IEnumerable<Transporter> transporters = await _transporterService.FindAll();
-        return transporters;
+        try
+        {
+            IEnumerable<Transporter> transporters = await _transporterService.FindAll();
+            if (transporters == null)
+            {
+                return NoContent();
+            }
+            return Ok(transporters);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<Transporter> GetTransporterById(int id)
+    public async Task<IActionResult> GetTransporterById(int id)
     {
-        Transporter transporter = await _transporterService.FindById(id);
-        return transporter;
+        try
+        {
+            Transporter transporter = await _transporterService.FindById(id);
+            if (transporter == null)
+            {
+                return NoContent();
+            }
+            return Ok(transporter);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpPost]
     [Route("Add")]
-    public async Task Add(Transporter transporter)
+    public async Task<IActionResult> Add(Transporter transporter)
     {
-        await _transporterService.Add(transporter);
+        try
+        {
+            await _transporterService.Add(transporter);
+            return CreatedAtAction(
+                nameof(GetTransporterById),
+                new { id = transporter.Id },
+                transporter
+            );
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpPut]
     [Route("Update")]
-    public async Task Update(Transporter transporter)
+    public async Task<IActionResult> Update(Transporter transporter)
     {
-        await _transporterService.Update(transporter);
+        try
+        {
+            await _transporterService.Update(transporter);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpDelete]
     [Route("Delete")]
-    public async Task Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        await _transporterService.Delete(id);
+        try
+        {
+            await _transporterService.Delete(id);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 }

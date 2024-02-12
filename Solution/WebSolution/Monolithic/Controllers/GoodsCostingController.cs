@@ -16,38 +16,90 @@ public class GoodsCostingController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<GoodsCosting>> GetGoodsCostings()
+    public async Task<IActionResult> GetGoodsCostings()
     {
-        IEnumerable<GoodsCosting> goodsCostings = await _goodsCostingService.FindAll();
-        return goodsCostings;
+        try
+        {
+            IEnumerable<GoodsCosting> goodsCostings = await _goodsCostingService.FindAll();
+
+            if (goodsCostings == null)
+            {
+                return NoContent();
+            }
+            return Ok(goodsCostings);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<GoodsCosting> GetGoodsCostingById(int id)
+    public async Task<IActionResult> GetGoodsCostingById(int id)
     {
-        GoodsCosting goodsCosting = await _goodsCostingService.FindById(id);
-        return goodsCosting;
+        try
+        {
+            GoodsCosting goodsCosting = await _goodsCostingService.FindById(id);
+
+            if (goodsCosting == null)
+            {
+                return NoContent();
+            }
+            return Ok(goodsCosting);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpPost]
     [Route("Add")]
-    public async Task Add(GoodsCosting goodsCosting)
+    public async Task<IActionResult> Add(GoodsCosting goodsCosting)
     {
-        await _goodsCostingService.Add(goodsCosting);
+        try
+        {
+            await _goodsCostingService.Add(goodsCosting);
+            return CreatedAtAction(
+                nameof(GetGoodsCostingById),
+                new { id = goodsCosting.Id },
+                goodsCosting
+            );
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpPut]
     [Route("Update")]
-    public async Task Update(GoodsCosting goodsCosting)
+    public async Task<IActionResult> Update(GoodsCosting goodsCosting)
     {
-        await _goodsCostingService.Update(goodsCosting);
+        try
+        {
+            await _goodsCostingService.Update(goodsCosting);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpDelete]
     [Route("Delete")]
-    public async Task Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        await _goodsCostingService.Delete(id);
+        try
+        {
+            await _goodsCostingService.Delete(id);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 }

@@ -16,38 +16,85 @@ public class InvoiceController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Invoice>> GetInvoices()
+    public async Task<IActionResult> GetInvoices()
     {
-        IEnumerable<Invoice> invoices = await _invoiceService.FindAll();
-        return invoices;
+        try
+        {
+            IEnumerable<Invoice> invoices = await _invoiceService.FindAll();
+
+            if (invoices == null)
+            {
+                return NoContent();
+            }
+            return Ok(invoices);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<Invoice> GetInvoiceById(int id)
+    public async Task<IActionResult> GetInvoiceById(int id)
     {
-        Invoice invoice = await _invoiceService.FindById(id);
-        return invoice;
+        try
+        {
+            Invoice invoice = await _invoiceService.FindById(id);
+            if (invoice == null)
+            {
+                return NoContent();
+            }
+            return Ok(invoice);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpPost]
     [Route("Add")]
-    public async Task Add(Invoice invoice)
+    public async Task<IActionResult> Add(Invoice invoice)
     {
-        await _invoiceService.Add(invoice);
+        try
+        {
+            await _invoiceService.Add(invoice);
+            return CreatedAtAction(nameof(GetInvoiceById), new { id = invoice.Id }, invoice);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpPut]
     [Route("Update")]
-    public async Task Update(Invoice invoice)
+    public async Task<IActionResult> Update(Invoice invoice)
     {
-        await _invoiceService.Update(invoice);
+        try
+        {
+            await _invoiceService.Update(invoice);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 
     [HttpDelete]
     [Route("Delete")]
-    public async Task Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        await _invoiceService.Delete(id);
+        try
+        {
+            await _invoiceService.Delete(id);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 }
