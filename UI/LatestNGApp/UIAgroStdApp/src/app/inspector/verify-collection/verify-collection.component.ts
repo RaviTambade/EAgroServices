@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LocalStorageKeys } from 'src/app/Models/local-storage-keys';
+import { LocalStorageKeys } from 'src/app/Models/Enum/local-storage-keys';
 import { VerifyCollection } from 'src/app/Models/verifycollection';
 import { InspectorService } from 'src/app/Services/inspector.service';
 import { VerifiedCollectionService } from 'src/app/Services/verified-collection.service';

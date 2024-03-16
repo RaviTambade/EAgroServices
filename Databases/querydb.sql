@@ -1,4 +1,4 @@
--- Active: 1678339848098@@127.0.0.1@3306@eagroservicesdb
+-- Active: 1696576841746@@127.0.0.1@3306@eagroservicesdb
 
     SELECT * FROM shipmentitems    
     JOIN goodscosting ON goodscosting.shippingitemid = shipmentitems.id
@@ -474,7 +474,7 @@ WHERE
     v.rtonumber = 'MH 14 AB 2022';
 
 
-SELECT * FROM invoices;
+SELECT * FROM farmer;
 SELECT 
     COUNT(s.id) AS shipment_count
 FROM 
@@ -491,3 +491,6 @@ WHERE
       LEFT JOIN `shipmentitems` AS `s` ON `g`.`id` = `s`.`collectionid`
       WHERE `s`.`id` IS NULL AND (`g`.`collectioncenterid` = 1);
 
+select * From goodscollections
+
+show TABLES

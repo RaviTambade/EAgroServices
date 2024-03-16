@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Corporation } from 'src/app/Models/corporation';
-import { Role } from 'src/app/Models/role';
+import { Role } from 'src/app/Models/Enum/role';
 import { AuthenticationService } from 'src/app/Services/authentication.service';
 import { CollectioncenterService } from 'src/app/Services/collectioncenter.service';
 import { CorporateService } from 'src/app/Services/corporate.service';

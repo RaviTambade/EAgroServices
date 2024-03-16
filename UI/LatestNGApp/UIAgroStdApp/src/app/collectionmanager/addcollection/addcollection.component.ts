@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Collection } from 'src/app/Models/collection';
 import { CollectionCenter } from 'src/app/Models/collectioncenter';
 import { NameId } from 'src/app/Models/name-id';
-import { Role } from 'src/app/Models/role';
+import { Role } from 'src/app/Models/Enum/role';
 import { CollectionmanagerService } from 'src/app/Services/collectionmanager.service';
 import { CropService } from 'src/app/Services/crop.service';
 import { UserService } from 'src/app/Services/user.service';

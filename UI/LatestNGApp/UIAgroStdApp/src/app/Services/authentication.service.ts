@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { Credential } from '../Models/credential';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { LocalStorageKeys } from '../Models/local-storage-keys';
+import { LocalStorageKeys } from '../Models/Enum/local-storage-keys';
 import { UpdatePassword } from '../authentication/Models/update-password';
+import { TokenClaims } from '../Models/Enum/tokenclaims';
 
 
 @Injectable({
@@ -16,16 +17,25 @@ export class AuthenticationService {
     private jwtHelper: JwtHelperService,
     private router: Router
     ) { }
-  validate(credential: Credential): Observable<any> {
-    let url = 'http://localhost:5077/api/authentication/signin';
+  signIn(credential: Credential): Observable<any> {
+    let url = 'http://localhost:5142/api/auth/signin';
     return this.httpClient.post<any>(url, credential);
   }
 
   getContactNumberFromToken(): string | null {
-    const token = localStorage.getItem("JWT");
+    const token = localStorage.getItem(LocalStorageKeys.jwt);
     if (token) {
       const decodedToken = this.jwtHelper.decodeToken(token);
       return decodedToken.contactNumber;
+    }
+    return null;
+  }
+
+  getClaimFromToken(claim:TokenClaims):string|null{
+    const token = localStorage.getItem(LocalStorageKeys.jwt);
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      return decodedToken[claim];
     }
     return null;
   }
@@ -36,20 +46,20 @@ export class AuthenticationService {
     return this.httpClient.put<any>(url, credential);
   }
   
-  // getRolesFromToken(): string[] {
-  //   const token = localStorage.getItem(LocalStorageKeys.jwt);
-  //   if (token) {
-  //     const decodedToken = this.jwtHelper.decodeToken(token);
-  //     const roles = decodedToken.role;
+  getRolesFromToken(): string[] {
+    const token = localStorage.getItem(LocalStorageKeys.jwt);
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      const roles = decodedToken.role;
 
-  //     if (Array.isArray(roles)) {
-  //       return roles;
-  //     } else if (typeof roles === 'string') {
-  //       return [roles];
-  //     }
-  //   }
-  //   return [];
-  // }
+      if (Array.isArray(roles)) {
+        return roles;
+      } else if (typeof roles === 'string') {
+        return [roles];
+      }
+    }
+    return [];
+  }
 
    isAuthenticated(): boolean {
     const token = localStorage.getItem(LocalStorageKeys.jwt);

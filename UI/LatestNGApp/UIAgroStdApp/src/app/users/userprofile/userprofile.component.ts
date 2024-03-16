@@ -1,6 +1,6 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Role } from 'src/app/Models/role';
+import { Role } from 'src/app/Models/Enum/role';
 import { UUID } from 'angular2-uuid';
 import { AuthenticationService } from 'src/app/Services/authentication.service';
 import { UserService } from 'src/app/Services/user.service';

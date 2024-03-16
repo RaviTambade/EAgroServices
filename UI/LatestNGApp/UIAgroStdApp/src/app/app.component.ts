@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalStorageKeys } from './Models/Enum/local-storage-keys';
 
 @Component({
   selector: 'app-root',
@@ -6,8 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
   isLoggedIn(): boolean {
-    let jwt = localStorage.getItem("JWT")
+    let jwt = localStorage.getItem(LocalStorageKeys.jwt)
     return jwt != null;
   }
 }
