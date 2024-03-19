@@ -491,6 +491,6 @@ WHERE
       LEFT JOIN `shipmentitems` AS `s` ON `g`.`id` = `s`.`collectionid`
       WHERE `s`.`id` IS NULL AND (`g`.`collectioncenterid` = 1);
 
-select * From goodscollections
+select * From collectioncenters
 
 show TABLES
