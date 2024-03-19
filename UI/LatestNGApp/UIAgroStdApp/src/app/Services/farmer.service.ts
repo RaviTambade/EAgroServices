@@ -7,13 +7,12 @@ import { YearRevenue } from '../Models/year-revenue';
 import { QuarterRevenue } from '../Models/quarter-revenue';
 import { MonthRevenue } from '../Models/month-revenue';
 import { WeekRevenue } from '../Models/week-revenue';
-
+import { AuthenticationService } from './authentication.service';
 @Injectable({
   providedIn: 'root'
 })
 export class FarmerService {
-
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private authService:AuthenticationService) { }
   private selectedCollectionIdSubject = new BehaviorSubject<any>(null);
   selectedCollectionId$ = this.selectedCollectionIdSubject.asObservable();
 
@@ -26,7 +25,7 @@ export class FarmerService {
   }
   
   collectionList():Observable<CollectionList[]>{
-    let farmerId=Number(localStorage.getItem("userId"));
+    let farmerId=this.authService.getNameIdFromToken();
     let url ='http://localhost:5051/api/farmerscollections/collectionlist/' + farmerId;
     return this.httpClient.get<CollectionList[]>(url);
     
@@ -42,7 +41,7 @@ export class FarmerService {
     return this.httpClient.get<number>(url);
 }
 todayCollectionCount(): Observable<number> {
-  let farmerId=Number(localStorage.getItem("userId"));
+  let farmerId=this.authService.getNameIdFromToken();
   const collectionDate = new Date().toISOString().split('T')[0];
   let url ='http://localhost:5168/api/farmersgoodscollections/' + farmerId+'/'+collectionDate;
   console.log(url);
@@ -50,8 +49,7 @@ todayCollectionCount(): Observable<number> {
 
 }
 totalRevenue(): Observable<number> {
-  let farmerId=Number(localStorage.getItem("userId"));
-  const collectionDate = new Date().toISOString().split('T')[0];
+  let farmerId=this.authService.getNameIdFromToken();
   let url ='http://localhost:5168/api/farmersgoodscollections/revenue/' + farmerId;
   console.log(url);
   return this.httpClient.get<number>(url);

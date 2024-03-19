@@ -11,12 +11,13 @@ export class CollectionlistComponent implements OnInit {
   constructor(private farmersvc: FarmerService) { }
   selectedCollectionId: number | null = null
   collectionDetails: any | undefined
-  collectionslist: CollectionList[] | any
+  collectionslist: CollectionList[] =[]
   // collectionslist: any[] = []; // Replace with your actual data
   showVerified: boolean = true;
   showUnverified: boolean = false;
 
   get filteredCollections() {
+    if(this.collectionslist.length > 0){
     return this.collectionslist.filter((collection: { status: string; }) => {
       if (this.showVerified && this.showUnverified) {
         return true; // Show all collections when both checkboxes are selected
@@ -26,18 +27,25 @@ export class CollectionlistComponent implements OnInit {
         return collection.status === 'Unverified';
       } else {
         return false; // Hide all collections when both checkboxes are deselected
-      }
-    });
+      } 
+    })
+  }
+  return [];
   }
 
   ngOnInit(): void {
-    this.farmersvc.collectionList().subscribe((response) => {
-      this.collectionslist = response;
-      console.log(response);
-      this.farmersvc.setSelectedCollectionId(response[0].collectionId,"");
-    })
+   this.getCollectionList();
   }
-
+getCollectionList(){
+  this.farmersvc.collectionList().subscribe((response) => {
+    this.collectionslist = response;
+    console.log(response);
+    if(response.length > 0)
+    {
+    this.farmersvc.setSelectedCollectionId(response[0].collectionId,"");
+    }
+  })
+}
   onClickDetails(collectionId: number) {
     this.farmersvc.selectedCollectionId(collectionId);
     console.log(collectionId);

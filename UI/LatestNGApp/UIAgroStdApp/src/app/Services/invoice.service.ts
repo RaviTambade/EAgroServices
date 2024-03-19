@@ -7,13 +7,13 @@ import { Invoicedetails } from '../Models/invoicedetails';
 import { Invoice } from '../Models/invoice';
 import { FilterRequest } from '../filter/filter-request';
 import { CollectionCenterInvoiceDetails } from '../Models/collection-center-invoice-details';
-
+import { AuthenticationService } from './authentication.service';
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceService {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private authService:AuthenticationService) { }
   private selectedInvoiceIdSubject = new BehaviorSubject<any>(null);
   setSelectedInvoiceId$ = this.selectedInvoiceIdSubject.asObservable();
 
@@ -26,7 +26,8 @@ export class InvoiceService {
     return this.httpClient.get<Farmerinvoice>(url);
   }
   getInvoicelist():Observable<Invoicelist[]>{
-    let farmerId=localStorage.getItem("userId");
+
+    let farmerId=this.authService.getNameIdFromToken();
     let url = "http://localhost:5197/api/invoices/farmerinvoicelist/" + farmerId;
     return this.httpClient.get<Invoicelist[]>(url);
   }

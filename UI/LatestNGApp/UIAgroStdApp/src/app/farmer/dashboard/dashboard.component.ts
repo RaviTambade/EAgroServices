@@ -147,7 +147,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.lineChartData.datasets[0].data = res.map(item => item.amount);
           this.years = res.map(item => item.year);
           this.selectedYear = new Date().getFullYear();
-        });
+        }); 
         break;
 
       case "Quarter":

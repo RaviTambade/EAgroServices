@@ -22,6 +22,16 @@ export class AuthenticationService {
     return this.httpClient.post<any>(url, credential);
   }
 
+  getNameIdFromToken(): string | null {
+    const token = localStorage.getItem(LocalStorageKeys.jwt);
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      return decodedToken.nameid;
+    }
+    return null;
+  }
+
+
   getContactNumberFromToken(): string | null {
     const token = localStorage.getItem(LocalStorageKeys.jwt);
     if (token) {

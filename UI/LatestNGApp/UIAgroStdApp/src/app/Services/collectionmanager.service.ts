@@ -9,13 +9,13 @@ import { CollectionDetails } from '../Models/collectiondetails';
 import { Verifiedcollectiondetails } from '../Models/verifieddcollectiondetails';
 import { Corporate } from '../Models/corporate';
 import { CropQuantity } from '../Models/cropquantity';
-
+import { AuthenticationService } from './authentication.service';
 @Injectable({
   providedIn: 'root'
 })
 export class CollectionmanagerService {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private authService:AuthenticationService) { }
 
   private selectedCollectionIdSubject = new BehaviorSubject<any>(null);
   selectedCollectionId$ = this.selectedCollectionIdSubject.asObservable();
@@ -33,7 +33,7 @@ export class CollectionmanagerService {
   }
 
   getCollectionCenterId(): Observable<number> {
-    const userId=localStorage.getItem("userId");
+    const userId=this.authService.getNameIdFromToken();
     let url ='http://localhost:5192/api/collectioncenters/managerId/' + userId;
     return this.httpClient.get<number>(url);
   }

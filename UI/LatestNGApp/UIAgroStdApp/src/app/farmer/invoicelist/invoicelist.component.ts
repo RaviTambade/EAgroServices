@@ -33,7 +33,9 @@ get filteredInvoice() {
     this.invoicesvc.getInvoicelist().subscribe((response)=>{
       this.invoicelist=response;
       console.log(response);
+      if(response.length > 0){
       this.invoicesvc.setSelectedInvoiceId(response[0].invoiceId);
+      }
     })
 }
 onClickDetails(invoiceId: number) {
