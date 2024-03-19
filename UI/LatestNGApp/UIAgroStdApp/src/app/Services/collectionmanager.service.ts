@@ -10,12 +10,16 @@ import { Verifiedcollectiondetails } from '../Models/verifieddcollectiondetails'
 import { Corporate } from '../Models/corporate';
 import { CropQuantity } from '../Models/cropquantity';
 import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from './authentication.service';
+import { TokenClaims } from '../Models/Enum/tokenclaims';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CollectionmanagerService {
 
   constructor(private httpClient:HttpClient,private authService:AuthenticationService) { }
+  constructor(private httpClient:HttpClient,private authSer:AuthenticationService) { }
 
   private selectedCollectionIdSubject = new BehaviorSubject<any>(null);
   selectedCollectionId$ = this.selectedCollectionIdSubject.asObservable();
@@ -34,6 +38,8 @@ export class CollectionmanagerService {
 
   getCollectionCenterId(): Observable<number> {
     const userId=this.authService.getNameIdFromToken();
+    const userId=this.authSer.getClaimFromToken(TokenClaims.userId);
+    console.log("🚀 ~ getCollectionCenterId ~ userId:", userId);
     let url ='http://localhost:5192/api/collectioncenters/managerId/' + userId;
     return this.httpClient.get<number>(url);
   }

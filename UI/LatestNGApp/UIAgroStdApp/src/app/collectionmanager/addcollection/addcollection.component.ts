@@ -46,11 +46,11 @@ export class AddcollectionComponent {
 
   ngOnInit() {
 
-    this.usersSubscription = this.userrolesvc.getusersId(Role.farmer).subscribe((res) => {
-      this.usersvc.getUserNamesWithId(res).subscribe((farmers) => {
-        this.farmers = farmers;
+    this.usersSubscription = this.userrolesvc.getusers(Role.farmer).subscribe((res) => {
+             this.farmers = res;
+             console.log(res);
       });
-    })
+    
     this.cropsSubscription = this.cropsvc.getCrops().subscribe((res) => {
       this.crops = res;
     });
@@ -59,6 +59,7 @@ export class AddcollectionComponent {
     });
     this.colmsvc.getCollectionCenterId().subscribe((collectionCenterId)=>{
       this.collectionCenterId=collectionCenterId;
+      console.log("🚀 ~ this.colmsvc.getCollectionCenterId ~ collectionCenterId:", collectionCenterId);
     })
   }
 
