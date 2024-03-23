@@ -10,8 +10,8 @@ import { Verifiedcollectiondetails } from '../Models/verifieddcollectiondetails'
 import { Corporate } from '../Models/corporate';
 import { CropQuantity } from '../Models/cropquantity';
 import { AuthenticationService } from './authentication.service';
-import { AuthenticationService } from './authentication.service';
 import { TokenClaims } from '../Models/Enum/tokenclaims';
+import { Userdetails } from '../Models/userdetails';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,6 @@ import { TokenClaims } from '../Models/Enum/tokenclaims';
 export class CollectionmanagerService {
 
   constructor(private httpClient:HttpClient,private authService:AuthenticationService) { }
-  constructor(private httpClient:HttpClient,private authSer:AuthenticationService) { }
 
   private selectedCollectionIdSubject = new BehaviorSubject<any>(null);
   selectedCollectionId$ = this.selectedCollectionIdSubject.asObservable();
@@ -38,7 +37,6 @@ export class CollectionmanagerService {
 
   getCollectionCenterId(): Observable<number> {
     const userId=this.authService.getNameIdFromToken();
-    const userId=this.authSer.getClaimFromToken(TokenClaims.userId);
     console.log("🚀 ~ getCollectionCenterId ~ userId:", userId);
     let url ='http://localhost:5192/api/collectioncenters/managerId/' + userId;
     return this.httpClient.get<number>(url);
@@ -53,9 +51,9 @@ export class CollectionmanagerService {
       params: params,
     });
   }
-  getUser(id:string): Observable<User[]> {
-    let url = "http://localhost:5102/api/users/name/" + id
-    return this.httpClient.get<User[]>(url)
+  getUser(id:string): Observable<Userdetails[]> {
+    let url = "http://localhost:5142/api/users/details/ids/" + id
+    return this.httpClient.get<Userdetails[]>(url)
   }
   addCollection(collection:Collection): Observable<boolean> {
     let url = 'http://localhost:5154/api/goodscollections';

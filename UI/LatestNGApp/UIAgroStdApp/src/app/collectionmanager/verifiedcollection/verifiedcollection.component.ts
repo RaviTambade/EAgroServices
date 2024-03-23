@@ -21,16 +21,16 @@ export class VerifiedcollectionComponent implements OnInit{
           .filter((number, index, array) => array.indexOf(number) === index);
 
         let farmerIdString = distinctFarmerIds.join(',');
-
+if(farmerIdString.length > 0){
         this.colmsvc.getUser(farmerIdString).subscribe((names) => {
           let farmerName = names
           this.verifiedCollections.forEach(item => {
             let matchingItem = farmerName.find(element => element.id === item.farmerId);
             if (matchingItem != undefined)
-              item.farmerName = matchingItem.name;
+              item.farmerName = matchingItem.fullName;
           });
         });
-   
+      }
     }) 
    })
   }

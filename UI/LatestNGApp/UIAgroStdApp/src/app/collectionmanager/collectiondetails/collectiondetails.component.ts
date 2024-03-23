@@ -24,6 +24,7 @@ export class CollectiondetailsComponent {
       console.log(this.collectionId)
     }
     this.farmerSvc.selectedCollectionId$.subscribe((res) => {
+      if(this.collectionId)
       this.collectionId = res.collectionId;
       if (this.collectionId)
         this.farmerSvc.collectionDetail(this.collectionId).subscribe((response) => {

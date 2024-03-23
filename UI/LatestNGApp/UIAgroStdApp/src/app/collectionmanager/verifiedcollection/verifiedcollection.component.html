@@ -18,6 +18,9 @@
                 </tr>
               </thead>
               <tbody *ngFor="let collectionsList of verifiedCollections ">
+                <tr *ngIf="!collectionsList">
+                <td>Not Found</td>
+                </tr>
                 <tr>
                   <td>{{ collectionsList.collectionDate | date }}</td>
                   <td>{{ collectionsList.cropName }}</td>

@@ -9,6 +9,7 @@ import { CollectionmanagerService } from 'src/app/Services/collectionmanager.ser
 import { CropService } from 'src/app/Services/crop.service';
 import { UserService } from 'src/app/Services/user.service';
 import { UserroleService } from 'src/app/Services/userrole.service';
+import { Userdetails } from 'src/app/Models/userdetails';
 
 @Component({
   selector: 'app-addcollection',
@@ -18,7 +19,7 @@ import { UserroleService } from 'src/app/Services/userrole.service';
 export class AddcollectionComponent {
 
   collectionForm: FormGroup;
-  farmers: NameId[] = [];
+  farmers: Userdetails[] = [];
   crops: NameId[] = [];
   containerTypes: string[] = [];
 

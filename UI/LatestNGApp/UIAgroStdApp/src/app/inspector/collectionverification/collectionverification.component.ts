@@ -56,7 +56,7 @@ export class CollectionverificationComponent implements OnInit {
           this.collectionList.forEach(item => {
             let matchingItem = farmerName.find(element => element.id === item.farmerId);
             if (matchingItem != undefined)
-              item.farmerName = matchingItem.name;
+              item.farmerName = matchingItem.fullName;
           });
         });
 

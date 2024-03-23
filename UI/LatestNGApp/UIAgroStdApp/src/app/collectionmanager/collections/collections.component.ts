@@ -49,10 +49,11 @@ export class CollectionsComponent implements OnInit {
 
         this.managersvc.getUser(farmerIdString).subscribe((names) => {
           let farmerName = names
+          console.log(farmerName)
           this.collectionList.forEach(item => {
             let matchingItem = farmerName.find(element => element.id === item.farmerId);
             if (matchingItem != undefined)
-              item.farmerName = matchingItem.name;
+              item.farmerName = matchingItem.fullName;
           });
         });
 

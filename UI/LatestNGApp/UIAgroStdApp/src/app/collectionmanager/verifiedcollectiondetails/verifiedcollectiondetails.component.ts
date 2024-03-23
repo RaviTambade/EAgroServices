@@ -26,10 +26,10 @@ export class VerifiedcollectiondetailsComponent implements OnInit {
           console.log(response)
           console.log(response.farmerId);
           this.colmsvc.getUser(response.farmerId.toString()).subscribe((response) => {
-            this.farmerName = response[0].name
+            this.farmerName = response[0].fullName
           })
           this.colmsvc.getUser(response.inspectorId.toString()).subscribe((response) => {
-            this.inspectorName = response[0].name
+            this.inspectorName = response[0].fullName
           })
         })
     })
