@@ -219,8 +219,6 @@ export class FilterTestComponent implements OnInit, OnDestroy {
         this.filterservice.sendCollectionPaymentListFilterRequest(filterRequest, this.pageNumber);
         break;
     }
-
-
   }
 
 

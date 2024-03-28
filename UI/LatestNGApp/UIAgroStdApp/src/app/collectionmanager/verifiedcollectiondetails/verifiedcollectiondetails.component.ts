@@ -18,7 +18,7 @@ export class VerifiedcollectiondetailsComponent implements OnInit {
   collectionDetails: Verifiedcollectiondetails | undefined;
   ngOnInit(): void {
     this.colmsvc.selectedCollectionId$.subscribe((collectionId) => {
-      this.collectionId = collectionId;
+      this.collectionId = 1;
       console.log(collectionId);
       if (this.collectionId)
         this.colmsvc.getVerifiedCollectionDetails(collectionId).subscribe((response) => {

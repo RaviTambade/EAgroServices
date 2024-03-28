@@ -17,24 +17,30 @@ export class InvoicelistComponent implements OnInit {
   constructor(private invoicesvc: InvoiceService,
               private collection: CollectionmanagerService,
               private user:UserService,
-              private corporate:CorporateService) { }
+              private corporate:CorporateService,
+              private managersvc: CollectionmanagerService,) { }
   ngOnInit(): void {
 
     this.collection.getCollectionCenterId().subscribe((collectionCenterId) => {
       this.invoicesvc.getCollectionCenterInvoices(collectionCenterId).subscribe((res) => {
         this.invoice = res;
+        console.log(collectionCenterId);
         console.log(res);
 
-        let distinctfarmerIds = this.invoice.map(item => item.farmerId)
+        let distinctFarmerIds = this.invoice.map(item => item.farmerId)
         .filter((number, index, array) => array.indexOf(number) === index);
-      let farmerIdString = distinctfarmerIds.join(',')
-      this.user.getUserNamesWithId(farmerIdString).subscribe((names) => {
-        let farmerNames = names
+
+      let farmerIdString = distinctFarmerIds.join(',');
+
+      this.managersvc.getUser(farmerIdString).subscribe((names) => {
+        let farmerName = names
+        console.log(farmerName)
         this.invoice.forEach(item => {
-          let matchingItem = farmerNames.find(element => element.id === item.farmerId);
+          let matchingItem = farmerName.find(element => element.id === item.farmerId);
           if (matchingItem != undefined)
-            item.farmerName = matchingItem.name;
-          console.log(farmerNames);
+            item.farmerName = matchingItem.fullName;
+        
+      
                
             let distinctcorporateIds = this.invoice.map(item => item.merchantCorporateId)
             .filter((number, index, array) => array.indexOf(number) === index);

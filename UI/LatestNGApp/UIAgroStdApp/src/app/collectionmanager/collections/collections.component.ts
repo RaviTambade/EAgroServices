@@ -41,6 +41,7 @@ export class CollectionsComponent implements OnInit {
     this.managersvc.getCollectionCenterId().subscribe((collectionCenterId) => {
       localStorage.setItem("collectionCenterId",collectionCenterId.toString());
       this.managersvc.getCollectionList(this.type, collectionCenterId).subscribe((collectionList) => {
+        console.log(collectionList);
         this.collectionList = collectionList;
         let distinctFarmerIds = this.collectionList.map(item => item.farmerId)
           .filter((number, index, array) => array.indexOf(number) === index);

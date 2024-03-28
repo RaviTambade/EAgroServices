@@ -43,6 +43,7 @@ export class CollectionmanagerService {
   }
   getCollectionList(type:string,collectionCenterId:number):Observable<AllCollectionList[]>{
     console.log(type,collectionCenterId);
+    console.log()
     let url ='http://localhost:5154/api/goodscollections/collectionlist/'+collectionCenterId
     const params = new HttpParams().set('type', type);
     console.log(url)

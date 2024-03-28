@@ -49,8 +49,8 @@ public class GoodsCollectionController : ControllerBase
     //         type
     //     );
     //     Response.AddPaginationHeader(collections);
-         return await _service.GetCollectionList(1,"verified");
-    }
+         return await _service.GetCollectionList(collectionCenterId,type);
+    } 
 
     [HttpGet("{collectionId}")]
     public async Task<GoodsCollection?> GetById(int collectionId)

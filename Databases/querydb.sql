@@ -407,13 +407,17 @@ SELECT * FROM goodscollectionpayments;
       SELECT * FROM shipmentitems;
       SELECT *FROM goodscollections
 LEFT JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
-WHERE verifiedgoodscollection.collectionid IS NULL;
+WHERE verifiedgoodscollection.collectionid IS NULL AND goodscollections.collectioncenterid=1;
 
-
+    SELECT *FROM goodscollections
+INNER JOIN verifiedgoodscollection ON goodscollections.id = verifiedgoodscollection.collectionid
+WHERE verifiedgoodscollection.collectionid IS NOT NULL AND goodscollections.collectioncenterid=1;
 
 SELECT COUNT(id) FROM goodscollections WHERE farmerid=1 AND date(collectiondate)='2023-09-01';
 
+select * from goodscollections;
 
+select * from verifiedgoodscollection;
 
 
 
@@ -497,3 +501,31 @@ show TABLES
 
 
 select * from goodscollections;
+select * from invoices;
+
+select * from shipmentitems;
+
+
+
+SELECT `i`.`id` AS `Id`, `m`.`corporateid` AS `MerchantCorporateId`, `g0`.`farmerid` AS `FarmerId`, `c`.`title` AS `CropName`, `g0`.`quantity` AS `Quantity`, `v`.`weight` AS `Weight`, `i`.`rateperkg` AS `RatePerKg`, `g`.`servicecharges` + `g`.`labourcharges` AS `TotalAmount`, `i`.`invoicedate` AS `InvoiceDate`
+      FROM `invoices` AS `i`
+      INNER JOIN `shipmentitems` AS `s` ON `i`.`shipmentitemid` = `s`.`id`
+      INNER JOIN `shipments` AS `s0` ON `s`.`shipmentid` = `s0`.`id`
+      INNER JOIN `goodscosting` AS `g` ON `s`.`id` = `g`.`shipmentitemid`
+      INNER JOIN `merchants` AS `m` ON `s0`.`merchantid` = `m`.`id`
+      INNER JOIN `GoodsCollections` AS `g0` ON `s`.`collectionid` = `g0`.`id`
+      INNER JOIN `verifiedgoodscollection` AS `v` ON `g0`.`id` = `v`.`collectionid`
+      INNER JOIN `crops` AS `c` ON `g0`.`cropid` = `c`.`id`
+      WHERE `g0`.`collectioncenterid` = 1
+      ORDER BY `i`.`invoicedate` DESC
+
+
+      select * from merchants;
+
+      select * from goodscollections
+
+      select * from verifiedgoodscollection
+
+      select * from shipmentitems;
+      
+select * from goodscosting
