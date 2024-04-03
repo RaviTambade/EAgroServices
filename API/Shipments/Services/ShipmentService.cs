@@ -102,4 +102,11 @@ public class ShipmentService : IShipmentService
     {
         return await _repository.GetDeliveredShipmentsByMerchant(merchantId, paymentStatus);
     }
+
+        public async Task<List<ShippedCollection>> GetShippedCollections(
+        int collectionCenterId,
+        string shipmentStatus
+    ){
+        return await _repository.GetShippedCollections(collectionCenterId,shipmentStatus);
+    }
 }

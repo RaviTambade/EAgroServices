@@ -529,3 +529,10 @@ SELECT `i`.`id` AS `Id`, `m`.`corporateid` AS `MerchantCorporateId`, `g0`.`farme
       select * from shipmentitems;
       
 select * from goodscosting
+
+
+select * from shipments;
+
+select * from shipmentitems;
+
+select * from goodscollections;

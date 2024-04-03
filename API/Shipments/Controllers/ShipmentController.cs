@@ -122,4 +122,13 @@ public class ShipmentController : ControllerBase
 
         return shippedCollections;
     }
+
+
+    [HttpGet("{collectionCenterId}/status/{shipmentStatus}")]
+        public async Task<List<ShippedCollection>> GetShippedCollections(
+        int collectionCenterId,
+        string shipmentStatus
+    ){
+        return await _service.GetShippedCollections(collectionCenterId,shipmentStatus);
+    }
 }

@@ -160,4 +160,16 @@ export class ShipmentService {
       observe: 'response',
     });
   }
-}
+
+  getShippedCollectionsByStatus( collectionCenterId:number,
+    staus:string):Observable<ShippedCollection[]>{
+      let url =
+      'http://localhost:5067/api/shipments/' +
+      collectionCenterId +
+      '/status/' +
+      staus;
+      console.log(url);
+      return this.http.get<ShippedCollection[]>(url);
+  }
+  }
+

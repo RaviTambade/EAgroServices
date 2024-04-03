@@ -23,6 +23,9 @@ public interface IShipmentRepository
         int pageNumber
     );
 
+     Task<List<ShippedCollection>> GetShippedCollections(
+        int collectionCenterId,
+        string shipmentStatus);
     Task<List<CorporateShipment>> GetShipmentByVehicleId(int vehicleId);
     Task<List<VehicleCorporateShipment>> GetShipmentofTransporter(int transporterId);
     Task<TransporterAmount?> GetTransporterAmountByShipmentId(int shipmentId);

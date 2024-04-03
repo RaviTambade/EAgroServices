@@ -444,4 +444,56 @@ public class ShipmentRepository : IShipmentRepository
             throw;
         }
     }
+
+    public async Task<List<ShippedCollection>> GetShippedCollections(
+        int collectionCenterId,
+        string shipmentStatus
+    )
+    {
+        try
+        {
+            var shippedCollection =await
+               ( from shipment in _context.Shipments
+                join shipmentItem in _context.ShipmentItems
+                    on shipment.Id equals shipmentItem.ShipmentId
+                join merchant in _context.Merchants on shipment.MerchantId equals merchant.Id
+                join vehicle in _context.Vehicles on shipment.VehicleId equals vehicle.Id
+                join transporter in _context.Transporters
+                    on vehicle.TransporterId equals transporter.Id
+                join collection in _context.GoodsCollections
+                    on shipmentItem.CollectionId equals collection.Id
+                join collectionCenter in _context.CollectionCenters
+                    on collection.CollectionCenterId equals collectionCenter.Id
+                join verifiedCollection in _context.VerifiedCollections
+                    on collection.Id equals verifiedCollection.CollectionId
+                join crop in _context.Crops on collection.CropId equals crop.Id
+                where
+                    collection.CollectionCenterId == collectionCenterId
+                    && shipment.Status == shipmentStatus
+                select new ShippedCollection()
+                {
+                    CollectionId = collection.Id,
+                    CollectionCenterCorporateId = collectionCenter.CorporateId,
+                    MerchantCorporateId = merchant.CorporateId,
+                    TransporterCorporateId = transporter.CorporateId,
+                    FarmerId = collection.FarmerId,
+                    CropName = crop.Title,
+                    VehicleNumber = vehicle.RtoNumber,
+                    Grade = verifiedCollection.Grade,
+                    ContainerType = collection.ContainerType,
+                    Quantity = collection.Quantity,
+                    TotalWeight = collection.Weight,
+                    NetWeight = verifiedCollection.Weight,
+                    CollectionDate = collection.CollectionDate,
+                    ShipmentDate = shipment.ShipmentDate
+                }).ToListAsync();
+            return shippedCollection;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
+
+

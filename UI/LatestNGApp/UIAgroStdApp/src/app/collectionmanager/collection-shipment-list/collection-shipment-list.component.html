@@ -20,7 +20,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let collection of collections">
-            <td>{{ collection.shipmentDate}}</td>
+            <td>{{ collection.shipmentDate |date}}</td>
             <td>{{ collection.vehicleNumber }}</td>
             <td>{{ collection.farmerName }}</td>
             <td>{{ collection.collectionCenterName }}</td>
@@ -32,7 +32,7 @@
             <td>{{ collection.quantity }}</td>
             <td>{{ collection.totalWeight }}</td>
             <td>{{ collection.netWeight }}</td>
-            <td>{{ collection.collectionDate}}</td>
+            <td>{{ collection.collectionDate | date}}</td>
         </tr>
     </tbody>
 </table>
