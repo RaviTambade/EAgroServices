@@ -535,4 +535,43 @@ select * from shipments;
 
 select * from shipmentitems;
 
+
+
+
+
+select * from collectioncenters
+
+select * from shipmentitems;
+
+
 select * from goodscollections;
+select * from goodscosting
+
+select * from invoices
+
+
+
+
+
+ SELECT `i`.`id` AS `Id`, `m`.`corporateid` AS `MerchantCorporateId`, `g0`.`farmerid` AS `FarmerId`, `c`.`title` AS `CropName`, `g0`.`quantity` AS `Quantity`, `v`.`weight` AS `Weight`, `i`.`rateperkg` AS `RatePerKg`, `g`.`servicecharges` + `g`.`labourcharges` AS `TotalAmount`, `i`.`invoicedate` AS `InvoiceDate`
+      FROM `invoices` AS `i`
+      INNER JOIN `shipmentitems` AS `s` ON `i`.`shipmentitemid` = `s`.`id`
+      INNER JOIN `shipments` AS `s0` ON `s`.`shipmentid` = `s0`.`id`
+      INNER JOIN `goodscosting` AS `g` ON `s`.`id` = `g`.`shipmentitemid`
+      INNER JOIN `merchants` AS `m` ON `s0`.`merchantid` = `m`.`id`
+      INNER JOIN `GoodsCollections` AS `g0` ON `s`.`collectionid` = `g0`.`id`
+      INNER JOIN `verifiedgoodscollection` AS `v` ON `g0`.`id` = `v`.`collectionid`
+      INNER JOIN `crops` AS `c` ON `g0`.`cropid` = `c`.`id`
+      WHERE `g0`.`collectioncenterid` = 1
+      ORDER BY `i`.`invoicedate` DESC
+
+
+
+
+       SELECT year(invoices. invoicedate) AS Year, SUM(invoices.totalamount) AS Amount
+                FROM invoices 
+                JOIN shipmentitems ON invoices.shipmentitemid = shipmentitems.id
+                JOIN goodscollections  ON shipmentitems.collectionid = goodscollections.id
+                WHERE invoices.paymentstatus = 'paid' AND goodscollections. farmerid =4 
+                GROUP BY year(invoices. invoicedate)
+                ORDER BY year(invoices. invoicedate) ASC    

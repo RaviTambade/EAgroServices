@@ -40,6 +40,7 @@ export class CollectionsComponent implements OnInit {
   fetchData() {
     this.managersvc.getCollectionCenterId().subscribe((collectionCenterId) => {
       localStorage.setItem("collectionCenterId",collectionCenterId.toString());
+      console.log(collectionCenterId)
       this.managersvc.getCollectionList(this.type, collectionCenterId).subscribe((collectionList) => {
         console.log(collectionList);
         this.collectionList = collectionList;

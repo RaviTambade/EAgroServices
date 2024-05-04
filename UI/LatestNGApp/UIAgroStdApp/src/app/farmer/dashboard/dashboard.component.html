@@ -33,10 +33,12 @@
     <div class="col-md-4 col-xl-3">
       <div class="card bg-c-pink order-card">
         <div class="card-block">
+          <div *ngIf="getCurrentCrop()  != undefined">
           <h6 class="m-b-20">Todays Rate:{{getCurrentCrop().title}}:{{ getCurrentCrop().rate|currency:"INR"}}</h6>
           <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span> <img [src]="getCurrentCrop().imageUrl"
                 alt="Crop Image" class="img-fluid" style="height: 104px ;width:280px; border-radius: 10px;"></span></h2>
           <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+        </div>
         </div>
       </div>
     </div>

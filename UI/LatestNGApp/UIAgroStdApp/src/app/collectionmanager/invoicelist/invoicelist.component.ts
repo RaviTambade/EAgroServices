@@ -22,6 +22,7 @@ export class InvoicelistComponent implements OnInit {
   ngOnInit(): void {
 
     this.collection.getCollectionCenterId().subscribe((collectionCenterId) => {
+      console.log(collectionCenterId)
       this.invoicesvc.getCollectionCenterInvoices(collectionCenterId).subscribe((res) => {
         this.invoice = res;
         console.log(collectionCenterId);

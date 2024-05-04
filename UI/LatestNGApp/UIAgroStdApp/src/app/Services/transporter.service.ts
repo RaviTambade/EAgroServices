@@ -7,14 +7,15 @@ import { VehicleNumberId } from '../Models/vehiclenumberid';
 import { Corporate } from '../Models/corporate';
 import { VehicleCorporateShipment } from '../Models/vehicle-corporate-shipment';
 import { Transporterinvoice } from '../Models/transporterinvoices';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransporterService {
 
-  constructor(public httpClient: HttpClient) { }
-  private selectedVehicleIdSubject = new BehaviorSubject<any>(null);
+  constructor(public httpClient: HttpClient,public authService:AuthenticationService) { }
+  private selectedVehicleIdSubject = new BehaviorSubject<any>(null)
   selectedVehicleId$ = this.selectedVehicleIdSubject.asObservable();
 
   setSelectedvehicleId(vehicleId: number) {
@@ -27,7 +28,7 @@ export class TransporterService {
   selectedShipmentId$ = this.selectedShipmentIdSubject.asObservable();
 
   setSelectedShipmentId(shipmentId: number) {
-    this.selectedShipmentIdSubject.next(shipmentId);
+    this.selectedShipmentIdSubject.next(shipmentId);  
     console.log("Details ", shipmentId);
   }
 
@@ -44,7 +45,7 @@ export class TransporterService {
   }
 
   gettransporterIdByUserId(): Observable<number> {
-    let userId=localStorage.getItem("userId")
+    const userId=this.authService.getNameIdFromToken();
     let url = "http://localhost:5025/api/transporters/manager/" + userId;
     return this.httpClient.get<number>(url);
     

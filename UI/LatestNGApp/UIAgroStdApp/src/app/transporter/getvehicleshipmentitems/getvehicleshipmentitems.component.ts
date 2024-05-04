@@ -49,6 +49,7 @@ export class GetvehicleshipmentitemsComponent implements OnInit {
           this.shipmentItemsDetails = response;
           let distinctcollectioncenterIds = this.shipmentItemsDetails.map(item => item.collectionCenterCorporaterId)
             .filter((number, index, array) => array.indexOf(number) === index);
+            console.log(distinctcollectioncenterIds);
           let distinctfarmerIds = this.shipmentItemsDetails.map(item => item.farmerId)
             .filter((number, index, array) => array.indexOf(number) === index);
           let collectionIdString = distinctcollectioncenterIds.join(',');

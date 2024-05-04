@@ -57,22 +57,22 @@ totalRevenue(): Observable<number> {
 }
 
 getFarmerYearlyRevenue(): Observable<YearRevenue[]> {
-  let farmerId = localStorage.getItem("userId");
+  const farmerId=this.authService.getNameIdFromToken();
   let url = "http://localhost:5235/api/farmer/revenue/year/" + farmerId;
   return this.httpClient.get<any>(url);
 }
 getFarmerQuarterlyRevenue(year: number): Observable<QuarterRevenue[]> {
-  let farmerId = localStorage.getItem("userId");
+  const farmerId=this.authService.getNameIdFromToken();
   let url = "http://localhost:5235/api/farmer/revenue/quarter/" + farmerId + "/" + year;
   return this.httpClient.get<any>(url);
 }
 getFarmerMonthlyRevenue(year: number): Observable<MonthRevenue[]> {
-  let farmerId = localStorage.getItem("userId");
+  const farmerId=this.authService.getNameIdFromToken();
   let url = "http://localhost:5235/api/farmer/revenue/month/" + farmerId + "/" + year;
   return this.httpClient.get<any>(url);
 }
 getFarmerWeeklyRevenue(year: number): Observable<WeekRevenue[]> {
-  let farmerId = localStorage.getItem("userId");
+  const farmerId=this.authService.getNameIdFromToken();
   let url = "http://localhost:5235/api/Farmer/revenue/week/" + farmerId + "/" + year;
   return this.httpClient.get<any>(url);
 }

@@ -22,7 +22,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   totalCollectionCount: number = 0;
   todaysCount: number = 0;
   revenue: number=0;
-
+crop:Crop ={
+  title: '',
+  imageUrl: '',
+  rate: 0
+}
   constructor(private farmersvc: FarmerService, private cropsvc: CropService) {
     Chart.register(Annotation);
   }

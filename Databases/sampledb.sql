@@ -23,8 +23,8 @@
     -- INSERT INTO userroles(userid,roleid)VALUES(14,3);
     -- INSERT INTO userroles(userid,roleid)VALUES(15,2);
     -- INSERT INTO userroles(userid,roleid)VALUES(16,2);
-
-    INSERT INTO collectioncenters (corporateid,managerid) VALUES(1,4);
+    INSERT INTO collectioncenters (corporateid,managerid) VALUES(1,1);
+    INSERT INTO collectioncenters (corporateid,managerid) VALUES(1,1);
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(2,5);
     INSERT INTO collectioncenters (corporateid,managerid) VALUES(3,6);
 
